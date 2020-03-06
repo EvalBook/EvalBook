@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,6 +32,16 @@ class NoteType
      * @ORM\Column(type="integer", nullable=true)
      */
     private $coefficient;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Activite", mappedBy="id_note_type_fk")
+     */
+    private $activites;
+
+    public function __construct()
+    {
+        $this->activites = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -68,6 +80,37 @@ class NoteType
     public function setCoefficient(?int $coefficient): self
     {
         $this->coefficient = $coefficient;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Activite[]
+     */
+    public function getActivites(): Collection
+    {
+        return $this->activites;
+    }
+
+    public function addActivite(Activite $activite): self
+    {
+        if (!$this->activites->contains($activite)) {
+            $this->activites[] = $activite;
+            $activite->setIdNoteTypeFk($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActivite(Activite $activite): self
+    {
+        if ($this->activites->contains($activite)) {
+            $this->activites->removeElement($activite);
+            // set the owning side to null (unless already changed)
+            if ($activite->getIdNoteTypeFk() === $this) {
+                $activite->setIdNoteTypeFk(null);
+            }
+        }
 
         return $this;
     }
