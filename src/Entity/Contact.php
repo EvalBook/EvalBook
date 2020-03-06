@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,6 +42,16 @@ class Contact
      * @ORM\Column(type="string", length=150)
      */
     private $country;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Eleve", mappedBy="id_contact_fk")
+     */
+    private $eleves;
+
+    public function __construct()
+    {
+        $this->eleves = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -102,6 +114,37 @@ class Contact
     public function setCountry(string $country): self
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Eleve[]
+     */
+    public function getEleves(): Collection
+    {
+        return $this->eleves;
+    }
+
+    public function addElefe(Eleve $elefe): self
+    {
+        if (!$this->eleves->contains($elefe)) {
+            $this->eleves[] = $elefe;
+            $elefe->setIdContactFk($this);
+        }
+
+        return $this;
+    }
+
+    public function removeElefe(Eleve $elefe): self
+    {
+        if ($this->eleves->contains($elefe)) {
+            $this->eleves->removeElement($elefe);
+            // set the owning side to null (unless already changed)
+            if ($elefe->getIdContactFk() === $this) {
+                $elefe->setIdContactFk(null);
+            }
+        }
 
         return $this;
     }

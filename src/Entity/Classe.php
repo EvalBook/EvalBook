@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,6 +28,16 @@ class Classe
      * @ORM\JoinColumn(nullable=false)
      */
     private $id_type_classe_fk;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Eleve", mappedBy="id_classes_fk")
+     */
+    private $eleves;
+
+    public function __construct()
+    {
+        $this->eleves = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -52,6 +64,34 @@ class Classe
     public function setIdTypeClasseFk(?TypeClasse $id_type_classe_fk): self
     {
         $this->id_type_classe_fk = $id_type_classe_fk;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Eleve[]
+     */
+    public function getEleves(): Collection
+    {
+        return $this->eleves;
+    }
+
+    public function addElefe(Eleve $elefe): self
+    {
+        if (!$this->eleves->contains($elefe)) {
+            $this->eleves[] = $elefe;
+            $elefe->addIdClassesFk($this);
+        }
+
+        return $this;
+    }
+
+    public function removeElefe(Eleve $elefe): self
+    {
+        if ($this->eleves->contains($elefe)) {
+            $this->eleves->removeElement($elefe);
+            $elefe->removeIdClassesFk($this);
+        }
 
         return $this;
     }
