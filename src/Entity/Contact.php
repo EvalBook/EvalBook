@@ -126,23 +126,23 @@ class Contact
         return $this->eleves;
     }
 
-    public function addElefe(Eleve $elefe): self
+    public function addEleve(Eleve $eleve): self
     {
-        if (!$this->eleves->contains($elefe)) {
-            $this->eleves[] = $elefe;
-            $elefe->setIdContactFk($this);
+        if (!$this->eleves->contains($eleve)) {
+            $this->eleves[] = $eleve;
+            $eleve->setIdContactFk($this);
         }
 
         return $this;
     }
 
-    public function removeElefe(Eleve $elefe): self
+    public function removeEleve(Eleve $eleve): self
     {
-        if ($this->eleves->contains($elefe)) {
-            $this->eleves->removeElement($elefe);
+        if ($this->eleves->contains($eleve)) {
+            $this->eleves->removeElement($eleve);
             // set the owning side to null (unless already changed)
-            if ($elefe->getIdContactFk() === $this) {
-                $elefe->setIdContactFk(null);
+            if ($eleve->getIdContactFk() === $this) {
+                $eleve->setIdContactFk(null);
             }
         }
 
