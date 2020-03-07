@@ -118,7 +118,7 @@ class Contact
         return $this;
     }
 
-    /**
+    /**  
      * @return Collection|Eleve[]
      */
     public function getEleves(): Collection
