@@ -117,7 +117,7 @@ class Contact
 
         return $this;
     }
- 
+
     /**
      * @return Collection|Eleve[]
      */
