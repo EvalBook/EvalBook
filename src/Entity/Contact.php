@@ -119,6 +119,7 @@ class Contact
     }
 
     /**
+     * Return eleves
      * @return Collection|Eleve[]
      */
     public function getEleves(): Collection
