@@ -53,6 +53,12 @@ class Activite
      */
     private $id_periode_fk;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="activites")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $id_user_fk;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -138,6 +144,18 @@ class Activite
     public function setIdPeriodeFk(?Periode $id_periode_fk): self
     {
         $this->id_periode_fk = $id_periode_fk;
+
+        return $this;
+    }
+
+    public function getIdUserFk(): ?User
+    {
+        return $this->id_user_fk;
+    }
+
+    public function setIdUserFk(?User $id_user_fk): self
+    {
+        $this->id_user_fk = $id_user_fk;
 
         return $this;
     }
