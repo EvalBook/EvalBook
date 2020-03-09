@@ -43,6 +43,16 @@ class Periode
      */
     private $activites;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $comment;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $print_count;
+
     public function __construct()
     {
         $this->activites = new ArrayCollection();
@@ -128,6 +138,30 @@ class Periode
                 $activite->setIdPeriodeFk(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    public function setComment(?string $comment): self
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
+
+    public function getPrintCount(): ?int
+    {
+        return $this->print_count;
+    }
+
+    public function setPrintCount(int $print_count): self
+    {
+        $this->print_count = $print_count;
 
         return $this;
     }
