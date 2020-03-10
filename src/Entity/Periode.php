@@ -24,24 +24,19 @@ class Periode
     private $name;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
-    private $date_start;
+    private $dateStart;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
-    private $date_end;
+    private $dateEnd;
 
     /**
      * @ORM\Column(type="boolean")
      */
     private $active;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Activite", mappedBy="id_periode_fk")
-     */
-    private $activites;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -51,7 +46,12 @@ class Periode
     /**
      * @ORM\Column(type="integer")
      */
-    private $print_count;
+    private $printCount;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Activite", mappedBy="idPeriode")
+     */
+    private $activites;
 
     public function __construct()
     {
@@ -77,24 +77,24 @@ class Periode
 
     public function getDateStart(): ?\DateTimeInterface
     {
-        return $this->date_start;
+        return $this->dateStart;
     }
 
-    public function setDateStart(\DateTimeInterface $date_start): self
+    public function setDateStart(\DateTimeInterface $dateStart): self
     {
-        $this->date_start = $date_start;
+        $this->dateStart = $dateStart;
 
         return $this;
     }
 
     public function getDateEnd(): ?\DateTimeInterface
     {
-        return $this->date_end;
+        return $this->dateEnd;
     }
 
-    public function setDateEnd(\DateTimeInterface $date_end): self
+    public function setDateEnd(\DateTimeInterface $dateEnd): self
     {
-        $this->date_end = $date_end;
+        $this->dateEnd = $dateEnd;
 
         return $this;
     }
@@ -107,37 +107,6 @@ class Periode
     public function setActive(bool $active): self
     {
         $this->active = $active;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Activite[]
-     */
-    public function getActivites(): Collection
-    {
-        return $this->activites;
-    }
-
-    public function addActivite(Activite $activite): self
-    {
-        if (!$this->activites->contains($activite)) {
-            $this->activites[] = $activite;
-            $activite->setIdPeriodeFk($this);
-        }
-
-        return $this;
-    }
-
-    public function removeActivite(Activite $activite): self
-    {
-        if ($this->activites->contains($activite)) {
-            $this->activites->removeElement($activite);
-            // set the owning side to null (unless already changed)
-            if ($activite->getIdPeriodeFk() === $this) {
-                $activite->setIdPeriodeFk(null);
-            }
-        }
 
         return $this;
     }
@@ -156,12 +125,43 @@ class Periode
 
     public function getPrintCount(): ?int
     {
-        return $this->print_count;
+        return $this->printCount;
     }
 
-    public function setPrintCount(int $print_count): self
+    public function setPrintCount(int $printCount): self
     {
-        $this->print_count = $print_count;
+        $this->printCount = $printCount;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Activite[]
+     */
+    public function getActivites(): Collection
+    {
+        return $this->activites;
+    }
+
+    public function addActivite(Activite $activite): self
+    {
+        if (!$this->activites->contains($activite)) {
+            $this->activites[] = $activite;
+            $activite->setIdPeriode($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActivite(Activite $activite): self
+    {
+        if ($this->activites->contains($activite)) {
+            $this->activites->removeElement($activite);
+            // set the owning side to null (unless already changed)
+            if ($activite->getIdPeriode() === $this) {
+                $activite->setIdPeriode(null);
+            }
+        }
 
         return $this;
     }
