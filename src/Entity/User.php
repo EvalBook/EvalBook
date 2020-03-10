@@ -12,7 +12,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
-    // TODO make relation between EvalBook roles instead of symfony user defined roles.
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -26,8 +25,7 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="json")
-     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy="roles")
      */
     private $roles = [];
 
