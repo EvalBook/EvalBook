@@ -318,11 +318,22 @@ class Activite
         return $this;
     }
 
+
+    /**
+     * Return the current activity Level.
+     * @return ActiviteLevel|null
+     */
     public function getLevel(): ?ActiviteLevel
     {
         return $this->idLevel;
     }
 
+
+    /**
+     * Set the current activity level.
+     * @param ActiviteLevel|null $idLevel
+     * @return $this
+     */
     public function setLevel(?ActiviteLevel $idLevel): self
     {
         $this->idLevel = $idLevel;

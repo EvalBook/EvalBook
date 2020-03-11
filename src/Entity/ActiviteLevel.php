@@ -28,21 +28,41 @@ class ActiviteLevel
      */
     private $activites;
 
+
+    /**
+     * ActiviteLevel constructor.
+     */
     public function __construct()
     {
         $this->activites = new ArrayCollection();
     }
 
+
+    /**
+     * Return the activity level ID.
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+
+    /**
+     * Return the ActivityLevel name.
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+
+    /**
+     * Set the ActivityLevel name.
+     * @param string|null $name
+     * @return $this
+     */
     public function setName(?string $name): self
     {
         $this->name = $name;
@@ -50,7 +70,9 @@ class ActiviteLevel
         return $this;
     }
 
+
     /**
+     * Return a collection of activities that matches the ActivityLevel Object.
      * @return Collection|Activite[]
      */
     public function getActivites(): Collection
@@ -58,6 +80,12 @@ class ActiviteLevel
         return $this->activites;
     }
 
+
+    /**
+     * Add an activity to the ActivityLevel.
+     * @param Activite $activite
+     * @return $this
+     */
     public function addActivite(Activite $activite): self
     {
         if (!$this->activites->contains($activite)) {
@@ -68,6 +96,12 @@ class ActiviteLevel
         return $this;
     }
 
+
+    /**
+     * Remove an activity from the ActivityLevel.
+     * @param Activite $activite
+     * @return $this
+     */
     public function removeActivite(Activite $activite): self
     {
         if ($this->activites->contains($activite)) {

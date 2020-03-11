@@ -196,11 +196,22 @@ class Classe
         return $this;
     }
 
+
+    /**
+     * Return the User object that own the Class ( aka titulaire ).
+     * @return User|null
+     */
     public function getTitulaire(): ?User
     {
         return $this->titulaire;
     }
 
+
+    /**
+     * Set the class object owner ( aka titulaire ).
+     * @param User|null $titulaire
+     * @return $this
+     */
     public function setTitulaire(?User $titulaire): self
     {
         $this->titulaire = $titulaire;
@@ -208,14 +219,25 @@ class Classe
         return $this;
     }
 
-    public function getIdImplantation(): ?Implantation
+
+    /**
+     * Return the Classe object implantation.
+     * @return Implantation|null
+     */
+    public function getImplantation(): ?Implantation
     {
         return $this->idImplantation;
     }
 
-    public function setIdImplantation(?Implantation $idImplantation): self
+
+    /**
+     * Set the Classe Object implantation.
+     * @param Implantation|null $implantation
+     * @return $this
+     */
+    public function setImplantation(?Implantation $implantation): self
     {
-        $this->idImplantation = $idImplantation;
+        $this->idImplantation = $implantation;
 
         return $this;
     }
