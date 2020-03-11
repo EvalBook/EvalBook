@@ -44,15 +44,25 @@ class Note
      */
     private $comment;
 
+
+    /**
+     * Note constructor.
+     */
     public function __construct()
     {
         $this->idActivite = new ArrayCollection();
     }
 
+
+    /**
+     * Return the Note ID.
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
+
 
     /**
      * @return Collection|Activite[]

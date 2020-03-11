@@ -86,7 +86,6 @@ class Contact
     public function setFirstName(string $firstName): self
     {
         $this->firstName = $firstName;
-
         return $this;
     }
 
@@ -109,7 +108,6 @@ class Contact
     public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
-
         return $this;
     }
 
@@ -132,7 +130,6 @@ class Contact
     public function setAddress(string $address): self
     {
         $this->address = $address;
-
         return $this;
     }
 
@@ -155,7 +152,6 @@ class Contact
     public function setZipCode(string $zipCode): self
     {
         $this->zipCode = $zipCode;
-
         return $this;
     }
 
@@ -178,7 +174,6 @@ class Contact
     public function setCountry(string $country): self
     {
         $this->country = $country;
-
         return $this;
     }
 

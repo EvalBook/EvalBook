@@ -111,7 +111,6 @@ class Activite
     public function setNoteType(?NoteType $noteType): self
     {
         $this->idNoteType = $noteType;
-
         return $this;
     }
 
@@ -134,7 +133,6 @@ class Activite
     public function setKnowledge(?Knowledge $knowledge): self
     {
         $this->idKnowledge = $knowledge;
-
         return $this;
     }
 
@@ -157,7 +155,6 @@ class Activite
     public function setMatiere(?Matiere $matiere): self
     {
         $this->idMatiere = $matiere;
-
         return $this;
     }
 
@@ -180,7 +177,6 @@ class Activite
     public function setUser(?User $user): self
     {
         $this->idUser = $user;
-
         return $this;
     }
 
@@ -203,7 +199,6 @@ class Activite
     public function setPeriode(?Periode $periode): self
     {
         $this->idPeriode = $periode;
-
         return $this;
     }
 
@@ -226,7 +221,6 @@ class Activite
     public function setActiveInPeriod(bool $activeInPeriod): self
     {
         $this->activeInPeriod = $activeInPeriod;
-
         return $this;
     }
 
@@ -272,7 +266,6 @@ class Activite
     public function setName(string $name): self
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -337,7 +330,6 @@ class Activite
     public function setLevel(?ActiviteLevel $idLevel): self
     {
         $this->idLevel = $idLevel;
-
         return $this;
     }
 }

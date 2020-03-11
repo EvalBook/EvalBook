@@ -28,21 +28,41 @@ class Matiere
      */
     private $activites;
 
+
+    /**
+     * Matiere constructor.
+     */
     public function __construct()
     {
         $this->activites = new ArrayCollection();
     }
 
+
+    /**
+     * Return the Matiere ID.
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+
+    /**
+     * Return the Matiere name.
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+
+    /**
+     * Set the Matiere name.
+     * @param string $name
+     * @return $this
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -50,7 +70,9 @@ class Matiere
         return $this;
     }
 
+
     /**
+     * Return a collection of Activite using the Matiere.
      * @return Collection|Activite[]
      */
     public function getActivites(): Collection
@@ -58,6 +80,12 @@ class Matiere
         return $this->activites;
     }
 
+
+    /**
+     * Add an Activite to the Matiere.
+     * @param Activite $activite
+     * @return $this
+     */
     public function addActivite(Activite $activite): self
     {
         if (!$this->activites->contains($activite)) {
@@ -68,6 +96,12 @@ class Matiere
         return $this;
     }
 
+
+    /**
+     * Remove an Activite from the Matiere.
+     * @param Activite $activite
+     * @return $this
+     */
     public function removeActivite(Activite $activite): self
     {
         if ($this->activites->contains($activite)) {

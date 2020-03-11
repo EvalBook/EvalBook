@@ -48,6 +48,10 @@ class Eleve
      */
     private $notes;
 
+
+    /**
+     * Eleve constructor.
+     */
     public function __construct()
     {
         $this->idClasses = new ArrayCollection();
@@ -55,16 +59,32 @@ class Eleve
         $this->notes = new ArrayCollection();
     }
 
+
+    /**
+     * Return the Eleve ID
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+
+    /**
+     * Return the Eleve object last name.
+     * @return string|null
+     */
     public function getLastName(): ?string
     {
         return $this->lastName;
     }
 
+
+    /**
+     * Set the Eleve object last name.
+     * @param string $lastName
+     * @return $this
+     */
     public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
@@ -72,83 +92,133 @@ class Eleve
         return $this;
     }
 
+
+    /**
+     * Return the Eleve object first name.
+     * @return string|null
+     */
     public function getFirstName(): ?string
     {
         return $this->firstName;
     }
 
+
+    /**
+     * Set the Eleve object first name.
+     * @param string $firstName
+     * @return $this
+     */
     public function setFirstName(string $firstName): self
     {
         $this->firstName = $firstName;
-
         return $this;
     }
 
+
+    /**
+     * Return true if Eleve is active, false otherwise.
+     * @return bool|null
+     */
     public function getActive(): ?bool
     {
         return $this->active;
     }
 
+
+    /**
+     * Set the Eleve active
+     * @param bool $active
+     * @return $this
+     */
     public function setActive(bool $active): self
     {
         $this->active = $active;
-
         return $this;
     }
 
+
     /**
+     * Return a collection of Classe objects Eleve is registered to.
      * @return Collection|Classe[]
      */
-    public function getIdClasses(): Collection
+    public function getClasses(): Collection
     {
         return $this->idClasses;
     }
 
-    public function addIdClass(Classe $idClass): self
-    {
-        if (!$this->idClasses->contains($idClass)) {
-            $this->idClasses[] = $idClass;
-        }
-
-        return $this;
-    }
-
-    public function removeIdClass(Classe $idClass): self
-    {
-        if ($this->idClasses->contains($idClass)) {
-            $this->idClasses->removeElement($idClass);
-        }
-
-        return $this;
-    }
 
     /**
+     * Register a Classe object to the Eleve.
+     * @param Classe $classe
+     * @return $this
+     */
+    public function addClass(Classe $classe): self
+    {
+        if (!$this->idClasses->contains($classe)) {
+            $this->idClasses[] = $classe;
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * Remlove a Classe object from the Eleve.
+     * @param Classe $classe
+     * @return $this
+     */
+    public function removeClass(Classe $classe): self
+    {
+        if ($this->idClasses->contains($classe)) {
+            $this->idClasses->removeElement($classe);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * Return a collection of Contact object of Eleve.
      * @return Collection|Contact[]
      */
-    public function getIdContact(): Collection
+    public function getContact(): Collection
     {
         return $this->idContact;
     }
 
-    public function addIdContact(Contact $idContact): self
-    {
-        if (!$this->idContact->contains($idContact)) {
-            $this->idContact[] = $idContact;
-        }
-
-        return $this;
-    }
-
-    public function removeIdContact(Contact $idContact): self
-    {
-        if ($this->idContact->contains($idContact)) {
-            $this->idContact->removeElement($idContact);
-        }
-
-        return $this;
-    }
 
     /**
+     * Add a contact to the Eleve object.
+     * @param Contact $contact
+     * @return $this
+     */
+    public function addContact(Contact $contact): self
+    {
+        if (!$this->idContact->contains($contact)) {
+            $this->idContact[] = $contact;
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * Remove a contact of Eleve objcet.
+     * @param Contact $contact
+     * @return $this
+     */
+    public function removeIdContact(Contact $contact): self
+    {
+        if ($this->idContact->contains($contact)) {
+            $this->idContact->removeElement($contact);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * Return a collection of notes owned by Eleve object.
      * @return Collection|Note[]
      */
     public function getNotes(): Collection
@@ -156,6 +226,12 @@ class Eleve
         return $this->notes;
     }
 
+
+    /**
+     * Add a note to the Eleve object.
+     * @param Note $note
+     * @return $this
+     */
     public function addNote(Note $note): self
     {
         if (!$this->notes->contains($note)) {
@@ -166,6 +242,12 @@ class Eleve
         return $this;
     }
 
+
+    /**
+     * Remove a note to the Eleve object.
+     * @param Note $note
+     * @return $this
+     */
     public function removeNote(Note $note): self
     {
         if ($this->notes->contains($note)) {

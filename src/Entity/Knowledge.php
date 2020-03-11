@@ -28,29 +28,50 @@ class Knowledge
      */
     private $activites;
 
+
+    /**
+     * Knowledge constructor.
+     */
     public function __construct()
     {
         $this->activites = new ArrayCollection();
     }
 
+
+    /**
+     * Return the Knowledge ID.
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+
+    /**
+     * Return the Knowledge name.
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+
+    /**
+     * Set the Knowledge name.
+     * @param string $name
+     * @return $this
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
-
         return $this;
     }
 
+
     /**
+     * Return a collection of Activite using the Knowledge.
      * @return Collection|Activite[]
      */
     public function getActivites(): Collection
@@ -58,6 +79,12 @@ class Knowledge
         return $this->activites;
     }
 
+
+    /**
+     * Add an Activity object to the Knowledge.
+     * @param Activite $activite
+     * @return $this
+     */
     public function addActivite(Activite $activite): self
     {
         if (!$this->activites->contains($activite)) {
@@ -68,6 +95,12 @@ class Knowledge
         return $this;
     }
 
+
+    /**
+     * Remove an Activity from the Knowledge.
+     * @param Activite $activite
+     * @return $this
+     */
     public function removeActivite(Activite $activite): self
     {
         if ($this->activites->contains($activite)) {

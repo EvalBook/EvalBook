@@ -9,7 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EcoleRepository")
  */
-// TODO start from here.
 class Ecole
 {
     /**
@@ -29,29 +28,50 @@ class Ecole
      */
     private $implantations;
 
+
+    /**
+     * Ecole constructor.
+     */
     public function __construct()
     {
         $this->implantations = new ArrayCollection();
     }
 
+
+    /**
+     * Return the Ecole object ID.
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+
+    /**
+     * Return the Ecole object name.
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+
+    /**
+     * Set the Ecole object Name.
+     * @param string $name
+     * @return $this
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
-
         return $this;
     }
 
+
     /**
+     * Return a collection of Implantation objects related to the Ecole object.
      * @return Collection|Implantation[]
      */
     public function getImplantations(): Collection
@@ -59,6 +79,12 @@ class Ecole
         return $this->implantations;
     }
 
+
+    /**
+     * Add an implantation to the Ecole object.
+     * @param Implantation $implantation
+     * @return $this
+     */
     public function addImplantation(Implantation $implantation): self
     {
         if (!$this->implantations->contains($implantation)) {
@@ -69,6 +95,12 @@ class Ecole
         return $this;
     }
 
+
+    /**
+     * Remove an implantation from the Ecole object.
+     * @param Implantation $implantation
+     * @return $this
+     */
     public function removeImplantation(Implantation $implantation): self
     {
         if ($this->implantations->contains($implantation)) {

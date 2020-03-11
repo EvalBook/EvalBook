@@ -108,7 +108,6 @@ class Classe
     public function setTypeClasse(?TypeClasse $typeClasse): self
     {
         $this->idTypeClasse = $typeClasse;
-
         return $this;
     }
 
@@ -215,7 +214,6 @@ class Classe
     public function setTitulaire(?User $titulaire): self
     {
         $this->titulaire = $titulaire;
-
         return $this;
     }
 
@@ -238,7 +236,6 @@ class Classe
     public function setImplantation(?Implantation $implantation): self
     {
         $this->idImplantation = $implantation;
-
         return $this;
     }
 }
