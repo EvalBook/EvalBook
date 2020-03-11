@@ -48,6 +48,11 @@ class Eleve
      */
     private $notes;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\EleveComment", mappedBy="eleve")
+     */
+    private $eleveComments;
+
 
     /**
      * Eleve constructor.
@@ -57,6 +62,7 @@ class Eleve
         $this->classes = new ArrayCollection();
         $this->contacts = new ArrayCollection();
         $this->notes = new ArrayCollection();
+        $this->eleveComments = new ArrayCollection();
     }
 
 
@@ -254,6 +260,51 @@ class Eleve
             // set the owning side to null (unless already changed)
             if ($note->getEleve() === $this) {
                 $note->setEleve(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * Return a collection of EleveComment Eleve has.
+     * @return Collection|EleveComment[]
+     */
+    public function getEleveComments(): Collection
+    {
+        return $this->eleveComments;
+    }
+
+
+    /**
+     * Add e EleveComment for the Eleve.
+     * @param EleveComment $eleveComment
+     * @return $this
+     */
+    public function addEleveComment(EleveComment $eleveComment): self
+    {
+        if (!$this->eleveComments->contains($eleveComment)) {
+            $this->eleveComments[] = $eleveComment;
+            $eleveComment->setEleve($this);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * Remove a EleveComment for the Eleve.
+     * @param EleveComment $eleveComment
+     * @return $this
+     */
+    public function removeEleveComment(EleveComment $eleveComment): self
+    {
+        if ($this->eleveComments->contains($eleveComment)) {
+            $this->eleveComments->removeElement($eleveComment);
+            // set the owning side to null (unless already changed)
+            if ($eleveComment->getEleve() === $this) {
+                $eleveComment->setEleve(null);
             }
         }
 

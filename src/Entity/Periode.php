@@ -39,11 +39,6 @@ class Periode
     private $active;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $comment;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Activite", mappedBy="idPeriode")
      */
     private $activites;
@@ -157,28 +152,6 @@ class Periode
     public function setActive(bool $active): self
     {
         $this->active = $active;
-        return $this;
-    }
-
-
-    /**
-     * Return the Period comment.
-     * @return string|null
-     */
-    public function getComment(): ?string
-    {
-        return $this->comment;
-    }
-
-
-    /**
-     * Set the Period comment.
-     * @param string|null $comment
-     * @return $this
-     */
-    public function setComment(?string $comment): self
-    {
-        $this->comment = $comment;
         return $this;
     }
 
