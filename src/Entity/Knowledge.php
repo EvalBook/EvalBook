@@ -89,7 +89,7 @@ class Knowledge
     {
         if (!$this->activites->contains($activite)) {
             $this->activites[] = $activite;
-            $activite->setIdKnowledge($this);
+            $activite->setKnowledge($this);
         }
 
         return $this;
@@ -106,8 +106,8 @@ class Knowledge
         if ($this->activites->contains($activite)) {
             $this->activites->removeElement($activite);
             // set the owning side to null (unless already changed)
-            if ($activite->getIdKnowledge() === $this) {
-                $activite->setIdKnowledge(null);
+            if ($activite->getKnowledge() === $this) {
+                $activite->setKnowledge(null);
             }
         }
 

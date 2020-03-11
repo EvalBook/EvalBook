@@ -36,12 +36,12 @@ class Eleve
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Classe", inversedBy="eleves")
      */
-    private $idClasses;
+    private $classes;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Contact", inversedBy="eleves")
      */
-    private $idContact;
+    private $contacts;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="idEleve")
@@ -54,8 +54,8 @@ class Eleve
      */
     public function __construct()
     {
-        $this->idClasses = new ArrayCollection();
-        $this->idContact = new ArrayCollection();
+        $this->classes = new ArrayCollection();
+        $this->contacts = new ArrayCollection();
         $this->notes = new ArrayCollection();
     }
 
@@ -88,7 +88,6 @@ class Eleve
     public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
-
         return $this;
     }
 
@@ -143,7 +142,7 @@ class Eleve
      */
     public function getClasses(): Collection
     {
-        return $this->idClasses;
+        return $this->classes;
     }
 
 
@@ -154,8 +153,8 @@ class Eleve
      */
     public function addClass(Classe $classe): self
     {
-        if (!$this->idClasses->contains($classe)) {
-            $this->idClasses[] = $classe;
+        if (!$this->classes->contains($classe)) {
+            $this->classes[] = $classe;
         }
 
         return $this;
@@ -169,8 +168,8 @@ class Eleve
      */
     public function removeClass(Classe $classe): self
     {
-        if ($this->idClasses->contains($classe)) {
-            $this->idClasses->removeElement($classe);
+        if ($this->classes->contains($classe)) {
+            $this->classes->removeElement($classe);
         }
 
         return $this;
@@ -181,9 +180,9 @@ class Eleve
      * Return a collection of Contact object of Eleve.
      * @return Collection|Contact[]
      */
-    public function getContact(): Collection
+    public function getContacts(): Collection
     {
-        return $this->idContact;
+        return $this->contacts;
     }
 
 
@@ -194,8 +193,8 @@ class Eleve
      */
     public function addContact(Contact $contact): self
     {
-        if (!$this->idContact->contains($contact)) {
-            $this->idContact[] = $contact;
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts[] = $contact;
         }
 
         return $this;
@@ -207,10 +206,10 @@ class Eleve
      * @param Contact $contact
      * @return $this
      */
-    public function removeIdContact(Contact $contact): self
+    public function removeContact(Contact $contact): self
     {
-        if ($this->idContact->contains($contact)) {
-            $this->idContact->removeElement($contact);
+        if ($this->contacts->contains($contact)) {
+            $this->contacts->removeElement($contact);
         }
 
         return $this;
@@ -236,7 +235,7 @@ class Eleve
     {
         if (!$this->notes->contains($note)) {
             $this->notes[] = $note;
-            $note->setIdEleve($this);
+            $note->setEleve($this);
         }
 
         return $this;
@@ -253,8 +252,8 @@ class Eleve
         if ($this->notes->contains($note)) {
             $this->notes->removeElement($note);
             // set the owning side to null (unless already changed)
-            if ($note->getIdEleve() === $this) {
-                $note->setIdEleve(null);
+            if ($note->getEleve() === $this) {
+                $note->setEleve(null);
             }
         }
 

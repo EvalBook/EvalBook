@@ -28,7 +28,7 @@ class Classe
      * @ORM\ManyToOne(targetEntity="App\Entity\TypeClasse", inversedBy="classes")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $idTypeClasse;
+    private $typeClasse;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="idClasses")
@@ -49,7 +49,7 @@ class Classe
      * @ORM\ManyToOne(targetEntity="App\Entity\Implantation", inversedBy="classes")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $idImplantation;
+    private $implantation;
 
 
     /**
@@ -85,7 +85,6 @@ class Classe
     public function setName(string $name): self
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -96,7 +95,7 @@ class Classe
      */
     public function getTypeClasse(): ?TypeClasse
     {
-        return $this->idTypeClasse;
+        return $this->typeClasse;
     }
 
 
@@ -107,7 +106,7 @@ class Classe
      */
     public function setTypeClasse(?TypeClasse $typeClasse): self
     {
-        $this->idTypeClasse = $typeClasse;
+        $this->typeClasse = $typeClasse;
         return $this;
     }
 
@@ -131,7 +130,7 @@ class Classe
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
-            $user->addIdClass($this);
+            $user->addClass($this);
         }
 
         return $this;
@@ -147,7 +146,7 @@ class Classe
     {
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);
-            $user->removeIdClass($this);
+            $user->removeClass($this);
         }
 
         return $this;
@@ -173,7 +172,7 @@ class Classe
     {
         if (!$this->eleves->contains($eleve)) {
             $this->eleves[] = $eleve;
-            $eleve->addIdClass($this);
+            $eleve->addClass($this);
         }
 
         return $this;
@@ -189,7 +188,7 @@ class Classe
     {
         if ($this->eleves->contains($eleve)) {
             $this->eleves->removeElement($eleve);
-            $eleve->removeIdClass($this);
+            $eleve->removeClass($this);
         }
 
         return $this;
@@ -224,7 +223,7 @@ class Classe
      */
     public function getImplantation(): ?Implantation
     {
-        return $this->idImplantation;
+        return $this->implantation;
     }
 
 
@@ -235,7 +234,7 @@ class Classe
      */
     public function setImplantation(?Implantation $implantation): self
     {
-        $this->idImplantation = $implantation;
+        $this->implantation = $implantation;
         return $this;
     }
 }

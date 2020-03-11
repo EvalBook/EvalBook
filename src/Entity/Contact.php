@@ -197,7 +197,7 @@ class Contact
     {
         if (!$this->eleves->contains($eleve)) {
             $this->eleves[] = $eleve;
-            $eleve->addIdContact($this);
+            $eleve->addContact($this);
         }
 
         return $this;
@@ -213,7 +213,7 @@ class Contact
     {
         if ($this->eleves->contains($eleve)) {
             $this->eleves->removeElement($eleve);
-            $eleve->removeIdContact($this);
+            $eleve->removeContact($this);
         }
 
         return $this;

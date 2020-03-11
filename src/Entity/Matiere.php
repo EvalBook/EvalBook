@@ -66,7 +66,6 @@ class Matiere
     public function setName(string $name): self
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -90,7 +89,7 @@ class Matiere
     {
         if (!$this->activites->contains($activite)) {
             $this->activites[] = $activite;
-            $activite->setIdMatiere($this);
+            $activite->setMatiere($this);
         }
 
         return $this;
@@ -107,8 +106,8 @@ class Matiere
         if ($this->activites->contains($activite)) {
             $this->activites->removeElement($activite);
             // set the owning side to null (unless already changed)
-            if ($activite->getIdMatiere() === $this) {
-                $activite->setIdMatiere(null);
+            if ($activite->getMatiere() === $this) {
+                $activite->setMatiere(null);
             }
         }
 

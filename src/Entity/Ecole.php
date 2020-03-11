@@ -89,7 +89,7 @@ class Ecole
     {
         if (!$this->implantations->contains($implantation)) {
             $this->implantations[] = $implantation;
-            $implantation->setIdEcole($this);
+            $implantation->setEcole($this);
         }
 
         return $this;
@@ -106,8 +106,8 @@ class Ecole
         if ($this->implantations->contains($implantation)) {
             $this->implantations->removeElement($implantation);
             // set the owning side to null (unless already changed)
-            if ($implantation->getIdEcole() === $this) {
-                $implantation->setIdEcole(null);
+            if ($implantation->getEcole() === $this) {
+                $implantation->setEcole(null);
             }
         }
 

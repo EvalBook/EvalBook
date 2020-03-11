@@ -89,7 +89,7 @@ class ActiviteLevel
     {
         if (!$this->activites->contains($activite)) {
             $this->activites[] = $activite;
-            $activite->setIdLevel($this);
+            $activite->setLevel($this);
         }
 
         return $this;
@@ -106,8 +106,8 @@ class ActiviteLevel
         if ($this->activites->contains($activite)) {
             $this->activites->removeElement($activite);
             // set the owning side to null (unless already changed)
-            if ($activite->getIdLevel() === $this) {
-                $activite->setIdLevel(null);
+            if ($activite->getLevel() === $this) {
+                $activite->setLevel(null);
             }
         }
 

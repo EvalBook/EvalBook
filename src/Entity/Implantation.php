@@ -42,7 +42,7 @@ class Implantation
      * @ORM\ManyToOne(targetEntity="App\Entity\Ecole", inversedBy="implantations")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $idEcole;
+    private $ecole;
 
     /**
      * @ORM\Column(type="boolean")
@@ -121,7 +121,6 @@ class Implantation
     public function setAddress(string $address): self
     {
         $this->address = $address;
-
         return $this;
     }
 
@@ -144,7 +143,6 @@ class Implantation
     public function setZipCode(string $zipCode): self
     {
         $this->zipCode = $zipCode;
-
         return $this;
     }
 
@@ -167,7 +165,6 @@ class Implantation
     public function setCountry(string $country): self
     {
         $this->country = $country;
-
         return $this;
     }
 
@@ -178,7 +175,7 @@ class Implantation
      */
     public function getEcole(): ?Ecole
     {
-        return $this->idEcole;
+        return $this->ecole;
     }
 
 
@@ -189,8 +186,7 @@ class Implantation
      */
     public function setEcole(?Ecole $ecole): self
     {
-        $this->idEcole = $ecole;
-
+        $this->ecole = $ecole;
         return $this;
     }
 
@@ -213,7 +209,6 @@ class Implantation
     public function setDefaultImplantation(bool $defaultImplantation): self
     {
         $this->defaultImplantation = $defaultImplantation;
-
         return $this;
     }
 
@@ -237,7 +232,7 @@ class Implantation
     {
         if (!$this->classes->contains($class)) {
             $this->classes[] = $class;
-            $class->setIdImplantation($this);
+            $class->setImplantation($this);
         }
 
         return $this;
@@ -254,8 +249,8 @@ class Implantation
         if ($this->classes->contains($class)) {
             $this->classes->removeElement($class);
             // set the owning side to null (unless already changed)
-            if ($class->getIdImplantation() === $this) {
-                $class->setIdImplantation(null);
+            if ($class->getImplantation() === $this) {
+                $class->setImplantation(null);
             }
         }
 
@@ -282,7 +277,7 @@ class Implantation
     {
         if (!$this->periodes->contains($periode)) {
             $this->periodes[] = $periode;
-            $periode->setIdImplantation($this);
+            $periode->setImplantation($this);
         }
 
         return $this;
@@ -299,8 +294,8 @@ class Implantation
         if ($this->periodes->contains($periode)) {
             $this->periodes->removeElement($periode);
             // set the owning side to null (unless already changed)
-            if ($periode->getIdImplantation() === $this) {
-                $periode->setIdImplantation(null);
+            if ($periode->getImplantation() === $this) {
+                $periode->setImplantation(null);
             }
         }
 

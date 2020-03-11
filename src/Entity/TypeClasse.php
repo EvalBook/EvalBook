@@ -67,7 +67,6 @@ class TypeClasse
     public function setName(string $name): self
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -91,7 +90,7 @@ class TypeClasse
     {
         if (!$this->classes->contains($class)) {
             $this->classes[] = $class;
-            $class->setIdTypeClasse($this);
+            $class->setTypeClasse($this);
         }
 
         return $this;
@@ -108,8 +107,8 @@ class TypeClasse
         if ($this->classes->contains($class)) {
             $this->classes->removeElement($class);
             // set the owning side to null (unless already changed)
-            if ($class->getIdTypeClasse() === $this) {
-                $class->setIdTypeClasse(null);
+            if ($class->getTypeClasse() === $this) {
+                $class->setTypeClasse(null);
             }
         }
 

@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Note
 {
+    // TODO
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -19,15 +20,16 @@ class Note
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Activite", inversedBy="notes")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Activite", inversedBy="notes")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $idActivite;
+    private $activite;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Eleve", inversedBy="notes")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $idEleve;
+    private $eleve;
 
     /**
      * @ORM\Column(type="string", length=45)
@@ -46,15 +48,6 @@ class Note
 
 
     /**
-     * Note constructor.
-     */
-    public function __construct()
-    {
-        $this->idActivite = new ArrayCollection();
-    }
-
-
-    /**
      * Return the Note ID.
      * @return int|null
      */
@@ -65,48 +58,64 @@ class Note
 
 
     /**
-     * @return Collection|Activite[]
+     * Return the Activite object attached to the Note.
+     * @return Activite|null
      */
-    public function getIdActivite(): Collection
+    public function getActivite(): ?Activite
     {
-        return $this->idActivite;
+        return $this->activite;
     }
 
-    public function addIdActivite(Activite $idActivite): self
-    {
-        if (!$this->idActivite->contains($idActivite)) {
-            $this->idActivite[] = $idActivite;
-        }
 
+    /**
+     * Set the Note object Activity.
+     * @param Activite $activite
+     * @return $this
+     */
+    public function setActivite(Activite $activite): self
+    {
+        $this->activite = $activite;
         return $this;
     }
 
-    public function removeIdActivite(Activite $idActivite): self
-    {
-        if ($this->idActivite->contains($idActivite)) {
-            $this->idActivite->removeElement($idActivite);
-        }
 
+    /**
+     * Return the Eleve object the Note is attached to.
+     * @return Eleve|null
+     */
+    public function getEleve(): ?Eleve
+    {
+        return $this->eleve;
+    }
+
+
+    /**
+     * Set the Eleve object the Note is attached to.
+     * @param Eleve|null $eleve
+     * @return $this
+     */
+    public function setEleve(?Eleve $eleve): self
+    {
+        $this->eleve = $eleve;
         return $this;
     }
 
-    public function getIdEleve(): ?Eleve
-    {
-        return $this->idEleve;
-    }
 
-    public function setIdEleve(?Eleve $idEleve): self
-    {
-        $this->idEleve = $idEleve;
-
-        return $this;
-    }
-
+    /**
+     * Return the given note.
+     * @return string|null
+     */
     public function getNote(): ?string
     {
         return $this->note;
     }
 
+
+    /**
+     * Set the Note note.
+     * @param string $note
+     * @return $this
+     */
     public function setNote(string $note): self
     {
         $this->note = $note;
@@ -114,27 +123,47 @@ class Note
         return $this;
     }
 
+
+    /**
+     * Return the Date the Note were written.
+     * @return \DateTimeInterface|null
+     */
     public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
     }
 
+
+    /**
+     * Set the date the Note were written.
+     * @param \DateTimeInterface $date
+     * @return $this
+     */
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
-
         return $this;
     }
 
+
+    /**
+     * Return the Note comment.
+     * @return string|null
+     */
     public function getComment(): ?string
     {
         return $this->comment;
     }
 
+
+    /**
+     * Set the Note comment.
+     * @param string|null $comment
+     * @return $this
+     */
     public function setComment(?string $comment): self
     {
         $this->comment = $comment;
-
         return $this;
     }
 }

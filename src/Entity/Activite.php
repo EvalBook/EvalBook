@@ -24,29 +24,29 @@ class Activite
      * @ORM\ManyToOne(targetEntity="App\Entity\NoteType", inversedBy="activites")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $idNoteType;
+    private $noteType;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Knowledge", inversedBy="activites")
      */
-    private $idKnowledge;
+    private $knowledge;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Matiere", inversedBy="activites")
      */
-    private $idMatiere;
+    private $matiere;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="activites")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $idUser;
+    private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Periode", inversedBy="activites")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $idPeriode;
+    private $periode;
 
     /**
      * @ORM\Column(type="boolean")
@@ -71,7 +71,7 @@ class Activite
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\ActiviteLevel", inversedBy="activites")
      */
-    private $idLevel;
+    private $level;
 
 
     /**
@@ -99,7 +99,7 @@ class Activite
      */
     public function getNoteType(): ?NoteType
     {
-        return $this->idNoteType;
+        return $this->noteType;
     }
 
 
@@ -110,7 +110,7 @@ class Activite
      */
     public function setNoteType(?NoteType $noteType): self
     {
-        $this->idNoteType = $noteType;
+        $this->noteType = $noteType;
         return $this;
     }
 
@@ -121,7 +121,7 @@ class Activite
      */
     public function getKnowledge(): ?Knowledge
     {
-        return $this->idKnowledge;
+        return $this->knowledge;
     }
 
 
@@ -132,7 +132,7 @@ class Activite
      */
     public function setKnowledge(?Knowledge $knowledge): self
     {
-        $this->idKnowledge = $knowledge;
+        $this->knowledge = $knowledge;
         return $this;
     }
 
@@ -143,7 +143,7 @@ class Activite
      */
     public function getMatiere(): ?Matiere
     {
-        return $this->idMatiere;
+        return $this->matiere;
     }
 
 
@@ -154,7 +154,7 @@ class Activite
      */
     public function setMatiere(?Matiere $matiere): self
     {
-        $this->idMatiere = $matiere;
+        $this->matiere = $matiere;
         return $this;
     }
 
@@ -165,7 +165,7 @@ class Activite
      */
     public function getUser(): ?User
     {
-        return $this->idUser;
+        return $this->user;
     }
 
 
@@ -176,7 +176,7 @@ class Activite
      */
     public function setUser(?User $user): self
     {
-        $this->idUser = $user;
+        $this->user = $user;
         return $this;
     }
 
@@ -187,7 +187,7 @@ class Activite
      */
     public function getPeriode(): ?Periode
     {
-        return $this->idPeriode;
+        return $this->periode;
     }
 
 
@@ -198,7 +198,7 @@ class Activite
      */
     public function setPeriode(?Periode $periode): self
     {
-        $this->idPeriode = $periode;
+        $this->periode = $periode;
         return $this;
     }
 
@@ -271,7 +271,7 @@ class Activite
 
 
     /**
-     * Return the Note collection attributed to User
+     * Return the Note collection attributed to Activite
      * @return Collection|Note[]
      */
     public function getNotes(): Collection
@@ -289,7 +289,7 @@ class Activite
     {
         if (!$this->notes->contains($note)) {
             $this->notes[] = $note;
-            $note->addIdActivite($this);
+            $note->addActivite($this);
         }
 
         return $this;
@@ -305,7 +305,7 @@ class Activite
     {
         if ($this->notes->contains($note)) {
             $this->notes->removeElement($note);
-            $note->removeIdActivite($this);
+            $note->removeActivite($this);
         }
 
         return $this;
@@ -318,18 +318,18 @@ class Activite
      */
     public function getLevel(): ?ActiviteLevel
     {
-        return $this->idLevel;
+        return $this->level;
     }
 
 
     /**
      * Set the current activity level.
-     * @param ActiviteLevel|null $idLevel
+     * @param ActiviteLevel|null $level
      * @return $this
      */
-    public function setLevel(?ActiviteLevel $idLevel): self
+    public function setLevel(?ActiviteLevel $level): self
     {
-        $this->idLevel = $idLevel;
+        $this->level = $level;
         return $this;
     }
 }

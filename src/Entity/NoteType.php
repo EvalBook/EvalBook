@@ -38,53 +38,93 @@ class NoteType
      */
     private $activites;
 
+
+    /**
+     * NoteType constructor.
+     */
     public function __construct()
     {
         $this->activites = new ArrayCollection();
     }
 
+
+    /**
+     * Return the NoteType ID.
+     **/
     public function getId(): ?int
     {
         return $this->id;
     }
 
+
+    /**
+     * Return the NoteType name.
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+
+    /**
+     * Set the NoteType name.
+     * @param string $name
+     * @return $this
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
-
         return $this;
     }
 
+
+    /**
+     * Return the NoteType ponderation.
+     * @return string|null
+     */
     public function getPonderation(): ?string
     {
         return $this->ponderation;
     }
 
+
+    /**
+     * Set the NoteType ponderation.
+     * @param string $ponderation
+     * @return $this
+     */
     public function setPonderation(string $ponderation): self
     {
         $this->ponderation = $ponderation;
-
         return $this;
     }
 
+
+    /**
+     * Return the NoteType coefficient.
+     * @return int|null
+     */
     public function getCoefficient(): ?int
     {
         return $this->coefficient;
     }
 
+
+    /**
+     * Set the NoteType coefficient.
+     * @param int|null $coefficient
+     * @return $this
+     */
     public function setCoefficient(?int $coefficient): self
     {
         $this->coefficient = $coefficient;
-
         return $this;
     }
 
+
     /**
+     * Return a collection of activities based on the NoteType.
      * @return Collection|Activite[]
      */
     public function getActivites(): Collection
@@ -92,23 +132,35 @@ class NoteType
         return $this->activites;
     }
 
+
+    /**
+     * Add an Activite based on the NoteType.
+     * @param Activite $activite
+     * @return $this
+     */
     public function addActivite(Activite $activite): self
     {
         if (!$this->activites->contains($activite)) {
             $this->activites[] = $activite;
-            $activite->setIdNoteType($this);
+            $activite->setNoteType($this);
         }
 
         return $this;
     }
 
+
+    /**
+     * Removes an Activite based on the NoteType.
+     * @param Activite $activite
+     * @return $this
+     */
     public function removeActivite(Activite $activite): self
     {
         if ($this->activites->contains($activite)) {
             $this->activites->removeElement($activite);
             // set the owning side to null (unless already changed)
-            if ($activite->getIdNoteType() === $this) {
-                $activite->setIdNoteType(null);
+            if ($activite->getNoteType() === $this) {
+                $activite->setNoteType(null);
             }
         }
 
