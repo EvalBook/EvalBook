@@ -40,6 +40,17 @@ class Classe
      */
     private $eleves;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="classeTitulaire", cascade={"persist", "remove"})
+     */
+    private $titulaire;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Implantation", inversedBy="classes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $idImplantation;
+
 
     /**
      * Classe constructor.
@@ -181,6 +192,30 @@ class Classe
             $this->eleves->removeElement($eleve);
             $eleve->removeIdClass($this);
         }
+
+        return $this;
+    }
+
+    public function getTitulaire(): ?User
+    {
+        return $this->titulaire;
+    }
+
+    public function setTitulaire(?User $titulaire): self
+    {
+        $this->titulaire = $titulaire;
+
+        return $this;
+    }
+
+    public function getIdImplantation(): ?Implantation
+    {
+        return $this->idImplantation;
+    }
+
+    public function setIdImplantation(?Implantation $idImplantation): self
+    {
+        $this->idImplantation = $idImplantation;
 
         return $this;
     }

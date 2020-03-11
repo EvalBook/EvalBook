@@ -68,6 +68,11 @@ class Activite
      */
     private $notes;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ActiviteLevel", inversedBy="activites")
+     */
+    private $idLevel;
+
 
     /**
      * Activite constructor.
@@ -309,6 +314,18 @@ class Activite
             $this->notes->removeElement($note);
             $note->removeIdActivite($this);
         }
+
+        return $this;
+    }
+
+    public function getLevel(): ?ActiviteLevel
+    {
+        return $this->idLevel;
+    }
+
+    public function setLevel(?ActiviteLevel $idLevel): self
+    {
+        $this->idLevel = $idLevel;
 
         return $this;
     }

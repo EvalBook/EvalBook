@@ -60,6 +60,11 @@ class User implements UserInterface
      */
     private $activites;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Classe", mappedBy="titulaire", cascade={"persist", "remove"})
+     */
+    private $classeTitulaire;
+
     public function __construct()
     {
         $this->idClasses = new ArrayCollection();
@@ -232,6 +237,24 @@ class User implements UserInterface
             if ($activite->getIdUser() === $this) {
                 $activite->setIdUser(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getClasseTitulaire(): ?Classe
+    {
+        return $this->classeTitulaire;
+    }
+
+    public function setClasseTitulaire(?Classe $classeTitulaire): self
+    {
+        $this->classeTitulaire = $classeTitulaire;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newTitulaire = null === $classeTitulaire ? null : $this;
+        if ($classeTitulaire->getTitulaire() !== $newTitulaire) {
+            $classeTitulaire->setTitulaire($newTitulaire);
         }
 
         return $this;

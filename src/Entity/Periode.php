@@ -44,14 +44,15 @@ class Periode
     private $comment;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $printCount;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Activite", mappedBy="idPeriode")
      */
     private $activites;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Implantation", inversedBy="periodes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $idImplantation;
 
     public function __construct()
     {
@@ -123,18 +124,6 @@ class Periode
         return $this;
     }
 
-    public function getPrintCount(): ?int
-    {
-        return $this->printCount;
-    }
-
-    public function setPrintCount(int $printCount): self
-    {
-        $this->printCount = $printCount;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Activite[]
      */
@@ -162,6 +151,18 @@ class Periode
                 $activite->setIdPeriode(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIdImplantation(): ?Implantation
+    {
+        return $this->idImplantation;
+    }
+
+    public function setIdImplantation(?Implantation $idImplantation): self
+    {
+        $this->idImplantation = $idImplantation;
 
         return $this;
     }
