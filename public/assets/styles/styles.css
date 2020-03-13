@@ -1,0 +1,101 @@
+/*Set body html header & footer*/
+
+body, html
+{
+    background-color: #f8f7ed;
+    font-family: 'Roboto', sans-serif;
+    color: #111111;
+    height: 100%;
+    margin:0;
+    padding: 0;
+}
+
+.container-fluid
+{
+    padding : 0;
+}
+
+
+#header
+{
+    height: 22%;
+    background-color: #6d9bc3;
+    color: #f8f7ed;
+}
+
+
+.head-content
+{
+    margin: 30px 30px 10px;
+}
+
+
+.profile
+{
+    position: relative;
+    left: 25%;
+    top: 25%;
+    text-align: center;
+}
+
+
+.profile .material-icons
+{
+    font-size: 4rem;
+    margin-bottom: 2px;
+}
+
+
+.profile p
+{
+    margin-top: 2px;
+}
+
+
+
+#footer
+{
+    position: absolute;
+    bottom: 0;
+}
+
+.footer-content
+{
+    min-height : 17vh;
+    background-color: #6d9bc3;
+    color: #f8f7ed;
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: 7px 7px 0 10px;
+}
+
+
+.footer .col-xs-4
+{
+    text-align: center;
+    margin: 0;
+}
+
+
+p
+{
+    margin: 0;
+    margin-bottom: 0;
+}
+
+
+#copyleft
+{
+    transform: scaleX(-1);
+    font-size: 10px;
+    vertical-align: super;
+}
+
+
+a /*available for all website*/
+{
+    font: inherit;
+    color: inherit;
+    text-decoration: underline;
+}
