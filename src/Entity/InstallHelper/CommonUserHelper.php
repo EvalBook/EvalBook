@@ -21,7 +21,6 @@ class CommonUserHelper
 {
 
     private $em;
-    private $roleRepository;
     private $userRepository;
 
 
@@ -33,7 +32,6 @@ class CommonUserHelper
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
-        $this->roleRepository = $this->em->getRepository(Role::class);
         $this->userRepository = $this->em->getRepository(User::class);
     }
 
@@ -48,7 +46,7 @@ class CommonUserHelper
      */
     public function createSecretary(string $firstName, string $lastName, string $email, string $password)
     {
-        $roles = $this->roleRepository->findBy(array("name" => "MANAGE_USERS"));
+        $roles = array();
         return $this->createCommonUser($firstName, $lastName, $email, $password, $roles);
     }
 
@@ -63,7 +61,7 @@ class CommonUserHelper
      */
     public function createDirector(string $firstName, string $lastName, string $email, string $password)
     {
-        $roles = $this->roleRepository->findBy(array("name" => "MANAGE_USERS"));
+        $roles = array();
         return $this->createCommonUser($firstName, $lastName, $email, $password, $roles);
     }
 
@@ -77,7 +75,7 @@ class CommonUserHelper
      */
     public function createTeacher(string $firstName, string $lastName, string $email, string $password)
     {
-        $roles = $this->roleRepository->findBy(array("name" => "MANAGE_USERS"));
+        $roles = array();
         return $this->createCommonUser($firstName, $lastName, $email, $password, $roles);
     }
 
@@ -98,12 +96,12 @@ class CommonUserHelper
 
         try {
             $user = new User();
-            $user->setPassword(password_hash($password, PASSWORD_BCRYPT));
+            $user->setPassword($password);
             $user->setLastName($lastName);
             $user->setFirstName($firstName);
             $user->setEmail($email);
             $user->setActive(true);
-            $user->setRoles($roles);
+            //$user->setRoles($roles);
 
             $this->em->persist($user);
             $this->em->flush();

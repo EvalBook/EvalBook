@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200312134126 extends AbstractMigration
+final class Version20200313183842 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -32,16 +32,14 @@ final class Version20200312134126 extends AbstractMigration
         $this->addSql('CREATE TABLE eleve_contact (eleve_id INT NOT NULL, contact_id INT NOT NULL, INDEX IDX_A0D8DD24A6CC7B2 (eleve_id), INDEX IDX_A0D8DD24E7A1254A (contact_id), PRIMARY KEY(eleve_id, contact_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE eleve_comment (id INT AUTO_INCREMENT NOT NULL, periode_id INT DEFAULT NULL, eleve_id INT DEFAULT NULL, INDEX IDX_78CE6970F384C1CF (periode_id), INDEX IDX_78CE6970A6CC7B2 (eleve_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE implantation (id INT AUTO_INCREMENT NOT NULL, ecole_id INT NOT NULL, name VARCHAR(100) NOT NULL, address VARCHAR(255) NOT NULL, zip_code VARCHAR(10) NOT NULL, country VARCHAR(150) NOT NULL, default_implantation TINYINT(1) NOT NULL, INDEX IDX_16DC60577EF1B1E (ecole_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, password VARCHAR(255) NOT NULL, last_name VARCHAR(100) NOT NULL, first_name VARCHAR(100) NOT NULL, active TINYINT(1) NOT NULL, UNIQUE INDEX UNIQ_8D93D649E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE user_role (user_id INT NOT NULL, role_id INT NOT NULL, INDEX IDX_2DE8C6A3A76ED395 (user_id), INDEX IDX_2DE8C6A3D60322AC (role_id), PRIMARY KEY(user_id, role_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE user_classe (user_id INT NOT NULL, classe_id INT NOT NULL, INDEX IDX_EAD5A4ABA76ED395 (user_id), INDEX IDX_EAD5A4AB8F5EA509 (classe_id), PRIMARY KEY(user_id, classe_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE knowledge (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(100) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE matiere (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(100) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE note (id INT AUTO_INCREMENT NOT NULL, activite_id INT NOT NULL, eleve_id INT NOT NULL, note VARCHAR(45) NOT NULL, date DATE NOT NULL, comment LONGTEXT DEFAULT NULL, INDEX IDX_CFBDFA149B0F88B1 (activite_id), INDEX IDX_CFBDFA14A6CC7B2 (eleve_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE note_type (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, ponderation VARCHAR(255) NOT NULL, coefficient INT DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE periode (id INT AUTO_INCREMENT NOT NULL, implantation_id INT NOT NULL, name VARCHAR(45) NOT NULL, date_start DATE NOT NULL, date_end DATE NOT NULL, active TINYINT(1) NOT NULL, INDEX IDX_93C32DF3CE296AF7 (implantation_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE role (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, description LONGTEXT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE type_classe (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(45) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, last_name VARCHAR(100) NOT NULL, first_name VARCHAR(100) NOT NULL, active TINYINT(1) NOT NULL, UNIQUE INDEX UNIQ_8D93D649E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE user_classe (user_id INT NOT NULL, classe_id INT NOT NULL, INDEX IDX_EAD5A4ABA76ED395 (user_id), INDEX IDX_EAD5A4AB8F5EA509 (classe_id), PRIMARY KEY(user_id, classe_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE activite ADD CONSTRAINT FK_B875551544EA4809 FOREIGN KEY (note_type_id) REFERENCES note_type (id)');
         $this->addSql('ALTER TABLE activite ADD CONSTRAINT FK_B8755515E7DC6902 FOREIGN KEY (knowledge_id) REFERENCES knowledge (id)');
         $this->addSql('ALTER TABLE activite ADD CONSTRAINT FK_B8755515F46CD258 FOREIGN KEY (matiere_id) REFERENCES matiere (id)');
@@ -58,13 +56,11 @@ final class Version20200312134126 extends AbstractMigration
         $this->addSql('ALTER TABLE eleve_comment ADD CONSTRAINT FK_78CE6970F384C1CF FOREIGN KEY (periode_id) REFERENCES periode (id)');
         $this->addSql('ALTER TABLE eleve_comment ADD CONSTRAINT FK_78CE6970A6CC7B2 FOREIGN KEY (eleve_id) REFERENCES eleve (id)');
         $this->addSql('ALTER TABLE implantation ADD CONSTRAINT FK_16DC60577EF1B1E FOREIGN KEY (ecole_id) REFERENCES ecole (id)');
-        $this->addSql('ALTER TABLE user_role ADD CONSTRAINT FK_2DE8C6A3A76ED395 FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE user_role ADD CONSTRAINT FK_2DE8C6A3D60322AC FOREIGN KEY (role_id) REFERENCES role (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE user_classe ADD CONSTRAINT FK_EAD5A4ABA76ED395 FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE user_classe ADD CONSTRAINT FK_EAD5A4AB8F5EA509 FOREIGN KEY (classe_id) REFERENCES classe (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE note ADD CONSTRAINT FK_CFBDFA149B0F88B1 FOREIGN KEY (activite_id) REFERENCES activite (id)');
         $this->addSql('ALTER TABLE note ADD CONSTRAINT FK_CFBDFA14A6CC7B2 FOREIGN KEY (eleve_id) REFERENCES eleve (id)');
         $this->addSql('ALTER TABLE periode ADD CONSTRAINT FK_93C32DF3CE296AF7 FOREIGN KEY (implantation_id) REFERENCES implantation (id)');
+        $this->addSql('ALTER TABLE user_classe ADD CONSTRAINT FK_EAD5A4ABA76ED395 FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE user_classe ADD CONSTRAINT FK_EAD5A4AB8F5EA509 FOREIGN KEY (classe_id) REFERENCES classe (id) ON DELETE CASCADE');
     }
 
     public function down(Schema $schema) : void
@@ -84,17 +80,15 @@ final class Version20200312134126 extends AbstractMigration
         $this->addSql('ALTER TABLE note DROP FOREIGN KEY FK_CFBDFA14A6CC7B2');
         $this->addSql('ALTER TABLE classe DROP FOREIGN KEY FK_8F87BF96CE296AF7');
         $this->addSql('ALTER TABLE periode DROP FOREIGN KEY FK_93C32DF3CE296AF7');
-        $this->addSql('ALTER TABLE activite DROP FOREIGN KEY FK_B8755515A76ED395');
-        $this->addSql('ALTER TABLE classe DROP FOREIGN KEY FK_8F87BF96A10273AA');
-        $this->addSql('ALTER TABLE user_role DROP FOREIGN KEY FK_2DE8C6A3A76ED395');
-        $this->addSql('ALTER TABLE user_classe DROP FOREIGN KEY FK_EAD5A4ABA76ED395');
         $this->addSql('ALTER TABLE activite DROP FOREIGN KEY FK_B8755515E7DC6902');
         $this->addSql('ALTER TABLE activite DROP FOREIGN KEY FK_B8755515F46CD258');
         $this->addSql('ALTER TABLE activite DROP FOREIGN KEY FK_B875551544EA4809');
         $this->addSql('ALTER TABLE activite DROP FOREIGN KEY FK_B8755515F384C1CF');
         $this->addSql('ALTER TABLE eleve_comment DROP FOREIGN KEY FK_78CE6970F384C1CF');
-        $this->addSql('ALTER TABLE user_role DROP FOREIGN KEY FK_2DE8C6A3D60322AC');
         $this->addSql('ALTER TABLE classe DROP FOREIGN KEY FK_8F87BF963B98E419');
+        $this->addSql('ALTER TABLE activite DROP FOREIGN KEY FK_B8755515A76ED395');
+        $this->addSql('ALTER TABLE classe DROP FOREIGN KEY FK_8F87BF96A10273AA');
+        $this->addSql('ALTER TABLE user_classe DROP FOREIGN KEY FK_EAD5A4ABA76ED395');
         $this->addSql('DROP TABLE activite');
         $this->addSql('DROP TABLE activite_level');
         $this->addSql('DROP TABLE classe');
@@ -105,15 +99,13 @@ final class Version20200312134126 extends AbstractMigration
         $this->addSql('DROP TABLE eleve_contact');
         $this->addSql('DROP TABLE eleve_comment');
         $this->addSql('DROP TABLE implantation');
-        $this->addSql('DROP TABLE user');
-        $this->addSql('DROP TABLE user_role');
-        $this->addSql('DROP TABLE user_classe');
         $this->addSql('DROP TABLE knowledge');
         $this->addSql('DROP TABLE matiere');
         $this->addSql('DROP TABLE note');
         $this->addSql('DROP TABLE note_type');
         $this->addSql('DROP TABLE periode');
-        $this->addSql('DROP TABLE role');
         $this->addSql('DROP TABLE type_classe');
+        $this->addSql('DROP TABLE user');
+        $this->addSql('DROP TABLE user_classe');
     }
 }

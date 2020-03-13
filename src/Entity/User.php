@@ -25,8 +25,7 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Role", inversedBy="roles")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\Column(type="json")
      */
     private $roles = [];
 
@@ -52,19 +51,9 @@ class User implements UserInterface
     private $active;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Classe", inversedBy="users")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Classe")
      */
-    private $classes;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Activite", mappedBy="idUser")
-     */
-    private $activites;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Classe", mappedBy="titulaire", cascade={"persist", "remove"})
-     */
-    private $classeTitulaire;
+    private $classe;
 
 
     /**
@@ -72,8 +61,7 @@ class User implements UserInterface
      */
     public function __construct()
     {
-        $this->classes = new ArrayCollection();
-        $this->activites = new ArrayCollection();
+        $this->classe = new ArrayCollection();
     }
 
 
@@ -111,16 +99,17 @@ class User implements UserInterface
 
     /**
      * A visual identifier that represents this user.
+     *
      * @see UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->getFirstName() . " " . $this->getLastName();
+        return (string) $this->getLastName() . " " . $this->getFirstName();
     }
 
 
     /**
-     * Return the Role list the User has access to.
+     * Return User roles.
      * @see UserInterface
      */
     public function getRoles(): array
@@ -134,7 +123,7 @@ class User implements UserInterface
 
 
     /**
-     * Set a whole Role(s) set for the User.
+     * Set the User roles.
      * @param array $roles
      * @return $this
      */
@@ -156,7 +145,7 @@ class User implements UserInterface
 
 
     /**
-     * Set the User password.
+     * Set the user Password.
      * @param string $password
      * @return $this
      */
@@ -168,7 +157,7 @@ class User implements UserInterface
 
 
     /**
-     * Return the Salt used to encrypt User password.
+     * Return the used salt.
      * @see UserInterface
      */
     public function getSalt()
@@ -178,18 +167,18 @@ class User implements UserInterface
 
 
     /**
-     * Clear a temprary stored password.
+     * Erase credentials.
      * @see UserInterface
      */
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        $this->plainPassword = null;
+        // $this->plainPassword = null;
     }
 
 
     /**
-     * Return the User last name.
+     * Return the last name.
      * @return string|null
      */
     public function getLastName(): ?string
@@ -199,7 +188,7 @@ class User implements UserInterface
 
 
     /**
-     * Set the User last name.
+     * Set the last name.
      * @param string $lastName
      * @return $this
      */
@@ -211,7 +200,7 @@ class User implements UserInterface
 
 
     /**
-     * Return the User first name.
+     * Return the first name.
      * @return string|null
      */
     public function getFirstName(): ?string
@@ -221,7 +210,7 @@ class User implements UserInterface
 
 
     /**
-     * Set the User first name.
+     * Set the user first name.
      * @param string $firstName
      * @return $this
      */
@@ -233,17 +222,17 @@ class User implements UserInterface
 
 
     /**
-     * Return true if the User is active.
+     * Return true if user is active.
      * @return bool|null
      */
-    public function isActive(): ?bool
+    public function getActive(): ?bool
     {
         return $this->active;
     }
 
 
     /**
-     * Set the User active or not.
+     * Set the user active or not.
      * @param bool $active
      * @return $this
      */
@@ -255,24 +244,24 @@ class User implements UserInterface
 
 
     /**
-     * Return a collection of classes the User own.
+     * Return a collection of Classes the user own.
      * @return Collection|Classe[]
      */
-    public function getClasses(): Collection
+    public function getClasse(): Collection
     {
-        return $this->classes;
+        return $this->classe;
     }
 
 
     /**
-     * Add a Class to the User.
-     * @param Classe $class
+     * Add a class to the user.
+     * @param Classe $classe
      * @return $this
      */
-    public function addClass(Classe $class): self
+    public function addClasse(Classe $classe): self
     {
-        if (!$this->classes->contains($class)) {
-            $this->classes[] = $class;
+        if (!$this->classe->contains($classe)) {
+            $this->classe[] = $classe;
         }
 
         return $this;
@@ -280,88 +269,14 @@ class User implements UserInterface
 
 
     /**
-     * Remove a Class for the User.
-     * @param Classe $class
+     * Remove a class a user own.
+     * @param Classe $classe
      * @return $this
      */
-    public function removeClass(Classe $class): self
+    public function removeClasse(Classe $classe): self
     {
-        if ($this->classes->contains($class)) {
-            $this->classes->removeElement($class);
-        }
-
-        return $this;
-    }
-
-
-    /**
-     * Return a collection of Activite User created.
-     * @return Collection|Activite[]
-     */
-    public function getActivites(): Collection
-    {
-        return $this->activites;
-    }
-
-
-    /**
-     * Add an Activity to User.
-     * @param Activite $activite
-     * @return $this
-     */
-    public function addActivite(Activite $activite): self
-    {
-        if (!$this->activites->contains($activite)) {
-            $this->activites[] = $activite;
-            $activite->setUser($this);
-        }
-
-        return $this;
-    }
-
-
-    /**
-     * Remove an Activite from the User Activite collection.
-     * @param Activite $activite
-     * @return $this
-     */
-    public function removeActivite(Activite $activite): self
-    {
-        if ($this->activites->contains($activite)) {
-            $this->activites->removeElement($activite);
-            // set the owning side to null (unless already changed)
-            if ($activite->getUser() === $this) {
-                $activite->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-
-    /**
-     * Return the Classe the User is 'titulaire'.
-     * @return Classe|null
-     */
-    public function getClasseTitulaire(): ?Classe
-    {
-        return $this->classeTitulaire;
-    }
-
-
-    /**
-     * Set the Class User is 'titulaire'.
-     * @param Classe|null $classeTitulaire
-     * @return $this
-     */
-    public function setClasseTitulaire(?Classe $classeTitulaire): self
-    {
-        $this->classeTitulaire = $classeTitulaire;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newTitulaire = null === $classeTitulaire ? null : $this;
-        if ($classeTitulaire->getTitulaire() !== $newTitulaire) {
-            $classeTitulaire->setTitulaire($newTitulaire);
+        if ($this->classe->contains($classe)) {
+            $this->classe->removeElement($classe);
         }
 
         return $this;

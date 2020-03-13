@@ -45,7 +45,7 @@ class TestController extends AbstractController
 
         // Création d'une secrétaire.
         $helper = new CommonUserHelper($em);
-        if($helper->createSecretary("firstName", "lastName", "email@t.orgin", "gfergegr"))
+        if($helper->createSecretary("first", "lastName", "admin@evalbook.dev", "Dev007!!"))
             echo "Success";
         else
             echo "Error";
