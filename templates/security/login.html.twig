@@ -64,9 +64,29 @@
 
 
     <div class="container col-lg-4" id="login">
-        <input type="email" class ="form-control col-sm-11 login-input" id="usermail" name="usermail" placeholder="Mon e-mail">
-        <input type="password" class ="form-control col-sm-11 login-input" id="userpwd" name="userpwd" placeholder="Mon mot de passe">
-        <button type="submit" class ="btn btn-light">Me connecter</button>
+
+        <form method="post">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            <input type="email" class ="form-control col-sm-11 login-input" id="inputEmail" name="email" placeholder="Mon e-mail">
+            <input type="password" class ="form-control col-sm-11 login-input" id="inputPassword" name="password" placeholder="Mon mot de passe">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            {#See https://symfony.com/doc/current/security/remember_me.html#}
+
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" name="_remember_me"> Se souvenir de moi
+                </label>
+            </div>
+
+            <button class="btn btn-light" type="submit">
+                Me connecter
+            </button>
+        </form>
+
     </div>
 
 </div>
