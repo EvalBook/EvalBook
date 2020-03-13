@@ -36,6 +36,8 @@ body, html
     left: 25%;
     top: 25%;
     text-align: center;
+    width: 25%;
+    line-height: 0.9em;
 }
 
 
@@ -45,12 +47,10 @@ body, html
     margin-bottom: 2px;
 }
 
-
-.profile p
+.profile span
 {
-    margin-top: 2px;
+    display: block;
 }
-
 
 
 #footer
