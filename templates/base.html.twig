@@ -2,11 +2,48 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, user-scalable=0">
+        <title>EvalBook</title>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="style-header.css">
     </head>
     <body>
+        <div class="container-fluid">
+
+            <div class="header row">
+                <div class="col-lg-8 head-content">
+                    <h1><img src="logo_evalbook.png"></h1>
+                    <h4>L'outil d'évaluation pour les enseignants</h4>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="profile">
+                        <i class="material-icons">perm_identity</i>
+                        <p>Mon profil</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
         {% block body %}{% endblock %}
+
+        <div class="container-fluid" id="footer">
+            <div class="footer-content">
+                <div class="col-xs-4">
+                    <p>Evalbook<i class="material-icons" id="copyleft">copyright</i> - 2020</p>
+                    <p>Un projet initié par <a href="https://www.forsud.be/">Forsud ASBL</a></p>
+                    <p><a href="https://github.com/EvalBook">vers GitHub</a></p>
+                </div>
+                <div class="col-xs-4">
+                    <p><a href="#">Lire le manuel utilisateur</a></p>
+                </div>
+            </div>
+        </div>
+
 
         {% block javascripts %}{% endblock %}
     </body>
