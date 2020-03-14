@@ -26,10 +26,11 @@ class TestController extends AbstractController
          * Création d'un utilisateur et sécurisation du mot de passe en utilisant la classe helper...
          */
 
-
         // Création d'une secrétaire.
         $helper = new CommonUserHelper($em, $passwordEncoder);
         $result = $helper->createSecretary("first", "lastName", "admin@evalbook.dev", "Dev007!!");
+        $result ? $this->addFlash('success', 'User created') : $this->addFlash('error', 'User creation error');
+
 
 
         return $this->render('test/index.html.twig', [
