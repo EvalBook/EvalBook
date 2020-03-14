@@ -37,6 +37,21 @@ class CommonUserHelper
 
 
     /**
+     * Create a User that matches Super Admin role.
+     * @param string $firstName
+     * @param string $lastName
+     * @param string $email
+     * @param string $password
+     * @return bool
+     */
+    public function createSuperAdmin(string $firstName, string $lastName, string $email, string $password)
+    {
+        $roles = array();
+        return $this->createCommonUser($firstName, $lastName, $email, $password, $roles);
+    }
+
+
+    /**
      * Create a User that matches Secretary role.
      * @param string $firstName
      * @param string $lastName
@@ -66,7 +81,7 @@ class CommonUserHelper
     }
 
     /**
-     * Create a User that matches Director role.
+     * Create a User that matches Teacher role.
      * @param string $firstName
      * @param string $lastName
      * @param string $email
@@ -74,6 +89,21 @@ class CommonUserHelper
      * @return bool
      */
     public function createTeacher(string $firstName, string $lastName, string $email, string $password)
+    {
+        $roles = array();
+        return $this->createCommonUser($firstName, $lastName, $email, $password, $roles);
+    }
+
+
+    /**
+     * Create a User that matches Special Teacher role.
+     * @param string $firstName
+     * @param string $lastName
+     * @param string $email
+     * @param string $password
+     * @return bool
+     */
+    public function createSpecialTeacher(string $firstName, string $lastName, string $email, string $password)
     {
         $roles = array();
         return $this->createCommonUser($firstName, $lastName, $email, $password, $roles);
