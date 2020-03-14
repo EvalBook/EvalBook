@@ -53,7 +53,17 @@ class User implements UserInterface
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Classe")
      */
-    private $classe;
+    private $classes;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Activite", mappedBy="id")
+     */
+    private $activites;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Classe", mappedBy="titulaire", cascade={"persist", "remove"})
+     */
+    private $classeTitulaire;
 
 
     /**
@@ -61,7 +71,8 @@ class User implements UserInterface
      */
     public function __construct()
     {
-        $this->classe = new ArrayCollection();
+        $this->classes = new ArrayCollection();
+        $this->activites = new ArrayCollection();
     }
 
 
@@ -247,9 +258,9 @@ class User implements UserInterface
      * Return a collection of Classes the user own.
      * @return Collection|Classe[]
      */
-    public function getClasse(): Collection
+    public function getClasses(): Collection
     {
-        return $this->classe;
+        return $this->classes;
     }
 
 
@@ -260,8 +271,8 @@ class User implements UserInterface
      */
     public function addClasse(Classe $classe): self
     {
-        if (!$this->classe->contains($classe)) {
-            $this->classe[] = $classe;
+        if (!$this->classes->contains($classe)) {
+            $this->classes[] = $classe;
         }
 
         return $this;
@@ -275,8 +286,82 @@ class User implements UserInterface
      */
     public function removeClasse(Classe $classe): self
     {
-        if ($this->classe->contains($classe)) {
-            $this->classe->removeElement($classe);
+        if ($this->classes->contains($classe)) {
+            $this->classes->removeElement($classe);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * Return a collection of Activite User created.
+     * @return Collection|Activite[]
+     */
+    public function getActivites(): Collection
+    {
+        return $this->activites;
+    }
+
+
+    /**
+     * Add an Activity to User.
+     * @param Activite $activite
+     * @return $this
+     */
+    public function addActivite(Activite $activite): self
+    {
+        if (!$this->activites->contains($activite)) {
+            $this->activites[] = $activite;
+            $activite->setUser($this);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * Remove an Activite from the User Activite collection.
+     * @param Activite $activite
+     * @return $this
+     */
+    public function removeActivite(Activite $activite): self
+    {
+        if ($this->activites->contains($activite)) {
+            $this->activites->removeElement($activite);
+            // set the owning side to null (unless already changed)
+            if ($activite->getUser() === $this) {
+                $activite->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * Return the Classe the User is 'titulaire'.
+     * @return Classe|null
+     */
+    public function getClasseTitulaire(): ?Classe
+    {
+        return $this->classeTitulaire;
+    }
+
+
+    /**
+     * Set the Class User is 'titulaire'.
+     * @param Classe|null $classeTitulaire
+     * @return $this
+     */
+    public function setClasseTitulaire(?Classe $classeTitulaire): self
+    {
+        $this->classeTitulaire = $classeTitulaire;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newTitulaire = null === $classeTitulaire ? null : $this;
+        if ($classeTitulaire->getTitulaire() !== $newTitulaire) {
+            $classeTitulaire->setTitulaire($newTitulaire);
         }
 
         return $this;

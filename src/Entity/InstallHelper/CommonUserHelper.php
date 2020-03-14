@@ -113,3 +113,6 @@ class CommonUserHelper
         return null != $user->getId();
     }
 }
+
+// TODO retirer toute trace de l'ancienne classe Role.
+// TODO remettre les fonctions d'accès rapide telles que getActivites(), ... getClasses()... qui sont liées par relation avec les autres tables.
