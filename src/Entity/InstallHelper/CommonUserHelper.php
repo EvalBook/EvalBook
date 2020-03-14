@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Entity\InstallHelper;
 
-use App\Entity\Role;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * An helper class to help creating a simple user that match EvalBook common roles.
@@ -22,16 +22,19 @@ class CommonUserHelper
 
     private $em;
     private $userRepository;
+    private $passwordEncoder;
 
 
     /**
      * Create a commonly used User with User right role(s).
      * EvalBookCommonUser constructor.
      * @param EntityManagerInterface $em
+     * @param UserPasswordEncoderInterface $passwordEncoder
      */
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->em = $em;
+        $this->passwordEncoder = $passwordEncoder;
         $this->userRepository = $this->em->getRepository(User::class);
     }
 
@@ -42,12 +45,11 @@ class CommonUserHelper
      * @param string $lastName
      * @param string $email
      * @param string $password
-     * @return bool
+     * @return User|bool
      */
     public function createSuperAdmin(string $firstName, string $lastName, string $email, string $password)
     {
-        $roles = array();
-        return $this->createCommonUser($firstName, $lastName, $email, $password, $roles);
+        return $this->createCommonUser($firstName, $lastName, $email, $password);
     }
 
 
@@ -57,12 +59,11 @@ class CommonUserHelper
      * @param string $lastName
      * @param string $email
      * @param string $password
-     * @return bool
+     * @return User|bool
      */
     public function createSecretary(string $firstName, string $lastName, string $email, string $password)
     {
-        $roles = array();
-        return $this->createCommonUser($firstName, $lastName, $email, $password, $roles);
+        return $this->createCommonUser($firstName, $lastName, $email, $password);
     }
 
 
@@ -71,13 +72,12 @@ class CommonUserHelper
      * @param string $firstName
      * @param string $lastName
      * @param string $email
-     * @param string $password
-     * @return bool
+     * @param string password
+     * @return User|bool
      */
     public function createDirector(string $firstName, string $lastName, string $email, string $password)
     {
-        $roles = array();
-        return $this->createCommonUser($firstName, $lastName, $email, $password, $roles);
+        return $this->createCommonUser($firstName, $lastName, $email, $password);
     }
 
     /**
@@ -85,13 +85,12 @@ class CommonUserHelper
      * @param string $firstName
      * @param string $lastName
      * @param string $email
-     * @param string $password
-     * @return bool
+     * @param string password
+     * @return User|bool
      */
     public function createTeacher(string $firstName, string $lastName, string $email, string $password)
     {
-        $roles = array();
-        return $this->createCommonUser($firstName, $lastName, $email, $password, $roles);
+        return $this->createCommonUser($firstName, $lastName, $email, $password);
     }
 
 
@@ -100,13 +99,12 @@ class CommonUserHelper
      * @param string $firstName
      * @param string $lastName
      * @param string $email
-     * @param string $password
-     * @return bool
+     * @param string password
+     * @return User|bool
      */
     public function createSpecialTeacher(string $firstName, string $lastName, string $email, string $password)
     {
-        $roles = array();
-        return $this->createCommonUser($firstName, $lastName, $email, $password, $roles);
+        return $this->createCommonUser($firstName, $lastName, $email, $password);
     }
 
 
@@ -116,22 +114,22 @@ class CommonUserHelper
      * @param string $lastName
      * @param string $email
      * @param string $password
-     * @param Role[] $roles
      * @return User|bool
      */
-    private function createCommonUser(string $firstName, string $lastName, string $email, string $password, array $roles)
+    private function createCommonUser(string $firstName, string $lastName, string $email, string $password)
     {
         if($this->userRepository->userExists($email))
             return false;
 
         try {
             $user = new User();
-            $user->setPassword($password);
             $user->setLastName($lastName);
             $user->setFirstName($firstName);
             $user->setEmail($email);
             $user->setActive(true);
-            //$user->setRoles($roles);
+
+            // Encoding password.
+            $user->setPassword($this->passwordEncoder->encodePassword($user, $password));
 
             $this->em->persist($user);
             $this->em->flush();
@@ -143,6 +141,3 @@ class CommonUserHelper
         return null != $user->getId();
     }
 }
-
-// TODO retirer toute trace de l'ancienne classe Role.
-// TODO remettre les fonctions d'accès rapide telles que getActivites(), ... getClasses()... qui sont liées par relation avec les autres tables.
