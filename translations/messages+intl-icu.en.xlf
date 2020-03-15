@@ -9,57 +9,49 @@
         <source>Connect me</source>
         <target>Log in</target>
       </trans-unit>
-      <trans-unit id="EvAVOAy" resname="L'outil d'évaluation pour les enseignants">
-        <source>L'outil d'évaluation pour les enseignants</source>
-        <target>__L'outil d'évaluation pour les enseignants</target>
-      </trans-unit>
-      <trans-unit id="yrFEeRj" resname="Se souvenir de moi">
-        <source>Se souvenir de moi</source>
-        <target>__Se souvenir de moi</target>
-      </trans-unit>
       <trans-unit id="mG5JlMx" resname="The teachers eval tool">
         <source>The teachers eval tool</source>
-        <target>__The teachers eval tool</target>
+        <target>The teachers eval tool</target>
       </trans-unit>
       <trans-unit id="Jxxi_i3" resname="My profile">
         <source>My profile</source>
-        <target>__My profile</target>
+        <target>My profile</target>
       </trans-unit>
       <trans-unit id="uud8qmh" resname="Project initiated by">
         <source>Project initiated by</source>
-        <target>__Project initiated by</target>
+        <target>Project initiated by</target>
       </trans-unit>
       <trans-unit id="NURXRe6" resname="Source code and authors on Github">
         <source>Source code and authors on Github</source>
-        <target>__Source code and authors on Github</target>
+        <target>Source code and authors on Github</target>
       </trans-unit>
       <trans-unit id="_SgflM2" resname="Read the user manual">
         <source>Read the user manual</source>
-        <target>__Read the user manual</target>
+        <target>Read the user manual</target>
       </trans-unit>
       <trans-unit id="_TJnqhH" resname="Remember me">
         <source>Remember me</source>
-        <target>__Remember me</target>
+        <target>Remember me</target>
       </trans-unit>
       <trans-unit id="wYmEDPf" resname="Log in">
         <source>Log in</source>
-        <target>__Log in</target>
+        <target>Log in</target>
       </trans-unit>
       <trans-unit id="5Q33cP_" resname="User created">
         <source>User created</source>
-        <target>__User created</target>
+        <target>User created</target>
       </trans-unit>
       <trans-unit id="1LHfXJT" resname="User creation error">
         <source>User creation error</source>
-        <target>__User creation error</target>
+        <target>User creation error</target>
       </trans-unit>
       <trans-unit id="GX7_TSV" resname="My e-mail">
         <source>My e-mail</source>
-        <target>__My e-mail</target>
+        <target>My e-mail</target>
       </trans-unit>
       <trans-unit id="2YAwKa_" resname="My password">
         <source>My password</source>
-        <target>__My password</target>
+        <target>My password</target>
       </trans-unit>
     </body>
   </file>
