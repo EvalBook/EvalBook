@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity;
-use App\Entity\InstallHelper\CommonUserHelper;
+use App\Helper\CommonUserHelper;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;

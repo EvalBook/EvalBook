@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Entity\InstallHelper;
+namespace App\Helper;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  *
  * Class Secretary
  *
- * @package App\Entity\InstallHelper
+ * @package App\Entity\Helper
  */
 class CommonUserHelper
 {
