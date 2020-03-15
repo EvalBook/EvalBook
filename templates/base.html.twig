@@ -16,7 +16,7 @@
             {% for label, messages in app.flashes %}
                 {% for message in messages %}
                     <div class="alert alert-{{ label }}">
-                        {{ message }}
+                        {{ message | trans }}
                     </div>
                 {% endfor %}
             {% endfor %}
@@ -24,12 +24,12 @@
             <div class="row" id="header">
                 <div class="col-lg-8 head-content">
                     <h1><img src="assets/img/logos/logo_evalbook.png"></h1>
-                    <h4>L'outil d'évaluation pour les enseignants</h4>
+                    <h4>{{ "The teachers eval tool" | trans }}</h4>
                 </div>
 
                 <div class="col-sm-3">
                     <div class="profile">
-                        <p><i class="material-icons">perm_identity</i><span>Mon profil</span></p>
+                        <p><i class="material-icons">perm_identity</i><span>{{ "My profile" | trans }}</span></p>
                     </div>
                 </div>
             </div>
@@ -42,11 +42,11 @@
             <div class="footer-content">
                 <div class="col-xs-4">
                     <p>Evalbook<i class="material-icons" id="copyleft">copyright</i> - 2020</p>
-                    <p>Un projet initié par <a href="https://www.forsud.be/">Forsud ASBL</a></p>
-                    <p><a href="https://github.com/EvalBook">vers GitHub</a></p>
+                    <p>{{ "Project initiated by" | trans }} <a href="https://www.forsud.be/">Forsud ASBL</a></p>
+                    <p><a href="https://github.com/EvalBook">{{ "Source code and authors on Github" | trans }}</a></p>
                 </div>
                 <div class="col-xs-4">
-                    <p><a href="#">Lire le manuel utilisateur</a></p>
+                    <p><a href="#">{{ "Read the user manual" | trans }}</a></p>
                 </div>
             </div>
         </div>

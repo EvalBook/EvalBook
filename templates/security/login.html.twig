@@ -10,11 +10,12 @@
     <link rel="stylesheet" href="/assets/styles/style-login.css">
 </head>
 <body>
+
 <div class="container-fluid">
     <div class="header row">
         <div class="col-lg-12 head-content">
             <h1><img src="/assets/img/logos/logo_evalbook.png"></h1>
-            <h4>L'outil d'évaluation pour les enseignants</h4>
+            <h4>{{ "The teachers eval tool" | trans }}</h4>
         </div>
     </div>
 
@@ -26,20 +27,20 @@
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
 
-            <input type="email" class ="form-control col-sm-11 login-input" id="inputEmail" name="email" placeholder="Mon e-mail">
-            <input type="password" class ="form-control col-sm-11 login-input" id="inputPassword" name="password" placeholder="Mon mot de passe">
+            <input type="email" class ="form-control col-sm-11 login-input" id="inputEmail" name="email" placeholder="{{ "My e-mail" | trans }} ">
+            <input type="password" class ="form-control col-sm-11 login-input" id="inputPassword" name="password" placeholder="{{ "My password" | trans }} ">
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
             {#See https://symfony.com/doc/current/security/remember_me.html#}
 
             <div class="checkbox mb-3">
                 <label>
-                    <input type="checkbox" name="_remember_me"> Se souvenir de moi
+                    <input type="checkbox" name="_remember_me"> {{ "Remember me" | trans }}
                 </label>
             </div>
 
             <button class="btn btn-light" type="submit">
-                Me connecter
+                {{ 'Log in'|trans }}
             </button>
         </form>
 
