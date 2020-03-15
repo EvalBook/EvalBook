@@ -134,7 +134,7 @@ class UserLoginAuthenticator extends AbstractFormLoginAuthenticator implements P
         }
 
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        throw new \Exception(new RedirectResponse($this->urlGenerator->generate('dashboard')));
+        return new RedirectResponse($this->urlGenerator->generate('dashboard'));
     }
 
 
