@@ -24,7 +24,7 @@ class Knowledge
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Activite", mappedBy="idKnowledge")
+     * @ORM\OneToMany(targetEntity="App\Entity\Activite", mappedBy="id")
      */
     private $activites;
 

@@ -25,7 +25,7 @@ class TypeClasse
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Classe", mappedBy="idTypeClasse")
+     * @ORM\OneToMany(targetEntity="App\Entity\Classe", mappedBy="id")
      */
     private $classes;
 

@@ -31,12 +31,12 @@ class Classe
     private $typeClasse;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="idClasses")
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="classes")
      */
     private $users;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Eleve", mappedBy="idClasses")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Eleve", mappedBy="classes")
      */
     private $eleves;
 
@@ -61,6 +61,11 @@ class Classe
         $this->eleves = new ArrayCollection();
     }
 
+
+    /**
+     * Return the Class ID.
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;

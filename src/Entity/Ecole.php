@@ -24,7 +24,7 @@ class Ecole
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Implantation", mappedBy="idEcole")
+     * @ORM\OneToMany(targetEntity="App\Entity\Implantation", mappedBy="id")
      */
     private $implantations;
 

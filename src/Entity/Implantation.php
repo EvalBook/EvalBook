@@ -50,12 +50,12 @@ class Implantation
     private $defaultImplantation;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Classe", mappedBy="idImplantation")
+     * @ORM\OneToMany(targetEntity="App\Entity\Classe", mappedBy="id")
      */
     private $classes;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Periode", mappedBy="idImplantation")
+     * @ORM\OneToMany(targetEntity="App\Entity\Periode", mappedBy="id")
      */
     private $periodes;
 

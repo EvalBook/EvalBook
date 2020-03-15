@@ -38,14 +38,16 @@ class UserFixtures extends Fixture
 
         for($i = 0; $i < 15; $i++) {
             $user = new User();
-            $user->setFirstName("Admin")
-                 ->setEmail("admin@evalbook.dev")
+            $user->setLastName("LnUser $i")
+                 ->setFirstName("FnUser $i")
+                 ->setEmail("user-$i@evalbook.dev")
                  ->setPassword($this->encoder->encodePassword($superAdmin, "Dev007!!"))
                  ->setActive(true)
                  ->setRoles(array("USER_ADMIN"));
 
             $manager->persist($user);
         }
+
         $manager->persist($superAdmin);
         $manager->flush();
     }
