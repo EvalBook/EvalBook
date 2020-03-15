@@ -13,7 +13,7 @@ use App\Entity\Ecole;
  */
 class EcoleFixtures extends Fixture
 {
-    public const DEFAULT_SCHOOL = null;
+    public const DEFAULT_SCHOOL = 'default-school';
 
     /**
      * Load the fixtures.

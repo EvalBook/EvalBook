@@ -14,6 +14,8 @@ use App\Entity\Implantation;
 class ImplantationFixtures extends Fixture implements DependentFixtureInterface
 {
 
+    public const implantationsReference = 'implantations-';
+
     /**
      * Load the fixtures.
      * @param ObjectManager $manager
@@ -32,6 +34,9 @@ class ImplantationFixtures extends Fixture implements DependentFixtureInterface
 
                 // Relation between implantation and school.
                 ->setEcole($this->getReference(EcoleFixtures::DEFAULT_SCHOOL));
+
+            // Adding implantation reference for relational fixtures.
+            $this->addReference(self::implantationsReference . $i, $implantation);
 
             $manager->persist($implantation);
         }
