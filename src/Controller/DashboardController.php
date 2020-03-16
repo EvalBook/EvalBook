@@ -12,6 +12,8 @@ class DashboardController extends AbstractController
      */
     public function index()
     {
+        // Will contain statistics about how many users / implantations / activities / active periods and so on.
+
         return $this->render('dashboard/index.html.twig', [
             'controller_name' => 'DashboardController',
         ]);
