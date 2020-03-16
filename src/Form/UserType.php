@@ -57,17 +57,21 @@ class UserType extends AbstractType
                 ]
             ])
 
-            // Active form input.
-            ->add('active', ChoiceType::class, [
-                'label' => $this->translator->trans("Is the user active"),
-                'choices' => [
-                    $this->translator->trans("Yes") => true,
-                    $this->translator->trans("No") => false,
+            // Last name form input.
+            ->add('lastName', TextType::class, [
+                'label' => $this->translator->trans("Enter the user last name"),
+                'constraints' => [
+                    new Length([
+                        'min' => 3,
+                        'max' => 100,
+                        'minMessage' => $this->translator->trans("Last name must have at least 3 characters"),
+                        'maxMessage' => $this->translator->trans('Last name should have a maximum of 100 characters'),
+                    ])
                 ],
                 'required' => true,
                 'attr' => [
                     'class' => 'form-control',
-                    'id' => 'form-user-active'
+                    'id' => 'form-user-last-name'
                 ]
             ])
 
@@ -110,21 +114,17 @@ class UserType extends AbstractType
                 ],
             ])
 
-            // Last name form input.
-            ->add('lastName', TextType::class, [
-                'label' => $this->translator->trans("Enter the user last name"),
-                'constraints' => [
-                    new Length([
-                        'min' => 3,
-                        'max' => 100,
-                        'minMessage' => $this->translator->trans("Last name must have at least 3 characters"),
-                        'maxMessage' => $this->translator->trans('Last name should have a maximum of 100 characters'),
-                    ])
+            // Active form input.
+            ->add('active', ChoiceType::class, [
+                'label' => $this->translator->trans("Is the user active"),
+                'choices' => [
+                    $this->translator->trans("Yes") => true,
+                    $this->translator->trans("No") => false,
                 ],
                 'required' => true,
                 'attr' => [
                     'class' => 'form-control',
-                    'id' => 'form-user-last-name'
+                    'id' => 'form-user-active'
                 ]
             ])
 

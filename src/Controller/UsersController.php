@@ -8,6 +8,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,13 +23,16 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class UsersController extends AbstractController
 {
     private $translator;
+    private $entityManager;
 
     /**
      * UsersController constructor.
+     * @param EntityManagerInterface $entityManager
      * @param TranslatorInterface $translator
      */
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(EntityManagerInterface $entityManager, TranslatorInterface $translator)
     {
+        $this->entityManager = $entityManager;
         $this->translator = $translator;
     }
 
@@ -47,26 +51,26 @@ class UsersController extends AbstractController
 
     /**
      * @Route("/edit/{id}", name="edit")
-     * @param EntityManagerInterface $entityManager
      * @param Request $request
      * @param User $user
      * @return Response
      */
-    public function editUser(EntityManagerInterface $entityManager, Request $request, User $user)
+    public function editUser(Request $request, User $user)
     {
         $userEditForm = $this->createForm(UserType::class, $user);
-        $userEditForm->handleRequest($request);
+        try {
+            $userEditForm->handleRequest($request);
 
-        // Checking if form is valid and is submited.
-        if($userEditForm->isSubmitted() && $userEditForm->isValid()) {
-            try {
-                $entityManager->persist($user);
-                $entityManager->flush();
+            // Checking if form is valid and is submited.
+            if($userEditForm->isSubmitted() && $userEditForm->isValid()) {
+                $this->entityManager->persist($user);
+                $this->entityManager->flush();
                 $this->addFlash('success', $this->translator->trans("User updated"));
+                return $this->redirectToRoute("users_list");
             }
-            catch(\Exception $e) {
-                $this->addFlash('danger', $this->translator->trans("Error updating user"));
-            }
+        }
+        catch(\Exception $e) {
+            $this->addFlash('danger', $this->translator->trans("Error updating user"));
         }
 
         return $this->render('users/edit.html.twig', [
@@ -77,12 +81,21 @@ class UsersController extends AbstractController
 
 
     /**
+     * @Route("/add", name="add")
+     * @param Request $request
+     */
+    public function addUser(Request $request)
+    {
+
+    }
+
+
+    /**
      * @Route("/delete/{id}", name="delete")
-     * @param EntityManager $entityManager
      * @param User $user
      * @return Response
      */
-    public function deleteUser(EntityManagerInterface $entityManager, User $user)
+    public function deleteUser(User $user)
     {
         dd($user);
         return $this->render('users/delete.html.twig');
