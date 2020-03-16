@@ -81,14 +81,6 @@
         <source>Actif</source>
         <target>__Actif</target>
       </trans-unit>
-      <trans-unit id="CpBAdjn" resname="Oui">
-        <source>Oui</source>
-        <target>__Oui</target>
-      </trans-unit>
-      <trans-unit id="f2JJawy" resname="Non">
-        <source>Non</source>
-        <target>__Non</target>
-      </trans-unit>
       <trans-unit id="QuN2BLY" resname="Modifier">
         <source>Modifier</source>
         <target>__Modifier</target>

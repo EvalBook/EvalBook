@@ -32,17 +32,17 @@
                         </td>
                         <td>
                             {% if user.active %}
-                                {{ 'Oui' | trans }}
+                                {{ 'Yes' | trans }}
                             {% else %}
-                                {{ 'Non' | trans }}
+                                {{ 'No' | trans }}
                             {% endif %}
                         </td>
                         <td>
                             {# TODO add user id in route parameters #}
-                            <a href="{{ path('users_list') }}" class="btn btn-primary">{{ 'Modifier' | trans }}</a>
+                            <a href="{{ path('users_edit', {id:user.id}) }}" class="btn btn-primary">{{ 'Modifier' | trans }}</a>
                         </td>
                         <td>
-                            <a href="{{ path('users_list') }}" class="btn btn-danger">{{ 'Supprimer' | trans }}</a>
+                            <a href="{{ path('users_delete',{id:user.id}) }}" class="btn btn-danger">{{ 'Supprimer' | trans }}</a>
                         </td>
                     </tr>
                 {% endfor %}
