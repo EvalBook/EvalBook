@@ -85,6 +85,7 @@ class UserType extends AbstractType
                 ]
             ])
 
+            // TODO Dealing with roles.
             //->add('roles', ChoiceType::class, [
 
             //])

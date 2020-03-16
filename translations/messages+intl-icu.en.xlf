@@ -93,6 +93,74 @@
         <source>No users found</source>
         <target>__No users found</target>
       </trans-unit>
+      <trans-unit id=".ZDkLSt" resname="User updated">
+        <source>User updated</source>
+        <target>__User updated</target>
+      </trans-unit>
+      <trans-unit id="AK6XYO7" resname="Error updating user">
+        <source>Error updating user</source>
+        <target>__Error updating user</target>
+      </trans-unit>
+      <trans-unit id="bVhYOfd" resname="Enter the user first name">
+        <source>Enter the user first name</source>
+        <target>__Enter the user first name</target>
+      </trans-unit>
+      <trans-unit id="2gTuWOv" resname="First name must have at least 3 characters">
+        <source>First name must have at least 3 characters</source>
+        <target>__First name must have at least 3 characters</target>
+      </trans-unit>
+      <trans-unit id="y2.T5sC" resname="First name should have a maximum of 100 characters">
+        <source>First name should have a maximum of 100 characters</source>
+        <target>__First name should have a maximum of 100 characters</target>
+      </trans-unit>
+      <trans-unit id="HXfCxRB" resname="Is the user active">
+        <source>Is the user active</source>
+        <target>__Is the user active</target>
+      </trans-unit>
+      <trans-unit id="haOas0X" resname="Yes">
+        <source>Yes</source>
+        <target>__Yes</target>
+      </trans-unit>
+      <trans-unit id="HqRCoTS" resname="No">
+        <source>No</source>
+        <target>__No</target>
+      </trans-unit>
+      <trans-unit id="Ohs8X42" resname="E-mail cannot be null">
+        <source>E-mail cannot be null</source>
+        <target>__E-mail cannot be null</target>
+      </trans-unit>
+      <trans-unit id="TdLhlyP" resname="The password fields must match.">
+        <source>The password fields must match.</source>
+        <target>__The password fields must match.</target>
+      </trans-unit>
+      <trans-unit id="588_9PF" resname="Password">
+        <source>Password</source>
+        <target>__Password</target>
+      </trans-unit>
+      <trans-unit id="Hkmh4Tp" resname="Repeat Password">
+        <source>Repeat Password</source>
+        <target>__Repeat Password</target>
+      </trans-unit>
+      <trans-unit id="KsBh01J" resname="Enter the user last name">
+        <source>Enter the user last name</source>
+        <target>__Enter the user last name</target>
+      </trans-unit>
+      <trans-unit id="DSyUNuE" resname="Last name must have at least 3 characters">
+        <source>Last name must have at least 3 characters</source>
+        <target>__Last name must have at least 3 characters</target>
+      </trans-unit>
+      <trans-unit id="v9W_1Lh" resname="Last name should have a maximum of 100 characters">
+        <source>Last name should have a maximum of 100 characters</source>
+        <target>__Last name should have a maximum of 100 characters</target>
+      </trans-unit>
+      <trans-unit id="9vRoj.I" resname="Send">
+        <source>Send</source>
+        <target>__Send</target>
+      </trans-unit>
+      <trans-unit id="8CtNKBX" resname="Edit user:">
+        <source>Edit user:</source>
+        <target>__Edit user:</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
