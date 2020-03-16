@@ -44,7 +44,7 @@ class Eleve
     private $contacts;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="eleve")
      */
     private $notes;
 

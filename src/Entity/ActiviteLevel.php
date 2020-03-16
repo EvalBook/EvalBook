@@ -24,7 +24,7 @@ class ActiviteLevel
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Activite", mappedBy="idLevel")
+     * @ORM\OneToMany(targetEntity="App\Entity\Activite", mappedBy="level")
      */
     private $activites;
 

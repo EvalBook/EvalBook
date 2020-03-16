@@ -44,7 +44,7 @@ class Contact
     private $country;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Eleve", mappedBy="id")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Eleve", mappedBy="contacts")
      */
     private $eleves;
 

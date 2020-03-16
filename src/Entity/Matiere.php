@@ -24,7 +24,7 @@ class Matiere
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Activite", mappedBy="id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Activite", mappedBy="matiere")
      */
     private $activites;
 

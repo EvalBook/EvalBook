@@ -64,7 +64,7 @@ class Activite
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Note", mappedBy="idActivite")
+     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="activite")
      */
     private $notes;
 

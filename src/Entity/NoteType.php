@@ -34,7 +34,7 @@ class NoteType
     private $coefficient;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Activite", mappedBy="id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Activite", mappedBy="noteType")
      */
     private $activites;
 

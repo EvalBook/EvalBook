@@ -39,7 +39,7 @@ class Periode
     private $active;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Activite", mappedBy="id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Activite", mappedBy="periode")
      */
     private $activites;
 

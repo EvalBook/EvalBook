@@ -51,12 +51,12 @@ class User implements UserInterface
     private $active;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Classe")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Classe", inversedBy="users")
      */
     private $classes;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Activite", mappedBy="id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Activite", mappedBy="user")
      */
     private $activites;
 
