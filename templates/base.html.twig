@@ -13,14 +13,6 @@
     <body>
         <div class="container-fluid">
 
-            {% for label, messages in app.flashes %}
-                {% for message in messages %}
-                    <div class="alert alert-{{ label }}">
-                        {{ message | trans }}
-                    </div>
-                {% endfor %}
-            {% endfor %}
-
             <div class="row" id="header">
                 <div class="col-lg-8 head-content">
                     <h1><img src="assets/img/logos/logo_evalbook.png"></h1>
@@ -35,6 +27,14 @@
             </div>
 
         </div>
+
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }}">
+                    {{ message | trans }}
+                </div>
+            {% endfor %}
+        {% endfor %}
 
         {% block body %}{% endblock %}
 

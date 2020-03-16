@@ -34,7 +34,7 @@ class TestController extends AbstractController
         if($result)
             $this->addFlash('success', $translator->trans('User created'));
         else
-            $this->addFlash('error', $translator->trans('User creation error'));
+            $this->addFlash('danger', $translator->trans('User creation error'));
 
 
 

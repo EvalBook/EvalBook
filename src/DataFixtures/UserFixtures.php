@@ -28,27 +28,27 @@ class UserFixtures extends Fixture
      */
     public function load(ObjectManager $manager)
     {
-        $superAdmin = new User();
-        $superAdmin->setLastName("Admin")
-                ->setFirstName("Admin")
-                ->setEmail("admin@evalbook.dev")
-                ->setPassword($this->encoder->encodePassword($superAdmin, "Dev007!!"))
-                ->setActive(true)
-                ->setRoles(array("USER_ADMIN"));
+        $admin = new User();
+        $admin->setLastName("Admin")
+              ->setFirstName("Admin")
+              ->setEmail("admin@evalbook.dev")
+              ->setPassword($this->encoder->encodePassword($admin, "Dev007!!"))
+              ->setActive(true)
+              ->setRoles(array("USER_ADMIN"));
 
         for($i = 0; $i < 15; $i++) {
             $user = new User();
             $user->setLastName("LnUser $i")
                  ->setFirstName("FnUser $i")
                  ->setEmail("user-$i@evalbook.dev")
-                 ->setPassword($this->encoder->encodePassword($superAdmin, "Dev007!!"))
+                 ->setPassword($this->encoder->encodePassword($admin, "Dev007!!"))
                  ->setActive(true)
                  ->setRoles(array("USER_ADMIN"));
 
             $manager->persist($user);
         }
 
-        $manager->persist($superAdmin);
+        $manager->persist($admin);
         $manager->flush();
     }
 
