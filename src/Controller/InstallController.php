@@ -2,10 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity;
 use App\Helper\CommonUserHelper;
-
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,10 +10,15 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class TestController extends AbstractController
+/**
+ * @Route("/install", name="install_")
+ * @package App\Controller
+ */
+class InstallController extends AbstractController
 {
+
     /**
-     * @Route("/test", name="test")
+     * @Route("/", name="index")
      * @param EntityManagerInterface $em
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param TranslatorInterface $translator
@@ -25,7 +27,7 @@ class TestController extends AbstractController
     public function index(EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder, TranslatorInterface $translator)
     {
         /**
-         * Création d'un utilisateur et sécurisation du mot de passe en utilisant la classe helper...
+         * Exemple pour créer une secrétaire.
          */
 
         // Création d'une secrétaire.
@@ -37,9 +39,8 @@ class TestController extends AbstractController
             $this->addFlash('danger', $translator->trans('User creation error'));
 
 
-
-        return $this->render('test/index.html.twig', [
-            'controller_name' => 'TestController',
+        return $this->render('install/index.html.twig', [
+            'controller_name' => 'InstallController',
         ]);
     }
 }
