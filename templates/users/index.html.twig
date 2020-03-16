@@ -3,9 +3,54 @@
 {% block title %}{{ 'Utilisateurs' | trans }}{% endblock %}
 
 {% block body %}
-
-    {% for user in users %}
-        {{ user.firstName }}
-    {% endfor %}
-
+    {# TODO Handle granted perms. #}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>{{ 'Id' | trans }}</th>
+                <th>{{ 'First name' | trans }}</th>
+                <th>{{ 'Last  name' | trans }}</th>
+                <th>{{ 'E-mail' | trans }}</th>
+                <th>{{ 'Roles' | trans }}</th>
+                <th>{{ 'Actif' | trans }}</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if users|length > 0 %}
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.firstName }}</td>
+                        <td>{{ user.lastName }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            {% for role in user.roles %}
+                                {{ role | replace({'ROLE_' : '', 'USER_' : ''}) | capitalize }}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% if user.active %}
+                                {{ 'Oui' | trans }}
+                            {% else %}
+                                {{ 'Non' | trans }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {# TODO add user id in route parameters #}
+                            <a href="{{ path('users_list') }}" class="btn btn-primary">{{ 'Modifier' | trans }}</a>
+                        </td>
+                        <td>
+                            <a href="{{ path('users_list') }}" class="btn btn-danger">{{ 'Supprimer' | trans }}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="8">{{ 'No users found' | trans }}</td>
+                </tr>
+            {%  endif %}
+        </tbody>
+    </table>
 {% endblock %}
