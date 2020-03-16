@@ -47,6 +47,7 @@ body, html
     margin-bottom: 2px;
 }
 
+
 .profile span
 {
     display: block;
@@ -56,8 +57,10 @@ body, html
 #footer
 {
     position: absolute;
+    display: block;
     bottom: 0;
 }
+
 
 .footer-content
 {
@@ -98,4 +101,11 @@ a /*available for all website*/
     font: inherit;
     color: inherit;
     text-decoration: underline;
+}
+
+
+/*Evaluations*/
+#eval-form
+{
+    display: inline-block;
 }
