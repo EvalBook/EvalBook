@@ -33,11 +33,11 @@ body, html
 .profile
 {
     position: relative;
-    left: 25%;
     top: 25%;
     text-align: center;
     width: 25%;
     line-height: 0.9em;
+    float: left;
 }
 
 
