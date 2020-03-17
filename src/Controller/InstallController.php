@@ -32,7 +32,7 @@ class InstallController extends AbstractController
 
         // Création d'une secrétaire.
         $helper = new CommonUserHelper($em, $passwordEncoder);
-        $result = $helper->createSecretary("first", "lastName", "admin@evalbook.dev", "Dev007!!");
+        $result = $helper->createSecretary("firstfake", "lastNamefake", "admin22654891321@evalbook.dev", "Dev007!!");
         if($result)
             $this->addFlash('success', $translator->trans('User created'));
         else

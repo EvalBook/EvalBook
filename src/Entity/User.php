@@ -374,7 +374,7 @@ class User implements UserInterface
      * Return a list of all available roles.
      * @Return String[]
      */
-    public function getAssignableRoles(): array
+    public static function getAssignableRoles(): array
     {
         return array(
             'ROLE_ADMIN',

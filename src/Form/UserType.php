@@ -89,10 +89,19 @@ class UserType extends AbstractType
                 ]
             ])
 
-            // TODO Dealing with roles.
-            //->add('roles', ChoiceType::class, [
 
-            //])
+            ->add('roles', ChoiceType::class, [
+                'label' => 'Choose the user roles',
+                'required' => true,
+                'attr' => [
+                    'class' => 'form-check',
+                    'id' => 'form-user-roles'
+                ],
+                'multiple' => true,
+                'expanded' => true,
+                'choices' => array_combine(User::getAssignableRoles(), User::getAssignableRoles()),
+            ])
+
                 // Password and password verify form inputs.
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,

@@ -34,7 +34,7 @@ class UserFixtures extends Fixture
               ->setEmail("admin@evalbook.dev")
               ->setPassword($this->encoder->encodePassword($admin, "Dev007!!"))
               ->setActive(true)
-              ->setRoles(array("USER_ADMIN"));
+              ->setRoles(array("ROLE_ADMIN"));
 
         for($i = 0; $i < 15; $i++) {
             $user = new User();
@@ -43,7 +43,7 @@ class UserFixtures extends Fixture
                  ->setEmail("user-$i@evalbook.dev")
                  ->setPassword($this->encoder->encodePassword($admin, "Dev007!!"))
                  ->setActive(true)
-                 ->setRoles(array("USER_ADMIN"));
+                 ->setRoles(array("ROLE_ADMIN"));
 
             $manager->persist($user);
         }
