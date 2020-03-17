@@ -20,4 +20,9 @@ a /*available for all of the website*/
     text-decoration: underline;
 }
 
-
+#eval-form input
+{
+    border: 2px solid #444444;
+    border-radius: 20px;
+    margin-left: 5px;
+}
