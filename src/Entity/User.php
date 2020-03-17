@@ -368,4 +368,52 @@ class User implements UserInterface
 
         return $this;
     }
+
+
+    /**
+     * Return a list of all available roles.
+     * @Return String[]
+     */
+    public function getAssignableRoles(): array
+    {
+        return array(
+            'ROLE_ADMIN',
+            // Users related.
+            'ROLE_USERS_LIST',
+            'ROLE_USER_CREATE',
+            'ROLE_USER_EDIT',
+            'ROLE_USER_DELETE',
+            // Students related.
+            'ROLE_STUDENTS_LIST',
+            'ROLE_STUDENT_CREATE',
+            'ROLE_STUDENT_EDIT',
+            'ROLE_STUDENT_DELETE',
+            // Periods related.
+            'ROLE_PERIODS_LIST',
+            'ROLE_PERIOD_CREATE',
+            'ROLE_PERIOD_EDIT',
+            'ROLE_PERIOD_DELETE',
+            // Classes related.
+            'ROLE_CLASSES_LIST',
+            'ROLE_CLASS_CREATE',
+            'ROLE_CLASS_EDIT',
+            'ROLE_CLASS_DELETE',
+            'ROLE_CLASS_PARAMETERS',
+            'ROLE_CLASS_VIEW',
+            'ROLE_CLASS_ASSIGN_STUDENT',
+            // Activities related.
+            'ROLE_ACTIVITIES_LIST',
+            'ROLE_ACTIVITY_CREATE',
+            'ROLE_ACTIVITY_EDIT',
+            'ROLE_ACTIVITY_DELETE',
+            // Notebook related.
+            'ROLE_NOTEBOOK_VIEW',
+            // Bulletins related.
+            'ROLE_BULLETINS_LIST',
+            'ROLE_BULLETINS_PRINT',
+            'ROLE_BULLETIN_VALIDATE',
+            'ROLE_BULLETIN_ADD_COMMENT',
+            'ROLE_BULLETIN_STYLE_EDIT',
+        );
+    }
 }
