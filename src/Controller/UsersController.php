@@ -20,6 +20,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserRoleType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
@@ -87,13 +88,44 @@ class UsersController extends AbstractController
             }
         }
         catch(\Exception $e) {
-            dd($e);
             $this->addFlash('danger', $this->translator->trans("Error updating user"));
         }
 
         return $this->render('users/edit.html.twig', [
             'userForm' => $userEditForm->createView(),
             'username' => $user->getFirstName() . " " . $user->getLastName() | "",
+            'userId' => $user->getId(),
+        ]);
+    }
+
+
+    /**
+     * @Route("/roles/{id}", name="role_edit")
+     * @param Request $request
+     * @param User $user
+     * @return RedirectResponse|Response
+     */
+    public function setRoles(Request $request, User $user)
+    {
+        $userRolesForm = $this->createForm(UserRoleType::class, $user);
+        try {
+            $userRolesForm->handleRequest($request);
+
+            if ($userRolesForm->isSubmitted() && $userRolesForm->isValid()) {
+                $this->entityManager->persist($user);
+                $this->entityManager->flush();
+                $this->addFlash('success', $this->translator->trans("User roles updated"));
+                return $this->redirectToRoute("users_edit", ["id" => $user->getId()]);
+            }
+        }
+        catch(\Exception $e) {
+            dd($e);
+            $this->addFlash('danger', $this->translator->trans("Error updating user roles"));
+        }
+
+        return $this->render('users/roles.html.twig', [
+            'userRolesForm' => $userRolesForm->createView(),
+            'userId' => $user->getId(),
         ]);
     }
 

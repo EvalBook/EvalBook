@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'Edit user roles' | trans }}
+{% endblock %}
+
+{% block body %}
+    {{ form(userRolesForm) }}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        window.addEventListener('load', () => {
+            let buttonBack = document.getElementById('user_role_back');
+            buttonBack.addEventListener("click", () => {
+                window.location.replace("{{ url('users_edit', {id:userId}) }}") ;
+            })
+        })
+    </script>
+{% endblock %}

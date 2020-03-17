@@ -21,6 +21,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -68,10 +69,7 @@ class UserType extends AbstractType
                     ])
                 ],
                 'required' => true,
-                'attr' => [
-                    'class' => 'form-control',
-                    'id' => 'form-user-first-name'
-                ]
+                'attr' => ['class' => 'form-control']
             ])
 
             // Last name form input.
@@ -86,10 +84,7 @@ class UserType extends AbstractType
                     ])
                 ],
                 'required' => true,
-                'attr' => [
-                    'class' => 'form-control',
-                    'id' => 'form-user-last-name'
-                ]
+                'attr' => ['class' => 'form-control']
             ])
 
             // Email form input.
@@ -100,23 +95,7 @@ class UserType extends AbstractType
                     ])
                 ],
                 'required' => true,
-                'attr' => [
-                    'class' => 'form-control',
-                    'id' => 'form-user-email'
-                ]
-            ])
-
-
-            ->add('roles', ChoiceType::class, [
-                'label' => 'Choose the user roles',
-                'required' => true,
-                'attr' => [
-                    'class' => 'form-check',
-                    'id' => 'form-user-roles'
-                ],
-                'multiple' => true,
-                'expanded' => true,
-                'choices' => array_combine(User::getAssignableRoles(), User::getAssignableRoles()),
+                'attr' => ['class' => 'form-control']
             ])
 
                 // Password and password verify form inputs.
@@ -124,9 +103,7 @@ class UserType extends AbstractType
                 'type' => PasswordType::class,
                 'invalid_message' => $this->translator->trans('The password fields must match.'),
                 'options' => [
-                    'attr' => [
-                        'class' => 'form-control'
-                    ]
+                    'attr' => ['class' => 'form-control']
                 ],
                 'required' => false,
                 'empty_data' => '',
@@ -148,17 +125,24 @@ class UserType extends AbstractType
                     $this->translator->trans("No") => false,
                 ],
                 'required' => true,
-                'attr' => [
-                    'class' => 'form-control',
-                    'id' => 'form-user-active'
-                ]
+                'attr' => ['class' => 'form-control']
+            ])
+
+            // Edit use roles.
+            ->add("roles", ButtonType::class, [
+                'label' => $this->translator->trans("Edit user roles"),
+                'attr' => ['class' => 'btn btn-primary'],
+            ])
+
+            // Go back to the users list.
+            ->add('back', ButtonType::class, [
+                'label' => $this->translator->trans("Go back"),
+                'attr' => ['class' => 'btn btn-primary'],
             ])
 
             // Submit button.
             ->add($this->translator->trans("Send"), SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-primary',
-                ]
+                'attr' => ['class' => 'btn btn-primary']
             ])
         ;
     }

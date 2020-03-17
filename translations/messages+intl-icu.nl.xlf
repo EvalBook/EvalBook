@@ -277,6 +277,26 @@
         <source>ROLE_BULLETIN_STYLE_EDIT</source>
         <target>No users found</target>
       </trans-unit>
+      <trans-unit id="0" resname="Edit user">
+        <source>Edit user</source>
+        <target>Edit user</target>
+      </trans-unit>
+      <trans-unit id="1">
+        <source>Edit user roles</source>
+        <target>Edit user roles</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Go back</source>
+        <target>Go back</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Error updating user roles</source>
+        <target>Error updating user roles</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>User roles updated</source>
+        <target>User roles updated</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
