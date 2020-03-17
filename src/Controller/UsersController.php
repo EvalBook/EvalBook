@@ -70,6 +70,7 @@ class UsersController extends AbstractController
             }
         }
         catch(\Exception $e) {
+            dd($e);
             $this->addFlash('danger', $this->translator->trans("Error updating user"));
         }
 

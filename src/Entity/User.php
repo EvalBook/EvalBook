@@ -372,7 +372,6 @@ class User implements UserInterface
 
     /**
      * Return a list of all available roles.
-     * @Return String[]
      */
     public static function getAssignableRoles(): array
     {
