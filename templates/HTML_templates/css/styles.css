@@ -1,0 +1,23 @@
+body, html
+{
+    background-color: #f8f7ed;
+    font-family: 'Roboto', sans-serif;
+    color: #111111;
+    height: 100%;
+    margin:0;
+    padding: 0;
+}
+
+.container-fluid
+{
+    padding : 0;
+}
+
+a /*available for all of the website*/
+{
+    font: inherit;
+    color: inherit;
+    text-decoration: underline;
+}
+
+
