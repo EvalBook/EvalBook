@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'Utilisateurs' | trans }}{% endblock %}
+{% block title %}{{ 'Users' | trans }}{% endblock %}
 
 {% block body %}
     {# TODO Handle granted perms. #}
@@ -12,7 +12,7 @@
                 <th>{{ 'Last  name' | trans }}</th>
                 <th>{{ 'E-mail' | trans }}</th>
                 <th>{{ 'Roles' | trans }}</th>
-                <th>{{ 'Actif' | trans }}</th>
+                <th>{{ 'Active' | trans }}</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -27,7 +27,7 @@
                         <td>{{ user.email }}</td>
                         <td>
                             {% for role in user.roles %}
-                                {{ role | replace({'ROLE_' : '', 'USER_' : ''}) | capitalize }}
+                                {{ role | trans }}
                             {% endfor %}
                         </td>
                         <td>
@@ -39,10 +39,10 @@
                         </td>
                         <td>
                             {# TODO add user id in route parameters #}
-                            <a href="{{ path('users_edit', {id:user.id}) }}" class="btn btn-primary">{{ 'Modifier' | trans }}</a>
+                            <a href="{{ path('users_edit', {id:user.id}) }}" class="btn btn-primary">{{ 'Edit' | trans }}</a>
                         </td>
                         <td>
-                            <a href="{{ path('users_delete',{id:user.id}) }}" class="btn btn-danger">{{ 'Supprimer' | trans }}</a>
+                            <a href="{{ path('users_delete',{id:user.id}) }}" class="btn btn-danger">{{ 'Delete' | trans }}</a>
                         </td>
                     </tr>
                 {% endfor %}

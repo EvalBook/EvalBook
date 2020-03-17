@@ -5,17 +5,85 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="quF9RdS" resname="Connect me">
-        <source>Connect me</source>
-        <target>Me connecter</target>
+      <trans-unit id=".ZDkLSt" resname="User updated">
+        <source>User updated</source>
+        <target>Utilisateur mis à jour</target>
+      </trans-unit>
+      <trans-unit id="AK6XYO7" resname="Error updating user">
+        <source>Error updating user</source>
+        <target>Erreur lors de la mise a jour utilisateur</target>
+      </trans-unit>
+      <trans-unit id="bVhYOfd" resname="Enter the user first name">
+        <source>Enter the user first name</source>
+        <target>Entrez le prénom utilisateur</target>
+      </trans-unit>
+      <trans-unit id="2gTuWOv" resname="First name must have at least 3 characters">
+        <source>First name must have at least 3 characters</source>
+        <target>Le prénom doit contenir au moins 3 caractères</target>
+      </trans-unit>
+      <trans-unit id="y2.T5sC" resname="First name should have a maximum of 100 characters">
+        <source>First name should have a maximum of 100 characters</source>
+        <target>Le prénom ne doit pas dépasser 100 caractères.</target>
+      </trans-unit>
+      <trans-unit id="KsBh01J" resname="Enter the user last name">
+        <source>Enter the user last name</source>
+        <target>Entrez le nom de l'utilisateur.</target>
+      </trans-unit>
+      <trans-unit id="DSyUNuE" resname="Last name must have at least 3 characters">
+        <source>Last name must have at least 3 characters</source>
+        <target>Le nom de l'utilisateur doit comporter au moins 3 caractères</target>
+      </trans-unit>
+      <trans-unit id="v9W_1Lh" resname="Last name should have a maximum of 100 characters">
+        <source>Last name should have a maximum of 100 characters</source>
+        <target>Le nom de l'utilisateur ne doit pas dépasser les 100 caractères</target>
+      </trans-unit>
+      <trans-unit id="Ohs8X42" resname="E-mail cannot be null">
+        <source>E-mail cannot be null</source>
+        <target>L'adresse e-mail ne peut être vide</target>
+      </trans-unit>
+      <trans-unit id="TdLhlyP" resname="The password fields must match.">
+        <source>The password fields must match.</source>
+        <target>Les deux champs de mot de passe doivent correspondre</target>
+      </trans-unit>
+      <trans-unit id="588_9PF" resname="Password">
+        <source>Password</source>
+        <target>Mot de passe</target>
+      </trans-unit>
+      <trans-unit id="Hkmh4Tp" resname="Repeat Password">
+        <source>Repeat Password</source>
+        <target>Répétez le mot de passe</target>
+      </trans-unit>
+      <trans-unit id="HXfCxRB" resname="Is the user active">
+        <source>Is the user active</source>
+        <target>L'utilisateur est actif ?</target>
+      </trans-unit>
+      <trans-unit id="haOas0X" resname="Yes">
+        <source>Yes</source>
+        <target>Oui</target>
+      </trans-unit>
+      <trans-unit id="HqRCoTS" resname="No">
+        <source>No</source>
+        <target>Non</target>
+      </trans-unit>
+      <trans-unit id="9vRoj.I" resname="Send">
+        <source>Send</source>
+        <target>Envoyer</target>
+      </trans-unit>
+      <trans-unit id="5Q33cP_" resname="User created">
+        <source>User created</source>
+        <target>Utilisateur créé</target>
+      </trans-unit>
+      <trans-unit id="1LHfXJT" resname="User creation error">
+        <source>User creation error</source>
+        <target>Une erreur est survenue en créant l'utilisateur</target>
       </trans-unit>
       <trans-unit id="mG5JlMx" resname="The teachers eval tool">
         <source>The teachers eval tool</source>
-        <target>L'outil d'évaluation pour les enseignants</target>
+        <target>L'outil d'évaluation pour les professeurs</target>
       </trans-unit>
       <trans-unit id="Jxxi_i3" resname="My profile">
         <source>My profile</source>
-        <target>Mon profil</target>
+        <target>Mon profile</target>
       </trans-unit>
       <trans-unit id="uud8qmh" resname="Project initiated by">
         <source>Project initiated by</source>
@@ -29,22 +97,6 @@
         <source>Read the user manual</source>
         <target>Lire le manuel utilisateur</target>
       </trans-unit>
-      <trans-unit id="_TJnqhH" resname="Remember me">
-        <source>Remember me</source>
-        <target>Se souvenir de moi</target>
-      </trans-unit>
-      <trans-unit id="wYmEDPf" resname="Log in">
-        <source>Log in</source>
-        <target>Connexion</target>
-      </trans-unit>
-      <trans-unit id="5Q33cP_" resname="User created">
-        <source>User created</source>
-        <target>Utilisateur créé</target>
-      </trans-unit>
-      <trans-unit id="1LHfXJT" resname="User creation error">
-        <source>User creation error</source>
-        <target>Erreur lors de la création de l'utilisateur</target>
-      </trans-unit>
       <trans-unit id="GX7_TSV" resname="My e-mail">
         <source>My e-mail</source>
         <target>Mon e-mail</target>
@@ -53,113 +105,177 @@
         <source>My password</source>
         <target>Mon mot de passe</target>
       </trans-unit>
-      <trans-unit id="I9OTi17" resname="Utilisateurs">
-        <source>Utilisateurs</source>
-        <target>__Utilisateurs</target>
+      <trans-unit id="_TJnqhH" resname="Remember me">
+        <source>Remember me</source>
+        <target>Se souvenir de moi</target>
       </trans-unit>
-      <trans-unit id="EhVukhv" resname="Id">
-        <source>Id</source>
-        <target>__Id</target>
-      </trans-unit>
-      <trans-unit id="cC75Ie0" resname="First name">
-        <source>First name</source>
-        <target>__First name</target>
-      </trans-unit>
-      <trans-unit id="XYssyd5" resname="Last  name">
-        <source>Last  name</source>
-        <target>__Last  name</target>
-      </trans-unit>
-      <trans-unit id="JVDZYuU" resname="E-mail">
-        <source>E-mail</source>
-        <target>__E-mail</target>
-      </trans-unit>
-      <trans-unit id="wlM3BVR" resname="Roles">
-        <source>Roles</source>
-        <target>__Roles</target>
-      </trans-unit>
-      <trans-unit id="rSYoerZ" resname="Actif">
-        <source>Actif</source>
-        <target>__Actif</target>
-      </trans-unit>
-      <trans-unit id="QuN2BLY" resname="Modifier">
-        <source>Modifier</source>
-        <target>__Modifier</target>
-      </trans-unit>
-      <trans-unit id="Xl0CFs4" resname="Supprimer">
-        <source>Supprimer</source>
-        <target>__Supprimer</target>
-      </trans-unit>
-      <trans-unit id="vx4QT7P" resname="No users found">
-        <source>No users found</source>
-        <target>__No users found</target>
-      </trans-unit>
-      <trans-unit id=".ZDkLSt" resname="User updated">
-        <source>User updated</source>
-        <target>__User updated</target>
-      </trans-unit>
-      <trans-unit id="AK6XYO7" resname="Error updating user">
-        <source>Error updating user</source>
-        <target>__Error updating user</target>
-      </trans-unit>
-      <trans-unit id="bVhYOfd" resname="Enter the user first name">
-        <source>Enter the user first name</source>
-        <target>__Enter the user first name</target>
-      </trans-unit>
-      <trans-unit id="2gTuWOv" resname="First name must have at least 3 characters">
-        <source>First name must have at least 3 characters</source>
-        <target>__First name must have at least 3 characters</target>
-      </trans-unit>
-      <trans-unit id="y2.T5sC" resname="First name should have a maximum of 100 characters">
-        <source>First name should have a maximum of 100 characters</source>
-        <target>__First name should have a maximum of 100 characters</target>
-      </trans-unit>
-      <trans-unit id="HXfCxRB" resname="Is the user active">
-        <source>Is the user active</source>
-        <target>__Is the user active</target>
-      </trans-unit>
-      <trans-unit id="haOas0X" resname="Yes">
-        <source>Yes</source>
-        <target>__Yes</target>
-      </trans-unit>
-      <trans-unit id="HqRCoTS" resname="No">
-        <source>No</source>
-        <target>__No</target>
-      </trans-unit>
-      <trans-unit id="Ohs8X42" resname="E-mail cannot be null">
-        <source>E-mail cannot be null</source>
-        <target>__E-mail cannot be null</target>
-      </trans-unit>
-      <trans-unit id="TdLhlyP" resname="The password fields must match.">
-        <source>The password fields must match.</source>
-        <target>__The password fields must match.</target>
-      </trans-unit>
-      <trans-unit id="588_9PF" resname="Password">
-        <source>Password</source>
-        <target>__Password</target>
-      </trans-unit>
-      <trans-unit id="Hkmh4Tp" resname="Repeat Password">
-        <source>Repeat Password</source>
-        <target>__Repeat Password</target>
-      </trans-unit>
-      <trans-unit id="KsBh01J" resname="Enter the user last name">
-        <source>Enter the user last name</source>
-        <target>__Enter the user last name</target>
-      </trans-unit>
-      <trans-unit id="DSyUNuE" resname="Last name must have at least 3 characters">
-        <source>Last name must have at least 3 characters</source>
-        <target>__Last name must have at least 3 characters</target>
-      </trans-unit>
-      <trans-unit id="v9W_1Lh" resname="Last name should have a maximum of 100 characters">
-        <source>Last name should have a maximum of 100 characters</source>
-        <target>__Last name should have a maximum of 100 characters</target>
-      </trans-unit>
-      <trans-unit id="9vRoj.I" resname="Send">
-        <source>Send</source>
-        <target>__Send</target>
+      <trans-unit id="wYmEDPf" resname="Log in">
+        <source>Log in</source>
+        <target>Connexion</target>
       </trans-unit>
       <trans-unit id="8CtNKBX" resname="Edit user:">
         <source>Edit user:</source>
-        <target>__Edit user:</target>
+        <target>Editer utilisateur:</target>
+      </trans-unit>
+      <trans-unit id="awzJBNC" resname="Users">
+        <source>Users</source>
+        <target>Utilisateurs</target>
+      </trans-unit>
+      <trans-unit id="EhVukhv" resname="Id">
+        <source>Id</source>
+        <target>Id</target>
+      </trans-unit>
+      <trans-unit id="cC75Ie0" resname="First name">
+        <source>First name</source>
+        <target>Prénom</target>
+      </trans-unit>
+      <trans-unit id="XYssyd5" resname="Last  name">
+        <source>Last  name</source>
+        <target>Nom</target>
+      </trans-unit>
+      <trans-unit id="JVDZYuU" resname="E-mail">
+        <source>E-mail</source>
+        <target>E-mail</target>
+      </trans-unit>
+      <trans-unit id="wlM3BVR" resname="Roles">
+        <source>Roles</source>
+        <target>Roles</target>
+      </trans-unit>
+      <trans-unit id="kjQGlYm" resname="Active">
+        <source>Active</source>
+        <target>Actif</target>
+      </trans-unit>
+      <trans-unit id="RkxP.QG" resname="Edit">
+        <source>Edit</source>
+        <target>Modifier</target>
+      </trans-unit>
+      <trans-unit id="4tClSWj" resname="Delete">
+        <source>Delete</source>
+        <target>Supprimer</target>
+      </trans-unit>
+      <trans-unit id="vx4QT7P" resname="No users found">
+        <source>No users found</source>
+        <target>Aucun utilisateur trouvé</target>
+      </trans-unit>
+      <trans-unit id="vx4QT6P" resname="ROLE_ADMIN">
+        <source>ROLE_ADMIN</source>
+        <target>Admin</target>
+      </trans-unit>
+      <trans-unit id="vx4QT5P" resname="ROLE_USERS_LIST">
+        <source>ROLE_USERS_LIST</source>
+        <target>Lister les utilisateurs</target>
+      </trans-unit>
+      <trans-unit id="vx4QT4P" resname="ROLE_USER_CREATE">
+        <source>ROLE_USER_CREATE</source>
+        <target>Créer un utilisateur</target>
+      </trans-unit>
+      <trans-unit id="vx4QT3P" resname="ROLE_USER_EDIT">
+        <source>ROLE_USER_EDIT</source>
+        <target>Modifier un utilisateur</target>
+      </trans-unit>
+      <trans-unit id="vx4QT2P" resname="ROLE_USER_DELETE">
+        <source>ROLE_USER_DELETE</source>
+        <target>Supprimer un utilisateur</target>
+      </trans-unit>
+      <trans-unit id="vx4QT1P" resname="ROLE_STUDENTS_LIST">
+        <source>ROLE_STUDENTS_LIST</source>
+        <target>Lister les élèves</target>
+      </trans-unit>
+      <trans-unit id="vx4QT0P" resname="ROLE_STUDENT_CREATE">
+        <source>ROLE_STUDENT_CREATE</source>
+        <target>Créer un élève</target>
+      </trans-unit>
+      <trans-unit id="vx4Q97P" resname="ROLE_STUDENT_EDIT">
+        <source>ROLE_STUDENT_EDIT</source>
+        <target>Editer un élève</target>
+      </trans-unit>
+      <trans-unit id="vx4Q87P" resname="ROLE_STUDENT_DELETE">
+        <source>ROLE_STUDENT_DELETE</source>
+        <target>Supprimer un élève</target>
+      </trans-unit>
+      <trans-unit id="vx4Q77P" resname="ROLE_PERIODS_LIST">
+        <source>ROLE_PERIODS_LIST</source>
+        <target>Lister les périodes</target>
+      </trans-unit>
+      <trans-unit id="vx4Q67P" resname="ROLE_PERIOD_CREATE">
+        <source>ROLE_PERIOD_CREATE</source>
+        <target>Créer une période</target>
+      </trans-unit>
+      <trans-unit id="vx4Q57P" resname="ROLE_PERIOD_EDIT">
+        <source>ROLE_PERIOD_EDIT</source>
+        <target>Modifier une période</target>
+      </trans-unit>
+      <trans-unit id="vx4Q47P" resname="ROLE_PERIOD_DELETE">
+        <source>ROLE_PERIOD_DELETE</source>
+        <target>Supprimer une période</target>
+      </trans-unit>
+      <trans-unit id="vx4Q37P" resname="ROLE_CLASSES_LIST">
+        <source>ROLE_CLASSES_LIST</source>
+        <target>Lister les classes</target>
+      </trans-unit>
+      <trans-unit id="vx4Q27P" resname="ROLE_CLASS_CREATE">
+        <source>ROLE_CLASS_CREATE</source>
+        <target>Créer une classe</target>
+      </trans-unit>
+      <trans-unit id="vx4Q17P" resname="ROLE_CLASS_EDIT">
+        <source>ROLE_CLASS_EDIT</source>
+        <target>Modifier une classe</target>
+      </trans-unit>
+      <trans-unit id="vx4Q07P" resname="ROLE_CLASS_DELETE">
+        <source>ROLE_CLASS_DELETE</source>
+        <target>Supprimer une classe</target>
+      </trans-unit>
+      <trans-unit id="vx49T7P" resname="ROLE_CLASS_PARAMETERS">
+        <source>ROLE_CLASS_PARAMETERS</source>
+        <target>Paramétrer une classe</target>
+      </trans-unit>
+      <trans-unit id="vx48T7P" resname="ROLE_CLASS_VIEW">
+        <source>ROLE_CLASS_VIEW</source>
+        <target>Voir une classe</target>
+      </trans-unit>
+      <trans-unit id="vx47T7P" resname="ROLE_CLASS_ASSIGN_STUDENT">
+        <source>ROLE_CLASS_ASSIGN_STUDENT</source>
+        <target>Assigner un élève à une classe</target>
+      </trans-unit>
+      <trans-unit id="vx46T7P" resname="ROLE_ACTIVITIES_LIST">
+        <source>ROLE_ACTIVITIES_LIST</source>
+        <target>Lister les activités</target>
+      </trans-unit>
+      <trans-unit id="vx45T7P" resname="ROLE_ACTIVITY_CREATE">
+        <source>ROLE_ACTIVITY_CREATE</source>
+        <target>Créer une activité</target>
+      </trans-unit>
+      <trans-unit id="vx44T7P" resname="ROLE_ACTIVITY_EDIT">
+        <source>ROLE_ACTIVITY_EDIT</source>
+        <target>Editer une activité</target>
+      </trans-unit>
+      <trans-unit id="vx43T7P" resname="ROLE_ACTIVITY_DELETE">
+        <source>ROLE_ACTIVITY_DELETE</source>
+        <target>Supprimer une activité</target>
+      </trans-unit>
+      <trans-unit id="vx42T7P" resname="ROLE_NOTEBOOK_VIEW">
+        <source>ROLE_NOTEBOOK_VIEW</source>
+        <target>Voir le cahier de notes</target>
+      </trans-unit>
+      <trans-unit id="vx41T7P" resname="ROLE_BULLETINS_LIST">
+        <source>ROLE_BULLETINS_LIST</source>
+        <target>Lister les bulletins</target>
+      </trans-unit>
+      <trans-unit id="vx40T7P" resname="ROLE_BULLETINS_PRINT">
+        <source>ROLE_BULLETINS_PRINT</source>
+        <target>Imprimer les bulletins</target>
+      </trans-unit>
+      <trans-unit id="vx9QT7P" resname="ROLE_BULLETIN_VALIDATE">
+        <source>ROLE_BULLETIN_VALIDATE</source>
+        <target>Valider un bulletin</target>
+      </trans-unit>
+      <trans-unit id="vx8QT7P" resname="ROLE_BULLETIN_ADD_COMMENT">
+        <source>ROLE_BULLETIN_ADD_COMMENT</source>
+        <target>Ajouter un commentaire à un bulletin</target>
+      </trans-unit>
+      <trans-unit id="vx7QT7P" resname="ROLE_BULLETIN_STYLE_EDIT">
+        <source>ROLE_BULLETIN_STYLE_EDIT</source>
+        <target>Editer le style d'un bulletin</target>
       </trans-unit>
     </body>
   </file>
