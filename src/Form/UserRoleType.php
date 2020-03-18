@@ -45,13 +45,7 @@ class UserRoleType extends AbstractType
             // Submit button.
             ->add($this->translator->trans("Send"), SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary']
-            ])
-
-            ->add('back', ButtonType::class, [
-                'label' => $this->translator->trans("Go back"),
-                'attr' => ['class' => 'btn btn-primary'],
-            ])
-        ;
+            ]);
     }
 
     /**

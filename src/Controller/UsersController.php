@@ -61,8 +61,15 @@ class UsersController extends AbstractController
      */
     public function index(UserRepository $repository)
     {
+        $users = $repository->findAll();
+        $forms = array();
+        foreach($users as $usr) {
+            $form = $this->createForm(UserRoleType::class, $usr);
+            $forms[$usr->getId()] = $form->createView();
+        }
         return $this->render('users/index.html.twig', [
             'users' => $repository->findAll(),
+            'rolesForms' => $forms,
         ]);
     }
 
@@ -94,7 +101,7 @@ class UsersController extends AbstractController
         return $this->render('users/edit.html.twig', [
             'userForm' => $userEditForm->createView(),
             'username' => $user->getFirstName() . " " . $user->getLastName() | "",
-            'userId' => $user->getId(),
+            'userId' => $user->getId()
         ]);
     }
 
@@ -119,7 +126,6 @@ class UsersController extends AbstractController
             }
         }
         catch(\Exception $e) {
-            dd($e);
             $this->addFlash('danger', $this->translator->trans("Error updating user roles"));
         }
 
