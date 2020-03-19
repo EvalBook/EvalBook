@@ -31,13 +31,12 @@
                         <td>{{ user.email }}</td>
                         <td>
                             {{ user.roles | length }}
+                            {% form_theme rolesForms[user.id] 'bootstrap_4_layout.html.twig' %}
                             {% include 'modal-right.html.twig' with {
                                     'content' : form(rolesForms[user.id]),
-                                    'title': 'Edit roles',
                                     'id': user.id,
                                     'button': true
-                                }
-                            %}
+                            }%}
                         </td>
                         <td>
                             {% if user.active %}
