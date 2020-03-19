@@ -96,11 +96,19 @@ p
 }
 
 
-a /*available for all website*/
+a /*available for all of the website*/
 {
     font: inherit;
     color: inherit;
     text-decoration: underline;
+}
+
+#container
+{
+    position: relative;
+    min-height: 200px;
+    width:98%;
+    margin: 0 auto 0 auto;
 }
 
 
@@ -108,4 +116,44 @@ a /*available for all website*/
 #eval-form
 {
     display: inline-block;
+}
+
+
+/*Nav bar*/
+
+.dropdown-menu
+{
+    display: block;
+    position: absolute;
+    top : 20%;
+    left : 1%;
+    background-color: #6d9bc3;
+    border: 2px solid #eaaf1c;
+    border-radius: 15px;
+    width: 24%;
+    padding-left: 1em;
+    color: #f8f7ed;
+}
+
+
+.dropdown-item
+{
+    color : #f8f7ed;
+    border-radius: 5px;
+    padding: 0 0.2em 0.1vw;
+    width: 95%;
+}
+
+
+.dropdown-item:hover
+{
+    background-color: #eaaf1c;
+    color: #f8f7ed;
+    font-weight: bold;
+}
+
+
+.dropdown-item:active
+{
+    transform: scale(0.98);
 }
