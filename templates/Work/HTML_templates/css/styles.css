@@ -71,15 +71,17 @@ input
     margin-left: 10px;
 }
 
-thead th
+
+thead tr, thead th
 {
     text-align: center;
-    border-bottom: none;
+    border : 0 !important;
 }
 
-tbody tr
+tbody tr, tbody th
 {
     background-color: inherit;
+    border : 0 !important;
 }
 
 tbody tr:nth-of-type(2n+1)

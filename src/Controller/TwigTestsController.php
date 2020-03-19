@@ -16,4 +16,15 @@ class TwigTestsController extends AbstractController
             'controller_name' => 'TwigTestsController',
         ]);
     }
+
+    /**
+     * @Route("/eval", name="eval")
+     */
+    public function eval()
+    {
+        return $this->render('eval/index.html.twig',[
+            'controller_name'=>'TwigTestsController',
+        ]);
+    }
+
 }
