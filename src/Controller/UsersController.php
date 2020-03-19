@@ -59,13 +59,28 @@ class UsersController extends AbstractController
      * @param UserRepository $repository
      * @return Response
      */
-    public function index(UserRepository $repository)
+    public function index(Request $request, UserRepository $repository)
     {
         $users = $repository->findAll();
         $forms = array();
+
         foreach($users as $usr) {
-            $form = $this->createForm(UserRoleType::class, $usr);
-            $forms[$usr->getId()] = $form->createView();
+            $formRolesEdit = $this->get('form.factory')->createNamed('edit-roles' . $usr->getId(), UserRoleType::class, $usr);
+            $forms[$usr->getId()] = $formRolesEdit->createView();
+
+            try {
+                $formRolesEdit->handleRequest($request);
+
+                if ($formRolesEdit->isSubmitted() && $formRolesEdit->isValid()) {
+                    $this->entityManager->persist($usr);
+                    $this->entityManager->flush();
+                    $this->addFlash('success', $this->translator->trans("User roles updated"));
+                    return $this->redirectToRoute("users_list");
+                }
+            }
+            catch(\Exception $e) {
+                $this->addFlash('danger', $this->translator->trans("Error updating user roles"));
+            }
         }
         return $this->render('users/index.html.twig', [
             'users' => $repository->findAll(),
@@ -102,36 +117,6 @@ class UsersController extends AbstractController
             'userForm' => $userEditForm->createView(),
             'username' => $user->getFirstName() . " " . $user->getLastName() | "",
             'userId' => $user->getId()
-        ]);
-    }
-
-
-    /**
-     * @Route("/roles/{id}", name="role_edit")
-     * @param Request $request
-     * @param User $user
-     * @return RedirectResponse|Response
-     */
-    public function setRoles(Request $request, User $user)
-    {
-        $userRolesForm = $this->createForm(UserRoleType::class, $user);
-        try {
-            $userRolesForm->handleRequest($request);
-
-            if ($userRolesForm->isSubmitted() && $userRolesForm->isValid()) {
-                $this->entityManager->persist($user);
-                $this->entityManager->flush();
-                $this->addFlash('success', $this->translator->trans("User roles updated"));
-                return $this->redirectToRoute("users_edit", ["id" => $user->getId()]);
-            }
-        }
-        catch(\Exception $e) {
-            $this->addFlash('danger', $this->translator->trans("Error updating user roles"));
-        }
-
-        return $this->render('users/roles.html.twig', [
-            'userRolesForm' => $userRolesForm->createView(),
-            'userId' => $user->getId(),
         ]);
     }
 
