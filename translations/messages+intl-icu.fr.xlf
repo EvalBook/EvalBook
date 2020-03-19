@@ -297,6 +297,14 @@
         <source>User roles updated</source>
         <target>Roles mis à jour</target>
       </trans-unit>
+        <trans-unit id="5">
+            <source>Are you sure you want to delete this user</source>
+            <target>messages</target>
+        </trans-unit>
+      <trans-unit id="6">
+        <source>Are you sure you want to delete this user</source>
+        <target>messages</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

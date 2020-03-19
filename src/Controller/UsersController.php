@@ -22,6 +22,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserRoleType;
 use App\Form\UserType;
+use App\Kernel;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -102,6 +103,7 @@ class UsersController extends AbstractController
 
     /**
      * @Route("/add", name="add")
+     *
      * @param Request $request
      */
     public function addUser(Request $request)

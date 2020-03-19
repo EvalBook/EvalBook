@@ -46,10 +46,14 @@
                             {% include 'modal-right.html.twig' with {'content' : form(editForms[user.id]),'id': user.id, 'slug': 'edit', 'button': true} %}
                         </td>
                         <td>
-                            <a href="{{ path('users_delete',{id:user.id}) }}" class="btn btn-danger">{{ 'Delete' | trans }}</a>
-                            <div class="modal">
-                                Test modal window in order to delete user
-                            </div>
+                            {% include 'modal-confirm.html.twig' with {
+                                  'content' : 'Are you sure you want to delete this user' | trans,
+                                  'id': user.id,
+                                  'slug' : 'delete',
+                                  'button' : true,
+                                  'buttonLabel' : 'Delete' | trans
+                                }
+                            %}
                         </td>
                     </tr>
                 {% endfor %}
