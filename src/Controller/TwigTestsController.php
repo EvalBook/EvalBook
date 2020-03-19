@@ -39,7 +39,7 @@ class TwigTestsController extends AbstractController
      */
     public function eval()
     {
-        return $this->render('eval/index.html.twig',[
+        return $this->render('eval/sidebar.html.twig',[
             'controller_name'=>'TwigTestsController',
         ]);
     }
