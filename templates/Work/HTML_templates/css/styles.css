@@ -1,0 +1,119 @@
+body, html
+{
+    background-color: #f8f7ed;
+    font-family: 'Roboto', sans-serif;
+    color: #111111;
+    height: 100%;
+    margin:0;
+    padding: 0;
+    width: 70%;
+    margin: 0 auto 0 auto;
+}
+
+.container-fluid
+{
+    padding : 0;
+    margin-top: 20px;
+}
+
+a /*available for all of the website*/
+{
+    font: inherit;
+    color: inherit;
+    text-decoration: underline;
+}
+
+#eval-form
+{
+    font-size: 13px;
+}
+
+input
+{
+    border: 2px solid #444444;
+    border-radius: 20px;
+    margin-left: 5px;
+    padding-left: 5px;
+}
+
+#eval-form div
+{
+    margin: 2px 0 2px 0;
+    padding : 0;
+
+}
+
+#eval-form #eval-title
+{
+    width: 87%;
+}
+
+#eval-form #eval-factor
+{
+    width: 25px;
+    padding: 0;
+    text-align: center;
+}
+
+#eval-form #eval-class
+{
+    width: 50px;
+}
+
+#eval-form #eval-date
+{
+    width: 80px;
+}
+
+#eval-form span
+{
+    font-size: 10px;
+    margin-left: 10px;
+}
+
+
+thead tr, thead th
+{
+    text-align: center;
+    border : 0 !important;
+}
+
+tbody tr, tbody th
+{
+    background-color: inherit;
+    border : 0 !important;
+}
+
+tbody tr:nth-of-type(2n+1)
+{
+    background-color: #f3f3f3;
+}
+
+tbody tr td:first-child
+{
+    text-align: right;
+}
+
+tbody input
+{
+    border: 0;
+    border-radius: 5px;
+    background-color: rgba(0,0,0,.05);
+}
+
+
+tbody tr:nth-of-type(2n+1) input
+{
+    background-color: #f3f3f3;
+}
+
+
+tbody .note
+{
+    width: 50px;
+}
+
+tbody .comment
+{
+    width: 200px;
+}
