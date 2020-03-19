@@ -1,11 +1,11 @@
 {%  if button is defined and button %}
-    <button type="button" class="btn btn-modal" data-toggle="modal" data-target="#modal-right-{{ user.id }}">
+    <button type="button" class="btn btn-modal" data-toggle="modal" data-target="#modal-right-{{ slug }}-{{ id }}">
         {{ 'Edit' | trans }}
     </button>
 {% endif %}
 
 
-<div class="modal right fade in" id="modal-right-{{ id }}" tabindex="-1" role="dialog" aria-labelledby="modal-right">
+<div class="modal right fade in" id="modal-right-{{ slug }}-{{ id }}" tabindex="-1" role="dialog" aria-labelledby="modal-right">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
 

@@ -128,18 +128,6 @@ class UserType extends AbstractType
                 'attr' => ['class' => 'form-control']
             ])
 
-            // Edit use roles.
-            ->add("roles", ButtonType::class, [
-                'label' => $this->translator->trans("Edit user roles"),
-                'attr' => ['class' => 'btn btn-primary'],
-            ])
-
-            // Go back to the users list.
-            ->add('back', ButtonType::class, [
-                'label' => $this->translator->trans("Go back"),
-                'attr' => ['class' => 'btn btn-primary'],
-            ])
-
             // Submit button.
             ->add($this->translator->trans("Send"), SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary']

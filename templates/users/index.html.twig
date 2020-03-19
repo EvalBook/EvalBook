@@ -32,11 +32,7 @@
                         <td>
                             {{ user.roles | length }}
                             {% form_theme rolesForms[user.id] 'bootstrap_4_layout.html.twig' %}
-                            {% include 'modal-right.html.twig' with {
-                                    'content' : form(rolesForms[user.id]),
-                                    'id': user.id,
-                                    'button': true
-                            }%}
+                            {% include 'modal-right.html.twig' with {'content' : form(rolesForms[user.id]),'id': user.id, 'slug': 'role', 'button': true} %}
                         </td>
                         <td>
                             {% if user.active %}
@@ -46,7 +42,8 @@
                             {% endif %}
                         </td>
                         <td>
-                            <a href="{{ path('users_edit', {id:user.id}) }}" class="btn btn-primary">{{ 'Edit' | trans }}</a>
+                            {% form_theme editForms[user.id] 'bootstrap_4_layout.html.twig' %}
+                            {% include 'modal-right.html.twig' with {'content' : form(editForms[user.id]),'id': user.id, 'slug': 'edit', 'button': true} %}
                         </td>
                         <td>
                             <a href="{{ path('users_delete',{id:user.id}) }}" class="btn btn-danger">{{ 'Delete' | trans }}</a>
