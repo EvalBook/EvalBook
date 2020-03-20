@@ -2,14 +2,14 @@
 
 {% block body %}
 
-    {% include 'sidebar.html.twig' %}
+    {# % include 'sidebar.html.twig' % #}
 
     <div class="col-md-8 container">
         <ul>
-            <li><a href="#">Voir la liste des utilisateurs</a></li>
+            <li><a href="{{ path('users_list') }}">Voir la liste des utilisateurs</a></li>
             <li><a href="#">Ajouter un utilisateur</a></li>
             <li><a href="{{ path('users_edit') }}">Modifier un utilisate</a></li>
-            <li><a href="#">Supprimer un utilisateur</a></li>
+            <li><a href="{{ path('users_edit') }}">Supprimer un utilisateur</a></li>
         </ul>
     </div>
 {% endblock %}

@@ -67,12 +67,25 @@ class UsersController extends AbstractController
 
 
     /**
+     * @Route("/list", name="list")
+     * @param UserRepository $repository
+     * @return Response
+     */
+    public function listUsers(UserRepository $repository)
+    {
+        return $this->render('users/list.html.twig', [
+            'users' => $repository->findAll(),
+        ]);
+    }
+
+
+    /**
      * @Route("/edit", name="edit")
      * @param Request $request
      * @param UserRepository $repository
      * @return Response
      */
-    public function edit(Request $request, UserRepository $repository)
+    public function editUsers(Request $request, UserRepository $repository)
     {
         $users = $repository->findAll();
         $rolesForms = array();

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Users' | trans }}{% endblock %}
+
+{% block body %}
+
+    {% include 'sidebar.html.twig' %}
+
+    {# TODO Handle granted perms. #}
+    <div class="col-md-4 content">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>{{ 'Id' | trans }}</th>
+                <th>{{ 'First name' | trans }}</th>
+                <th>{{ 'Last  name' | trans }}</th>
+                <th>{{ 'E-mail' | trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if users|length > 0 %}
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.firstName }}</td>
+                        <td>{{ user.lastName }}</td>
+                        <td>{{ user.email }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="8">{{ 'No users found' | trans }}</td>
+                </tr>
+            {%  endif %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
