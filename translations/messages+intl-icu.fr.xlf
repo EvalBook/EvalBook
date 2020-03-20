@@ -299,47 +299,47 @@
       </trans-unit>
       <trans-unit id="rNpPWP1" resname="Are you sure you want to delete this user">
         <source>Are you sure you want to delete this user</source>
-        <target>messages</target>
+        <target>Etes vous sûr de voiloir supprimer cet utilisateur ?</target>
       </trans-unit>
       <trans-unit id="XQfmK_b" resname="User deleted.">
         <source>User deleted.</source>
-        <target>__User deleted.</target>
+        <target>Utilisateur supprimé</target>
       </trans-unit>
       <trans-unit id="M9FGbGy" resname="An error occured deleting the user.">
         <source>An error occured deleting the user.</source>
-        <target>__An error occured deleting the user.</target>
+        <target>Une erreur est survenue en supprimant cet utilisateur.</target>
       </trans-unit>
       <trans-unit id="hDrAEUn" resname="Ok">
         <source>Ok</source>
-        <target>__Ok</target>
+        <target>Ok</target>
       </trans-unit>
       <trans-unit id="GXZu1sy" resname="Cancel">
         <source>Cancel</source>
-        <target>__Cancel</target>
+        <target>Quitter</target>
       </trans-unit>
       <trans-unit id="DewHq.k" resname="Notebook">
         <source>Notebook</source>
-        <target>__Notebook</target>
+        <target>Cahier de notes</target>
       </trans-unit>
       <trans-unit id="TQB25rT" resname="Activities">
         <source>Activities</source>
-        <target>__Activities</target>
+        <target>Activités</target>
       </trans-unit>
       <trans-unit id="Q78ECOD" resname="School report">
         <source>School report</source>
-        <target>__School report</target>
+        <target>Bulletins</target>
       </trans-unit>
       <trans-unit id="H86onHM" resname="Pupils">
         <source>Pupils</source>
-        <target>__Pupils</target>
+        <target>Elèves</target>
       </trans-unit>
       <trans-unit id="hGNyhsW" resname="Classes">
         <source>Classes</source>
-        <target>__Classes</target>
+        <target>Classes</target>
       </trans-unit>
       <trans-unit id="UkYFj8n" resname="Schools and implantation">
         <source>Schools and implantation</source>
-        <target>__Schools and implantation</target>
+        <target>Ecoles et implantations</target>
       </trans-unit>
     </body>
   </file>
