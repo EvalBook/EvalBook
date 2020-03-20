@@ -341,13 +341,25 @@
         <source>Schools and implantation</source>
         <target>Ecoles et implantations</target>
       </trans-unit>
-        <trans-unit id="0">
-            <source>User added</source>
-            <target>messages</target>
-        </trans-unit>
-      <trans-unit id="1">
+      <trans-unit id="_MX8ktQ" resname="User added">
+        <source>User added</source>
+        <target>messages</target>
+      </trans-unit>
+      <trans-unit id="GGJa6qz" resname="Error adding user">
         <source>Error adding user</source>
         <target>messages</target>
+      </trans-unit>
+      <trans-unit id="YolzVVN" resname="Your e-mail cannot be null">
+        <source>Your e-mail cannot be null</source>
+        <target>messages</target>
+      </trans-unit>
+      <trans-unit id="5hxGZW5" resname="Your information has been updated">
+        <source>Your information has been updated</source>
+        <target>__Your information has been updated</target>
+      </trans-unit>
+      <trans-unit id="uMj62TM" resname="An error occured updating your informations">
+        <source>An error occured updating your informations</source>
+        <target>__An error occured updating your informations</target>
       </trans-unit>
     </body>
   </file>
