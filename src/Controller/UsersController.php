@@ -22,9 +22,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserRoleType;
 use App\Form\UserType;
-use App\Kernel;
 use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -134,7 +132,8 @@ class UsersController extends AbstractController
      */
     public function addUser(Request $request)
     {
-        $userForm = $this->createForm(UserType::class);
+        $user = new User();
+        $userForm = $this->createForm(UserType::class, $user);
 
         try {
             $userForm->handleRequest($request);
