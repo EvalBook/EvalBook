@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Form\UserProfileType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,7 +28,7 @@ class UserProfileController extends AbstractController
 
             if ($userForm->isSubmitted() && $userForm->isValid())
             {
-                $entityManager->persist($user);
+                $entityManager->persist($this->getUser());
                 $entityManager->flush();
                 $this->addFlash('success', $translator->trans("Your information has been updated"));
                 return $this->redirectToRoute("user_profile");
