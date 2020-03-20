@@ -55,13 +55,24 @@ class UsersController extends AbstractController
         $this->translator = $translator;
     }
 
+
     /**
-     * @Route("/", name="list")
+     * @Route("/", name="index")
+     */
+    public function index()
+    {
+        // Return the global users available actions.
+        return $this->render('users/index.html.twig');
+    }
+
+
+    /**
+     * @Route("/edit", name="edit")
      * @param Request $request
      * @param UserRepository $repository
      * @return Response
      */
-    public function index(Request $request, UserRepository $repository)
+    public function edit(Request $request, UserRepository $repository)
     {
         $users = $repository->findAll();
         $rolesForms = array();
@@ -86,14 +97,14 @@ class UsersController extends AbstractController
                     $this->entityManager->persist($usr);
                     $this->entityManager->flush();
                     $this->addFlash('success', $this->translator->trans("User roles updated"));
-                    return $this->redirectToRoute("users_list");
+                    return $this->redirectToRoute("users_edit");
                 }
             }
             catch(\Exception $e) {
                 $this->addFlash('danger', $this->translator->trans("Error updating user"));
             }
         }
-        return $this->render('users/index.html.twig', [
+        return $this->render('users/edit.html.twig', [
             'users' => $repository->findAll(),
             'rolesForms' => $rolesForms,
             'editForms' => $editForms,

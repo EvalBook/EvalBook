@@ -2,13 +2,14 @@
 
     <div class="row" id="container">
         <div class="col-sm-4 dropdown-menu" id="navbar">
-            <div class="dropdown-item">{{ "The notebook" | trans }}</div>
-            <div class="dropdown-item">{{ "The activities" | trans }}</div>
-            <div class="dropdown-item">{{ "The school report" | trans }}</div>
-            <div class="dropdown-item">{{ "The pupils" | trans }}</div>
-            <div class="dropdown-item">{{ "The classes" | trans }}</div>
-            <div class="dropdown-item">{{ "The schools and implantation" | trans }}</div>
-            <div class="dropdown-item">{{ "The users" | trans }}</div>
+            <div class="dropdown-item">{{ "Notebook" | trans }}</div>
+            <div class="dropdown-item">{{ "Activities" | trans }}</div>
+            <div class="dropdown-item">{{ "School report" | trans }}</div>
+            <div class="dropdown-item">{{ "Pupils" | trans }}</div>
+            <div class="dropdown-item">{{ "Classes" | trans }}</div>
+            <div class="dropdown-item">{{ "Schools and implantation" | trans }}</div>
+            <a href="{{ path('users_index') }}" class="dropdown-item">{{ "Users" | trans }}
+            </a>
         </div>
     </div>
 

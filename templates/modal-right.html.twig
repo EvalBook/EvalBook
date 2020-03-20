@@ -15,7 +15,10 @@
             </div>
 
             <div class="modal-body">
-                <p>{{ content | raw }}</p>
+                <p>
+                    {{ content | raw }}
+                    {% block blockContent %}{% endblock %}
+                </p>
             </div>
 
         </div>

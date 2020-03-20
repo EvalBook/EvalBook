@@ -1,4 +1,13 @@
-{% block body %}
+{% extends 'modal-right.html.twig' %}
 
-    {% include 'modal-right.html.twig' %}
+{% block blockContent %}
+
+    <a class="btn btn-primary" href="{{ onConfirm ?? '#' }}">
+        {{ 'Ok' | trans }}
+    </a>
+
+    <a class="btn btn-secondary" href="{{ onCancel ?? '#' }}">
+        {{ 'Cancel' | trans }}
+    </a>
+
 {% endblock %}
