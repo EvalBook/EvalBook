@@ -32,6 +32,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\HttpKernel\Exception;
 
 
 /**
@@ -137,13 +138,34 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("/delete/{id}", name="delete")
+     * @Route("/delete", name="delete")
+     * @param UserRepository $repository
+     * @return Response
+     */
+    public function deleteUser(UserRepository $repository)
+    {
+        return $this->render('users/delete.html.twig', [
+            'users' => $repository->findAll(),
+        ]);
+    }
+
+
+    /**
+     * @Route("/delete/{id}", name="delete_confirm")
+     * @param UserRepository $repository
      * @param User $user
      * @return Response
      */
-    public function deleteUser(User $user)
+    public function deleteUserConfirm(UserRepository $repository, User $user)
     {
-        dd($user);
-        return $this->render('users/delete.html.twig');
+        try {
+            $this->entityManager->remove($user);
+            $this->entityManager->flush();
+            $this->addFlash('success', $this->translator->trans("User deleted."));
+        }
+        catch(Exception\NotFoundHttpException $e) {
+            $this->addFlash('success', $this->translator->trans("An error occured deleting the user."));
+        }
+        return $this->redirectToRoute("users_delete");
     }
 }
