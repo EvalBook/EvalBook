@@ -145,18 +145,17 @@ class UsersController extends AbstractController
     public function deleteUser(UserRepository $repository)
     {
         return $this->render('users/delete.html.twig', [
-            'users' => $repository->findAll(),
+            'users' => $repository->findByRole("ROLE_ADMIN", false),
         ]);
     }
 
 
     /**
      * @Route("/delete/{id}", name="delete_confirm")
-     * @param UserRepository $repository
      * @param User $user
      * @return Response
      */
-    public function deleteUserConfirm(UserRepository $repository, User $user)
+    public function deleteUserConfirm(User $user)
     {
         try {
             $this->entityManager->remove($user);

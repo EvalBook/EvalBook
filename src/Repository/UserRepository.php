@@ -22,6 +22,7 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use mysql_xdevapi\DocResult;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -51,6 +52,27 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $user->setPassword($newEncodedPassword);
         $this->_em->persist($user);
         $this->_em->flush();
+    }
+
+
+    /**
+     * Return a user list based on owned roles.
+     * @param $role
+     *
+     * The query direction false: not contains, true: contains.
+     * @param $direction
+     * @return mixed
+     */
+    public function findByRole(string $role, bool $direction = true)
+    {
+        $clause = ($direction ? "LIKE" : "NOT LIKE");
+
+        $qBuilder = $this->_em->createQueryBuilder();
+        $qBuilder->select('u')
+                  ->from($this->_entityName, 'u')
+                  ->where("u.roles $clause :roles")
+                  ->setParameter('roles', '%"' . $role . '"%');
+        return $qBuilder->getQuery()->getResult();
     }
 
 
