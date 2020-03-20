@@ -130,10 +130,30 @@ class UsersController extends AbstractController
      * @Route("/add", name="add")
      *
      * @param Request $request
+     * @return RedirectResponse|Response
      */
     public function addUser(Request $request)
     {
+        $userForm = $this->createForm(UserType::class);
 
+        try {
+            $userForm->handleRequest($request);
+
+            if ($userForm->isSubmitted() && $userForm->isValid())
+            {
+                $this->entityManager->persist($user);
+                $this->entityManager->flush();
+                $this->addFlash('success', $this->translator->trans("User added"));
+                return $this->redirectToRoute("users_edit");
+            }
+        }
+        catch(\Exception $e) {
+            $this->addFlash('danger', $this->translator->trans("Error adding user"));
+        }
+
+        return $this->render('users/add.html.twig', [
+            'userForm' => $userForm->createView(),
+        ]);
     }
 
 
