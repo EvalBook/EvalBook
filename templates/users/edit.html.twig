@@ -21,36 +21,34 @@
             </tr>
             </thead>
             <tbody>
-            {% if users|length > 0 %}
-                {% for user in users %}
-                    <tr>
-                        <td>{{ user.id }}</td>
-                        <td>{{ user.firstName }}</td>
-                        <td>{{ user.lastName }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>
-                            {{ user.roles | length }}
-                            {% form_theme rolesForms[user.id] 'bootstrap_4_layout.html.twig' %}
-                            {% include 'modal-right.html.twig' with {'content' : form(rolesForms[user.id]),'id': user.id, 'slug': 'role', 'button': true} %}
-                        </td>
-                        <td>
-                            {% if user.active %}
-                                {{ 'Yes' | trans }}
-                            {% else %}
-                                {{ 'No' | trans }}
-                            {% endif %}
-                        </td>
-                        <td>
-                            {% form_theme editForms[user.id] 'bootstrap_4_layout.html.twig' %}
-                            {% include 'modal-right.html.twig' with {'content' : form(editForms[user.id]),'id': user.id, 'slug': 'edit', 'button': true} %}
-                        </td>
-                    </tr>
-                {% endfor %}
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.firstName }}</td>
+                    <td>{{ user.lastName }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        {{ user.roles | length }}
+                        {% form_theme rolesForms[user.id] 'bootstrap_4_layout.html.twig' %}
+                        {% include 'modal-right.html.twig' with {'content' : form(rolesForms[user.id]),'id': user.id, 'slug': 'role', 'button': true} %}
+                    </td>
+                    <td>
+                        {% if user.active %}
+                            {{ 'Yes' | trans }}
+                        {% else %}
+                            {{ 'No' | trans }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% form_theme editForms[user.id] 'bootstrap_4_layout.html.twig' %}
+                        {% include 'modal-right.html.twig' with {'content' : form(editForms[user.id]),'id': user.id, 'slug': 'edit', 'button': true} %}
+                    </td>
+                </tr>
             {% else %}
                 <tr>
                     <td colspan="8">{{ 'No users found' | trans }}</td>
                 </tr>
-            {%  endif %}
+            {% endfor %}
             </tbody>
         </table>
     </div>
