@@ -16,4 +16,4 @@ class SchoolReportsController extends AbstractController
             'controller_name' => 'SchoolReportsController',
         ]);
     }
-}
+} 

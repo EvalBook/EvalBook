@@ -61,6 +61,10 @@ class UsersController extends AbstractController
      */
     public function index()
     {
+        if(!$this->isGranted("ROLE_USER_DELETE")) {
+            return $this->redirectToRoute("app_login");
+        }
+
         // Return the global users available actions.
         return $this->render('users/index.html.twig');
     }
@@ -68,6 +72,8 @@ class UsersController extends AbstractController
 
     /**
      * @Route("/list", name="list")
+     * @IsGranted("ROLE_USERS_LIST", statusCode=404, message="Not found")
+     *
      * @param UserRepository $repository
      * @return Response
      */
@@ -81,6 +87,8 @@ class UsersController extends AbstractController
 
     /**
      * @Route("/edit", name="edit")
+     * @IsGranted("ROLE_USER_EDIT", statusCode=404, message="Not found")
+     *
      * @param Request $request
      * @param UserRepository $repository
      * @return Response
@@ -127,6 +135,7 @@ class UsersController extends AbstractController
 
     /**
      * @Route("/add", name="add")
+     * @IsGranted("ROLE_USER_CREATE", statusCode=404, message="Not found")
      *
      * @param Request $request
      * @return RedirectResponse|Response
@@ -176,12 +185,15 @@ class UsersController extends AbstractController
 
     /**
      * @Route("/delete", name="delete")
+     * @IsGranted("ROLE_USER_DELETE", statusCode=404, message="Not found")
+     *
      * @param UserRepository $repository
      * @return Response
      */
     public function deleteUser(UserRepository $repository)
     {
         return $this->render('users/delete.html.twig', [
+            // Getting all non admin roles.
             'users' => $repository->findByRole("ROLE_ADMIN", false),
         ]);
     }
@@ -189,6 +201,8 @@ class UsersController extends AbstractController
 
     /**
      * @Route("/delete/{id}", name="delete_confirm")
+     * @IsGranted("ROLE_USER_DELETE", statusCode=404, message="Not found")
+     *
      * @param User $user
      * @return Response
      */

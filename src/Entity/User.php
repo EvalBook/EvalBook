@@ -163,6 +163,22 @@ class User implements UserInterface
 
 
     /**
+     * Return true if the user has at least one of the provided role in array.
+     * @param array $roles
+     * @return boolean
+     */
+    public function firstRoleMatch(array $roles)
+    {
+        foreach($this->getRoles() as $role) {
+            if(in_array($role, $roles)) {
+                return true;
+            }
+        }
+        return in_array("ROLE_ADMIN", $this->getRoles());
+    }
+
+
+    /**
      * Return the User password.
      * @see UserInterface
      */
