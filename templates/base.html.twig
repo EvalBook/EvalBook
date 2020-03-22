@@ -21,7 +21,6 @@
     </head>
     <body>
         <div class="container-fluid">
-
             <div class="row" id="header">
                 <div class="col-lg-8 head-content">
                     <h1><img src="{{ asset('assets/img/logos/logo_evalbook.png') }}"></h1>
@@ -35,40 +34,38 @@
                 </div>
             </div>
 
-        </div>
 
 
-
-        {% for label, messages in app.flashes %}
-            {% for message in messages %}
-                <div class="alert alert-{{ label }}">
-                    {{ message | trans }}
-                </div>
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">
+                        {{ message | trans }}
+                    </div>
+                {% endfor %}
             {% endfor %}
-        {% endfor %}
 
-        <h1>{% block title %}{% endblock %}</h1>
+            <h1>{% block title %}{% endblock %}</h1>
 
-        {% block body %}
+            {% block body %}
 
 
-        {% endblock %}
+            {% endblock %}
 
-        <div class="container-fluid" id="footer">
-            <div class="footer-content">
-                <div class="col-xs-4">
-                    <p>Evalbook<i class="material-icons" id="copyleft">Copyleft</i> - {{ 'now' | date('Y') }}</p>
-                    <p>{{ "Project initiated by" | trans }} <a href="https://www.forsud.be/">Forsud ASBL</a></p>
-                    <p><a href="https://github.com/EvalBook">{{ "Source code and authors on Github" | trans }}</a></p>
-                </div>
-                <div class="col-xs-4">
-                    <p><a href="#">{{ "Read the user manual" | trans }}</a></p>
+            <div class="row" id="footer">
+                <div class="footer-content">
+                    <div class="col-xs-4">
+                        <p>Evalbook<i class="material-icons" id="copyleft">Copyleft</i> - {{ 'now' | date('Y') }}</p>
+                        <p>{{ "Project initiated by" | trans }} <a href="https://www.forsud.be/">Forsud ASBL</a></p>
+                        <p><a href="https://github.com/EvalBook">{{ "Source code and authors on Github" | trans }}</a></p>
+                    </div>
+                    <div class="col-xs-4">
+                        <p><a href="#">{{ "Read the user manual" | trans }}</a></p>
+                    </div>
                 </div>
             </div>
+
+
+            {% block javascripts %}{% endblock %}
         </div>
-
-
-        {% block javascripts %}{% endblock %}
-
     </body>
 </html>

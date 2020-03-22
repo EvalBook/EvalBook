@@ -15,9 +15,13 @@
             <li>
 	            <a href="{{ path('users_add_admin') }}">Ajouter un administrateur</a>
             </li>
-            <li>
-                <a href="{{ path('users_edit') }}">Modifier un utilisateur</a>
-            </li>
+            
+            {% if is_granted('ROLE_ADMIN') %}
+                <li>
+                    <a href="{{ path('users_edit') }}">Modifier un utilisateur</a>
+                </li>
+            {% endif %}
+
             <li>
                 <a href="{{ path('users_delete') }}">Supprimer un utilisateur</a>
             </li>

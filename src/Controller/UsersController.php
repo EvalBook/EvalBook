@@ -35,6 +35,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * Class UsersController, manage action available on users add / remove / update / set role ...
  * @package App\Controller
+ * 
  * @Route("/users", name="users_")
  */
 class UsersController extends AbstractController
