@@ -21,8 +21,6 @@ namespace App\Controller;
 
 use App\Service\UserService;
 use App\Entity\User;
-use App\Form\UserRoleType;
-use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -42,16 +40,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class UsersController extends AbstractController
 {
     private $translator;
-    private $entityManager;
 
     /**
      * UsersController constructor.
      * @param EntityManagerInterface $entityManager
      * @param TranslatorInterface $translator
      */
-    public function __construct(EntityManagerInterface $entityManager, TranslatorInterface $translator)
+    public function __construct(TranslatorInterface $translator)
     {
-        $this->entityManager = $entityManager;
         $this->translator = $translator;
     }
 
@@ -123,9 +119,9 @@ class UsersController extends AbstractController
      *
      * @return RedirectResponse|Response
      */
-    public function addUser(UserService $userService)
+    public function addUser(UserService $userService, ?array $roles)
     {
-        list($result, $form) = $userService->addForm();
+        list($result, $form) = $userService->addForm($roles);
         
         if(!is_null($result) && $result) {
             $this->addFlash('success', $this->translator->trans("User added"));
@@ -135,6 +131,20 @@ class UsersController extends AbstractController
         return $this->render('users/add.html.twig', [
             'userForm' => $form
         ]);
+    }
+
+
+    /**
+     * @Route("/add/admin", name="add_admin")
+     * @IsGranted("ROLE_ADMIN", statusCode=404, message="Not found")
+     * Add a super admin to the system.
+     *
+     * @param UserService $service
+     * @return RedirectResponse|Response
+     */
+    public function addUserAdmin(UserService $service)
+    {
+        return $this->addUser($service, ["ROLE_ADMIN"]);
     }
 
 

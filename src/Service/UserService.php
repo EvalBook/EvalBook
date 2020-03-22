@@ -38,7 +38,7 @@ class UserService
      *
      * @return array
      */
-    public function addForm() : array
+    public function addForm(?array $roles) : array
     {
         $user = new User();
         $userForm = $this->formFactory->create(UserType::class, $user);
@@ -47,23 +47,27 @@ class UserService
             $userForm->handleRequest($this->request);
 
             if ($userForm->isSubmitted() && $userForm->isValid()) {
-                $user->setRoles([
-                    'ROLE_CLASS_CREATE',
-                    'ROLE_CLASS_EDIT',
-                    'ROLE_CLASS_PARAMETERS',
-                    'ROLE_CLASS_VIEW',
-                    'ROLE_CLASS_ASSIGN_STUDENT',
-                    'ROLE_ACTIVITIES_LIST',
-                    'ROLE_ACTIVITY_CREATE',
-                    'ROLE_ACTIVITY_EDIT',
-                    'ROLE_ACTIVITY_DELETE',
-                    'ROLE_NOTEBOOK_VIEW',
-                    'ROLE_BULLETINS_LIST',
-                    'ROLE_BULLETINS_PRINT',
-                    'ROLE_BULLETIN_VALIDATE',
-                    'ROLE_BULLETIN_ADD_COMMENT',
-                    'ROLE_BULLETIN_STYLE_EDIT',
-                ]);
+                if(is_null($roles)) {
+                    $roles = [
+                        'ROLE_CLASS_CREATE',
+                        'ROLE_CLASS_EDIT',
+                        'ROLE_CLASS_PARAMETERS',
+                        'ROLE_CLASS_VIEW',
+                        'ROLE_CLASS_ASSIGN_STUDENT',
+                        'ROLE_ACTIVITIES_LIST',
+                        'ROLE_ACTIVITY_CREATE',
+                        'ROLE_ACTIVITY_EDIT',
+                        'ROLE_ACTIVITY_DELETE',
+                        'ROLE_NOTEBOOK_VIEW',
+                        'ROLE_BULLETINS_LIST',
+                        'ROLE_BULLETINS_PRINT',
+                        'ROLE_BULLETIN_VALIDATE',
+                        'ROLE_BULLETIN_ADD_COMMENT',
+                        'ROLE_BULLETIN_STYLE_EDIT',
+                    ];
+                }
+
+                $user->setRoles($roles);
                 $this->entityManager->persist($user);
                 $this->entityManager->flush();
                 return [true, null];
@@ -73,12 +77,6 @@ class UserService
         }
         
         return [null, $userForm->createView()];
-    }
-
-
-    public function addAdmin()
-    {
-        // TODO 
     }
 
 
