@@ -44,22 +44,19 @@
                 {% endfor %}
             {% endfor %}
 
-            <h1>{% block title %}{% endblock %}</h1>
+            <h1>{% block title %} {% endblock %}</h1>
 
-            {% block body %}
+            {% block body %} {% endblock %}
 
-
-            {% endblock %}
-
-            <div class="row" id="footer">
-                <div class="footer-content w-100 navbar navbar-fixed-bottom">
-                    <div class="col-xs-6">
-                        <p>Evalbook <span id="copyleft">&copy</span> Copyleft</i> - {{ 'now' | date('Y') }}</p>
-                        <p>{{ "Project initiated by" | trans }} <a href="https://www.forsud.be/">Forsud ASBL</a></p>
-                        <p><a href="https://github.com/EvalBook">{{ "Source code and authors on Github" | trans }}</a></p>
-                    </div>
-                    <div class="col-xs-6">
+            <div class="row footer-content p-3 fixed-bottom" id="footer">
+                <div class="col-md-6">
+                    <p>Evalbook <span id="copyleft">&copy</span> Copyleft</i> - {{ 'now' | date('Y') }}</p>
+                    <p>{{ "Project initiated by" | trans }} <a href="https://www.forsud.be/">Forsud ASBL</a></p>
+                </div>
+                <div class="col-md-6 float-right">
+                    <div class="float-right">
                         <p><a href="#">{{ "Read the user manual" | trans }}</a></p>
+                        <p><a href="https://github.com/EvalBook">{{ "Source code and authors on Github" | trans }}</a></p>
                     </div>
                 </div>
             </div>

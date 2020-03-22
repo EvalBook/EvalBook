@@ -1,13 +1,14 @@
 /*Set body html header & footer*/
 
-body, html
-{
+body, html {
     background-color: #f8f7ed;
     font-family: 'Roboto', sans-serif;
     color: #111111;
-    height: 100%;
-    margin:0;
-    padding: 0;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
 }
 
 
@@ -50,13 +51,6 @@ body, html
 .footer-content {
     background-color: #6d9bc3;
     color: #f8f7ed;
-    flex-shrink: none;
-}
-
-
-p {
-    margin: 0;
-    margin-bottom: 0;
 }
 
 
@@ -66,13 +60,6 @@ p {
 }
 
 
-a /*available for all of the website*/
-{
-    font: inherit;
-    color: inherit;
-    text-decoration: underline;
-}
-
 #container
 {
     position: relative;
@@ -80,6 +67,7 @@ a /*available for all of the website*/
     width:98%;
     margin: 0 auto 0 auto;
 }
+
 
 
 /*Evaluations*/
