@@ -19,6 +19,7 @@
 
 namespace App\Controller;
 
+use App\Service\UserService;
 use App\Entity\User;
 use App\Form\UserRoleType;
 use App\Form\UserType;
@@ -31,7 +32,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Component\HttpKernel\Exception;
 
 
 /**
@@ -64,8 +64,6 @@ class UsersController extends AbstractController
         if(!$this->isGranted("ROLE_USER_DELETE")) {
             return $this->redirectToRoute("app_login");
         }
-
-        // Return the global users available actions.
         return $this->render('users/index.html.twig');
     }
 
@@ -73,7 +71,7 @@ class UsersController extends AbstractController
     /**
      * @Route("/list", name="list")
      * @IsGranted("ROLE_USERS_LIST", statusCode=404, message="Not found")
-     *
+     * 
      * @param UserRepository $repository
      * @return Response
      */
@@ -93,40 +91,26 @@ class UsersController extends AbstractController
      * @param UserRepository $repository
      * @return Response
      */
-    public function editUsers(Request $request, UserRepository $repository)
+    public function editUsers(UserService $userService, UserRepository $repository)
     {
         $users = $repository->findAll();
         $rolesForms = array();
         $editForms = array();
 
         foreach($users as $usr) {
-            // Roles edition form.
-            $formRolesEdit = $this->get('form.factory')->createNamed('edit-roles' . $usr->getId(), UserRoleType::class, $usr);
-            $rolesForms[$usr->getId()] = $formRolesEdit->createView();
+            list($rResult, $formRolesEdit) = $userService->roleEditForm($usr);
+            list($eResult, $formEdit) = $userService->editForm($usr);
+            
+            $rolesForms[$usr->getId()] = $formRolesEdit;
+            $editForms[$usr->getId()] =  $formEdit;
 
-            // User edition form.
-            $formEditUser = $this->get('form.factory')->createNamed('edit-user' . $usr->getId(), UserType::class, $usr);
-            $editForms[$usr->getId()] =  $formEditUser->createView();
-
-            try {
-                $formRolesEdit->handleRequest($request);
-                $formEditUser->handleRequest($request);
-
-                if ($formRolesEdit->isSubmitted() && $formRolesEdit->isValid() ||
-                    $formEditUser->isSubmitted() && $formEditUser->isValid())
-                {
-                    $this->entityManager->persist($usr);
-                    $this->entityManager->flush();
-                    $this->addFlash('success', $this->translator->trans("User roles updated"));
-                    return $this->redirectToRoute("users_edit");
-                }
-            }
-            catch(\Exception $e) {
-                $this->addFlash('danger', $this->translator->trans("Error updating user"));
+            if((!is_null($rResult) && $rResult) || (!is_null($eResult) && $eResult)) {
+                $this->addFlash('success', $this->translator->trans("User updated"));
+                return $this->redirectToRoute("users_edit"); 
             }
         }
         return $this->render('users/edit.html.twig', [
-            'users' => $repository->findAll(),
+            'users' => $users,
             'rolesForms' => $rolesForms,
             'editForms' => $editForms,
         ]);
@@ -137,48 +121,19 @@ class UsersController extends AbstractController
      * @Route("/add", name="add")
      * @IsGranted("ROLE_USER_CREATE", statusCode=404, message="Not found")
      *
-     * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function addUser(Request $request)
+    public function addUser(UserService $userService)
     {
-        $user = new User();
-        $userForm = $this->createForm(UserType::class, $user);
-
-        try {
-            $userForm->handleRequest($request);
-
-            if ($userForm->isSubmitted() && $userForm->isValid())
-            {
-                $user->setRoles([
-                    'ROLE_CLASS_CREATE',
-                    'ROLE_CLASS_EDIT',
-                    'ROLE_CLASS_PARAMETERS',
-                    'ROLE_CLASS_VIEW',
-                    'ROLE_CLASS_ASSIGN_STUDENT',
-                    'ROLE_ACTIVITIES_LIST',
-                    'ROLE_ACTIVITY_CREATE',
-                    'ROLE_ACTIVITY_EDIT',
-                    'ROLE_ACTIVITY_DELETE',
-                    'ROLE_NOTEBOOK_VIEW',
-                    'ROLE_BULLETINS_LIST',
-                    'ROLE_BULLETINS_PRINT',
-                    'ROLE_BULLETIN_VALIDATE',
-                    'ROLE_BULLETIN_ADD_COMMENT',
-                    'ROLE_BULLETIN_STYLE_EDIT',
-                ]);
-                $this->entityManager->persist($user);
-                $this->entityManager->flush();
-                $this->addFlash('success', $this->translator->trans("User added"));
-                return $this->redirectToRoute("users_edit");
-            }
+        list($result, $form) = $userService->addForm();
+        
+        if(!is_null($result) && $result) {
+            $this->addFlash('success', $this->translator->trans("User added"));
+            return $this->redirectToRoute("users_edit");
         }
-        catch(\Exception $e) {
-            $this->addFlash('danger', $this->translator->trans("Error adding user"));
-        }
-
+        
         return $this->render('users/add.html.twig', [
-            'userForm' => $userForm->createView(),
+            'userForm' => $form
         ]);
     }
 
@@ -193,7 +148,6 @@ class UsersController extends AbstractController
     public function deleteUser(UserRepository $repository)
     {
         return $this->render('users/delete.html.twig', [
-            // Getting all non admin roles.
             'users' => $repository->findByRole("ROLE_ADMIN", false),
         ]);
     }
@@ -202,20 +156,16 @@ class UsersController extends AbstractController
     /**
      * @Route("/delete/{id}", name="delete_confirm")
      * @IsGranted("ROLE_USER_DELETE", statusCode=404, message="Not found")
-     *
+     * 
+     * @param UserService $userService
      * @param User $user
      * @return Response
      */
-    public function deleteUserConfirm(User $user)
+    public function deleteUserConfirm(UserService $userService, User $user)
     {
-        try {
-            $this->entityManager->remove($user);
-            $this->entityManager->flush();
-            $this->addFlash('success', $this->translator->trans("User deleted."));
-        }
-        catch(Exception\NotFoundHttpException $e) {
-            $this->addFlash('success', $this->translator->trans("An error occured deleting the user."));
-        }
+        list($message, $type) = $userService->delete($user) ? ["User deleted", 'success'] : ["An error occured deleting the user", 'danger'];
+        $this->addFlash($type, $this->translator->trans($message));
+        
         return $this->redirectToRoute("users_delete");
     }
 }

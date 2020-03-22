@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ShoolsImplantationsController!{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    {% include 'sidebar.html.twig' %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/media/nux007/DATA/github/EvalBook/EvalBook/src/Controller/ShoolsImplantationsController.php'|file_link(0) }}">src/Controller/ShoolsImplantationsController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/media/nux007/DATA/github/EvalBook/EvalBook/templates/shools_implantations/sidebar.html.twig'|file_link(0) }}">templates/shools_implantations/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <div class="col-md-8 container">
+        <ul>
+            <li><a href="{{ path('users_list') }}">Voir la liste des écoles</a></li>
+            <li><a href="{{ path('users_add') }}">Ajouter une école</a></li>
+            <li><a href="{{ path('users_edit') }}">Modifier une école</a></li>
+            <li><a href="{{ path('users_delete') }}">Supprimer une école</a></li>
+
+            <li><a href="{{ path('users_list') }}">Voir la liste des implantations</a></li>
+            <li><a href="{{ path('users_add') }}">Ajouter une implantation</a></li>
+            <li><a href="{{ path('users_edit') }}">Modifier une implantation</a></li>
+            <li><a href="{{ path('users_delete') }}">Supprimer une implantation</a></li>
+        </ul>
+    </div>
 {% endblock %}
