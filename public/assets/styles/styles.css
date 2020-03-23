@@ -11,6 +11,7 @@ a {
     text-decoration: none;
 }
 
+
 i {
     font-size: 24px;
     margin-right: 5px;
@@ -18,24 +19,18 @@ i {
 
 
 #header {
-    height: 22%;
     background-color: #6d9bc3;
     color: #f8f7ed;
 }
 
 
 .head-content {
-    margin: 30px 30px 10px;
+    padding: 30px 30px 10px;
 }
 
 
 .profile {
-    position: relative;
-    top: 25%;
-    text-align: center;
-    width: 25%;
     line-height: 0.9em;
-    float: right;
 }
 
 
