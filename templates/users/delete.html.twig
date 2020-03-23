@@ -1,26 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'Users' | trans }}{% endblock %}
+{% block title %}{{ 'Users delete' | trans }}{% endblock %}
 
 {% block sidebar %}
     {% include 'sidebar.html.twig' %}
 {% endblock %}
 
 {% block body %}
-     <table class="table">
+    <table class="table table-striped">
         <thead>
         <tr>
-            <th>{{ 'Id' | trans }}</th>
-            <th>{{ 'First name' | trans }}</th>
-            <th>{{ 'Last  name' | trans }}</th>
-            <th>{{ 'E-mail' | trans }}</th>
-            <th></th>
+            <th scope="col">{{ 'Id' | trans }}</th>
+            <th scope="col">{{ 'First name' | trans }}</th>
+            <th scope="col">{{ 'Last  name' | trans }}</th>
+            <th scope="col">{{ 'E-mail' | trans }}</th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
         {% for user in users %}
             <tr>
-                <td>{{ user.id }}</td>
+                <th scope="row">{{ user.id }}</th>
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.lastName }}</td>
                 <td>{{ user.email }}</td>
@@ -29,8 +29,7 @@
                         'content' : 'Are you sure you want to delete this user' | trans,
                         'id': user.id,
                         'slug' : 'delete',
-                        'button' : true,
-                        'buttonLabel' : 'Delete' | trans,
+                        'fa' : 'far fa-trash-alt',
                         'onConfirm' : path('users_delete_confirm',{id:user.id}),
                         'onCancel' :  path('users_delete')
                     }
@@ -39,7 +38,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">{{ 'No users found' | trans }}</td>
+                <td colspan="5">{{ 'No users found' | trans }}</td>
             </tr>
         {% endfor %}
         </tbody>

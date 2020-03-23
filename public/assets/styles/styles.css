@@ -32,6 +32,11 @@ i {
     padding: 30px 30px 10px;
 }
 
+thead {
+    background-color: #6d9bc3;
+    color: #f8f7ed;
+}
+
 
 .profile {
     line-height: 0.9em;

@@ -5,6 +5,10 @@
     </button>
 {% endif %}
 
+{% if fa is defined %}
+    <i style="cursor: pointer;" class="{{ fa }}" data-toggle="modal" data-target="#modal-right-{{ slug }}-{{ id }}"></i>
+{% endif %}
+
 
 <div class="modal right fade in" id="modal-right-{{ slug }}-{{ id }}" tabindex="-1" role="dialog" aria-labelledby="modal-right">
     <div class="modal-dialog" role="document">

@@ -1,32 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'Users' | trans }}{% endblock %}
+{% block title %}{{ 'Users list' | trans }}{% endblock %}
 
 {% block sidebar %}
     {% include 'sidebar.html.twig' %}
 {% endblock %}
 
 {% block body %}
-    <table class="table">
+    <table class="table table-striped">
         <thead>
         <tr>
-            <th>{{ 'Id' | trans }}</th>
-            <th>{{ 'First name' | trans }}</th>
-            <th>{{ 'Last  name' | trans }}</th>
-            <th>{{ 'E-mail' | trans }}</th>
+            <th scope="col">{{ 'Id' | trans }}</th>
+            <th scope="col">{{ 'First name' | trans }}</th>
+            <th scope="col">{{ 'Last  name' | trans }}</th>
+            <th scope="col">{{ 'E-mail' | trans }}</th>
         </tr>
         </thead>
         <tbody>
         {% for user in users %}
             <tr>
-                <td>{{ user.id }}</td>
+                <th scope="row">{{ user.id }}</th>
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.lastName }}</td>
                 <td>{{ user.email }}</td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">{{ 'No users found' | trans }}</td>
+                <td colspan="4">{{ 'No users found' | trans }}</td>
             </tr>
         {% endfor %}
         </tbody>
