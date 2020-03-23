@@ -23,15 +23,20 @@
     </head>
     <body>
         <div class="container-fluid">
-            <div class="row" id="header">
-                <div class="col-md-8 head-content">
+            <div class="row d-flex flex-row" id="header">
+                <div class="col head-content">
                     <h1><img src="{{ asset('assets/img/logos/logo_evalbook.png') }}"></h1>
-                    <h4 class="d-none d-md-block">{{ "The teachers eval tool" | trans }}</h4>
+                    <h4 class="d-none d-lg-block">{{ "The teachers eval tool" | trans }}</h4>
                 </div>
 
-                <div class="col-md-3 d-flex">
+                <div class="col d-flex">
                     <div class="profile text-center w-100 align-self-center">
-                        <p class="float-right"><a href="{{ path('user_profile') }}"><i class="material-icons">perm_identity</i><span>{{ "My profile" | trans }}</span></a></p>
+                        <div class="float-right d-none d-sm-block">
+                            <a href="{{ path('user_profile') }}">
+                                <i class="material-icons">perm_identity</i>
+                                <span class="d-none d-md-block">{{ "My profile" | trans }}</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
