@@ -32,6 +32,16 @@ i {
     padding: 30px 30px 10px;
 }
 
+.btn-primary:hover {
+    background-color: #eaaf1c;
+    border: 2px solid #6d9bc3;
+}
+
+.btn-primary {
+    background-color: #6d9bc3;
+    border: 2px solid #eaaf1c;
+}
+
 thead {
     background-color: #6d9bc3;
     color: #f8f7ed;

@@ -1,0 +1,21 @@
+<div class="col">
+    <div class="card bg-transparent">
+        <div class="card-body">
+            <h5 class="card-title">
+                {% if title is defined %}
+                    {{ title }}
+                {% endif %}
+            </h5>
+            <p class="card-text">
+                {% if content is defined %}
+                    {{ content }}
+                {% endif %}
+            </p>
+            <a href="#" class="btn btn-primary">
+                {% if label is defined %}
+                    {{ label }}
+                {% endif %}
+            </a>
+        </div>
+    </div>
+</div>
