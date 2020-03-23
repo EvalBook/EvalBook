@@ -1,4 +1,4 @@
-/*Set body html header & footer*/
+/*Set body html header, footer & universal stuff of the website*/
 
 body, html {
     background-color: #f8f7ed;
@@ -84,12 +84,22 @@ thead {
     margin: 0 auto 0 auto;
 }
 
+input
+{
+    border: 2px solid #444444;
+    border-radius: 20px;
+    margin-left: 5px;
+    padding-left: 5px;
+}
+
 
 
 /*Evaluations*/
 #eval-form {
     display: inline-block;
 }
+
+
 
 
 /*Nav bar*/
@@ -119,4 +129,13 @@ thead {
 
 .dropdown-item:active {
     transform: scale(0.98);
+}
+
+.card
+{
+    border : 0;
+    background : #6d9bc3;
+    border-radius: 5px;
+    color : #f8f7ed;
+    box-shadow: 2px 4px 10px -4px rgba(102,102,102,0.6);
 }
