@@ -55,6 +55,13 @@
 
             <div class="row footer-content px-3 fixed-bottom align-items-center" id="footer">
                 <div class="col-md-6 pt-2">
+
+                    <div class="float-left d-block d-sm-none">
+                        <a href="{{ path('user_profile') }}">
+                            <i class="material-icons">perm_identity</i>
+                        </a>
+                    </div>
+
                     <p class="text-sm-left text-center">
                         <img src="{{ asset('assets/img/logos/logo_mini_bg_trans.png') }}"/>
                         <span id="copyleft">&copy</span> Copyleft - {{ 'now' | date('Y') }} Evalbook
