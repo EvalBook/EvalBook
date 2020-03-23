@@ -10,47 +10,48 @@
 
 {% block body %}
 
-    <div class="row">
+    <div class="row mt-4">
 
         {% include 'card.html.twig' with {
             'title': 'List' | trans,
             'content': 'View the full users list with basic information such as user first name, last name, active state and email address' | trans,
-            'label': 'Go to list' | trans
+            'label': 'Go to list' | trans,
+            'action': path('users_list')
         }%}
 
         {% include 'card.html.twig' with {
             'title': 'Add' | trans,
             'content': 'Add a new user with all default roles ( teacher ), once added, you can edit the new user roles in the edition panel' | trans,
-            'label': 'Add user' | trans
+            'label': 'Add user' | trans,
+            'action': path('users_add')
         }%}
 
         {% include 'card.html.twig' with {
             'title': 'Add admin' | trans,
             'content': 'Add a new user with admin role, this user can access all functionnalities throught the system, so be careful by addin an admin' | trans,
-            'label': 'Add admin' | trans
+            'label': 'Add admin' | trans,
+            'action': path('users_add_admin')
+        }%}
+
+    </div>
+    <div class="row mt-4">
+
+        {% if is_granted('ROLE_ADMIN') %}
+            {% include 'card.html.twig' with {
+                'title': 'Edit user' | trans,
+                'content': 'Edit users informations such as passwords, email addresses, names and first name, edit their roles, and so on' | trans,
+                'label': 'Edit user' | trans,
+                'action': path('users_edit')
+            }%}
+        {% endif %}
+
+        {% include 'card.html.twig' with {
+            'title': 'Delete user' | trans,
+            'content': 'Delete a user from the user list, all user data such as classes and activities will remain until explicitly deleted' | trans,
+            'label': 'Delete user' | trans,
+            'action': path('users_delete')
         }%}
 
     </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('users_list') }}">Voir la liste des utilisateurs</a>
-        </li>
-        <li>
-            <a href="{{ path('users_add') }}">Ajouter un utilisateur</a>
-        </li>
-        <li>
-            <a href="{{ path('users_add_admin') }}">Ajouter un administrateur</a>
-        </li>
-
-        {% if is_granted('ROLE_ADMIN') %}
-            <li>
-                <a href="{{ path('users_edit') }}">Modifier un utilisateur</a>
-            </li>
-        {% endif %}
-
-        <li>
-            <a href="{{ path('users_delete') }}">Supprimer un utilisateur</a>
-        </li>
-    </ul>
 {% endblock %}

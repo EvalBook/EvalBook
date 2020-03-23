@@ -48,6 +48,11 @@ thead {
     color: #f8f7ed;
 }
 
+.ccard a, .ccard a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
 
 .profile {
     line-height: 0.9em;
