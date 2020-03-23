@@ -118,6 +118,8 @@ class UsersController extends AbstractController
      * @Route("/add", name="add")
      * @IsGranted("ROLE_USER_CREATE", statusCode=404, message="Not found")
      *
+     * @param UserService $userService
+     * @param array|null $roles
      * @return RedirectResponse|Response
      */
     public function addUser(UserService $userService, ?array $roles)
