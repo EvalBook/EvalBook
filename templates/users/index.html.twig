@@ -34,26 +34,23 @@
         }%}
 
     </div>
+    <div class="row mt-4">
 
-{#    <ul>#}
-{#        <li>#}
-{#            <a href="{{ path('users_list') }}">Voir la liste des utilisateurs</a>#}
-{#        </li>#}
-{#        <li>#}
-{#            <a href="{{ path('users_add') }}">Ajouter un utilisateur</a>#}
-{#        </li>#}
-{#        <li>#}
-{#            <a href="{{ path('users_add_admin') }}">Ajouter un administrateur</a>#}
-{#        </li>#}
+        {% if is_granted('ROLE_ADMIN') %}
+            {% include 'card.html.twig' with {
+                'title': 'Edit user' | trans,
+                'content': 'Edit users informations such as passwords, email addresses, names and first name, edit their roles, and so on' | trans,
+                'label': 'Edit user' | trans,
+                'action': path('users_edit')
+            }%}
+        {% endif %}
 
-{#        {% if is_granted('ROLE_ADMIN') %}#}
-{#            <li>#}
-{#                <a href="{{ path('users_edit') }}">Modifier un utilisateur</a>#}
-{#            </li>#}
-{#        {% endif %}#}
+        {% include 'card.html.twig' with {
+            'title': 'Delete user' | trans,
+            'content': 'Delete a user from the user list, all user data such as classes and activities will remain until explicitly deleted' | trans,
+            'label': 'Delete user' | trans,
+            'action': path('users_delete')
+        }%}
 
-{#        <li>#}
-{#            <a href="{{ path('users_delete') }}">Supprimer un utilisateur</a>#}
-{#        </li>#}
-{#    </ul>#}
+    </div>
 {% endblock %}

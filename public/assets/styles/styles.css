@@ -136,10 +136,9 @@ input
     transform: scale(0.98);
 }
 
-.card
-{
+.card {
     border : 0;
-    background : #6d9bc3;
+    background-color : #6d9bc3 !important;
     border-radius: 5px;
     color : #f8f7ed;
     box-shadow: 2px 4px 10px -4px rgba(102,102,102,0.6);
