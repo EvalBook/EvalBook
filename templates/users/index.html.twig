@@ -10,24 +10,27 @@
 
 {% block body %}
 
-    <div class="row">
+    <div class="row mt-4">
 
         {% include 'card.html.twig' with {
             'title': 'List' | trans,
             'content': 'View the full users list with basic information such as user first name, last name, active state and email address' | trans,
-            'label': 'Go to list' | trans
+            'label': 'Go to list' | trans,
+            'action': path('users_list')
         }%}
 
         {% include 'card.html.twig' with {
             'title': 'Add' | trans,
             'content': 'Add a new user with all default roles ( teacher ), once added, you can edit the new user roles in the edition panel' | trans,
-            'label': 'Add user' | trans
+            'label': 'Add user' | trans,
+            'action': path('users_add')
         }%}
 
         {% include 'card.html.twig' with {
             'title': 'Add admin' | trans,
             'content': 'Add a new user with admin role, this user can access all functionnalities throught the system, so be careful by addin an admin' | trans,
-            'label': 'Add admin' | trans
+            'label': 'Add admin' | trans,
+            'action': path('users_add_admin')
         }%}
 
     </div>
