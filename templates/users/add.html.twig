@@ -1,7 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
+{% block sidebar %}
     {% include 'sidebar.html.twig' %}
+{% endblock %}
+
+{% block body %}
     {{ form(userForm) }}
 {% endblock %}
 

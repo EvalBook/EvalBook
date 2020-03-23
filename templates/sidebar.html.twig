@@ -1,18 +1,14 @@
-<div class="container-fluid">
 
-    <div class="row" id="container">
-        <div class="col-sm-4 dropdown-menu" id="navbar">
-            <div class="dropdown-item">{{ "Notebook" | trans }}</div>
-            <div class="dropdown-item">{{ "Activities" | trans }}</div>
-            <div class="dropdown-item">{{ "School report" | trans }}</div>
-            <div class="dropdown-item">{{ "Pupils" | trans }}</div>
-            <div class="dropdown-item">{{ "Classes" | trans }}</div>
-            <div class="dropdown-item">{{ "Schools and implantation" | trans }}</div>
+<div class="col-md-3 m-4 p-3 h-25 mh-25 dropdown-menu-nav" id="navbar">
+    <div class="dropdown-item pb-2">{{ "Notebook" | trans }}</div>
+    <div class="dropdown-item pb-2">{{ "Activities" | trans }}</div>
+    <div class="dropdown-item pb-2">{{ "School report" | trans }}</div>
+    <div class="dropdown-item pb-2">{{ "Pupils" | trans }}</div>
+    <div class="dropdown-item pb-2">{{ "Classes" | trans }}</div>
+    <div class="dropdown-item pb-2">{{ "Schools and implantation" | trans }}</div>
 
-            {% if app.user.firstRoleMatch(['ROLE_USERS_LIST', 'ROLE_USER_CREATE', 'ROLE_USER_EDIT', 'ROLE_USER_DELETE']) %}
-                <a href="{{ path('users_index') }}" class="dropdown-item">{{ "Users" | trans }}</a>
-            {% endif %}
-        </div>
-    </div>
-
+    {% if app.user.firstRoleMatch(['ROLE_USERS_LIST', 'ROLE_USER_CREATE', 'ROLE_USER_EDIT', 'ROLE_USER_DELETE']) %}
+        <a href="{{ path('users_index') }}" class="dropdown-item">{{ "Users" | trans }}</a>
+    {% endif %}
+    </>
 </div>

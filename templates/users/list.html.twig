@@ -2,35 +2,33 @@
 
 {% block title %}{{ 'Users' | trans }}{% endblock %}
 
-{% block body %}
-
+{% block sidebar %}
     {% include 'sidebar.html.twig' %}
+{% endblock %}
 
-    {# TODO Handle granted perms. #}
-    <div class="col-md-4 content">
-        <table class="table">
-            <thead>
+{% block body %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th>{{ 'Id' | trans }}</th>
+            <th>{{ 'First name' | trans }}</th>
+            <th>{{ 'Last  name' | trans }}</th>
+            <th>{{ 'E-mail' | trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
             <tr>
-                <th>{{ 'Id' | trans }}</th>
-                <th>{{ 'First name' | trans }}</th>
-                <th>{{ 'Last  name' | trans }}</th>
-                <th>{{ 'E-mail' | trans }}</th>
+                <td>{{ user.id }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.email }}</td>
             </tr>
-            </thead>
-            <tbody>
-            {% for user in users %}
-                <tr>
-                    <td>{{ user.id }}</td>
-                    <td>{{ user.firstName }}</td>
-                    <td>{{ user.lastName }}</td>
-                    <td>{{ user.email }}</td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="8">{{ 'No users found' | trans }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
+        {% else %}
+            <tr>
+                <td colspan="8">{{ 'No users found' | trans }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

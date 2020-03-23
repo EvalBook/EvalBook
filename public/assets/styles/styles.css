@@ -6,6 +6,10 @@ body, html {
     color: #111111;
 }
 
+h2 {
+    font-size: inherit;
+}
+
 a {
     color: inherit;
     text-decoration: none;
@@ -73,17 +77,11 @@ i {
 
 
 /*Nav bar*/
-
-.dropdown-menu {
-    display: block;
-    position: absolute;
-    top : 20%;
-    left : 1%;
+/** Renamed => bootstrap conflict */
+.dropdown-menu-nav {
     background-color: #6d9bc3;
     border: 2px solid #eaaf1c;
     border-radius: 15px;
-    width: 24%;
-    padding-left: 1em;
     color: #f8f7ed;
 }
 
