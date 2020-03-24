@@ -19,8 +19,11 @@
 
 namespace App\Controller;
 
+use App\Repository\EcoleRepository;
+use App\Repository\ImplantationRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -43,20 +46,29 @@ class SchoolsImplantationsController extends AbstractController
     /**
      * @Route("/schools/list", name="schools_list")
      * @IsGranted("ROLE_ADMIN", statusCode=404, message="Not found")
+     *
+     * @param EcoleRepository $ecoleRepository
+     * @return Response
      */
-    public function schoolsList()
+    public function schoolsList(EcoleRepository $ecoleRepository)
     {
-
+        return $this->render('schools_implantations/schools-list.html.twig', [
+            'schools' => $ecoleRepository->findAll()
+        ]);
     }
 
 
     /**
      * @Route("/implantations/list", name="implantations_list")
      * @IsGranted("ROLE_IMPLANTATIONS_LIST", statusCode=404, message="Not found")
+     * @param ImplantationRepository $implantationRepository
+     * @return Response
      */
-    public function implantationList()
+    public function implantationList(ImplantationRepository $implantationRepository)
     {
-
+        return $this->render('schools_implantations/implantations-list.html.twig', [
+            'implantations' => $implantationRepository->findAll()
+        ]);
     }
 
 

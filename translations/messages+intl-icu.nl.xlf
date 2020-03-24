@@ -493,6 +493,22 @@
         <source>Users list</source>
         <target>Users list</target>
       </trans-unit>
+      <trans-unit id="OnqB0" resname="ROLE_IMPLANTATIONS_LIST">
+        <source>ROLE_IMPLANTATIONS_LIST</source>
+        <target>List implantations</target>
+      </trans-unit>
+      <trans-unit id="OnqB1" resname="ROLE_IMPLANTATION_EDIT">
+        <source>ROLE_IMPLANTATION_EDIT</source>
+        <target>Edit implantation</target>
+      </trans-unit>
+      <trans-unit id="OnqB2" resname="ROLE_IMPLANTATION_CREATE">
+        <source>ROLE_IMPLANTATION_CREATE</source>
+        <target>Create implantation</target>
+      </trans-unit>
+      <trans-unit id="OnqB3" resname="ROLE_IMPLANTATION_DELETE">
+        <source>ROLE_IMPLANTATION_DELETE</source>
+        <target>Delete implantation</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

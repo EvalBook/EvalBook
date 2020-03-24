@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Schools list' | trans }}{% endblock %}
+
+{% block sidebar %}
+    {% include 'sidebar.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">{{ 'Id' | trans }}</th>
+            <th scope="col">{{ 'School name' | trans }}</th>
+            <th scope="col">{{ 'Implantations' | trans }}</th>
+            <th scope="col">{{ 'Default Implantation' }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for school in schools %}
+            <tr>
+                <th scope="row">{{ school.id }}</th>
+                <td>{{ school.name }}</td>
+                <td>{{ school.implantations | length }}</td>
+                <td>
+                    {% for implantation in school.implantations %}
+
+                        {% if implantation.isDefaultImplantation %}
+                            {{ implantation.name }}
+                        {% endif %}
+
+                    {% endfor %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">{{ 'No school found' | trans }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
