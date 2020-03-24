@@ -617,6 +617,10 @@
         <source>Is this implantation the default school one ?</source>
         <target>Cette implantation est elle l'implantation par défaut de l'école ?</target>
       </trans-unit>
+      <trans-unit id="SWFhRVF" resname="Log out">
+        <source>Log out</source>
+        <target>Déconnexion</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
