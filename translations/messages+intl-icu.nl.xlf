@@ -549,6 +549,10 @@
         <source>School</source>
         <target>School</target>
       </trans-unit>
+      <trans-unit id="Z7aWRoY" resname="Dashboard">
+        <source>Dashboard</source>
+        <target>Dashboard</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
