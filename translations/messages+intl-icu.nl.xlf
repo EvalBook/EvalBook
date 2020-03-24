@@ -565,6 +565,58 @@
         <source>Choose the user roles</source>
         <target>Choose the user roles</target>
       </trans-unit>
+      <trans-unit id="jEa42Sj" resname="Implantation added">
+        <source>Implantation added</source>
+        <target>Implantation added</target>
+      </trans-unit>
+      <trans-unit id="JEAcnk2" resname="Enter the implantation name">
+        <source>Enter the implantation name</source>
+        <target>Enter the implantation name</target>
+      </trans-unit>
+      <trans-unit id="3ojr83K" resname="The name should at least have 4 characters">
+        <source>The name should at least have 4 characters</source>
+        <target>The name should at least have 4 characters</target>
+      </trans-unit>
+      <trans-unit id="5IldwRU" resname="The name should have a maximum of 100 characters">
+        <source>The name should have a maximum of 100 characters</source>
+        <target>The name should have a maximum of 100 characters</target>
+      </trans-unit>
+      <trans-unit id="mj9lOHJ" resname="Enter the implantation address">
+        <source>Enter the implantation address</source>
+        <target>Enter the implantation address</target>
+      </trans-unit>
+      <trans-unit id="FHaz0YG" resname="The address should at least have 4 characters">
+        <source>The address should at least have 4 characters</source>
+        <target>The address should at least have 4 characters</target>
+      </trans-unit>
+      <trans-unit id="vC6Mp25" resname="The address should have a maximum of 100 characters">
+        <source>The address should have a maximum of 100 characters</source>
+        <target>The address should have a maximum of 100 characters</target>
+      </trans-unit>
+      <trans-unit id="uhXiXuD" resname="Enter the implantation zip code">
+        <source>Enter the implantation zip code</source>
+        <target>Enter the implantation zip code</target>
+      </trans-unit>
+      <trans-unit id="c2VePQf" resname="Zip code cannot be blank">
+        <source>Zip code cannot be blank</source>
+        <target>Zip code cannot be blank</target>
+      </trans-unit>
+      <trans-unit id="MH3Wn21" resname="Enter the implantation country">
+        <source>Enter the implantation country</source>
+        <target>Enter the implantation country</target>
+      </trans-unit>
+      <trans-unit id="6slPDNq" resname="The country should at least have 4 characters">
+        <source>The country should at least have 4 characters</source>
+        <target>The country should at least have 4 characters</target>
+      </trans-unit>
+      <trans-unit id="rWYNXZw" resname="The country should have a maximum of 100 characters">
+        <source>The country should have a maximum of 100 characters</source>
+        <target>The country should have a maximum of 100 characters</target>
+      </trans-unit>
+      <trans-unit id="MWrtSnK" resname="Is this implantation the default school one ?">
+        <source>Is this implantation the default school one ?</source>
+        <target>Is this implantation the default school one ?</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

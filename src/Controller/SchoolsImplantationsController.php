@@ -20,9 +20,11 @@
 namespace App\Controller;
 
 use App\Entity\Ecole;
+use App\Entity\Implantation;
 use App\Repository\EcoleRepository;
 use App\Repository\ImplantationRepository;
 use App\Service\EcoleService;
+use App\Service\ImplantationService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -103,7 +105,7 @@ class SchoolsImplantationsController extends AbstractController
             return $this->redirectToRoute("schools_schools_add");
         }
 
-        return $this->render('schools/schools-add.html.twig', [
+        return $this->render('schools_implantations/schools-add.html.twig', [
             'schoolForm' => $form
         ]);
     }
@@ -113,9 +115,18 @@ class SchoolsImplantationsController extends AbstractController
      * @Route("/implantations/add", name="implantations_add")
      * @IsGranted("ROLE_IMPLANTATION_CREATE", statusCode=404, message="Not found")
      */
-    public function addImplantation()
+    public function addImplantation(ImplantationService $implantationService)
     {
+        list($result, $form) = $implantationService->addForm(new Implantation());
 
+        if(!is_null($result) && $result) {
+            $this->addFlash('success', $this->translator->trans("Implantation added"));
+            return $this->redirectToRoute("schools_implantations_add");
+        }
+
+        return $this->render('schools_implantations/implantations-add.html.twig', [
+            'implantationForm' => $form
+        ]);
     }
 
 

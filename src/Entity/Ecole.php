@@ -130,4 +130,15 @@ class Ecole
 
         return $this;
     }
+
+
+    /**
+     * Return the school string representation.
+     * @return string|null
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
 }
