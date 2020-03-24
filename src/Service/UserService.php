@@ -7,6 +7,8 @@ use App\Form\UserType;
 use App\Form\UserRoleType;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Symfony\Component\HttpKernel\Exception;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -107,6 +109,8 @@ class UserService
      *
      * @param User $user
      * @return bool
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function delete(User $user) : bool 
     {

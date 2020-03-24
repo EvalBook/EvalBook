@@ -23,6 +23,8 @@ use App\Service\UserService;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -44,7 +46,6 @@ class UsersController extends AbstractController
 
     /**
      * UsersController constructor.
-     * @param EntityManagerInterface $entityManager
      * @param TranslatorInterface $translator
      */
     public function __construct(TranslatorInterface $translator)
@@ -84,7 +85,7 @@ class UsersController extends AbstractController
      * @Route("/edit", name="edit")
      * @IsGranted("ROLE_USER_EDIT", statusCode=404, message="Not found")
      *
-     * @param Request $request
+     * @param UserService $userService
      * @param UserRepository $repository
      * @return Response
      */
@@ -169,10 +170,12 @@ class UsersController extends AbstractController
     /**
      * @Route("/delete/{id}", name="delete_confirm")
      * @IsGranted("ROLE_USER_DELETE", statusCode=404, message="Not found")
-     * 
+     *
      * @param UserService $userService
      * @param User $user
      * @return Response
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function deleteUserConfirm(UserService $userService, User $user)
     {
