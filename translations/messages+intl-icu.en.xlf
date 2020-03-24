@@ -493,21 +493,61 @@
         <source>Users list</source>
         <target>Users list</target>
       </trans-unit>
-      <trans-unit id="OnqB0" resname="ROLE_IMPLANTATIONS_LIST">
+      <trans-unit id="BHudI0z" resname="ROLE_IMPLANTATIONS_LIST">
         <source>ROLE_IMPLANTATIONS_LIST</source>
         <target>List implantations</target>
       </trans-unit>
-      <trans-unit id="OnqB1" resname="ROLE_IMPLANTATION_EDIT">
+      <trans-unit id="ia5MejI" resname="ROLE_IMPLANTATION_EDIT">
         <source>ROLE_IMPLANTATION_EDIT</source>
         <target>Edit implantation</target>
       </trans-unit>
-      <trans-unit id="OnqB2" resname="ROLE_IMPLANTATION_CREATE">
+      <trans-unit id="6jGRdBb" resname="ROLE_IMPLANTATION_CREATE">
         <source>ROLE_IMPLANTATION_CREATE</source>
         <target>Create implantation</target>
       </trans-unit>
-      <trans-unit id="OnqB3" resname="ROLE_IMPLANTATION_DELETE">
+      <trans-unit id="XSK0D2F" resname="ROLE_IMPLANTATION_DELETE">
         <source>ROLE_IMPLANTATION_DELETE</source>
         <target>Delete implantation</target>
+      </trans-unit>
+      <trans-unit id="KaiUUZT" resname="Implantations list">
+        <source>Implantations list</source>
+        <target>Implantations list</target>
+      </trans-unit>
+      <trans-unit id="3NHVIj9" resname="Name">
+        <source>Name</source>
+        <target>Name</target>
+      </trans-unit>
+      <trans-unit id="Jr8MX0K" resname="Ecole">
+        <source>Ecole</source>
+        <target>Ecole</target>
+      </trans-unit>
+      <trans-unit id="Vu_PIJV" resname="Address">
+        <source>Address</source>
+        <target>Address</target>
+      </trans-unit>
+      <trans-unit id="0U03kCu" resname="No implantation found">
+        <source>No implantation found</source>
+        <target>No implantation found</target>
+      </trans-unit>
+      <trans-unit id="MzMxWcN" resname="Schools list">
+        <source>Schools list</source>
+        <target>Schools list</target>
+      </trans-unit>
+      <trans-unit id="6yy9Moz" resname="School name">
+        <source>School name</source>
+        <target>School name</target>
+      </trans-unit>
+      <trans-unit id="iBJqyMs" resname="Implantations">
+        <source>Implantations</source>
+        <target>Implantations</target>
+      </trans-unit>
+      <trans-unit id="eKPt4qZ" resname="No school found">
+        <source>No school found</source>
+        <target>No school found</target>
+      </trans-unit>
+      <trans-unit id="bNLjMYV" resname="School">
+        <source>School</source>
+        <target>School</target>
       </trans-unit>
     </body>
   </file>
