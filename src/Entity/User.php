@@ -446,6 +446,11 @@ class User implements UserInterface
             'ROLE_BULLETIN_VALIDATE',
             'ROLE_BULLETIN_ADD_COMMENT',
             'ROLE_BULLETIN_STYLE_EDIT',
+            // Implantations related.
+            'ROLE_IMPLANTATIONS_LIST',
+            'ROLE_IMPLANTATION_EDIT',
+            'ROLE_IMPLANTATION_CREATE',
+            'ROLE_IMPLANTATION_DELETE',
         );
     }
 }

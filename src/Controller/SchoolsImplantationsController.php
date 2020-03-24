@@ -19,6 +19,7 @@
 
 namespace App\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -41,6 +42,7 @@ class SchoolsImplantationsController extends AbstractController
 
     /**
      * @Route("/schools/list", name="schools_list")
+     * @IsGranted("ROLE_ADMIN", statusCode=404, message="Not found")
      */
     public function schoolsList()
     {
@@ -50,6 +52,7 @@ class SchoolsImplantationsController extends AbstractController
 
     /**
      * @Route("/implantations/list", name="implantations_list")
+     * @IsGranted("ROLE_IMPLANTATIONS_LIST", statusCode=404, message="Not found")
      */
     public function implantationList()
     {
@@ -59,6 +62,7 @@ class SchoolsImplantationsController extends AbstractController
 
     /**
      * @Route("/schools/add", name="schools_add")
+     * @IsGranted("ROLE_ADMIN", statusCode=404, message="Not found")
      */
     public function addSchool()
     {
@@ -68,6 +72,7 @@ class SchoolsImplantationsController extends AbstractController
 
     /**
      * @Route("/implantations/add", name="implantations_add")
+     * @IsGranted("ROLE_IMPLANTATION_CREATE", statusCode=404, message="Not found")
      */
     public function addImplantation()
     {
@@ -77,6 +82,7 @@ class SchoolsImplantationsController extends AbstractController
 
     /**
      * @Route("/schools/edit", name="schools_edit")
+     * @IsGranted("ROLE_ADMIN", statusCode=404, message="Not found")
      */
     public function editSchool()
     {
@@ -86,6 +92,7 @@ class SchoolsImplantationsController extends AbstractController
 
     /**
      * @Route("/implantations/edit", name="implantations_edit")
+     * @IsGranted("ROLE_IMPLANTATION_EDIT", statusCode=404, message="Not found")
      */
     public function editImplantation()
     {
@@ -95,6 +102,7 @@ class SchoolsImplantationsController extends AbstractController
 
     /**
      * @Route("/schools/delete", name="schools_delete")
+     * @IsGranted("ROLE_ADMIN", statusCode=404, message="Not found")
      */
     public function deleteSchool()
     {
@@ -104,6 +112,7 @@ class SchoolsImplantationsController extends AbstractController
 
     /**
      * @Route("/implantations/delete", name="implantations_delete")
+     * @IsGranted("ROLE_IMPLANTATION_DELETE", statusCode=404, message="Not found")
      */
     public function deleteImplantation()
     {
