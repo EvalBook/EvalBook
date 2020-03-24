@@ -553,6 +553,18 @@
         <source>Dashboard</source>
         <target>Dashboard</target>
       </trans-unit>
+      <trans-unit id="iCE5Xsq" resname="School added">
+        <source>School added</source>
+        <target>School added</target>
+      </trans-unit>
+      <trans-unit id="pG3g915" resname="Enter a school name">
+        <source>Enter a school name</source>
+        <target>Enter a school name</target>
+      </trans-unit>
+      <trans-unit id="3np5mz1" resname="Choose the user roles">
+        <source>Choose the user roles</source>
+        <target>Choose the user roles</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{%  block title %}
+    {{ 'User add' | trans }}
+{%  endblock %}
+
+{% block sidebar %}
+    {% include 'sidebar.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    {% form_theme schoolForm 'bootstrap_4_layout.html.twig' %}
+    {{ form(schoolForm) }}
+{% endblock %}

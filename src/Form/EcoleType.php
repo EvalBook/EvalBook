@@ -4,11 +4,14 @@ namespace App\Form;
 
 use App\Entity\Ecole;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class EcoleAddType extends AbstractType
+
+class EcoleType extends AbstractType
 {
 
     private $translator;
@@ -31,7 +34,16 @@ class EcoleAddType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
+            ->add('name', TextType::class ,[
+                'label' => $this->translator->trans('Enter a school name'),
+                'required' => true,
+                'attr' => ['class' => 'form-control']
+            ])
+
+            // Submit button.
+            ->add($this->translator->trans("Send"), SubmitType::class, [
+                'attr' => ['class' => 'btn btn-primary']
+            ])
         ;
     }
 

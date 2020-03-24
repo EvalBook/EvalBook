@@ -19,12 +19,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Ecole;
 use App\Repository\EcoleRepository;
 use App\Repository\ImplantationRepository;
+use App\Service\EcoleService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 /**
@@ -34,6 +38,18 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SchoolsImplantationsController extends AbstractController
 {
+    private $translator;
+
+    /**
+     * SchoolsImplantationsController constructor.
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
+
     /**
      * @Route("/", name="index")
      */
@@ -75,10 +91,21 @@ class SchoolsImplantationsController extends AbstractController
     /**
      * @Route("/schools/add", name="schools_add")
      * @IsGranted("ROLE_ADMIN", statusCode=404, message="Not found")
+     * @param EcoleService $ecoleService
+     * @return RedirectResponse|Response
      */
-    public function addSchool()
+    public function addSchool(EcoleService $ecoleService)
     {
+        list($result, $form) = $ecoleService->addForm(new Ecole());
 
+        if(!is_null($result) && $result) {
+            $this->addFlash('success', $this->translator->trans("School added"));
+            return $this->redirectToRoute("schools_schools_add");
+        }
+
+        return $this->render('schools/schools-add.html.twig', [
+            'schoolForm' => $form
+        ]);
     }
 
 

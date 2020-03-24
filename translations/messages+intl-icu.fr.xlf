@@ -553,6 +553,18 @@
         <source>Dashboard</source>
         <target>Tableau de bord</target>
       </trans-unit>
+      <trans-unit id="iCE5Xsq" resname="School added">
+        <source>School added</source>
+        <target>Ecole ajoutée</target>
+      </trans-unit>
+      <trans-unit id="pG3g915" resname="Enter a school name">
+        <source>Enter a school name</source>
+        <target>Entrez le nom de l'école</target>
+      </trans-unit>
+      <trans-unit id="3np5mz1" resname="Choose the user roles">
+        <source>Choose the user roles</source>
+        <target>Choisissez les rôles de l'utilisateur</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

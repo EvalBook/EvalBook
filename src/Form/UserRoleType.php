@@ -34,7 +34,7 @@ class UserRoleType extends AbstractType
     {
         $builder
             ->add('roles', ChoiceType::class, [
-                'label' => 'Choose the user roles',
+                'label' => $this->translator->trans('Choose the user roles'),
                 'required' => true,
                 'attr' => ['class' => 'form-check'],
                 'multiple' => true,

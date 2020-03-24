@@ -5,10 +5,7 @@ namespace App\Service;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Form\UserRoleType;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
 use Symfony\Component\HttpKernel\Exception;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -21,23 +18,28 @@ class UserService
     private $entityManager;
     private $formFactory;
     private $request;
-    
+    private $formService;
+
     /**
      * Manage user services.
      *
-     * @param EntityManager $manager
+     * @param EntityManagerInterface $manager
+     * @param FormFactoryInterface $formFactoryInterface
+     * @param RequestStack $stack
      */
-    public function __construct(EntityManagerInterface $manager, FormFactoryInterface $formFactoryInterface, RequestStack $stack)
+    public function __construct(FormService $formService, EntityManagerInterface $manager, FormFactoryInterface $formFactoryInterface, RequestStack $stack)
     {
         $this->entityManager = $manager;
         $this->formFactory = $formFactoryInterface;
         $this->request = $stack->getCurrentRequest();
+        $this->formService = $formService;
     }
 
 
     /**
      * Add a new user with a form.
      *
+     * @param array|null $roles
      * @return array
      */
     public function addForm(?array $roles) : array
@@ -85,22 +87,24 @@ class UserService
     /**
      * Return a user UNIQ edit named form, handle the request too.
      *
+     * @param User $user
      * @return array
      */
     public function editForm(User $user) : array
     {
-        return $this->createForm('edit-user' . $user->getId(), UserType::class, $user);
+        return $this->formService->createForm('edit-user' . $user->getId(), UserType::class, $user);
     }
 
 
     /**
      * Return a user UNIQ edit roles named form, handle the request too.
      *
+     * @param User $user
      * @return array
      */
     public function roleEditForm(User $user) : array
     {
-        return $this->createForm('edit-roles' . $user->getId(), UserRoleType::class, $user);
+        return $this->formService->createForm('edit-roles' . $user->getId(), UserRoleType::class, $user);
     }
 
 
@@ -109,8 +113,6 @@ class UserService
      *
      * @param User $user
      * @return bool
-     * @throws ORMException
-     * @throws OptimisticLockException
      */
     public function delete(User $user) : bool 
     {
@@ -122,36 +124,6 @@ class UserService
         catch(Exception\NotFoundHttpException $e) {}
 
         return false;
-    }
-
-
-    /**
-     * Manage generic form.
-     *
-     * @param string $name
-     * @param string $classname
-     * @param Object $obj
-     * @return array
-     */
-    private function createForm(string $name, string $classname, Object $obj) : array
-    {
-        // Roles edition form.
-        $form = $this->formFactory->createNamed('edit-roles' . $name, $classname, $obj);
-
-        try {
-            $form->handleRequest($this->request);
-
-            if ($form->isSubmitted() && $form->isValid()) {
-                $this->entityManager->persist($obj);
-                $this->entityManager->flush();
-                return [true, null];
-            }
-        } 
-        catch (\Exception $e) {
-            return [false, $form->createView()];
-        }
-
-        return [null, $form->createView()];
     }
 
 }
