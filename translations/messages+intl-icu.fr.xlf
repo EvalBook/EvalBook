@@ -361,6 +361,138 @@
         <source>An error occured updating your informations</source>
         <target>Une erreur est survenue en mettant à jour vos données</target>
       </trans-unit>
+      <trans-unit id="qz8kcXE" resname="Schools and implantations management">
+        <source>Schools and implantations management</source>
+        <target>Gestion des écoles et implantations</target>
+      </trans-unit>
+      <trans-unit id="lwAFSi2" resname="List schools">
+        <source>List schools</source>
+        <target>Liste des écoles</target>
+      </trans-unit>
+      <trans-unit id="pUkVWdC" resname="View the full school list with basic information such as school address and some statistics">
+        <source>View the full school list with basic information such as school address and some statistics</source>
+        <target>Voir la liste complète des écoles avec des informations de base telles que l'adresse et quelques statistiques</target>
+      </trans-unit>
+      <trans-unit id="byAvVKe" resname="List">
+        <source>List</source>
+        <target>Lister</target>
+      </trans-unit>
+      <trans-unit id="mQXL9fI" resname="List implantations">
+        <source>List implantations</source>
+        <target>Lister les implantations</target>
+      </trans-unit>
+      <trans-unit id="ss9u4Tg" resname="View the full implantations list with basic information such as school and implantation address and some statistics">
+        <source>View the full implantations list with basic information such as school and implantation address and some statistics</source>
+        <target>Voir la liste complète des implantations avec des informations de base telles que l'école, l'adresse et quelques statistiques</target>
+      </trans-unit>
+      <trans-unit id="sTJlOKC" resname="Add school">
+        <source>Add school</source>
+        <target>Ajouter une école</target>
+      </trans-unit>
+      <trans-unit id="5ZrTxnr" resname="Add a new school and attach implantations to this one">
+        <source>Add a new school and attach implantations to this one</source>
+        <target>Ajouter une école et y attacher une/des implantations</target>
+      </trans-unit>
+      <trans-unit id="n9coxmy" resname="Add">
+        <source>Add</source>
+        <target>Ajouter</target>
+      </trans-unit>
+      <trans-unit id="1WPlfze" resname="Add implantation">
+        <source>Add implantation</source>
+        <target>Ajouter une implantation</target>
+      </trans-unit>
+      <trans-unit id="dLc5zEx" resname="Add a new implantation and attach it to a school">
+        <source>Add a new implantation and attach it to a school</source>
+        <target>Ajouter une nouvelle implantation et l'attacher à une école</target>
+      </trans-unit>
+      <trans-unit id="0N2R_dl" resname="Edit school">
+        <source>Edit school</source>
+        <target>Modifier une école</target>
+      </trans-unit>
+      <trans-unit id="3dEy2lP" resname="Edit an existing school to update its information.">
+        <source>Edit an existing school to update its information.</source>
+        <target>Editer une école existante pour mettre à jour ses informations.</target>
+      </trans-unit>
+      <trans-unit id="_2LsFQE" resname="Edit implantation">
+        <source>Edit implantation</source>
+        <target>Modifier une implantation</target>
+      </trans-unit>
+      <trans-unit id="yZ_x2mV" resname="Edit an implantation information">
+        <source>Edit an implantation information</source>
+        <target>Modifier les informations d'une implantation</target>
+      </trans-unit>
+      <trans-unit id="K8DGEYV" resname="Delete school">
+        <source>Delete school</source>
+        <target>Supprimer une école</target>
+      </trans-unit>
+      <trans-unit id="EhS2LRi" resname="Delete a school, implantations are preserved and attachable to an other school">
+        <source>Delete a school, implantations are preserved and attachable to an other school</source>
+        <target>Supprimer une école, les implantations sont préservées et attachable à une autre école</target>
+      </trans-unit>
+      <trans-unit id="t1eytx_" resname="Delete implantation">
+        <source>Delete implantation</source>
+        <target>Supprimer une implantation</target>
+      </trans-unit>
+      <trans-unit id="xym13vY" resname="Delete an implantation">
+        <source>Delete an implantation</source>
+        <target>Supprimer une implantation</target>
+      </trans-unit>
+      <trans-unit id="N6Owkac" resname="User add">
+        <source>User add</source>
+        <target>Ajouter utilisateur</target>
+      </trans-unit>
+      <trans-unit id="RcjRvcw" resname="Users delete">
+        <source>Users delete</source>
+        <target>Supprimer des utilisateurs</target>
+      </trans-unit>
+      <trans-unit id="Nl34BI7" resname="Users edit">
+        <source>Users edit</source>
+        <target>Modifier des utilisateurs</target>
+      </trans-unit>
+      <trans-unit id="jcOyUrI" resname="Users management">
+        <source>Users management</source>
+        <target>Gestion utilisateurs</target>
+      </trans-unit>
+      <trans-unit id="tQPkI7i" resname="View the full users list with basic information such as user first name, last name, active state and email address">
+        <source>View the full users list with basic information such as user first name, last name, active state and email address</source>
+        <target>Voir la liste complète des utilisateurs avec des informations de base telles que le nom, le prénom, le statut et l'adresse e-mail</target>
+      </trans-unit>
+      <trans-unit id="qkV9dg6" resname="Go to list">
+        <source>Go to list</source>
+        <target>Aller à la liste</target>
+      </trans-unit>
+      <trans-unit id="JSxLIHE" resname="Add a new user with all default roles ( teacher ), once added, you can edit the new user roles in the edition panel">
+        <source>Add a new user with all default roles ( teacher ), once added, you can edit the new user roles in the edition panel</source>
+        <target>Ajouter une nouvel utilisateur avec les valeurs de rôles par défaut, si vous souhaitez changer ou ajouter des rôles, rendez vous dans la partie édition</target>
+      </trans-unit>
+      <trans-unit id="7sXHOh1" resname="Add user">
+        <source>Add user</source>
+        <target>Ajouter un utilisateur</target>
+      </trans-unit>
+      <trans-unit id="YGwTywG" resname="Add admin">
+        <source>Add admin</source>
+        <target>Ajouter un admin</target>
+      </trans-unit>
+      <trans-unit id="kJcKVTm" resname="Add a new user with admin role, this user can access all functionnalities throught the system, so be careful by addin an admin">
+        <source>Add a new user with admin role, this user can access all functionnalities throught the system, so be careful by addin an admin</source>
+        <target>Ajouter une nouve utilisateur avec tous les droits admin, soyez prudent, l'édministrateur a accès à toiut le système</target>
+      </trans-unit>
+      <trans-unit id="K.WbLPW" resname="Edit users informations such as passwords, email addresses, names and first name, edit their roles, and so on">
+        <source>Edit users informations such as passwords, email addresses, names and first name, edit their roles, and so on</source>
+        <target>Editer les informations utilisateurs telles que le mot de passe, l'email, le nom et le prénom, les rôles, le statut</target>
+      </trans-unit>
+      <trans-unit id="WDY.2UJ" resname="Delete user">
+        <source>Delete user</source>
+        <target>Supprimer un utilisateur</target>
+      </trans-unit>
+      <trans-unit id="AluPf9_" resname="Delete a user from the user list, all user data such as classes and activities will remain until explicitly deleted">
+        <source>Delete a user from the user list, all user data such as classes and activities will remain until explicitly deleted</source>
+        <target>Supprimer un utilisateur du système, les informations telles que la classe, les activités et notes seront préservées tant qu'elles n'auront pas été explicitement supprimées</target>
+      </trans-unit>
+      <trans-unit id="OnqBk.y" resname="Users list">
+        <source>Users list</source>
+        <target>Liste des utilisateurs</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -1,20 +1,82 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}
+    {{ "Schools and implantations management" | trans }}
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'sidebar.html.twig' %}
+{% endblock %}
+
 {% block body %}
 
-    {% include 'sidebar.html.twig' %}
+    <div class="row mt-4">
 
-    <div class="col-md-8 container">
-        <ul>
-            <li><a href="{{ path('users_list') }}">Voir la liste des écoles</a></li>
-            <li><a href="{{ path('users_add') }}">Ajouter une école</a></li>
-            <li><a href="{{ path('users_edit') }}">Modifier une école</a></li>
-            <li><a href="{{ path('users_delete') }}">Supprimer une école</a></li>
+        {% include 'card.html.twig' with {
+            'title': 'List schools' | trans,
+            'content': 'View the full school list with basic information such as school address and some statistics' | trans,
+            'label': 'List' | trans,
+            'action': path('schools_schools_list')
+        }%}
 
-            <li><a href="{{ path('users_list') }}">Voir la liste des implantations</a></li>
-            <li><a href="{{ path('users_add') }}">Ajouter une implantation</a></li>
-            <li><a href="{{ path('users_edit') }}">Modifier une implantation</a></li>
-            <li><a href="{{ path('users_delete') }}">Supprimer une implantation</a></li>
-        </ul>
+        {% include 'card.html.twig' with {
+            'title': 'List implantations' | trans,
+            'content': 'View the full implantations list with basic information such as school and implantation address and some statistics' | trans,
+            'label': 'List' | trans,
+            'action': path('schools_implantations_list')
+        }%}
+
+        {% include 'card.html.twig' with {
+            'title': 'Add school' | trans,
+            'content': 'Add a new school and attach implantations to this one' | trans,
+            'label': 'Add' | trans,
+            'action': path('schools_schools_add')
+        }%}
+
+    </div>
+    <div class="row mt-4">
+
+        {% if is_granted('ROLE_ADMIN') %}
+            {% include 'card.html.twig' with {
+                'title': 'Add implantation' | trans,
+                'content': 'Add a new implantation and attach it to a school' | trans,
+                'label': 'Add' | trans,
+                'action': path('schools_implantations_add')
+            }%}
+        {% endif %}
+
+        {% include 'card.html.twig' with {
+            'title': 'Edit school' | trans,
+            'content': 'Edit an existing school to update its information.' | trans,
+            'label': 'Edit' | trans,
+            'action': path('schools_schools_edit')
+        }%}
+
+        {% include 'card.html.twig' with {
+            'title': 'Edit implantation' | trans,
+            'content': 'Edit an implantation information' | trans,
+            'label': 'Edit' | trans,
+            'action': path('schools_implantations_edit')
+        }%}
+
+    </div>
+    <div class="row mt-4">
+
+        {% if is_granted('ROLE_ADMIN') %}
+            {% include 'card.html.twig' with {
+                'title': 'Delete school' | trans,
+                'content': 'Delete a school, implantations are preserved and attachable to an other school' | trans,
+                'label': 'Delete' | trans,
+                'action': path('schools_schools_delete')
+            }%}
+        {% endif %}
+
+        {% include 'card.html.twig' with {
+            'title': 'Delete implantation' | trans,
+            'content': 'Delete an implantation' | trans,
+            'label': 'Delete' | trans,
+            'action': path('schools_implantations_delete')
+        }%}
+
     </div>
 {% endblock %}
