@@ -29,7 +29,7 @@ class EcoleService
     public function addForm(Ecole $ecole)
     {
         $id = $ecole->getId() ?? "0";
-        return $this->formService->createForm('edit-user' . $id, EcoleType::class, $ecole);
+        return $this->formService->createForm('school-edit-' . $id, EcoleType::class, $ecole);
     }
 
 }
