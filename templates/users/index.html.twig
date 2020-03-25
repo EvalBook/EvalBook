@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block sidebar %}
-    {% include 'sidebar.html.twig' %}
+    {% include '_partials/sidebar.html.twig' %}
 {% endblock %}
 
 {% block body %}
@@ -13,7 +13,7 @@
     <div class="row mt-4">
 
         {% if is_granted('ROLE_USERS_LIST') %}
-            {% include 'card.html.twig' with {
+            {% include '_partials/card.html.twig' with {
                 'title': 'List' | trans,
                 'content': 'View the full users list with basic information such as user first name, last name, active state and email address' | trans,
                 'label': 'Go to list' | trans,
@@ -22,7 +22,7 @@
         {% endif %}
 
         {% if is_granted('ROLE_USER_CREATE') %}
-            {% include 'card.html.twig' with {
+            {% include '_partials/card.html.twig' with {
                 'title': 'Add' | trans,
                 'content': 'Add a new user with all default roles ( teacher ), once added, you can edit the new user roles in the edition panel' | trans,
                 'label': 'Add user' | trans,
@@ -31,7 +31,7 @@
         {% endif %}
 
         {% if is_granted('ROLE_ADMIN') %}
-            {% include 'card.html.twig' with {
+            {% include '_partials/card.html.twig' with {
                 'title': 'Add admin' | trans,
                 'content': 'Add a new user with admin role, this user can access all functionnalities throught the system, so be careful by addin an admin' | trans,
                 'label': 'Add admin' | trans,
@@ -43,7 +43,7 @@
     <div class="row mt-4">
 
         {% if is_granted('ROLE_USER_EDIT') %}
-            {% include 'card.html.twig' with {
+            {% include '_partials/card.html.twig' with {
                 'title': 'Edit user' | trans,
                 'content': 'Edit users informations such as passwords, email addresses, names and first name, edit their roles, and so on' | trans,
                 'label': 'Edit user' | trans,
@@ -52,7 +52,7 @@
         {% endif %}
 
         {% if is_granted('ROLE_USER_DELETE') %}
-            {% include 'card.html.twig' with {
+            {% include '_partials/card.html.twig' with {
                 'title': 'Delete user' | trans,
                 'content': 'Delete a user from the user list, all user data such as classes and activities will remain until explicitly deleted' | trans,
                 'label': 'Delete user' | trans,

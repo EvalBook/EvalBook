@@ -3,7 +3,7 @@
 {% block title %}{{ 'Users delete' | trans }}{% endblock %}
 
 {% block sidebar %}
-    {% include 'sidebar.html.twig' %}
+    {% include '_partials/sidebar.html.twig' %}
 {% endblock %}
 
 {% block body %}
@@ -25,7 +25,7 @@
                 <td>{{ user.lastName }}</td>
                 <td>{{ user.email }}</td>
                 <td>
-                    {% include 'modal-confirm.html.twig' with {
+                    {% include '_partials/modal-confirm.html.twig' with {
                         'content' : 'Are you sure you want to delete this user' | trans,
                         'id': user.id,
                         'slug' : 'delete',

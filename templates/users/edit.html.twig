@@ -3,7 +3,7 @@
 {% block title %}{{ 'Users edit' | trans }}{% endblock %}
 
 {% block sidebar %}
-    {% include 'sidebar.html.twig' %}
+    {% include '_partials/sidebar.html.twig' %}
 {% endblock %}
 
 {% block body %}
@@ -29,7 +29,7 @@
                 <td>
                     {{ user.roles | length }}
                     {% form_theme rolesForms[user.id] 'bootstrap_4_layout.html.twig' %}
-                    {% include 'modal-right.html.twig' with {'content' : form(rolesForms[user.id]),'id': user.id, 'slug': 'role', 'fa': 'far fa-edit'} %}
+                    {% include '_partials/modal-right.html.twig' with {'content' : form(rolesForms[user.id]),'id': user.id, 'slug': 'role', 'fa': 'far fa-edit'} %}
                 </td>
                 <td>
                     {% if user.active %}
@@ -40,7 +40,7 @@
                 </td>
                 <td>
                     {% form_theme editForms[user.id] 'bootstrap_4_layout.html.twig' %}
-                    {% include 'modal-right.html.twig' with {'content' : form(editForms[user.id]),'id': user.id, 'slug': 'edit', 'fa': 'fas fa-pen-square'} %}
+                    {% include '_partials/modal-right.html.twig' with {'content' : form(editForms[user.id]),'id': user.id, 'slug': 'edit', 'fa': 'fas fa-pen-square'} %}
                 </td>
             </tr>
         {% else %}

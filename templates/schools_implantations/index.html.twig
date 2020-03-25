@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block sidebar %}
-    {% include 'sidebar.html.twig' %}
+    {% include '_partials/sidebar.html.twig' %}
 {% endblock %}
 
 {% block body %}
@@ -13,7 +13,7 @@
     <div class="row mt-4">
 
         {% if is_granted('ROLE_ADMIN') %}
-            {% include 'card.html.twig' with {
+            {% include '_partials/card.html.twig' with {
                 'title': 'List schools' | trans,
                 'content': 'View the full school list with basic information such as school address and some statistics' | trans,
                 'label': 'List' | trans,
@@ -22,7 +22,7 @@
         {% endif %}
 
         {% if is_granted('ROLE_IMPLANTATIONS_LIST') %}
-            {% include 'card.html.twig' with {
+            {% include '_partials/card.html.twig' with {
                 'title': 'List implantations' | trans,
                 'content': 'View the full implantations list with basic information such as school and implantation address and some statistics' | trans,
                 'label': 'List' | trans,
@@ -31,7 +31,7 @@
         {% endif %}
 
         {% if is_granted('ROLE_ADMIN') %}
-            {% include 'card.html.twig' with {
+            {% include '_partials/card.html.twig' with {
                 'title': 'Add school' | trans,
                 'content': 'Add a new school and attach implantations to this one' | trans,
                 'label': 'Add' | trans,
@@ -43,7 +43,7 @@
     <div class="row mt-4">
 
         {% if is_granted('ROLE_IMPLANTATION_CREATE') %}
-            {% include 'card.html.twig' with {
+            {% include '_partials/card.html.twig' with {
                 'title': 'Add implantation' | trans,
                 'content': 'Add a new implantation and attach it to a school' | trans,
                 'label': 'Add' | trans,
@@ -52,7 +52,7 @@
         {% endif %}
 
         {% if is_granted('ROLE_ADMIN') %}
-            {% include 'card.html.twig' with {
+            {% include '_partials/card.html.twig' with {
                 'title': 'Edit school' | trans,
                 'content': 'Edit an existing school to update its information.' | trans,
                 'label': 'Edit' | trans,
@@ -61,7 +61,7 @@
         {% endif %}
 
         {% if is_granted('ROLE_IMPLANTATION_EDIT') %}
-            {% include 'card.html.twig' with {
+            {% include '_partials/card.html.twig' with {
                 'title': 'Edit implantation' | trans,
                 'content': 'Edit an implantation information' | trans,
                 'label': 'Edit' | trans,
@@ -73,7 +73,7 @@
     <div class="row mt-4">
 
         {% if is_granted('ROLE_ADMIN') %}
-            {% include 'card.html.twig' with {
+            {% include '_partials/card.html.twig' with {
                 'title': 'Delete school' | trans,
                 'content': 'Delete a school, implantations are preserved and attachable to an other school' | trans,
                 'label': 'Delete' | trans,
@@ -82,7 +82,7 @@
         {% endif %}
 
         {% if is_granted('ROLE_IMPLANTATION_DELETE') %}
-            {% include 'card.html.twig' with {
+            {% include '_partials/card.html.twig' with {
                 'title': 'Delete implantation' | trans,
                 'content': 'Delete an implantation' | trans,
                 'label': 'Delete' | trans,
