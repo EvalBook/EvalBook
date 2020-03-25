@@ -371,7 +371,7 @@
       </trans-unit>
       <trans-unit id="pUkVWdC" resname="View the full school list with basic information such as school address and some statistics">
         <source>View the full school list with basic information such as school address and some statistics</source>
-        <target>Voir la liste complète des écoles avec des informations de base telles que l'adresse et quelques statistiques</target>
+        <target>Voir la liste complète des écoles avec des informations de base telles que l'adresse, etc.</target>
       </trans-unit>
       <trans-unit id="byAvVKe" resname="List">
         <source>List</source>
@@ -383,7 +383,7 @@
       </trans-unit>
       <trans-unit id="ss9u4Tg" resname="View the full implantations list with basic information such as school and implantation address and some statistics">
         <source>View the full implantations list with basic information such as school and implantation address and some statistics</source>
-        <target>Voir la liste complète des implantations avec des informations de base telles que l'école, l'adresse et quelques statistiques</target>
+        <target>Voir la liste complète des implantations avec des informations telles que l'école, l'adresse etc.</target>
       </trans-unit>
       <trans-unit id="sTJlOKC" resname="Add school">
         <source>Add school</source>
@@ -391,7 +391,7 @@
       </trans-unit>
       <trans-unit id="5ZrTxnr" resname="Add a new school and attach implantations to this one">
         <source>Add a new school and attach implantations to this one</source>
-        <target>Ajouter une école et y attacher une/des implantations</target>
+        <target>Ajouter une école pour pouvoir y attacher par la suite une ou plusieurs implantations</target>
       </trans-unit>
       <trans-unit id="n9coxmy" resname="Add">
         <source>Add</source>
@@ -419,7 +419,7 @@
       </trans-unit>
       <trans-unit id="yZ_x2mV" resname="Edit an implantation information">
         <source>Edit an implantation information</source>
-        <target>Modifier les informations d'une implantation</target>
+        <target>Modifier toutes les informations d'une implantation, l'attacher à une autre école, etc.</target>
       </trans-unit>
       <trans-unit id="K8DGEYV" resname="Delete school">
         <source>Delete school</source>
