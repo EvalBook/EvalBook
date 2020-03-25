@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Implantation edit' | trans }}{% endblock %}
+
+{% block sidebar %}
+    {% include '_partials/sidebar.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">{{ 'Id' | trans }}</th>
+            <th scope="col">{{ 'Name' | trans }}</th>
+            <th scope="col">{{ 'Address' | trans }}</th>
+            <th scope="col">{{ 'Zip code' | trans }}</th>
+            <th scope="col">{{ 'Country' | trans }}</th>
+            <th scope="col">{{ 'Ecole' | trans }}</th>
+            <th scope="col">{{ 'Is default' | trans }}</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for implantation in implantations %}
+            <tr>
+                <th scope="row">{{ implantation.id }}</th>
+                <td>{{ implantation.name }}</td>
+                <td>{{ implantation.address }}</td>
+                <td>{{ implantation.zipCode }}</td>
+                <td>{{ implantation.country }}</td>
+                <td>{{ implantation.ecole.name }}</td>
+                <td>
+                    {% if implantation.isDefaultImplantation %}
+                        {{ 'Yes' | trans }}
+                    {% else %}
+                        {{ 'No' | trans }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% form_theme implantationsForms[implantation.id] 'bootstrap_4_layout.html.twig' %}
+                    {% include '_partials/modal-right.html.twig' with {'content' : form(implantationsForms[implantation.id]),'id': implantation.id, 'slug': 'implantation', 'fa': 'far fa-edit'} %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">{{ 'No implantation found' | trans }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

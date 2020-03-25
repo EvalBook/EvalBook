@@ -161,10 +161,27 @@ class SchoolsImplantationsController extends AbstractController
     /**
      * @Route("/implantations/edit", name="implantations_edit")
      * @IsGranted("ROLE_IMPLANTATION_EDIT", statusCode=404, message="Not found")
+     * @param ImplantationRepository $repository
+     * @return RedirectResponse|Response
      */
-    public function editImplantation()
+    public function editImplantation(ImplantationRepository $repository)
     {
+        $implantations = $this->entityService->setRepository($repository)->findAll();
+        $editForms = array();
 
+        foreach($implantations as $implantation) {
+            list($iResult, $formEdit) = $this->entityService->editForm(ImplantationType::class, $implantation, 'implantation-edit');
+            $editForms[$implantation->getId()] = $formEdit;
+
+            if(!is_null($iResult) && $iResult) {
+                $this->addFlash('success', $this->entityService->getTranslator()->trans("Implantation updated"));
+                return $this->redirectToRoute("schools_implantations_edit");
+            }
+        }
+        return $this->render('schools_implantations/implantations-edit.html.twig', [
+            'implantations' => $implantations,
+            'implantationsForms' => $editForms,
+        ]);
     }
 
 

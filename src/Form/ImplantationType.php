@@ -6,7 +6,9 @@ use App\Entity\Ecole;
 use App\Entity\Implantation;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -69,7 +71,7 @@ class ImplantationType extends AbstractType
             ])
 
             // Implantation zip code.
-            ->add('zipCode', NumberType::class, [
+            ->add('zipCode', IntegerType::class, [
                 'label' => $this->translator->trans('Enter the implantation zip code'),
                 'constraints' => [
                     new NotBlank([
@@ -119,6 +121,18 @@ class ImplantationType extends AbstractType
             ->add($this->translator->trans("Send"), SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary']
             ])
+        ;
+
+        $builder->get('zipCode')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($zipCode) {
+                    return (int) $zipCode;
+                },
+
+                function ($zipCode) {
+                    return (string) $zipCode;
+                }
+            ))
         ;
     }
 

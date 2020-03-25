@@ -154,12 +154,12 @@ class Implantation
 
     /**
      * Set the Implantation zip code.
-     * @param string $zipCode
+     * @param string|int $zipCode
      * @return $this
      */
     public function setZipCode(string $zipCode): self
     {
-        $this->zipCode = $zipCode;
+        $this->zipCode = (string)$zipCode;
         return $this;
     }
 
