@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Users edit' | trans }}{% endblock %}
+
+{% block sidebar %}
+    {% include '_partials/sidebar.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">{{ 'Id' | trans }}</th>
+            <th scope="col">{{ 'Name' | trans }}</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for school in schools %}
+            <tr>
+                <th scope="row">{{ school.id }}</th>
+                <td>{{ school.name }}</td>
+                <td>
+                    {% form_theme schoolsForms[school.id] 'bootstrap_4_layout.html.twig' %}
+                    {% include '_partials/modal-right.html.twig' with {'content' : form(schoolsForms[school.id]),'id': school.id, 'slug': 'school', 'fa': 'far fa-edit'} %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">{{ 'No schools found' | trans }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

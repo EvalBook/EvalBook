@@ -151,9 +151,9 @@ class SchoolsImplantationsController extends AbstractController
                 return $this->redirectToRoute("schools_schools_edit");
             }
         }
-        return $this->render('users/edit.html.twig', [
+        return $this->render('schools_implantations/schools-edit.html.twig', [
             'schools' => $schools,
-            'editForms' => $editForms,
+            'schoolsForms' => $editForms,
         ]);
     }
 
