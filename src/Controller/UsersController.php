@@ -19,12 +19,11 @@
 
 namespace App\Controller;
 
-use App\Service\UserService;
+use App\Form\UserType;
+use App\Service\FormService;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -43,14 +42,17 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class UsersController extends AbstractController
 {
     private $translator;
+    private $entityManager;
 
     /**
      * UsersController constructor.
+     * @param EntityManagerInterface $entityManager
      * @param TranslatorInterface $translator
      */
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(EntityManagerInterface $entityManager, TranslatorInterface $translator)
     {
         $this->translator = $translator;
+        $this->entityManager = $entityManager;
     }
 
 
@@ -85,19 +87,19 @@ class UsersController extends AbstractController
      * @Route("/edit", name="edit")
      * @IsGranted("ROLE_USER_EDIT", statusCode=404, message="Not found")
      *
-     * @param UserService $userService
+     * @param FormService $service
      * @param UserRepository $repository
      * @return Response
      */
-    public function editUsers(UserService $userService, UserRepository $repository)
+    public function editUsers(FormService $service, UserRepository $repository)
     {
         $users = $repository->findAll();
         $rolesForms = array();
         $editForms = array();
 
         foreach($users as $usr) {
-            list($rResult, $formRolesEdit) = $userService->roleEditForm($usr);
-            list($eResult, $formEdit) = $userService->editForm($usr);
+            list($rResult, $formRolesEdit) = $service->createSimpleForm('edit-user-' . $usr->getId(), UserType::class, $usr);
+            list($eResult, $formEdit) = $service->createSimpleForm('edit-user-role-' . $usr->getId(), UserType::class, $usr);
             
             $rolesForms[$usr->getId()] = $formRolesEdit;
             $editForms[$usr->getId()] =  $formEdit;
@@ -119,21 +121,53 @@ class UsersController extends AbstractController
      * @Route("/add", name="add")
      * @IsGranted("ROLE_USER_CREATE", statusCode=404, message="Not found")
      *
-     * @param UserService $userService
+     * @param Request $request
      * @param array|null $roles
+     * @param string|null $redirect
      * @return RedirectResponse|Response
      */
-    public function addUser(UserService $userService, ?array $roles)
+    public function addUser(Request $request, ?array $roles, ?string $redirect)
     {
-        list($result, $form) = $userService->addForm($roles);
-        
-        if(!is_null($result) && $result) {
-            $this->addFlash('success', $this->translator->trans("User added"));
-            return $this->redirectToRoute("users_edit");
+        $user = new User();
+        $userForm = $this->createForm(UserType::class, $user);
+
+        try {
+            $userForm->handleRequest($request);
+
+            if ($userForm->isSubmitted() && $userForm->isValid()) {
+                if(is_null($roles)) {
+                    $roles = [
+                        'ROLE_CLASS_CREATE',
+                        'ROLE_CLASS_EDIT',
+                        'ROLE_CLASS_PARAMETERS',
+                        'ROLE_CLASS_VIEW',
+                        'ROLE_CLASS_ASSIGN_STUDENT',
+                        'ROLE_ACTIVITIES_LIST',
+                        'ROLE_ACTIVITY_CREATE',
+                        'ROLE_ACTIVITY_EDIT',
+                        'ROLE_ACTIVITY_DELETE',
+                        'ROLE_NOTEBOOK_VIEW',
+                        'ROLE_BULLETINS_LIST',
+                        'ROLE_BULLETINS_PRINT',
+                        'ROLE_BULLETIN_VALIDATE',
+                        'ROLE_BULLETIN_ADD_COMMENT',
+                        'ROLE_BULLETIN_STYLE_EDIT',
+                    ];
+                }
+
+                $user->setRoles($roles);
+                $this->entityManager->persist($user);
+                $this->entityManager->flush();
+
+                $this->addFlash('success', $this->translator->trans("User added"));
+                return $this->redirectToRoute($redirect || "users_add");
+            }
+        } catch (\Exception $e) {
+            $this->addFlash('danger', $this->translator->trans("Error adding user"));
         }
         
         return $this->render('users/add.html.twig', [
-            'userForm' => $form
+            'userForm' => $userForm->createView()
         ]);
     }
 
@@ -143,12 +177,12 @@ class UsersController extends AbstractController
      * @IsGranted("ROLE_ADMIN", statusCode=404, message="Not found")
      * Add a super admin to the system.
      *
-     * @param UserService $service
+     * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function addUserAdmin(UserService $service)
+    public function addUserAdmin(Request $request)
     {
-        return $this->addUser($service, ["ROLE_ADMIN"]);
+        return $this->addUser($request, ["ROLE_ADMIN"], 'users_add_admin');
     }
 
 
@@ -171,16 +205,19 @@ class UsersController extends AbstractController
      * @Route("/delete/{id}", name="delete_confirm")
      * @IsGranted("ROLE_USER_DELETE", statusCode=404, message="Not found")
      *
-     * @param UserService $userService
      * @param User $user
      * @return Response
-     * @throws ORMException
-     * @throws OptimisticLockException
      */
-    public function deleteUserConfirm(UserService $userService, User $user)
+    public function deleteUserConfirm(User $user)
     {
-        list($message, $type) = $userService->delete($user) ? ["User deleted", 'success'] : ["An error occured deleting the user", 'danger'];
-        $this->addFlash($type, $this->translator->trans($message));
+        try {
+            $this->entityManager->remove($user);
+            $this->entityManager->flush();
+            $this->addFlash('success', $this->translator->trans('User deleted'));
+        }
+        catch(\Exception $e) {
+            $this->addFlash('danger', $this->translator->trans('Error deleting user'));
+        }
         
         return $this->redirectToRoute("users_delete");
     }

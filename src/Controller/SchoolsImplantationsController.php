@@ -25,12 +25,15 @@ use App\Form\EcoleType;
 use App\Form\ImplantationType;
 use App\Repository\EcoleRepository;
 use App\Repository\ImplantationRepository;
-use App\Service\EntityService;
+use App\Service\FormService;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 /**
@@ -40,19 +43,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SchoolsImplantationsController extends AbstractController
 {
-    private $entityService;
-
-
-    /**
-     * SchoolsImplantationsController constructor.
-     * @param EntityService $service
-     */
-    public function __construct(EntityService $service)
-    {
-        $this->entityService = $service;
-    }
-
-
     /**
      * @Route("/", name="index")
      */
@@ -72,7 +62,7 @@ class SchoolsImplantationsController extends AbstractController
     public function schoolsList(EcoleRepository $repository)
     {
         return $this->render('schools_implantations/schools-list.html.twig', [
-            'schools' => $this->entityService->setRepository($repository)->findAll()
+            'schools' => $repository->findAll()
         ]);
     }
 
@@ -80,13 +70,14 @@ class SchoolsImplantationsController extends AbstractController
     /**
      * @Route("/implantations/list", name="implantations_list")
      * @IsGranted("ROLE_IMPLANTATIONS_LIST", statusCode=404, message="Not found")
+     *
      * @param ImplantationRepository $repository
      * @return Response
      */
     public function implantationList(ImplantationRepository $repository)
     {
         return $this->render('schools_implantations/implantations-list.html.twig', [
-            'implantations' => $this->entityService->setRepository($repository)->findAll()
+            'implantations' => $repository->findAll()
         ]);
     }
 
@@ -94,14 +85,18 @@ class SchoolsImplantationsController extends AbstractController
     /**
      * @Route("/schools/add", name="schools_add")
      * @IsGranted("ROLE_ADMIN", statusCode=404, message="Not found")
+     *
+     * @param FormService $service
+     * @param TranslatorInterface $translator
      * @return RedirectResponse|Response
      */
-    public function addSchool()
+    public function addSchool(FormService $service, TranslatorInterface $translator)
     {
-        list($result, $form) = $this->entityService->addForm(EcoleType::class, new Ecole(), 'school-add');
+        // The form is a simple form that does not need any check, the name is uniq, lets use the FormService create method.
+        list($result, $form) = $service->createSimpleForm('school-add', EcoleType::class, new Ecole());
 
         if(!is_null($result) && $result) {
-            $this->addFlash('success', $this->entityService->getTranslator()->trans("School added"));
+            $this->addFlash('success', $translator->trans("School added"));
             return $this->redirectToRoute("schools_schools_add");
         }
 
@@ -114,14 +109,17 @@ class SchoolsImplantationsController extends AbstractController
     /**
      * @Route("/implantations/add", name="implantations_add")
      * @IsGranted("ROLE_IMPLANTATION_CREATE", statusCode=404, message="Not found")
+     *
+     * @param FormService $service
+     * @param TranslatorInterface $translator
      * @return RedirectResponse|Response
      */
-    public function addImplantation()
+    public function addImplantation(FormService $service, TranslatorInterface $translator)
     {
-        list($result, $form) = $this->entityService->addForm(ImplantationType::class,new Implantation(), 'implantations-add');
+        list($result, $form) = $service->createSimpleForm('implantations-add', ImplantationType::class, new Implantation());
 
         if(!is_null($result) && $result) {
-            $this->addFlash('success', $this->entityService->getTranslator()->trans("Implantation added"));
+            $this->addFlash('success', $translator->trans("Implantation added"));
             return $this->redirectToRoute("schools_implantations_add");
         }
 
@@ -134,23 +132,27 @@ class SchoolsImplantationsController extends AbstractController
     /**
      * @Route("/schools/edit", name="schools_edit")
      * @IsGranted("ROLE_ADMIN", statusCode=404, message="Not found")
+     *
+     * @param FormService $service
      * @param EcoleRepository $repository
+     * @param TranslatorInterface $translator
      * @return RedirectResponse|Response
      */
-    public function editSchool(EcoleRepository $repository)
+    public function editSchools(FormService $service, EcoleRepository $repository, TranslatorInterface $translator)
     {
-        $schools = $this->entityService->setRepository($repository)->findAll();
+        $schools = $repository->findAll();
         $editForms = array();
 
         foreach($schools as $school) {
-            list($sResult, $formEdit) = $this->entityService->editForm(EcoleType::class, $school, 'school-edit');
+            list($sResult, $formEdit) = $service->createSimpleForm('school-edit-' . $school->getId(), EcoleType::class, $school);
             $editForms[$school->getId()] = $formEdit;
 
             if(!is_null($sResult) && $sResult) {
-                $this->addFlash('success', $this->entityService->getTranslator()->trans("School updated"));
+                $this->addFlash('success', $translator->trans("School updated"));
                 return $this->redirectToRoute("schools_schools_edit");
             }
         }
+
         return $this->render('schools_implantations/schools-edit.html.twig', [
             'schools' => $schools,
             'schoolsForms' => $editForms,
@@ -162,25 +164,38 @@ class SchoolsImplantationsController extends AbstractController
      * @Route("/implantations/edit", name="implantations_edit")
      * @IsGranted("ROLE_IMPLANTATION_EDIT", statusCode=404, message="Not found")
      * @param ImplantationRepository $repository
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @param TranslatorInterface $translator
      * @return RedirectResponse|Response
      */
-    public function editImplantation(ImplantationRepository $repository)
+    public function editImplantations(ImplantationRepository $repository, Request $request, EntityManagerInterface $em, TranslatorInterface $translator)
     {
-        $implantations = $this->entityService->setRepository($repository)->findAll();
+        $implantations = $repository->findAll();
         $editForms = array();
 
         foreach($implantations as $implantation) {
-            list($iResult, $formEdit) = $this->entityService->editForm(ImplantationType::class, $implantation, 'implantation-edit');
-            $editForms[$implantation->getId()] = $formEdit;
+            $implForm = $this->get('form.factory')->createNamed('implantation-edit-' . $implantation->getId(), ImplantationType::class, $implantation);
+            try {
 
-            if(!is_null($iResult) && $iResult) {
-                $this->addFlash('success', $this->entityService->getTranslator()->trans("Implantation updated"));
-                return $this->redirectToRoute("schools_implantations_edit");
+                $implForm->handleRequest($request);
+                $editForms[$implantation->getId()] = $implForm->createView();
+
+                if ($implForm->isSubmitted() && $implForm->isValid()) {
+                    $em->persist($implantation);
+                    $em->flush();
+
+                    $this->addFlash('success', $translator->trans("Implantation edited"));
+                    return $this->redirectToRoute("schools_implantations_edit");
+                }
+            } catch (\Exception $e) {
+                $this->addFlash('danger', $translator->trans("Error editing implantation"));
             }
         }
+
         return $this->render('schools_implantations/implantations-edit.html.twig', [
             'implantations' => $implantations,
-            'implantationsForms' => $editForms,
+            'implantationsForms' => $editForms
         ]);
     }
 

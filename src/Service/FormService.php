@@ -8,6 +8,11 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
+/**
+ * Class FormService
+ * Can be used to render simple forms how does not need validations or checks.
+ * @package App\Service
+ */
 class FormService
 {
     private $entityManager;
@@ -37,9 +42,8 @@ class FormService
      * @param Object $obj
      * @return array
      */
-    public function createForm(string $name, string $classname, Object $obj) : array
+    public function createSimpleForm(string $name, string $classname, Object $obj) : array
     {
-        // Roles edition form.
         $form = $this->formFactory->createNamed($name, $classname, $obj);
 
         try {

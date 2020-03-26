@@ -22,9 +22,11 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ImplantationRepository")
+ * @UniqueEntity("name")
  */
 class Implantation
 {
@@ -154,12 +156,12 @@ class Implantation
 
     /**
      * Set the Implantation zip code.
-     * @param string|int $zipCode
+     * @param string $zipCode
      * @return $this
      */
     public function setZipCode(string $zipCode): self
     {
-        $this->zipCode = (string)$zipCode;
+        $this->zipCode = $zipCode;
         return $this;
     }
 
