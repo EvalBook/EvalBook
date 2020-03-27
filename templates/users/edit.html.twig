@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
 
-{% block title %}{{ 'Users edit' | trans }}{% endblock %}
+{% block title %}{{ 'users.edit' | trans }}{% endblock %}
 
 {% block sidebar %}
     {% include '_partials/sidebar.html.twig' %}
@@ -10,12 +11,12 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="col">{{ 'Id' | trans }}</th>
-            <th scope="col">{{ 'First name' | trans }}</th>
-            <th scope="col">{{ 'Last  name' | trans }}</th>
-            <th scope="col">{{ 'E-mail' | trans }}</th>
-            <th scope="col">{{ 'Roles' | trans }}</th>
-            <th scope="col">{{ 'Active' | trans }}</th>
+            <th scope="col">{{ 'table.id' | trans }}</th>
+            <th scope="col">{{ 'table.label.first-name' | trans }}</th>
+            <th scope="col">{{ 'table.label.last-name' | trans }}</th>
+            <th scope="col">{{ 'table.label.email' | trans }}</th>
+            <th scope="col">{{ 'table.label.roles' | trans }}</th>
+            <th scope="col">{{ 'table.label.active' | trans }}</th>
             <th scope="col"></th>
         </tr>
         </thead>
@@ -33,9 +34,9 @@
                 </td>
                 <td>
                     {% if user.active %}
-                        {{ 'Yes' | trans }}
+                        {{ 'message.confirm.yes' | trans }}
                     {% else %}
-                        {{ 'No' | trans }}
+                        {{ 'message.confirm.no' | trans }}
                     {% endif %}
                 </td>
                 <td>
@@ -45,7 +46,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">{{ 'No users found' | trans }}</td>
+                <td colspan="7">{{ 'users.not-found' | trans }}</td>
             </tr>
         {% endfor %}
         </tbody>

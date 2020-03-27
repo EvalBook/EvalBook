@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
 
 {% block title %}
-    {{ "Users management" | trans }}
+    {{ "users.management" | trans }}
 {% endblock %}
 
 {% block sidebar %}
@@ -14,27 +15,27 @@
 
         {% if is_granted('ROLE_USERS_LIST') %}
             {% include '_partials/card.html.twig' with {
-                'title': 'List' | trans,
-                'content': 'View the full users list with basic information such as user first name, last name, active state and email address' | trans,
-                'label': 'Go to list' | trans,
+                'title': 'card.label.view-users-list' | trans,
+                'content': 'card.description.view-users-list' | trans,
+                'label': 'card.button.view-users-list' | trans,
                 'action': path('users_list')
             }%}
         {% endif %}
 
         {% if is_granted('ROLE_USER_CREATE') %}
             {% include '_partials/card.html.twig' with {
-                'title': 'Add' | trans,
-                'content': 'Add a new user with all default roles ( teacher ), once added, you can edit the new user roles in the edition panel' | trans,
-                'label': 'Add user' | trans,
+                'title': 'card.label.add-users' | trans,
+                'content': 'card.description.add-users' | trans,
+                'label': 'card.button.add-users' | trans,
                 'action': path('users_add')
             }%}
         {% endif %}
 
         {% if is_granted('ROLE_ADMIN') %}
             {% include '_partials/card.html.twig' with {
-                'title': 'Add admin' | trans,
-                'content': 'Add a new user with admin role, this user can access all functionnalities throught the system, so be careful by addin an admin' | trans,
-                'label': 'Add admin' | trans,
+                'title': 'card.label.add-admin' | trans,
+                'content': 'card.description.add-admin' | trans,
+                'label': 'card.button.add-admin' | trans,
                 'action': path('users_add_admin')
             }%}
         {% endif %}
@@ -44,18 +45,18 @@
 
         {% if is_granted('ROLE_USER_EDIT') %}
             {% include '_partials/card.html.twig' with {
-                'title': 'Edit user' | trans,
-                'content': 'Edit users informations such as passwords, email addresses, names and first name, edit their roles, and so on' | trans,
-                'label': 'Edit user' | trans,
+                'title': 'card.label.edit-users' | trans,
+                'content': 'card.description.edit-users' | trans,
+                'label': 'card.button.edit-users' | trans,
                 'action': path('users_edit')
             }%}
         {% endif %}
 
         {% if is_granted('ROLE_USER_DELETE') %}
             {% include '_partials/card.html.twig' with {
-                'title': 'Delete user' | trans,
-                'content': 'Delete a user from the user list, all user data such as classes and activities will remain until explicitly deleted' | trans,
-                'label': 'Delete user' | trans,
+                'title': 'card.label.delete-users' | trans,
+                'content': 'card.description.delete-users' | trans,
+                'label': 'card.button.delete-users' | trans,
                 'action': path('users_delete')
             }%}
         {% endif %}

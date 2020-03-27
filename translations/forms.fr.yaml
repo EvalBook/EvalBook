@@ -2,6 +2,7 @@ common:
   send: Envoyer
   yes: Oui
   no: Non
+  edit: Editer
 
 useradd:
   title: Ajouter un utilisateur

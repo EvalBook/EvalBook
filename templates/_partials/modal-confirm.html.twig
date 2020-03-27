@@ -1,13 +1,14 @@
 {% extends '_partials/modal-right.html.twig' %}
+{% trans_default_domain 'forms' %}
 
 {% block blockContent %}
 
     <a class="btn btn-primary" href="{{ onConfirm ?? '#' }}">
-        {{ 'Ok' | trans }}
+        {{ 'common.yes' | trans }}
     </a>
 
     <a class="btn btn-secondary" href="{{ onCancel ?? '#' }}">
-        {{ 'Cancel' | trans }}
+        {{ 'common.no' | trans }}
     </a>
 
 {% endblock %}

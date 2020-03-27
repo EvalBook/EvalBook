@@ -1,7 +1,6 @@
-controller:
-  user:
-    user-deleted: Utilisateur supprimé
-    user-delete-error: Erreur lors de la suppression de l'utilisateur
-    user-added: Utilisateur ajouté
-    user-add-error: Erreur lors de l'ajout de l'utilisateur
-    user-updated: Utilisateur mis à jour
+user:
+  user-deleted: Utilisateur supprimé
+  user-delete-error: Erreur lors de la suppression de l'utilisateur
+  user-added: Utilisateur ajouté
+  user-add-error: Erreur lors de l'ajout de l'utilisateur
+  user-updated: Utilisateur mis à jour

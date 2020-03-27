@@ -1,0 +1,45 @@
+table:
+  id: ID
+
+  label:
+    roles: Rôles
+    first-name: Prénom
+    last-name: Nom
+    email: E-Mail
+    active: Actif
+
+card:
+  label:
+    view-users-list: Lister les utilisateurs
+    add-users: Ajouter un utilisateur
+    add-admin: Ajouter un administrateur
+    edit-users: Editer un utilisateur
+    delete-users: Supprimer un utilisateur
+
+  description:
+    view-users-list: Voir la liste complète des utilisateurs présents dans EvalBook, nom, prénom, adresse mail, etc.
+    add-users: Ajouter des nouveaux utilisateurs dans EvalBook et associer les droits par défaut, pour de nouveaux droits, rendez vous dans 'Editer'.
+    add-admin: Ajouter un nouvel utilisateur de type administrateur, seul les admins peuvent ajouter des admins.
+    edit-users: Editer les utilisateurs et modifier des informations comme l'adresse mail, les roles, les mots de passe, le nom et le prénom.
+    delete-users: Supprimer des utilisateurs du système EvalBook. Les données comme les classes et activités seront conservées tant qu'elles ne sont pas explicitement supprimées
+
+  button:
+    view-users-list: Voir la liste
+    add-users: Ajouter utilisateurs
+    add-admin: Ajouter admin
+    edit-users: Editer utilisateurs
+    delete-users: Supprimer utilisateurs
+
+users:
+  list: Liste des utilisateurs
+  edit: Editer les utilisateurs
+  not-found: Aucun utilisateur non trouvé
+  delete: Supprimer des utilisateurs
+  management: Gestion des utilisateurs
+
+message:
+  confirm:
+    delete: Etes vous sûr de vouloir supprimer l'utilisateur ?
+    yes: Oui
+    no: Non
+

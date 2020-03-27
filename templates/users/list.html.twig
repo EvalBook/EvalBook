@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
 
-{% block title %}{{ 'Users list' | trans }}{% endblock %}
+{% block title %}{{ 'users.list' | trans }}{% endblock %}
 
 {% block sidebar %}
     {% include '_partials/sidebar.html.twig' %}
@@ -10,10 +11,10 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="col">{{ 'Id' | trans }}</th>
-            <th scope="col">{{ 'First name' | trans }}</th>
-            <th scope="col">{{ 'Last  name' | trans }}</th>
-            <th scope="col">{{ 'E-mail' | trans }}</th>
+            <th scope="col">{{ 'table.id' | trans }}</th>
+            <th scope="col">{{ 'table.label.first-name' | trans }}</th>
+            <th scope="col">{{ 'table.label.last-name' | trans }}</th>
+            <th scope="col">{{ 'table.label.email' | trans }}</th>
         </tr>
         </thead>
         <tbody>
@@ -26,7 +27,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">{{ 'No users found' | trans }}</td>
+                <td colspan="4">{{ 'users.not-found' | trans }}</td>
             </tr>
         {% endfor %}
         </tbody>

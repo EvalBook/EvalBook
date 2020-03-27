@@ -101,7 +101,7 @@ class UsersController extends AbstractController
             $editForms[$usr->getId()] =  $formEdit;
 
             if((!is_null($rResult) && $rResult) || (!is_null($eResult) && $eResult)) {
-                $this->addFlash('success', 'controller.user.user-updated');
+                $this->addFlash('success', 'user.user-updated');
                 return $this->redirectToRoute("users_edit"); 
             }
         }
@@ -155,11 +155,11 @@ class UsersController extends AbstractController
                 $this->entityManager->persist($user);
                 $this->entityManager->flush();
 
-                $this->addFlash('success', 'controller.user.user-added');
+                $this->addFlash('success', 'user.user-added');
                 return $this->redirectToRoute($redirect || "users_add");
             }
         } catch (\Exception $e) {
-            $this->addFlash('danger', 'controller.user.user-add-error');
+            $this->addFlash('danger', 'user.user-add-error');
         }
         
         return $this->render('users/add.html.twig', [
@@ -209,10 +209,10 @@ class UsersController extends AbstractController
         try {
             $this->entityManager->remove($user);
             $this->entityManager->flush();
-            $this->addFlash('success', 'controller.user.user-deleted');
+            $this->addFlash('success', 'user.user-deleted');
         }
         catch(\Exception $e) {
-            $this->addFlash('danger', 'controller.user.user-delete-error');
+            $this->addFlash('danger', 'user.user-delete-error');
         }
         
         return $this->redirectToRoute("users_delete");
