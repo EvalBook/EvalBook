@@ -59,79 +59,59 @@ class UserType extends AbstractType
         $builder
             // First name form input
             ->add('firstName', TextType::class, [
-                'label' => $this->translator->trans("Enter the user first name"),
                 'constraints' => [
                     new Length([
                         'min' => 3,
                         'max' => 100,
                         'minMessage' => $this->translator->trans("First name must have at least 3 characters"),
-                        'maxMessage' => $this->translator->trans('First name should have a maximum of 100 characters'),
+                        'maxMessage' => $this->translator->trans('First name should have a maximum of 100 characters')
                     ])
                 ],
-                'required' => true,
-                'attr' => ['class' => 'form-control']
+                'required' => true
             ])
 
             // Last name form input.
             ->add('lastName', TextType::class, [
-                'label' => $this->translator->trans("Enter the user last name"),
                 'constraints' => [
                     new Length([
                         'min' => 3,
                         'max' => 100,
                         'minMessage' => $this->translator->trans("Last name must have at least 3 characters"),
-                        'maxMessage' => $this->translator->trans('Last name should have a maximum of 100 characters'),
+                        'maxMessage' => $this->translator->trans('Last name should have a maximum of 100 characters')
                     ])
                 ],
-                'required' => true,
-                'attr' => ['class' => 'form-control']
+                'required' => true
             ])
 
             // Email form input.
             ->add('email', EmailType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => $this->translator->trans("E-mail cannot be null"),
+                        'message' => $this->translator->trans("E-mail cannot be null")
                     ])
                 ],
-                'required' => true,
-                'attr' => ['class' => 'form-control']
+                'required' => true
             ])
 
                 // Password and password verify form inputs.
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => $this->translator->trans('The password fields must match.'),
-                'options' => [
-                    'attr' => ['class' => 'form-control']
-                ],
                 'required' => false,
                 'empty_data' => '',
-                'first_options'  => [
-                    'label' => $this->translator->trans('Password'),
-                    'empty_data' => '',
-                ],
-                'second_options' => [
-                    'label' => $this->translator->trans('Repeat Password'),
-                    'empty_data' => '',
-                ],
+                'first_options'  => ['empty_data' => ''],
+                'second_options' => ['empty_data' => '']
             ])
 
             // Active form input.
             ->add('active', ChoiceType::class, [
-                'label' => $this->translator->trans("Is the user active"),
-                'choices' => [
-                    $this->translator->trans("Yes") => true,
-                    $this->translator->trans("No") => false,
-                ],
-                'required' => true,
-                'attr' => ['class' => 'form-control']
+                'choices' => ["Yes" => true, "No" => false],
+                'choice_translation_domain' => true,
+                'required' => true
             ])
 
             // Submit button.
-            ->add($this->translator->trans("Send"), SubmitType::class, [
-                'attr' => ['class' => 'btn btn-primary']
-            ])
+            ->add('submit', SubmitType::class)
         ;
     }
 

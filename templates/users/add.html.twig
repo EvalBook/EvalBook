@@ -1,2 +1,79 @@
-{%  set uForm = userForm %}
-{% extends '_partials/form-render.html.twig' %}
+{% extends 'base.html.twig' %}
+
+{%  block title %}
+    {{ 'User add' | trans }}
+{%  endblock %}
+
+{% block sidebar %}
+    {% include '_partials/sidebar.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    {% if form is defined %}
+        {{ form_start(form) }}
+            {{ form_errors(form) }}
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    {# The user first name #}
+                    {{ form_label(form.firstName, 'Enter the user first name'|trans) }}
+                    {{ form_widget(form.firstName, {
+                        'attr' : {'class': 'form-control'}
+                    }) }}
+                </div>
+                <div class="col-md-6">
+                    {# The user last name #}
+                    {{ form_label(form.lastName, 'Enter the user last name'|trans) }}
+                    {{ form_widget(form.lastName, {
+                        'attr' : {'class': 'form-control'}
+                    }) }}
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col">
+                    {# The user mail address #}
+                    {{ form_label(form.email, 'Enter the user mail address'|trans) }}
+                    {{ form_widget(form.email, {
+                        'attr' : {'class': 'form-control'}
+                    }) }}
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    {# The user password #}
+                    {{ form_label(form.password.first, 'Password'|trans) }}
+                    {{ form_widget(form.password.first, {
+                        'attr' : {'class': 'form-control'}
+                    }) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_label(form.password.second, 'Repeat Password'|trans, {
+                        'label_attr': {'class': 'font-italic'}
+                    }) }}
+                    {{ form_widget(form.password.second, {
+                        'attr' : {'class': 'form-control'}
+                    }) }}
+                </div>
+                <div class="col-md-4">
+                    {# The user active state #}
+                    {{ form_label(form.active, 'Is the user active'|trans) }}
+                    {{ form_widget(form.active, {
+                        'attr' : {'class': 'form-control'}
+                    }) }}
+                </div>
+            </div>
+
+            <div class="row mt-4 p-1">
+                <div class="col">
+                    {# Submit button #}
+                    {{ form_row(form.submit, {'label': 'Send'|trans,
+                            'attr': {'class': 'btn btn-primary'}
+                    }) }}
+                </div>
+            </div>
+        {{ form_end(form) }}
+
+    {% endif %}
+{% endblock %}
