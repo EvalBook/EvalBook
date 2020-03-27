@@ -4,3 +4,12 @@ user:
   user-added: User added
   user-add-error: Error adding user
   user-updated: User updated
+
+school:
+  added: School added
+  updated: School updated
+
+implantation:
+  added: Implantation added
+  updated: Implantation updated
+  edit-error: Error updating implantation

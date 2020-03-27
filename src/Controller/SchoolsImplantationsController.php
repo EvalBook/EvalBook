@@ -87,16 +87,15 @@ class SchoolsImplantationsController extends AbstractController
      * @IsGranted("ROLE_ADMIN", statusCode=404, message="Not found")
      *
      * @param FormService $service
-     * @param TranslatorInterface $translator
      * @return RedirectResponse|Response
      */
-    public function addSchool(FormService $service, TranslatorInterface $translator)
+    public function addSchool(FormService $service)
     {
         // The form is a simple form that does not need any check, the name is uniq, lets use the FormService create method.
         list($result, $form) = $service->createSimpleForm('school-add', EcoleType::class, new Ecole());
 
         if(!is_null($result) && $result) {
-            $this->addFlash('success', $translator->trans("School added"));
+            $this->addFlash('success', 'school.added');
             return $this->redirectToRoute("schools_schools_add");
         }
 
@@ -111,15 +110,14 @@ class SchoolsImplantationsController extends AbstractController
      * @IsGranted("ROLE_IMPLANTATION_CREATE", statusCode=404, message="Not found")
      *
      * @param FormService $service
-     * @param TranslatorInterface $translator
      * @return RedirectResponse|Response
      */
-    public function addImplantation(FormService $service, TranslatorInterface $translator)
+    public function addImplantation(FormService $service)
     {
         list($result, $form) = $service->createSimpleForm('implantations-add', ImplantationType::class, new Implantation());
 
         if(!is_null($result) && $result) {
-            $this->addFlash('success', $translator->trans("Implantation added"));
+            $this->addFlash('success', 'implantation.added');
             return $this->redirectToRoute("schools_implantations_add");
         }
 
@@ -135,10 +133,9 @@ class SchoolsImplantationsController extends AbstractController
      *
      * @param FormService $service
      * @param EcoleRepository $repository
-     * @param TranslatorInterface $translator
      * @return RedirectResponse|Response
      */
-    public function editSchools(FormService $service, EcoleRepository $repository, TranslatorInterface $translator)
+    public function editSchools(FormService $service, EcoleRepository $repository)
     {
         $schools = $repository->findAll();
         $editForms = array();
@@ -148,7 +145,7 @@ class SchoolsImplantationsController extends AbstractController
             $editForms[$school->getId()] = $formEdit;
 
             if(!is_null($sResult) && $sResult) {
-                $this->addFlash('success', $translator->trans("School updated"));
+                $this->addFlash('success', 'school.updated');
                 return $this->redirectToRoute("schools_schools_edit");
             }
         }
@@ -166,10 +163,9 @@ class SchoolsImplantationsController extends AbstractController
      * @param ImplantationRepository $repository
      * @param Request $request
      * @param EntityManagerInterface $em
-     * @param TranslatorInterface $translator
      * @return RedirectResponse|Response
      */
-    public function editImplantations(ImplantationRepository $repository, Request $request, EntityManagerInterface $em, TranslatorInterface $translator)
+    public function editImplantations(ImplantationRepository $repository, Request $request, EntityManagerInterface $em)
     {
         $implantations = $repository->findAll();
         $editForms = array();
@@ -185,11 +181,11 @@ class SchoolsImplantationsController extends AbstractController
                     $em->persist($implantation);
                     $em->flush();
 
-                    $this->addFlash('success', $translator->trans("Implantation edited"));
+                    $this->addFlash('success', 'implantation.edited');
                     return $this->redirectToRoute("schools_implantations_edit");
                 }
             } catch (\Exception $e) {
-                $this->addFlash('danger', $translator->trans("Error editing implantation"));
+                $this->addFlash('danger', 'implantation.edit-error');
             }
         }
 
