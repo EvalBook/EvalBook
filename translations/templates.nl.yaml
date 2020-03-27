@@ -30,6 +30,16 @@ card:
     edit-users: Edit users
     delete-users: Delete users
 
+sidebar:
+  dashboard: Dashboard
+  notebook: Notebook
+  activities: Activities
+  school-reports: School Reports
+  pupils: Pupils
+  classes: Classes
+  schools-implantations: Schools and implantations
+  users: Users management
+
 users:
   list: Users list
   edit: Edit users
@@ -42,3 +52,11 @@ message:
     delete: Are you sure you want to delete this user ?
     yes: Yes
     no: No
+
+global:
+  profile: My profile
+  disconnect: Disconnect
+  teaser: The teacher eval tool
+  project-initiated: Project initiated by
+  read-manual: Read manual
+  source-github: Source code on Github

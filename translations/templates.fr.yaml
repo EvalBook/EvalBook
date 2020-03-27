@@ -30,6 +30,16 @@ card:
     edit-users: Editer utilisateurs
     delete-users: Supprimer utilisateurs
 
+sidebar:
+  dashboard: Tableau de bord
+  notebook: Cahier de notes
+  activities: Activités
+  school-reports: Bulletins
+  pupils: Elèves
+  classes: Classes
+  schools-implantations: Ecoles et implantations
+  users: Gestion utlisateurs
+
 users:
   list: Liste des utilisateurs
   edit: Editer les utilisateurs
@@ -43,3 +53,10 @@ message:
     yes: Oui
     no: Non
 
+global:
+  profile: Mon profil
+  disconnect: Déconnexion
+  teaser: L'outil d'évaluation pour les professeurs
+  project-initiated: Projet initié par
+  read-manual: Lire le manuel
+  source-github: Code source sur Github

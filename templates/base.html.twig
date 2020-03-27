@@ -1,3 +1,5 @@
+{% trans_default_domain 'templates' %}
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,7 +27,7 @@
             <div class="row d-flex flex-row" id="header">
                 <div class="col head-content">
                     <h1><img src="{{ asset('assets/img/logos/logo_evalbook.png') }}"></h1>
-                    <h2 class="d-none d-lg-block">{{ "The teachers eval tool" | trans }}</h2>
+                    <h2 class="d-none d-lg-block">{{ "global.teaser" | trans }}</h2>
                 </div>
 
                 <div class="col d-flex">
@@ -34,13 +36,13 @@
                             <div class="float-right d-none d-sm-block pl-5 pr-2">
                                 <a href="{{ path('app_logout') }}">
                                     <i class="fas fa-sign-out-alt"></i>
-                                    <span class="d-none d-md-block">{{ "Log out" | trans }}</span>
+                                    <span class="d-none d-md-block">{{ 'global.disconnect' | trans }}</span>
                                 </a>
                             </div>
                             <div class="float-right d-none d-sm-block pl-1">
                                 <a href="{{ path('user_profile') }}">
                                     <i class="fas fa-user"></i>
-                                    <span class="d-none d-md-block">{{ "My profile" | trans }}</span>
+                                    <span class="d-none d-md-block">{{ 'global.profile' | trans }}</span>
                                 </a>
                             </div>
                         </div>
@@ -90,7 +92,7 @@
                     </p>
                     <p class="d-none d-sm-block">
                         <img src="{{ asset('assets/img/logos/logo_forsud_mini_bg_trans.png') }}"/>
-                        {{ "Project initiated by" | trans }}
+                        {{ 'global.project-initiated' | trans }}
                         <a href="https://www.forsud.be/">Forsud ASBL</a>
                     </p>
                 </div>
@@ -98,11 +100,11 @@
                     <div class="float-right">
                         <p class="d-flex">
                             <i class="fas fa-book"></i>
-                            <a class="align-self-center" href="#">{{ "Read the user manual" | trans }}</a>
+                            <a class="align-self-center" href="#">{{ 'global.read-manual' | trans }}</a>
                         </p>
                         <p class="d-flex">
                             <i class="fab fa-github-alt"></i>
-                            <a class="align-self-center" href="https://github.com/EvalBook">{{ "Source code and authors on Github" | trans }}</a>
+                            <a class="align-self-center" href="https://github.com/EvalBook">{{ 'global.source-github' | trans }}</a>
                         </p>
                     </div>
                 </div>
