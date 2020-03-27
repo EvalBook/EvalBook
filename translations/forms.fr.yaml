@@ -1,0 +1,23 @@
+common:
+  send: Envoyer
+  yes: Oui
+  no: Non
+
+useradd:
+  title: Ajouter un utilisateur
+
+  label:
+    first-name: Nom de l'utilisateur
+    last-name: Prénom de l'utilisateur
+    email: Adresse e-mail
+    password: Mot de passe
+    password-repeat: Répétez le mot de passe
+    user-is-active: L'utilisateur est il actif ?
+
+  message:
+    first-name-too-short: Le prénom de l'utilisateur doit comporter plus de trois lettres.
+    first-name-too-long: Le prénom de l'utilisateur ne peut pas dépasser 100 lettres.
+    last-name-too-short: Le nom de l'utilisateur doit comporter plus de trois lettres.
+    last-name-too-long: Le nom de l'utilisateur ne peut pas dépasser 100 lettres.
+    email-is-null: L'adresse e-mail ne peut être nulle.
+    password-not-match: La vérification du mot de passe a échoué.

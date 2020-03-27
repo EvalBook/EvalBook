@@ -30,7 +30,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 /**
@@ -41,17 +40,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class UsersController extends AbstractController
 {
-    private $translator;
     private $entityManager;
 
     /**
      * UsersController constructor.
      * @param EntityManagerInterface $entityManager
-     * @param TranslatorInterface $translator
      */
-    public function __construct(EntityManagerInterface $entityManager, TranslatorInterface $translator)
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->translator = $translator;
         $this->entityManager = $entityManager;
     }
 
@@ -105,7 +101,7 @@ class UsersController extends AbstractController
             $editForms[$usr->getId()] =  $formEdit;
 
             if((!is_null($rResult) && $rResult) || (!is_null($eResult) && $eResult)) {
-                $this->addFlash('success', $this->translator->trans("User updated"));
+                $this->addFlash('success', 'controller.user.user-updated');
                 return $this->redirectToRoute("users_edit"); 
             }
         }
@@ -159,11 +155,11 @@ class UsersController extends AbstractController
                 $this->entityManager->persist($user);
                 $this->entityManager->flush();
 
-                $this->addFlash('success', $this->translator->trans("User added"));
+                $this->addFlash('success', 'controller.user.user-added');
                 return $this->redirectToRoute($redirect || "users_add");
             }
         } catch (\Exception $e) {
-            $this->addFlash('danger', $this->translator->trans("Error adding user"));
+            $this->addFlash('danger', 'controller.user.user-add-error');
         }
         
         return $this->render('users/add.html.twig', [
@@ -213,10 +209,10 @@ class UsersController extends AbstractController
         try {
             $this->entityManager->remove($user);
             $this->entityManager->flush();
-            $this->addFlash('success', $this->translator->trans('User deleted'));
+            $this->addFlash('success', 'controller.user.user-deleted');
         }
         catch(\Exception $e) {
-            $this->addFlash('danger', $this->translator->trans('Error deleting user'));
+            $this->addFlash('danger', 'controller.user.user-delete-error');
         }
         
         return $this->redirectToRoute("users_delete");

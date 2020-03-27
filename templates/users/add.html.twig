@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
+{% trans_default_domain 'forms' %}
 
 {%  block title %}
-    {{ 'User add' | trans }}
+    {{ 'useradd.title' | trans }}
 {%  endblock %}
 
 {% block sidebar %}
@@ -16,14 +17,14 @@
             <div class="row mt-3">
                 <div class="col-md-6">
                     {# The user first name #}
-                    {{ form_label(form.firstName, 'Enter the user first name'|trans) }}
+                    {{ form_label(form.firstName, 'useradd.label.first-name'|trans) }}
                     {{ form_widget(form.firstName, {
                         'attr' : {'class': 'form-control'}
                     }) }}
                 </div>
                 <div class="col-md-6">
                     {# The user last name #}
-                    {{ form_label(form.lastName, 'Enter the user last name'|trans) }}
+                    {{ form_label(form.lastName, 'useradd.label.last-name'|trans) }}
                     {{ form_widget(form.lastName, {
                         'attr' : {'class': 'form-control'}
                     }) }}
@@ -33,7 +34,7 @@
             <div class="row mt-3">
                 <div class="col">
                     {# The user mail address #}
-                    {{ form_label(form.email, 'Enter the user mail address'|trans) }}
+                    {{ form_label(form.email, 'useradd.label.email'|trans) }}
                     {{ form_widget(form.email, {
                         'attr' : {'class': 'form-control'}
                     }) }}
@@ -43,13 +44,13 @@
             <div class="row mt-3">
                 <div class="col-md-4">
                     {# The user password #}
-                    {{ form_label(form.password.first, 'Password'|trans) }}
+                    {{ form_label(form.password.first, 'useradd.label.password'|trans) }}
                     {{ form_widget(form.password.first, {
                         'attr' : {'class': 'form-control'}
                     }) }}
                 </div>
                 <div class="col-md-4">
-                    {{ form_label(form.password.second, 'Repeat Password'|trans, {
+                    {{ form_label(form.password.second, 'useradd.label.password-repeat'|trans, {
                         'label_attr': {'class': 'font-italic'}
                     }) }}
                     {{ form_widget(form.password.second, {
@@ -58,7 +59,7 @@
                 </div>
                 <div class="col-md-4">
                     {# The user active state #}
-                    {{ form_label(form.active, 'Is the user active'|trans) }}
+                    {{ form_label(form.active, 'useradd.label.user-is-active'|trans) }}
                     {{ form_widget(form.active, {
                         'attr' : {'class': 'form-control'}
                     }) }}
@@ -68,7 +69,7 @@
             <div class="row mt-4 p-1">
                 <div class="col">
                     {# Submit button #}
-                    {{ form_row(form.submit, {'label': 'Send'|trans,
+                    {{ form_row(form.submit, {'label': 'common.send'|trans,
                             'attr': {'class': 'btn btn-primary'}
                     }) }}
                 </div>

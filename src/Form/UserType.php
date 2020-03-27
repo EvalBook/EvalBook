@@ -21,7 +21,6 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -30,25 +29,11 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class UserType extends AbstractType
 {
-    private $translator;
-
-    /**
-     * UserType constructor.
-     * @param TranslatorInterface $translator
-     */
-    public function __construct(TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
-    }
-
-
     /**
      * Build the user add / edit form.
      * @param FormBuilderInterface $builder
@@ -63,8 +48,8 @@ class UserType extends AbstractType
                     new Length([
                         'min' => 3,
                         'max' => 100,
-                        'minMessage' => $this->translator->trans("First name must have at least 3 characters"),
-                        'maxMessage' => $this->translator->trans('First name should have a maximum of 100 characters')
+                        'minMessage' => 'useradd.message.first-name-too-short',
+                        'maxMessage' => 'useradd.message.first-name-too-long'
                     ])
                 ],
                 'required' => true
@@ -76,8 +61,8 @@ class UserType extends AbstractType
                     new Length([
                         'min' => 3,
                         'max' => 100,
-                        'minMessage' => $this->translator->trans("Last name must have at least 3 characters"),
-                        'maxMessage' => $this->translator->trans('Last name should have a maximum of 100 characters')
+                        'minMessage' => 'useradd.message.last-name-too-short',
+                        'maxMessage' => 'useradd.message.last-name-too-long'
                     ])
                 ],
                 'required' => true
@@ -87,7 +72,7 @@ class UserType extends AbstractType
             ->add('email', EmailType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => $this->translator->trans("E-mail cannot be null")
+                        'message' => 'useradd.message.email-is-null'
                     ])
                 ],
                 'required' => true
@@ -96,7 +81,7 @@ class UserType extends AbstractType
                 // Password and password verify form inputs.
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'invalid_message' => $this->translator->trans('The password fields must match.'),
+                'invalid_message' => 'useradd.message.password-not-match',
                 'required' => false,
                 'empty_data' => '',
                 'first_options'  => ['empty_data' => ''],
@@ -105,8 +90,8 @@ class UserType extends AbstractType
 
             // Active form input.
             ->add('active', ChoiceType::class, [
-                'choices' => ["Yes" => true, "No" => false],
-                'choice_translation_domain' => true,
+                'choices' => ['common.yes' => true, 'common.no' => false],
+                'choice_translation_domain' => 'forms',
                 'required' => true
             ])
 
