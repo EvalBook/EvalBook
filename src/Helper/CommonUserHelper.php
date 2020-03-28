@@ -68,22 +68,22 @@ class CommonUserHelper
     {
         return $this->createCommonUser($firstName, $lastName, $email, $password, [
             "ROLE_ADMIN",
-            'ROLE_USERS_LIST',
+            'ROLE_USER_LIST_ALL',
             'ROLE_USER_CREATE',
             'ROLE_USER_EDIT',
             'ROLE_USER_DELETE',
             // Students related.
-            'ROLE_STUDENTS_LIST',
+            'ROLE_STUDENT_LIST_ALL',
             'ROLE_STUDENT_CREATE',
             'ROLE_STUDENT_EDIT',
             'ROLE_STUDENT_DELETE',
             // Periods related.
-            'ROLE_PERIODS_LIST',
+            'ROLE_PERIOD_LIST_ALL',
             'ROLE_PERIOD_CREATE',
             'ROLE_PERIOD_EDIT',
             'ROLE_PERIOD_DELETE',
             // Classes related.
-            'ROLE_CLASSES_LIST',
+            'ROLE_CLASS_LIST_ALL',
             'ROLE_CLASS_CREATE',
             'ROLE_CLASS_EDIT',
             'ROLE_CLASS_DELETE',
@@ -91,15 +91,15 @@ class CommonUserHelper
             'ROLE_CLASS_VIEW',
             'ROLE_CLASS_ASSIGN_STUDENT',
             // Activities related.
-            'ROLE_ACTIVITIES_LIST',
+            'ROLE_ACTIVITY_LIST_ALL',
             'ROLE_ACTIVITY_CREATE',
             'ROLE_ACTIVITY_EDIT',
             'ROLE_ACTIVITY_DELETE',
             // Notebook related.
             'ROLE_NOTEBOOK_VIEW',
             // Bulletins related.
-            'ROLE_BULLETINS_LIST',
-            'ROLE_BULLETINS_PRINT',
+            'ROLE_BULLETIN_LIST_ALL',
+            'ROLE_BULLETIN_PRINT_ALL',
             'ROLE_BULLETIN_VALIDATE',
             'ROLE_BULLETIN_ADD_COMMENT',
             'ROLE_BULLETIN_STYLE_EDIT'
@@ -118,7 +118,7 @@ class CommonUserHelper
     public function createSecretary(string $firstName, string $lastName, string $email, string $password)
     {
         return $this->createCommonUser($firstName, $lastName, $email, $password, [
-            'ROLE_CLASSES_LIST',
+            'ROLE_CLASS_LIST_ALL',
             'ROLE_CLASS_VIEW',
         ]);
     }
@@ -135,16 +135,16 @@ class CommonUserHelper
     public function createDirector(string $firstName, string $lastName, string $email, string $password)
     {
         return $this->createCommonUser($firstName, $lastName, $email, $password, [
-            'ROLE_USERS_LIST',
+            'ROLE_USER_LIST_ALL',
             'ROLE_USER_CREATE',
             'ROLE_USER_EDIT',
-            'ROLE_STUDENTS_LIST',
+            'ROLE_STUDENT_LIST_ALL',
             'ROLE_STUDENT_CREATE',
             'ROLE_STUDENT_EDIT',
-            'ROLE_PERIODS_LIST',
+            'ROLE_PERIOD_LIST_ALL',
             'ROLE_PERIOD_CREATE',
             'ROLE_PERIOD_EDIT',
-            'ROLE_CLASSES_LIST',
+            'ROLE_CLASS_LIST_ALL',
             'ROLE_CLASS_VIEW',
             'ROLE_NOTEBOOK_VIEW',
         ]);
@@ -166,13 +166,13 @@ class CommonUserHelper
             'ROLE_CLASS_PARAMETERS',
             'ROLE_CLASS_VIEW',
             'ROLE_CLASS_ASSIGN_STUDENT',
-            'ROLE_ACTIVITIES_LIST',
+            'ROLE_ACTIVITY_LIST_ALL',
             'ROLE_ACTIVITY_CREATE',
             'ROLE_ACTIVITY_EDIT',
             'ROLE_ACTIVITY_DELETE',
             'ROLE_NOTEBOOK_VIEW',
-            'ROLE_BULLETINS_LIST',
-            'ROLE_BULLETINS_PRINT',
+            'ROLE_BULLETIN_LIST_ALL',
+            'ROLE_BULLETIN_PRINT_ALL',
             'ROLE_BULLETIN_VALIDATE',
             'ROLE_BULLETIN_ADD_COMMENT',
             'ROLE_BULLETIN_STYLE_EDIT',

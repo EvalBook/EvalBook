@@ -6,7 +6,6 @@ common:
 
 useradd:
   title: Ajouter un utilisateur
-
   label:
     first-name: Nom de l'utilisateur
     last-name: Prénom de l'utilisateur
@@ -14,8 +13,6 @@ useradd:
     password: Mot de passe
     password-repeat: Répétez le mot de passe
     user-is-active: L'utilisateur est il actif ?
-    roles-choose: Choisissez les rôles utilisateur
-
   message:
     first-name-too-short: Le prénom de l'utilisateur doit comporter plus de trois lettres.
     first-name-too-long: Le prénom de l'utilisateur ne peut pas dépasser 100 lettres.
@@ -28,3 +25,41 @@ userdel:
   message:
     confirm:
       delete: Etes vous sûr de vouloir supprimer cet utilisateur ?
+
+useredit:
+  label:
+    roles-choose: Choisissez les rôles utilisateur
+  roles:
+    ROLE_USER_LIST_ALL: Lister les utilisateurs
+    ROLE_USER_CREATE: Créer un utilisateur
+    ROLE_USER_EDIT: Editer un utilisateur
+    ROLE_USER_DELETE: Supprimer un utilisateur
+    ROLE_STUDENT_LIST_ALL: Lister les étudiants
+    ROLE_STUDENT_CREATE: Créer un étudiant
+    ROLE_STUDENT_EDIT: Editer un étudiant
+    ROLE_STUDENT_DELETE: Supprimer un étudiant
+    ROLE_PERIOD_LIST_ALL: Lister les périodes
+    ROLE_PERIOD_CREATE: Créer une période
+    ROLE_PERIOD_EDIT: Editer une période
+    ROLE_PERIOD_DELETE: Supprimer une période
+    ROLE_CLASS_LIST_ALL: Lister les classes
+    ROLE_CLASS_CREATE: Créer une classe
+    ROLE_CLASS_EDIT: Editer une classe
+    ROLE_CLASS_DELETE: Supprimer une classe
+    ROLE_CLASS_PARAMETERS: Paramétrer une classe
+    ROLE_CLASS_VIEW: Voiir une classe
+    ROLE_CLASS_ASSIGN_STUDENT: Assigner un élève à une classe
+    ROLE_ACTIVITY_LIST_ALL: Lister les activités
+    ROLE_ACTIVITY_CREATE: Créer une activité
+    ROLE_ACTIVITY_EDIT: Editer une activité
+    ROLE_ACTIVITY_DELETE: Supprimer une activité
+    ROLE_NOTEBOOK_VIEW: Voir le cahier de notes
+    ROLE_BULLETIN_LIST_ALL: Lister les bulletins
+    ROLE_BULLETIN_PRINT_ALL: Imprimer les bulletins
+    ROLE_BULLETIN_VALIDATE: Valider un bulletin
+    ROLE_BULLETIN_ADD_COMMENT: Ajouter un commentaire bulletin
+    ROLE_BULLETIN_STYLE_EDIT: Editer le style du bulletin
+    ROLE_IMPLANTATION_LIST_ALL: Lister les implantations
+    ROLE_IMPLANTATION_EDIT: Editer une implantation
+    ROLE_IMPLANTATION_CREATE: Créer une implantation
+    ROLE_IMPLANTATION_DELETE: Supprimer une implantation

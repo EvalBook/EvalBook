@@ -13,7 +13,7 @@
 
     <div class="row mt-4">
 
-        {% if is_granted('ROLE_USERS_LIST') %}
+        {% if is_granted('ROLE_USER_LIST_ALL') %}
             {% include '_partials/card.html.twig' with {
                 'title': 'card.label.view-users-list' | trans,
                 'content': 'card.description.view-users-list' | trans,

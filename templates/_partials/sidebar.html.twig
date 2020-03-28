@@ -9,11 +9,11 @@
     <div class="dropdown-item pb-2">{{ "sidebar.pupils" | trans }}</div>
     <div class="dropdown-item pb-2">{{ "sidebar.classes" | trans }}</div>
 
-    {% if app.user.firstRoleMatch(['ROLE_ADMIN', 'ROLE_IMPLANTATIONS_LIST', 'ROLE_IMPLANTATION_EDIT','ROLE_IMPLANTATION_CREATE','ROLE_IMPLANTATION_DELETE']) %}
+    {% if app.user.firstRoleMatch(['ROLE_ADMIN', 'ROLE_IMPLANTATION_LIST_ALL', 'ROLE_IMPLANTATION_EDIT','ROLE_IMPLANTATION_CREATE','ROLE_IMPLANTATION_DELETE']) %}
         <a href="{{ path('schools_index') }}" class="dropdown-item pb-2">{{ "sidebar.schools-implantations" | trans }}</a>
     {% endif %}
 
-    {% if app.user.firstRoleMatch(['ROLE_USERS_LIST', 'ROLE_USER_CREATE', 'ROLE_USER_EDIT', 'ROLE_USER_DELETE']) %}
+    {% if app.user.firstRoleMatch(['ROLE_USER_LIST_ALL', 'ROLE_USER_CREATE', 'ROLE_USER_EDIT', 'ROLE_USER_DELETE']) %}
         <a href="{{ path('users_index') }}" class="dropdown-item">{{ "sidebar.users" | trans }}</a>
     {% endif %}
 </div>

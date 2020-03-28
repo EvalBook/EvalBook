@@ -67,7 +67,7 @@ class UsersController extends AbstractController
 
     /**
      * @Route("/list", name="list")
-     * @IsGranted("ROLE_USERS_LIST", statusCode=404, message="Not found")
+     * @IsGranted("ROLE_USER_LIST_ALL", statusCode=404, message="Not found")
      * 
      * @param UserRepository $repository
      * @return Response
@@ -95,8 +95,8 @@ class UsersController extends AbstractController
         $editForms = array();
 
         foreach($users as $usr) {
-            list($rResult, $formRolesEdit) = $service->createSimpleForm('edit-user-' . $usr->getId(), UserRoleType::class, $usr);
-            list($eResult, $formEdit) = $service->createSimpleForm('edit-user-roles-' . $usr->getId(), UserType::class, $usr);
+            list($rResult, $formRolesEdit) = $service->createSimpleForm('edit-user-roles-' . $usr->getId(), UserRoleType::class, $usr);
+            list($eResult, $formEdit) = $service->createSimpleForm('edit-user-' . $usr->getId(), UserType::class, $usr);
             
             $rolesForms[$usr->getId()] = $formRolesEdit;
             $editForms[$usr->getId()] =  $formEdit;
@@ -139,13 +139,13 @@ class UsersController extends AbstractController
                         'ROLE_CLASS_PARAMETERS',
                         'ROLE_CLASS_VIEW',
                         'ROLE_CLASS_ASSIGN_STUDENT',
-                        'ROLE_ACTIVITIES_LIST',
+                        'ROLE_ACTIVITY_LIST_ALL',
                         'ROLE_ACTIVITY_CREATE',
                         'ROLE_ACTIVITY_EDIT',
                         'ROLE_ACTIVITY_DELETE',
                         'ROLE_NOTEBOOK_VIEW',
-                        'ROLE_BULLETINS_LIST',
-                        'ROLE_BULLETINS_PRINT',
+                        'ROLE_BULLETIN_LIST_ALL',
+                        'ROLE_BULLETIN_PRINT_ALL',
                         'ROLE_BULLETIN_VALIDATE',
                         'ROLE_BULLETIN_ADD_COMMENT',
                         'ROLE_BULLETIN_STYLE_EDIT',

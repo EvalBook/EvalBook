@@ -21,7 +21,7 @@
             }%}
         {% endif %}
 
-        {% if is_granted('ROLE_IMPLANTATIONS_LIST') %}
+        {% if is_granted('ROLE_IMPLANTATION_LIST_ALL') %}
             {% include '_partials/card.html.twig' with {
                 'title': 'List implantations' | trans,
                 'content': 'View the full implantations list with basic information such as school and implantation address and some statistics' | trans,

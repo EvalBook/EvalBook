@@ -68,7 +68,7 @@ class SchoolsImplantationsController extends AbstractController
 
     /**
      * @Route("/implantations/list", name="implantations_list")
-     * @IsGranted("ROLE_IMPLANTATIONS_LIST", statusCode=404, message="Not found")
+     * @IsGranted("ROLE_IMPLANTATION_LIST_ALL", statusCode=404, message="Not found")
      *
      * @param ImplantationRepository $repository
      * @return Response

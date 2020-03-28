@@ -21,18 +21,23 @@ class UserRoleType extends AbstractType
     {
         $builder
             ->add('roles', ChoiceType::class, [
-                'label' => 'useradd.label.roles-choose',
                 'required' => true,
-                'attr' => ['class' => 'form-check'],
+                'choice_translation_domain' => true,
                 'multiple' => true,
                 'expanded' => true,
-                'choices' => array_combine(User::getAssignableRoles(), User::getAssignableRoles()),
+                'choices' => array_combine(
+                    array_map(function($value){ return 'useredit.roles.' . $value; }, User::getAssignableRoles()),
+                    User::getAssignableRoles()
+                ),
+
+                'group_by' => function($value) {
+                    $role = str_replace('ROLE_', '', $value);
+                    return ucfirst(strtolower(substr($role, 0, strpos($role, '_'))));
+                },
             ])
 
             // Submit button.
-            ->add('submit', SubmitType::class, [
-                'attr' => ['class' => 'btn btn-primary']
-            ]);
+            ->add('submit', SubmitType::class);
     }
 
     /**
