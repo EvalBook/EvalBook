@@ -26,15 +26,7 @@
                 <td>{{ user.lastName }}</td>
                 <td>{{ user.email }}</td>
                 <td>
-                    {% include '_partials/modal-confirm.html.twig' with {
-                        'content' : 'message.confirm.delete' | trans,
-                        'id': user.id,
-                        'slug' : 'delete',
-                        'fa' : 'far fa-trash-alt',
-                        'onConfirm' : path('users_delete_confirm',{id:user.id}),
-                        'onCancel' :  path('users_delete')
-                    }
-                    %}
+                    {% include 'users/user-delete-form.html.twig' with {'id': user.id} %}
                 </td>
             </tr>
         {% else %}
