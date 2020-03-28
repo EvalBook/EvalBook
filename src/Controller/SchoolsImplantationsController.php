@@ -33,7 +33,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 /**
@@ -173,7 +172,6 @@ class SchoolsImplantationsController extends AbstractController
         foreach($implantations as $implantation) {
             $implForm = $this->get('form.factory')->createNamed('implantation-edit-' . $implantation->getId(), ImplantationType::class, $implantation);
             try {
-
                 $implForm->handleRequest($request);
                 $editForms[$implantation->getId()] = $implForm->createView();
 

@@ -19,6 +19,7 @@
 
 namespace App\Controller;
 
+use App\Form\UserRoleType;
 use App\Form\UserType;
 use App\Service\FormService;
 use App\Entity\User;
@@ -73,7 +74,7 @@ class UsersController extends AbstractController
      */
     public function listUsers(UserRepository $repository)
     {
-        return $this->render('users/list.html.twig', [
+        return $this->render('users/users-list.html.twig', [
             'users' => $repository->findAll(),
         ]);
     }
@@ -94,8 +95,8 @@ class UsersController extends AbstractController
         $editForms = array();
 
         foreach($users as $usr) {
-            list($rResult, $formRolesEdit) = $service->createSimpleForm('edit-user-' . $usr->getId(), UserType::class, $usr);
-            list($eResult, $formEdit) = $service->createSimpleForm('edit-user-role-' . $usr->getId(), UserType::class, $usr);
+            list($rResult, $formRolesEdit) = $service->createSimpleForm('edit-user-' . $usr->getId(), UserRoleType::class, $usr);
+            list($eResult, $formEdit) = $service->createSimpleForm('edit-user-roles-' . $usr->getId(), UserType::class, $usr);
             
             $rolesForms[$usr->getId()] = $formRolesEdit;
             $editForms[$usr->getId()] =  $formEdit;
@@ -105,7 +106,7 @@ class UsersController extends AbstractController
                 return $this->redirectToRoute("users_edit"); 
             }
         }
-        return $this->render('users/edit.html.twig', [
+        return $this->render('users/users-edit-list.html.twig', [
             'users' => $users,
             'rolesForms' => $rolesForms,
             'editForms' => $editForms,
@@ -162,7 +163,7 @@ class UsersController extends AbstractController
             $this->addFlash('danger', 'user.user-add-error');
         }
         
-        return $this->render('users/add.html.twig', [
+        return $this->render('users/user-add-form.html.twig', [
             'form' => $userForm->createView()
         ]);
     }
@@ -191,7 +192,7 @@ class UsersController extends AbstractController
      */
     public function deleteUser(UserRepository $repository)
     {
-        return $this->render('users/delete.html.twig', [
+        return $this->render('users/users-delete-list.html.twig', [
             'users' => $repository->findByRole("ROLE_ADMIN", false),
         ]);
     }

@@ -38,7 +38,7 @@ class UserProfileController extends AbstractController
             $this->addFlash('danger', $translator->trans("An error occured updating your informations"));
         }
 
-        return $this->render('users/add.html.twig', [
+        return $this->render('users/user-add-form.html.twig', [
             'userForm' => $userForm->createView(),
         ]);
     }

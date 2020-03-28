@@ -14,6 +14,7 @@ useradd:
     password: Password
     password-repeat: Repeat password
     user-is-active: Is the user active ?
+    roles-choose: Choose the user roles
 
   message:
     first-name-too-short: The first name must have 3 letters at least.

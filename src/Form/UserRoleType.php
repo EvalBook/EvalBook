@@ -4,27 +4,14 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Contracts\Translation\TranslatorInterface;
+
 
 class UserRoleType extends AbstractType
 {
-    private $translator;
-
-    /**
-     * UserRoleType constructor.
-     * @param TranslatorInterface $translator
-     */
-    public function __construct(TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
-    }
-
     /**
      * Role add / edit form.
      * @param FormBuilderInterface $builder
@@ -34,7 +21,7 @@ class UserRoleType extends AbstractType
     {
         $builder
             ->add('roles', ChoiceType::class, [
-                'label' => $this->translator->trans('Choose the user roles'),
+                'label' => 'useradd.label.roles-choose',
                 'required' => true,
                 'attr' => ['class' => 'form-check'],
                 'multiple' => true,
@@ -43,7 +30,7 @@ class UserRoleType extends AbstractType
             ])
 
             // Submit button.
-            ->add($this->translator->trans("Send"), SubmitType::class, [
+            ->add('submit', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary']
             ]);
     }

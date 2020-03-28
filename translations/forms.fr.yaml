@@ -14,6 +14,7 @@ useradd:
     password: Mot de passe
     password-repeat: Répétez le mot de passe
     user-is-active: L'utilisateur est il actif ?
+    roles-choose: Choisissez les rôles utilisateur
 
   message:
     first-name-too-short: Le prénom de l'utilisateur doit comporter plus de trois lettres.

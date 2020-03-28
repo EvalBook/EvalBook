@@ -1,0 +1,21 @@
+{% trans_default_domain 'forms' %}
+
+<div class="modal right fade in" id="modal-right-user-edit-{{ id }}" tabindex="-1" role="dialog" aria-labelledby="modal-right">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <p>
+                    {{ form(form) | raw }}
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>

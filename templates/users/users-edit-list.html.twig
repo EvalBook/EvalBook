@@ -30,7 +30,8 @@
                 <td>
                     {{ user.roles | length }}
                     {% form_theme rolesForms[user.id] 'bootstrap_4_layout.html.twig' %}
-                    {% include '_partials/modal-right.html.twig' with {'content' : form(rolesForms[user.id]),'id': user.id, 'slug': 'role', 'fa': 'far fa-edit'} %}
+                    <i style="cursor: pointer;" class="far fa-edit" data-toggle="modal" data-target="#modal-right-roles-{{ user.id }}"></i>
+                    {% include 'users/user-roles-edit-form.html.twig' with {'form' : rolesForms[user.id],'id': user.id} %}
                 </td>
                 <td>
                     {% if user.active %}
@@ -41,7 +42,8 @@
                 </td>
                 <td>
                     {% form_theme editForms[user.id] 'bootstrap_4_layout.html.twig' %}
-                    {% include '_partials/modal-right.html.twig' with {'content' : form(editForms[user.id]),'id': user.id, 'slug': 'edit', 'fa': 'fas fa-pen-square'} %}
+                    <i style="cursor: pointer;" class="fas fa-pen-square" data-toggle="modal" data-target="#modal-right-user-edit-{{ user.id }}"></i>
+                    {% include 'users/user-edit-form.html.twig' with {'form' : editForms[user.id],'id': user.id} %}
                 </td>
             </tr>
         {% else %}
