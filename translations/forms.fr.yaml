@@ -29,6 +29,7 @@ userdel:
 useredit:
   label:
     roles-choose: Choisissez les rôles utilisateur
+    user-edit: Edition de l'utilisateur
   roles:
     ROLE_USER_LIST_ALL: Lister les utilisateurs
     ROLE_USER_CREATE: Créer un utilisateur

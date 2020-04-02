@@ -125,8 +125,8 @@ class UsersController extends AbstractController
      */
     public function addUser(Request $request, ?array $roles, ?string $redirect)
     {
-        $user = new User();
-        $userForm = $this->createForm(UserType::class, $user);
+        $usr = new User();
+        $userForm = $this->createForm(UserType::class, $usr);
 
         try {
             $userForm->handleRequest($request);
@@ -152,8 +152,8 @@ class UsersController extends AbstractController
                     ];
                 }
 
-                $user->setRoles($roles);
-                $this->entityManager->persist($user);
+                $usr->setRoles($roles);
+                $this->entityManager->persist($usr);
                 $this->entityManager->flush();
 
                 $this->addFlash('success', 'user.user-added');
