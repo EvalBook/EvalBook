@@ -4,7 +4,7 @@ common:
   no: Non
   edit: Editer
 
-useradd:
+user:
   title: Ajouter un utilisateur
   label:
     first-name: Nom de l'utilisateur
@@ -12,7 +12,11 @@ useradd:
     email: Adresse e-mail
     password: Mot de passe
     password-repeat: Répétez le mot de passe
-    user-is-active: L'utilisateur est il actif ?
+    is-active: L'utilisateur est il actif ?
+    roles-choose: Choisissez les rôles utilisateur
+    user-edit: Edition de l'utilisateur
+    user-add: Ajouter un utilisateur
+
   message:
     first-name-too-short: Le prénom de l'utilisateur doit comporter plus de trois lettres.
     first-name-too-long: Le prénom de l'utilisateur ne peut pas dépasser 100 lettres.
@@ -20,16 +24,9 @@ useradd:
     last-name-too-long: Le nom de l'utilisateur ne peut pas dépasser 100 lettres.
     email-is-null: L'adresse e-mail ne peut être nulle.
     password-not-match: La vérification du mot de passe a échoué.
-
-userdel:
-  message:
     confirm:
       delete: Etes vous sûr de vouloir supprimer cet utilisateur ?
 
-useredit:
-  label:
-    roles-choose: Choisissez les rôles utilisateur
-    user-edit: Edition de l'utilisateur
   roles:
     ROLE_USER_LIST_ALL: Lister les utilisateurs
     ROLE_USER_CREATE: Créer un utilisateur

@@ -2,7 +2,7 @@
 {% trans_default_domain 'forms' %}
 
 {%  block title %}
-    {{ 'useradd.title' | trans }}
+    {{ 'user.title' | trans }}
 {%  endblock %}
 
 {% block sidebar %}
@@ -17,14 +17,14 @@
             <div class="row mt-3">
                 <div class="col-md-6">
                     {# The user first name #}
-                    {{ form_label(form.firstName, 'useradd.label.first-name'|trans) }}
+                    {{ form_label(form.firstName, 'user.label.first-name'|trans) }}
                     {{ form_widget(form.firstName, {
                         'attr' : {'class': 'form-control'}
                     }) }}
                 </div>
                 <div class="col-md-6">
                     {# The user last name #}
-                    {{ form_label(form.lastName, 'useradd.label.last-name'|trans) }}
+                    {{ form_label(form.lastName, 'user.label.last-name'|trans) }}
                     {{ form_widget(form.lastName, {
                         'attr' : {'class': 'form-control'}
                     }) }}
@@ -34,7 +34,7 @@
             <div class="row mt-3">
                 <div class="col">
                     {# The user mail address #}
-                    {{ form_label(form.email, 'useradd.label.email'|trans) }}
+                    {{ form_label(form.email, 'user.label.email'|trans) }}
                     {{ form_widget(form.email, {
                         'attr' : {'class': 'form-control'}
                     }) }}
@@ -44,13 +44,13 @@
             <div class="row mt-3">
                 <div class="col-md-4">
                     {# The user password #}
-                    {{ form_label(form.password.first, 'useradd.label.password'|trans) }}
+                    {{ form_label(form.password.first, 'user.label.password'|trans) }}
                     {{ form_widget(form.password.first, {
                         'attr' : {'class': 'form-control'}
                     }) }}
                 </div>
                 <div class="col-md-4">
-                    {{ form_label(form.password.second, 'useradd.label.password-repeat'|trans, {
+                    {{ form_label(form.password.second, 'user.label.password-repeat'|trans, {
                         'label_attr': {'class': 'font-italic'}
                     }) }}
                     {{ form_widget(form.password.second, {
@@ -59,7 +59,7 @@
                 </div>
                 <div class="col-md-4">
                     {# The user active state #}
-                    {{ form_label(form.active, 'useradd.label.user-is-active'|trans) }}
+                    {{ form_label(form.active, 'user.label.is-active'|trans) }}
                     {{ form_widget(form.active, {
                         'attr' : {'class': 'form-control'}
                     }) }}

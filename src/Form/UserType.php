@@ -48,8 +48,8 @@ class UserType extends AbstractType
                     new Length([
                         'min' => 3,
                         'max' => 100,
-                        'minMessage' => 'useradd.message.first-name-too-short',
-                        'maxMessage' => 'useradd.message.first-name-too-long'
+                        'minMessage' => 'user.message.first-name-too-short',
+                        'maxMessage' => 'user.message.first-name-too-long'
                     ])
                 ],
                 'required' => true
@@ -61,8 +61,8 @@ class UserType extends AbstractType
                     new Length([
                         'min' => 3,
                         'max' => 100,
-                        'minMessage' => 'useradd.message.last-name-too-short',
-                        'maxMessage' => 'useradd.message.last-name-too-long'
+                        'minMessage' => 'user.message.last-name-too-short',
+                        'maxMessage' => 'user.message.last-name-too-long'
                     ])
                 ],
                 'required' => true
@@ -72,7 +72,7 @@ class UserType extends AbstractType
             ->add('email', EmailType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'useradd.message.email-is-null'
+                        'message' => 'user.message.email-is-null'
                     ])
                 ],
                 'required' => true
@@ -81,7 +81,7 @@ class UserType extends AbstractType
                 // Password and password verify form inputs.
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'invalid_message' => 'useradd.message.password-not-match',
+                'invalid_message' => 'user.message.password-not-match',
                 'required' => false,
                 'empty_data' => '',
                 'first_options'  => ['empty_data' => ''],

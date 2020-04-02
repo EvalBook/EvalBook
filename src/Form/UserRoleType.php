@@ -26,7 +26,7 @@ class UserRoleType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'choices' => array_combine(
-                    array_map(function($value){ return 'useredit.roles.' . $value; }, User::getAssignableRoles()),
+                    array_map(function($value){ return 'user.roles.' . $value; }, User::getAssignableRoles()),
                     User::getAssignableRoles()
                 ),
 
