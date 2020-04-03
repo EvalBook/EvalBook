@@ -32,7 +32,7 @@ class UserRoleType extends AbstractType
 
                 'group_by' => function($value) {
                     $role = str_replace('ROLE_', '', $value);
-                    return ucfirst(strtolower(substr($role, 0, strpos($role, '_'))));
+                    return strtolower(substr($role, 0, strpos($role, '_')));
                 },
             ])
 

@@ -2,7 +2,7 @@
 {% trans_default_domain 'templates' %}
 
 {% block title %}
-    {{ "users.management" | trans }}
+    {{ 'users.management' | trans }}
 {% endblock %}
 
 {% block sidebar %}
@@ -15,27 +15,27 @@
 
         {% if is_granted('ROLE_USER_LIST_ALL') %}
             {% include '_partials/card.html.twig' with {
-                'title': 'card.label.view-users-list' | trans,
-                'content': 'card.description.view-users-list' | trans,
-                'label': 'card.button.view-users-list' | trans,
+                'title': 'users.label.view-list' | trans,
+                'content': 'users.description.view-list' | trans,
+                'label': 'users.button.view-list' | trans,
                 'action': path('users_list')
             }%}
         {% endif %}
 
         {% if is_granted('ROLE_USER_CREATE') %}
             {% include '_partials/card.html.twig' with {
-                'title': 'card.label.add-users' | trans,
-                'content': 'card.description.add-users' | trans,
-                'label': 'card.button.add-users' | trans,
+                'title': 'users.label.add' | trans,
+                'content': 'users.description.add' | trans,
+                'label': 'users.button.add' | trans,
                 'action': path('users_add')
             }%}
         {% endif %}
 
         {% if is_granted('ROLE_ADMIN') %}
             {% include '_partials/card.html.twig' with {
-                'title': 'card.label.add-admin' | trans,
-                'content': 'card.description.add-admin' | trans,
-                'label': 'card.button.add-admin' | trans,
+                'title': 'users.label.add-admin' | trans,
+                'content': 'users.description.add-admin' | trans,
+                'label': 'users.button.add-admin' | trans,
                 'action': path('users_add_admin')
             }%}
         {% endif %}
@@ -45,18 +45,18 @@
 
         {% if is_granted('ROLE_USER_EDIT') %}
             {% include '_partials/card.html.twig' with {
-                'title': 'card.label.edit-users' | trans,
-                'content': 'card.description.edit-users' | trans,
-                'label': 'card.button.edit-users' | trans,
+                'title': 'users.label.edit' | trans,
+                'content': 'users.description.edit' | trans,
+                'label': 'users.button.edit' | trans,
                 'action': path('users_edit')
             }%}
         {% endif %}
 
         {% if is_granted('ROLE_USER_DELETE') %}
             {% include '_partials/card.html.twig' with {
-                'title': 'card.label.delete-users' | trans,
-                'content': 'card.description.delete-users' | trans,
-                'label': 'card.button.delete-users' | trans,
+                'title': 'users.label.delete' | trans,
+                'content': 'users.description.delete' | trans,
+                'label': 'users.button.delete' | trans,
                 'action': path('users_delete')
             }%}
         {% endif %}

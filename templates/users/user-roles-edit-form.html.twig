@@ -5,7 +5,7 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h3 class="float-left">{{ 'user.label.roles-choose' | trans }}</h3>
+                <h3 class="float-left">{{ 'user.title.roles-choose' | trans }}</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -16,8 +16,7 @@
                     {{ form_start(form) }}
 
                     {% for group_label, options in form.roles.vars.choices %}
-                        
-                        <h4>{{ group_label }}</h4>
+                        <h4>{{ ('common.' ~ group_label) | trans }}</h4>
                         {% for key, choice in options %}
                             <div class="form-check">
                                 <input type="checkbox" id="{{ form.vars.name }}_roles_{{ key }}" name="{{ form.vars.name }}[roles][]"

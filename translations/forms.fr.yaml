@@ -3,9 +3,22 @@ common:
   yes: Oui
   no: Non
   edit: Editer
+  user: Utilisateur
+  student: Etudiant
+  period: Période
+  class: Classe
+  activity: Activité
+  notebook: Cahier de notes
+  bulletin: Bulletin
+  implantation: Implantation
 
 user:
-  title: Ajouter un utilisateur
+  title:
+    add: Ajouter un utilisateur
+    edit: Editer un utilisateur
+    delete: Supprimer un utilisateur
+    roles-choose: Choisissez les rôles utilisateur
+
   label:
     first-name: Nom de l'utilisateur
     last-name: Prénom de l'utilisateur
@@ -13,9 +26,6 @@ user:
     password: Mot de passe
     password-repeat: Répétez le mot de passe
     is-active: L'utilisateur est il actif ?
-    roles-choose: Choisissez les rôles utilisateur
-    user-edit: Edition de l'utilisateur
-    user-add: Ajouter un utilisateur
 
   message:
     first-name-too-short: Le prénom de l'utilisateur doit comporter plus de trois lettres.

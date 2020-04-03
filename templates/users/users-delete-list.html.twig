@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'templates' %}
 
-{% block title %}{{ 'users.delete' | trans }}{% endblock %}
+{% block title %}{{ 'users.title.delete' | trans }}{% endblock %}
 
 {% block sidebar %}
     {% include '_partials/sidebar.html.twig' %}
@@ -11,10 +11,10 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="col">{{ 'table.id' | trans }}</th>
-            <th scope="col">{{ 'table.label.first-name' | trans }}</th>
-            <th scope="col">{{ 'table.label.last-name' | trans }}</th>
-            <th scope="col">{{ 'table.label.email' | trans }}</th>
+            <th scope="col">{{ 'users.th.id' | trans }}</th>
+            <th scope="col">{{ 'users.th.first-name' | trans }}</th>
+            <th scope="col">{{ 'users.th.last-name' | trans }}</th>
+            <th scope="col">{{ 'users.th.email' | trans }}</th>
             <th scope="col"></th>
         </tr>
         </thead>

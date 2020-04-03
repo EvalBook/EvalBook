@@ -1,9 +1,9 @@
 user:
-  user-deleted: Utilisateur supprimé
-  user-delete-error: Erreur lors de la suppression de l'utilisateur
-  user-added: Utilisateur ajouté
-  user-add-error: Erreur lors de l'ajout de l'utilisateur
-  user-updated: Utilisateur mis à jour
+  deleted: Utilisateur supprimé
+  delete-error: Erreur lors de la suppression de l'utilisateur
+  added: Utilisateur ajouté
+  add-error: Erreur lors de l'ajout de l'utilisateur
+  updated: Utilisateur mis à jour
 
 school:
   added: Ecole ajoutée
