@@ -4,6 +4,8 @@ user:
   added: Utilisateur ajouté
   add-error: Erreur lors de l'ajout de l'utilisateur
   updated: Utilisateur mis à jour
+  self-updated: Vos informations ont été mises à jour
+  self-update-error: Une erreur est survenue en mettant à jour vos données
 
 school:
   added: Ecole ajoutée

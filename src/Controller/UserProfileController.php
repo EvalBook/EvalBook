@@ -5,21 +5,20 @@ namespace App\Controller;
 use App\Form\UserProfileType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class UserProfileController extends AbstractController
 {
     /**
      * @Route("/user/profile", name="user_profile")
      * @param EntityManagerInterface $entityManager
-     * @param TranslatorInterface $translator
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
-    public function index(EntityManagerInterface $entityManager, TranslatorInterface $translator, Request $request)
+    public function index(EntityManagerInterface $entityManager, Request $request)
     {
         $userForm = $this->createForm(UserProfileType::class, $this->getUser());
 
@@ -30,16 +29,16 @@ class UserProfileController extends AbstractController
             {
                 $entityManager->persist($this->getUser());
                 $entityManager->flush();
-                $this->addFlash('success', $translator->trans("Your information has been updated"));
+                $this->addFlash('success', 'user.self-updated');
                 return $this->redirectToRoute("user_profile");
             }
         }
         catch(\Exception $e) {
-            $this->addFlash('danger', $translator->trans("An error occured updating your informations"));
+            $this->addFlash('danger', 'user.self-update-error');
         }
 
-        return $this->render('users/user-add-form.html.twig', [
-            'userForm' => $userForm->createView(),
+        return $this->render('user_profile/index.html.twig', [
+            'userProfileForm' => $userForm->createView(),
         ]);
     }
 }

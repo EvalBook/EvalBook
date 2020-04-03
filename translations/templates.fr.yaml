@@ -32,7 +32,7 @@ users:
     delete: Supprimer des utilisateurs du système EvalBook. Les données comme les classes et activités seront conservées tant qu'elles ne sont pas explicitement supprimées
 
   button:
-    view: Voir la liste
+    view-list: Voir la liste
     add: Ajouter utilisateurs
     add-admin: Ajouter admin
     edit: Editer utilisateurs

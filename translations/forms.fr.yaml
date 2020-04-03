@@ -18,6 +18,7 @@ user:
     edit: Editer un utilisateur
     delete: Supprimer un utilisateur
     roles-choose: Choisissez les rôles utilisateur
+    profile: Votre profile
 
   label:
     first-name: Nom de l'utilisateur
