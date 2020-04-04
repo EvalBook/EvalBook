@@ -64,7 +64,7 @@ class UserProfileType extends AbstractType
             ])
 
             // Submit button.
-            ->add("send", SubmitType::class, [
+            ->add('submit', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary']
             ])
         ;

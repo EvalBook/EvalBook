@@ -5,7 +5,52 @@
     <h3>{{ 'user.title.profile' | trans }}</h3>
 {% endblock %}
 
-{% block body %}
+{% block sidebar %}
     {% include '_partials/sidebar.html.twig' %}
-    {{ form(userProfileForm) }}
+{% endblock %}
+
+{% block body %}
+    {% if userProfileForm is defined %}
+        {{ form_start(userProfileForm) }}
+        {{ form_errors(userProfileForm) }}
+
+        <div class="row mt">
+            <div class="col">
+                {# The user mail address #}
+                {{ form_label(userProfileForm.email, 'user.label.email'|trans) }}
+                {{ form_widget(userProfileForm.email, {
+                    'attr' : {'class': 'form-control'}
+                }) }}
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col">
+                {# The user password #}
+                {{ form_label(userProfileForm.password.first, 'user.label.password'|trans) }}
+                {{ form_widget(userProfileForm.password.first, {
+                    'attr' : {'class': 'form-control'}
+                }) }}
+            </div>
+            <div class="col">
+                {{ form_label(userProfileForm.password.second, 'user.label.password-repeat'|trans, {
+                    'label_attr': {'class': 'font-italic'}
+                }) }}
+                {{ form_widget(userProfileForm.password.second, {
+                    'attr' : {'class': 'form-control'}
+                }) }}
+            </div>
+        </div>
+
+        <div class="row mt-4 p-1">
+            <div class="col">
+                {# Submit button #}
+                {{ form_row(userProfileForm.submit, {'label': 'common.send'|trans,
+                    'attr': {'class': 'btn btn-primary'}
+                }) }}
+            </div>
+        </div>
+        {{ form_end(userProfileForm) }}
+
+    {% endif %}
 {% endblock %}
