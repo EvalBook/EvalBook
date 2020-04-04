@@ -37,6 +37,7 @@ user:
     last-name-too-long: Le nom de l'utilisateur ne peut pas dépasser 100 lettres.
     email-is-null: L'adresse e-mail ne peut être nulle.
     password-not-match: La vérification du mot de passe a échoué.
+    confirm-delete: Etes vous sûr de vouloir supprimer cet utlisateur ?
 
   roles:
     ROLE_USER_LIST_ALL: Lister les utilisateurs
@@ -73,5 +74,21 @@ user:
     ROLE_IMPLANTATION_CREATE: Créer une implantation
     ROLE_IMPLANTATION_DELETE: Supprimer une implantation
 
-school:
-  message: none remove me
+schools-implantations:
+
+  title:
+    add-school: Ajouter une école
+    add-implantation: Ajouter une implantation
+
+  label:
+    name-school: Nom de l'école
+    name-implantation: Nom de l'implantation
+
+  message:
+    implantation-name-too-short: Le nom de l'implantation doit comporter plus de 4 lettres.
+    implantation-name-too-long: Le nom de l'implantation ne peut pas dépasser 100 lettres.
+    implantation-address-too-short: L'adresse de l'implantation doit comporter plus de 4 lettres.
+    implantation-address-too-long: L'adresse de l'implantation ne peut pas dépasser 100 lettres.
+    zip-is-blank: Le code postal ne peut être vide
+    country-name-too-short: Le nom de la ville doit comporter plus de 4 lettres.
+    country-name-too-long: Le nom de la ville ne peut pas dépasser 100 lettres.

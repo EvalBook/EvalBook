@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{%  block title %}
+    {{ 'schools-implantations.title.add-implantation' | trans({}, 'forms') }}
+{%  endblock %}
+
+{% block sidebar %}
+    {% include '_partials/sidebar.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    {% if implantationForm is defined %}
+        {{ form_start(implantationForm) }}
+        {{ form_errors(implantationForm) }}
+
+        <div class="row mt">
+            <div class="col">
+                {# The implantation name #}
+                {{ form_label(implantationForm.name, 'schools-implantations.label.name-implantation') }}
+                {{ form_widget(implantationForm.name, {
+                    'attr' : {'class': 'form-control'}
+                }) }}
+            </div>
+        </div>
+
+        <div class="row mt p-1">
+            <div class="col">
+                {# Submit button #}
+                {{ form_row(implantationForm.submit, {'label': 'common.send',
+                    'attr': {'class': 'btn btn-primary'}
+                }) }}
+            </div>
+        </div>
+
+        {{ form_end(implantationForm) }}
+
+    {% endif %}
+{% endblock %}

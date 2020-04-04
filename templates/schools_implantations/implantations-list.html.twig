@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
 
-{% block title %}{{ 'Implantations list' | trans }}{% endblock %}
+{% block title %}{{ 'schools-implantations.title.list-implantations' | trans }}{% endblock %}
 
 {% block sidebar %}
     {% include '_partials/sidebar.html.twig' %}
@@ -10,10 +11,10 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="col">{{ 'Id' | trans }}</th>
-            <th scope="col">{{ 'Name' | trans }}</th>
-            <th scope="col">{{ 'School' | trans }}</th>
-            <th scope="col">{{ 'Address' | trans }}</th>
+            <th scope="col">{{ 'schools-implantations.th.id' | trans }}</th>
+            <th scope="col">{{ 'schools-implantations.th.name-implantation' | trans }}</th>
+            <th scope="col">{{ 'schools-implantations.th.name-school' | trans }}</th>
+            <th scope="col">{{ 'schools-implantations.th.address' | trans }}</th>
         </tr>
         </thead>
         <tbody>
@@ -28,7 +29,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">{{ 'No implantation found' | trans }}</td>
+                <td colspan="4">{{ 'schools-implantations.th.not-found-implantation' | trans }}</td>
             </tr>
         {% endfor %}
         </tbody>

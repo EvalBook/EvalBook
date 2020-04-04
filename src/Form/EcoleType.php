@@ -21,15 +21,11 @@ class EcoleType extends AbstractType
     {
         $builder
             ->add('name', TextType::class ,[
-                'label' => $this->translator->trans('Enter a school name'),
-                'required' => true,
-                'attr' => ['class' => 'form-control']
+                'required' => true
             ])
 
             // Submit button.
-            ->add($this->translator->trans("Send"), SubmitType::class, [
-                'attr' => ['class' => 'btn btn-primary']
-            ])
+            ->add('submit', SubmitType::class)
         ;
     }
 
@@ -41,6 +37,7 @@ class EcoleType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Ecole::class,
+            'translation_domain' => 'forms'
         ]);
     }
 }

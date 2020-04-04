@@ -6,7 +6,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>{{ 'user.title.delete' | trans }}</h3>
+                <h3>{{ 'user.title.delete'|trans }}</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -14,15 +14,15 @@
 
             <div class="modal-body">
                 <p>
-                    {{ 'user.message.confirm.delete' | trans }}
+                    {{ 'user.message.confirm.delete'|trans }}
                 </p>
                 <p>
                     <a class="btn btn-primary" href="{{ path('users_delete_confirm',{'id' : id}) }}">
-                        {{ 'common.yes' | trans }}
+                        {{ 'common.yes'|trans }}
                     </a>
 
                     <a class="btn btn-secondary" href="{{ path('users_delete') }}">
-                        {{ 'common.no' | trans }}
+                        {{ 'common.no'|trans }}
                     </a>
                 </p>
             </div>

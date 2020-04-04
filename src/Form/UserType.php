@@ -51,8 +51,7 @@ class UserType extends AbstractType
                         'minMessage' => 'user.message.first-name-too-short',
                         'maxMessage' => 'user.message.first-name-too-long'
                     ])
-                ],
-                'required' => true
+                ]
             ])
 
             // Last name form input.
@@ -64,8 +63,7 @@ class UserType extends AbstractType
                         'minMessage' => 'user.message.last-name-too-short',
                         'maxMessage' => 'user.message.last-name-too-long'
                     ])
-                ],
-                'required' => true
+                ]
             ])
 
             // Email form input.
@@ -74,8 +72,7 @@ class UserType extends AbstractType
                     new NotBlank([
                         'message' => 'user.message.email-is-null'
                     ])
-                ],
-                'required' => true
+                ]
             ])
 
                 // Password and password verify form inputs.
@@ -91,8 +88,7 @@ class UserType extends AbstractType
             // Active form input.
             ->add('active', ChoiceType::class, [
                 'choices' => ['common.yes' => true, 'common.no' => false],
-                'choice_translation_domain' => 'forms',
-                'required' => true
+                'choice_translation_domain' => 'forms'
             ])
 
             // Submit button.
@@ -108,6 +104,8 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'translation_domain' => 'forms',
+            'required' => true
         ]);
     }
 }

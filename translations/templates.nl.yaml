@@ -1,3 +1,4 @@
+# Global main menu related.
 sidebar:
   dashboard: Dashboard
   notebook: Notebook
@@ -8,6 +9,7 @@ sidebar:
   schools-implantations: Schools and implantations
   users: Users management
 
+# Users interface related.
 users:
   not-found: No users found
 
@@ -46,6 +48,7 @@ users:
     email: E-Mail
     active: Active
 
+# Commonly used strings.
 global:
   profile: My profile
   disconnect: Disconnect

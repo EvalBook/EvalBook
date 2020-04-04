@@ -98,7 +98,7 @@ class SchoolsImplantationsController extends AbstractController
             return $this->redirectToRoute("schools_schools_add");
         }
 
-        return $this->render('schools_implantations/schools-add.html.twig', [
+        return $this->render('schools_implantations/school-add-form.html.twig', [
             'schoolForm' => $form
         ]);
     }
@@ -120,7 +120,7 @@ class SchoolsImplantationsController extends AbstractController
             return $this->redirectToRoute("schools_implantations_add");
         }
 
-        return $this->render('schools_implantations/implantations-add.html.twig', [
+        return $this->render('schools_implantations/implantation-add-form.html.twig', [
             'implantationForm' => $form
         ]);
     }
@@ -179,7 +179,7 @@ class SchoolsImplantationsController extends AbstractController
                     $em->persist($implantation);
                     $em->flush();
 
-                    $this->addFlash('success', 'implantation.edited');
+                    $this->addFlash('success', 'implantation.updated');
                     return $this->redirectToRoute("schools_implantations_edit");
                 }
             } catch (\Exception $e) {

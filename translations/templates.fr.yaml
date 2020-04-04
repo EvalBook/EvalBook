@@ -50,9 +50,12 @@ users:
 
 #Schools and implantations global interface related.
 schools-implantations:
-  not-found: Aucune école trouvée
+  not-found-school: Aucune école trouvée
+  not-found-implantation: Aucune implantation trouvée
 
   title:
+    list-schools: Liste des écoles
+    list-implantations: Liste des implantations
     management: Gestion des écoles et implantations
 
   label:
@@ -60,19 +63,34 @@ schools-implantations:
     list-implantations: Liste des implantations
     add-school: Ajouter une école
     add-implantation: Ajouter une implantation
+    edit-school: Editer une école
+    edit-implantation: Editer une implantation
+    delete-school: Supprimer une école
+    delete-implantation: Supprimer une implantation
 
   description:
     view-list-schools: Voir la liste complète des écoles avec des informations de base telles que le nom de l'école et l'adresse
     view-list-implantations: Voir la liste complète des implantations avec des informations de base telles que l'adresse, l'écoles, etc...
     add-school: Ajouter une nouvelle école et attacher des implantations
     add-implantation: Ajouter une implantation et l'attacher à une école
+    edit-school: Editer une école existante pour mettre à jour ses informations
+    edit-implantation: Editer les différentes informations une implantation
+    delete-school: Supprimer une école, les implantations sont préservées et attachables à une autre école
+    delete-implantation:  Supprimer une implantation
 
   button:
     view-list: Voir la liste
     add: Ajouter
+    edit: Editer
+    delete: Supprimer
 
   th:
     id: Id
+    name-school: Nom de l'école
+    name-implantation: Nom de l'implantation
+    implantations-count: Nbr implantations
+    implantation-default: Implantation par défaut
+    address: Adresse
 
 # Commonly used strings.
 global:

@@ -54,18 +54,18 @@
 
         {% if is_granted('ROLE_ADMIN') %}
             {% include '_partials/card.html.twig' with {
-                'title': 'Edit school' | trans,
-                'content': 'Edit an existing school to update its information.' | trans,
-                'label': 'Edit' | trans,
+                'title': 'schools-implantations.label.edit-school' | trans,
+                'content': 'schools-implantations.description.edit-school' | trans,
+                'label': 'schools-implantations.button.edit' | trans,
                 'action': path('schools_schools_edit')
             }%}
         {% endif %}
 
         {% if is_granted('ROLE_IMPLANTATION_EDIT') %}
             {% include '_partials/card.html.twig' with {
-                'title': 'Edit implantation' | trans,
-                'content': 'Edit an implantation information' | trans,
-                'label': 'Edit' | trans,
+                'title': 'schools-implantations.label.edit-implantation' | trans,
+                'content': 'schools-implantations.description.edit-implantation' | trans,
+                'label': 'schools-implantations.button.edit' | trans,
                 'action': path('schools_implantations_edit')
             }%}
             {% endif %}
@@ -75,18 +75,18 @@
 
         {% if is_granted('ROLE_ADMIN') %}
             {% include '_partials/card.html.twig' with {
-                'title': 'Delete school' | trans,
-                'content': 'Delete a school, implantations are preserved and attachable to an other school' | trans,
-                'label': 'Delete' | trans,
+                'title': 'schools-implantations.label.delete-school' | trans,
+                'content': 'schools-implantations.description.delete-school' | trans,
+                'label': 'schools-implantations.button.delete' | trans,
                 'action': path('schools_schools_delete')
             }%}
         {% endif %}
 
         {% if is_granted('ROLE_IMPLANTATION_DELETE') %}
             {% include '_partials/card.html.twig' with {
-                'title': 'Delete implantation' | trans,
-                'content': 'Delete an implantation' | trans,
-                'label': 'Delete' | trans,
+                'title': 'schools-implantations.label.delete-implantation' | trans,
+                'content': 'schools-implantations.description.delete-implantation' | trans,
+                'label': 'schools-implantations.button.delete' | trans,
                 'action': path('schools_implantations_delete')
             }%}
         {% endif %}
