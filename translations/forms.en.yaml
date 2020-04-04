@@ -3,16 +3,33 @@ common:
   yes: Yes
   no: No
   edit: Edit
+  user: User
+  student: Pupil
+  period: Period
+  class: Class
+  activity: Activity
+  notebook: Notebook
+  bulletin: School report
+  implantation: Implantation
 
-useradd:
-  title: Add a user
+user:
+  title:
+    add: Add a user
+    edit: Edit a user
+    delete: Delete a user
+    roles-choose: Choose the user roles
+    profile: Your profile
+
   label:
     first-name: User first name
     last-name: User last name
     email: Mail address
     password: Password
     password-repeat: Repeat password
-    user-is-active: Is the user active ?
+    is-active: Is the user active ?
+    confirm:
+      delete: Are you sure you want to delete this user ?
+
   message:
     first-name-too-short: The first name must have 3 letters at least.
     first-name-too-long: The first name should not have more than 100 letters.
@@ -21,15 +38,6 @@ useradd:
     email-is-null: The mail address cannot be empty.
     password-not-match: The password check has failed.
 
-userdel:
-  message:
-    confirm:
-      delete: Are your sure you want to delete this user ?
-
-useredit:
-  label:
-    roles-choose: Choisissez les rôles utilisateur
-    user-edit: User edition
   roles:
     ROLE_USER_LIST_ALL: Lister les utilisateurs
     ROLE_USER_CREATE: Créer un utilisateur

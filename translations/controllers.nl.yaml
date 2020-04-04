@@ -1,9 +1,11 @@
 user:
-  user-deleted: User deleted
-  user-delete-error: Error deleting user
-  user-added: User added
-  user-add-error: Error adding user
-  user-updated: User updated
+  deleted: User deleted
+  delete-error: Error deleting user
+  added: User added
+  add-error: Error adding user
+  updated: User updated
+  self-updated: Your information has been updated
+  self-update-error: An error occured updating your information
 
 school:
   added: School added

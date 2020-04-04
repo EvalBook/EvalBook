@@ -27,6 +27,8 @@ user:
     password: Mot de passe
     password-repeat: Répétez le mot de passe
     is-active: L'utilisateur est il actif ?
+    confirm:
+      delete: Etes vous sûr de vouloir supprimer cet utilisateur ?
 
   message:
     first-name-too-short: Le prénom de l'utilisateur doit comporter plus de trois lettres.
@@ -35,8 +37,6 @@ user:
     last-name-too-long: Le nom de l'utilisateur ne peut pas dépasser 100 lettres.
     email-is-null: L'adresse e-mail ne peut être nulle.
     password-not-match: La vérification du mot de passe a échoué.
-    confirm:
-      delete: Etes vous sûr de vouloir supprimer cet utilisateur ?
 
   roles:
     ROLE_USER_LIST_ALL: Lister les utilisateurs
