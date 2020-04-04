@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
 
 {% block title %}
-    {{ "Schools and implantations management" | trans }}
+    {{ 'schools-implantations.title.management' | trans }}
 {% endblock %}
 
 {% block sidebar %}
@@ -14,27 +15,27 @@
 
         {% if is_granted('ROLE_ADMIN') %}
             {% include '_partials/card.html.twig' with {
-                'title': 'List schools' | trans,
-                'content': 'View the full school list with basic information such as school address and some statistics' | trans,
-                'label': 'List' | trans,
+                'title': 'schools-implantations.label.list-schools' | trans,
+                'content': 'schools-implantations.description.view-list-schools' | trans,
+                'label': 'schools-implantations.button.view-list' | trans,
                 'action': path('schools_schools_list')
             }%}
         {% endif %}
 
         {% if is_granted('ROLE_IMPLANTATION_LIST_ALL') %}
             {% include '_partials/card.html.twig' with {
-                'title': 'List implantations' | trans,
-                'content': 'View the full implantations list with basic information such as school and implantation address and some statistics' | trans,
-                'label': 'List' | trans,
+                'title': 'schools-implantations.label.list-implantations' | trans,
+                'content': 'schools-implantations.description.view-list-implantations' | trans,
+                'label': 'schools-implantations.button.view-list' | trans,
                 'action': path('schools_implantations_list')
             }%}
         {% endif %}
 
         {% if is_granted('ROLE_ADMIN') %}
             {% include '_partials/card.html.twig' with {
-                'title': 'Add school' | trans,
-                'content': 'Add a new school and attach implantations to this one' | trans,
-                'label': 'Add' | trans,
+                'title': 'schools-implantations.label.add-school' | trans,
+                'content': 'schools-implantations.description.add-school' | trans,
+                'label': 'schools-implantations.button.add' | trans,
                 'action': path('schools_schools_add')
             }%}
         {% endif %}
@@ -44,9 +45,9 @@
 
         {% if is_granted('ROLE_IMPLANTATION_CREATE') %}
             {% include '_partials/card.html.twig' with {
-                'title': 'Add implantation' | trans,
-                'content': 'Add a new implantation and attach it to a school' | trans,
-                'label': 'Add' | trans,
+                'title': 'schools-implantations.label.add-implantation' | trans,
+                'content': 'schools-implantations.description.add-implantation' | trans,
+                'label': 'schools-implantations.button.add' | trans,
                 'action': path('schools_implantations_add')
             }%}
         {% endif %}

@@ -72,3 +72,6 @@ user:
     ROLE_IMPLANTATION_EDIT: Editer une implantation
     ROLE_IMPLANTATION_CREATE: Créer une implantation
     ROLE_IMPLANTATION_DELETE: Supprimer une implantation
+
+school:
+  message: none remove me

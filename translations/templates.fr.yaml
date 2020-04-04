@@ -1,3 +1,4 @@
+# Global main menu related.
 sidebar:
   dashboard: Tableau de bord
   notebook: Cahier de notes
@@ -8,6 +9,7 @@ sidebar:
   schools-implantations: Ecoles et implantations
   users: Gestion utlisateurs
 
+# Users interface related.
 users:
   not-found: Aucun utilisateur trouvé
 
@@ -46,6 +48,33 @@ users:
     email: E-Mail
     active: Actif
 
+#Schools and implantations global interface related.
+schools-implantations:
+  not-found: Aucune école trouvée
+
+  title:
+    management: Gestion des écoles et implantations
+
+  label:
+    list-schools: Liste des écoles
+    list-implantations: Liste des implantations
+    add-school: Ajouter une école
+    add-implantation: Ajouter une implantation
+
+  description:
+    view-list-schools: Voir la liste complète des écoles avec des informations de base telles que le nom de l'école et l'adresse
+    view-list-implantations: Voir la liste complète des implantations avec des informations de base telles que l'adresse, l'écoles, etc...
+    add-school: Ajouter une nouvelle école et attacher des implantations
+    add-implantation: Ajouter une implantation et l'attacher à une école
+
+  button:
+    view-list: Voir la liste
+    add: Ajouter
+
+  th:
+    id: Id
+
+# Commonly used strings.
 global:
   profile: Mon profil
   disconnect: Déconnexion
