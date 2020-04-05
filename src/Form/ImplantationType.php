@@ -41,7 +41,6 @@ class ImplantationType extends AbstractType
 
             // Implantation address ( street name and number ).
             ->add('address', TextType::class, [
-                //'label' => $this->translator->trans('Enter the implantation address'),
                 'constraints' => [
                     new Length([
                         'min' => 4,
@@ -54,7 +53,6 @@ class ImplantationType extends AbstractType
 
             // Implantation zip code.
             ->add('zipCode', IntegerType::class, [
-                //'label' => $this->translator->trans('Enter the implantation zip code'),
                 'constraints' => [
                     new NotBlank([
                         'message' => 'schools-implantations.message.zip-is-blank'
@@ -64,7 +62,6 @@ class ImplantationType extends AbstractType
 
             // Implantation country.
             ->add('country', TextType::class, [
-                //'label' => $this->translator->trans('Enter the implantation country'),
                 'constraints' => [
                     new Length([
                         'min' => 4,
@@ -77,7 +74,6 @@ class ImplantationType extends AbstractType
 
             // Is defaul implantation.
             ->add('defaultImplantation', ChoiceType::class, [
-                //'label' => $this->translator->trans("Is this implantation the default school one ?"),
                 'choices' => [
                     'common.yes' => true,
                     'common.no' => false

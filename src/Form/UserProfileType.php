@@ -47,16 +47,12 @@ class UserProfileType extends AbstractType
                     ])
                 ],
                 'required' => true,
-                'attr' => ['class' => 'form-control']
             ])
 
                 // Password and password verify form inputs.
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'user.message.password-not-match',
-                'options' => [
-                    'attr' => ['class' => 'form-control']
-                ],
                 'required' => false,
                 'empty_data' => '',
                 'first_options'  => [ 'empty_data' => ''],
@@ -64,9 +60,7 @@ class UserProfileType extends AbstractType
             ])
 
             // Submit button.
-            ->add('submit', SubmitType::class, [
-                'attr' => ['class' => 'btn btn-primary']
-            ])
+            ->add('submit', SubmitType::class)
         ;
     }
 

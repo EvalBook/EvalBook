@@ -22,7 +22,6 @@ class UserRoleType extends AbstractType
         $builder
             ->add('roles', ChoiceType::class, [
                 'required' => true,
-                'choice_translation_domain' => true,
                 'multiple' => true,
                 'expanded' => true,
                 'choices' => array_combine(

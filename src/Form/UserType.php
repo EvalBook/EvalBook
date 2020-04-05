@@ -88,7 +88,6 @@ class UserType extends AbstractType
             // Active form input.
             ->add('active', ChoiceType::class, [
                 'choices' => ['common.yes' => true, 'common.no' => false],
-                'choice_translation_domain' => 'forms'
             ])
 
             // Submit button.
