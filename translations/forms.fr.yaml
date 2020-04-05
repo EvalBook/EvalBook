@@ -80,6 +80,7 @@ schools-implantations:
     add-school: Ajouter une école
     add-implantation: Ajouter une implantation
     edit-school: Editer une école
+    edit-implantation: Editer une implantation
 
   label:
     name-school: Nom de l'école

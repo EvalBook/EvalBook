@@ -57,6 +57,8 @@ schools-implantations:
     list-schools: Liste des écoles
     list-implantations: Liste des implantations
     management: Gestion des écoles et implantations
+    edit-list-schools: Liste des écoles éditables
+    edit-list-implantations: Liste des implantations éditables
 
   label:
     list-schools: Liste des écoles
@@ -91,6 +93,9 @@ schools-implantations:
     implantations-count: Nbr implantations
     implantation-default: Implantation par défaut
     address: Adresse
+    zip-code: Code postal
+    country: Ville
+    is-default: Implantation par défaut ?
 
 # Commonly used strings.
 global:
