@@ -79,6 +79,7 @@ schools-implantations:
   title:
     add-school: Ajouter une école
     add-implantation: Ajouter une implantation
+    edit-school: Editer une école
 
   label:
     name-school: Nom de l'école

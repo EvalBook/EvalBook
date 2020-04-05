@@ -21,8 +21,8 @@
                 <th scope="row">{{ school.id }}</th>
                 <td>{{ school.name }}</td>
                 <td>
-                    {% form_theme schoolsForms[school.id] 'bootstrap_4_layout.html.twig' %}
-                    {% include '_partials/modal-right.html.twig' with {'content' : form(schoolsForms[school.id]),'id': school.id, 'slug': 'school', 'fa': 'far fa-edit'} %}
+                    <i style="cursor: pointer;" class="far fa-edit" data-toggle="modal" data-target="#modal-right-school-{{ school.id }}"></i>
+                    {% include 'schools_implantations/school-edit-form.html.twig' with {'form' : schoolsForms[school.id], 'id': school.id} %}
                 </td>
             </tr>
         {% else %}

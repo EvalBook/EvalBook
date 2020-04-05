@@ -149,7 +149,7 @@ class SchoolsImplantationsController extends AbstractController
             }
         }
 
-        return $this->render('schools_implantations/schools-edit.html.twig', [
+        return $this->render('schools_implantations/schools-edit-list.html.twig', [
             'schools' => $schools,
             'schoolsForms' => $editForms,
         ]);
