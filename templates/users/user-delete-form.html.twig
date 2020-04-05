@@ -12,11 +12,11 @@
                 </button>
             </div>
 
-            <div class="modal-body">
+            <div class="modal-body mb-2">
                 <p>
                     {{ 'user.message.confirm.delete'|trans }}
                 </p>
-                <p>
+                <div class="mt-3">
                     <a class="btn btn-primary" href="{{ path('users_delete_confirm',{'id' : id}) }}">
                         {{ 'common.yes'|trans }}
                     </a>
@@ -24,7 +24,7 @@
                     <a class="btn btn-secondary" href="{{ path('users_delete') }}">
                         {{ 'common.no'|trans }}
                     </a>
-                </p>
+                </div>
             </div>
 
         </div>

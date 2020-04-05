@@ -13,7 +13,7 @@
         {{ form_start(schoolForm) }}
         {{ form_errors(schoolForm) }}
 
-        <div class="row mt">
+        <div class="row mt-3">
             <div class="col">
                 {# The school name #}
                 {{ form_label(schoolForm.name, 'schools-implantations.label.name-school') }}
@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        <div class="row mt p-1">
+        <div class="row mt-3 p-1">
             <div class="col">
                 {# Submit button #}
                 {{ form_row(schoolForm.submit, {'label': 'common.send' ,

@@ -83,6 +83,11 @@ schools-implantations:
   label:
     name-school: Nom de l'école
     name-implantation: Nom de l'implantation
+    address-implantation: Adresse de l'implantation
+    zip-code: Code postal
+    country: Ville
+    is-default-implantation: Est elle l'implantation par défaut ?
+    school-implantation: Ecole attachée à cette implantation
 
   message:
     implantation-name-too-short: Le nom de l'implantation doit comporter plus de 4 lettres.
