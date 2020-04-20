@@ -30,7 +30,13 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/js/app.js')
-    //.addEntry('page1', './assets/js/page1.js')
+
+    // Global css layout.
+    .addStyleEntry('svelte-style', './assets/css/app.css')
+    .addStyleEntry('modal-right', './assets/css/modal-right.css')
+    .addStyleEntry('styles', './assets/css/styles.css')
+    .addStyleEntry('style-login', './assets/css/style-login.css')
+
     //.addEntry('page2', './assets/js/page2.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
@@ -83,5 +89,11 @@ config.resolve.extensions = ['.mjs', '.js', '.svelte'];
 
 let svelte = config.module.rules.pop();
 config.module.rules.unshift(svelte);
+
+// File watcher
+config.watch = true;
+config.watchOptions =  {
+    aggregateTimeout: 1000,
+};
 
 module.exports = config;
