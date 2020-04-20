@@ -17,9 +17,10 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
         <!-- project related stylesheets -->
-        <link rel="stylesheet" href="{{ asset('assets/styles/styles.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/styles/modal-right.css') }}" class="src">
+        {{ encore_entry_link_tags('styles') }}
+        {{ encore_entry_link_tags('modal-right') }}
         {% block stylesheets %} {% endblock %}
+
         {% block headers %} {% endblock %}
 
     </head>
