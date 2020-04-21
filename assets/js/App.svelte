@@ -1,5 +1,5 @@
 <script>
-    import UserAdd from './components/UserAdd.svelte';
+    import UserAdd from './components/UserEdit.svelte';
 </script>
 
 <h1>Symfony et Svelte</h1>
