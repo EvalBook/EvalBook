@@ -4,6 +4,7 @@ namespace App\Controller\Api;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -14,16 +15,25 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class Language extends AbstractController {
 
     /**
-     * @Route("/api/locale/{domain}/{msgid}", name="api_locale")
+     * @Route("/api/strings", name="api_strings")
+     * @param Request $request
      * @param TranslatorInterface $translator
-     * @param string $domain
-     * @param string $msgid
      * @return JsonResponse
      */
-    public function getString(TranslatorInterface $translator, string $domain, string $msgid)
+    public function getString(Request $request, TranslatorInterface $translator)
     {
-        return $this->json([
-            'string' => $translator->trans($msgid, [], $domain)
-        ]);
+        $jsonRequest = json_decode($request->getContent(), true);
+
+        if(!isset($jsonRequest['domain']) || !isset($jsonRequest['strings'])) {
+            // Send 'Missing parameter code' in case translation domain was not provided.
+            return $this->json(['message' => 'Missing parameter'], 201);
+        }
+
+        $rValues = array();
+        foreach($jsonRequest['strings'] as $stringId) {
+            $rValues[$stringId] = $translator->trans($stringId, [], $jsonRequest['domain']);
+        }
+
+        return $this->json($rValues, 200);
     }
 }

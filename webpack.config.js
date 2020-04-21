@@ -30,6 +30,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/js/app.js')
+    .addEntry('api', './assets/js/api.js')
 
     // Global css layout.
     .addStyleEntry('svelte-style', './assets/css/app.css')
