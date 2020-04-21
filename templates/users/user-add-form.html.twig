@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheet %}
+  {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
 {%  block title %}
     {{ 'user.title.add' | trans({}, 'forms') }}
 {%  endblock %}
@@ -76,4 +80,8 @@
         {{ form_end(form) }}
 
     {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
 {% endblock %}
