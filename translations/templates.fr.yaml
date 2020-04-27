@@ -6,7 +6,7 @@ sidebar:
   school-reports: Bulletins
   pupils: Elèves
   classes: Classes
-  schools-implantations: Ecoles et implantations
+  implantations: Implantations
   users: Gestion utlisateurs
 
 # Users interface related.
@@ -48,36 +48,25 @@ users:
     email: E-Mail
     active: Actif
 
-#Schools and implantations global interface related.
-schools-implantations:
-  not-found-school: Aucune école trouvée
+#Implantations global interface related.
+implantations:
   not-found-implantation: Aucune implantation trouvée
 
   title:
-    list-schools: Liste des écoles
     list-implantations: Liste des implantations
     management: Gestion des écoles et implantations
-    edit-list-schools: Liste des écoles éditables
     edit-list-implantations: Liste des implantations éditables
 
   label:
-    list-schools: Liste des écoles
     list-implantations: Liste des implantations
-    add-school: Ajouter une école
     add-implantation: Ajouter une implantation
-    edit-school: Editer une école
     edit-implantation: Editer une implantation
-    delete-school: Supprimer une école
     delete-implantation: Supprimer une implantation
 
   description:
-    view-list-schools: Voir la liste complète des écoles avec des informations de base telles que le nom de l'école et l'adresse
     view-list-implantations: Voir la liste complète des implantations avec des informations de base telles que l'adresse, l'écoles, etc...
-    add-school: Ajouter une nouvelle école et attacher des implantations
     add-implantation: Ajouter une implantation et l'attacher à une école
-    edit-school: Editer une école existante pour mettre à jour ses informations
     edit-implantation: Editer les différentes informations une implantation
-    delete-school: Supprimer une école, les implantations sont préservées et attachables à une autre école
     delete-implantation:  Supprimer une implantation
 
   button:
@@ -88,7 +77,6 @@ schools-implantations:
 
   th:
     id: Id
-    name-school: Nom de l'école
     name-implantation: Nom de l'implantation
     implantations-count: Nbr implantations
     implantation-default: Implantation par défaut

@@ -36,33 +36,17 @@ use Symfony\Component\Routing\Annotation\Route;
 
 
 /**
- * @Route("/schools", name="schools_")
- * Class SchoolsImplantationsController
+ * Class ImplantationsController
  * @package App\Controller
  */
-class SchoolsImplantationsController extends AbstractController
+class ImplantationsController extends AbstractController
 {
     /**
-     * @Route("/", name="index")
+     * @Route("/implantations", name="implantations")
      */
     public function index()
     {
-        return $this->render('schools_implantations/index.html.twig');
-    }
-
-
-    /**
-     * @Route("/schools/list", name="schools_list")
-     * @IsGranted("ROLE_ADMIN", statusCode=404, message="Not found")
-     *
-     * @param EcoleRepository $repository
-     * @return Response
-     */
-    public function schoolsList(EcoleRepository $repository)
-    {
-        return $this->render('schools_implantations/schools-list.html.twig', [
-            'schools' => $repository->findAll()
-        ]);
+        return $this->render('implantations/index.html.twig');
     }
 
 
@@ -75,31 +59,8 @@ class SchoolsImplantationsController extends AbstractController
      */
     public function implantationList(ImplantationRepository $repository)
     {
-        return $this->render('schools_implantations/implantations-list.html.twig', [
+        return $this->render('implantations/list.html.twig', [
             'implantations' => $repository->findAll()
-        ]);
-    }
-
-
-    /**
-     * @Route("/schools/add", name="schools_add")
-     * @IsGranted("ROLE_ADMIN", statusCode=404, message="Not found")
-     *
-     * @param FormService $service
-     * @return RedirectResponse|Response
-     */
-    public function addSchool(FormService $service)
-    {
-        // The form is a simple form that does not need any check, the name is uniq, lets use the FormService create method.
-        list($result, $form) = $service->createSimpleForm('school-add', EcoleType::class, new Ecole());
-
-        if(!is_null($result) && $result) {
-            $this->addFlash('success', 'school.added');
-            return $this->redirectToRoute("schools_schools_add");
-        }
-
-        return $this->render('schools_implantations/school-add-form.html.twig', [
-            'schoolForm' => $form
         ]);
     }
 
@@ -117,41 +78,11 @@ class SchoolsImplantationsController extends AbstractController
 
         if(!is_null($result) && $result) {
             $this->addFlash('success', 'implantation.added');
-            return $this->redirectToRoute("schools_implantations_add");
+            return $this->redirectToRoute("implantations_add");
         }
 
-        return $this->render('schools_implantations/implantation-add-form.html.twig', [
+        return $this->render('implantations/add-form.html.twig', [
             'implantationForm' => $form
-        ]);
-    }
-
-
-    /**
-     * @Route("/schools/edit", name="schools_edit")
-     * @IsGranted("ROLE_ADMIN", statusCode=404, message="Not found")
-     *
-     * @param FormService $service
-     * @param EcoleRepository $repository
-     * @return RedirectResponse|Response
-     */
-    public function editSchools(FormService $service, EcoleRepository $repository)
-    {
-        $schools = $repository->findAll();
-        $editForms = array();
-
-        foreach($schools as $school) {
-            list($sResult, $formEdit) = $service->createSimpleForm('school-edit-' . $school->getId(), EcoleType::class, $school);
-            $editForms[$school->getId()] = $formEdit;
-
-            if(!is_null($sResult) && $sResult) {
-                $this->addFlash('success', 'school.updated');
-                return $this->redirectToRoute("schools_schools_edit");
-            }
-        }
-
-        return $this->render('schools_implantations/schools-edit-list.html.twig', [
-            'schools' => $schools,
-            'schoolsForms' => $editForms,
         ]);
     }
 
@@ -180,27 +111,17 @@ class SchoolsImplantationsController extends AbstractController
                     $em->flush();
 
                     $this->addFlash('success', 'implantation.updated');
-                    return $this->redirectToRoute("schools_implantations_edit");
+                    return $this->redirectToRoute("implantations_edit");
                 }
             } catch (\Exception $e) {
                 $this->addFlash('danger', 'implantation.edit-error');
             }
         }
 
-        return $this->render('schools_implantations/implantations-edit-list.html.twig', [
+        return $this->render('implantations/edit-list.html.twig', [
             'implantations' => $implantations,
             'implantationsForms' => $editForms
         ]);
-    }
-
-
-    /**
-     * @Route("/schools/delete", name="schools_delete")
-     * @IsGranted("ROLE_ADMIN", statusCode=404, message="Not found")
-     */
-    public function deleteSchool()
-    {
-
     }
 
 

@@ -58,12 +58,6 @@ class Implantation
     private $country;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Ecole", inversedBy="implantations")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $ecole;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $defaultImplantation;
@@ -184,28 +178,6 @@ class Implantation
     public function setCountry(string $country): self
     {
         $this->country = $country;
-        return $this;
-    }
-
-
-    /**
-     * Return the Ecole object that own the Implantation object.
-     * @return Ecole|null
-     */
-    public function getEcole(): ?Ecole
-    {
-        return $this->ecole;
-    }
-
-
-    /**
-     * Set the Ecole thaht own the implantation.
-     * @param Ecole|null $ecole
-     * @return $this
-     */
-    public function setEcole(?Ecole $ecole): self
-    {
-        $this->ecole = $ecole;
         return $this;
     }
 

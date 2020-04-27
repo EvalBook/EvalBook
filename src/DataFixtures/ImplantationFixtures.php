@@ -48,9 +48,7 @@ class ImplantationFixtures extends Fixture implements DependentFixtureInterface
                 ->setZipCode("B-6000")
                 ->setCountry("Charleroi")
                 ->setDefaultImplantation($i === 1)
-
-                // Relation between implantation and school.
-                ->setEcole($this->getReference(EcoleFixtures::DEFAULT_SCHOOL));
+            ;
 
             // Adding implantation reference for relational fixtures.
             $this->addReference(self::implantationsReference . $i, $implantation);
@@ -66,8 +64,6 @@ class ImplantationFixtures extends Fixture implements DependentFixtureInterface
      */
     public function getDependencies()
     {
-        return array(
-            EcoleFixtures::class
-        );
+        // TODO: Implement getDependencies() method.
     }
 }

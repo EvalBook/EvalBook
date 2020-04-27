@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block title %}
+    {{ 'implantations.title.management' | trans }}
+{% endblock %}
+
+{% block sidebar %}
+    {% include '_partials/sidebar.html.twig' %}
+{% endblock %}
+
+{% block body %}
+
+    <div class="row mt-4">
+
+        {% if is_granted('ROLE_IMPLANTATION_LIST_ALL') %}
+            {% include '_partials/card.html.twig' with {
+                'title': 'implantations.label.list-implantations' | trans,
+                'content': 'implantations.description.view-list-implantations' | trans,
+                'label': 'implantations.button.view-list' | trans,
+                'action': path('implantations_list')
+            }%}
+        {% endif %}
+
+    </div>
+    <div class="row mt-4">
+
+        {% if is_granted('ROLE_IMPLANTATION_CREATE') %}
+            {% include '_partials/card.html.twig' with {
+                'title': 'implantations.label.add-implantation' | trans,
+                'content': 'implantations.description.add-implantation' | trans,
+                'label': 'implantations.button.add' | trans,
+                'action': path('implantations_add')
+            }%}
+        {% endif %}
+
+        {% if is_granted('ROLE_IMPLANTATION_EDIT') %}
+            {% include '_partials/card.html.twig' with {
+                'title': 'implantations.label.edit-implantation' | trans,
+                'content': 'implantations.description.edit-implantation' | trans,
+                'label': 'implantations.button.edit' | trans,
+                'action': path('implantations_edit')
+            }%}
+            {% endif %}
+
+    </div>
+    <div class="row mt-4">
+
+        {% if is_granted('ROLE_IMPLANTATION_DELETE') %}
+            {% include '_partials/card.html.twig' with {
+                'title': 'implantations.label.delete-implantation' | trans,
+                'content': 'implantations.description.delete-implantation' | trans,
+                'label': 'implantations.button.delete' | trans,
+                'action': path('implantations_delete')
+            }%}
+        {% endif %}
+
+    </div>
+{% endblock %}
