@@ -47,7 +47,6 @@ class ImplantationFixtures extends Fixture implements DependentFixtureInterface
                 ->setAddress("Addresse number $i")
                 ->setZipCode("B-6000")
                 ->setCountry("Charleroi")
-                ->setDefaultImplantation($i === 1)
             ;
 
             // Adding implantation reference for relational fixtures.

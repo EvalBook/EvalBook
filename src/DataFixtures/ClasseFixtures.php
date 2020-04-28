@@ -47,7 +47,7 @@ class ClasseFixtures extends Fixture implements DependentFixtureInterface
                 $classe->setName("Classe n°$i")
                     ->setImplantation($this->getReference(ImplantationFixtures::implantationsReference . $reference))
                     ->setTitulaire(null)
-                    ->setTypeClasse($this->getReference($classeTypeReference));
+                ;
 
                 $manager->persist($classe);
             }
@@ -62,7 +62,6 @@ class ClasseFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return array(
-            TypeClasseFixtures::class,
             ImplantationFixtures::class
         );
     }

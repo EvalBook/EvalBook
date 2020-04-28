@@ -44,16 +44,6 @@ class Activite
     private $noteType;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Knowledge", inversedBy="activites")
-     */
-    private $knowledge;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Matiere", inversedBy="activites")
-     */
-    private $matiere;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="activites")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -84,11 +74,6 @@ class Activite
      * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="activite")
      */
     private $notes;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ActiviteLevel", inversedBy="activites")
-     */
-    private $level;
 
 
     /**
@@ -131,49 +116,6 @@ class Activite
         return $this;
     }
 
-
-    /**
-     * Return the knowledge associated to the activity OR null if no matiere assigned.
-     * @return Knowledge|null
-     */
-    public function getKnowledge(): ?Knowledge
-    {
-        return $this->knowledge;
-    }
-
-
-    /**
-     * Set the knowledge if applicable ( knowledge or matiere ).
-     * @param Knowledge|null $knowledge
-     * @return $this
-     */
-    public function setKnowledge(?Knowledge $knowledge): self
-    {
-        $this->knowledge = $knowledge;
-        return $this;
-    }
-
-
-    /**
-     * Return the matiere if applicable OR null if knowledge assigned.
-     * @return Matiere|null
-     */
-    public function getMatiere(): ?Matiere
-    {
-        return $this->matiere;
-    }
-
-
-    /**
-     * Set the matiere if applicable ( knowledge or matiere ).
-     * @param Matiere|null $matiere
-     * @return $this
-     */
-    public function setMatiere(?Matiere $matiere): self
-    {
-        $this->matiere = $matiere;
-        return $this;
-    }
 
 
     /**
@@ -325,28 +267,6 @@ class Activite
             $note->removeActivite($this);
         }
 
-        return $this;
-    }
-
-
-    /**
-     * Return the current activity Level.
-     * @return ActiviteLevel|null
-     */
-    public function getLevel(): ?ActiviteLevel
-    {
-        return $this->level;
-    }
-
-
-    /**
-     * Set the current activity level.
-     * @param ActiviteLevel|null $level
-     * @return $this
-     */
-    public function setLevel(?ActiviteLevel $level): self
-    {
-        $this->level = $level;
         return $this;
     }
 }

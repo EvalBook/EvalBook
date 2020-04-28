@@ -58,11 +58,6 @@ class Implantation
     private $country;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $defaultImplantation;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Classe", mappedBy="implantation")
      */
     private $classes;
@@ -178,28 +173,6 @@ class Implantation
     public function setCountry(string $country): self
     {
         $this->country = $country;
-        return $this;
-    }
-
-
-    /**
-     * Return true if the Implantation object is the default one for the Ecole object ( eg: siège ).
-     * @return bool|null
-     */
-    public function isDefaultImplantation(): ?bool
-    {
-        return $this->defaultImplantation;
-    }
-
-
-    /**
-     * Define if the Implantation object is the default one.
-     * @param bool $defaultImplantation
-     * @return $this
-     */
-    public function setDefaultImplantation(bool $defaultImplantation): self
-    {
-        $this->defaultImplantation = $defaultImplantation;
         return $this;
     }
 
