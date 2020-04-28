@@ -28,7 +28,7 @@ use App\Entity\Implantation;
  * Class ImplantationFixtures
  * @package App\DataFixtures
  */
-class ImplantationFixtures extends Fixture implements DependentFixtureInterface
+class ImplantationFixtures extends Fixture
 {
 
     public const implantationsReference = 'implantations-';
@@ -56,13 +56,5 @@ class ImplantationFixtures extends Fixture implements DependentFixtureInterface
         }
 
         $manager->flush();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getDependencies()
-    {
-        // TODO: Implement getDependencies() method.
     }
 }
