@@ -42,12 +42,6 @@ class Classe
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\TypeClasse", inversedBy="classes")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $typeClasse;
-
-    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="classes")
      */
     private $users;
@@ -107,28 +101,6 @@ class Classe
     public function setName(string $name): self
     {
         $this->name = $name;
-        return $this;
-    }
-
-
-    /**
-     * Return the classe TypeClasse.
-     * @return TypeClasse|null
-     */
-    public function getTypeClasse(): ?TypeClasse
-    {
-        return $this->typeClasse;
-    }
-
-
-    /**
-     * Set the classe type classe.
-     * @param TypeClasse|null $typeClasse
-     * @return $this
-     */
-    public function setTypeClasse(?TypeClasse $typeClasse): self
-    {
-        $this->typeClasse = $typeClasse;
         return $this;
     }
 
