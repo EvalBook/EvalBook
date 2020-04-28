@@ -3,7 +3,7 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h3 class="float-left">{{ 'schools-implantations.title.edit-implantation' | trans({}, 'forms') }}</h3>
+                <h3 class="float-left">{{ 'implantations.title.edit' | trans({}, 'forms') }}</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -17,7 +17,7 @@
                     <div class="row mt-3">
                         <div class="col">
                             {# The school name #}
-                            {{ form_label(form.name, 'schools-implantations.label.name-implantation') }}
+                            {{ form_label(form.name, 'implantations.label.name') }}
                             {{ form_widget(form.name, {
                                 'attr' : {'class': 'form-control'}
                             }) }}
@@ -27,7 +27,7 @@
                     <div class="row mt-3">
                         <div class="col">
                             {# The implantation address #}
-                            {{ form_label(form.address, 'schools-implantations.label.address-implantation') }}
+                            {{ form_label(form.address, 'implantations.label.address') }}
                             {{ form_widget(form.address, {
                                 'attr' : {'class': 'form-control'}
                             }) }}
@@ -37,35 +37,15 @@
                     <div class="row mt-3">
                         <div class="col">
                             {# The implantation zip code #}
-                            {{ form_label(form.zipCode, 'schools-implantations.label.zip-code') }}
+                            {{ form_label(form.zipCode, 'implantations.label.zip-code') }}
                             {{ form_widget(form.zipCode, {
                                 'attr' : {'class': 'form-control'}
                             }) }}
                         </div>
                         <div class="col">
                             {# The implantation country #}
-                            {{ form_label(form.country, 'schools-implantations.label.country') }}
+                            {{ form_label(form.country, 'implantations.label.country') }}
                             {{ form_widget(form.country, {
-                                'attr' : {'class': 'form-control'}
-                            }) }}
-                        </div>
-                    </div>
-
-                    <div class="row mt-3">
-                        <div class="col">
-                            {# Is implantation default ? #}
-                            {{ form_label(form.defaultImplantation, 'schools-implantations.label.is-default-implantation') }}
-                            {{ form_widget(form.defaultImplantation, {
-                                'attr' : {'class': 'form-control'}
-                            }) }}
-                        </div>
-                    </div>
-
-                    <div class="row mt-3">
-                        <div class="col">
-                            {# The implantation related school #}
-                            {{ form_label(form.ecole, 'schools-implantations.label.school-implantation') }}
-                            {{ form_widget(form.ecole, {
                                 'attr' : {'class': 'form-control'}
                             }) }}
                         </div>

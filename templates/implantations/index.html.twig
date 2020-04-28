@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block title %}
+    {{ 'implantations.title.management' | trans }}
+{% endblock %}
+
+{% block sidebar %}
+    {% include '_partials/sidebar.html.twig' %}
+{% endblock %}
+
+{% block body %}
+
+    <div class="row mt-4">
+
+        {% if is_granted('ROLE_IMPLANTATION_LIST_ALL') %}
+            {% include '_partials/card.html.twig' with {
+                'title': 'implantations.label.list' | trans,
+                'content': 'implantations.description.view-list' | trans,
+                'label': 'implantations.button.view-list' | trans,
+                'action': path('implantations_list')
+            }%}
+        {% endif %}
+
+    </div>
+    <div class="row mt-4">
+
+        {% if is_granted('ROLE_IMPLANTATION_CREATE') %}
+            {% include '_partials/card.html.twig' with {
+                'title': 'implantations.label.add' | trans,
+                'content': 'implantations.description.add' | trans,
+                'label': 'implantations.button.add' | trans,
+                'action': path('implantations_add')
+            }%}
+        {% endif %}
+
+        {% if is_granted('ROLE_IMPLANTATION_EDIT') %}
+            {% include '_partials/card.html.twig' with {
+                'title': 'implantations.label.edit' | trans,
+                'content': 'implantations.description.edit' | trans,
+                'label': 'implantations.button.edit' | trans,
+                'action': path('implantations_edit')
+            }%}
+            {% endif %}
+
+    </div>
+    <div class="row mt-4">
+
+        {% if is_granted('ROLE_IMPLANTATION_DELETE') %}
+            {% include '_partials/card.html.twig' with {
+                'title': 'implantations.label.delete' | trans,
+                'content': 'implantations.description.delete' | trans,
+                'label': 'implantations.button.delete' | trans,
+                'action': path('implantations_delete')
+            }%}
+        {% endif %}
+
+    </div>
+{% endblock %}

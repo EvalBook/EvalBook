@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block title %}{{ 'implantations.title.edit-list' | trans }}{% endblock %}
+
+{% block sidebar %}
+    {% include '_partials/sidebar.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">{{ 'implantations.th.id' | trans }}</th>
+            <th scope="col">{{ 'implantations.th.name' | trans }}</th>
+            <th scope="col">{{ 'implantations.th.address' | trans }}</th>
+            <th scope="col">{{ 'implantations.th.zip-code' | trans }}</th>
+            <th scope="col">{{ 'implantations.th.country' | trans }}</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for implantation in implantations %}
+            <tr>
+                <th scope="row">{{ implantation.id }}</th>
+                <td>{{ implantation.name }}</td>
+                <td>{{ implantation.address }}</td>
+                <td>{{ implantation.zipCode }}</td>
+                <td>{{ implantation.country }}</td>
+                <td>
+                    <i style="cursor: pointer;" class="far fa-edit" data-toggle="modal" data-target="#modal-right-implantation-{{ implantation.id }}"></i>
+                    {% include 'implantations/edit-form.html.twig' with {'form' : implantationsForms[implantation.id], 'id': implantation.id} %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">{{ 'implantations.not-found' | trans }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

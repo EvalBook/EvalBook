@@ -56,8 +56,6 @@ user:
     ROLE_CLASS_CREATE: Créer une classe
     ROLE_CLASS_EDIT: Editer une classe
     ROLE_CLASS_DELETE: Supprimer une classe
-    ROLE_CLASS_PARAMETERS: Paramétrer une classe
-    ROLE_CLASS_VIEW: Voiir une classe
     ROLE_CLASS_ASSIGN_STUDENT: Assigner un élève à une classe
     ROLE_ACTIVITY_LIST_ALL: Lister les activités
     ROLE_ACTIVITY_CREATE: Créer une activité
@@ -74,28 +72,23 @@ user:
     ROLE_IMPLANTATION_CREATE: Créer une implantation
     ROLE_IMPLANTATION_DELETE: Supprimer une implantation
 
-schools-implantations:
+implantations:
 
   title:
-    add-school: Ajouter une école
-    add-implantation: Ajouter une implantation
-    edit-school: Editer une école
-    edit-implantation: Editer une implantation
+    add: Ajouter une implantation
+    edit: Editer une implantation
 
   label:
-    name-school: Nom de l'école
-    name-implantation: Nom de l'implantation
-    address-implantation: Adresse de l'implantation
+    name: Nom de l'implantation
+    address: Adresse de l'implantation
     zip-code: Code postal
     country: Ville
-    is-default-implantation: Est elle l'implantation par défaut ?
-    school-implantation: Ecole attachée à cette implantation
 
   message:
-    implantation-name-too-short: Le nom de l'implantation doit comporter plus de 4 lettres.
-    implantation-name-too-long: Le nom de l'implantation ne peut pas dépasser 100 lettres.
-    implantation-address-too-short: L'adresse de l'implantation doit comporter plus de 4 lettres.
-    implantation-address-too-long: L'adresse de l'implantation ne peut pas dépasser 100 lettres.
+    name-too-short: Le nom de l'implantation doit comporter plus de 4 lettres.
+    name-too-long: Le nom de l'implantation ne peut pas dépasser 100 lettres.
+    address-too-short: L'adresse de l'implantation doit comporter plus de 4 lettres.
+    address-too-long: L'adresse de l'implantation ne peut pas dépasser 100 lettres.
     zip-is-blank: Le code postal ne peut être vide
     country-name-too-short: Le nom de la ville doit comporter plus de 4 lettres.
     country-name-too-long: Le nom de la ville ne peut pas dépasser 100 lettres.

@@ -79,8 +79,6 @@ class UserFixtures extends Fixture
                      'ROLE_CLASS_CREATE',
                      'ROLE_CLASS_EDIT',
                      'ROLE_CLASS_DELETE',
-                     'ROLE_CLASS_PARAMETERS',
-                     'ROLE_CLASS_VIEW',
                      'ROLE_CLASS_ASSIGN_STUDENT',
                      // Activities related.
                      'ROLE_ACTIVITY_LIST_ALL',

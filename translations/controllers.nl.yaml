@@ -7,10 +7,6 @@ user:
   self-updated: Your information has been updated
   self-update-error: An error occured updating your information
 
-school:
-  added: School added
-  updated: School updated
-
 implantation:
   added: Implantation added
   updated: Implantation updated
