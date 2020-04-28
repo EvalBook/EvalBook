@@ -10,7 +10,7 @@
     <div class="dropdown-item pb-2">{{ "sidebar.classes" | trans }}</div>
 
     {% if app.user.firstRoleMatch(['ROLE_ADMIN', 'ROLE_IMPLANTATION_LIST_ALL', 'ROLE_IMPLANTATION_EDIT','ROLE_IMPLANTATION_CREATE','ROLE_IMPLANTATION_DELETE']) %}
-        <a href="{{ path('implantations') }}" class="dropdown-item pb-2">{{ "sidebar.schools-implantations" | trans }}</a>
+        <a href="{{ path('implantations') }}" class="dropdown-item pb-2">{{ "sidebar.implantations" | trans }}</a>
     {% endif %}
 
     {% if app.user.firstRoleMatch(['ROLE_USER_LIST_ALL', 'ROLE_USER_CREATE', 'ROLE_USER_EDIT', 'ROLE_USER_DELETE']) %}

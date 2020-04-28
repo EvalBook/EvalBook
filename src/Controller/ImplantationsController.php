@@ -19,11 +19,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Ecole;
 use App\Entity\Implantation;
-use App\Form\EcoleType;
 use App\Form\ImplantationType;
-use App\Repository\EcoleRepository;
 use App\Repository\ImplantationRepository;
 use App\Service\FormService;
 use Doctrine\ORM\EntityManagerInterface;
