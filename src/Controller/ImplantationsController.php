@@ -33,7 +33,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 
 /**
- * Class ImplantationsController
+ * Class ImplantationController
  * @package App\Controller
  */
 class ImplantationsController extends AbstractController
