@@ -50,24 +50,24 @@ users:
 
 #Implantations global interface related.
 implantations:
-  not-found-implantation: Aucune implantation trouvée
+  not-found: Aucune implantation trouvée
 
   title:
-    list-implantations: Liste des implantations
-    management: Gestion des écoles et implantations
-    edit-list-implantations: Liste des implantations éditables
+    list: Liste des implantations
+    management: Gestion des implantations
+    edit-list: Liste des implantations éditables
 
   label:
-    list-implantations: Liste des implantations
-    add-implantation: Ajouter une implantation
-    edit-implantation: Editer une implantation
-    delete-implantation: Supprimer une implantation
+    list: Liste des implantations
+    add: Ajouter une implantation
+    edit: Editer une implantation
+    delete: Supprimer une implantation
 
   description:
-    view-list-implantations: Voir la liste complète des implantations avec des informations de base telles que l'adresse, l'écoles, etc...
-    add-implantation: Ajouter une implantation et l'attacher à une école
-    edit-implantation: Editer les différentes informations une implantation
-    delete-implantation:  Supprimer une implantation
+    view-list: Voir la liste complète des implantations avec des informations de base telles que l'adresse.
+    add: Ajouter une implantation
+    edit: Editer les différentes informations une implantation
+    delete:  Supprimer une implantation
 
   button:
     view-list: Voir la liste
@@ -77,13 +77,11 @@ implantations:
 
   th:
     id: Id
-    name-implantation: Nom de l'implantation
-    implantations-count: Nbr implantations
-    implantation-default: Implantation par défaut
+    name: Nom de l'implantation
+    count: Nbr implantations
     address: Adresse
     zip-code: Code postal
     country: Ville
-    is-default: Implantation par défaut ?
 
 # Commonly used strings.
 global:

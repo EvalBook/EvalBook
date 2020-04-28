@@ -33,8 +33,8 @@ class ImplantationType extends AbstractType
                     new Length([
                         'min' => 4,
                         'max' => 100,
-                        'minMessage' => 'schools-implantations.message.implantation-name-too-short',
-                        'maxMessage' => 'schools-implantations.message.implantation-name-too-long'
+                        'minMessage' => 'implantations.message.name-too-short',
+                        'maxMessage' => 'implantations.message.name-too-long'
                     ]),
                 ]
             ])
@@ -45,8 +45,8 @@ class ImplantationType extends AbstractType
                     new Length([
                         'min' => 4,
                         'max' => 100,
-                        'minMessage' => 'schools-implantations.message.implantation-address-too-short',
-                        'maxMessage' => 'schools-implantations.message.implantation-address-too-long'
+                        'minMessage' => 'implantations.message.address-too-short',
+                        'maxMessage' => 'implantations.message.address-too-long'
                     ]),
                 ]
             ])
@@ -55,7 +55,7 @@ class ImplantationType extends AbstractType
             ->add('zipCode', IntegerType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'schools-implantations.message.zip-is-blank'
+                        'message' => 'implantations.message.zip-is-blank'
                     ]),
                 ]
             ])
@@ -66,23 +66,10 @@ class ImplantationType extends AbstractType
                     new Length([
                         'min' => 4,
                         'max' => 100,
-                        'minMessage' => 'schools-implantations.message.country-name-too-short',
-                        'maxMessage' => 'schools-implantations.message.country-name-too-long'
+                        'minMessage' => 'implantations.message.country-name-too-short',
+                        'maxMessage' => 'implantations.message.country-name-too-long'
                     ]),
                 ]
-            ])
-
-            // Is defaul implantation.
-            ->add('defaultImplantation', ChoiceType::class, [
-                'choices' => [
-                    'common.yes' => true,
-                    'common.no' => false
-                ]
-            ])
-
-            // The school the implantation refers to.
-            ->add('ecole', EntityType::class, [
-                'class' => Ecole::class,
             ])
 
             // Submit button.

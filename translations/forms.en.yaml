@@ -56,8 +56,6 @@ user:
     ROLE_CLASS_CREATE: Créer une classe
     ROLE_CLASS_EDIT: Editer une classe
     ROLE_CLASS_DELETE: Supprimer une classe
-    ROLE_CLASS_PARAMETERS: Paramétrer une classe
-    ROLE_CLASS_VIEW: Voiir une classe
     ROLE_CLASS_ASSIGN_STUDENT: Assigner un élève à une classe
     ROLE_ACTIVITY_LIST_ALL: Lister les activités
     ROLE_ACTIVITY_CREATE: Créer une activité
