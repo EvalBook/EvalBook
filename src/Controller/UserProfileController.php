@@ -37,7 +37,7 @@ class UserProfileController extends AbstractController
             $this->addFlash('danger', 'user.self-update-error');
         }
 
-        return $this->render('user_profile/index.html.twig', [
+        return $this->render('users/profile.html.twig', [
             'userProfileForm' => $userForm->createView(),
         ]);
     }
