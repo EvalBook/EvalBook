@@ -429,9 +429,8 @@ class User implements UserInterface
             'ROLE_CLASS_CREATE',
             'ROLE_CLASS_EDIT',
             'ROLE_CLASS_DELETE',
-            'ROLE_CLASS_PARAMETERS',
-            'ROLE_CLASS_VIEW',
-            'ROLE_CLASS_ASSIGN_STUDENT',
+            'ROLE_CLASS_EDIT_STUDENTS',
+            'ROLE_CLASS_EDIT_USERS',
             // Activities related.
             'ROLE_ACTIVITY_LIST_ALL',
             'ROLE_ACTIVITY_CREATE',
