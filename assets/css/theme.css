@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+
+body {
+    font-family: 'Raleway', sans-serif;
+    background-color: #fafafa;
+    margin: 0;
+    overflow: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: -10px;
+    left: 0;
+    width: 100%;
+    height: 9px;
+    box-shadow: 0px 0 7px rgba(0, 0, 0, 0.8);
+    z-index: 100;
+}
+
+a {
+    text-decoration: none;
+    color: #eaaf19;
+}
+
+i {
+    text-shadow:  3px 3px rgba(198, 190, 176, 0.75);
+}
+
+h1, h2 {
+    text-align: center;
+    color: #6d9bc4;
+}
+
+.container {
+    margin: 2vh 3vw;
+    height: 88vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-center {
+    width: 50%;
+    margin: auto;
+}
+
+/**
+ * Application content.
+ */
+.content {
+    display: flex;
+    flex-grow: 1;
+}
+
+
+/**
+ * Top right user links menu.
+ */
+.heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#mobile-header {
+    width: 20vw;
+}
+
+.menuTopIcon {
+    margin-left: 4vw;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.menuTopIcon i, .menuTopIcon span {
+    color: #6d9bc4;
+    text-align: center;
+}
+
+.menuTopIcon i, header nav i {
+    font-size: 3.2vw;
+}
+
+.menuTopIcon span, #logo span, header nav span {
+    font-size: 1.2vw;
+    margin-top: .5vw;
+}
+
+.menuTopIcon i:hover, .menuItem i:hover, #mobile-top-nav i:hover {
+    animation: faMouseIn;
+    animation-fill-mode: forwards;
+    animation-duration: 0.8s;
+}
+
+
+/**
+ * Navigation.
+ */
+nav {
+    margin-top: 2vw;
+    height: 6.5vw; /* To keep it in proportions */
+    background-color: #e8e8e8;
+    box-shadow: 1px 1px #eaaf19;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+nav i, nav span {
+    color: #6d9bc4;
+    text-align: center;
+}
+
+/* For the header AND footer nav */
+nav .menuItem {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#mobile-top-nav {
+    display: none;
+    font-size: 3vw;
+    color: #6d9bc4;
+}
+
+#mobile-menu-items {
+    display: flex;
+    background-color: white;
+    box-shadow: 0 0 4px #eaaf19;
+    position: absolute;
+    width: 38vw;
+    right: 3.2vw;
+    top: 10vw;
+    user-select: none;
+}
+
+#mobile-menu-items li {
+    list-style-type: none;
+    line-height: 6.5vw;
+}
+
+#mobile-menu-toggle, #mobile-add-functionality {
+    display: none;
+    font-size: 5.5vw;
+    color: #6d9bc4;
+    width: 6vw;
+    min-width: 6vw;
+    margin-left: 2vw;
+}
+
+/**
+ * Add functionality.
+ */
+#add-functionality {
+    position: fixed;
+    left: 3vw;
+    right: 3vw;
+    bottom: 3.8vh;
+    height: 4vw;
+}
+
+#add-functionality i {
+    font-size: 4vw;
+    color: #eaaf19;
+}
+
+/**
+ * Footer related.
+ */
+footer {
+    position: fixed;
+    left: 3vw;
+    right: 3vw;
+    bottom: 0;
+    height: 3.5vh;
+    background-color: #e8e8e8;
+    box-shadow:inset 0 15px 5px -16px #eaaf19;
+}
+
+footer p {
+    font-size: 16px;
+    padding-left: 16px;
+}
+
+footer nav {
+    margin-top: 2.4vw;
+    box-shadow: none;
+}
+
+footer nav i {
+    font-size: 6vw;
+}
+
+
+/**
+ * Small screens.
+ */
+@media all and (max-width: 800px) {
+
+    #logo span, #user-links, header > nav, footer p, #add-functionality {
+        display: none;
+    }
+
+    #mobile-menu-toggle, #mobile-add-functionality {
+        display: inline-block;
+    }
+
+    .modal-center {
+        width: 85%;
+    }
+
+    footer {
+        left: 0;
+        right: 0;
+        height: 11vw;
+    }
+
+}
+
+
+/**
+ * Animate fa icons on hover i elements.
+ */
+@keyframes faMouseIn {
+    from {
+        color: #6d9bc4;
+    }
+
+    to {
+        color: #eaaf19;
+    }
+}

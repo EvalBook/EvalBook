@@ -31,14 +31,11 @@ Encore
      */
     .addEntry('app', './assets/js/app.js')
     .addEntry('api', './assets/js/api.js')
+    .addEntry('mobile-controls', './assets/js/mobile-controls.js')
 
     // Global css layout.
     .addStyleEntry('svelte-style', './assets/css/app.css')
-    .addStyleEntry('modal-right', './assets/css/modal-right.css')
-    .addStyleEntry('styles', './assets/css/styles.css')
-    .addStyleEntry('style-login', './assets/css/style-login.css')
-
-    //.addEntry('page2', './assets/js/page2.js')
+    .addStyleEntry('theme', './assets/css/theme.css')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
