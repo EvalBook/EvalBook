@@ -1,52 +1,60 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="width=device-width, user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/af99847773.js" crossorigin="anonymous"></script>
+    {{ encore_entry_link_tags('theme') }}
+
     <title>EvalBook</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    {{ encore_entry_link_tags('style-login') }}
 </head>
 <body>
+    <div class="container">
+        <header>
+            <div class="heading">
+                <!-- Header -->
+                <div id="logo">
+                    <img src="{{ asset('assets/img/logos/logo_evalbook.png') }}" alt="EvalBook logo">
+                    <span>Teachers evaluation tool.</span>
+                </div>
+            </div>
+        </header>
 
-<div class="container-fluid">
-    <div class="header row">
-        <div class="col-lg-12 head-content">
-            <h1><img src="/assets/img/logos/logo_evalbook.png"></h1>
-            <h4>{{ "The teachers eval tool" | trans }}</h4>
-        </div>
-    </div>
+        <!-- Application contents -->
+        <section class="content">
 
+            <div class="modal-center">
+                <div>
+                    <img id="logo-mini" src="{{ asset('assets/img/logos/logo_evalbook_mini.png') }}" alt="EvalBook logo mini" />
+                </div>
 
-    <div class="container col-lg-4" id="login">
+                <form method="post">
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
 
-        <form method="post">
-            {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
+                    <label for="inputEmail">{{ "E-mail address" | trans }}</label>
+                    <input type="email" id="inputEmail" name="email" placeholder="{{ "My e-mail" | trans }} ">
+                    <label for="inputPassword">{{ "Password" | trans }}</label>
+                    <input type="password" id="inputPassword" name="password" placeholder="{{ "My password" | trans }} ">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-            <input type="email" class ="form-control col-sm-11 login-input" id="inputEmail" name="email" placeholder="{{ "My e-mail" | trans }} ">
-            <input type="password" class ="form-control col-sm-11 login-input" id="inputPassword" name="password" placeholder="{{ "My password" | trans }} ">
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    {#See https://symfony.com/doc/current/security/remember_me.html#}
 
-            {#See https://symfony.com/doc/current/security/remember_me.html#}
+                    <div class="checkbox mb-3">
+                        <label>
+                            <input type="checkbox" name="_remember_me"> {{ "Remember me" | trans }}
+                        </label>
+                    </div>
 
-            <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" name="_remember_me"> {{ "Remember me" | trans }}
-                </label>
+                    <button type="submit">
+                        {{ 'Log in'|trans }}
+                    </button>
+                </form>
+
             </div>
 
-            <button class="btn btn-light" type="submit">
-                {{ 'Log in'|trans }}
-            </button>
-        </form>
-
+        </section>
     </div>
-
-</div>
-
 </body>
 </html>
