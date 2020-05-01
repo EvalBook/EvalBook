@@ -1,13 +1,19 @@
 # Global main menu related.
-sidebar:
+global:
   dashboard: Dashboard
   notebook: Notebook
   activities: Activities
   school-reports: School Reports
-  pupils: Pupils
+  students: Students
   classes: Classes
   implantations: Implantations
-  users: Users management
+  users: Users
+  profile: Profile
+  disconnect: Log out
+  slogan: Teachers evaluation tool
+  github: Source code on
+  yes: yes
+  no: no
 
 # Users interface related.
 users:
@@ -69,14 +75,3 @@ implantations:
     address: Adress
     zip-code: Zip code
     country: Country
-
-# Commonly used strings.
-global:
-  profile: Profile
-  disconnect: Log out
-  teaser: Teachers evaluation tool
-  source-github: Source code Github
-
-  confirm:
-    yes: yes
-    no: no

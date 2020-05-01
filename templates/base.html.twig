@@ -1,120 +1,167 @@
+<!DOCTYPE html>
 {% trans_default_domain 'templates' %}
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="viewport" content="width=device-width, user-scalable=0">
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/af99847773.js" crossorigin="anonymous"></script>
+    {{ encore_entry_link_tags('theme') }}
+    {{ encore_entry_link_tags('dialogs') }}
 
-        <title>EvalBook</title>
+    {% block head %} {% endblock %}
 
-        <link href="https://fonts.googleapis.com/css?family=Roboto:300,700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>EvalBook - {% block pageTitle %} {% endblock %}</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="heading">
 
-        <script src="https://kit.fontawesome.com/32a9cf8582.js" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-        <!-- project related stylesheets -->
-        {{ encore_entry_link_tags('styles') }}
-        {{ encore_entry_link_tags('modal-right') }}
-
-        {% block stylesheets %} {% endblock %}
-
-        {% block headers %} {% endblock %}
-
-    </head>
-    <body>
-        <div class="container-fluid">
-            <div class="row d-flex flex-row" id="header">
-                <div class="col head-content">
-                    <h1><img src="{{ asset('assets/img/logos/logo_evalbook.png') }}"></h1>
-                    <h2 class="d-none d-lg-block">{{ "global.teaser" | trans }}</h2>
+                <!-- Header -->
+                <div id="logo">
+                    <img src="{{ asset('assets/img/logos/logo_evalbook.png') }}" alt="EvalBook logo">
+                    <span>{{ 'global.slogan'|trans }}</span>
                 </div>
 
-                <div class="col d-flex">
-                    <div class="profile text-center w-100 align-self-center">
-                        <div class="float-right d-none d-sm-block">
-                            <div class="float-right d-none d-sm-block pl-5 pr-2">
-                                <a href="{{ path('app_logout') }}">
-                                    <i class="fas fa-sign-out-alt"></i>
-                                    <span class="d-none d-md-block">{{ 'global.disconnect' | trans }}</span>
-                                </a>
-                            </div>
-                            <div class="float-right d-none d-sm-block pl-1">
-                                <a href="{{ path('user_profile') }}">
-                                    <i class="fas fa-user"></i>
-                                    <span class="d-none d-md-block">{{ 'global.profile' | trans }}</span>
-                                </a>
-                            </div>
-                        </div>
+                <div id="mobile-header">
+                    <div id="mobile-add-functionality">
+                        <i class="fas fa-plus"></i>
                     </div>
+
+                    <div id="mobile-menu-toggle">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                </div>
+
+                <div id="user-links">
+                    <div class="menuTopIcon">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>
+                            <a href="{{ path('dashboard') }}">{{ 'global.dashboard'|trans }}</a>
+                        </span>
+                    </div>
+                    <div class="menuTopIcon">
+                        <i class="fas fa-user"></i>
+                        <span>
+                            <a href="{{ path('user_profile') }}">{{ 'global.profile'|trans }}</a>
+                        </span>
+                    </div>
+                    <div class="menuTopIcon">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>
+                            <a href="{{ path('app_logout') }}">{{ 'global.disconnect'|trans }}</a>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Navigation -->
+            <nav>
+                <div class="menuItem">
+                    <i class="fas fa-clock"></i>
+                    <span>Classes</span>
+                </div>
+                <div class="menuItem">
+                    <i class="fas fa-user-graduate"></i>
+                    <span>Elèves</span>
+                </div>
+                <div class="menuItem">
+                    <i class="fas fa-brain"></i>
+                    <span>Activités</span>
+                </div>
+                <div class="menuItem">
+                    <i class="fas fa-book-open"></i>
+                    <span>Cahier de notes</span>
+                </div>
+                <div class="menuItem">
+                    <i class="fas fa-poll"></i>
+                    <span>Bulletins</span>
+                </div>
+                <div class="menuItem">
+                    <i class="fas fa-school"></i>
+                    <span>Implantations</span>
+                </div>
+                <div class="menuItem">
+                    <i class="fas fa-users"></i>
+                    <span>Utilisateurs</span>
+                </div>
+            </nav>
+
+            <!-- Navigation - Mobile top menu -->
+            <div id="mobile-top-nav">
+                <div id="mobile-menu-items">
+                    <ul>
+                        <li><i class="fas fa-tachometer-alt"></i></li>
+                        <li><i class="fas fa-poll"></i></li>
+                        <li><i class="fas fa-users"></i></li>
+                        <li><i class="fas fa-school"></i></li>
+                        <li><i class="fas fa-user"></i></li>
+                        <li><i class="fas fa-sign-out-alt"></i></li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <a href="{{ path('dashboard') }}">{{ 'global.dashboard'|trans }}</a>
+                        </li>
+                        <li>{{ 'global.school-reports'|trans }}</li>
+                        <li>{{ 'global.users'|trans }}</li>
+                        <li>{{ 'global.implantations'|trans }}</li>
+                        <li>
+                            <a href="{{ path('user_profile') }}">{{ 'global.profile'|trans }}
+                        </li>
+                        <li>
+                            <a href="{{ path('app_logout') }}">{{ 'global.disconnect'|trans }}</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
 
-            {% for label, messages in app.flashes %}
-                {% for message in messages %}
-                    <div class="alert alert-{{ label }}">
-                        {{ message | trans({}, 'controllers')}}
-                    </div>
-                {% endfor %}
-            {% endfor %}
+            <!-- Content head title -->
+            <div class="content-title">
+                <h1>{% block title %} {% endblock %}</h1>
+            </div>
+        </header>
 
-            <div class="row">
-                <div class="col ml-4 pt-1">
-                    <h3>{% block title %} {% endblock %}</h3>
-                </div>
+        <!-- Application contents -->
+        <section class="content">
+            {% block body %}{% endblock %}
+        </section>
+    </div>
+
+    <!-- Add 'something' functionality -->
+    <div id="add-functionality">
+        <i class="fas fa-plus"></i>
+    </div>
+
+    <footer>
+        <p>
+            <i class="fab fa-github-alt"></i>
+            <span>{{ 'global.github'|trans }} </span><a href="https://github.com/EvalBook/EvalBook" title="Eval book github repository">Github</a>
+        </p>
+        <nav id="mobile-menu">
+            <div class="menuItem">
+                <i class="fas fa-clock"></i>
+                <span>{{ 'global.classes'|trans }}</span>
+            </div>
+            <div class="menuItem">
+                <i class="fas fa-user-graduate"></i>
+                <span>{{ 'global.students'|trans }}</span>
+            </div>
+            <div class="menuItem">
+                <i class="fas fa-brain"></i>
+                <span>{{ 'global.activities'|trans }}</span>
+            </div>
+            <div class="menuItem">
+                <i class="fas fa-book-open"></i>
+                <span>{{ 'global.notebook'|trans }}</span>
             </div>
 
-            <div class="row mb-5">
-                {% block sidebar %} {% endblock %}
-                <div class="col mb-5">
-                    {% block body %} {% endblock %}
-                </div>
-            </div>
+        </nav>
+    </footer>
 
-            <div class="row footer-content px-3 mt-4 fixed-bottom align-items-center" id="footer">
-                <div class="col-md-6 pt-2">
+    {% block javascripts %} {% endblock %}
+    {{ encore_entry_script_tags('mobile-controls') }}
 
-                    <div class="float-left d-block d-sm-none">
-                        <a href="{{ path('user_profile') }}">
-                            <i class="fas fa-user"></i>
-                        </a>
-                    </div>
-
-                    <div class="float-left d-block d-sm-none pl-2">
-                        <a href="{{ path('app_logout') }}">
-                            <i class="fas fa-sign-out-alt"></i>
-                        </a>
-                    </div>
-
-                    <p class="text-sm-left text-center">
-                        <img src="{{ asset('assets/img/logos/logo_mini_bg_trans.png') }}"/>
-                        <span id="copyleft">&copy</span> Copyleft - {{ 'now' | date('Y') }} Evalbook
-                    </p>
-                    <p class="d-none d-sm-block">
-                        <img src="{{ asset('assets/img/logos/logo_forsud_mini_bg_trans.png') }}"/>
-                        {{ 'global.project-initiated' | trans }}
-                        <a href="https://www.forsud.be/">Forsud ASBL</a>
-                    </p>
-                </div>
-                <div class="col-md-6 d-none d-md-block float-right pt-2">
-                    <div class="float-right">
-                        <p class="d-flex">
-                            <i class="fas fa-book"></i>
-                            <a class="align-self-center" href="#">{{ 'global.read-manual' | trans }}</a>
-                        </p>
-                        <p class="d-flex">
-                            <i class="fab fa-github-alt"></i>
-                            <a class="align-self-center" href="https://github.com/EvalBook">{{ 'global.source-github' | trans }}</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-
-            {% block javascripts %}{% endblock %}
-        </div>
-    </body>
+</body>
 </html>
