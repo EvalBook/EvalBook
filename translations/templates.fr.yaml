@@ -26,13 +26,6 @@ users:
     edit: Editer un utilisateur
     delete: Supprimer un utilisateur
 
-  description:
-    view-list: Voir la liste complète des utilisateurs présents dans EvalBook, nom, prénom, adresse mail, etc.
-    add: Ajouter des nouveaux utilisateurs dans EvalBook et associer les droits par défaut, pour de nouveaux droits, rendez vous dans 'Editer'.
-    add-admin: Ajouter un nouvel utilisateur de type administrateur, seul les admins peuvent ajouter des admins.
-    edit: Editer les utilisateurs et modifier des informations comme l'adresse mail, les roles, les mots de passe, le nom et le prénom.
-    delete: Supprimer des utilisateurs du système EvalBook. Les données comme les classes et activités seront conservées tant qu'elles ne sont pas explicitement supprimées
-
   button:
     view-list: Voir la liste
     add: Ajouter utilisateurs
@@ -63,12 +56,6 @@ implantations:
     edit: Editer une implantation
     delete: Supprimer une implantation
 
-  description:
-    view-list: Voir la liste complète des implantations avec des informations de base telles que l'adresse.
-    add: Ajouter une implantation
-    edit: Editer les différentes informations une implantation
-    delete:  Supprimer une implantation
-
   button:
     view-list: Voir la liste
     add: Ajouter
@@ -88,8 +75,6 @@ global:
   profile: Mon profil
   disconnect: Déconnexion
   teaser: L'outil d'évaluation des professeurs
-  project-initiated: Projet initié par
-  read-manual: Lire le manuel
   source-github: Code source sur Github
 
   confirm:

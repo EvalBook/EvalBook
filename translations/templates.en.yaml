@@ -26,17 +26,10 @@ users:
     edit: Edit a user
     delete: Delete a user
 
-  description:
-    view-list: View the complete users list registered with EvalBook, first name, last name, mail address.
-    add: Add new users to EvalBook and add them default roles, these roles can be managed under the 'Edit' section.
-    add-admin: Add a new user admin to EvalBook, only admins can add adins users.
-    edit: Edit users and update information such as mail address, roles, password, first name and last name.
-    delete: Delete users from EvalBook. Data such as classes and activities will remain in the sustyem while you do not delete them.
-
   button:
     view-list: View list
     add: Add users
-    add-admin: Ass admin
+    add-admin: Add admin
     edit: Edit users
     delete: Delete users
 
@@ -48,15 +41,42 @@ users:
     email: E-Mail
     active: Active
 
+#Implantations global interface related.
+implantations:
+  not-found: No implantation found
+
+  title:
+    list: Implantations list
+    management: Manage implantations
+    edit-list: Editable implantations list
+
+  label:
+    list: Implantations list
+    add: Add implantation
+    edit: Edit implantation
+    delete: Delete implantation
+
+  button:
+    view-list: View list
+    add: Add
+    edit: Edit
+    delete: Delete
+
+  th:
+    id: Id
+    name: Implantation
+    count: Implantations number
+    address: Adress
+    zip-code: Zip code
+    country: Country
+
 # Commonly used strings.
 global:
-  profile: My profile
-  disconnect: Disconnect
-  teaser: The teacher eval tool
-  project-initiated: Project initiated by
-  read-manual: Read manual
-  source-github: Source code on Github
+  profile: Profile
+  disconnect: Log out
+  teaser: Teachers evaluation tool
+  source-github: Source code Github
 
   confirm:
-    yes: Yes
-    no: No
+    yes: yes
+    no: no
