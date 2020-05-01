@@ -43,7 +43,7 @@ h1, h2 {
     width: 60%;
     margin: auto;
     background-color: #e8e8e8;
-    box-shadow: 0 0 2px 1px #eaaf19;
+    box-shadow: 0px 2px 35px -15px rgba(0,0,0,0.75);
     padding: 50px;
     display: flex;
     justify-content: space-around;
@@ -59,7 +59,7 @@ h1, h2 {
     flex-grow: 1;
 }
 
-span a {
+span a, .menuTopIcon a {
     color: #6d9bc4;
 }
 
@@ -78,26 +78,20 @@ span a {
 }
 
 .menuTopIcon {
-    margin-left: 4vw;
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: center;
+    display: inline-block;
+    margin-left: 16px;
 }
 
-.menuTopIcon i, .menuTopIcon span {
-    text-align: center;
-}
-
-.menuTopIcon i, header nav i {
+.menuTopIcon > i, header nav i {
     font-size: 3.2vw;
 }
 
-.menuTopIcon span, #logo span, header nav span {
+.menuTopIcon > span, #logo span, header nav span {
     font-size: 1.2vw;
     margin-top: .5vw;
 }
 
-.menuTopIcon i:hover, .menuItem i:hover, #mobile-top-nav i:hover {
+.menuTopIcon > i:hover, .menuItem > i:hover, #mobile-top-nav i:hover {
     animation: faMouseIn;
     animation-fill-mode: forwards;
     animation-duration: 0.8s;
@@ -112,6 +106,7 @@ nav {
     height: 6.5vw; /* To keep it in proportions */
     background-color: #e8e8e8;
     box-shadow: 1px 1px #eaaf19;
+    box-shadow: 0px 2px 35px -15px rgba(0,0,0,0.75);
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -234,6 +229,13 @@ button[type="submit"] {
 #logo-mini {
     height: 22vw;
     margin-right: 5vw;
+}
+
+/**
+ * Polishing classes.
+ */
+.margin-15 {
+    margin-top: 15px;
 }
 
 /**

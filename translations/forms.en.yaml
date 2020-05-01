@@ -13,12 +13,12 @@ common:
   implantation: Implantation
 
 user:
+  profile: Profile
   title:
     add: Add a user
     edit: Edit a user
     delete: Delete a user
     roles-choose: Choose the user roles
-    profile: Your profile
 
   label:
     first-name: User first name
