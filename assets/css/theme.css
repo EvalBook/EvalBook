@@ -5,6 +5,7 @@ body {
     background-color: #fafafa;
     margin: 0;
     overflow: hidden;
+    color: #6d9bc4;
 }
 
 body::before {
@@ -29,7 +30,6 @@ i {
 
 h1, h2 {
     text-align: center;
-    color: #6d9bc4;
 }
 
 .container {
@@ -40,8 +40,15 @@ h1, h2 {
 }
 
 .modal-center {
-    width: 50%;
+    width: 60%;
     margin: auto;
+    background-color: #e8e8e8;
+    box-shadow: 0 0 2px 1px #eaaf19;
+    padding: 50px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 20vh;
 }
 
 /**
@@ -74,7 +81,6 @@ h1, h2 {
 }
 
 .menuTopIcon i, .menuTopIcon span {
-    color: #6d9bc4;
     text-align: center;
 }
 
@@ -108,7 +114,6 @@ nav {
 }
 
 nav i, nav span {
-    color: #6d9bc4;
     text-align: center;
 }
 
@@ -122,7 +127,6 @@ nav .menuItem {
 #mobile-top-nav {
     display: none;
     font-size: 3vw;
-    color: #6d9bc4;
 }
 
 #mobile-menu-items {
@@ -144,7 +148,6 @@ nav .menuItem {
 #mobile-menu-toggle, #mobile-add-functionality {
     display: none;
     font-size: 5.5vw;
-    color: #6d9bc4;
     width: 6vw;
     min-width: 6vw;
     margin-left: 2vw;
@@ -193,13 +196,46 @@ footer nav i {
     font-size: 6vw;
 }
 
+/**
+ * Forms and forms elements.
+ */
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    line-height: 4vh;
+    margin-top: 2vw;
+}
+
+input {
+    border-radius: 2px;
+    padding: 9px;
+}
+
+button[type="submit"] {
+    width: 100px;
+    height: 40px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    border-radius: 20px;
+    border: 1px solid #eaaf19;
+    background-color: #6d9bc4;
+    cursor: pointer;
+    align-self: flex-end;
+}
+
+#logo-mini {
+    height: 22vw;
+    margin-right: 5vw;
+}
 
 /**
  * Small screens.
  */
 @media all and (max-width: 800px) {
 
-    #logo span, #user-links, header > nav, footer p, #add-functionality {
+    #logo span, #user-links, header > nav, footer p, #add-functionality, #logo-mini {
         display: none;
     }
 
@@ -218,7 +254,6 @@ footer nav i {
     }
 
 }
-
 
 /**
  * Animate fa icons on hover i elements.

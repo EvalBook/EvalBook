@@ -14,7 +14,7 @@
             <div class="heading">
                 <!-- Header -->
                 <div id="logo">
-                    <img src="{{ asset('assets/img/logos/logo_evalbook.png') }}">
+                    <img src="{{ asset('assets/img/logos/logo_evalbook.png') }}" alt="EvalBook logo">
                     <span>Teachers evaluation tool.</span>
                 </div>
             </div>
@@ -24,13 +24,19 @@
         <section class="content">
 
             <div class="modal-center">
+                <div>
+                    <img id="logo-mini" src="{{ asset('assets/img/logos/logo_evalbook_mini.png') }}" alt="EvalBook logo mini" />
+                </div>
+
                 <form method="post">
                     {% if error %}
                         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                     {% endif %}
 
-                    <input type="email" class ="form-control col-sm-11 login-input" id="inputEmail" name="email" placeholder="{{ "My e-mail" | trans }} ">
-                    <input type="password" class ="form-control col-sm-11 login-input" id="inputPassword" name="password" placeholder="{{ "My password" | trans }} ">
+                    <label for="inputEmail">{{ "E-mail address" | trans }}</label>
+                    <input type="email" id="inputEmail" name="email" placeholder="{{ "My e-mail" | trans }} ">
+                    <label for="inputPassword">{{ "Password" | trans }}</label>
+                    <input type="password" id="inputPassword" name="password" placeholder="{{ "My password" | trans }} ">
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
                     {#See https://symfony.com/doc/current/security/remember_me.html#}
@@ -41,10 +47,11 @@
                         </label>
                     </div>
 
-                    <button class="btn btn-light" type="submit">
+                    <button type="submit">
                         {{ 'Log in'|trans }}
                     </button>
                 </form>
+
             </div>
 
         </section>
