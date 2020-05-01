@@ -56,7 +56,8 @@ user:
     ROLE_CLASS_CREATE: Créer une classe
     ROLE_CLASS_EDIT: Editer une classe
     ROLE_CLASS_DELETE: Supprimer une classe
-    ROLE_CLASS_ASSIGN_STUDENT: Assigner un élève à une classe
+    ROLE_CLASS_EDIT_STUDENTS: Assign student to a class.
+    ROLE_CLASS_EDIT_USERS: Assign user to a class.
     ROLE_ACTIVITY_LIST_ALL: Lister les activités
     ROLE_ACTIVITY_CREATE: Créer une activité
     ROLE_ACTIVITY_EDIT: Editer une activité
@@ -71,3 +72,24 @@ user:
     ROLE_IMPLANTATION_EDIT: Editer une implantation
     ROLE_IMPLANTATION_CREATE: Créer une implantation
     ROLE_IMPLANTATION_DELETE: Supprimer une implantation
+
+implantations:
+
+  title:
+    add: Add implmantation
+    edit: Edit implantation
+
+  label:
+    name: Implantation name
+    address: Implantation address
+    zip-code: Zip code
+    country: Country
+
+  message:
+    name-too-short: The implantation name is too short.
+    name-too-long: The implantation name is too long.
+    address-too-short: Address is too short.
+    address-too-long: Address is too long.
+    zip-is-blank: Zip code cannot be empty.
+    country-name-too-short: Country name is too short.
+    country-name-too-long: Country name is too long.

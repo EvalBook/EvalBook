@@ -13,3 +13,10 @@
 'Credentials have expired.': 'Les identifiants ont expiré.'
 'Account is disabled.': 'Le compte est désactivé.'
 'Account is locked.': 'Le compte est bloqué.'
+'E-mail address' : 'Adresse E-mail'
+'My e-mail' : 'Mon adresse e-mail'
+'Password': 'Mot de passe'
+'My password': 'Mon mot de passe'
+'Remember me': 'Se souvenir de moi'
+'Log in': 'Connexion'
+'Email could not be found.': "L'adresse e-mail ne peut être trouvée."

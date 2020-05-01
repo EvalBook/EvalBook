@@ -1,0 +1,22 @@
+
+.dialog {
+    width: 100%;
+    position: absolute;
+    top:0;
+    left: 0;
+    height: 7vh;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.dialog-error {
+    background-color: #D98484;
+}
+
+.dialog-success {
+    background-color: #82d9a7;
+}

@@ -36,6 +36,7 @@ Encore
     // Global css layout.
     .addStyleEntry('svelte-style', './assets/css/app.css')
     .addStyleEntry('theme', './assets/css/theme.css')
+    .addStyleEntry('dialogs', './assets/css/dialogs.css')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
