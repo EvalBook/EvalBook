@@ -1,13 +1,19 @@
 # Global main menu related.
-sidebar:
+global:
   dashboard: Tableau de bord
   notebook: Cahier de notes
   activities: Activités
   school-reports: Bulletins
-  pupils: Elèves
+  students: Students
   classes: Classes
   implantations: Implantations
-  users: Gestion utlisateurs
+  users: Utlisateurs
+  profile: Mon profil
+  disconnect: Déconnexion
+  slogan: L'outil d'évaluation des professeurs
+  github: Code source sur
+  yes: Oui
+  no: Non
 
 # Users interface related.
 users:
@@ -69,14 +75,3 @@ implantations:
     address: Adresse
     zip-code: Code postal
     country: Ville
-
-# Commonly used strings.
-global:
-  profile: Mon profil
-  disconnect: Déconnexion
-  teaser: L'outil d'évaluation des professeurs
-  source-github: Code source sur Github
-
-  confirm:
-    yes: Oui
-    no: Non
