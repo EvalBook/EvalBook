@@ -34,7 +34,7 @@ class UserProfileController extends AbstractController
             }
         }
         catch(\Exception $e) {
-            $this->addFlash('danger', 'user.self-update-error');
+            $this->addFlash('error', 'user.self-update-error');
         }
 
         return $this->render('users/profile.html.twig', [

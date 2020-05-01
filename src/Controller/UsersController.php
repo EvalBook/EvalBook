@@ -158,7 +158,7 @@ class UsersController extends AbstractController
                 return $this->redirectToRoute($redirect || "users_add");
             }
         } catch (\Exception $e) {
-            $this->addFlash('danger', 'user.add-error');
+            $this->addFlash('error', 'user.add-error');
         }
         
         return $this->render('users/user-add-form.html.twig', [
@@ -211,7 +211,7 @@ class UsersController extends AbstractController
             $this->addFlash('success', 'user.deleted');
         }
         catch(\Exception $e) {
-            $this->addFlash('danger', 'user.delete-error');
+            $this->addFlash('error', 'user.delete-error');
         }
         
         return $this->redirectToRoute("users_delete");

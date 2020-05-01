@@ -111,7 +111,7 @@ class ImplantationsController extends AbstractController
                     return $this->redirectToRoute("implantations_edit");
                 }
             } catch (\Exception $e) {
-                $this->addFlash('danger', 'implantation.edit-error');
+                $this->addFlash('error', 'implantation.edit-error');
             }
         }
 

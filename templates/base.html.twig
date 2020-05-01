@@ -14,6 +14,15 @@
     <title>EvalBook - {% block pageTitle %} {% endblock %}</title>
 </head>
 <body>
+    <!-- Display potentials error / success messages -->
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="dialog dialog-{{ label }}">
+                {{ message | trans({}, 'controllers')}}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
     <div class="container">
         <header>
             <div class="heading">
