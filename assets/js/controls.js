@@ -18,3 +18,13 @@ window.addEventListener('click', function(event) {
         mobileMenu.style.display = 'none';
     }
 });
+
+/**
+ * Hiding dialog errors / dialog success after 5 seconds.
+ */
+window.setTimeout(function() {
+    let dialogs = document.getElementsByClassName("dialog");
+    for(let dialog of dialogs) {
+        dialog.parentElement.removeChild(dialog);
+    }
+}, 5000);
