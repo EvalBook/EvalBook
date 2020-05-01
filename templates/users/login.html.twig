@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% trans_default_domain 'security' %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,7 +16,7 @@
                 <!-- Header -->
                 <div id="logo">
                     <img src="{{ asset('assets/img/logos/logo_evalbook.png') }}" alt="EvalBook logo">
-                    <span>Teachers evaluation tool.</span>
+                    <span>{{ 'global.teaser'|trans({}, 'templates') }}</span>
                 </div>
             </div>
         </header>
@@ -33,17 +34,17 @@
                         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                     {% endif %}
 
-                    <label for="inputEmail">{{ "E-mail address" | trans }}</label>
-                    <input type="email" id="inputEmail" name="email" placeholder="{{ "My e-mail" | trans }} ">
-                    <label for="inputPassword">{{ "Password" | trans }}</label>
-                    <input type="password" id="inputPassword" name="password" placeholder="{{ "My password" | trans }} ">
+                    <label for="inputEmail">{{ "E-mail address"|trans }}</label>
+                    <input type="email" id="inputEmail" name="email" placeholder="{{ "My e-mail"|trans }} ">
+                    <label for="inputPassword">{{ "Password"|trans }}</label>
+                    <input type="password" id="inputPassword" name="password" placeholder="{{ "My password"|trans }} ">
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
                     {#See https://symfony.com/doc/current/security/remember_me.html#}
 
                     <div class="checkbox mb-3">
                         <label>
-                            <input type="checkbox" name="_remember_me"> {{ "Remember me" | trans }}
+                            <input type="checkbox" name="_remember_me"> {{ "Remember me"|trans }}
                         </label>
                     </div>
 

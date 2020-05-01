@@ -87,7 +87,7 @@ implantations:
 global:
   profile: Mon profil
   disconnect: Déconnexion
-  teaser: L'outil d'évaluation pour les professeurs
+  teaser: L'outil d'évaluation des professeurs
   project-initiated: Projet initié par
   read-manual: Lire le manuel
   source-github: Code source sur Github
