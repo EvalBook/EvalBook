@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/af99847773.js" crossorigin="anonymous"></script>
-    {{ encore_entry_link_tags('theme') }}
 
-    <title>EvalBook</title>
+    {{ encore_entry_link_tags('theme') }}
+    {{ encore_entry_link_tags('dialogs') }}
+
+    <title>EvalBook - {{ 'Log in'|trans }}</title>
 </head>
 <body>
     <div class="container">
@@ -31,7 +33,9 @@
 
                 <form method="post">
                     {% if error %}
-                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        <div class="dialog dialog-error">
+                            {{ error.messageKey|trans(error.messageData, 'security') }}
+                        </div>
                     {% endif %}
 
                     <label for="inputEmail">{{ "E-mail address"|trans }}</label>
