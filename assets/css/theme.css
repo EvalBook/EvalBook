@@ -63,6 +63,8 @@ h1, h2 {
 .content {
     display: flex;
     flex-grow: 1;
+    overflow: auto;
+    margin-top: 10px;
 }
 
 /**
@@ -237,10 +239,42 @@ button[type="submit"] {
 }
 
 /**
+ * Tables and global content data.
+ */
+table {
+    text-align: left;
+    box-shadow: 0 2px 35px -15px rgba(0,0,0,0.75);
+    border-collapse: collapse;
+}
+
+th {
+    background-color: var(--primary-color);
+    font-weight: bold;
+    color: white;
+}
+
+th, td {
+    padding: 16px;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover, tr:nth-child(even):hover {
+    background-color: var(--secondary-color);
+}
+
+tr:nth-child(even) {
+    background-color: #fff;
+}
+
+/**
  * Polishing classes.
  */
 .margin-15 {
     margin-top: 15px;
+}
+
+.full-width {
+    width: 100%;
 }
 
 /**

@@ -51,7 +51,7 @@ users:
 implantations:
   not-found: No implantation found
 
-  th:
+  table:
     id: Id
     name: Implantation
     count: Implantations number
