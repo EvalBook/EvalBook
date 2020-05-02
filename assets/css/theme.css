@@ -166,7 +166,7 @@ nav .menuItem {
     height: 4vw;
 }
 
-#add-functionality i {
+#add-functionality i, .go-back {
     font-size: 4vw;
     color: var(--secondary-color);
 }
@@ -280,6 +280,16 @@ tr:nth-child(even) {
 .text-center {
     text-align: center;
 }
+
+.flex {
+    display: flex;
+}
+
+.column {
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
 
 /**
  * Small screens.

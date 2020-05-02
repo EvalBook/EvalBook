@@ -1,19 +1,19 @@
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'templates' %}
 
-{% block pageTitle %} {{ 'global.implantations' | trans }} {% endblock %}
-{% block title %}{{ 'global.implantations' | trans }}{% endblock %}
+{% block pageTitle %} {{ 'Implantations' | trans }} {% endblock %}
+{% block title %}{{ 'Implantations' | trans }}{% endblock %}
 
 {% block body %}
     <table class="full-width">
         <thead>
         <tr>
-            <th scope="col">{{ 'global.implantations' | trans }}</th>
-            <th scope="col">{{ 'address' | trans }}</th>
-            <th scope="col">{{ 'zip-code' | trans }}</th>
-            <th scope="col">{{ 'country' | trans }}</th>
-            <th scope="col" class="text-center">{{ 'edit' | trans }}</th>
-            <th scope="col" class="text-center">{{ 'delete' | trans }}</th>
+            <th scope="col">{{ 'Implantations' | trans }}</th>
+            <th scope="col">{{ 'Address' | trans }}</th>
+            <th scope="col">{{ 'Zip-code' | trans }}</th>
+            <th scope="col">{{ 'Country' | trans }}</th>
+            <th scope="col" class="text-center">{{ 'Edit' | trans }}</th>
+            <th scope="col" class="text-center">{{ 'Delete' | trans }}</th>
         </tr>
         </thead>
         <tbody>
@@ -35,7 +35,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">{{ 'implantations.not-found' | trans }}</td>
+                <td colspan="6">{{ 'No implantation found' | trans }}</td>
             </tr>
         {% endfor %}
         </tbody>

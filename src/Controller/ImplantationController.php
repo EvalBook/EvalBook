@@ -86,8 +86,8 @@ class ImplantationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('book_index');
+            $this->addFlash('success', 'Successfully updated');
+            return $this->redirectToRoute('implantations');
         }
 
         return $this->render('implantations/edit-form.html.twig', [
