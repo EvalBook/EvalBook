@@ -40,23 +40,12 @@ class ImplantationsController extends AbstractController
 {
     /**
      * @Route("/implantations", name="implantations")
-     */
-    public function index()
-    {
-        return $this->render('implantations/index.html.twig');
-    }
-
-
-    /**
-     * @Route("/implantations/list", name="implantations_list")
-     * @IsGranted("ROLE_IMPLANTATION_LIST_ALL", statusCode=404, message="Not found")
-     *
      * @param ImplantationRepository $repository
      * @return Response
      */
-    public function implantationList(ImplantationRepository $repository)
+    public function index(ImplantationRepository $repository)
     {
-        return $this->render('implantations/list.html.twig', [
+        return $this->render('implantations/index.html.twig', [
             'implantations' => $repository->findAll()
         ]);
     }
@@ -111,7 +100,7 @@ class ImplantationsController extends AbstractController
                     return $this->redirectToRoute("implantations_edit");
                 }
             } catch (\Exception $e) {
-                $this->addFlash('danger', 'implantation.edit-error');
+                $this->addFlash('error', 'implantation.edit-error');
             }
         }
 

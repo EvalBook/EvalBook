@@ -31,7 +31,7 @@ Encore
      */
     .addEntry('app', './assets/js/app.js')
     .addEntry('api', './assets/js/api.js')
-    .addEntry('mobile-controls', './assets/js/mobile-controls.js')
+    .addEntry('controls', './assets/js/controls.js')
 
     // Global css layout.
     .addStyleEntry('svelte-style', './assets/css/app.css')

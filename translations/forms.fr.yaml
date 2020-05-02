@@ -13,12 +13,12 @@ common:
   implantation: Implantation
 
 user:
+  profile: Profil
   title:
     add: Ajouter un utilisateur
     edit: Editer un utilisateur
     delete: Supprimer un utilisateur
     roles-choose: Choisissez les rôles utilisateur
-    profile: Votre profile
 
   label:
     first-name: Nom de l'utilisateur
@@ -74,16 +74,10 @@ user:
     ROLE_IMPLANTATION_DELETE: Supprimer une implantation
 
 implantations:
-
-  title:
-    add: Ajouter une implantation
-    edit: Editer une implantation
-
-  label:
-    name: Nom de l'implantation
-    address: Adresse de l'implantation
-    zip-code: Code postal
-    country: Ville
+  name: Nom de l'implantation
+  address: Adresse de l'implantation
+  zip-code: Code postal
+  country: Ville
 
   message:
     name-too-short: Le nom de l'implantation doit comporter plus de 4 lettres.

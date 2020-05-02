@@ -14,6 +14,15 @@
     <title>EvalBook - {% block pageTitle %} {% endblock %}</title>
 </head>
 <body>
+    <!-- Display potentials error / success messages -->
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="dialog dialog-{{ label }}">
+                {{ message | trans({}, 'controllers')}}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
     <div class="container">
         <header>
             <div class="heading">
@@ -36,22 +45,22 @@
 
                 <div id="user-links">
                     <div class="menuTopIcon">
-                        <i class="fas fa-tachometer-alt"></i>
-                        <span>
-                            <a href="{{ path('dashboard') }}">{{ 'global.dashboard'|trans }}</a>
-                        </span>
+                        <a href="{{ path('dashboard') }}">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>{{ 'global.dashboard'|trans }}</span>
+                        </a>
                     </div>
                     <div class="menuTopIcon">
-                        <i class="fas fa-user"></i>
-                        <span>
-                            <a href="{{ path('user_profile') }}">{{ 'global.profile'|trans }}</a>
-                        </span>
+                        <a href="{{ path('user_profile') }}">
+                            <i class="fas fa-user"></i>
+                            <span>{{ 'global.profile'|trans }}</span>
+                        </a>
                     </div>
                     <div class="menuTopIcon">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span>
-                            <a href="{{ path('app_logout') }}">{{ 'global.disconnect'|trans }}</a>
-                        </span>
+                        <a href="{{ path('app_logout') }}">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>{{ 'global.disconnect'|trans }}</span>
+                        </a>
                     </div>
                 </div>
 
@@ -79,10 +88,14 @@
                     <i class="fas fa-poll"></i>
                     <span>Bulletins</span>
                 </div>
-                <div class="menuItem">
-                    <i class="fas fa-school"></i>
-                    <span>Implantations</span>
-                </div>
+
+                <a href="{{ path('implantations') }}">
+                    <div class="menuItem">
+                        <i class="fas fa-school"></i>
+                        <span>Implantations</span>
+                    </div>
+                </a>
+
                 <div class="menuItem">
                     <i class="fas fa-users"></i>
                     <span>Utilisateurs</span>
@@ -97,8 +110,8 @@
                         <li><i class="fas fa-poll"></i></li>
                         <li><i class="fas fa-users"></i></li>
                         <li><i class="fas fa-school"></i></li>
-                        <li><i class="fas fa-user"></i></li>
-                        <li><i class="fas fa-sign-out-alt"></i></li>
+                        <li><a href="{{ path('user_profile') }}"><i class="fas fa-user"></i></a></li>
+                        <li><a href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt"></i></a></li>
                     </ul>
                     <ul>
                         <li>
@@ -106,13 +119,9 @@
                         </li>
                         <li>{{ 'global.school-reports'|trans }}</li>
                         <li>{{ 'global.users'|trans }}</li>
-                        <li>{{ 'global.implantations'|trans }}</li>
-                        <li>
-                            <a href="{{ path('user_profile') }}">{{ 'global.profile'|trans }}
-                        </li>
-                        <li>
-                            <a href="{{ path('app_logout') }}">{{ 'global.disconnect'|trans }}</a>
-                        </li>
+                        <li><a href="{{ path('implantations') }}">{{ 'global.implantations'|trans }}</a></li>
+                        <li><a href="{{ path('user_profile') }}">{{ 'global.profile'|trans }}</li>
+                        <li><a href="{{ path('app_logout') }}">{{ 'global.disconnect'|trans }}</a></li>
                     </ul>
                 </div>
             </div>
@@ -161,7 +170,7 @@
     </footer>
 
     {% block javascripts %} {% endblock %}
-    {{ encore_entry_script_tags('mobile-controls') }}
+    {{ encore_entry_script_tags('controls') }}
 
 </body>
 </html>
