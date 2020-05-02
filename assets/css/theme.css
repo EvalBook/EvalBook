@@ -277,6 +277,10 @@ tr:nth-child(even) {
     width: 100%;
 }
 
+.text-center {
+    text-align: center;
+}
+
 /**
  * Small screens.
  */

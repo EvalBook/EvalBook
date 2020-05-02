@@ -51,10 +51,10 @@ users:
 implantations:
   not-found: Aucune implantation trouvée
 
-  table:
-    id: Id
-    name: Nom de l'implantation
-    count: Nbr implantations
-    address: Adresse
-    zip-code: Code postal
-    country: Ville
+
+id: Id
+address: Adresse
+zip-code: Code postal
+country: Ville
+edit: Editer
+delete: Supprimer

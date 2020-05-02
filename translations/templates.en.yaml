@@ -51,10 +51,10 @@ users:
 implantations:
   not-found: No implantation found
 
-  table:
-    id: Id
-    name: Implantation
-    count: Implantations number
-    address: Adress
-    zip-code: Zip code
-    country: Country
+table:
+  id: Id
+  address: Adress
+  zip-code: Zip code
+  country: Country
+  edit: Edit
+  delete: Delete

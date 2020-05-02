@@ -8,21 +8,34 @@
     <table class="full-width">
         <thead>
         <tr>
-            <th scope="col">{{ 'implantations.table.name' | trans }}</th>
-            <th scope="col">{{ 'implantations.table.address' | trans }}</th>
+            <th scope="col">{{ 'global.implantations' | trans }}</th>
+            <th scope="col">{{ 'address' | trans }}</th>
+            <th scope="col">{{ 'zip-code' | trans }}</th>
+            <th scope="col">{{ 'country' | trans }}</th>
+            <th scope="col" class="text-center">{{ 'edit' | trans }}</th>
+            <th scope="col" class="text-center">{{ 'delete' | trans }}</th>
         </tr>
         </thead>
         <tbody>
         {% for implantation in implantations %}
             <tr>
                 <td>{{ implantation.name }}</td>
-                <td>
-                    {{ implantation.address }}, {{ implantation.zipCode }} {{ implantation.country }}
+                <td>{{ implantation.address }}</td>
+                <td>{{ implantation.zipCode }}</td>
+                <td>{{ implantation.country }}</td>
+                <td class="text-center">
+                    <a href="{{ path('implantation_edit', {'id': implantation.id}) }}">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </td>
+                <td class="text-center">
+
+                        <i class="fas fa-trash"></i>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="2">{{ 'implantations.table.not-found' | trans }}</td>
+                <td colspan="6">{{ 'implantations.not-found' | trans }}</td>
             </tr>
         {% endfor %}
         </tbody>

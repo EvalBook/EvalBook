@@ -36,7 +36,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class ImplantationController
  * @package App\Controller
  */
-class ImplantationsController extends AbstractController
+class ImplantationController extends AbstractController
 {
     /**
      * @Route("/implantations", name="implantations")
@@ -74,45 +74,31 @@ class ImplantationsController extends AbstractController
 
 
     /**
-     * @Route("/implantations/edit", name="implantations_edit")
-     * @IsGranted("ROLE_IMPLANTATION_EDIT", statusCode=404, message="Not found")
-     * @param ImplantationRepository $repository
+     * @Route("/implantation/edit/{id}", name="implantation_edit")
      * @param Request $request
-     * @param EntityManagerInterface $em
+     * @param Implantation $implantation
      * @return RedirectResponse|Response
      */
-    public function editImplantations(ImplantationRepository $repository, Request $request, EntityManagerInterface $em)
+    public function edit(Request $request, Implantation $implantation)
     {
-        $implantations = $repository->findAll();
-        $editForms = array();
+        $form = $this->createForm(ImplantationType::class, $implantation);
+        $form->handleRequest($request);
 
-        foreach($implantations as $implantation) {
-            $implForm = $this->get('form.factory')->createNamed('implantation-edit-' . $implantation->getId(), ImplantationType::class, $implantation);
-            try {
-                $implForm->handleRequest($request);
-                $editForms[$implantation->getId()] = $implForm->createView();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
 
-                if ($implForm->isSubmitted() && $implForm->isValid()) {
-                    $em->persist($implantation);
-                    $em->flush();
-
-                    $this->addFlash('success', 'implantation.updated');
-                    return $this->redirectToRoute("implantations_edit");
-                }
-            } catch (\Exception $e) {
-                $this->addFlash('error', 'implantation.edit-error');
-            }
+            return $this->redirectToRoute('book_index');
         }
 
-        return $this->render('implantations/edit-list.html.twig', [
-            'implantations' => $implantations,
-            'implantationsForms' => $editForms
+        return $this->render('implantations/edit-form.html.twig', [
+            'implantation' => $implantation,
+            'form' => $form->createView(),
         ]);
     }
 
 
     /**
-     * @Route("/implantations/delete", name="implantations_delete")
+     * @Route("/implantation/delete", name="implantations_delete")
      * @IsGranted("ROLE_IMPLANTATION_DELETE", statusCode=404, message="Not found")
      */
     public function deleteImplantation()
