@@ -19,6 +19,7 @@
 
 namespace App\Controller;
 
+use App\Form\UserProfileType;
 use App\Form\UserRoleType;
 use App\Form\UserType;
 use App\Service\FormService;
@@ -36,8 +37,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class UsersController, manage action available on users add / remove / update / set role ...
  * @package App\Controller
- * 
- * @Route("/users", name="users_")
+ *
  */
 class UsersController extends AbstractController
 {
@@ -54,7 +54,7 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("/", name="index")
+     * @Route("/users", name="index")
      */
     public function index()
     {
@@ -66,7 +66,7 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("/list", name="list")
+     * @Route("/users/list", name="list")
      * @IsGranted("ROLE_USER_LIST_ALL", statusCode=404, message="Not found")
      * 
      * @param UserRepository $repository
@@ -81,7 +81,7 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("/edit", name="edit")
+     * @Route("/users/edit", name="edit")
      * @IsGranted("ROLE_USER_EDIT", statusCode=404, message="Not found")
      *
      * @param FormService $service
@@ -115,7 +115,7 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("/add", name="add")
+     * @Route("/users/add", name="add")
      * @IsGranted("ROLE_USER_CREATE", statusCode=404, message="Not found")
      *
      * @param Request $request
@@ -168,7 +168,7 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("/add/admin", name="add_admin")
+     * @Route("/users/add/admin", name="add_admin")
      * @IsGranted("ROLE_ADMIN", statusCode=404, message="Not found")
      * Add a super admin to the system.
      *
@@ -182,7 +182,7 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("/delete", name="delete")
+     * @Route("/users/delete", name="delete")
      * @IsGranted("ROLE_USER_DELETE", statusCode=404, message="Not found")
      *
      * @param UserRepository $repository
@@ -197,7 +197,7 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("/delete/{id}", name="delete_confirm")
+     * @Route("/users/delete/{id}", name="delete_confirm")
      * @IsGranted("ROLE_USER_DELETE", statusCode=404, message="Not found")
      *
      * @param User $user
@@ -215,5 +215,36 @@ class UsersController extends AbstractController
         }
         
         return $this->redirectToRoute("users_delete");
+    }
+
+
+    /**
+     * @Route("/user/profile", name="user_profile")
+     * @param EntityManagerInterface $entityManager
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function profile(EntityManagerInterface $entityManager, Request $request)
+    {
+        $userForm = $this->createForm(UserProfileType::class, $this->getUser());
+
+        try {
+            $userForm->handleRequest($request);
+
+            if ($userForm->isSubmitted() && $userForm->isValid())
+            {
+                $entityManager->persist($this->getUser());
+                $entityManager->flush();
+                $this->addFlash('success', 'user.self-updated');
+                return $this->redirectToRoute("user_profile");
+            }
+        }
+        catch(\Exception $e) {
+            $this->addFlash('error', 'user.self-update-error');
+        }
+
+        return $this->render('users/profile.html.twig', [
+            'userProfileForm' => $userForm->createView(),
+        ]);
     }
 }

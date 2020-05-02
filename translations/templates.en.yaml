@@ -51,23 +51,6 @@ users:
 implantations:
   not-found: No implantation found
 
-  title:
-    list: Implantations list
-    management: Manage implantations
-    edit-list: Editable implantations list
-
-  label:
-    list: Implantations list
-    add: Add implantation
-    edit: Edit implantation
-    delete: Delete implantation
-
-  button:
-    view-list: View list
-    add: Add
-    edit: Edit
-    delete: Delete
-
   th:
     id: Id
     name: Implantation
