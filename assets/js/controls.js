@@ -27,4 +27,4 @@ window.setTimeout(function() {
     for(let dialog of dialogs) {
         dialog.parentElement.removeChild(dialog);
     }
-}, 5000);
+}, 4000);

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block pageTitle %}
+    {{ implantation.id is defined ? 'Edit'|trans : 'Add'|trans }}
+{% endblock %}
+
+{% block title %}
+    {{ implantation.id is defined ? 'Edit'|trans ~ implantation.name : 'Add'|trans }}
+{% endblock %}
+
+{% block body %}
+    <div class="full-width flex column">
+        <a class="go-back" href="{{ path('implantations') }}">
+            <i class="fas fa-long-arrow-alt-left"></i>
+        </a>
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        {# Implantation name #}
+        {{ form_label(form.name, 'Name') }}
+        {{ form_widget(form.name) }}
+
+        {# Implantation address #}
+        {{ form_label(form.address, 'Address') }}
+        {{ form_widget(form.address) }}
+
+
+        {# Implantation zip code #}
+        {{ form_label(form.zipCode, 'Zip-code') }}
+        {{ form_widget(form.zipCode) }}
+
+
+        {# Implantation country #}
+        {{ form_label(form.country, 'Country') }}
+        {{ form_widget(form.country) }}
+
+        {# Submit button #}
+        {{ form_row(form.submit, {
+            'label': 'Send'|trans,
+            'attr': {'class': 'margin-15'},
+        }) }}
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

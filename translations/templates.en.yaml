@@ -6,7 +6,6 @@ global:
   school-reports: School Reports
   students: Students
   classes: Classes
-  implantations: Implantations
   users: Users
   profile: Profile
   disconnect: Log out
@@ -47,14 +46,17 @@ users:
     email: E-Mail
     active: Active
 
-#Implantations global interface related.
-implantations:
-  not-found: No implantation found
-
-  table:
-    id: Id
-    name: Implantation
-    count: Implantations number
-    address: Adress
-    zip-code: Zip code
-    country: Country
+Implantations: Implantations
+No implantation found: No implantation found
+Id: Id
+Address: Adress
+Zip-code: Zip code
+Country: Country
+Edit: Edit
+Delete: Delete
+Add: Add
+Name: Name
+Send: Send
+Return to list: Return to list
+Successfully updated: Successfully updated
+Successfully added: Successfully added

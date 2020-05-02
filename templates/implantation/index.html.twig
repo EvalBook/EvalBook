@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block pageTitle %} {{ 'Implantations' | trans }} {% endblock %}
+{% block title %}{{ 'Implantations' | trans }}{% endblock %}
+
+{% block body %}
+    <table class="full-width">
+        <thead>
+        <tr>
+            <th scope="col">{{ 'Implantations' | trans }}</th>
+            <th scope="col">{{ 'Address' | trans }}</th>
+            <th scope="col">{{ 'Zip-code' | trans }}</th>
+            <th scope="col">{{ 'Country' | trans }}</th>
+            <th scope="col" class="text-center">{{ 'Edit' | trans }}</th>
+            <th scope="col" class="text-center">{{ 'Delete' | trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for implantation in implantations %}
+            <tr>
+                <td>{{ implantation.name }}</td>
+                <td>{{ implantation.address }}</td>
+                <td>{{ implantation.zipCode }}</td>
+                <td>{{ implantation.country }}</td>
+                <td class="text-center">
+                    <a href="{{ path('implantation_edit', {'id': implantation.id}) }}">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </td>
+                <td class="text-center">
+
+                        <i class="fas fa-trash"></i>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">{{ 'No implantation found' | trans }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+
+{% block functionnalities %}
+    <a href="{{ path('implantation_add') }}">
+        <i class="fas fa-plus"></i>
+    </a>
+{% endblock %}
+
+
+{% block functionnalitiesMobile %}
+    <a href="{{ path('implantation_add') }}">
+        <i class="fas fa-plus"></i>
+    </a>
+{% endblock %}

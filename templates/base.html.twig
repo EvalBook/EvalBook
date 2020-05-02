@@ -18,7 +18,7 @@
     {% for label, messages in app.flashes %}
         {% for message in messages %}
             <div class="dialog dialog-{{ label }}">
-                {{ message | trans({}, 'controllers')}}
+                {{ message | trans }}
             </div>
         {% endfor %}
     {% endfor %}
@@ -36,6 +36,7 @@
                 <div id="mobile-header">
                     <div id="mobile-add-functionality">
                         <i class="fas fa-plus"></i>
+                        {% block functionnalitiesMobile %} {% endblock %}
                     </div>
 
                     <div id="mobile-menu-toggle">
@@ -92,7 +93,7 @@
                 <a href="{{ path('implantations') }}">
                     <div class="menuItem">
                         <i class="fas fa-school"></i>
-                        <span>Implantations</span>
+                        <span>{{ 'Implantations'|trans }}</span>
                     </div>
                 </a>
 
@@ -119,7 +120,7 @@
                         </li>
                         <li>{{ 'global.school-reports'|trans }}</li>
                         <li>{{ 'global.users'|trans }}</li>
-                        <li><a href="{{ path('implantations') }}">{{ 'global.implantations'|trans }}</a></li>
+                        <li><a href="{{ path('implantations') }}">{{ 'Implantations'|trans }}</a></li>
                         <li><a href="{{ path('user_profile') }}">{{ 'global.profile'|trans }}</li>
                         <li><a href="{{ path('app_logout') }}">{{ 'global.disconnect'|trans }}</a></li>
                     </ul>
@@ -140,7 +141,7 @@
 
     <!-- Add 'something' functionality -->
     <div id="add-functionality">
-        <i class="fas fa-plus"></i>
+        {% block functionnalities %} {% endblock %}
     </div>
 
     <footer>
