@@ -23,7 +23,6 @@ use App\Entity\Implantation;
 use App\Form\ImplantationType;
 use App\Repository\ImplantationRepository;
 use App\Service\FormService;
-use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -45,30 +44,37 @@ class ImplantationController extends AbstractController
      */
     public function index(ImplantationRepository $repository)
     {
-        return $this->render('implantations/index.html.twig', [
+        return $this->render('implantation/index.html.twig', [
             'implantations' => $repository->findAll()
         ]);
     }
 
 
     /**
-     * @Route("/implantations/add", name="implantations_add")
+     * @Route("/implantation/add", name="implantation_add")
      * @IsGranted("ROLE_IMPLANTATION_CREATE", statusCode=404, message="Not found")
      *
      * @param FormService $service
      * @return RedirectResponse|Response
      */
-    public function addImplantation(FormService $service)
+    public function add(Request $request)
     {
-        list($result, $form) = $service->createSimpleForm('implantations-add', ImplantationType::class, new Implantation());
+        $implantation = new Implantation();
+        $form = $this->createForm(ImplantationType::class, $implantation);
+        $form->handleRequest($request);
 
-        if(!is_null($result) && $result) {
-            $this->addFlash('success', 'implantation.added');
-            return $this->redirectToRoute("implantations_add");
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($implantation);
+            $entityManager->flush();
+            $this->addFlash('success', 'Successfully added');
+
+            return $this->redirectToRoute('implantations');
         }
 
-        return $this->render('implantations/add-form.html.twig', [
-            'implantationForm' => $form
+        return $this->render('implantation/form.html.twig', [
+            'book' => $implantation,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -87,10 +93,11 @@ class ImplantationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Successfully updated');
+
             return $this->redirectToRoute('implantations');
         }
 
-        return $this->render('implantations/edit-form.html.twig', [
+        return $this->render('implantation/form.html.twig', [
             'implantation' => $implantation,
             'form' => $form->createView(),
         ]);

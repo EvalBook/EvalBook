@@ -1,8 +1,13 @@
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'templates' %}
 
-{% block pageTitle %} {{ 'Edit'|trans }} {% endblock %}
-{% block title %}{{ 'Edit'|trans }}: {{ implantation.name }} {% endblock %}
+{% block pageTitle %}
+    {{ implantation.id is defined ? 'Edit'|trans : 'Add'|trans }}
+{% endblock %}
+
+{% block title %}
+    {{ implantation.id is defined ? 'Edit'|trans ~ implantation.name : 'Add'|trans }}
+{% endblock %}
 
 {% block body %}
     <div class="full-width flex column">
