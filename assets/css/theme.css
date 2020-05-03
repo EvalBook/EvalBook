@@ -8,6 +8,7 @@
 
 body {
     font-family: 'Raleway', sans-serif;
+    font-size: 0.8vw;
     background-color: var(--background-color);
     margin: 0;
     overflow: hidden;
@@ -86,7 +87,7 @@ h1, h2 {
 }
 
 .menuTopIcon > i, header nav i {
-    font-size: 3.2vw;
+    font-size: 2vw;
 }
 
 .menuTopIcon > span, #logo span, header nav span {
@@ -106,7 +107,7 @@ h1, h2 {
  */
 nav {
     margin-top: 2vw;
-    height: 6.5vw; /* To keep it in proportions */
+    height: 5.8vw; /* To keep it in proportions */
     background-color: #e8e8e8;
     /*box-shadow: 1px 1px #eaaf19;*/
     box-shadow: 0 2px 35px -15px rgba(0,0,0,0.75);
@@ -295,6 +296,10 @@ tr:nth-child(even) {
  * Small screens.
  */
 @media all and (max-width: 800px) {
+
+    body {
+       font-size: 1.9vw;
+    }
 
     #logo span, #user-links, header > nav, footer p, #add-functionality, #logo-mini {
         display: none;

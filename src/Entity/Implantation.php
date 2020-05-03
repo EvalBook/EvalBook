@@ -58,7 +58,7 @@ class Implantation
     private $country;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Classe", mappedBy="implantation")
+     * @ORM\OneToMany(targetEntity="App\Entity\Classe", mappedBy="implantation", cascade="persist")
      */
     private $classes;
 

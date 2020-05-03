@@ -19,6 +19,7 @@ window.addEventListener('click', function(event) {
     }
 });
 
+
 /**
  * Hiding dialog errors / dialog success after 5 seconds.
  */

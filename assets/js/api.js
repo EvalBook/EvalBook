@@ -1,7 +1,22 @@
 
-let api = {
+let Api = {
     // The base url to call in order to consume api.
-    baseUrl: 'https://127.0.0.1:8000/api',
+    baseUrl: 'https://127.0.0.1:8000',
+
+    query: async function(route, body, callback) {
+
+        const response = await fetch(`${this.baseUrl}${route}`, {
+            method: 'POST',
+            credentials: 'include',
+            body: JSON.stringify(body),
+        })
+
+        let data = await response.json();
+        if(callback)
+            callback.action(callback.param);
+        return data;
+
+    }
 };
 
 /**
@@ -15,27 +30,13 @@ let Language = {
      */
     getStrings: async function(domain, idArrayKeys) {
         if(idArrayKeys && idArrayKeys.length > 0) {
-            const response = await fetch(`${api.baseUrl}/strings`, {
-                method: 'POST',
-                credentials: 'include',
-                body: JSON.stringify({
-                    domain: domain,
-                    strings: idArrayKeys
-                })
+            return await Api.query('/api/strings',{
+                domain: domain,
+                strings: idArrayKeys,
             });
-
-            return await response.json();
         }
     }
 };
 
-/**
- * Handle users api calls.
- * @type {{}}
- */
-let User = {
-
-};
-
 export { Language };
-export { User };
+export { Api }

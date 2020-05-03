@@ -48,6 +48,11 @@ users:
 
 Implantations: Implantations
 No implantation found: Aucune implantation trouvée
+Implantation deleted: Implantation supprimée
+Implantation not deleted: Implantation not deleted
+All data such as classes attached to it will be deleted too !: Toutes les données y étant attachées telles que les écoles, périodes,etc.. seront également supprimées !
+Are you sure you want to delete this implantation ?: Etes vous sûr de vouloir supprimer cette implantation ?
+Invalid csrf token: Token CSRF invalide
 Id: Id
 Address: Adresse
 Zip-code: Code postal
@@ -60,3 +65,5 @@ Send: Envoyer
 Return to list: Retour à la liste
 Successfully updated: Mise à jour de l'élément avec succès
 Successfully added: Ajouté avec succès
+Yes: Oui
+No: Non
