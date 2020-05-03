@@ -39,6 +39,7 @@ async function getStrings() {
         'Are you sure you want to delete this implantation ?',
         'All data such as classes attached to it will be deleted too !',
         'Implantation deleted',
+        'Implantation not deleted',
         'Invalid csrf token',
         'Yes',
         'No'

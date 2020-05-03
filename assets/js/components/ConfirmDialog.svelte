@@ -5,6 +5,7 @@
     export let csrf;
 
     let doModal = false;
+    let actionResult;
 
     /**
      * Perform original action.
@@ -19,12 +20,22 @@
                 csrf: csrf,
             })
         });
+
+        actionResult = response.status;
+    }
+
+    /**
+     * Hide result message.
+     */
+    function planHideTask() {
+        // Hiding element bu setting the query result value to null.
+        setTimeout(() => actionResult = null, 3000);
     }
 
 </script>
 
 {#if doModal }
-    <div class="">
+    <div>
         <div class="dialog-modal dialog-confirm">
             <p>{ labels['Are you sure you want to delete this implantation ?'] }</p>
             <p>{ labels['All data such as classes attached to it will be deleted too !'] }</p>
@@ -34,6 +45,13 @@
             </div>
         </div>
     </div>
+{/if}
+
+{#if actionResult }
+    <div class="dialog dialog-{ actionResult === 200 ? 'success' : 'error' }">
+        { actionResult === 200 ? labels['Implantation deleted'] : labels['Implantation not deleted'] }
+    </div>
+    { planHideTask() }
 {/if}
 
 <a href="/#" on:click|preventDefault={ () => doModal = true }>
