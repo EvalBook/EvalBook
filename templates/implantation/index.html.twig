@@ -18,7 +18,7 @@
         </thead>
         <tbody>
         {% for implantation in implantations %}
-            <tr>
+            <tr data-id="{{ implantation.id }}">
                 <td>{{ implantation.name }}</td>
                 <td>{{ implantation.address }}</td>
                 <td>{{ implantation.zipCode }}</td>
@@ -29,7 +29,8 @@
                     </a>
                 </td>
                 <td class="text-center">
-                    <div data-svelte="dialog-confirm"
+                    <div data-target="implantation"
+                         data-targetid="{{ implantation.id }}"
                          data-action="{{ path('implantation_delete', {'id': implantation.id}) }}"
                          data-class="fas fa-trash"
                          data-csrf="{{ csrf_token('implantation_delete' ~ implantation.id) }}"
@@ -61,5 +62,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('SvelteApp') }}
+    {{ encore_entry_script_tags('modalDialogs') }}
 {% endblock %}

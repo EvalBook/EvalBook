@@ -10,20 +10,13 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 Encore
     .setOutputPath('public/build/')
     .setPublicPath('/build')
-    // only needed for CDN's or sub-directory deploy
-    //.setManifestKeyPrefix('build/')
 
-    // Svelte related.
-    .addLoader({
-        test: /\.svelte$/,
-        loader: 'svelte-loader',
-    })
-
-    .addEntry('SvelteApp', './assets/js/SvelteApp.js')
+    // JS.
+    .addEntry('modalDialogs', './assets/js/modal-dialogs.js')
     .addEntry('api', './assets/js/api.js')
     .addEntry('controls', './assets/js/controls.js')
 
-    // Global css layout.
+    // CSS.
     .addStyleEntry('theme', './assets/css/theme.css')
     .addStyleEntry('dialogs', './assets/css/dialogs.css')
 
@@ -55,11 +48,8 @@ Encore
 ;
 
 let config = Encore.getWebpackConfig();
-config.resolve.mainFields = ['svelte', 'browser', 'module', 'main'];
-config.resolve.extensions = ['.mjs', '.js', '.svelte'];
-
-let svelte = config.module.rules.pop();
-config.module.rules.unshift(svelte);
+config.resolve.mainFields = ['browser', 'module', 'main'];
+config.resolve.extensions = ['.mjs', '.js'];
 
 // File watcher
 config.watch = true;
