@@ -23,7 +23,9 @@ use App\Entity\Implantation;
 use App\Form\ImplantationType;
 use App\Repository\ImplantationRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -104,12 +106,28 @@ class ImplantationController extends AbstractController
 
 
     /**
-     * @Route("/implantation/delete/{id}", name="implantation_delete")
-     * @IsGranted("ROLE_IMPLANTATION_DELETE", statusCode=404, message="Not found")
+     * @Route("/implantation/delete/{id}", name="implantation_delete", methods={"POST"})
      * @param Implantation $implantation
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function deleteImplantation(Implantation $implantation)
+    public function deleteImplantation(Implantation $implantation, Request $request)
     {
+        $jsonRequest = json_decode($request->getContent(), true);
+        if( !isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('implantation_delete'.$implantation->getId(), $jsonRequest['csrf'])) {
+            return $this->json(['message' => 'Invalid csrf token'], 201);
+        }
 
+        $entityManager = $this->getDoctrine()->getManager();
+
+        // Deleting implantation, attached classes and attached periods, making others orphan.
+        $attached = array_merge($implantation->getClasses()->toArray(), $implantation->getPeriodes()->toArray());
+        foreach($attached as $attachedEntity) {
+            $entityManager->remove($attachedEntity);
+        }
+        $entityManager->remove($implantation);
+        $entityManager->flush();
+
+        return $this->json(['message' => 'Implantation deleted'], 200);
     }
 }

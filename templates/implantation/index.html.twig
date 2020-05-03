@@ -32,6 +32,7 @@
                     <div data-svelte="dialog-confirm"
                          data-action="{{ path('implantation_delete', {'id': implantation.id}) }}"
                          data-class="fas fa-trash"
+                         data-csrf="{{ csrf_token('implantation_delete' ~ implantation.id) }}"
                     >
                     </div>
                 </td>

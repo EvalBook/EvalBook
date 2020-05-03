@@ -29,13 +29,4 @@ let Language = {
     }
 };
 
-/**
- * Handle users api calls.
- * @type {{}}
- */
-let User = {
-
-};
-
 export { Language };
-export { User };
