@@ -29,8 +29,11 @@
                     </a>
                 </td>
                 <td class="text-center">
-
-                        <i class="fas fa-trash"></i>
+                    <div data-svelte="dialog-confirm"
+                         data-action="{{ path('implantation_delete', {'id': implantation.id}) }}"
+                         data-class="fas fa-trash"
+                    >
+                    </div>
                 </td>
             </tr>
         {% else %}
@@ -54,4 +57,8 @@
     <a href="{{ path('implantation_add') }}">
         <i class="fas fa-plus"></i>
     </a>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('SvelteApp') }}
 {% endblock %}

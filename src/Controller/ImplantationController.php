@@ -22,7 +22,6 @@ namespace App\Controller;
 use App\Entity\Implantation;
 use App\Form\ImplantationType;
 use App\Repository\ImplantationRepository;
-use App\Service\FormService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -54,7 +53,7 @@ class ImplantationController extends AbstractController
      * @Route("/implantation/add", name="implantation_add")
      * @IsGranted("ROLE_IMPLANTATION_CREATE", statusCode=404, message="Not found")
      *
-     * @param FormService $service
+     * @param Request $request
      * @return RedirectResponse|Response
      */
     public function add(Request $request)
@@ -85,7 +84,7 @@ class ImplantationController extends AbstractController
      * @param Implantation $implantation
      * @return RedirectResponse|Response
      */
-    public function edit(Request $request, Implantation $implantation)
+    public function edit(Implantation $implantation, Request $request)
     {
         $form = $this->createForm(ImplantationType::class, $implantation);
         $form->handleRequest($request);
@@ -105,10 +104,11 @@ class ImplantationController extends AbstractController
 
 
     /**
-     * @Route("/implantation/delete", name="implantations_delete")
+     * @Route("/implantation/delete/{id}", name="implantation_delete")
      * @IsGranted("ROLE_IMPLANTATION_DELETE", statusCode=404, message="Not found")
+     * @param Implantation $implantation
      */
-    public function deleteImplantation()
+    public function deleteImplantation(Implantation $implantation)
     {
 
     }

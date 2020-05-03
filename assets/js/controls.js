@@ -19,6 +19,17 @@ window.addEventListener('click', function(event) {
     }
 });
 
+// Display a modal window on any element delete.
+let errorDialogs = document.querySelectorAll('[data-target="delete-confirm"]');
+for(let errorDialog of errorDialogs) {
+    errorDialog.addEventListener('click', function(event) {
+        event.preventDefault();
+
+
+    });
+}
+
+
 /**
  * Hiding dialog errors / dialog success after 5 seconds.
  */

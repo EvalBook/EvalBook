@@ -29,12 +29,11 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
-    .addEntry('app', './assets/js/app.js')
+    .addEntry('SvelteApp', './assets/js/SvelteApp.js')
     .addEntry('api', './assets/js/api.js')
     .addEntry('controls', './assets/js/controls.js')
 
     // Global css layout.
-    .addStyleEntry('svelte-style', './assets/css/app.css')
     .addStyleEntry('theme', './assets/css/theme.css')
     .addStyleEntry('dialogs', './assets/css/dialogs.css')
 
