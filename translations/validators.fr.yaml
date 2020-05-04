@@ -94,3 +94,12 @@ Error: Erreur
 'This form should not contain extra fields.': 'Ce formulaire ne doit pas contenir des champs supplémentaires.'
 'The uploaded file was too large. Please try to upload a smaller file.': 'Le fichier téléchargé est trop volumineux. Merci d''essayer d''envoyer un fichier plus petit.'
 'The CSRF token is invalid. Please try to resubmit the form.': 'Le jeton CSRF est invalide. Veuillez renvoyer le formulaire.'
+
+implantation:
+  name-too-short: Le nom de l'implantation doit comporter plus de 4 lettres.
+  name-too-long: Le nom de l'implantation ne peut pas dépasser 100 lettres.
+  address-too-short: L'adresse de l'implantation doit comporter plus de 4 lettres.
+  address-too-long: L'adresse de l'implantation ne peut pas dépasser 100 lettres.
+  zip-is-blank: Le code postal ne peut être vide
+  country-name-too-short: Le nom de la ville doit comporter plus de 4 lettres.
+  country-name-too-long: Le nom de la ville ne peut pas dépasser 100 lettres.

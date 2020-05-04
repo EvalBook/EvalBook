@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block title %}
-    {{ implantation.id is defined ? 'Edit'|trans ~ implantation.name : 'Add'|trans }}
+    {{ implantation.id is defined ? 'Edit'|trans : 'Add'|trans }}
 {% endblock %}
 
 {% block body %}
@@ -15,33 +15,53 @@
             <i class="fas fa-long-arrow-alt-left"></i>
         </a>
 
-        {{ form_start(form) }}
-        {{ form_errors(form) }}
+        <div class="form-content">
+            {{ form_start(form) }}
 
-        {# Implantation name #}
-        {{ form_label(form.name, 'Name') }}
-        {{ form_widget(form.name) }}
+            {# Implantation name #}
+            <div class="form-row">
+                {{ form_label(form.name, 'Name'|trans) }}
+                {{ form_widget(form.name) }}
+                <span class="form-error">
+                    {{ form_errors(form.name) }}
+                </span>
+            </div>
 
-        {# Implantation address #}
-        {{ form_label(form.address, 'Address') }}
-        {{ form_widget(form.address) }}
+            {# Implantation address #}
+            <div class="form-row">
+                {{ form_label(form.address, 'Address'|trans) }}
+                {{ form_widget(form.address) }}
+                <span class="form-error">
+                    {{ form_errors(form.address) }}
+                </span>
+            </div>
+
+            {# Implantation zip code #}
+            <div class="form-row">
+                {{ form_label(form.zipCode, 'Zip-code'|trans) }}
+                {{ form_widget(form.zipCode) }}
+                <span class="form-error">
+                    {{ form_errors(form.zipCode) }}
+                </span>
+            </div>
 
 
-        {# Implantation zip code #}
-        {{ form_label(form.zipCode, 'Zip-code') }}
-        {{ form_widget(form.zipCode) }}
+            {# Implantation country #}
+            <div class="form-row">
+                {{ form_label(form.country, 'Country'|trans) }}
+                {{ form_widget(form.country) }}
+                <span class="form-error">
+                    {{ form_errors(form.country) }}
+                </span>
+            </div>
 
+            {# Submit button #}
+            {{ form_row(form.submit, {
+                'label': 'Send'|trans,
+                'attr': {'class': 'margin-15'},
+            }) }}
 
-        {# Implantation country #}
-        {{ form_label(form.country, 'Country') }}
-        {{ form_widget(form.country) }}
-
-        {# Submit button #}
-        {{ form_row(form.submit, {
-            'label': 'Send'|trans,
-            'attr': {'class': 'margin-15'},
-        }) }}
-
-        {{ form_end(form) }}
+            {{ form_end(form) }}
+        </div>
     </div>
 {% endblock %}

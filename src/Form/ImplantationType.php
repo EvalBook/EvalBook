@@ -2,12 +2,9 @@
 
 namespace App\Form;
 
-use App\Entity\Ecole;
 use App\Entity\Implantation;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -33,8 +30,8 @@ class ImplantationType extends AbstractType
                     new Length([
                         'min' => 4,
                         'max' => 100,
-                        'minMessage' => 'implantations.message.name-too-short',
-                        'maxMessage' => 'implantations.message.name-too-long'
+                        'minMessage' => 'implantation.name-too-short',
+                        'maxMessage' => 'implantation.name-too-long'
                     ]),
                 ]
             ])
@@ -45,8 +42,8 @@ class ImplantationType extends AbstractType
                     new Length([
                         'min' => 4,
                         'max' => 100,
-                        'minMessage' => 'implantations.message.address-too-short',
-                        'maxMessage' => 'implantations.message.address-too-long'
+                        'minMessage' => 'implantation.address-too-short',
+                        'maxMessage' => 'implantation.address-too-long'
                     ]),
                 ]
             ])
@@ -55,7 +52,7 @@ class ImplantationType extends AbstractType
             ->add('zipCode', IntegerType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'implantations.message.zip-is-blank'
+                        'message' => 'implantation.zip-is-blank'
                     ]),
                 ]
             ])
@@ -66,8 +63,8 @@ class ImplantationType extends AbstractType
                     new Length([
                         'min' => 4,
                         'max' => 100,
-                        'minMessage' => 'implantations.message.country-name-too-short',
-                        'maxMessage' => 'implantations.message.country-name-too-long'
+                        'minMessage' => 'implantation.country-name-too-short',
+                        'maxMessage' => 'implantation.country-name-too-long'
                     ]),
                 ]
             ])
@@ -97,8 +94,7 @@ class ImplantationType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Implantation::class,
-            'translation_domain' => 'forms',
-            'required' => true
+            'required' => true,
         ]);
     }
 }

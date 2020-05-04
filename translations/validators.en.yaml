@@ -94,3 +94,12 @@ Error: Error
 'This form should not contain extra fields.': 'This form should not contain extra fields.'
 'The uploaded file was too large. Please try to upload a smaller file.': 'The uploaded file was too large. Please try to upload a smaller file.'
 'The CSRF token is invalid. Please try to resubmit the form.': 'The CSRF token is invalid. Please try to resubmit the form.'
+
+implantation:
+  name-too-short: The implantation name is too short.
+  name-too-long: The implantation name is too long.
+  address-too-short: Address is too short.
+  address-too-long: Address is too long.
+  zip-is-blank: Zip code cannot be empty.
+  country-name-too-short: Country name is too short.
+  country-name-too-long: Country name is too long.

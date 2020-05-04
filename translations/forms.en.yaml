@@ -72,18 +72,3 @@ user:
     ROLE_IMPLANTATION_EDIT: Editer une implantation
     ROLE_IMPLANTATION_CREATE: Créer une implantation
     ROLE_IMPLANTATION_DELETE: Supprimer une implantation
-
-implantations:
-  name: Implantation name
-  address: Implantation address
-  zip-code: Zip code
-  country: Country
-
-  message:
-    name-too-short: The implantation name is too short.
-    name-too-long: The implantation name is too long.
-    address-too-short: Address is too short.
-    address-too-long: Address is too long.
-    zip-is-blank: Zip code cannot be empty.
-    country-name-too-short: Country name is too short.
-    country-name-too-long: Country name is too long.

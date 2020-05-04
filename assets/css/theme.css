@@ -210,8 +210,7 @@ form {
     display: flex;
     flex-direction: column;
     width: 100%;
-    line-height: 4vh;
-    margin-top: 2vw;
+    line-height: 2.5vh;
 }
 
 input {
@@ -239,10 +238,36 @@ button[type="submit"] {
     margin-right: 5vw;
 }
 
+.form-row, .form-row label, .form-row input {
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.form-row ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.form-error {
+    font-size: 0.7vw;
+    color: #D98484;
+    font-weight: bold;
+}
+
+.form-row {
+    margin-bottom: 15px;
+}
+
+.form-content {
+    padding: 28px;
+}
+
 /**
  * Tables and global content data.
  */
-table {
+table, .form-content {
     text-align: left;
     box-shadow: 0 2px 35px -15px rgba(0,0,0,0.75);
     border-collapse: collapse;
