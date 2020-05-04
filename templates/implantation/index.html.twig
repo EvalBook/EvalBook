@@ -10,25 +10,25 @@
         <tr>
             <th scope="col">{{ 'Implantations' | trans }}</th>
             <th scope="col">{{ 'Address' | trans }}</th>
-            <th scope="col">{{ 'Zip-code' | trans }}</th>
+            <th scope="col" data-mobile="0">{{ 'Zip-code' | trans }}</th>
             <th scope="col">{{ 'Country' | trans }}</th>
-            <th scope="col" class="text-center">{{ 'Edit' | trans }}</th>
-            <th scope="col" class="text-center">{{ 'Delete' | trans }}</th>
+            <th scope="col" class="text-center" data-mobile="0">{{ 'Edit' | trans }}</th>
+            <th scope="col" class="text-center" data-mobile="0">{{ 'Delete' | trans }}</th>
         </tr>
         </thead>
         <tbody>
         {% for implantation in implantations %}
-            <tr data-id="{{ implantation.id }}">
+            <tr data-id="{{ implantation.id }}" data-trigger="{{ path('implantation_edit', {'id': implantation.id}) }}">
                 <td>{{ implantation.name }}</td>
                 <td>{{ implantation.address }}</td>
-                <td>{{ implantation.zipCode }}</td>
+                <td data-mobile="0">{{ implantation.zipCode }}</td>
                 <td>{{ implantation.country }}</td>
-                <td class="text-center">
+                <td class="text-center" data-mobile="0">
                     <a href="{{ path('implantation_edit', {'id': implantation.id}) }}">
                         <i class="fas fa-edit"></i>
                     </a>
                 </td>
-                <td class="text-center">
+                <td class="text-center" data-mobile="0">
                     <div data-target="implantation"
                          data-targetid="{{ implantation.id }}"
                          data-action="{{ path('implantation_delete', {'id': implantation.id}) }}"

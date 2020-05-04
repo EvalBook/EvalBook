@@ -1,10 +1,5 @@
-import {Api, Language} from "./api";
+import {Api, Language} from "./api.js";
 
-
-/*
-data-action="{{ path('implantation_delete', {'id': implantation.id}) }}"
-data-csrf="{{ csrf_token('implantation_delete' ~ implantation.id) }}"
- */
 
 let ModalDialog = function(parent, className, action, csrf, targetId) {
 
@@ -17,6 +12,7 @@ let ModalDialog = function(parent, className, action, csrf, targetId) {
         parentLink.addEventListener('click', () => this.showModal());
         parent.appendChild(parentLink);
     }
+
 
     this.showModal = function() {
 
@@ -59,6 +55,7 @@ let ModalDialog = function(parent, className, action, csrf, targetId) {
 
         parent.appendChild(this.modalDiv);
     }
+
 
     this._actionRequestCallback = function(target) {
         let element = document.querySelector(`[data-id="${target}"]`);

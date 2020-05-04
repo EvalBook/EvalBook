@@ -12,9 +12,10 @@ Encore
     .setPublicPath('/build')
 
     // JS.
+    .addEntry('App', './assets/js/App.js')
     .addEntry('modalDialogs', './assets/js/modal-dialogs.js')
-    .addEntry('api', './assets/js/api.js')
     .addEntry('controls', './assets/js/controls.js')
+    .addEntry('api', './assets/js/api.js')
 
     // CSS.
     .addStyleEntry('theme', './assets/css/theme.css')

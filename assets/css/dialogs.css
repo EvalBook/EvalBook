@@ -44,6 +44,10 @@
     font-weight: bold;
 }
 
+.dialog-mobile-menu {
+    width: 50%;
+}
+
 .button-ok, .button-cancel {
     cursor: pointer;
     margin-left: 30px;
@@ -52,7 +56,7 @@
     font-weight: bold;
     border-radius: 10px;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-    width: 7vw;
+    width: 20%;
     height: 3.5vh;
 }
 
