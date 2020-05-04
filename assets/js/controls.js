@@ -7,13 +7,16 @@ let Controls = {
      * Init global behavior.
      */
     init: function() {
+        setInterval(() => this._hideDialog(), 4000);
+    },
+
+
+    _hideDialog: function() {
         // Hiding dialog errors / dialog success after 5 seconds.
-        window.setTimeout(function() {
-            let dialogs = document.getElementsByClassName("dialog");
-            for(let dialog of dialogs) {
-                dialog.parentElement.removeChild(dialog);
-            }
-        }, 4000);
+        let dialogs = document.getElementsByClassName("dialog");
+        for(let dialog of dialogs) {
+            dialog.parentElement.removeChild(dialog);
+        }
     },
 
 
@@ -65,4 +68,11 @@ let Controls = {
     },
 };
 
-export { Controls };
+
+// Init interface controls.
+Controls.init();
+
+// Activate mobile js navigation in case of screen smaller than 800px.
+if(window.innerWidth <= 800) {
+    Controls.activateMobileNavigation();
+}
