@@ -103,3 +103,12 @@ implantation:
   zip-is-blank: Le code postal ne peut être vide
   country-name-too-short: Le nom de la ville doit comporter plus de 4 lettres.
   country-name-too-long: Le nom de la ville ne peut pas dépasser 100 lettres.
+
+user:
+  first-name-too-short: Le prénom de l'utilisateur doit comporter plus de trois lettres.
+  first-name-too-long: Le prénom de l'utilisateur ne peut pas dépasser 100 lettres.
+  last-name-too-short: Le nom de l'utilisateur doit comporter plus de trois lettres.
+  last-name-too-long: Le nom de l'utilisateur ne peut pas dépasser 100 lettres.
+  email-is-null: L'adresse e-mail ne peut être nulle.
+  password-not-match: La vérification du mot de passe a échoué.
+  confirm-delete: Etes vous sûr de vouloir supprimer cet utlisateur ?

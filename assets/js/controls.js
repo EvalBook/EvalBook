@@ -26,6 +26,6 @@ window.addEventListener('click', function(event) {
 window.setTimeout(function() {
     let dialogs = document.getElementsByClassName("dialog");
     for(let dialog of dialogs) {
-        //dialog.parentElement.removeChild(dialog);
+        dialog.parentElement.removeChild(dialog);
     }
 }, 4000);

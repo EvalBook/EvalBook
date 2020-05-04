@@ -103,3 +103,12 @@ implantation:
   zip-is-blank: Zip code cannot be empty.
   country-name-too-short: Country name is too short.
   country-name-too-long: Country name is too long.
+
+user:
+  first-name-too-short: The first name must have 3 letters at least.
+  first-name-too-long: The first name should not have more than 100 letters.
+  last-name-too-short: The name must have 3 letters at least.
+  last-name-too-long: The name should not have more than 100 letters.
+  email-is-null: The mail address cannot be empty.
+  password-not-match: The password check has failed.
+  confirm-delete: Etes vous sûr de vouloir supprimer cet utlisateur ?

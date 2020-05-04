@@ -1,51 +1,15 @@
-# Global main menu related.
-global:
-  dashboard: Dashboard
-  notebook: Notebook
-  activities: Activities
-  school-reports: School Reports
-  students: Students
-  classes: Classes
-  users: Users
-  profile: Profile
-  disconnect: Log out
-  slogan: Teachers evaluation tool
-  github: Source code on
-  yes: yes
-  no: no
-
-# Users interface related.
-users:
-  not-found: No users found
-
-  title:
-    list: Users list
-    edit: Edit users
-    delete: Delete users
-    management: Users management
-
-  label:
-    view-list: List users
-    add: Add a new user
-    add-admin: Add a new administrator
-    edit: Edit a user
-    delete: Delete a user
-
-  button:
-    view-list: View list
-    add: Add users
-    add-admin: Add admin
-    edit: Edit users
-    delete: Delete users
-
-  th:
-    id: Id
-    roles: Roles
-    first-name: First name
-    last-name: Last name
-    email: E-Mail
-    active: Active
-
+Dashboard: Dashboard
+Notebook: Notebook
+Activities: Activities
+School reports: School Reports
+Students: Students
+Classes: Classes
+Users: Users
+My profile: Profile
+Log out: Log out
+Teachers evaluation tool: Teachers evaluation tool
+Source code on: Source code on
+Profile: Profile
 Implantations: Implantations
 No implantation found: No implantation found
 Implantation deleted: Implantation deleted
@@ -55,6 +19,9 @@ Are you sure you want to delete this implantation ?: Are you sure you want to de
 Invalid csrf token: Invalid csrf token
 Id: Id
 Address: Adress
+Mail address: Mail address
+Password: Password
+Password repeat: Password repeat
 Zip-code: Zip code
 Country: Country
 Edit: Edit
@@ -67,4 +34,3 @@ Successfully updated: Successfully updated
 Successfully added: Successfully added
 Yes: Yes
 No: No
-
