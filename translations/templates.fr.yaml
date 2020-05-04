@@ -1,51 +1,15 @@
-# Global main menu related.
-global:
-  dashboard: Tableau de bord
-  notebook: Cahier de notes
-  activities: Activités
-  school-reports: Bulletins
-  students: Students
-  classes: Classes
-  users: Utlisateurs
-  profile: Mon profil
-  disconnect: Déconnexion
-  slogan: L'outil d'évaluation des professeurs
-  github: Code source sur
-  yes: Oui
-  no: Non
-
-# Users interface related.
-users:
-  not-found: Aucun utilisateur trouvé
-
-  title:
-    list: Liste des utilisateurs
-    edit: Editer les utilisateurs
-    delete: Supprimer des utilisateurs
-    management: Gestion des utilisateurs
-
-  label:
-    view-list: Lister les utilisateurs
-    add: Ajouter un utilisateur
-    add-admin: Ajouter un administrateur
-    edit: Editer un utilisateur
-    delete: Supprimer un utilisateur
-
-  button:
-    view-list: Voir la liste
-    add: Ajouter utilisateurs
-    add-admin: Ajouter admin
-    edit: Editer utilisateurs
-    delete: Supprimer utilisateurs
-
-  th:
-    id: Id
-    roles: Rôles
-    first-name: Prénom
-    last-name: Nom
-    email: E-Mail
-    active: Actif
-
+Dashboard: Tableau de bord
+Notebook: Cahier de notes
+Activities: Activités
+School reports: Bulletins
+Students: Students
+Classes: Classes
+Users: Utlisateurs
+My profile: Mon profil
+Log out: Déconnexion
+Teachers evaluation tool: L'outil d'évaluation des professeurs
+Source code on: Code source sur
+Profile: Profil
 Implantations: Implantations
 No implantation found: Aucune implantation trouvée
 Implantation deleted: Implantation supprimée
@@ -55,6 +19,9 @@ Are you sure you want to delete this implantation ?: Etes vous sûr de vouloir s
 Invalid csrf token: Token CSRF invalide
 Id: Id
 Address: Adresse
+Mail address: Adresse e-mail
+Password: Mot de passe
+Password repeat: Répétez le mot de passe
 Zip-code: Code postal
 Country: Ville
 Edit: Editer

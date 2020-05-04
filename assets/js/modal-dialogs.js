@@ -1,10 +1,5 @@
-import {Api, Language} from "./api";
+import {Api, Language} from "./api.js";
 
-
-/*
-data-action="{{ path('implantation_delete', {'id': implantation.id}) }}"
-data-csrf="{{ csrf_token('implantation_delete' ~ implantation.id) }}"
- */
 
 let ModalDialog = function(parent, className, action, csrf, targetId) {
 
@@ -14,12 +9,13 @@ let ModalDialog = function(parent, className, action, csrf, targetId) {
     this.init = function() {
         let parentLink = document.createElement('a');
         parentLink.innerHTML = `<i class="${className}"></i>`;
+        parentLink.style.cursor = 'pointer';
         parentLink.addEventListener('click', () => this.showModal());
         parent.appendChild(parentLink);
     }
 
-    this.showModal = function() {
 
+    this.showModal = function() {
         this.modalDiv = document.createElement('div');
         let okButton = document.createElement('button');
         let cancelButton = document.createElement('button');
@@ -47,6 +43,7 @@ let ModalDialog = function(parent, className, action, csrf, targetId) {
             }, {
                 action: this._actionRequestCallback,
                 param: targetId,
+                message: this.labels['Implantation deleted'],
             });
 
             parent.removeChild(this.modalDiv);
@@ -60,9 +57,16 @@ let ModalDialog = function(parent, className, action, csrf, targetId) {
         parent.appendChild(this.modalDiv);
     }
 
-    this._actionRequestCallback = function(target) {
+
+    this._actionRequestCallback = function(target, message) {
         let element = document.querySelector(`[data-id="${target}"]`);
         element.parentElement.removeChild(element);
+
+        let messageDialog = document.createElement('div');
+        messageDialog.classList.add('dialog');
+        messageDialog.classList.add('dialog-error');
+        messageDialog.innerHTML = message
+        document.body.appendChild(messageDialog);
     }
 
 }

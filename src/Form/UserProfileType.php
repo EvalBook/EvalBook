@@ -43,7 +43,7 @@ class UserProfileType extends AbstractType
             ->add('email', EmailType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'user.message.email-is-null',
+                        'message' => 'user.email-is-null',
                     ])
                 ],
                 'required' => true,
@@ -52,7 +52,7 @@ class UserProfileType extends AbstractType
                 // Password and password verify form inputs.
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'invalid_message' => 'user.message.password-not-match',
+                'invalid_message' => 'user.password-not-match',
                 'required' => false,
                 'empty_data' => '',
                 'first_options'  => [ 'empty_data' => ''],
@@ -72,7 +72,6 @@ class UserProfileType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'translation_domain' => 'forms'
         ]);
     }
 }

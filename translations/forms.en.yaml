@@ -1,89 +1,33 @@
-common:
-  send: Send
-  yes: Yes
-  no: No
-  edit: Edit
-  user: User
-  student: Pupil
-  period: Period
-  class: Class
-  activity: Activity
-  notebook: Notebook
-  bulletin: School report
-  implantation: Implantation
-
-user:
-  profile: Profile
-  title:
-    add: Add a user
-    edit: Edit a user
-    delete: Delete a user
-    roles-choose: Choose the user roles
-
-  label:
-    first-name: User first name
-    last-name: User last name
-    email: Mail address
-    password: Password
-    password-repeat: Repeat password
-    is-active: Is the user active ?
-    confirm:
-      delete: Are you sure you want to delete this user ?
-
-  message:
-    first-name-too-short: The first name must have 3 letters at least.
-    first-name-too-long: The first name should not have more than 100 letters.
-    last-name-too-short: The name must have 3 letters at least.
-    last-name-too-long: The name should not have more than 100 letters.
-    email-is-null: The mail address cannot be empty.
-    password-not-match: The password check has failed.
-    confirm-delete: Etes vous sûr de vouloir supprimer cet utlisateur ?
-
-  roles:
-    ROLE_USER_LIST_ALL: Lister les utilisateurs
-    ROLE_USER_CREATE: Créer un utilisateur
-    ROLE_USER_EDIT: Editer un utilisateur
-    ROLE_USER_DELETE: Supprimer un utilisateur
-    ROLE_STUDENT_LIST_ALL: Lister les étudiants
-    ROLE_STUDENT_CREATE: Créer un étudiant
-    ROLE_STUDENT_EDIT: Editer un étudiant
-    ROLE_STUDENT_DELETE: Supprimer un étudiant
-    ROLE_PERIOD_LIST_ALL: Lister les périodes
-    ROLE_PERIOD_CREATE: Créer une période
-    ROLE_PERIOD_EDIT: Editer une période
-    ROLE_PERIOD_DELETE: Supprimer une période
-    ROLE_CLASS_LIST_ALL: Lister les classes
-    ROLE_CLASS_CREATE: Créer une classe
-    ROLE_CLASS_EDIT: Editer une classe
-    ROLE_CLASS_DELETE: Supprimer une classe
-    ROLE_CLASS_EDIT_STUDENTS: Assign student to a class.
-    ROLE_CLASS_EDIT_USERS: Assign user to a class.
-    ROLE_ACTIVITY_LIST_ALL: Lister les activités
-    ROLE_ACTIVITY_CREATE: Créer une activité
-    ROLE_ACTIVITY_EDIT: Editer une activité
-    ROLE_ACTIVITY_DELETE: Supprimer une activité
-    ROLE_NOTEBOOK_VIEW: Voir le cahier de notes
-    ROLE_BULLETIN_LIST_ALL: Lister les bulletins
-    ROLE_BULLETIN_PRINT_ALL: Imprimer les bulletins
-    ROLE_BULLETIN_VALIDATE: Valider un bulletin
-    ROLE_BULLETIN_ADD_COMMENT: Ajouter un commentaire bulletin
-    ROLE_BULLETIN_STYLE_EDIT: Editer le style du bulletin
-    ROLE_IMPLANTATION_LIST_ALL: Lister les implantations
-    ROLE_IMPLANTATION_EDIT: Editer une implantation
-    ROLE_IMPLANTATION_CREATE: Créer une implantation
-    ROLE_IMPLANTATION_DELETE: Supprimer une implantation
-
-implantations:
-  name: Implantation name
-  address: Implantation address
-  zip-code: Zip code
-  country: Country
-
-  message:
-    name-too-short: The implantation name is too short.
-    name-too-long: The implantation name is too long.
-    address-too-short: Address is too short.
-    address-too-long: Address is too long.
-    zip-is-blank: Zip code cannot be empty.
-    country-name-too-short: Country name is too short.
-    country-name-too-long: Country name is too long.
+roles:
+  ROLE_USER_LIST_ALL: Lister les utilisateurs
+  ROLE_USER_CREATE: Créer un utilisateur
+  ROLE_USER_EDIT: Editer un utilisateur
+  ROLE_USER_DELETE: Supprimer un utilisateur
+  ROLE_STUDENT_LIST_ALL: Lister les étudiants
+  ROLE_STUDENT_CREATE: Créer un étudiant
+  ROLE_STUDENT_EDIT: Editer un étudiant
+  ROLE_STUDENT_DELETE: Supprimer un étudiant
+  ROLE_PERIOD_LIST_ALL: Lister les périodes
+  ROLE_PERIOD_CREATE: Créer une période
+  ROLE_PERIOD_EDIT: Editer une période
+  ROLE_PERIOD_DELETE: Supprimer une période
+  ROLE_CLASS_LIST_ALL: Lister les classes
+  ROLE_CLASS_CREATE: Créer une classe
+  ROLE_CLASS_EDIT: Editer une classe
+  ROLE_CLASS_DELETE: Supprimer une classe
+  ROLE_CLASS_EDIT_STUDENTS: Assign student to a class.
+  ROLE_CLASS_EDIT_USERS: Assign user to a class.
+  ROLE_ACTIVITY_LIST_ALL: Lister les activités
+  ROLE_ACTIVITY_CREATE: Créer une activité
+  ROLE_ACTIVITY_EDIT: Editer une activité
+  ROLE_ACTIVITY_DELETE: Supprimer une activité
+  ROLE_NOTEBOOK_VIEW: Voir le cahier de notes
+  ROLE_BULLETIN_LIST_ALL: Lister les bulletins
+  ROLE_BULLETIN_PRINT_ALL: Imprimer les bulletins
+  ROLE_BULLETIN_VALIDATE: Valider un bulletin
+  ROLE_BULLETIN_ADD_COMMENT: Ajouter un commentaire bulletin
+  ROLE_BULLETIN_STYLE_EDIT: Editer le style du bulletin
+  ROLE_IMPLANTATION_LIST_ALL: Lister les implantations
+  ROLE_IMPLANTATION_EDIT: Editer une implantation
+  ROLE_IMPLANTATION_CREATE: Créer une implantation
+  ROLE_IMPLANTATION_DELETE: Supprimer une implantation

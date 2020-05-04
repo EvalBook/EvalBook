@@ -1,33 +1,47 @@
 {% extends 'base.html.twig' %}
-{% trans_default_domain 'forms' %}
+{% trans_default_domain 'templates' %}
 
-{% block pageTitle %} {{ 'user.profile' | trans }} {% endblock %}
-{% block title %} {{ 'user.profile' | trans }} {% endblock %}
+{% block pageTitle %} {{ 'Profile' | trans }} {% endblock %}
+{% block title %} {{ 'Profile' | trans }} {% endblock %}
 
 {% block body %}
+    <div class="full-width flex column">
+        <div class="form-content">
+            {{ form_start(userProfileForm) }}
 
-    {% if userProfileForm is defined %}
-        {{ form_start(userProfileForm) }}
-        {{ form_errors(userProfileForm) }}
+            {# The user mail address #}
+            <div class="form-row">
+                {{ form_label(userProfileForm.email, 'Mail address'|trans) }}
+                {{ form_widget(userProfileForm.email) }}
+                <span class="form-error">
+                    {{ form_errors(userProfileForm.email) }}
+                </span>
+            </div>
 
+            {# The user password #}
+            <div class="form-row">
+                {{ form_label(userProfileForm.password.first, 'Password'|trans) }}
+                {{ form_widget(userProfileForm.password.first) }}
+                <span class="form-error">
+                    {{ form_errors(userProfileForm.password.first) }}
+                </span>
+            </div>
 
-        {# The user mail address #}
-        {{ form_label(userProfileForm.email, 'user.label.email'|trans) }}
-        {{ form_widget(userProfileForm.email) }}
+            <div class="form-row">
+                {{ form_label(userProfileForm.password.second, 'Password repeat'|trans) }}
+                {{ form_widget(userProfileForm.password.second) }}
+                <span class="form-error">
+                    {{ form_errors(userProfileForm.password.second) }}
+                </span>
+            </div>
 
-        {# The user password #}
-        {{ form_label(userProfileForm.password.first, 'user.label.password'|trans) }}
-        {{ form_widget(userProfileForm.password.first) }}
+            {# Submit button #}
+            {{ form_row(userProfileForm.submit, {'label': 'Send'|trans,
+                'attr': {'class': 'margin-15'}
+            }) }}
 
-        {{ form_label(userProfileForm.password.second, 'user.label.password-repeat'|trans) }}
-        {{ form_widget(userProfileForm.password.second) }}
+            {{ form_end(userProfileForm) }}
 
-        {# Submit button #}
-        {{ form_row(userProfileForm.submit, {'label': 'common.send'|trans,
-            'attr': {'class': 'margin-15'}
-        }) }}
-
-        {{ form_end(userProfileForm) }}
-
-    {% endif %}
+        </div>
+    </div>
 {% endblock %}

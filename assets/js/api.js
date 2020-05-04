@@ -13,7 +13,7 @@ let Api = {
 
         let data = await response.json();
         if(callback)
-            callback.action(callback.param);
+            callback.action(callback.param, callback.message);
         return data;
 
     }

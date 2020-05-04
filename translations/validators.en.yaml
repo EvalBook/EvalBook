@@ -94,3 +94,21 @@ Error: Error
 'This form should not contain extra fields.': 'This form should not contain extra fields.'
 'The uploaded file was too large. Please try to upload a smaller file.': 'The uploaded file was too large. Please try to upload a smaller file.'
 'The CSRF token is invalid. Please try to resubmit the form.': 'The CSRF token is invalid. Please try to resubmit the form.'
+
+implantation:
+  name-too-short: The implantation name is too short.
+  name-too-long: The implantation name is too long.
+  address-too-short: Address is too short.
+  address-too-long: Address is too long.
+  zip-is-blank: Zip code cannot be empty.
+  country-name-too-short: Country name is too short.
+  country-name-too-long: Country name is too long.
+
+user:
+  first-name-too-short: The first name must have 3 letters at least.
+  first-name-too-long: The first name should not have more than 100 letters.
+  last-name-too-short: The name must have 3 letters at least.
+  last-name-too-long: The name should not have more than 100 letters.
+  email-is-null: The mail address cannot be empty.
+  password-not-match: The password check has failed.
+  confirm-delete: Etes vous sûr de vouloir supprimer cet utlisateur ?

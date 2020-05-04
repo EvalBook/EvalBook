@@ -4,7 +4,7 @@
     position: absolute;
     top:0;
     left: 0;
-    height: 7vh;
+    height: 5em;
     color: white;
     font-weight: bold;
     display: flex;
@@ -15,7 +15,7 @@
 
 .dialog-modal {
     position: absolute;
-    top: 20vh;
+    top: 16em;
     left: 0;
     right: 0;
     margin-left: auto;
@@ -27,7 +27,6 @@
     background-color: #e8e8e8;
     box-shadow: 0 2px 35px -15px rgba(0,0,0,0.75);
     padding: 50px;
-    height: 20vh;
 }
 
 .dialog-error {
@@ -39,9 +38,13 @@
 }
 
 .dialog-confirm {
-    height: 10vh;
-    width: 30%;
+    height: 8em;
+    width: 40em;
     font-weight: bold;
+}
+
+.dialog-mobile-menu {
+    width: 50%;
 }
 
 .button-ok, .button-cancel {
@@ -52,8 +55,8 @@
     font-weight: bold;
     border-radius: 10px;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-    width: 7vw;
-    height: 3.5vh;
+    width: 8em;
+    height: 3em;
 }
 
 .button-ok {
@@ -65,6 +68,7 @@
 }
 
 @media all and (max-width: 800px) {
+
     .dialog-confirm {
         width: 50%;
     }

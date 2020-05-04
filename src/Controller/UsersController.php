@@ -228,19 +228,14 @@ class UsersController extends AbstractController
     {
         $userForm = $this->createForm(UserProfileType::class, $this->getUser());
 
-        try {
-            $userForm->handleRequest($request);
+        $userForm->handleRequest($request);
 
-            if ($userForm->isSubmitted() && $userForm->isValid())
-            {
-                $entityManager->persist($this->getUser());
-                $entityManager->flush();
-                $this->addFlash('success', 'user.self-updated');
-                return $this->redirectToRoute("user_profile");
-            }
-        }
-        catch(\Exception $e) {
-            $this->addFlash('error', 'user.self-update-error');
+        if ($userForm->isSubmitted() && $userForm->isValid())
+        {
+            $entityManager->persist($this->getUser());
+            $entityManager->flush();
+            $this->addFlash('success', 'Successfully updated');
+            return $this->redirectToRoute("user_profile");
         }
 
         return $this->render('users/profile.html.twig', [

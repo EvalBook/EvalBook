@@ -3,3 +3,4 @@ twig:
 
     globals:
         locales: '%app.locales%'
+
