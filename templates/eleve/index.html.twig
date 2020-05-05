@@ -1,37 +1,81 @@
 {% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
 
-{% block title %}Eleve index{% endblock %}
+{% block pageTitle %} {{ 'Students' | trans }} {% endblock %}
+{% block title %}{{ 'Students' | trans }}{% endblock %}
 
 {% block body %}
-    <h1>Eleve index</h1>
-
-    <table class="table">
+    <table class="full-width">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>LastName</th>
-                <th>FirstName</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>{{ 'Name'|trans }}</th>
+            <th>{{ 'First name'|trans }}</th>
+            <th>{{ 'Birthday'|trans }}</th>
+
+            {% if is_granted('ROLE_STUDENT_EDIT') %}
+                <th scope="col" class="text-center" data-mobile="0">{{ 'Edit' | trans }}</th>
+            {% endif %}
+
+            {% if is_granted('ROLE_STUDENT_DELETE') %}
+                <th scope="col" class="text-center" data-mobile="0">{{ 'Delete' | trans }}</th>
+            {% endif %}
+        </tr>
         </thead>
         <tbody>
         {% for eleve in eleves %}
-            <tr>
-                <td>{{ eleve.id }}</td>
+            <tr data-id="{{ eleve.id }}" data-trigger="{{ path('eleve_edit', {'id': eleve.id}) }}">
                 <td>{{ eleve.lastName }}</td>
                 <td>{{ eleve.firstName }}</td>
-                <td>
-                    <a href="{{ path('eleve_view', {'id': eleve.id}) }}">view</a>
-                    <a href="{{ path('eleve_edit', {'id': eleve.id}) }}">edit</a>
-                </td>
+                <td>{{ eleve.birthday|date('d/m/Y') }}</td>
+
+                {% if is_granted('ROLE_STUDENT_EDIT') %}
+                    <td class="text-center" data-mobile="0">
+                        <a href="{{ path('eleve_edit', {'id': eleve.id}) }}">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
+                {% endif %}
+
+                {% if is_granted('ROLE_STUDENT_DELETE') %}
+                    <td class="text-center" data-mobile="0">
+                        <div data-target="eleve"
+                             data-targetid="{{ eleve.id }}"
+                             data-action="{{ path('eleve_delete', {'id': eleve.id}) }}"
+                             data-class="fas fa-trash"
+                             data-csrf="{{ csrf_token('eleve_delete' ~ eleve.id) }}"
+                        >
+                        </div>
+                    </td>
+                {% endif %}
+
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="6">{{ 'No student found' | trans }}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+{% endblock %}
 
-    <a href="{{ path('eleve_add') }}">Create new</a>
+
+{% block functionnalities %}
+    {% if is_granted('ROLE_STUDENT_CREATE') %}
+        <a href="{{ path('eleve_add') }}">
+            <i class="fas fa-plus"></i>
+        </a>
+    {% endif %}
+{% endblock %}
+
+
+{% block functionnalitiesMobile %}
+    {% if is_granted('ROLE_STUDENT_CREATE') %}
+        <a href="{{ path('eleve_add') }}">
+            <i class="fas fa-plus"></i>
+        </a>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('modalDialogs') }}
 {% endblock %}

@@ -14,6 +14,7 @@ class EleveType extends AbstractType
         $builder
             ->add('lastName')
             ->add('firstName')
+            ->add('birthday')
             ->add('classes')
             ->add('contacts')
         ;

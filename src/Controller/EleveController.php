@@ -28,13 +28,14 @@ class EleveController extends AbstractController
 
 
     /**
-     * @Route("/eleve/{id}", name="eleve_view")
+     * @Route("/eleve/view/{id}", name="eleve_view")
      *
      * @param Eleve $eleve
      * @return Response
      */
     public function view(Eleve $eleve): Response
     {
+        // TODO add student infos as notes and activities...
         return $this->render('eleve/show.html.twig', [
             'eleve' => $eleve,
         ]);
@@ -61,8 +62,7 @@ class EleveController extends AbstractController
             return $this->redirectToRoute('eleves');
         }
 
-        return $this->render('eleve/new.html.twig', [
-            'eleve' => $eleve,
+        return $this->render('eleve/form.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -86,7 +86,7 @@ class EleveController extends AbstractController
             return $this->redirectToRoute('eleves');
         }
 
-        return $this->render('eleve/edit.html.twig', [
+        return $this->render('eleve/form.html.twig', [
             'eleve' => $eleve,
             'form' => $form->createView(),
         ]);

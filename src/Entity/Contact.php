@@ -235,4 +235,14 @@ class Contact
 
         return $this;
     }
+
+
+    /**
+     * To string magic method.
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getFirstName() . " " . $this->getLastName();
+    }
 }

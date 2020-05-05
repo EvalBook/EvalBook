@@ -19,6 +19,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -44,6 +45,11 @@ class Eleve
      * @ORM\Column(type="string", length=100)
      */
     private $firstName;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $birthday;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Classe", inversedBy="eleves")
@@ -133,24 +139,18 @@ class Eleve
 
 
     /**
-     * Return true if Eleve is active, false otherwise.
-     * @return bool|null
+     * Return the user birthdate.
      */
-    public function getActive(): ?bool
-    {
-        return $this->active;
+    public function getBirthday() {
+        return $this->birthday;
     }
 
 
     /**
-     * Set the Eleve active
-     * @param bool $active
-     * @return $this
+     * @param DateTime $birthday
      */
-    public function setActive(bool $active): self
-    {
-        $this->active = $active;
-        return $this;
+    public function setBirthday(DateTime $birthday) {
+        $this->birthday = $birthday;
     }
 
 
