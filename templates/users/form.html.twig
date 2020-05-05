@@ -65,10 +65,13 @@
             </div>
 
             {# User roles management #}
+            <div>
+                <h2>{{ 'Roles management'|trans }}</h2>
+            </div>
             <div class="form-row display-row">
                 {% for group_label, options in form.roles.vars.choices %}
                     <div class="width-25-percent">
-                        <h2>{{ (group_label~'s')|replace({'ys': 'ies', 'sss': 'sses'})|capitalize|trans }}</h2>
+                        <h3>{{ (group_label~'s')|replace({'ys': 'ies', 'sss': 'sses'})|capitalize|trans }}</h3>
                         {% for key, choice in options %}
                             <div class="flex">
                                 <input type="checkbox" id="{{ form.vars.name }}_roles_{{ key }}"

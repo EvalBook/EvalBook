@@ -38,6 +38,7 @@ Successfully updated: Mise à jour de l'élément avec succès
 Successfully added: Ajouté avec succès
 Yes: Oui
 No: Non
+Roles management: Gestion des rôles
 
 roles:
   ROLE_USER_LIST_ALL: Lister les utilisateurs

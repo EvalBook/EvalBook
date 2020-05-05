@@ -18,7 +18,7 @@
         </thead>
         <tbody>
         {% for user in users %}
-            <tr>
+            <tr data-id="{{ user.id }}" data-trigger="{{ path('user_edit', {'id': user.id}) }}">
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.lastName }}</td>
                 <td>{{ user.email }}</td>

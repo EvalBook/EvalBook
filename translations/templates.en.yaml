@@ -38,6 +38,7 @@ Successfully updated: Successfully updated
 Successfully added: Successfully added
 Yes: Yes
 No: No
+Roles management: Roles management
 
 roles:
   ROLE_USER_LIST_ALL: Lister les utilisateurs
