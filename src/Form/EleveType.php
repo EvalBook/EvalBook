@@ -4,19 +4,51 @@ namespace App\Form;
 
 use App\Entity\Eleve;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+
 
 class EleveType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('lastName')
-            ->add('firstName')
-            ->add('birthday')
+            // Student first name.
+            ->add('lastName', TextType::class, [
+                'constraints' => [
+                    new Length([
+                        'min' => 3,
+                        'max' => 100,
+                        'minMessage' => 'user.first-name-too-short',
+                        'maxMessage' => 'user.first-name-too-long',
+                    ])
+                ]
+            ])
+
+            // Student last name.
+            ->add('firstName', TextType::class, [
+                'constraints' => [
+                    new Length([
+                        'min' => 3,
+                        'max' => 100,
+                        'minMessage' => 'user.last-name-too-short',
+                        'maxMessage' => 'user.last-name-too-long',
+                    ])
+                ]
+            ])
+
+            // Birthday.
+            ->add('birthday', BirthdayType::class)
+
             ->add('classes')
+
             ->add('contacts')
+
+            ->add('submit', SubmitType::class)
         ;
     }
 

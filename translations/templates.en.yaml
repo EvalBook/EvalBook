@@ -41,6 +41,7 @@ Element deleted: Element deleted
 Element not deleted: Element not deleted
 No student found: No student found
 Birthday: Birthday
+Contact: Contact
 
 roles:
   ROLE_USER_LIST_ALL: Lister les utilisateurs

@@ -2,11 +2,11 @@
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %}
-    {{ implantation.id is defined ? 'Edit'|trans : 'Add'|trans }}
+    {{ user.id is defined ? 'Edit'|trans : 'Add'|trans }}
 {% endblock %}
 
 {% block title %}
-    {{ implantation.id is defined ? 'Edit'|trans : 'Add'|trans }}
+    {{ user.id is defined ? 'Edit'|trans : 'Add'|trans }}
 {% endblock %}
 
 {% block body %}
