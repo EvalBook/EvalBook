@@ -115,7 +115,7 @@ class ImplantationController extends AbstractController
      * @param Request $request
      * @return JsonResponse
      */
-    public function deleteImplantation(Implantation $implantation, Request $request)
+    public function delete(Implantation $implantation, Request $request)
     {
         $jsonRequest = json_decode($request->getContent(), true);
         if( !isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('implantation_delete'.$implantation->getId(), $jsonRequest['csrf'])) {

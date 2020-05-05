@@ -20,14 +20,13 @@
 namespace App\Controller;
 
 use App\Form\UserProfileType;
-use App\Form\UserRoleType;
 use App\Form\UserType;
-use App\Service\FormService;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,18 +40,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UsersController extends AbstractController
 {
-    private $entityManager;
-
-    /**
-     * UsersController constructor.
-     * @param EntityManagerInterface $entityManager
-     */
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
-    }
-
-
     /**
      * @Route("/users", name="users")
      * @IsGranted("ROLE_USER_LIST_ALL", statusCode=404, message="Not found")
@@ -123,44 +110,31 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("/users/delete", name="delete")
+     * @Route("/user/delete/{id}", name="user_delete")
      * @IsGranted("ROLE_USER_DELETE", statusCode=404, message="Not found")
      *
-     * @param UserRepository $repository
-     * @return Response
-     */
-    public function deleteUser(UserRepository $repository)
-    {
-        return $this->render('users/users-delete-list.html.twig', [
-            'users' => $repository->findByRole("ROLE_ADMIN", false),
-        ]);
-    }
-
-
-    /**
-     * @Route("/users/delete/{id}", name="delete_confirm")
-     * @IsGranted("ROLE_USER_DELETE", statusCode=404, message="Not found")
-     *
+     * @param Request $request
      * @param User $user
-     * @return Response
+     * @return JsonResponse
      */
-    public function deleteUserConfirm(User $user)
+    public function delete(Request $request, User $user)
     {
-        try {
-            $this->entityManager->remove($user);
-            $this->entityManager->flush();
-            $this->addFlash('success', 'user.deleted');
+        $jsonRequest = json_decode($request->getContent(), true);
+        if( !isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('user_delete'.$user->getId(), $jsonRequest['csrf'])) {
+            return $this->json(['message' => 'Invalid csrf token'], 201);
         }
-        catch(\Exception $e) {
-            $this->addFlash('error', 'user.delete-error');
-        }
-        
-        return $this->redirectToRoute("users_delete");
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        return $this->json(['message' => 'User deleted'], 200);
     }
 
 
     /**
      * @Route("/user/profile", name="user_profile")
+     *
      * @param EntityManagerInterface $entityManager
      * @param Request $request
      * @return RedirectResponse|Response

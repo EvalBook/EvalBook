@@ -26,8 +26,8 @@ let ModalDialog = function(parent, className, action, csrf, targetId) {
 
         this.modalDiv.innerHTML = `
             <div class="dialog-modal dialog-confirm">
-                <p>${this.labels['Are you sure you want to delete this implantation ?']}</p>
-                <p>${this.labels['All data such as classes attached to it will be deleted too !']}</p>
+                <p>${this.labels['Are you sure you want to delete this element ?']}</p>
+                <p>${this.labels['All attached data will be deleted or marked orphan']}</p>
                 <div id="confirm"></div>
             </div>    
         `;
@@ -43,7 +43,7 @@ let ModalDialog = function(parent, className, action, csrf, targetId) {
             }, {
                 action: this._actionRequestCallback,
                 param: targetId,
-                message: this.labels['Implantation deleted'],
+                message: this.labels['Element deleted'],
             });
 
             parent.removeChild(this.modalDiv);
@@ -64,15 +64,15 @@ let ModalDialog = function(parent, className, action, csrf, targetId) {
 
         let messageDialog = document.createElement('div');
         messageDialog.classList.add('dialog');
-        messageDialog.classList.add('dialog-error');
+        messageDialog.classList.add('dialog-success');
         messageDialog.innerHTML = message
         document.body.appendChild(messageDialog);
     }
 
 }
 
-// Creating confirm implantations dialogs.
-for(let element of document.querySelectorAll('[data-target="implantation"]')) {
+// Creating confirm delete elements dialogs.
+for(let element of document.querySelectorAll('[data-target]')) {
 
     let modal = new ModalDialog(
         element,
@@ -94,10 +94,10 @@ getStrings();
  */
 async function getStrings() {
     const labels = await Language.getStrings('templates', [
-        'Are you sure you want to delete this implantation ?',
-        'All data such as classes attached to it will be deleted too !',
-        'Implantation deleted',
-        'Implantation not deleted',
+        'Are you sure you want to delete this element ?',
+        'All attached data will be deleted or marked orphan',
+        'Element deleted',
+        'Element not deleted',
         'Invalid csrf token',
         'Yes',
         'No'
