@@ -72,10 +72,14 @@
                     <i class="fas fa-clock"></i>
                     <span>Classes</span>
                 </div>
-                <div class="menuItem">
-                    <i class="fas fa-user-graduate"></i>
-                    <span>Elèves</span>
-                </div>
+
+                <a href="{{ path('eleves') }}">
+                    <div class="menuItem">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>{{ 'Students'|trans }}</span>
+                    </div>
+                </a>
+
                 <div class="menuItem">
                     <i class="fas fa-brain"></i>
                     <span>Activités</span>
@@ -168,10 +172,14 @@
                 <i class="fas fa-clock"></i>
                 <span>{{ 'Classes'|trans }}</span>
             </div>
-            <div class="menuItem">
-                <i class="fas fa-user-graduate"></i>
-                <span>{{ 'Students'|trans }}</span>
-            </div>
+
+            <a href="{{ path('eleves') }}">
+                <div class="menuItem">
+                    <i class="fas fa-user-graduate"></i>
+                    <span>{{ 'Students'|trans }}</span>
+                </div>
+            </a>
+
             <div class="menuItem">
                 <i class="fas fa-brain"></i>
                 <span>{{ 'Activities'|trans }}</span>

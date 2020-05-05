@@ -30,8 +30,7 @@ class EleveFixtures extends Fixture
         for($i = 0; $i < 300; $i++) {
             $eleve = new Eleve();
             $eleve->setLastName("EleveLn $i")
-                  ->setFirstName("EleveFn $i")
-                  ->setActive(true);
+                  ->setFirstName("EleveFn $i");
 
             $manager->persist($eleve);
         }

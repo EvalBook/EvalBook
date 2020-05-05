@@ -46,11 +46,6 @@ class Eleve
     private $firstName;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $active;
-
-    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Classe", inversedBy="eleves")
      */
     private $classes;
