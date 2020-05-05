@@ -23,7 +23,6 @@ use App\Entity\Implantation;
 use App\Form\ImplantationType;
 use App\Repository\ImplantationRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -40,6 +39,8 @@ class ImplantationController extends AbstractController
 {
     /**
      * @Route("/implantations", name="implantations")
+     * @IsGranted("ROLE_IMPLANTATION_LIST_ALL", statusCode=404, message="Not found")
+     *
      * @param ImplantationRepository $repository
      * @return Response
      */
@@ -74,7 +75,6 @@ class ImplantationController extends AbstractController
         }
 
         return $this->render('implantation/form.html.twig', [
-            'book' => $implantation,
             'form' => $form->createView(),
         ]);
     }
@@ -82,6 +82,8 @@ class ImplantationController extends AbstractController
 
     /**
      * @Route("/implantation/edit/{id}", name="implantation_edit")
+     * @IsGranted("ROLE_IMPLANTATION_EDIT", statusCode=404, message="Not found")
+     *
      * @param Request $request
      * @param Implantation $implantation
      * @return RedirectResponse|Response
@@ -107,11 +109,13 @@ class ImplantationController extends AbstractController
 
     /**
      * @Route("/implantation/delete/{id}", name="implantation_delete", methods={"POST"})
+     * @IsGranted("ROLE_IMPLANTATION_DELETE", statusCode=404, message="Not found")
+     *
      * @param Implantation $implantation
      * @param Request $request
      * @return JsonResponse
      */
-    public function deleteImplantation(Implantation $implantation, Request $request)
+    public function delete(Implantation $implantation, Request $request)
     {
         $jsonRequest = json_decode($request->getContent(), true);
         if( !isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('implantation_delete'.$implantation->getId(), $jsonRequest['csrf'])) {

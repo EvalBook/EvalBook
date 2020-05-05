@@ -1,65 +1,68 @@
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'templates' %}
 
-{% block title %}
-    {{ 'users.title.management' | trans }}
-{% endblock %}
-
-{% block sidebar %}
-    {% include '_partials/sidebar.html.twig' %}
-{% endblock %}
+{% block pageTitle %} {{ 'Users' | trans }} {% endblock %}
+{% block title %}{{ 'Users' | trans }}{% endblock %}
 
 {% block body %}
+    <table class="full-width">
+        <thead>
+        <tr>
+            <th scope="col">{{ 'Name'|trans }}</th>
+            <th scope="col">{{ 'First name'|trans }}</th>
+            <th scope="col">{{ 'Mail address'|trans }}</th>
+            <th scope="col" class="text-center">{{ 'Classes' | trans }}</th>
+            <th scope="col" class="text-center" data-mobile="0">{{ 'Edit'|trans }}</th>
+            <th scope="col" class="text-center" data-mobile="0">{{ 'Delete'|trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr data-id="{{ user.id }}" data-trigger="{{ path('user_edit', {'id': user.id}) }}">
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.email }}</td>
+                <td class="text-center">{{ user.classes|length }}</td>
 
-    <div class="row mt-4">
+                <td class="text-center" data-mobile="0">
+                    <a href="{{ path('user_edit', {'id': user.id}) }}">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </td>
 
-        {% if is_granted('ROLE_USER_LIST_ALL') %}
-            {% include '_partials/card.html.twig' with {
-                'title': 'users.label.view-list' | trans,
-                'content': 'users.description.view-list' | trans,
-                'label': 'users.button.view-list' | trans,
-                'action': path('users_list')
-            }%}
-        {% endif %}
+                <td class="text-center" data-mobile="0">
+                    <div data-target="user"
+                         data-targetid="{{ user.id }}"
+                         data-action="{{ path('user_delete', {'id': user.id}) }}"
+                         data-class="fas fa-trash"
+                         data-csrf="{{ csrf_token('user_delete' ~ user.id) }}"
+                    >
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">{{ 'No users found' | trans }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
 
-        {% if is_granted('ROLE_USER_CREATE') %}
-            {% include '_partials/card.html.twig' with {
-                'title': 'users.label.add' | trans,
-                'content': 'users.description.add' | trans,
-                'label': 'users.button.add' | trans,
-                'action': path('users_add')
-            }%}
-        {% endif %}
 
-        {% if is_granted('ROLE_ADMIN') %}
-            {% include '_partials/card.html.twig' with {
-                'title': 'users.label.add-admin' | trans,
-                'content': 'users.description.add-admin' | trans,
-                'label': 'users.button.add-admin' | trans,
-                'action': path('users_add_admin')
-            }%}
-        {% endif %}
+{% block functionnalities %}
+    <a href="{{ path('user_add') }}">
+        <i class="fas fa-plus"></i>
+    </a>
+{% endblock %}
 
-    </div>
-    <div class="row mt-4">
 
-        {% if is_granted('ROLE_USER_EDIT') %}
-            {% include '_partials/card.html.twig' with {
-                'title': 'users.label.edit' | trans,
-                'content': 'users.description.edit' | trans,
-                'label': 'users.button.edit' | trans,
-                'action': path('users_edit')
-            }%}
-        {% endif %}
+{% block functionnalitiesMobile %}
+    <a href="{{ path('user_add') }}">
+        <i class="fas fa-plus"></i>
+    </a>
+{% endblock %}
 
-        {% if is_granted('ROLE_USER_DELETE') %}
-            {% include '_partials/card.html.twig' with {
-                'title': 'users.label.delete' | trans,
-                'content': 'users.description.delete' | trans,
-                'label': 'users.button.delete' | trans,
-                'action': path('users_delete')
-            }%}
-        {% endif %}
-    </div>
-
+{% block javascripts %}
+    {{ encore_entry_script_tags('modalDialogs') }}
 {% endblock %}

@@ -48,8 +48,8 @@ class UserType extends AbstractType
                     new Length([
                         'min' => 3,
                         'max' => 100,
-                        'minMessage' => 'user.message.first-name-too-short',
-                        'maxMessage' => 'user.message.first-name-too-long'
+                        'minMessage' => 'user.first-name-too-short',
+                        'maxMessage' => 'user.first-name-too-long'
                     ])
                 ]
             ])
@@ -60,8 +60,8 @@ class UserType extends AbstractType
                     new Length([
                         'min' => 3,
                         'max' => 100,
-                        'minMessage' => 'user.message.last-name-too-short',
-                        'maxMessage' => 'user.message.last-name-too-long'
+                        'minMessage' => 'user.last-name-too-short',
+                        'maxMessage' => 'user.last-name-too-long'
                     ])
                 ]
             ])
@@ -70,24 +70,35 @@ class UserType extends AbstractType
             ->add('email', EmailType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'user.message.email-is-null'
+                        'message' => 'user.email-is-null'
                     ])
                 ]
             ])
 
-                // Password and password verify form inputs.
+            // Password and password verify form inputs.
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'invalid_message' => 'user.message.password-not-match',
+                'invalid_message' => 'user.password-not-match',
                 'required' => false,
                 'empty_data' => '',
                 'first_options'  => ['empty_data' => ''],
                 'second_options' => ['empty_data' => '']
             ])
 
-            // Active form input.
-            ->add('active', ChoiceType::class, [
-                'choices' => ['common.yes' => true, 'common.no' => false],
+            // User roles.
+            ->add('roles', ChoiceType::class, [
+                'required' => true,
+                'multiple' => true,
+                'expanded' => true,
+                'choices' => array_combine(
+                    array_map(function($value){ return 'roles.' . $value; }, User::getAssignableRoles()),
+                    User::getAssignableRoles()
+                ),
+
+                'group_by' => function($value) {
+                    $role = str_replace('ROLE_', '', $value);
+                    return strtolower(substr($role, 0, strpos($role, '_')));
+                },
             ])
 
             // Submit button.
@@ -103,7 +114,6 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'translation_domain' => 'forms',
             'required' => true
         ]);
     }

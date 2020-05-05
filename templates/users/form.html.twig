@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block pageTitle %}
+    {{ implantation.id is defined ? 'Edit'|trans : 'Add'|trans }}
+{% endblock %}
+
+{% block title %}
+    {{ implantation.id is defined ? 'Edit'|trans : 'Add'|trans }}
+{% endblock %}
+
+{% block body %}
+    <div class="full-width flex column">
+        <a class="go-back" href="{{ path('users') }}">
+            <i class="fas fa-long-arrow-alt-left"></i>
+        </a>
+
+        <div class="form-content">
+            {{ form_start(form) }}
+
+            {# User first name #}
+            <div class="form-row">
+                {{ form_label(form.firstName, 'Name'|trans) }}
+                {{ form_widget(form.firstName) }}
+                <span class="form-error">
+                    {{ form_errors(form.firstName) }}
+                </span>
+            </div>
+
+            {# User last name #}
+            <div class="form-row">
+                {{ form_label(form.lastName, 'First name'|trans) }}
+                {{ form_widget(form.lastName) }}
+                <span class="form-error">
+                    {{ form_errors(form.lastName) }}
+                </span>
+            </div>
+
+            {# User email #}
+            <div class="form-row">
+                {{ form_label(form.email, 'Mail address'|trans) }}
+                {{ form_widget(form.email) }}
+                <span class="form-error">
+                    {{ form_errors(form.email) }}
+                </span>
+            </div>
+
+
+            {# User password #}
+            <div class="form-row">
+                {{ form_label(form.password.first, 'Password'|trans) }}
+                {{ form_widget(form.password.first) }}
+                <span class="form-error">
+                    {{ form_errors(form.password.first) }}
+                </span>
+            </div>
+
+            {# User password repeat #}
+            <div class="form-row">
+                {{ form_label(form.password.second, 'Password repeat'|trans) }}
+                {{ form_widget(form.password.second) }}
+                <span class="form-error">
+                    {{ form_errors(form.password.second) }}
+                </span>
+            </div>
+
+            {# User roles management #}
+            <div>
+                <h2>{{ 'Roles management'|trans }}</h2>
+            </div>
+            <div class="form-row display-row">
+                {% for group_label, options in form.roles.vars.choices %}
+                    <div class="width-25-percent">
+                        <h3>{{ (group_label~'s')|replace({'ys': 'ies', 'sss': 'sses'})|capitalize|trans }}</h3>
+                        {% for key, choice in options %}
+                            <div class="flex">
+                                <input type="checkbox" id="{{ form.vars.name }}_roles_{{ key }}"
+                                       name="{{ form.vars.name }}[roles][]"
+                                       value="{{ choice.value }}" {{ (choice.value in form.roles.vars.value) ? 'checked' : '' }}
+                                >
+
+                                <label class="margin-left"
+                                       for="{{ form.vars.name }}_roles_{{ key }}">{{ choice.label|trans }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+            {% do form.roles.setRendered() %}
+
+            {# Submit button #}
+            {{ form_row(form.submit, {
+                'label': 'Send'|trans,
+                'attr': {'class': 'margin-15'},
+            }) }}
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

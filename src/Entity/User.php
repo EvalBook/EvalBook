@@ -63,11 +63,6 @@ class User implements UserInterface
     private $firstName;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $active;
-
-    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Classe", inversedBy="users")
      */
     private $classes;
@@ -263,28 +258,6 @@ class User implements UserInterface
     public function setFirstName(string $firstName): self
     {
         $this->firstName = $firstName;
-        return $this;
-    }
-
-
-    /**
-     * Return true if user is active.
-     * @return bool|null
-     */
-    public function getActive(): ?bool
-    {
-        return $this->active;
-    }
-
-
-    /**
-     * Set the user active or not.
-     * @param bool $active
-     * @return $this
-     */
-    public function setActive(bool $active): self
-    {
-        $this->active = $active;
         return $this;
     }
 
