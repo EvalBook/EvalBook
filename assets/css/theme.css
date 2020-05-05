@@ -76,10 +76,6 @@ h1, h2 {
     justify-content: space-between;
 }
 
-#mobile-header {
-    width: 10em;
-}
-
 .menuTopIcon {
     display: inline-block;
     margin-left: 16px;
@@ -136,7 +132,7 @@ nav .menuItem {
     box-shadow: 0 0 4px var(--secondary-color);
     position: absolute;
     width: 22em;
-    right: 5em;
+    right: 2.3em;
     top: 4em;
     user-select: none;
 }
@@ -150,6 +146,10 @@ nav .menuItem {
     display: none;
     font-size: 2em;
     margin-left: 0.8em;
+}
+
+#mobile-menu-toggle i {
+    width: 1em;
 }
 
 /**
@@ -333,7 +333,6 @@ tr:nth-child(even) {
 .display-row {
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
 }
 
 /**
@@ -350,6 +349,14 @@ tr:nth-child(even) {
 
     #logo span {
         display: none;
+    }
+
+    .width-25-percent {
+        width: 33%;
+    }
+
+    .go-back {
+        margin-top: -0.3em;
     }
 }
 
@@ -370,6 +377,10 @@ tr:nth-child(even) {
         left: 0;
         right: 0;
         height: 6em;
+    }
+
+    .width-25-percent {
+        width: 50%;
     }
 
 }
