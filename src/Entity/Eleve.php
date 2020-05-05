@@ -57,11 +57,6 @@ class Eleve
     private $classes;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Contact", inversedBy="eleves")
-     */
-    private $contacts;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="eleve")
      */
     private $notes;
@@ -188,46 +183,6 @@ class Eleve
     {
         if ($this->classes->contains($classe)) {
             $this->classes->removeElement($classe);
-        }
-
-        return $this;
-    }
-
-
-    /**
-     * Return a collection of Contact object of Eleve.
-     * @return Collection|Contact[]
-     */
-    public function getContacts(): Collection
-    {
-        return $this->contacts;
-    }
-
-
-    /**
-     * Add a contact to the Eleve object.
-     * @param Contact $contact
-     * @return $this
-     */
-    public function addContact(Contact $contact): self
-    {
-        if (!$this->contacts->contains($contact)) {
-            $this->contacts[] = $contact;
-        }
-
-        return $this;
-    }
-
-
-    /**
-     * Remove a contact of Eleve objcet.
-     * @param Contact $contact
-     * @return $this
-     */
-    public function removeContact(Contact $contact): self
-    {
-        if ($this->contacts->contains($contact)) {
-            $this->contacts->removeElement($contact);
         }
 
         return $this;

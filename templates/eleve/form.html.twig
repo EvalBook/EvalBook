@@ -46,25 +46,6 @@
             </div>
 
 
-            {# Student classes #}
-            <div class="form-row">
-                {{ form_label(form.classes, 'Classes'|trans) }}
-                {{ form_widget(form.classes) }}
-                <span class="form-error">
-                    {{ form_errors(form.classes) }}
-                </span>
-            </div>
-
-
-            {# Student contacts #}
-            <div class="form-row">
-                {{ form_label(form.contacts, 'Conntact'|trans) }}
-                {{ form_widget(form.contacts) }}
-                <span class="form-error">
-                    {{ form_errors(form.contacts) }}
-                </span>
-            </div>
-
             {# Submit button #}
             {{ form_row(form.submit, {
                 'label': 'Send'|trans,

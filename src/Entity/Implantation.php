@@ -265,4 +265,14 @@ class Implantation
 
         return $this;
     }
+
+
+    /**
+     * To string to use with FormBuilder.
+     * @return string|null
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

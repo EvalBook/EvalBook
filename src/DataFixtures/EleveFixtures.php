@@ -30,7 +30,9 @@ class EleveFixtures extends Fixture
         for($i = 0; $i < 300; $i++) {
             $eleve = new Eleve();
             $eleve->setLastName("EleveLn $i")
-                  ->setFirstName("EleveFn $i");
+                  ->setFirstName("EleveFn $i")
+                  ->setBirthday(new \DateTime('now'))
+            ;
 
             $manager->persist($eleve);
         }
