@@ -213,9 +213,13 @@ form {
     line-height: 2.5em;
 }
 
-input {
+input, select {
     border-radius: 2px;
     padding: 9px;
+}
+
+select {
+    margin-right: 2em;
 }
 
 button[type="submit"] {

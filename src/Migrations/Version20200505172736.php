@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200505064733 extends AbstractMigration
+final class Version20200505172736 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -24,10 +24,8 @@ final class Version20200505064733 extends AbstractMigration
 
         $this->addSql('CREATE TABLE activite (id INT AUTO_INCREMENT NOT NULL, note_type_id INT NOT NULL, user_id INT NOT NULL, periode_id INT NOT NULL, active_in_period TINYINT(1) NOT NULL, comment LONGTEXT DEFAULT NULL, name VARCHAR(255) NOT NULL, INDEX IDX_B875551544EA4809 (note_type_id), INDEX IDX_B8755515A76ED395 (user_id), INDEX IDX_B8755515F384C1CF (periode_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE classe (id INT AUTO_INCREMENT NOT NULL, titulaire_id INT DEFAULT NULL, implantation_id INT NOT NULL, name VARCHAR(45) NOT NULL, UNIQUE INDEX UNIQ_8F87BF96A10273AA (titulaire_id), INDEX IDX_8F87BF96CE296AF7 (implantation_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE contact (id INT AUTO_INCREMENT NOT NULL, first_name VARCHAR(100) NOT NULL, last_name VARCHAR(100) NOT NULL, address VARCHAR(255) NOT NULL, zip_code VARCHAR(10) NOT NULL, country VARCHAR(150) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE eleve (id INT AUTO_INCREMENT NOT NULL, last_name VARCHAR(100) NOT NULL, first_name VARCHAR(100) NOT NULL, active TINYINT(1) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE eleve (id INT AUTO_INCREMENT NOT NULL, last_name VARCHAR(100) NOT NULL, first_name VARCHAR(100) NOT NULL, birthday DATE NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE eleve_classe (eleve_id INT NOT NULL, classe_id INT NOT NULL, INDEX IDX_564E8557A6CC7B2 (eleve_id), INDEX IDX_564E85578F5EA509 (classe_id), PRIMARY KEY(eleve_id, classe_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE eleve_contact (eleve_id INT NOT NULL, contact_id INT NOT NULL, INDEX IDX_A0D8DD24A6CC7B2 (eleve_id), INDEX IDX_A0D8DD24E7A1254A (contact_id), PRIMARY KEY(eleve_id, contact_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE eleve_comment (id INT AUTO_INCREMENT NOT NULL, periode_id INT DEFAULT NULL, eleve_id INT DEFAULT NULL, INDEX IDX_78CE6970F384C1CF (periode_id), INDEX IDX_78CE6970A6CC7B2 (eleve_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE implantation (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(100) NOT NULL, address VARCHAR(255) NOT NULL, zip_code VARCHAR(10) NOT NULL, country VARCHAR(150) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE note (id INT AUTO_INCREMENT NOT NULL, activite_id INT NOT NULL, eleve_id INT NOT NULL, note VARCHAR(45) NOT NULL, date DATE NOT NULL, comment LONGTEXT DEFAULT NULL, INDEX IDX_CFBDFA149B0F88B1 (activite_id), INDEX IDX_CFBDFA14A6CC7B2 (eleve_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -42,8 +40,6 @@ final class Version20200505064733 extends AbstractMigration
         $this->addSql('ALTER TABLE classe ADD CONSTRAINT FK_8F87BF96CE296AF7 FOREIGN KEY (implantation_id) REFERENCES implantation (id)');
         $this->addSql('ALTER TABLE eleve_classe ADD CONSTRAINT FK_564E8557A6CC7B2 FOREIGN KEY (eleve_id) REFERENCES eleve (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE eleve_classe ADD CONSTRAINT FK_564E85578F5EA509 FOREIGN KEY (classe_id) REFERENCES classe (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE eleve_contact ADD CONSTRAINT FK_A0D8DD24A6CC7B2 FOREIGN KEY (eleve_id) REFERENCES eleve (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE eleve_contact ADD CONSTRAINT FK_A0D8DD24E7A1254A FOREIGN KEY (contact_id) REFERENCES contact (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE eleve_comment ADD CONSTRAINT FK_78CE6970F384C1CF FOREIGN KEY (periode_id) REFERENCES periode (id)');
         $this->addSql('ALTER TABLE eleve_comment ADD CONSTRAINT FK_78CE6970A6CC7B2 FOREIGN KEY (eleve_id) REFERENCES eleve (id)');
         $this->addSql('ALTER TABLE note ADD CONSTRAINT FK_CFBDFA149B0F88B1 FOREIGN KEY (activite_id) REFERENCES activite (id)');
@@ -61,9 +57,7 @@ final class Version20200505064733 extends AbstractMigration
         $this->addSql('ALTER TABLE note DROP FOREIGN KEY FK_CFBDFA149B0F88B1');
         $this->addSql('ALTER TABLE eleve_classe DROP FOREIGN KEY FK_564E85578F5EA509');
         $this->addSql('ALTER TABLE user_classe DROP FOREIGN KEY FK_EAD5A4AB8F5EA509');
-        $this->addSql('ALTER TABLE eleve_contact DROP FOREIGN KEY FK_A0D8DD24E7A1254A');
         $this->addSql('ALTER TABLE eleve_classe DROP FOREIGN KEY FK_564E8557A6CC7B2');
-        $this->addSql('ALTER TABLE eleve_contact DROP FOREIGN KEY FK_A0D8DD24A6CC7B2');
         $this->addSql('ALTER TABLE eleve_comment DROP FOREIGN KEY FK_78CE6970A6CC7B2');
         $this->addSql('ALTER TABLE note DROP FOREIGN KEY FK_CFBDFA14A6CC7B2');
         $this->addSql('ALTER TABLE classe DROP FOREIGN KEY FK_8F87BF96CE296AF7');
@@ -76,10 +70,8 @@ final class Version20200505064733 extends AbstractMigration
         $this->addSql('ALTER TABLE user_classe DROP FOREIGN KEY FK_EAD5A4ABA76ED395');
         $this->addSql('DROP TABLE activite');
         $this->addSql('DROP TABLE classe');
-        $this->addSql('DROP TABLE contact');
         $this->addSql('DROP TABLE eleve');
         $this->addSql('DROP TABLE eleve_classe');
-        $this->addSql('DROP TABLE eleve_contact');
         $this->addSql('DROP TABLE eleve_comment');
         $this->addSql('DROP TABLE implantation');
         $this->addSql('DROP TABLE note');

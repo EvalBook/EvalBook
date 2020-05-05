@@ -134,4 +134,5 @@ class ImplantationController extends AbstractController
 
         return $this->json(['message' => 'Implantation deleted'], 200);
     }
+
 }

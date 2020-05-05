@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block pageTitle %}
+    {{ eleve.id is defined ? 'Edit'|trans : 'Add'|trans }}
+{% endblock %}
+
+{% block title %}
+    {{ eleve.id is defined ? 'Edit'|trans : 'Add'|trans }}
+{% endblock %}
+
+{% block body %}
+    <div class="full-width flex column">
+        <a class="go-back" href="{{ path('implantations') }}">
+            <i class="fas fa-long-arrow-alt-left"></i>
+        </a>
+
+        <div class="form-content">
+            {{ form_start(form) }}
+
+            {# Student last name #}
+            <div class="form-row">
+                {{ form_label(form.lastName, 'Name'|trans) }}
+                {{ form_widget(form.lastName) }}
+                <span class="form-error">
+                    {{ form_errors(form.lastName) }}
+                </span>
+            </div>
+
+            {# Student first name #}
+            <div class="form-row">
+                {{ form_label(form.firstName, 'First name'|trans) }}
+                {{ form_widget(form.firstName) }}
+                <span class="form-error">
+                    {{ form_errors(form.firstName) }}
+                </span>
+            </div>
+
+            {# Student birthday #}
+            <div class="form-row">
+                {{ form_label(form.birthday, 'Birthday'|trans) }}
+                {{ form_widget(form.birthday) }}
+                <span class="form-error">
+                    {{ form_errors(form.birthday) }}
+                </span>
+            </div>
+
+
+            {# Submit button #}
+            {{ form_row(form.submit, {
+                'label': 'Send'|trans,
+                'attr': {'class': 'margin-15'},
+            }) }}
+
+            {{ form_end(form) }}
+        </div>
+
+    </div>
+{% endblock %}

@@ -49,7 +49,7 @@ class UserType extends AbstractType
                         'min' => 3,
                         'max' => 100,
                         'minMessage' => 'user.first-name-too-short',
-                        'maxMessage' => 'user.first-name-too-long'
+                        'maxMessage' => 'user.first-name-too-long',
                     ])
                 ]
             ])
@@ -61,7 +61,7 @@ class UserType extends AbstractType
                         'min' => 3,
                         'max' => 100,
                         'minMessage' => 'user.last-name-too-short',
-                        'maxMessage' => 'user.last-name-too-long'
+                        'maxMessage' => 'user.last-name-too-long',
                     ])
                 ]
             ])
@@ -70,7 +70,7 @@ class UserType extends AbstractType
             ->add('email', EmailType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'user.email-is-null'
+                        'message' => 'user.email-is-null',
                     ])
                 ]
             ])
@@ -82,7 +82,7 @@ class UserType extends AbstractType
                 'required' => false,
                 'empty_data' => '',
                 'first_options'  => ['empty_data' => ''],
-                'second_options' => ['empty_data' => '']
+                'second_options' => ['empty_data' => ''],
             ])
 
             // User roles.
@@ -92,7 +92,7 @@ class UserType extends AbstractType
                 'expanded' => true,
                 'choices' => array_combine(
                     array_map(function($value){ return 'roles.' . $value; }, User::getAssignableRoles()),
-                    User::getAssignableRoles()
+                    User::getAssignableRoles(),
                 ),
 
                 'group_by' => function($value) {
@@ -114,7 +114,7 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'required' => true
+            'required' => true,
         ]);
     }
 }

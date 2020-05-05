@@ -231,4 +231,14 @@ class Classe
         $this->implantation = $implantation;
         return $this;
     }
+
+
+    /**
+     * To string magic method used by EleveType.
+     * @return string|null
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

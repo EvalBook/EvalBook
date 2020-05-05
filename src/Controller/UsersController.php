@@ -110,7 +110,7 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("/user/delete/{id}", name="user_delete")
+     * @Route("/user/delete/{id}", name="user_delete", methods={"POST"})
      * @IsGranted("ROLE_USER_DELETE", statusCode=404, message="Not found")
      *
      * @param Request $request

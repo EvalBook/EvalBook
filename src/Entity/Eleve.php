@@ -19,6 +19,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -46,19 +47,14 @@ class Eleve
     private $firstName;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="date")
      */
-    private $active;
+    private $birthday;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Classe", inversedBy="eleves")
      */
     private $classes;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Contact", inversedBy="eleves")
-     */
-    private $contacts;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="eleve")
@@ -138,24 +134,18 @@ class Eleve
 
 
     /**
-     * Return true if Eleve is active, false otherwise.
-     * @return bool|null
+     * Return the user birthdate.
      */
-    public function getActive(): ?bool
-    {
-        return $this->active;
+    public function getBirthday() {
+        return $this->birthday;
     }
 
 
     /**
-     * Set the Eleve active
-     * @param bool $active
-     * @return $this
+     * @param DateTime $birthday
      */
-    public function setActive(bool $active): self
-    {
-        $this->active = $active;
-        return $this;
+    public function setBirthday(DateTime $birthday) {
+        $this->birthday = $birthday;
     }
 
 
@@ -193,46 +183,6 @@ class Eleve
     {
         if ($this->classes->contains($classe)) {
             $this->classes->removeElement($classe);
-        }
-
-        return $this;
-    }
-
-
-    /**
-     * Return a collection of Contact object of Eleve.
-     * @return Collection|Contact[]
-     */
-    public function getContacts(): Collection
-    {
-        return $this->contacts;
-    }
-
-
-    /**
-     * Add a contact to the Eleve object.
-     * @param Contact $contact
-     * @return $this
-     */
-    public function addContact(Contact $contact): self
-    {
-        if (!$this->contacts->contains($contact)) {
-            $this->contacts[] = $contact;
-        }
-
-        return $this;
-    }
-
-
-    /**
-     * Remove a contact of Eleve objcet.
-     * @param Contact $contact
-     * @return $this
-     */
-    public function removeContact(Contact $contact): self
-    {
-        if ($this->contacts->contains($contact)) {
-            $this->contacts->removeElement($contact);
         }
 
         return $this;

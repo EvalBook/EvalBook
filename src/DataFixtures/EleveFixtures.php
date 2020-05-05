@@ -31,7 +31,8 @@ class EleveFixtures extends Fixture
             $eleve = new Eleve();
             $eleve->setLastName("EleveLn $i")
                   ->setFirstName("EleveFn $i")
-                  ->setActive(true);
+                  ->setBirthday(new \DateTime('now'))
+            ;
 
             $manager->persist($eleve);
         }

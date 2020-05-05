@@ -72,10 +72,14 @@
                     <i class="fas fa-clock"></i>
                     <span>Classes</span>
                 </div>
-                <div class="menuItem">
-                    <i class="fas fa-user-graduate"></i>
-                    <span>Elèves</span>
-                </div>
+
+                <a href="{{ path('eleves') }}">
+                    <div class="menuItem">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>{{ 'Students'|trans }}</span>
+                    </div>
+                </a>
+
                 <div class="menuItem">
                     <i class="fas fa-brain"></i>
                     <span>Activités</span>
@@ -99,12 +103,14 @@
                     </a>
                 {% endif %}
 
-                <a href="{{ path('users') }}">
-                    <div class="menuItem">
-                        <i class="fas fa-users"></i>
-                        <span>{{ 'Users'|trans }}</span>
-                    </div>
-                </a>
+                {% if is_granted('ROLE_USER_LIST_ALL') %}
+                    <a href="{{ path('users') }}">
+                        <div class="menuItem">
+                            <i class="fas fa-users"></i>
+                            <span>{{ 'Users'|trans }}</span>
+                        </div>
+                    </a>
+                {% endif %}
 
             </nav>
 
@@ -125,9 +131,9 @@
                         </li>
                         <li>{{ 'School reports'|trans }}</li>
 
-                        <li>
-                            <a href="{{ path('users') }}">{{ 'Users'|trans }}</a>
-                        </li>
+                        {% if is_granted('ROLE_USER_LIST_ALL') %}
+                            <li><a href="{{ path('users') }}">{{ 'Users'|trans }}</a></li>
+                        {% endif %}
 
                         {% if is_granted('ROLE_IMPLANTATION_LIST_ALL') %}
                             <li><a href="{{ path('implantations') }}">{{ 'Implantations'|trans }}</a></li>
@@ -166,10 +172,14 @@
                 <i class="fas fa-clock"></i>
                 <span>{{ 'Classes'|trans }}</span>
             </div>
-            <div class="menuItem">
-                <i class="fas fa-user-graduate"></i>
-                <span>{{ 'Students'|trans }}</span>
-            </div>
+
+            <a href="{{ path('eleves') }}">
+                <div class="menuItem">
+                    <i class="fas fa-user-graduate"></i>
+                    <span>{{ 'Students'|trans }}</span>
+                </div>
+            </a>
+
             <div class="menuItem">
                 <i class="fas fa-brain"></i>
                 <span>{{ 'Activities'|trans }}</span>
