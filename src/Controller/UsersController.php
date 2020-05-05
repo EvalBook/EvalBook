@@ -71,6 +71,8 @@ class UsersController extends AbstractController
      * @Route("/user/edit/{id}", name="user_edit")
      * @IsGranted("ROLE_USER_EDIT", statusCode=404, message="Not found")
      *
+     * @param Request $request
+     * @param User $user
      * @return Response
      */
     public function edit(Request $request, User $user)

@@ -64,6 +64,7 @@ h1, h2 {
 .content {
     display: flex;
     flex-grow: 1;
+    overflow: auto;
 }
 
 /**
@@ -298,8 +299,22 @@ tr:nth-child(even) {
     margin-top: 15px;
 }
 
+.margin-left {
+    margin-left: 5px;
+}
+
 .full-width {
     width: 100%;
+}
+
+.width-25-percent {
+    width: 25%;
+}
+
+/* Usually elements that must be grouped */
+.width-25-percent h1, .width-25-percent h2 {
+    text-align: left;
+    margin-top: 1.5em;
 }
 
 .text-center {
@@ -313,6 +328,12 @@ tr:nth-child(even) {
 .column {
     flex-direction: column;
     justify-content: flex-start;
+}
+
+.display-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 /**

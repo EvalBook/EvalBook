@@ -64,6 +64,28 @@
                 </span>
             </div>
 
+            {# User roles management #}
+            <div class="form-row display-row">
+                {% for group_label, options in form.roles.vars.choices %}
+                    <div class="width-25-percent">
+                        <h2>{{ (group_label~'s')|replace({'ys': 'ies', 'sss': 'sses'})|capitalize|trans }}</h2>
+                        {% for key, choice in options %}
+                            <div class="flex">
+                                <input type="checkbox" id="{{ form.vars.name }}_roles_{{ key }}"
+                                       name="{{ form.vars.name }}[roles][]"
+                                       value="{{ choice.value }}" {{ (choice.value in form.roles.vars.value) ? 'checked' : '' }}
+                                >
+
+                                <label class="margin-left"
+                                       for="{{ form.vars.name }}_roles_{{ key }}">{{ choice.label|trans }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+            {% do form.roles.setRendered() %}
+
             {# Submit button #}
             {{ form_row(form.submit, {
                 'label': 'Send'|trans,

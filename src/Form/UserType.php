@@ -21,6 +21,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -74,7 +75,7 @@ class UserType extends AbstractType
                 ]
             ])
 
-                // Password and password verify form inputs.
+            // Password and password verify form inputs.
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'user.password-not-match',
@@ -82,6 +83,22 @@ class UserType extends AbstractType
                 'empty_data' => '',
                 'first_options'  => ['empty_data' => ''],
                 'second_options' => ['empty_data' => '']
+            ])
+
+            // User roles.
+            ->add('roles', ChoiceType::class, [
+                'required' => true,
+                'multiple' => true,
+                'expanded' => true,
+                'choices' => array_combine(
+                    array_map(function($value){ return 'roles.' . $value; }, User::getAssignableRoles()),
+                    User::getAssignableRoles()
+                ),
+
+                'group_by' => function($value) {
+                    $role = str_replace('ROLE_', '', $value);
+                    return strtolower(substr($role, 0, strpos($role, '_')));
+                },
             ])
 
             // Submit button.
