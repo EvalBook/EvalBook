@@ -12,8 +12,15 @@
             <th scope="col">{{ 'First name'|trans }}</th>
             <th scope="col">{{ 'Mail address'|trans }}</th>
             <th scope="col" class="text-center">{{ 'Classes' | trans }}</th>
-            <th scope="col" class="text-center" data-mobile="0">{{ 'Edit'|trans }}</th>
-            <th scope="col" class="text-center" data-mobile="0">{{ 'Delete'|trans }}</th>
+
+            {% if is_granted('ROLE_USER_EDIT') %}
+                <th scope="col" class="text-center" data-mobile="0">{{ 'Edit'|trans }}</th>
+            {% endif %}
+
+            {% if is_granted('ROLE_USER_DELETE') %}
+                <th scope="col" class="text-center" data-mobile="0">{{ 'Delete'|trans }}</th>
+            {% endif %}
+
         </tr>
         </thead>
         <tbody>
@@ -24,21 +31,26 @@
                 <td>{{ user.email }}</td>
                 <td class="text-center">{{ user.classes|length }}</td>
 
-                <td class="text-center" data-mobile="0">
-                    <a href="{{ path('user_edit', {'id': user.id}) }}">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                </td>
+                {% if is_granted('ROLE_USER_EDIT') %}
+                    <td class="text-center" data-mobile="0">
+                        <a href="{{ path('user_edit', {'id': user.id}) }}">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
+                {% endif %}
 
-                <td class="text-center" data-mobile="0">
-                    <div data-target="user"
-                         data-targetid="{{ user.id }}"
-                         data-action="{{ path('user_delete', {'id': user.id}) }}"
-                         data-class="fas fa-trash"
-                         data-csrf="{{ csrf_token('user_delete' ~ user.id) }}"
-                    >
-                    </div>
-                </td>
+                {% if is_granted('ROLE_USER_DELETE') %}
+                    <td class="text-center" data-mobile="0">
+                        <div data-target="user"
+                             data-targetid="{{ user.id }}"
+                             data-action="{{ path('user_delete', {'id': user.id}) }}"
+                             data-class="fas fa-trash"
+                             data-csrf="{{ csrf_token('user_delete' ~ user.id) }}"
+                        >
+                        </div>
+                    </td>
+                {% endif %}
+
             </tr>
         {% else %}
             <tr>
@@ -51,16 +63,20 @@
 
 
 {% block functionnalities %}
-    <a href="{{ path('user_add') }}">
-        <i class="fas fa-plus"></i>
-    </a>
+    {% if is_granted('ROLE_USER_CREATE') %}
+        <a href="{{ path('user_add') }}">
+            <i class="fas fa-plus"></i>
+        </a>
+    {% endif %}
 {% endblock %}
 
 
 {% block functionnalitiesMobile %}
-    <a href="{{ path('user_add') }}">
-        <i class="fas fa-plus"></i>
-    </a>
+    {% if is_granted('ROLE_USER_CREATE') %}
+        <a href="{{ path('user_add') }}">
+            <i class="fas fa-plus"></i>
+        </a>
+    {% endif %}
 {% endblock %}
 
 {% block javascripts %}
