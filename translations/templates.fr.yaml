@@ -12,6 +12,7 @@ Source code on: Code source sur
 Profile: Profil
 Implantations: Implantations
 No implantation found: Aucune implantation trouvée
+No users found: Aucun utilisateur trouvé
 Implantation deleted: Implantation supprimée
 Implantation not deleted: Implantation not deleted
 All data such as classes attached to it will be deleted too !: Toutes les données y étant attachées telles que les écoles, périodes,etc.. seront également supprimées !
@@ -28,6 +29,7 @@ Edit: Editer
 Delete: Supprimer
 Add: Ajouter
 Name: Nom
+First name: Prénom
 Send: Envoyer
 Return to list: Retour à la liste
 Successfully updated: Mise à jour de l'élément avec succès

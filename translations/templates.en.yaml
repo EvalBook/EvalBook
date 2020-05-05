@@ -12,6 +12,7 @@ Source code on: Source code on
 Profile: Profile
 Implantations: Implantations
 No implantation found: No implantation found
+No users found: No users found
 Implantation deleted: Implantation deleted
 Implantation not deleted: Erreur lors de la suppression de l'implantation
 All data such as classes attached to it will be deleted too !: All data such as classes attached to it will be deleted too !
@@ -28,6 +29,7 @@ Edit: Edit
 Delete: Delete
 Add: Add
 Name: Name
+First name: First name
 Send: Send
 Return to list: Return to list
 Successfully updated: Successfully updated

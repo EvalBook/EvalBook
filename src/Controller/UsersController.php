@@ -54,130 +54,69 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("/users", name="index")
-     */
-    public function index()
-    {
-        if(!$this->isGranted("ROLE_USER_DELETE")) {
-            return $this->redirectToRoute("app_login");
-        }
-        return $this->render('users/index.html.twig');
-    }
-
-
-    /**
-     * @Route("/users/list", name="list")
+     * @Route("/users", name="users")
      * @IsGranted("ROLE_USER_LIST_ALL", statusCode=404, message="Not found")
-     * 
      * @param UserRepository $repository
      * @return Response
      */
-    public function listUsers(UserRepository $repository)
+    public function index(UserRepository $repository)
     {
-        return $this->render('users/users-list.html.twig', [
+        return $this->render('users/index.html.twig', [
             'users' => $repository->findAll(),
         ]);
     }
 
 
     /**
-     * @Route("/users/edit", name="edit")
+     * @Route("/user/edit/{id}", name="user_edit")
      * @IsGranted("ROLE_USER_EDIT", statusCode=404, message="Not found")
      *
-     * @param FormService $service
-     * @param UserRepository $repository
      * @return Response
      */
-    public function editUsers(FormService $service, UserRepository $repository)
+    public function edit(Request $request, User $user)
     {
-        $users = $repository->findAll();
-        $rolesForms = array();
-        $editForms = array();
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
 
-        foreach($users as $usr) {
-            list($rResult, $formRolesEdit) = $service->createSimpleForm('edit-user-roles-' . $usr->getId(), UserRoleType::class, $usr);
-            list($eResult, $formEdit) = $service->createSimpleForm('edit-user-' . $usr->getId(), UserType::class, $usr);
-            
-            $rolesForms[$usr->getId()] = $formRolesEdit;
-            $editForms[$usr->getId()] =  $formEdit;
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Successfully updated');
 
-            if((!is_null($rResult) && $rResult) || (!is_null($eResult) && $eResult)) {
-                $this->addFlash('success', 'user.updated');
-                return $this->redirectToRoute("users_edit"); 
-            }
+            return $this->redirectToRoute('users');
         }
-        return $this->render('users/users-edit-list.html.twig', [
-            'users' => $users,
-            'rolesForms' => $rolesForms,
-            'editForms' => $editForms,
+
+        return $this->render('users/form.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
         ]);
     }
 
 
     /**
-     * @Route("/users/add", name="add")
+     * @Route("/user/add", name="user_add")
      * @IsGranted("ROLE_USER_CREATE", statusCode=404, message="Not found")
      *
      * @param Request $request
-     * @param array|null $roles
-     * @param string|null $redirect
      * @return RedirectResponse|Response
      */
-    public function addUser(Request $request, ?array $roles, ?string $redirect)
+    public function add(Request $request)
     {
-        $usr = new User();
-        $userForm = $this->createForm(UserType::class, $usr);
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
 
-        try {
-            $userForm->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+            $this->addFlash('success', 'Successfully added');
 
-            if ($userForm->isSubmitted() && $userForm->isValid()) {
-                if(is_null($roles)) {
-                    $roles = [
-                        'ROLE_CLASS_CREATE',
-                        'ROLE_CLASS_EDIT',
-                        'ROLE_CLASS_EDIT_STUDENTS',
-                        'ROLE_ACTIVITY_LIST_ALL',
-                        'ROLE_ACTIVITY_CREATE',
-                        'ROLE_ACTIVITY_EDIT',
-                        'ROLE_ACTIVITY_DELETE',
-                        'ROLE_NOTEBOOK_VIEW',
-                        'ROLE_BULLETIN_LIST_ALL',
-                        'ROLE_BULLETIN_PRINT_ALL',
-                        'ROLE_BULLETIN_VALIDATE',
-                        'ROLE_BULLETIN_ADD_COMMENT',
-                        'ROLE_BULLETIN_STYLE_EDIT',
-                    ];
-                }
-
-                $usr->setRoles($roles);
-                $this->entityManager->persist($usr);
-                $this->entityManager->flush();
-
-                $this->addFlash('success', 'user.added');
-                return $this->redirectToRoute($redirect || "users_add");
-            }
-        } catch (\Exception $e) {
-            $this->addFlash('error', 'user.add-error');
+            return $this->redirectToRoute('users');
         }
-        
-        return $this->render('users/user-add-form.html.twig', [
-            'form' => $userForm->createView()
+
+        return $this->render('users/form.html.twig', [
+            'form' => $form->createView(),
         ]);
-    }
-
-
-    /**
-     * @Route("/users/add/admin", name="add_admin")
-     * @IsGranted("ROLE_ADMIN", statusCode=404, message="Not found")
-     * Add a super admin to the system.
-     *
-     * @param Request $request
-     * @return RedirectResponse|Response
-     */
-    public function addUserAdmin(Request $request)
-    {
-        return $this->addUser($request, ["ROLE_ADMIN"], 'users_add_admin');
     }
 
 

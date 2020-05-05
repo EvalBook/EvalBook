@@ -47,6 +47,7 @@ security:
             ROLE_USER_CREATE,
             ROLE_USER_EDIT,
             ROLE_USER_DELETE,
+
             ROLE_STUDENT_LIST_ALL,
             ROLE_STUDENT_CREATE,
             ROLE_STUDENT_EDIT,
@@ -71,6 +72,7 @@ security:
             ROLE_BULLETIN_VALIDATE,
             ROLE_BULLETIN_ADD_COMMENT,
             ROLE_BULLETIN_STYLE_EDIT,
+
             ROLE_IMPLANTATION_LIST_ALL,
             ROLE_IMPLANTATION_EDIT,
             ROLE_IMPLANTATION_CREATE,

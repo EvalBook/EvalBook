@@ -49,7 +49,6 @@ class UserFixtures extends Fixture
               ->setFirstName("Admin")
               ->setEmail("admin@evalbook.dev")
               ->setPassword($this->encoder->encodePassword($admin, "Dev007!!"))
-              ->setActive(true)
               ->setRoles(array("ROLE_ADMIN"));
 
         for($i = 0; $i < 15; $i++) {
@@ -58,7 +57,6 @@ class UserFixtures extends Fixture
                  ->setFirstName("FnUser $i")
                  ->setEmail("user-$i@evalbook.dev")
                  ->setPassword($this->encoder->encodePassword($admin, "Dev007!!"))
-                 ->setActive(true)
                  ->setRoles(array(
                      'ROLE_USER_LIST_ALL',
                      'ROLE_USER_CREATE',
