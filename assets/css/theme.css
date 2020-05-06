@@ -169,7 +169,7 @@ nav .menuItem {
 
 .go-back {
     font-size: 4em;
-    margin-top: -1em;
+    margin-top: -0.3em;
     color: var(--secondary-color);
 }
 
@@ -358,10 +358,6 @@ tr:nth-child(even) {
     .width-25-percent {
         width: 33%;
     }
-
-    .go-back {
-        margin-top: -0.3em;
-    }
 }
 
 /**
@@ -386,7 +382,6 @@ tr:nth-child(even) {
     .width-25-percent {
         width: 50%;
     }
-
 }
 
 /**

@@ -112,3 +112,7 @@ user:
   email-is-null: L'adresse e-mail ne peut être nulle.
   password-not-match: La vérification du mot de passe a échoué.
   confirm-delete: Etes vous sûr de vouloir supprimer cet utlisateur ?
+
+classe:
+  name-too-short: Le nom de la classe est trop court
+  name-too-long: Le nom de la classe est trop long

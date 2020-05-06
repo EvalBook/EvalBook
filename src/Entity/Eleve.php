@@ -277,4 +277,10 @@ class Eleve
 
         return $this;
     }
+
+
+    public function __toString()
+    {
+        return $this->getLastName() . " " . $this->getFirstName();
+    }
 }

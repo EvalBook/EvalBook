@@ -1,4 +1,59 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block pageTitle %}
+    {{ classe.id is defined ? 'Edit'|trans : 'Add'|trans }}
+{% endblock %}
+
+{% block title %}
+    {{ classe.id is defined ? 'Edit'|trans : 'Add'|trans }}
+{% endblock %}
+
+{% block body %}
+    <div class="full-width flex column">
+        <a class="go-back" href="{{ path('classes') }}">
+            <i class="fas fa-long-arrow-alt-left"></i>
+        </a>
+
+        <div class="form-content">
+            {{ form_start(form) }}
+
+            {# Class name #}
+            <div class="form-row">
+                {{ form_label(form.name, 'Name'|trans) }}
+                {{ form_widget(form.name) }}
+                <span class="form-error">
+                    {{ form_errors(form.name) }}
+                </span>
+            </div>
+
+            {# Class owner - titulaire #}
+            <div class="form-row">
+                {{ form_label(form.titulaire, 'Owner'|trans) }}
+                {{ form_widget(form.titulaire) }}
+                <span class="form-error">
+                    {{ form_errors(form.titulaire) }}
+                </span>
+            </div>
+
+            {# Class implantation #}
+            <div class="form-row">
+                {{ form_label(form.implantation, 'Implantation'|trans) }}
+                {{ form_widget(form.implantation) }}
+                <span class="form-error">
+                    {{ form_errors(form.implantation) }}
+                </span>
+            </div>
+
+
+            {# Submit button #}
+            {{ form_row(form.submit, {
+                'label': 'Send'|trans,
+                'attr': {'class': 'margin-15'},
+            }) }}
+
+            {{ form_end(form) }}
+        </div>
+
+    </div>
+{% endblock %}

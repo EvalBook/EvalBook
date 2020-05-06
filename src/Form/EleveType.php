@@ -47,8 +47,6 @@ class EleveType extends AbstractType
             ->add('submit', SubmitType::class)
         ;
 
-        // Utiliser EntityType, ajouter une select avec les implantations ( champs non mappé ) et masquer les classes hors implantation avec js.
-
     }
 
     public function configureOptions(OptionsResolver $resolver)
