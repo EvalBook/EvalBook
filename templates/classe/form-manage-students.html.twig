@@ -2,11 +2,11 @@
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %}
-    {{ 'Manage users'|trans }}
+    {{ 'Manage students'|trans }}
 {% endblock %}
 
 {% block title %}
-    {{ 'Manage users'|trans }}
+    {{ 'Manage students'|trans }}
 {% endblock %}
 
 {% block body %}
@@ -20,27 +20,26 @@
             {{ form_start(form) }}
 
             <div class="form-row">
-                {{ form_label(form.users, 'Users'|trans) }}
+
+                {{ form_label(form.students, 'Students'|trans) }}
                 <div class="checkbox-container">
 
-                    {% for key, choice in form.users.vars.choices %}
+                    {% for key, choice in form.students.vars.choices %}
 
                         <div class="flex">
-                            <input type="checkbox" id="form_users_{{ choice.value }}"
-                                   name="form[users][]"
-                                   value="{{ choice.value }}" {{ (choice.value in form.users.vars.value) ? 'checked' : '' }}
+                            <input type="checkbox" id="form_students_{{ choice.value }}"
+                                   name="form[students][]"
+                                   value="{{ choice.value }}" {{ (choice.value in form.students.vars.value) ? 'checked' : '' }}
                             />
-                            <label for="{{ form.users.vars.name }}_{{ choice.value }}">{{ choice.label }}</label>
-
-
+                            <label for="{{ form.students.vars.name }}_{{ choice.value }}">{{ choice.label}}</label>
                         </div>
 
                     {% endfor %}
-                    {% do form.users.setRendered() %}
+                    {% do form.students.setRendered() %}
 
                 </div>
                 <span class="form-error">
-                    {{ form_errors(form.users) }}
+                    {{ form_errors(form.students) }}
                 </span>
             </div>
 

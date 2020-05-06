@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Classe;
+use App\Entity\Eleve;
 use App\Entity\User;
 use App\Form\ClasseType;
 use App\Repository\ClasseRepository;
@@ -170,6 +171,55 @@ class ClasseController extends AbstractController
         }
 
         return $this->render('classe/form-manage-users.html.twig', [
+            'classe' => $classe,
+            'form' => $form->createView(),
+        ]);
+    }
+
+
+    /**
+     * @Route("/classe/students/{id}", name="classe_manage_students")
+     *
+     * @param Request $request
+     * @param Classe $classe
+     */
+    public function manageClassStudents(Request $request, Classe $classe)
+    {
+        $form = $this->createFormBuilder([
+            'students' => $classe->getEleves(),
+        ])
+
+            ->add('students', EntityType::class, [
+                'class' => Eleve::class,
+                'multiple' => true,
+                'expanded' => true,
+            ])
+
+            // Submit button.
+            ->add('submit', SubmitType::class)
+
+            ->getForm()
+        ;
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $students = $form->getData()["students"];
+            if(!is_null($students) && count($students) > 0) {
+                foreach ($students as $student) {
+                    $student->addClasse($classe);
+                }
+                // Saving added users.
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($student);
+                $em->flush();
+            }
+
+            return $this->redirectToRoute('classes');
+        }
+
+        return $this->render('classe/form-manage-students.html.twig', [
             'classe' => $classe,
             'form' => $form->createView(),
         ]);
