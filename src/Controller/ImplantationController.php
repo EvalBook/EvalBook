@@ -19,6 +19,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Classe;
 use App\Entity\Implantation;
 use App\Form\ImplantationType;
 use App\Repository\ImplantationRepository;
@@ -133,6 +134,19 @@ class ImplantationController extends AbstractController
         $entityManager->flush();
 
         return $this->json(['message' => 'Implantation deleted'], 200);
+    }
+
+
+    /**
+     * @Route("/implantation/view/classes/{id}", name="implantation_view_classes")
+     *
+     * @param Implantation $implantation
+     */
+    public function viewClassStudents(Implantation $implantation)
+    {
+        return $this->render('classe/index.html.twig', [
+            'classes' => $implantation->getClasses(),
+        ]);
     }
 
 }
