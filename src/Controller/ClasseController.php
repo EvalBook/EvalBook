@@ -224,4 +224,18 @@ class ClasseController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
+    /**
+     * @Route("/classe/view/users/{id}", name="classe_view_users")
+     *
+     * @param Classe $classe
+     */
+    public function viewClassUsers(Classe $classe)
+    {
+        return $this->render('users/index.html.twig', [
+           'users' => $classe->getUsers(),
+        ]);
+    }
+
 }
