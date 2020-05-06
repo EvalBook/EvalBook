@@ -56,11 +56,6 @@ class Activite
     private $periode;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $activeInPeriod;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $comment;
@@ -158,28 +153,6 @@ class Activite
     public function setPeriode(?Periode $periode): self
     {
         $this->periode = $periode;
-        return $this;
-    }
-
-
-    /**
-     * Return true if this actifity MUST be included in period calculations, false otherwise.
-     * @return bool|null
-     */
-    public function getActiveInPeriod(): ?bool
-    {
-        return $this->activeInPeriod;
-    }
-
-
-    /**
-     * Set to true in order to use activity score in period, false otherwise.
-     * @param bool $activeInPeriod
-     * @return $this
-     */
-    public function setActiveInPeriod(bool $activeInPeriod): self
-    {
-        $this->activeInPeriod = $activeInPeriod;
         return $this;
     }
 
