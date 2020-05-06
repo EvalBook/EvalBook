@@ -29,7 +29,16 @@
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.lastName }}</td>
                 <td>{{ user.email }}</td>
-                <td class="text-center">{{ user.classes|length }}</td>
+
+                <td class="text-center">
+                    {% if user.classes|length > 0 %}
+                        <a href="{{ path('user_view_classes', {'id': user.id} ) }}">
+                            <i class="fas fa-eye"></i> ({{ user.classes|length }})
+                        </a>
+                    {% else %}
+                        <span>0</span>
+                    {% endif %}
+                </td>
 
                 {% if is_granted('ROLE_USER_EDIT') %}
                     <td class="text-center" data-mobile="0">

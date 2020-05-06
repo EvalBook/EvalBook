@@ -157,4 +157,19 @@ class UsersController extends AbstractController
             'userProfileForm' => $userForm->createView(),
         ]);
     }
+
+
+    /**
+     * @Route("/user/view/classes/{id}", name="user_view_classes")
+     *
+     * @param User $user
+     * @return Response
+     */
+    public function viewClassStudents(User $user)
+    {
+        return $this->render('classe/index.html.twig', [
+            'classes' => $user->getClasses(),
+        ]);
+    }
+
 }

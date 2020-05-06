@@ -19,7 +19,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Classe;
 use App\Entity\Implantation;
 use App\Form\ImplantationType;
 use App\Repository\ImplantationRepository;
@@ -141,6 +140,7 @@ class ImplantationController extends AbstractController
      * @Route("/implantation/view/classes/{id}", name="implantation_view_classes")
      *
      * @param Implantation $implantation
+     * @return Response
      */
     public function viewClassStudents(Implantation $implantation)
     {

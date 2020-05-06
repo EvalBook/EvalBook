@@ -230,6 +230,7 @@ class ClasseController extends AbstractController
      * @Route("/classe/view/users/{id}", name="classe_view_users")
      *
      * @param Classe $classe
+     * @return Response
      */
     public function viewClassUsers(Classe $classe)
     {
@@ -243,6 +244,7 @@ class ClasseController extends AbstractController
      * @Route("/classe/view/students/{id}", name="classe_view_students")
      *
      * @param Classe $classe
+     * @return Response
      */
     public function viewClassStudents(Classe $classe)
     {
