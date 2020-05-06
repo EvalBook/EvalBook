@@ -218,9 +218,22 @@ input, select {
     padding: 9px;
 }
 
-select {
-    margin-right: 2em;
+.higher select {
+    height: 30em;
+    width: 100%;
 }
+
+.checkbox-container {
+    background-color: white;
+    box-shadow: 0 0 3px gray;
+    height: 38em;
+    overflow: auto;
+}
+
+.checkbox-container input {
+    display: inline !important;
+}
+
 
 button[type="submit"] {
     width: auto;

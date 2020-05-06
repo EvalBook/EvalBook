@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block pageTitle %}
+    {{ 'Manage users'|trans }}
+{% endblock %}
+
+{% block title %}
+    {{ 'Manage users'|trans }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="full-width flex column">
+        <a class="go-back" href="{{ path('classes') }}">
+            <i class="fas fa-long-arrow-alt-left"></i>
+        </a>
+
+        <div class="form-content">
+            {{ form_start(form) }}
+
+            <div class="form-row">
+                <p>
+                    {{ "You can add multiple users at once by pushing ctrl key + click on a user"|trans }}
+                </p>
+                {{ form_label(form.users, 'Users'|trans) }}
+                <div class="checkbox-container">
+
+                    {% for key, choice in form.users.vars.choices %}
+
+                        <div class="flex">
+                            <input type="checkbox" id="form_users_{{ choice.value }}"
+                                   name="form[users][]"
+                                   value="{{ choice.value }}" {{ (choice.value in form.users.vars.value) ? 'checked' : '' }}
+                            />
+                            <label for="{{ form.users.vars.name }}_{{ choice.value }}">{{ choice.label|trans }}</label>
+
+
+                        </div>
+
+                    {% endfor %}
+                    {% do form.users.setRendered() %}
+
+                </div>
+                <span class="form-error">
+                    {{ form_errors(form.users) }}
+                </span>
+            </div>
+
+
+            {{ form_row(form.submit, {
+                'label': 'Send'|trans,
+                'attr': {'class': 'margin-15'},
+            }) }}
+
+            {{ form_end(form) }}
+        </div>
+
+    </div>
+
+{% endblock %}

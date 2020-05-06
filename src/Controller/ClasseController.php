@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Classe;
+use App\Entity\User;
 use App\Form\ClasseType;
 use App\Repository\ClasseRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -121,5 +124,54 @@ class ClasseController extends AbstractController
         $entityManager->flush();
 
         return $this->json(['message' => 'Classe deleted'], 200);
+    }
+
+
+    /**
+     * @Route("/classe/users/{id}", name="classe_manage_users")
+     *
+     * @param Request $request
+     * @param Classe $classe
+     */
+    public function manageClassUsers(Request $request, Classe $classe)
+    {
+        $form = $this->createFormBuilder([
+                'users' => $classe->getUsers(),
+              ])
+
+              ->add('users', EntityType::class, [
+                  'class' => User::class,
+                  'multiple' => true,
+                  'expanded' => true,
+              ])
+
+              // Submit button.
+              ->add('submit', SubmitType::class)
+
+              ->getForm()
+        ;
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Getting posted information.
+            $users = $form->getData()["users"];
+            if(!is_null($users) && count($users) > 0) {
+                foreach ($users as $user) {
+                    $user->addClasse($classe);
+                }
+                // Saving added users.
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($user);
+                $em->flush();
+            }
+
+            return $this->redirectToRoute('classes');
+        }
+
+        return $this->render('classe/form-manage-users.html.twig', [
+            'classe' => $classe,
+            'form' => $form->createView(),
+        ]);
     }
 }

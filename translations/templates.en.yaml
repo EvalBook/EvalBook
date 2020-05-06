@@ -48,6 +48,8 @@ Birthday: Birthday
 Select implantation: Select implantation
 Manage students: Manage students
 Manage users: Manage users
+You can add multiple users at once by pushing ctrl key + click on a user: You can add multiple users at once by pushing ctrl key + click on a user
+
 
 roles:
   ROLE_USER_LIST_ALL: Lister les utilisateurs
