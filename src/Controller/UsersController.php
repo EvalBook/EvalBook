@@ -165,7 +165,7 @@ class UsersController extends AbstractController
      * @param User $user
      * @return Response
      */
-    public function viewClassStudents(User $user)
+    public function viewClasses(User $user)
     {
         return $this->render('classe/index.html.twig', [
             'classes' => $user->getClasses(),

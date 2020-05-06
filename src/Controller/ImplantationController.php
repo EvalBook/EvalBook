@@ -142,7 +142,7 @@ class ImplantationController extends AbstractController
      * @param Implantation $implantation
      * @return Response
      */
-    public function viewClassStudents(Implantation $implantation)
+    public function viewClasses(Implantation $implantation)
     {
         return $this->render('classe/index.html.twig', [
             'classes' => $implantation->getClasses(),
