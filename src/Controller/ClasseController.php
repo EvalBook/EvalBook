@@ -238,4 +238,17 @@ class ClasseController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("/classe/view/students/{id}", name="classe_view_students")
+     *
+     * @param Classe $classe
+     */
+    public function viewClassStudents(Classe $classe)
+    {
+        return $this->render('eleve/index.html.twig', [
+            'eleves' => $classe->getEleves(),
+        ]);
+    }
+
 }
