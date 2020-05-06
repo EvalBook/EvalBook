@@ -22,7 +22,6 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use mysql_xdevapi\DocResult;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -83,7 +82,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     public function userExists(string $email)
     {
-        return $this->findOneBy(array("email" => $email)) !== null ? true : false;
+        return $this->findOneBy(array("email" => $email)) !== null;
     }
 
 

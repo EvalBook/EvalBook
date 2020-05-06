@@ -424,4 +424,9 @@ class User implements UserInterface
             'ROLE_IMPLANTATION_DELETE',
         );
     }
+
+    public function __toString()
+    {
+        return $this->getFirstName() . " " . $this->getLastName();
+    }
 }

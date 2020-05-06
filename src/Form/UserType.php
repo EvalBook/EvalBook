@@ -91,8 +91,9 @@ class UserType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'choices' => array_combine(
-                    array_map(function($value){ return 'roles.' . $value; }, User::getAssignableRoles()),
-                    User::getAssignableRoles(),
+                    array_map(function($value){ return 'roles.' . $value; },
+                              User::getAssignableRoles()),
+                              User::getAssignableRoles()
                 ),
 
                 'group_by' => function($value) {

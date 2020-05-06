@@ -164,7 +164,7 @@ class Eleve
      * @param Classe $classe
      * @return $this
      */
-    public function addClass(Classe $classe): self
+    public function addClasse(Classe $classe): self
     {
         if (!$this->classes->contains($classe)) {
             $this->classes[] = $classe;
@@ -179,7 +179,7 @@ class Eleve
      * @param Classe $classe
      * @return $this
      */
-    public function removeClass(Classe $classe): self
+    public function removeClasse(Classe $classe): self
     {
         if ($this->classes->contains($classe)) {
             $this->classes->removeElement($classe);
@@ -276,5 +276,11 @@ class Eleve
         }
 
         return $this;
+    }
+
+
+    public function __toString()
+    {
+        return $this->getLastName() . " " . $this->getFirstName();
     }
 }

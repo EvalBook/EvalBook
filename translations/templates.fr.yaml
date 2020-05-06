@@ -5,6 +5,8 @@ Activities: Activités
 School reports: Bulletins
 Students: Etudiants
 Classes: Classes
+Class: Classe
+Owner: Titulaire
 Users: Utlisateurs
 Periods: Périodes
 My profile: Mon profil
@@ -13,6 +15,7 @@ Teachers evaluation tool: L'outil d'évaluation des professeurs
 Source code on: Code source sur
 Profile: Profil
 Implantations: Implantations
+Implantation: Implantation
 No implantation found: Aucune implantation trouvée
 No users found: Aucun utilisateur trouvé
 Invalid csrf token: Token CSRF invalide
@@ -40,8 +43,11 @@ All attached data will be deleted or marked orphan: Toutes les données attaché
 Element deleted: Elément supprimé
 Element not deleted: Elément non supprimé
 No student found: Pas d'élève trouvé
+No class found: Aucune classe trouvée
 Birthday: Naissance
 Select implantation: Sélectionnez une implantation
+Manage students: Gérer élèves
+Manage users: Gérer utilisateurs
 
 
 roles:

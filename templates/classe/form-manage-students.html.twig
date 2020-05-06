@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block pageTitle %}
+    {{ 'Manage students'|trans }}
+{% endblock %}
+
+{% block title %}
+    {{ 'Manage students'|trans }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="full-width flex column">
+        <a class="go-back" href="{{ path('classes') }}">
+            <i class="fas fa-long-arrow-alt-left"></i>
+        </a>
+
+        <div class="form-content">
+            {{ form_start(form) }}
+
+            <div class="form-row">
+
+                {{ form_label(form.students, 'Students'|trans) }}
+                <div class="checkbox-container">
+
+                    {% for key, choice in form.students.vars.choices %}
+
+                        <div class="flex">
+                            <input type="checkbox" id="form_students_{{ choice.value }}"
+                                   name="form[students][]"
+                                   value="{{ choice.value }}" {{ (choice.value in form.students.vars.value) ? 'checked' : '' }}
+                            />
+                            <label for="{{ form.students.vars.name }}_{{ choice.value }}">{{ choice.label}}</label>
+                        </div>
+
+                    {% endfor %}
+                    {% do form.students.setRendered() %}
+
+                </div>
+                <span class="form-error">
+                    {{ form_errors(form.students) }}
+                </span>
+            </div>
+
+
+            {{ form_row(form.submit, {
+                'label': 'Send'|trans,
+                'attr': {'class': 'margin-15'},
+            }) }}
+
+            {{ form_end(form) }}
+        </div>
+
+    </div>
+
+{% endblock %}

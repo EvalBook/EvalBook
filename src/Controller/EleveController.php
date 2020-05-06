@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Eleve;
 use App\Form\EleveType;
 use App\Repository\EleveRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +16,7 @@ class EleveController extends AbstractController
 {
     /**
      * @Route("/eleves", name="eleves", methods={"GET"})
+     * @IsGranted("ROLE_STUDENT_LIST_ALL", statusCode=404, message="Not found")
      *
      * @param EleveRepository $eleveRepository
      * @return Response
@@ -44,6 +46,7 @@ class EleveController extends AbstractController
 
     /**
      * @Route("/eleve/add", name="eleve_add")
+     * @IsGranted("ROLE_STUDENT_CREATE", statusCode=404, message="Not found")
      *
      * @param Request $request
      * @return Response
@@ -70,6 +73,7 @@ class EleveController extends AbstractController
 
     /**
      * @Route("/eleve/edit/{id}", name="eleve_edit")
+     * @IsGranted("ROLE_STUDENT_EDIT", statusCode=404, message="Not found")
      *
      * @param Request $request
      * @param Eleve $eleve
@@ -95,6 +99,7 @@ class EleveController extends AbstractController
 
     /**
      * @Route("/eleve/delete/{id}", name="eleve_delete", methods={"POST"})
+     * @IsGranted("ROLE_STUDENT_DELETE", statusCode=404, message="Not found")
      *
      * @param Request $request
      * @param Eleve $eleve
