@@ -5,6 +5,8 @@ Activities: Activities
 School reports: School Reports
 Students: Students
 Classes: Classes
+Class: Class
+Owner: Owner
 Users: Users
 Periods: Periods
 My profile: Profile
@@ -40,8 +42,11 @@ All attached data will be deleted or marked orphan: All attached data will be de
 Element deleted: Element deleted
 Element not deleted: Element not deleted
 No student found: No student found
+No class found: No class found
 Birthday: Birthday
 Select implantation: Select implantation
+Manage students: Manage students
+Manage users: Manage users
 
 roles:
   ROLE_USER_LIST_ALL: Lister les utilisateurs

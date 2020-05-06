@@ -9,24 +9,40 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
-/**
- * @Route("/classe")
- */
+
 class ClasseController extends AbstractController
 {
     /**
-     * @Route("/", name="classes")
+     * @Route("/classes", name="classes")
+     *
+     * @param ClasseRepository $classeRepository
+     * @param Security $security
+     * @return Response
      */
-    public function index(ClasseRepository $classeRepository): Response
+    public function index(ClasseRepository $classeRepository, Security $security): Response
     {
+        $user = $security->getUser();
+
+        // Getting all classes if user has role to view all.
+        if(in_array('ROLE_CLASS_LIST_ALL', $user->getRoles()) || in_array('ROLE_ADMIN', $user->getRoles()))
+            $classes = $classeRepository->findAll();
+        // If not, getting classes the user is subscribed to.
+        else
+            $classes = $user->getClasses();
+
         return $this->render('classe/index.html.twig', [
-            'classes' => $classeRepository->findAll(),
+            'classes' => $classes,
         ]);
     }
 
+
     /**
-     * @Route("/new", name="classe_new", methods={"GET","POST"})
+     * @Route("/classe/add", name="classe_add")
+     *
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -39,17 +55,20 @@ class ClasseController extends AbstractController
             $entityManager->persist($classe);
             $entityManager->flush();
 
-            return $this->redirectToRoute('classe_index');
+            return $this->redirectToRoute('classes');
         }
 
-        return $this->render('classe/new.html.twig', [
-            'classe' => $classe,
+        return $this->render('classe/form.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
+
     /**
-     * @Route("/{id}", name="classe_show", methods={"GET"})
+     * @Route("/classe/view/{id}", name="classe_view")
+     *
+     * @param Classe $classe
+     * @return Response
      */
     public function show(Classe $classe): Response
     {
@@ -59,7 +78,11 @@ class ClasseController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="classe_edit", methods={"GET","POST"})
+     * @Route("/classe/edit/{id}", name="classe_edit")
+     *
+     * @param Request $request
+     * @param Classe $classe
+     * @return Response
      */
     public function edit(Request $request, Classe $classe): Response
     {
@@ -69,26 +92,34 @@ class ClasseController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('classe_index');
+            return $this->redirectToRoute('classes');
         }
 
-        return $this->render('classe/edit.html.twig', [
+        return $this->render('classe/form.html.twig', [
             'classe' => $classe,
             'form' => $form->createView(),
         ]);
     }
 
+
     /**
-     * @Route("/{id}", name="classe_delete", methods={"DELETE"})
+     * @Route("/classe/delete/{id}", name="classe_delete", methods={"POST"})
+     *
+     * @param Request $request
+     * @param Classe $classe
+     * @return Response
      */
     public function delete(Request $request, Classe $classe): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$classe->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($classe);
-            $entityManager->flush();
+        $jsonRequest = json_decode($request->getContent(), true);
+        if( !isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('classe_delete'.$classe->getId(), $jsonRequest['csrf'])) {
+            return $this->json(['message' => 'Invalid csrf token'], 201);
         }
 
-        return $this->redirectToRoute('classe_index');
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($classe);
+        $entityManager->flush();
+
+        return $this->json(['message' => 'Classe deleted'], 200);
     }
 }

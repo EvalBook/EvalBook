@@ -68,17 +68,21 @@
 
             <!-- Navigation -->
             <nav>
-                <div class="menuItem">
-                    <i class="fas fa-clock"></i>
-                    <span>Classes</span>
-                </div>
-
-                <a href="{{ path('eleves') }}">
+                <a href="{{ path('classes') }}">
                     <div class="menuItem">
-                        <i class="fas fa-user-graduate"></i>
-                        <span>{{ 'Students'|trans }}</span>
+                        <i class="fas fa-clock"></i>
+                        <span>{{ 'Classes'|trans }}</span>
                     </div>
                 </a>
+
+                {% if is_granted('ROLE_STUDENT_LIST_ALL') %}
+                    <a href="{{ path('eleves') }}">
+                        <div class="menuItem">
+                            <i class="fas fa-user-graduate"></i>
+                            <span>{{ 'Students'|trans }}</span>
+                        </div>
+                    </a>
+                {% endif %}
 
                 <div class="menuItem">
                     <i class="fas fa-brain"></i>
@@ -118,12 +122,12 @@
             <div id="mobile-top-nav">
                 <div id="mobile-menu-items">
                     <ul>
-                        <li><a href="{{ path('dashboard') }}"><i class="fas fa-tachometer-alt"></i></a></li>
+                        <li><i class="fas fa-tachometer-alt"></i></li>
                         <li><i class="fas fa-poll"></i></li>
-                        <li><a href="{{ path('users') }}"><i class="fas fa-users"></i></a></li>
-                        <li><a href="{{ path('implantations') }}"><i class="fas fa-school"></i></a></li>
-                        <li><a href="{{ path('user_profile') }}"><i class="fas fa-user"></i></a></li>
-                        <li><a href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt"></i></a></li>
+                        <li><i class="fas fa-users"></i></li>
+                        <li><i class="fas fa-school"></i></li>
+                        <li><i class="fas fa-user"></i></li>
+                        <li><i class="fas fa-sign-out-alt"></i></li>
                     </ul>
                     <ul>
                         <li>
@@ -168,17 +172,23 @@
             <span>{{ 'Source code on'|trans }} </span><a href="https://github.com/EvalBook/EvalBook" title="Eval book github repository">Github</a>
         </p>
         <nav id="mobile-menu">
-            <div class="menuItem">
-                <i class="fas fa-clock"></i>
-                <span>{{ 'Classes'|trans }}</span>
-            </div>
 
-            <a href="{{ path('eleves') }}">
+            <!-- Quick access on mobile bottom. -->
+            <a href="{{ path('classes') }}">
                 <div class="menuItem">
-                    <i class="fas fa-user-graduate"></i>
-                    <span>{{ 'Students'|trans }}</span>
+                    <i class="fas fa-clock"></i>
+                    <span>{{ 'Classes'|trans }}</span>
                 </div>
             </a>
+
+            {% if is_granted('ROLE_STUDENT_LIST_ALL') %}
+                <a href="{{ path('eleves') }}">
+                    <div class="menuItem">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>{{ 'Students'|trans }}</span>
+                    </div>
+                </a>
+            {% endif %}
 
             <div class="menuItem">
                 <i class="fas fa-brain"></i>
