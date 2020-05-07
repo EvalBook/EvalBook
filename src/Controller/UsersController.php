@@ -173,4 +173,18 @@ class UsersController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("/user/view/students/{id}", name="user_view_students")
+     *
+     * @param User $user
+     * @return Response
+     */
+    public function viewStudents(User $user)
+    {
+        return $this->render('eleve/index.html.twig', [
+            'eleves' => $user->getEleves(),
+        ]);
+    }
+
 }

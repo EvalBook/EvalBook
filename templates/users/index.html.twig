@@ -11,6 +11,7 @@
             <th scope="col">{{ 'Name'|trans }}</th>
             <th scope="col">{{ 'First name'|trans }}</th>
             <th scope="col">{{ 'Mail address'|trans }}</th>
+            <th scope="col" class="text-center">{{ 'Students'|trans }}</th>
             <th scope="col" class="text-center">{{ 'Classes' | trans }}</th>
 
             {% if is_granted('ROLE_USER_EDIT') %}
@@ -29,6 +30,16 @@
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.lastName }}</td>
                 <td>{{ user.email }}</td>
+
+                <td class="text-center">
+                    {% if is_granted('ROLE_STUDENT_LIST_ALL') %}
+                        <a href="{{ path('user_view_students', {'id': user.id} ) }}">
+                            <i class="fas fa-eye"></i> ({{ user.eleves|length }})
+                        </a>
+                    {% else %}
+                        <span>{{ user.eleves|length }}</span>
+                    {% endif %}
+                </td>
 
                 <td class="text-center">
                     {% if is_granted('ROLE_CLASS_LIST_ALL') %}
@@ -63,10 +74,10 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">{{ 'No users found' | trans }}</td>
+                <td class="text-center" colspan="6">{{ 'No users found' | trans }}</td>
             </tr>
             <tr>
-                <td>{{ 'You do not have rights to see users or no users exists in the database'|trans }}</td>
+                <td class="text-center" colspan="6">{{ 'You do not have rights to see users or no users exists in the database'|trans }}</td>
             </tr>
         {% endfor %}
         </tbody>

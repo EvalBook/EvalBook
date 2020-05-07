@@ -67,10 +67,14 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">{{ 'No implantation found' | trans }}</td>
+                <td colspan="7" class="text-center">
+                    {{ 'No implantation found' | trans }}
+                </td>
             </tr>
-            <tr colspan="7" class="text-center">
-                <td>{{ 'You do not have rights to view implantations or no impantation was created'|trans }}</td>
+            <tr>
+                <td colspan="7" class="text-center">
+                    {{ 'You do not have rights to view implantations or no impantation was created'|trans }}
+                </td>
             </tr>
         {% endfor %}
         </tbody>
