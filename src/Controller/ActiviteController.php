@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ActiviteController extends AbstractController
 {
     /**
-     * @Route("/activites", name="activite_index")
+     * @Route("/activites", name="activites")
      */
     public function index(ActiviteRepository $activiteRepository): Response
     {
@@ -89,7 +89,7 @@ class ActiviteController extends AbstractController
 
 
     /**
-     * @Route("/{id}", name="activite_delete")
+     * @Route("/activite/delete/{id}", name="activite_delete")
      *
      * @param Request $request
      * @param Activite $activite
