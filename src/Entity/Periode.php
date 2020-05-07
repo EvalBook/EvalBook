@@ -51,11 +51,6 @@ class Periode
     private $dateEnd;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $active;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Activite", mappedBy="periode")
      */
     private $activites;
@@ -147,28 +142,6 @@ class Periode
     public function setDateEnd(\DateTimeInterface $dateEnd): self
     {
         $this->dateEnd = $dateEnd;
-        return $this;
-    }
-
-
-    /**
-     * Return true if the Period is still active ( current Period ).
-     * @return bool|null
-     */
-    public function getActive(): ?bool
-    {
-        return $this->active;
-    }
-
-
-    /**
-     * Set the Period active state.
-     * @param bool $active
-     * @return $this
-     */
-    public function setActive(bool $active): self
-    {
-        $this->active = $active;
         return $this;
     }
 

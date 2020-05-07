@@ -40,7 +40,6 @@ class PeriodeFixtures extends Fixture implements DependentFixtureInterface
                     $periode->setName("Periode $i")
                         ->setDateStart(new \DateTime('2019-09-01'))
                         ->setDateEnd(new \DateTime('2020-06-30'))
-                        ->setActive(true)
                         ->setImplantation($this->getReference(ImplantationFixtures::implantationsReference . $reference));
 
                     $manager->persist($periode);
