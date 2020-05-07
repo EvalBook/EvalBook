@@ -7,6 +7,7 @@ use App\Entity\Eleve;
 use App\Entity\User;
 use App\Form\ClasseType;
 use App\Repository\ClasseRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -44,11 +45,12 @@ class ClasseController extends AbstractController
 
     /**
      * @Route("/classe/add", name="classe_add")
+     * @IsGranted("ROLE_CLASS_CREATE", statusCode=404, message="Not found")
      *
      * @param Request $request
      * @return Response
      */
-    public function new(Request $request): Response
+    public function add(Request $request): Response
     {
         $classe = new Classe();
         $form = $this->createForm(ClasseType::class, $classe);
@@ -83,6 +85,7 @@ class ClasseController extends AbstractController
 
     /**
      * @Route("/classe/edit/{id}", name="classe_edit")
+     * @IsGranted("ROLE_CLASS_EDIT", statusCode=404, message="Not found")
      *
      * @param Request $request
      * @param Classe $classe
@@ -108,6 +111,7 @@ class ClasseController extends AbstractController
 
     /**
      * @Route("/classe/delete/{id}", name="classe_delete", methods={"POST"})
+     * @IsGranted("ROLE_CLASS_DELETE", statusCode=404, message="Not found")
      *
      * @param Request $request
      * @param Classe $classe
@@ -130,6 +134,7 @@ class ClasseController extends AbstractController
 
     /**
      * @Route("/classe/users/{id}", name="classe_manage_users")
+     * @IsGranted("ROLE_CLASS_EDIT_USERS", statusCode=404, message="Not found")
      *
      * @param Request $request
      * @param Classe $classe
@@ -179,6 +184,7 @@ class ClasseController extends AbstractController
 
     /**
      * @Route("/classe/students/{id}", name="classe_manage_students")
+     * @IsGranted("ROLE_CLASS_EDIT_STUDENTS", statusCode=404, message="Not found")
      *
      * @param Request $request
      * @param Classe $classe
@@ -224,4 +230,33 @@ class ClasseController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
+    /**
+     * @Route("/classe/view/users/{id}", name="classe_view_users")
+     *
+     * @param Classe $classe
+     * @return Response
+     */
+    public function viewClassUsers(Classe $classe)
+    {
+        return $this->render('users/index.html.twig', [
+           'users' => $classe->getUsers(),
+        ]);
+    }
+
+
+    /**
+     * @Route("/classe/view/students/{id}", name="classe_view_students")
+     *
+     * @param Classe $classe
+     * @return Response
+     */
+    public function viewClassStudents(Classe $classe)
+    {
+        return $this->render('eleve/index.html.twig', [
+            'eleves' => $classe->getEleves(),
+        ]);
+    }
+
 }

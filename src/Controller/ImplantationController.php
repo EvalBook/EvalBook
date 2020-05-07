@@ -135,4 +135,18 @@ class ImplantationController extends AbstractController
         return $this->json(['message' => 'Implantation deleted'], 200);
     }
 
+
+    /**
+     * @Route("/implantation/view/classes/{id}", name="implantation_view_classes")
+     *
+     * @param Implantation $implantation
+     * @return Response
+     */
+    public function viewClasses(Implantation $implantation)
+    {
+        return $this->render('classe/index.html.twig', [
+            'classes' => $implantation->getClasses(),
+        ]);
+    }
+
 }

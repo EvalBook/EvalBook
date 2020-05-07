@@ -11,7 +11,7 @@
 
 {% block body %}
     <div class="full-width flex column">
-        <a class="go-back" href="{{ path('implantations') }}">
+        <a class="go-back" href="{{ app.request.headers.get('referer') }}">
             <i class="fas fa-long-arrow-alt-left"></i>
         </a>
 

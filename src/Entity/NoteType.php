@@ -46,11 +46,6 @@ class NoteType
     private $ponderation;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $coefficient;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Activite", mappedBy="noteType")
      */
     private $activites;
@@ -114,28 +109,6 @@ class NoteType
     public function setPonderation(string $ponderation): self
     {
         $this->ponderation = $ponderation;
-        return $this;
-    }
-
-
-    /**
-     * Return the NoteType coefficient.
-     * @return int|null
-     */
-    public function getCoefficient(): ?int
-    {
-        return $this->coefficient;
-    }
-
-
-    /**
-     * Set the NoteType coefficient.
-     * @param int|null $coefficient
-     * @return $this
-     */
-    public function setCoefficient(?int $coefficient): self
-    {
-        $this->coefficient = $coefficient;
         return $this;
     }
 

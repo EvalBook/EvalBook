@@ -118,4 +118,18 @@ class EleveController extends AbstractController
 
         return $this->json(['message' => 'Student deleted'], 200);
     }
+
+
+    /**
+     * @Route("/eleve/view/classes/{id}", name="student_view_classes")
+     *
+     * @param Eleve $eleve
+     * @return Response
+     */
+    public function viewClasses(Eleve $eleve)
+    {
+        return $this->render('classe/index.html.twig', [
+            'classes' => $eleve->getClasses(),
+        ]);
+    }
 }

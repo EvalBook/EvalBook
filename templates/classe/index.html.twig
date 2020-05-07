@@ -11,11 +11,25 @@
                 <th>{{ 'Implantation'|trans }}</th>
                 <th>{{ 'Class'|trans }}</th>
                 <th>{{ 'Owner'|trans }}</th>
-                <th>{{ 'Users'|trans }}</th>
-                <th class="text-center" data-mobile="0">{{ 'Edit'|trans }}</th>
-                <th class="text-center" data-mobile="0">{{ 'Manage students'|trans }}</th>
-                <th class="text-center" data-mobile="0">{{ 'Manage users'|trans }}</th>
-                <th class="text-center" data-mobile="0">{{ 'Delete'|trans }}</th>
+                <th class="text-center">{{ 'Students'|trans }}</th>
+                <th class="text-center">{{ 'Users'|trans }}</th>
+
+                {% if is_granted('ROLE_CLASS_EDIT') %}
+                    <th class="text-center" data-mobile="0">{{ 'Edit'|trans }}</th>
+                {% endif %}
+
+                {% if is_granted('ROLE_CLASS_EDIT_STUDENTS') %}
+                    <th class="text-center" data-mobile="0">{{ 'Manage students'|trans }}</th>
+                {% endif %}
+
+                {% if is_granted('ROLE_CLASS_EDIT_USERS') %}
+                    <th class="text-center" data-mobile="0">{{ 'Manage users'|trans }}</th>
+                {% endif %}
+
+                {% if is_granted('ROLE_CLASS_DELETE') %}
+                    <th class="text-center" data-mobile="0">{{ 'Delete'|trans }}</th>
+                {% endif %}
+
             </tr>
         </thead>
         <tbody>
@@ -24,40 +38,74 @@
                 <td>{{ classe.implantation }}</td>
                 <td>{{ classe.name }}</td>
                 <td>{{ classe.titulaire }}</td>
-                <td>{{ classe.users|length }}</td>
 
-                <td class="text-center" data-mobile="0">
-                    <a href="{{ path('classe_edit', {'id': classe.id}) }}">
-                        <i class="fas fa-edit"></i>
-                    </a>
+                <td class="text-center">
+                    {% if classe.eleves|length > 0 %}
+                        <a href="{{ path('classe_view_students', {'id': classe.id} ) }}">
+                            <i class="fas fa-eye"></i> ({{ classe.eleves|length }})
+                        </a>
+                    {% else %}
+                        <span>0</span>
+                    {% endif %}
                 </td>
 
-                <td class="text-center" data-mobile="0">
-                    <a href="{{ path('classe_manage_students', {'id': classe.id}) }}">
-                        <i class="fas fa-wrench"></i>
-                    </a>
+                <td class="text-center">
+                    {% if classe.users|length > 0 %}
+                        <a href="{{ path('classe_view_users', {'id': classe.id} ) }}">
+                            <i class="fas fa-eye"></i> ({{ classe.users|length }})
+                        </a>
+                    {% else %}
+                        <span>0</span>
+                    {% endif %}
                 </td>
 
-                <td class="text-center" data-mobile="0">
-                    <a href="{{ path('classe_manage_users', {'id': classe.id}) }}">
-                        <i class="fas fa-cogs"></i>
-                    </a>
-                </td>
+                {% if is_granted('ROLE_CLASS_EDIT') %}
+                    <td class="text-center" data-mobile="0">
+                        <a href="{{ path('classe_edit', {'id': classe.id}) }}">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
+                {% endif %}
 
-                <td class="text-center" data-mobile="0">
-                    <div data-target="classe"
-                         data-targetid="{{ classe.id }}"
-                         data-action="{{ path('classe_delete', {'id': classe.id}) }}"
-                         data-class="fas fa-trash"
-                         data-csrf="{{ csrf_token('classe_delete' ~ classe.id) }}"
-                    >
-                    </div>
-                </td>
+                {% if is_granted('ROLE_CLASS_EDIT_STUDENTS') %}
+                    <td class="text-center" data-mobile="0">
+                        <a href="{{ path('classe_manage_students', {'id': classe.id}) }}">
+                            <i class="fas fa-wrench"></i>
+                        </a>
+                    </td>
+                {% endif %}
+
+                {% if is_granted('ROLE_CLASS_EDIT_USERS') %}
+                    <td class="text-center" data-mobile="0">
+                        <a href="{{ path('classe_manage_users', {'id': classe.id}) }}">
+                            <i class="fas fa-cogs"></i>
+                        </a>
+                    </td>
+                {% endif %}
+
+                {% if is_granted('ROLE_CLASS_DELETE') %}
+                    <td class="text-center" data-mobile="0">
+                        <div data-target="classe"
+                             data-targetid="{{ classe.id }}"
+                             data-action="{{ path('classe_delete', {'id': classe.id}) }}"
+                             data-class="fas fa-trash"
+                             data-csrf="{{ csrf_token('classe_delete' ~ classe.id) }}"
+                        >
+                        </div>
+                    </td>
+                {% endif %}
 
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">{{ 'No class found'|trans }}</td>
+                <td colspan="9" class="text-center">
+                    {{ 'No class found'|trans }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="9" class="text-center">
+                    {{ 'You do not have rights to view all classes or you do not own any class, contact your EvalBook admin for more help'|trans }}
+                </td>
             </tr>
         {% endfor %}
         </tbody>

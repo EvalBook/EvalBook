@@ -376,6 +376,19 @@ class User implements UserInterface
     }
 
 
+    public function getEleves()
+    {
+        $students = array();
+        foreach($this->getClasses() as $classe) {
+            foreach($classe->getEleves() as $eleve) {
+                $students[] = $eleve;
+            }
+        }
+
+        return $students;
+    }
+
+
     /**
      * Return a list of all available roles.
      */

@@ -154,7 +154,37 @@ class UsersController extends AbstractController
         }
 
         return $this->render('users/profile.html.twig', [
+            'user' => $this->getUser(),
             'userProfileForm' => $userForm->createView(),
         ]);
     }
+
+
+    /**
+     * @Route("/user/view/classes/{id}", name="user_view_classes")
+     *
+     * @param User $user
+     * @return Response
+     */
+    public function viewClasses(User $user)
+    {
+        return $this->render('classe/index.html.twig', [
+            'classes' => $user->getClasses(),
+        ]);
+    }
+
+
+    /**
+     * @Route("/user/view/students/{id}", name="user_view_students")
+     *
+     * @param User $user
+     * @return Response
+     */
+    public function viewStudents(User $user)
+    {
+        return $this->render('eleve/index.html.twig', [
+            'eleves' => $user->getEleves(),
+        ]);
+    }
+
 }

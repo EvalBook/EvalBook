@@ -48,7 +48,9 @@ Birthday: Naissance
 Select implantation: Sélectionnez une implantation
 Manage students: Gérer élèves
 Manage users: Gérer utilisateurs
-
+You do not have rights to view all classes or you do not own any class, contact your EvalBook admin for more help: Vous n'avez pas les droits pour accéder à l'ensemble des classes ou vous ne disposez pas enore de votre propre classe, contactez votre administrateur EvalBook pour plus d'aide.
+You do not have rights to view implantations or no impantation was created: Vous n'avez pas les droits pour voir les implantations ou aucune implantation n'existe encore.
+You do not have rights to see users or no users exists in the database: Vous n'avez pas les droits de voir tous les utilisateurs ou aucun utilisateur n'existse dans la base de données.
 
 roles:
   ROLE_USER_LIST_ALL: Lister les utilisateurs
@@ -83,3 +85,24 @@ roles:
   ROLE_IMPLANTATION_EDIT: Editer une implantation
   ROLE_IMPLANTATION_CREATE: Créer une implantation
   ROLE_IMPLANTATION_DELETE: Supprimer une implantation
+
+help:
+  ROLE_IMPLANTATION_LIST_ALL: Vous permet de lister l'ensemble des établissements disponibles dans le système.
+  ROLE_IMPLANTATION_EDIT: Vous permet d'étider les informations de base d'une implantation, le nom, l'adresse complète.
+  ROLE_IMPLANTATION_CREATE: Créer une nouvelle implantation et lui assigner les informations de base comme l'adresse, le nom.
+  ROLE_IMPLANTATION_DELETE: Vous permet de supprimer une implantation, attention toutefois, toutes les données attachées seront supprimées, telles que les différentes périodes et activités, utilisez ce droit avec grande précaution, un retour en arrière n'est pas possible !
+  ROLE_USER_LIST_ALL: Lister tous les utilisateurs du système en un seul endroit, permet d'accéder à des utilisateurs qui n'ont pas encore de classe attitrée pour éventuellement effectuer des actions si vous en avez les droits.
+  ROLE_USER_CREATE: Permet de créer de nouveaux utilisateurs dans le système EvalBook.
+  ROLE_USER_EDIT: Permet de mettre à jour les informations d'un utilisateur à partir de la liste complète ou tout autre endroit du système, il permet également de gérer les rôles que vous souhaitez attribuer / retirer à l'utilisateur sélectionné.
+  ROLE_USER_DELETE: Permet de supprimer un utilisateur, ce droit est à utiliser avec grande précaution !
+  ROLE_STUDENT_LIST_ALL: Permet d'afficher la liste complète des étudiants, y compris celles et ceux qui ne sont pas encore repris dans une classe, afin éventuellement d'affectuer des opérations de suppression ou de mise à jour.
+  ROLE_STUDENT_CREATE: Permet de créer un nouvel étudiant pour ensuite l'assigner à une classe si vous en avez le droit.
+  ROLE_STUDENT_EDIT: Permet de modifier les informations de base d'un étudiant à partie de la liste complète des étudiants ou à partir d'un autre endroit du système.
+  ROLE_STUDENT_DELETE: Permet de complètement supprimer un étudiant, attention, à utiliser avec précaution !
+  ROLE_CLASS_LIST_ALL: Permet d'afficher le listing complet de toutes les classes de l'implantation cible ou de toutes les implantations.
+  ROLE_CLASS_CREATE: Permet la création d'une classe et l'attribution au sein d'un établissement.
+  ROLE_CLASS_EDIT: Permet l'édition de toutes les information de base d'une classe à partir de tout emplacement du système.
+  ROLE_CLASS_DELETE: Permet la suppression pure et simple d'une classe, à utiliser avec précaution.
+  ROLE_CLASS_EDIT_STUDENTS: Ce rôle permet à un utilisateur d'assigner un ou plusieurs élèves à une classe.
+  ROLE_CLASS_EDIT_USERS: Ce rôle permet d'attribuer le droit d'actions à un ou plusieurs utilisateurs sur une classe précise.
+
