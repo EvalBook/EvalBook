@@ -48,7 +48,7 @@ Birthday: Naissance
 Select implantation: Sélectionnez une implantation
 Manage students: Gérer élèves
 Manage users: Gérer utilisateurs
-
+You do not have rights to view all classes or you do not own any class, contact your EvalBook admin for more help: Vous n'avez pas les droits pour accéder à l'ensemble des classes ou vous ne disposez pas enore de votre propre classe, contactez votre administrateur EvalBook pour plus d'aide.
 
 roles:
   ROLE_USER_LIST_ALL: Lister les utilisateurs
