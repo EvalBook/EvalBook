@@ -154,6 +154,7 @@ class UsersController extends AbstractController
         }
 
         return $this->render('users/profile.html.twig', [
+            'user' => $this->getUser(),
             'userProfileForm' => $userForm->createView(),
         ]);
     }

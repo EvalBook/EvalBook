@@ -84,3 +84,6 @@ roles:
   ROLE_IMPLANTATION_EDIT: Editer une implantation
   ROLE_IMPLANTATION_CREATE: Créer une implantation
   ROLE_IMPLANTATION_DELETE: Supprimer une implantation
+
+help:
+  ROLE_IMPLANTATION_LIST_ALL: Vous permet de lister l'ensemble des établissements disponibles dans le système.

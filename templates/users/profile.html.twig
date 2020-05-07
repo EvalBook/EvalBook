@@ -5,8 +5,29 @@
 {% block title %} {{ 'Profile' | trans }} {% endblock %}
 
 {% block body %}
-    <div class="full-width flex column">
-        <div class="form-content">
+    <div class="full-width flex">
+
+        {# User rights details #}
+        <div class="help width-50-percent">
+            <h2>Mes droits en tant qu'utilisateur: </h2>
+            <p>
+                Si vous souhaitez plus de droits sur le système, ou constatez que vous ne pouvez réaliser certaines opérations,
+                merci de contacter votre administrateur EvalBook
+            </p>
+            {% for role in user.roles %}
+                {# I keep this role for later on, when more functionnalities will be implemented such as parents view #}
+                {%  if role != 'ROLE_USER' %}
+                    <div class="help-item">
+                        <h3>{{ ('roles.' ~ role)|trans }}</h3>
+                        <p>{{ ('help.' ~ role)|trans }}</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        {# Profile edition form. #}
+        <div class="form-content width-50-percent">
+            <h2>Modifier mes informations </h2>
             {{ form_start(userProfileForm) }}
 
             {# The user mail address #}
@@ -41,7 +62,6 @@
             }) }}
 
             {{ form_end(userProfileForm) }}
-
         </div>
     </div>
 {% endblock %}
