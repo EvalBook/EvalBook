@@ -12,11 +12,7 @@
             <th scope="col">{{ 'Address' | trans }}</th>
             <th scope="col" data-mobile="0">{{ 'Zip-code' | trans }}</th>
             <th scope="col">{{ 'Country' | trans }}</th>
-
-            {# Only available if user own some classes or has ROLE_CLASS_LIST_ALL role #}
-            {% if app.user.classes|length > 0 or is_granted('ROLE_CLASS_LIST_ALL') %}
-                <th scope="col" class="text-center">{{ 'Classes'|trans }}</th>
-            {% endif %}
+            <th scope="col" class="text-center">{{ 'Classes'|trans }}</th>
 
             {% if is_granted('ROLE_IMPLANTATION_EDIT') %}
                 <th scope="col" class="text-center" data-mobile="0">{{ 'Edit' | trans }}</th>
@@ -35,18 +31,16 @@
                 <td data-mobile="0">{{ implantation.zipCode }}</td>
                 <td>{{ implantation.country }}</td>
 
+                {# Display implantation class count with a link if user has rights to see clesses. #}
+                <td class="text-center">
                     {% if is_granted('ROLE_CLASS_LIST_ALL') %}
-                        <td class="text-center">
-                            {% if implantation.classes|length > 0 %}
-                                <a href="{{ path('implantation_view_classes', {'id': implantation.id} ) }}">
-                                    <i class="fas fa-eye"></i> ({{ implantation.classes|length }})
-                                </a>
-                            {% else %}
-                                <span>0</span>
-                        </td>
-                        {% endif %}
+                        <a href="{{ path('implantation_view_classes', {'id': implantation.id} ) }}">
+                            <i class="fas fa-eye"></i> ({{ implantation.classes|length }})
+                        </a>
+                    {% else %}
+                        <span>{{ implantation.classes|length }}</span>
                     {% endif %}
-
+                </td>
 
                 {# Only those having the implantation edit rights. #}
                 {% if is_granted('ROLE_IMPLANTATION_EDIT') %}
@@ -74,6 +68,9 @@
         {% else %}
             <tr>
                 <td colspan="7">{{ 'No implantation found' | trans }}</td>
+            </tr>
+            <tr colspan="7" class="text-center">
+                <td>{{ 'You do not have rights to view implantations or no impantation was created'|trans }}</td>
             </tr>
         {% endfor %}
         </tbody>

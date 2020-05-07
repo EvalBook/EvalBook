@@ -49,6 +49,8 @@ Select implantation: Sélectionnez une implantation
 Manage students: Gérer élèves
 Manage users: Gérer utilisateurs
 You do not have rights to view all classes or you do not own any class, contact your EvalBook admin for more help: Vous n'avez pas les droits pour accéder à l'ensemble des classes ou vous ne disposez pas enore de votre propre classe, contactez votre administrateur EvalBook pour plus d'aide.
+You do not have rights to view implantations or no impantation was created: Vous n'avez pas les droits pour voir les implantations ou aucune implantation n'existe encore.
+You do not have rights to see users or no users exists in the database: Vous n'avez pas les droits de voir tous les utilisateurs ou aucun utilisateur n'existse dans la base de données.
 
 roles:
   ROLE_USER_LIST_ALL: Lister les utilisateurs
@@ -88,3 +90,4 @@ help:
     ROLE_IMPLANTATION_LIST_ALL: Vous permet de lister l'ensemble des établissements disponibles dans le système.
     ROLE_IMPLANTATION_EDIT: Vous permet d'étider les informations de base d'une implantation, le nom, l'adresse complète.
     ROLE_IMPLANTATION_CREATE: Créer une nouvelle implantation et lui assigner les informations de base comme l'adresse, le nom.
+    ROLE_IMPLANTATION_DELETE: Vous permet de supprimer une implantation, attention toutefois, toutes les données attachées seront supprimées, telles que les différentes périodes et activités, utilisez ce droit avec grande précaution, un retour en arrière n'est pas possible !

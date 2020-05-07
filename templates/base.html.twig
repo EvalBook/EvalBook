@@ -68,12 +68,14 @@
 
             <!-- Navigation -->
             <nav>
-                <a href="{{ path('classes') }}">
-                    <div class="menuItem">
-                        <i class="fas fa-clock"></i>
-                        <span>{{ 'Classes'|trans }}</span>
-                    </div>
-                </a>
+                {% if is_granted('ROLE_CLASS_LIST_ALL') or app.user.classes|length > 0%}
+                    <a href="{{ path('classes') }}">
+                        <div class="menuItem">
+                            <i class="fas fa-clock"></i>
+                            <span>{{ 'Classes'|trans }}</span>
+                        </div>
+                    </a>
+                {% endif %}
 
                 {% if is_granted('ROLE_STUDENT_LIST_ALL') %}
                     <a href="{{ path('eleves') }}">
@@ -174,12 +176,14 @@
         <nav id="mobile-menu">
 
             <!-- Quick access on mobile bottom. -->
-            <a href="{{ path('classes') }}">
-                <div class="menuItem">
-                    <i class="fas fa-clock"></i>
-                    <span>{{ 'Classes'|trans }}</span>
-                </div>
-            </a>
+            {% if is_granted('ROLE_CLASS_LIST_ALL') or app.user.classes|length > 0%}
+                <a href="{{ path('classes') }}">
+                    <div class="menuItem">
+                        <i class="fas fa-clock"></i>
+                        <span>{{ 'Classes'|trans }}</span>
+                    </div>
+                </a>
+            {% endif %}
 
             {% if is_granted('ROLE_STUDENT_LIST_ALL') %}
                 <a href="{{ path('eleves') }}">
