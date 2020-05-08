@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block pageTitle %}
+    {{ implantation.id is defined ? 'Edit'|trans : 'Add'|trans }}
+{% endblock %}
+
+{% block title %}
+    {{ implantation.id is defined ? 'Edit'|trans : 'Add'|trans }}
+{% endblock %}
+
+{% block body %}
+    <div class="full-width flex column">
+        <a class="go-back" href="{{ app.request.headers.get('referer') }}">
+            <i class="fas fa-long-arrow-alt-left"></i>
+        </a>
+
+        <div class="form-content">
+            {{ form_start(form) }}
+
+            {# Period name #}
+            <div class="form-row">
+                {{ form_label(form.name, 'Name'|trans) }}
+                {{ form_widget(form.name) }}
+                <span class="form-error">
+                    {{ form_errors(form.name) }}
+                </span>
+            </div>
+
+            {# Period start date #}
+            <div class="form-row">
+                {{ form_label(form.dateStart, 'Start date'|trans) }}
+                {{ form_widget(form.dateStart) }}
+                <span class="form-error">
+                    {{ form_errors(form.dateStart) }}
+                </span>
+            </div>
+
+            {# Period end date #}
+            <div class="form-row">
+                {{ form_label(form.dateEnd, 'End date'|trans) }}
+                {{ form_widget(form.dateEnd) }}
+                <span class="form-error">
+                    {{ form_errors(form.dateEnd) }}
+                </span>
+            </div>
+
+
+            {# Submit button #}
+            {{ form_row(form.submit, {
+                'label': 'Send'|trans,
+                'attr': {'class': 'margin-15'},
+            }) }}
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

@@ -116,3 +116,7 @@ user:
 classe:
   name-too-short: The class name is too short
   name-too-long: The class name is too long
+
+period:
+  name-too-short: Le nom de la période est trop court
+  name-too-long: Le nom de la période est trop long

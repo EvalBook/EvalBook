@@ -2,7 +2,6 @@ Dashboard: Dashboard
 Notebook: Notebook
 Notebooks: Notebooks
 Activities: Activities
-School reports: School Reports
 Students: Students
 Classes: Classes
 Class: Class
@@ -51,6 +50,16 @@ Manage users: Manage users
 You do not have rights to view all classes or you do not own any class, contact your EvalBook admin for more help: You do not have rights to view all classes or you do not own any class, contact your EvalBook admin for more help
 You do not have rights to view implantations or no impantation was created: You do not have rights to view implantations or no impantation was created
 You do not have rights to see users or no users exists in the database: Vous n'avez pas les droits de voir tous les utilisateurs ou aucun utilisateur n'existse dans la base de données.
+Start date: Start date
+End date: End date
+Status: Status
+No period found for this implantation: No period found for this implantation
+Or you do not have rights to view: Or you do not have rights to view
+You can add up to 6 period for each implantation, the best pratice is to create all of them before the year start: You can add up to 6 period for each implantation, the best pratice is to create all of them before the year start
+You already have 6 periods for this implantation, you cannot add a new one: You already have 6 periods for this implantation, you cannot add a new one
+You cannot edit or delete a period that is in progress or closed: You cannot edit or delete a period that is in progress or closed
+The period start date must be lower then the end date: The period start date must be lower then the end date
+
 
 roles:
   ROLE_USER_LIST_ALL: Lister les utilisateurs
@@ -61,10 +70,6 @@ roles:
   ROLE_STUDENT_CREATE: Créer un étudiant
   ROLE_STUDENT_EDIT: Editer un étudiant
   ROLE_STUDENT_DELETE: Supprimer un étudiant
-  ROLE_PERIOD_LIST_ALL: Lister les périodes
-  ROLE_PERIOD_CREATE: Créer une période
-  ROLE_PERIOD_EDIT: Editer une période
-  ROLE_PERIOD_DELETE: Supprimer une période
   ROLE_CLASS_LIST_ALL: Lister les classes
   ROLE_CLASS_CREATE: Créer une classe
   ROLE_CLASS_EDIT: Editer une classe
@@ -76,11 +81,6 @@ roles:
   ROLE_ACTIVITY_EDIT: Editer une activité
   ROLE_ACTIVITY_DELETE: Supprimer une activité
   ROLE_NOTEBOOK_VIEW: Voir le cahier de notes
-  ROLE_BULLETIN_LIST_ALL: Lister les bulletins
-  ROLE_BULLETIN_PRINT_ALL: Imprimer les bulletins
-  ROLE_BULLETIN_VALIDATE: Valider un bulletin
-  ROLE_BULLETIN_ADD_COMMENT: Ajouter un commentaire bulletin
-  ROLE_BULLETIN_STYLE_EDIT: Editer le style du bulletin
   ROLE_IMPLANTATION_LIST_ALL: Lister les implantations
   ROLE_IMPLANTATION_EDIT: Editer une implantation
   ROLE_IMPLANTATION_CREATE: Créer une implantation

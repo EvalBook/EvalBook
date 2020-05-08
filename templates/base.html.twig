@@ -94,10 +94,6 @@
                     <i class="fas fa-book-open"></i>
                     <span>Cahier de notes</span>
                 </div>
-                <div class="menuItem">
-                    <i class="fas fa-poll"></i>
-                    <span>Bulletins</span>
-                </div>
 
                 {# Display implantation menu if Admin / ROLE_IMPLANTATION_LIST_ALL #}
                 {% if is_granted('ROLE_IMPLANTATION_LIST_ALL') %}
@@ -125,7 +121,6 @@
                 <div id="mobile-menu-items">
                     <ul>
                         <li><i class="fas fa-tachometer-alt"></i></li>
-                        <li><i class="fas fa-poll"></i></li>
                         <li><i class="fas fa-users"></i></li>
                         <li><i class="fas fa-school"></i></li>
                         <li><i class="fas fa-user"></i></li>
@@ -135,7 +130,6 @@
                         <li>
                             <a href="{{ path('dashboard') }}">{{ 'Dashboard'|trans }}</a>
                         </li>
-                        <li>{{ 'School reports'|trans }}</li>
 
                         {% if is_granted('ROLE_USER_LIST_ALL') %}
                             <li><a href="{{ path('users') }}">{{ 'Users'|trans }}</a></li>

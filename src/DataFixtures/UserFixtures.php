@@ -86,12 +86,6 @@ class UserFixtures extends Fixture
                      'ROLE_ACTIVITY_DELETE',
                      // Notebook related.
                      'ROLE_NOTEBOOK_VIEW',
-                     // Bulletins related.
-                     'ROLE_BULLETIN_LIST_ALL',
-                     'ROLE_BULLETIN_PRINT_ALL',
-                     'ROLE_BULLETIN_VALIDATE',
-                     'ROLE_BULLETIN_ADD_COMMENT',
-                     'ROLE_BULLETIN_STYLE_EDIT',
                  ));
 
             $manager->persist($user);

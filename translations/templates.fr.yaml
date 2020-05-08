@@ -2,7 +2,6 @@ Dashboard: Tableau de bord
 Notebook: Cahier de notes
 Notebooks: Cahiers de notes
 Activities: Activités
-School reports: Bulletins
 Students: Etudiants
 Classes: Classes
 Class: Classe
@@ -51,6 +50,19 @@ Manage users: Gérer utilisateurs
 You do not have rights to view all classes or you do not own any class, contact your EvalBook admin for more help: Vous n'avez pas les droits pour accéder à l'ensemble des classes ou vous ne disposez pas enore de votre propre classe, contactez votre administrateur EvalBook pour plus d'aide.
 You do not have rights to view implantations or no impantation was created: Vous n'avez pas les droits pour voir les implantations ou aucune implantation n'existe encore.
 You do not have rights to see users or no users exists in the database: Vous n'avez pas les droits de voir tous les utilisateurs ou aucun utilisateur n'existse dans la base de données.
+Start date: Date de ébut
+End date: Date de fin
+Status: Statut
+No period found for this implantation: Aucune période trouvée pour cette implantation
+Or you do not have rights to view: Assurez vous d'avoir les droits pour voir ceci
+You can add up to 6 period for each implantation, the best pratice is to create all of them before the year start: Vous pouvez ajouter jusqu'a 6 périodes par implantations, une bonne pratique est de créer vos périodes avant le début de l'année scolaire.
+You already have 6 periods for this implantation, you cannot add a new one: Vous disposez déjà de 6 périodes pour cette implantation, vous ne pouvez pas en ajouter une nouvelle.
+You cannot edit or delete a period that is in progress or closed: Vous n'avez pas le droit d'éditer ni de supprimer une période qui est en cours ou qui est déjà clôturée.
+Not started: Non démarré
+In progress: En cours
+Closed: Clôturé
+The period start date must be lower then the end date: La date de début de période doit être inférieure à la date de fin.
+
 
 roles:
   ROLE_USER_LIST_ALL: Lister les utilisateurs
@@ -61,10 +73,6 @@ roles:
   ROLE_STUDENT_CREATE: Créer un étudiant
   ROLE_STUDENT_EDIT: Editer un étudiant
   ROLE_STUDENT_DELETE: Supprimer un étudiant
-  ROLE_PERIOD_LIST_ALL: Lister les périodes
-  ROLE_PERIOD_CREATE: Créer une période
-  ROLE_PERIOD_EDIT: Editer une période
-  ROLE_PERIOD_DELETE: Supprimer une période
   ROLE_CLASS_LIST_ALL: Lister les classes
   ROLE_CLASS_CREATE: Créer une classe
   ROLE_CLASS_EDIT: Editer une classe
@@ -76,11 +84,6 @@ roles:
   ROLE_ACTIVITY_EDIT: Editer une activité
   ROLE_ACTIVITY_DELETE: Supprimer une activité
   ROLE_NOTEBOOK_VIEW: Voir le cahier de notes
-  ROLE_BULLETIN_LIST_ALL: Lister les bulletins
-  ROLE_BULLETIN_PRINT_ALL: Imprimer les bulletins
-  ROLE_BULLETIN_VALIDATE: Valider un bulletin
-  ROLE_BULLETIN_ADD_COMMENT: Ajouter un commentaire bulletin
-  ROLE_BULLETIN_STYLE_EDIT: Editer le style du bulletin
   ROLE_IMPLANTATION_LIST_ALL: Lister les implantations
   ROLE_IMPLANTATION_EDIT: Editer une implantation
   ROLE_IMPLANTATION_CREATE: Créer une implantation

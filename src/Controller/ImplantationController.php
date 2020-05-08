@@ -20,8 +20,11 @@
 namespace App\Controller;
 
 use App\Entity\Implantation;
+use App\Entity\Periode;
 use App\Form\ImplantationType;
+use App\Form\PeriodeType;
 use App\Repository\ImplantationRepository;
+use App\Repository\PeriodeRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -147,6 +150,104 @@ class ImplantationController extends AbstractController
         return $this->render('classe/index.html.twig', [
             'classes' => $implantation->getClasses(),
         ]);
+    }
+
+
+    /**
+     * @Route("/implantation/period/list/{id}", name="implantation_period_list")
+     * @IsGranted("ROLE_IMPLANTATION_EDIT", statusCode=404, message="Not found")
+     *
+     * @param Implantation $implantation
+     * @param PeriodeRepository $repository
+     * @return Response
+     */
+    public function viewPeriods(Implantation $implantation, PeriodeRepository $repository)
+    {
+        return $this->render('implantation/periode-index.html.twig', [
+            'periods' => $repository->findBy(
+                ['implantation' => $implantation->getId()]),
+                ['startDate' => 'ASC']
+        ]);
+    }
+
+
+    /**
+     * @Route("/implantation/period/add/{id}", name="implantation_period_add")
+     * @IsGranted("ROLE_IMPLANTATION_EDIT", statusCode=404, message="Not found")
+     *
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function addPeriod(Request $request)
+    {
+        $period = new Periode();
+        $form = $this->createForm(PeriodeType::class, $period);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($period);
+            $entityManager->flush();
+            $this->addFlash('success', 'Successfully added');
+
+            return $this->redirectToRoute('implantations');
+        }
+
+        return $this->render('implantation/form.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+
+    /**
+     * @Route("/implantation/period/edit/{id}", name="implantation_period_edit")
+     * @IsGranted("ROLE_IMPLANTATION_EDIT", statusCode=404, message="Not found")
+     *
+     * @param Periode $periode
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function editPeriod(Periode $periode, Request $request)
+    {
+        $form = $this->createForm(PeriodeType::class, $periode);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Successfully updated');
+
+            return $this->redirectToRoute('implantation_period_list', [
+                'id' => $periode->getImplantation()->getId(),
+            ]);
+        }
+
+        return $this->render('implantation/periode-form.html.twig', [
+            'periode' => $periode,
+            'form' => $form->createView(),
+        ]);
+    }
+
+
+    /**
+     * @Route("/implantation/period/delete/{id}", name="implantation_periode_delete", methods={"POST"})
+     * @IsGranted("ROLE_IMPLANTATION_EDIT", statusCode=404, message="Not found")
+     *
+     * @param Periode $periode
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function deletePeriod(Periode $periode, Request $request)
+    {
+        $jsonRequest = json_decode($request->getContent(), true);
+        if( !isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('implantation_periode_delete'.$periode->getId(), $jsonRequest['csrf'])) {
+            return $this->json(['message' => 'Invalid csrf token'], 201);
+        }
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($periode);
+        $entityManager->flush();
+
+        return $this->json(['message' => 'Period deleted'], 200);
     }
 
 }

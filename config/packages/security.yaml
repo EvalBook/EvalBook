@@ -71,9 +71,4 @@ security:
             ROLE_ACTIVITY_EDIT,
             ROLE_ACTIVITY_DELETE,
             ROLE_NOTEBOOK_VIEW,
-            ROLE_BULLETIN_LIST_ALL,
-            ROLE_BULLETIN_PRINT_ALL,
-            ROLE_BULLETIN_VALIDATE,
-            ROLE_BULLETIN_ADD_COMMENT,
-            ROLE_BULLETIN_STYLE_EDIT,
         ]

@@ -15,6 +15,7 @@
             <th scope="col" class="text-center">{{ 'Classes'|trans }}</th>
 
             {% if is_granted('ROLE_IMPLANTATION_EDIT') %}
+                <th scope="col" class="text-center" data-mobile="0">{{ 'Periods'|trans }}</th>
                 <th scope="col" class="text-center" data-mobile="0">{{ 'Edit' | trans }}</th>
             {% endif %}
 
@@ -44,6 +45,14 @@
 
                 {# Only those having the implantation edit rights. #}
                 {% if is_granted('ROLE_IMPLANTATION_EDIT') %}
+
+                    <!-- Implantation periods -->
+                    <td class="text-center">
+                        <a href="{{ path('implantation_period_list', {'id': implantation.id}) }}">
+                            <i class="fas fa-stopwatch"></i>
+                        </a>
+                    </td>
+                    <!-- Implantation edition -->
                     <td class="text-center" data-mobile="0">
                         <a href="{{ path('implantation_edit', {'id': implantation.id}) }}">
                             <i class="fas fa-edit"></i>
