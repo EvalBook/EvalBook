@@ -61,6 +61,8 @@ You cannot edit or delete a period that is in progress or closed: Vous n'avez pa
 Not started: Non démarré
 In progress: En cours
 Closed: Clôturé
+The period start date must be lower then the end date: La date de début de période doit être inférieure à la date de fin.
+
 
 roles:
   ROLE_USER_LIST_ALL: Lister les utilisateurs

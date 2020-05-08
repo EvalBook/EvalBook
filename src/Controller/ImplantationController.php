@@ -22,6 +22,7 @@ namespace App\Controller;
 use App\Entity\Implantation;
 use App\Entity\Periode;
 use App\Form\ImplantationType;
+use App\Form\PeriodeType;
 use App\Repository\ImplantationRepository;
 use App\Repository\PeriodeRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -171,13 +172,30 @@ class ImplantationController extends AbstractController
 
 
     /**
-     * @Route("/implantation/period/add", name="implantation_period_add")
+     * @Route("/implantation/period/add/{id}", name="implantation_period_add")
      * @IsGranted("ROLE_IMPLANTATION_EDIT", statusCode=404, message="Not found")
      *
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
-    public function addPeriod()
+    public function addPeriod(Request $request)
     {
+        $period = new Periode();
+        $form = $this->createForm(PeriodeType::class, $period);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($period);
+            $entityManager->flush();
+            $this->addFlash('success', 'Successfully added');
+
+            return $this->redirectToRoute('implantations');
+        }
+
+        return $this->render('implantation/form.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
 
@@ -185,10 +203,28 @@ class ImplantationController extends AbstractController
      * @Route("/implantation/period/edit/{id}", name="implantation_period_edit")
      * @IsGranted("ROLE_IMPLANTATION_EDIT", statusCode=404, message="Not found")
      *
+     * @param Periode $periode
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
-    public function editPeriods(Periode $periode)
+    public function editPeriod(Periode $periode, Request $request)
     {
+        $form = $this->createForm(PeriodeType::class, $periode);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Successfully updated');
+
+            return $this->redirectToRoute('implantation_period_list', [
+                'id' => $periode->getImplantation()->getId(),
+            ]);
+        }
+
+        return $this->render('implantation/periode-form.html.twig', [
+            'periode' => $periode,
+            'form' => $form->createView(),
+        ]);
     }
 
 

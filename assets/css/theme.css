@@ -301,6 +301,10 @@ button[type="submit"] {
     margin-bottom: 15px;
 }
 
+.form-row select {
+    margin-right: 0.8em;
+}
+
 .form-content {
     padding: 28px;
 }

@@ -52,7 +52,9 @@
 
                     <td class="text-center">
                         {% set editLink %}
-                            <i class="fas fa-edit"></i>
+                            <a href="{{ path('implantation_period_edit', {'id': period.id}) }}">
+                                <i class="fas fa-edit"></i>
+                            </a>
                         {% endset %}
 
                         {{ (notStarted) ? editLink : '-' }}
@@ -68,8 +70,8 @@
                                      data-class="fas fa-trash"
                                      data-csrf="{{ csrf_token('implantation_periode_delete' ~ period.id) }}"
                                 >
-                            </div>
-                    {% endif %}
+                                </div>
+                            {% endif %}
                         {% endset %}
 
                         {{ (notStarted) ? deleteLink : '-' }}
@@ -103,8 +105,9 @@
 
 
 {% block functionnalitiesMobile %}
+    {# TODO add implantation index in order to add a new one. #}
     {% if is_granted('ROLE_IMPLANTATION_EDIT') and periods|length < 6 %}
-        <a href="{{ path('implantation_period_add') }}">
+        <a href="{{ path('implantation_period_add', {'implantation'}) }}">
             <i class="fas fa-plus"></i>
         </a>
     {% endif %}

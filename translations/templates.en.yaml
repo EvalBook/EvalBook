@@ -58,6 +58,7 @@ Or you do not have rights to view: Or you do not have rights to view
 You can add up to 6 period for each implantation, the best pratice is to create all of them before the year start: You can add up to 6 period for each implantation, the best pratice is to create all of them before the year start
 You already have 6 periods for this implantation, you cannot add a new one: You already have 6 periods for this implantation, you cannot add a new one
 You cannot edit or delete a period that is in progress or closed: You cannot edit or delete a period that is in progress or closed
+The period start date must be lower then the end date: The period start date must be lower then the end date
 
 
 roles:
