@@ -90,6 +90,7 @@ h1, h2 {
     font-weight: bold;
 }
 
+
 /**
  * Top right user links menu.
  */
@@ -353,6 +354,23 @@ tr:nth-child(even) {
 
 .width-50-percent {
     width: 48%;
+}
+
+.text-red {
+    color: #D98484;
+}
+
+.text-green {
+    color: #82d9a7;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+
+.text-yellow {
+    color: var(--secondary-color);
 }
 
 /* Usually elements that must be grouped */

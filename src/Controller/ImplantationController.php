@@ -20,8 +20,10 @@
 namespace App\Controller;
 
 use App\Entity\Implantation;
+use App\Entity\Periode;
 use App\Form\ImplantationType;
 use App\Repository\ImplantationRepository;
+use App\Repository\PeriodeRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -147,6 +149,46 @@ class ImplantationController extends AbstractController
         return $this->render('classe/index.html.twig', [
             'classes' => $implantation->getClasses(),
         ]);
+    }
+
+
+    /**
+     * @Route("/implantation/period/list/{id}", name="implantation_period_list")
+     * @IsGranted("ROLE_IMPLANTATION_EDIT", statusCode=404, message="Not found")
+     *
+     * @param Implantation $implantation
+     * @param PeriodeRepository $repository
+     * @return Response
+     */
+    public function viewPeriods(Implantation $implantation, PeriodeRepository $repository)
+    {
+        return $this->render('implantation/periode-index.html.twig', [
+            'periods' => $repository->findBy(
+                ['implantation' => $implantation->getId()]),
+                ['startDate' => 'ASC']
+        ]);
+    }
+
+
+    /**
+     * @Route("/implantation/period/add", name="implantation_period_add")
+     * @IsGranted("ROLE_IMPLANTATION_EDIT", statusCode=404, message="Not found")
+     *
+     */
+    public function addPeriod()
+    {
+
+    }
+
+
+    /**
+     * @Route("/implantation/period/edit/{id}", name="implantation_period_edit")
+     * @IsGranted("ROLE_IMPLANTATION_EDIT", statusCode=404, message="Not found")
+     *
+     */
+    public function editPeriods(Periode $periode)
+    {
+
     }
 
 }

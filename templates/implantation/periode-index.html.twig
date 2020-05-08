@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block pageTitle %} {{ 'Periods' | trans }} {% endblock %}
+{% block title %} {{ 'Periods' | trans }} {% endblock %}
+
+{% block body %}
+    <div class="flex column full-width">
+
+        <p>
+            {% if periods|length < 6 %}
+                {{ 'You can add up to 6 period for each implantation, the best pratice is to create all of them before the year start'|trans }}
+            {% else %}
+                {{ 'You already have 6 periods for this implantation, you cannot add a new one'|trans }}
+            {% endif %}
+            {{ 'You cannot edit or delete a period that is in progress or closed'|trans }}
+        </p>
+
+        <table class="full-width margin-15">
+            <thead>
+                <tr>
+                    <th>{{ 'Name' | trans }}</th>
+                    <th>{{ 'Start date' | trans }}</th>
+                    <th>{{ 'End date' | trans }}</th>
+                    <th>{{ 'Status' | trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for period in periods %}
+                <tr data-id="{{ period.id }}" data-trigger="{{ path('implantation_period_edit', {'id': period.id}) }}">
+                    <td>{{ period.name }}</td>
+                    <td>{{ period.dateStart|date('d/m/Y') }}</td>
+                    <td data-mobile="0">{{ period.dateEnd|date('d/m/Y') }}</td>
+                    <td>
+                        {% if period.dateStart > date() %}
+                            <span class="text-yellow">Non démarré</span>
+                        {% elseif period.dateEnd > date() %}
+                            <span class="text-green text-bold">En cours</span>
+                        {% else %}
+                            <span class="text-red">Clôturé</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4" class="text-center">
+                        {{ 'No period found for this implantation' | trans }}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="7" class="text-center">
+                        {{ 'Or you do not have rights to view'|trans }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block functionnalities %}
+    {% if is_granted('ROLE_IMPLANTATION_EDIT') and periods|length < 6 %}
+        <a href="{{ path('implantation_period_add') }}">
+            <i class="fas fa-plus"></i>
+        </a>
+    {% endif %}
+{% endblock %}
+
+
+{% block functionnalitiesMobile %}
+    {% if is_granted('ROLE_IMPLANTATION_EDIT') and periods|length < 6 %}
+        <a href="{{ path('implantation_period_add') }}">
+            <i class="fas fa-plus"></i>
+        </a>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('modalDialogs') }}
+{% endblock %}
