@@ -58,7 +58,9 @@ Or you do not have rights to view: Assurez vous d'avoir les droits pour voir cec
 You can add up to 6 period for each implantation, the best pratice is to create all of them before the year start: Vous pouvez ajouter jusqu'a 6 périodes par implantations, une bonne pratique est de créer vos périodes avant le début de l'année scolaire.
 You already have 6 periods for this implantation, you cannot add a new one: Vous disposez déjà de 6 périodes pour cette implantation, vous ne pouvez pas en ajouter une nouvelle.
 You cannot edit or delete a period that is in progress or closed: Vous n'avez pas le droit d'éditer ni de supprimer une période qui est en cours ou qui est déjà clôturée.
-
+Not started: Non démarré
+In progress: En cours
+Closed: Clôturé
 
 roles:
   ROLE_USER_LIST_ALL: Lister les utilisateurs

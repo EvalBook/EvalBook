@@ -191,4 +191,27 @@ class ImplantationController extends AbstractController
 
     }
 
+
+    /**
+     * @Route("/implantation/period/delete/{id}", name="implantation_periode_delete", methods={"POST"})
+     * @IsGranted("ROLE_IMPLANTATION_EDIT", statusCode=404, message="Not found")
+     *
+     * @param Periode $periode
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function deletePeriod(Periode $periode, Request $request)
+    {
+        $jsonRequest = json_decode($request->getContent(), true);
+        if( !isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('implantation_periode_delete'.$periode->getId(), $jsonRequest['csrf'])) {
+            return $this->json(['message' => 'Invalid csrf token'], 201);
+        }
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($periode);
+        $entityManager->flush();
+
+        return $this->json(['message' => 'Period deleted'], 200);
+    }
+
 }
