@@ -211,4 +211,10 @@ class Periode
         $this->implantation = $implantation;
         return $this;
     }
+
+
+    public function __toString()
+    {
+        return $this->getName() . " (" . $this->getDateStart()->format('d/m/Y') . " - " . $this->getDateEnd()->format('d/m/Y') . ") ";
+    }
 }

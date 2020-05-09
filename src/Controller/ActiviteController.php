@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Activite;
+use App\Entity\Implantation;
 use App\Form\ActiviteType;
 use App\Repository\ActiviteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,39 +15,56 @@ class ActiviteController extends AbstractController
 {
     /**
      * @Route("/activites", name="activites")
+     *
+     * @param ActiviteRepository $activiteRepository
+     * @return Response
      */
     public function index(ActiviteRepository $activiteRepository): Response
     {
-        // Getting the user activities, or all activities if user has ROLE_ACTIVITY_LIST_ALL
+        // Getting the user activities.
         return $this->render('activite/index.html.twig', [
-            'activites' => $activiteRepository->findAll(),
+            'classes' => $this->getUser()->getClasses(),
+            'activites' => $activiteRepository->findBy([
+                'user' => $this->getUser()->getId()]
+            ),
         ]);
     }
 
     /**
-     * @Route("/activite/add", name="activite_add")
+     * @Route("/activite/add/{implantation}", defaults={"implantation"=null}, name="activite_add")
      *
+     * @param Implantation|null $implantation
      * @param Request $request
      * @return Response
      */
-    public function new(Request $request): Response
+    public function add(?Implantation $implantation, Request $request): Response
     {
-        $activite = new Activite();
-        $form = $this->createForm(ActiviteType::class, $activite);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($activite);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('activites');
+        // If no implantation was specified, then go to the implantation / school pair selection.
+        if(is_null($implantation)) {
+            return $this->render('activite/select-class.html.twig', [
+                'classes' => $this->getUser()->getClasses(),
+            ]);
         }
+        else {
 
-        return $this->render('activite/new.html.twig', [
-            'activite' => $activite,
-            'form' => $form->createView(),
-        ]);
+            $activite = new Activite();
+            $form = $this->createForm(ActiviteType::class, $activite);
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($activite);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('activites');
+            }
+
+            return $this->render('activite/form.html.twig', [
+                'activite' => $activite,
+                'form' => $form->createView(),
+            ]);
+        }
     }
 
     /**
@@ -81,7 +99,7 @@ class ActiviteController extends AbstractController
             return $this->redirectToRoute('activites');
         }
 
-        return $this->render('activite/edit.html.twig', [
+        return $this->render('activite/form.html.twig', [
             'activite' => $activite,
             'form' => $form->createView(),
         ]);

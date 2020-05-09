@@ -22,6 +22,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use function Sodium\add;
 
 
 /**
@@ -64,12 +65,19 @@ class Classe
 
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Activite", mappedBy="classe")
+     */
+    private $activites;
+
+
+    /**
      * Classe constructor.
      */
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->eleves = new ArrayCollection();
+        $this->activites = new ArrayCollection();
     }
 
 
@@ -229,6 +237,45 @@ class Classe
     public function setImplantation(?Implantation $implantation): self
     {
         $this->implantation = $implantation;
+        return $this;
+    }
+
+
+    /**
+     * Return the class activities.
+     *
+     * @return ArrayCollection
+     */
+    public function getActivites()
+    {
+        return $this->activites;
+    }
+
+
+    /**
+     * Add an activity to the class.
+     *
+     * @param Activite $activity
+     */
+    public function addActivite(Activite $activity)
+    {
+        $this->activites[] = $activity;
+        return $this;
+    }
+
+
+    /**
+     * Removes an activity from the class.
+     *
+     * @param Activite $activity
+     * @return $this
+     */
+    public function removeActivite(Activite $activity)
+    {
+        if ($this->activites->contains($activity)) {
+            $this->activites->removeElement($activity);
+            $activity->removeClass($this);
+        }
         return $this;
     }
 

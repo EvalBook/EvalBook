@@ -405,11 +405,6 @@ class User implements UserInterface
             'ROLE_STUDENT_CREATE',
             'ROLE_STUDENT_EDIT',
             'ROLE_STUDENT_DELETE',
-            // Periods related.
-            'ROLE_PERIOD_LIST_ALL',
-            'ROLE_PERIOD_CREATE',
-            'ROLE_PERIOD_EDIT',
-            'ROLE_PERIOD_DELETE',
             // Classes related.
             'ROLE_CLASS_LIST_ALL',
             'ROLE_CLASS_CREATE',
@@ -417,11 +412,6 @@ class User implements UserInterface
             'ROLE_CLASS_DELETE',
             'ROLE_CLASS_EDIT_STUDENTS',
             'ROLE_CLASS_EDIT_USERS',
-            // Activities related.
-            'ROLE_ACTIVITY_LIST_ALL',
-            'ROLE_ACTIVITY_CREATE',
-            'ROLE_ACTIVITY_EDIT',
-            'ROLE_ACTIVITY_DELETE',
             // Notebook related.
             'ROLE_NOTEBOOK_VIEW',
             // Implantations related.

@@ -72,6 +72,12 @@ class Activite
 
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Classe", inversedBy="activites")
+     */
+    private $classe;
+
+
+    /**
      * Activite constructor.
      */
     public function __construct()
@@ -211,6 +217,26 @@ class Activite
         return $this->notes;
     }
 
+
+    /**
+     * Return the activity class.
+     */
+    public function getClasse()
+    {
+        return $this->classe;
+    }
+
+
+    /**
+     * Set the activity class.
+     *
+     * @param Classe $classe
+     */
+    public function setClasse(Classe $classe)
+    {
+        if(!is_null($classe))
+            $this->classe = $classe;
+    }
 
     /**
      * Add a note to the activity.

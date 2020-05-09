@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
 
-{% block title %}Activite index{% endblock %}
+{% block pageTitle %} {{ 'Activities'|trans }} {% endblock %}
+{% block title %} {{ 'Activities'|trans }} {% endblock %}
 
 {% block body %}
-    <h1>Activite index</h1>
-
-    <table class="table">
+    <table class="full-width">
         <thead>
             <tr>
                 <th>Id</th>
@@ -27,11 +27,39 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="4" class="text-center">
+                    {{ 'It sounds like you do not have any activity or any class'|trans }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" class="text-center">
+                    {{ 'You can create a new one for one of your classe(s) by clicking the "+" button at the bottom of the screen'|trans }}
+                </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('activite_add') }}">Create new</a>
+{% endblock %}
+
+
+{% block functionnalities %}
+    {% if classes|length > 0 %}
+        <a href="{{ path('activite_add') }}">
+            <i class="fas fa-plus"></i>
+        </a>
+    {% endif %}
+{% endblock %}
+
+
+{% block functionnalitiesMobile %}
+    {% if classes|length > 0 %}
+        <a href="{{ path('activite_add') }}">
+            <i class="fas fa-plus"></i>
+        </a>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('modalDialogs') }}
 {% endblock %}

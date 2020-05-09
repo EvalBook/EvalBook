@@ -337,6 +337,16 @@ tr:nth-child(even) {
     background-color: #fff;
 }
 
+tr:hover {
+    color: white;
+}
+
+tr:hover i, tr:hover a {
+    color: white;
+    font-weight: bold;
+}
+
+
 /**
  * Polishing classes.
  */

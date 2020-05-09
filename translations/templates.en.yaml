@@ -59,6 +59,10 @@ You can add up to 6 period for each implantation, the best pratice is to create 
 You already have 6 periods for this implantation, you cannot add a new one: You already have 6 periods for this implantation, you cannot add a new one
 You cannot edit or delete a period that is in progress or closed: You cannot edit or delete a period that is in progress or closed
 The period start date must be lower then the end date: The period start date must be lower then the end date
+It sounds like you do not have any activity or any class: It sounds like you do not have any activity or any class
+You can create a new one for one of your classe(s) by clicking the "+" button at the bottom of the screen: You can create a new one for one of your classe(s) by clicking the "+" button at the bottom of the screen
+Select implantation / class pairs: Select implantation / class pairs
+You do not have any class: You do not have any class
 
 
 roles:
@@ -76,10 +80,6 @@ roles:
   ROLE_CLASS_DELETE: Supprimer une classe
   ROLE_CLASS_EDIT_STUDENTS: Assign student to a class.
   ROLE_CLASS_EDIT_USERS: Assign user to a class.
-  ROLE_ACTIVITY_LIST_ALL: Lister les activités
-  ROLE_ACTIVITY_CREATE: Créer une activité
-  ROLE_ACTIVITY_EDIT: Editer une activité
-  ROLE_ACTIVITY_DELETE: Supprimer une activité
   ROLE_NOTEBOOK_VIEW: Voir le cahier de notes
   ROLE_IMPLANTATION_LIST_ALL: Lister les implantations
   ROLE_IMPLANTATION_EDIT: Editer une implantation
