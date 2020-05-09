@@ -38,6 +38,12 @@ class Activite
     private $id;
 
     /**
+     * @ORM\Column(type="datetime", nullable=false)
+     * @ORM\GeneratedValue()
+     */
+    private $dateAdded;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\NoteType", inversedBy="activites")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -82,6 +88,7 @@ class Activite
      */
     public function __construct()
     {
+        $this->dateAdded = new \DateTime();
         $this->notes = new ArrayCollection();
     }
 
@@ -205,6 +212,15 @@ class Activite
     {
         $this->name = $name;
         return $this;
+    }
+
+    /**
+     * Return the activity date added.
+     * @return \DateTime
+     */
+    public function getDateAdded()
+    {
+        return $this->dateAdded;
     }
 
 

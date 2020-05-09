@@ -57,7 +57,7 @@ class NoteTypeRepository extends ServiceEntityRepository
         $em->persist($noteType2);
 
 
-        for($i = 0; $i <= 100; $i += 5) {
+        for($i = 5; $i <= 100; $i += 5) {
             $nt = new NoteType();
             $nt->setName("0..$i");
             $nt->setPonderation("0..$i");

@@ -8,21 +8,55 @@
     <table class="full-width">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Comment</th>
-                <th>Name</th>
-                <th>actions</th>
+                <th>{{ 'Class'|trans }}</th>
+                <th>{{ 'User'|trans }}</th>
+                <th>{{ 'Name'|trans }}</th>
+                <th{{ 'Date'|trans }}></th>
+                <th class="text-center">{{ 'View'|trans }}</th>
+                <th class="text-center">{{ 'Note'|trans }}</th>
+                <th class="text-center">{{ 'Edit'|trans }}</th>
+                <th class="text-center">{{ 'Delete'|trans }}</th>
             </tr>
         </thead>
         <tbody>
         {% for activite in activites %}
+            {% set owner = (activite.user is same as(app.user)) ? true : false %}
             <tr>
-                <td>{{ activite.id }}</td>
-                <td>{{ activite.comment }}</td>
+                <td>{{ activite.classe }}</td>
+                <td>{{ activite.user }}</td>
                 <td>{{ activite.name }}</td>
-                <td>
-                    <a href="{{ path('activite_view', {'id': activite.id}) }}">show</a>
-                    <a href="{{ path('activite_edit', {'id': activite.id}) }}">edit</a>
+                <td>{{ activite.dateAdded|date('d/m/Y') }}</td>
+
+                <!-- View actvity -->
+                <td class="text-center">
+                    <i class="fas fa-eye"></i>
+                </td>
+
+                <!-- Note activity -->
+                <td class="text-center">
+                    {% if owner %}
+                        <i class="fas fa-medal text-yellow"></i>
+                    {% else %}
+                        <span>-</span>
+                    {% endif %}
+                </td>
+
+                <!-- Edit activity -->
+                <td class="text-center">
+                    {% if owner %}
+                        <i class="fas fa-edit"></i>
+                    {% else %}
+                        <span>-</span>
+                    {% endif %}
+                </td>
+
+                <!-- Delete activity -->
+                <td class="text-center">
+                    {% if owner %}
+                        <i class="fas fa-trash"></i>
+                    {% else %}
+                        <span>-</span>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}

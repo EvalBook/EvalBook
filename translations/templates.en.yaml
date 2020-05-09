@@ -7,6 +7,7 @@ Classes: Classes
 Class: Class
 Owner: Owner
 Users: Users
+User: User
 Periods: Periods
 My profile: Profile
 Log out: Log out
@@ -69,6 +70,9 @@ Note type: Note type
 Comment: Comment
 Add a note type: Add a note type
 Ponderation: Ponderation
+Date: Date
+View: View
+Note: Note
 
 
 roles:

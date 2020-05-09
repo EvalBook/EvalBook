@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Activite;
 use App\Entity\Classe;
-use App\Entity\Implantation;
 use App\Form\ActiviteType;
 use App\Repository\ActiviteRepository;
 use App\Repository\NoteTypeRepository;
@@ -12,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Security;
+
 
 class ActiviteController extends AbstractController
 {
@@ -24,12 +23,14 @@ class ActiviteController extends AbstractController
      */
     public function index(ActiviteRepository $activiteRepository): Response
     {
+        $activities = array();
+        foreach($this->getUser()->getClasses() as $classe) {
+            $activities = array_merge($activities, $classe->getActivites()->toArray());
+        }
         // Getting the user activities.
         return $this->render('activite/index.html.twig', [
             'classes' => $this->getUser()->getClasses(),
-            'activites' => $activiteRepository->findBy([
-                'user' => $this->getUser()->getId()]
-            ),
+            'activites' => $activities,
         ]);
     }
 
