@@ -43,6 +43,7 @@
                     </div>
                 </div>
 
+                <!-- User top right links -->
                 <div id="user-links">
                     <div class="menuTopIcon">
                         <a href="{{ path('dashboard') }}">
@@ -86,10 +87,13 @@
                     </a>
                 {% endif %}
 
-                <div class="menuItem">
-                    <i class="fas fa-brain"></i>
-                    <span>Activités</span>
-                </div>
+                <a href="{{ path('activites') }}">
+                    <div class="menuItem">
+                        <i class="fas fa-brain"></i>
+                        <span>{{ 'Activities'|trans }}</span>
+                    </div>
+                </a>
+
                 <div class="menuItem">
                     <i class="fas fa-book-open"></i>
                     <span>Cahier de notes</span>
@@ -121,8 +125,15 @@
                 <div id="mobile-menu-items">
                     <ul>
                         <li><i class="fas fa-tachometer-alt"></i></li>
-                        <li><i class="fas fa-users"></i></li>
-                        <li><i class="fas fa-school"></i></li>
+
+                        {% if is_granted('ROLE_USER_LIST_ALL') %}
+                            <li><i class="fas fa-users"></i></li>
+                        {% endif %}
+
+                        {% if is_granted('ROLE_IMPLANTATION_LIST_ALL') %}
+                            <li><i class="fas fa-school"></i></li>
+                        {% endif %}
+
                         <li><i class="fas fa-user"></i></li>
                         <li><i class="fas fa-sign-out-alt"></i></li>
                     </ul>
@@ -188,10 +199,13 @@
                 </a>
             {% endif %}
 
-            <div class="menuItem">
-                <i class="fas fa-brain"></i>
-                <span>{{ 'Activities'|trans }}</span>
-            </div>
+            <a href="{{ path('activites') }}">
+                <div class="menuItem">
+                    <i class="fas fa-brain"></i>
+                    <span>{{ 'Activities'|trans }}</span>
+                </div>
+            </a>
+
             <div class="menuItem">
                 <i class="fas fa-book-open"></i>
                 <span>{{ 'Notebook'|trans }}</span>

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200507095522 extends AbstractMigration
+final class Version20200509141256 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,7 +22,7 @@ final class Version20200507095522 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE activite (id INT AUTO_INCREMENT NOT NULL, note_type_id INT NOT NULL, user_id INT NOT NULL, periode_id INT NOT NULL, comment LONGTEXT DEFAULT NULL, name VARCHAR(255) NOT NULL, INDEX IDX_B875551544EA4809 (note_type_id), INDEX IDX_B8755515A76ED395 (user_id), INDEX IDX_B8755515F384C1CF (periode_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE activite (id INT AUTO_INCREMENT NOT NULL, note_type_id INT NOT NULL, user_id INT NOT NULL, periode_id INT NOT NULL, classe_id INT DEFAULT NULL, comment LONGTEXT DEFAULT NULL, name VARCHAR(255) NOT NULL, INDEX IDX_B875551544EA4809 (note_type_id), INDEX IDX_B8755515A76ED395 (user_id), INDEX IDX_B8755515F384C1CF (periode_id), INDEX IDX_B87555158F5EA509 (classe_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE classe (id INT AUTO_INCREMENT NOT NULL, titulaire_id INT DEFAULT NULL, implantation_id INT NOT NULL, name VARCHAR(45) NOT NULL, UNIQUE INDEX UNIQ_8F87BF96A10273AA (titulaire_id), INDEX IDX_8F87BF96CE296AF7 (implantation_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE eleve (id INT AUTO_INCREMENT NOT NULL, last_name VARCHAR(100) NOT NULL, first_name VARCHAR(100) NOT NULL, birthday DATE NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE eleve_classe (eleve_id INT NOT NULL, classe_id INT NOT NULL, INDEX IDX_564E8557A6CC7B2 (eleve_id), INDEX IDX_564E85578F5EA509 (classe_id), PRIMARY KEY(eleve_id, classe_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -35,6 +35,7 @@ final class Version20200507095522 extends AbstractMigration
         $this->addSql('ALTER TABLE activite ADD CONSTRAINT FK_B875551544EA4809 FOREIGN KEY (note_type_id) REFERENCES note_type (id)');
         $this->addSql('ALTER TABLE activite ADD CONSTRAINT FK_B8755515A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE activite ADD CONSTRAINT FK_B8755515F384C1CF FOREIGN KEY (periode_id) REFERENCES periode (id)');
+        $this->addSql('ALTER TABLE activite ADD CONSTRAINT FK_B87555158F5EA509 FOREIGN KEY (classe_id) REFERENCES classe (id)');
         $this->addSql('ALTER TABLE classe ADD CONSTRAINT FK_8F87BF96A10273AA FOREIGN KEY (titulaire_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE classe ADD CONSTRAINT FK_8F87BF96CE296AF7 FOREIGN KEY (implantation_id) REFERENCES implantation (id)');
         $this->addSql('ALTER TABLE eleve_classe ADD CONSTRAINT FK_564E8557A6CC7B2 FOREIGN KEY (eleve_id) REFERENCES eleve (id) ON DELETE CASCADE');
@@ -52,6 +53,7 @@ final class Version20200507095522 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE note DROP FOREIGN KEY FK_CFBDFA149B0F88B1');
+        $this->addSql('ALTER TABLE activite DROP FOREIGN KEY FK_B87555158F5EA509');
         $this->addSql('ALTER TABLE eleve_classe DROP FOREIGN KEY FK_564E85578F5EA509');
         $this->addSql('ALTER TABLE user_classe DROP FOREIGN KEY FK_EAD5A4AB8F5EA509');
         $this->addSql('ALTER TABLE eleve_classe DROP FOREIGN KEY FK_564E8557A6CC7B2');

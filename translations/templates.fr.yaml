@@ -7,6 +7,7 @@ Classes: Classes
 Class: Classe
 Owner: Titulaire
 Users: Utlisateurs
+User: Utilisateur
 Periods: Périodes
 My profile: Mon profil
 Log out: Déconnexion
@@ -62,6 +63,19 @@ Not started: Non démarré
 In progress: En cours
 Closed: Clôturé
 The period start date must be lower then the end date: La date de début de période doit être inférieure à la date de fin.
+It sounds like you do not have any activity or any class: Il semble que vous n'ayez encore aucune activité ou aucune classe.
+You can create a new one for one of your classe(s) by clicking the "+" button at the bottom of the screen: Vous pouvez en créer une nouvelle pour une de vos classes en cliquant sur le bouton "+" en bas de l'écran.
+Select implantation / class pairs: Sélectionnez une paire implantation / Classe
+You do not have any class: Vous n'avez aucune classe
+Add activity: Ajouter une activité
+Period: Période
+Note type: Type de note
+Comment: Commentaire
+Add a note type: Ajouter un type de note
+Ponderation: Ponderation
+Date: Date
+View: Voir
+Note: Noter
 
 
 roles:
@@ -79,10 +93,6 @@ roles:
   ROLE_CLASS_DELETE: Supprimer une classe
   ROLE_CLASS_EDIT_STUDENTS: Assigner un élève à une classe
   ROLE_CLASS_EDIT_USERS: Assigner un utilisateur à une classe.
-  ROLE_ACTIVITY_LIST_ALL: Lister les activités
-  ROLE_ACTIVITY_CREATE: Créer une activité
-  ROLE_ACTIVITY_EDIT: Editer une activité
-  ROLE_ACTIVITY_DELETE: Supprimer une activité
   ROLE_NOTEBOOK_VIEW: Voir le cahier de notes
   ROLE_IMPLANTATION_LIST_ALL: Lister les implantations
   ROLE_IMPLANTATION_EDIT: Editer une implantation
@@ -108,4 +118,3 @@ help:
   ROLE_CLASS_DELETE: Permet la suppression pure et simple d'une classe, à utiliser avec précaution.
   ROLE_CLASS_EDIT_STUDENTS: Ce rôle permet à un utilisateur d'assigner un ou plusieurs élèves à une classe.
   ROLE_CLASS_EDIT_USERS: Ce rôle permet d'attribuer le droit d'actions à un ou plusieurs utilisateurs sur une classe précise.
-

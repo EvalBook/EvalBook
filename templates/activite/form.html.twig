@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block pageTitle %}{{ 'Add activity'|trans }}{% endblock %}
+{% block title %}{{ 'Add activity'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="full-width flex column">
+        <a class="go-back" href="{{ app.request.headers.get('referer') }}">
+            <i class="fas fa-long-arrow-alt-left"></i>
+        </a>
+
+        <div class="form-content">
+            {{ form_start(form) }}
+
+            {# Activity period #}
+            <div class="form-row">
+                {{ form_label(form.periode, 'Period'|trans) }}
+                {{ form_widget(form.periode) }}
+            </div>
+
+            {# Activity note type #}
+            <div class="form-row">
+                {{ form_label(form.noteType, 'Note type'|trans) }}
+                {{ form_widget(form.noteType) }}
+            </div>
+
+            {# Activity name #}
+            <div class="form-row">
+                {{ form_label(form.name, 'Name'|trans) }}
+                {{ form_widget(form.name) }}
+                <span class="form-error">
+                    {{ form_errors(form.name) }}
+                </span>
+            </div>
+
+            {# Activity comment #}
+            <div class="form-row">
+                {{ form_label(form.comment, 'Comment'|trans) }}
+                {{ form_widget(form.comment) }}
+            </div>
+
+
+            {# Submit button #}
+            {{ form_row(form.submit, {
+                'label': 'Send'|trans,
+                'attr': {'class': 'margin-15'},
+            }) }}
+
+            {{ form_end(form) }}
+        </div>
+
+    </div>
+{% endblock %}

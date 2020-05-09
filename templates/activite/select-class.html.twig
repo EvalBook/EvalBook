@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block pageTitle %} {{ 'Activities' | trans }} {% endblock %}
+{% block title %}{{ 'Select implantation / class pairs' | trans }}{% endblock %}
+
+{% block body %}
+    <table class="full-width">
+        <thead>
+        <tr>
+            <th>{{ 'Implantation'|trans }}</th>
+            <th>{{ 'Class'|trans }}</th>
+            <th class="text-center">{{ 'Activities'|trans }}</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for classe in classes %}
+            <tr data-id="{{ classe.id }}" data-trigger="{{ path('classe_edit', {'id': classe.id}) }}">
+                <td>{{ classe.implantation }}</td>
+                <td>{{ classe.name }}</td>
+                <td class="text-center">{{ classe.activites|length }}</td>
+                <td>
+                    <a href="{{ path('activite_add', {'classe': classe.id} ) }}">
+                        <i class="fas fa-plus text-yellow"></i>
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3" class="text-center">
+                    {{ 'You do not have any class'|trans }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

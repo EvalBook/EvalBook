@@ -120,3 +120,9 @@ classe:
 period:
   name-too-short: Le nom de la période est trop court
   name-too-long: Le nom de la période est trop long
+
+activity:
+  name-empty: Le nom de l'activité ne peut être vide
+
+noteType:
+  name-empty: Empty note type name

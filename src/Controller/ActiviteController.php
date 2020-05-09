@@ -3,50 +3,89 @@
 namespace App\Controller;
 
 use App\Entity\Activite;
+use App\Entity\Classe;
 use App\Form\ActiviteType;
 use App\Repository\ActiviteRepository;
+use App\Repository\NoteTypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 class ActiviteController extends AbstractController
 {
     /**
      * @Route("/activites", name="activites")
+     *
+     * @param ActiviteRepository $activiteRepository
+     * @return Response
      */
     public function index(ActiviteRepository $activiteRepository): Response
     {
-        // Getting the user activities, or all activities if user has ROLE_ACTIVITY_LIST_ALL
+        $activities = array();
+        foreach($this->getUser()->getClasses() as $classe) {
+            $activities = array_merge($activities, $classe->getActivites()->toArray());
+        }
+        // Getting the user activities.
         return $this->render('activite/index.html.twig', [
-            'activites' => $activiteRepository->findAll(),
+            'classes' => $this->getUser()->getClasses(),
+            'activites' => $activities,
         ]);
     }
 
     /**
-     * @Route("/activite/add", name="activite_add")
+     * @Route("/activite/add/{classe}", defaults={"classe"=null}, name="activite_add")
      *
+     * @param Classe|null $classe
      * @param Request $request
+     * @param NoteTypeRepository $noteTypeRepository
      * @return Response
      */
-    public function new(Request $request): Response
+    public function add(?Classe $classe, Request $request, NoteTypeRepository $noteTypeRepository): Response
     {
-        $activite = new Activite();
-        $form = $this->createForm(ActiviteType::class, $activite);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($activite);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('activites');
+        // If no implantation was specified, then go to the implantation / school pair selection.
+        if(is_null($classe)) {
+            return $this->render('activite/select-class.html.twig', [
+                'classes' => $this->getUser()->getClasses(),
+            ]);
         }
+        else {
+            if($noteTypeRepository->count([]) === 0) {
+                // No not type found, then populating database with the default ones.
+                $noteTypeRepository->populate();
+            }
+            $activite = new Activite();
+            $periodes = array();
 
-        return $this->render('activite/new.html.twig', [
-            'activite' => $activite,
-            'form' => $form->createView(),
-        ]);
+            foreach( $classe->getImplantation()->getPeriodes() as $periode) {
+                // dd($periode->getDateEnd(), date('now'));
+                if($periode->getDateEnd() > new \DateTime('now')) {
+                    $periodes[] = $periode;
+                }
+            }
+            $form = $this->createForm(ActiviteType::class, $activite, [
+                'periodes' => $periodes,
+            ]);
+
+            $form->handleRequest($request);
+            // Make sur to override any other values sent by request.
+            $activite->setClasse($classe);
+            $activite->setUser($this->getUser());
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($activite);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('activites');
+            }
+
+            return $this->render('activite/form.html.twig', [
+                'activite' => $activite,
+                'form' => $form->createView(),
+            ]);
+        }
     }
 
     /**
@@ -81,7 +120,7 @@ class ActiviteController extends AbstractController
             return $this->redirectToRoute('activites');
         }
 
-        return $this->render('activite/edit.html.twig', [
+        return $this->render('activite/form.html.twig', [
             'activite' => $activite,
             'form' => $form->createView(),
         ]);
