@@ -7,6 +7,7 @@ use App\Entity\Classe;
 use App\Entity\Implantation;
 use App\Form\ActiviteType;
 use App\Repository\ActiviteRepository;
+use App\Repository\NoteTypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,9 +38,10 @@ class ActiviteController extends AbstractController
      *
      * @param Classe|null $classe
      * @param Request $request
+     * @param NoteTypeRepository $noteTypeRepository
      * @return Response
      */
-    public function add(?Classe $classe, Request $request): Response
+    public function add(?Classe $classe, Request $request, NoteTypeRepository $noteTypeRepository): Response
     {
         // If no implantation was specified, then go to the implantation / school pair selection.
         if(is_null($classe)) {
@@ -48,6 +50,10 @@ class ActiviteController extends AbstractController
             ]);
         }
         else {
+            if($noteTypeRepository->count([]) === 0) {
+                // No not type found, then redirecting in order to add at least one !
+                return $this->redirectToRoute('note_type_add');
+            }
             $activite = new Activite();
             $periodes = array();
 

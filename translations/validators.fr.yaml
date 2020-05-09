@@ -123,3 +123,6 @@ period:
 
 activity:
   name-empty: Le nom de l'activité ne peut être vide
+
+noteType:
+  name-empty: Nom du type de note vide
