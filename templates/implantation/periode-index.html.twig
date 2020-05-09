@@ -97,7 +97,7 @@
 
 {% block functionnalities %}
     {% if is_granted('ROLE_IMPLANTATION_EDIT') and periods|length < 6 %}
-        <a href="{{ path('implantation_period_add') }}">
+        <a href="{{ path('implantation_period_add', {'id': implantation.id}) }}">
             <i class="fas fa-plus"></i>
         </a>
     {% endif %}
@@ -105,9 +105,8 @@
 
 
 {% block functionnalitiesMobile %}
-    {# TODO add implantation index in order to add a new one. #}
     {% if is_granted('ROLE_IMPLANTATION_EDIT') and periods|length < 6 %}
-        <a href="{{ path('implantation_period_add', {'implantation'}) }}">
+        <a href="{{ path('implantation_period_add', {'id': implantation.id}) }}">
             <i class="fas fa-plus"></i>
         </a>
     {% endif %}
