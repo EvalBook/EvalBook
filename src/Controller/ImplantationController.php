@@ -165,8 +165,9 @@ class ImplantationController extends AbstractController
     {
         return $this->render('implantation/periode-index.html.twig', [
             'periods' => $repository->findBy(
-                ['implantation' => $implantation->getId()]),
-                ['startDate' => 'ASC'],
+                ['implantation' => $implantation->getId()],
+                ['dateStart' => 'ASC']
+            ),
             'implantation' => $implantation,
         ]);
     }
