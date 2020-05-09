@@ -51,8 +51,8 @@ class ActiviteController extends AbstractController
         }
         else {
             if($noteTypeRepository->count([]) === 0) {
-                // No not type found, then redirecting in order to add at least one !
-                return $this->redirectToRoute('note_type_add');
+                // No not type found, then populating database with the default ones.
+                $noteTypeRepository->populate();
             }
             $activite = new Activite();
             $periodes = array();

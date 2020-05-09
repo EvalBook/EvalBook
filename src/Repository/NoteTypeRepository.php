@@ -36,32 +36,35 @@ class NoteTypeRepository extends ServiceEntityRepository
         parent::__construct($registry, NoteType::class);
     }
 
-    // /**
-    //  * @return NoteType[] Returns an array of NoteType objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('n')
-            ->andWhere('n.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('n.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?NoteType
+    /**
+     * Populate the database with the defult note types values.
+     */
+    public function populate()
     {
-        return $this->createQueryBuilder('n')
-            ->andWhere('n.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $em = $this->getEntityManager();
+
+        // A..F interval
+        $noteType1 = new NoteType();
+        $noteType1->setName("A..F");
+        $noteType1->setPonderation("A..F");
+
+        $noteType2 = new NoteType();
+        $noteType2->setName("A..Z");
+        $noteType2->setPonderation("A..Z");
+
+        $em->persist($noteType1);
+        $em->persist($noteType2);
+
+
+        for($i = 0; $i <= 100; $i += 5) {
+            $nt = new NoteType();
+            $nt->setName("0..$i");
+            $nt->setPonderation("0..$i");
+            $em->persist($nt);
+        }
+
+        $em->flush();
+        $em->flush();
     }
-    */
 }
