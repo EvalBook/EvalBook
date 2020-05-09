@@ -66,6 +66,11 @@ It sounds like you do not have any activity or any class: Il semble que vous n'a
 You can create a new one for one of your classe(s) by clicking the "+" button at the bottom of the screen: Vous pouvez en créer une nouvelle pour une de vos classes en cliquant sur le bouton "+" en bas de l'écran.
 Select implantation / class pairs: Sélectionnez une paire implantation / Classe
 You do not have any class: Vous n'avez aucune classe
+Add activity: Ajouter une activité
+Period: Période
+Note type: Type de note
+Comment: Commentaire
+
 
 roles:
   ROLE_USER_LIST_ALL: Lister les utilisateurs

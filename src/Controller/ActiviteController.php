@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Activite;
+use App\Entity\Classe;
 use App\Entity\Implantation;
 use App\Form\ActiviteType;
 use App\Repository\ActiviteRepository;
@@ -10,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class ActiviteController extends AbstractController
 {
@@ -31,26 +33,38 @@ class ActiviteController extends AbstractController
     }
 
     /**
-     * @Route("/activite/add/{implantation}", defaults={"implantation"=null}, name="activite_add")
+     * @Route("/activite/add/{classe}", defaults={"classe"=null}, name="activite_add")
      *
-     * @param Implantation|null $implantation
+     * @param Classe|null $classe
      * @param Request $request
      * @return Response
      */
-    public function add(?Implantation $implantation, Request $request): Response
+    public function add(?Classe $classe, Request $request): Response
     {
         // If no implantation was specified, then go to the implantation / school pair selection.
-        if(is_null($implantation)) {
+        if(is_null($classe)) {
             return $this->render('activite/select-class.html.twig', [
                 'classes' => $this->getUser()->getClasses(),
             ]);
         }
         else {
-
             $activite = new Activite();
-            $form = $this->createForm(ActiviteType::class, $activite);
+            $periodes = array();
+
+            foreach( $classe->getImplantation()->getPeriodes() as $periode) {
+                // dd($periode->getDateEnd(), date('now'));
+                if($periode->getDateEnd() > new \DateTime('now')) {
+                    $periodes[] = $periode;
+                }
+            }
+            $form = $this->createForm(ActiviteType::class, $activite, [
+                'periodes' => $periodes,
+            ]);
 
             $form->handleRequest($request);
+            // Make sur to override any other values sent by request.
+            $activite->setClasse($classe);
+            $activite->setUser($this->getUser());
 
             if ($form->isSubmitted() && $form->isValid()) {
                 $entityManager = $this->getDoctrine()->getManager();
