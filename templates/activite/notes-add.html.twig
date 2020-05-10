@@ -1,10 +1,14 @@
-{# Faire le listing de tous les élèves présents dans la classe liée à l'activité, et permettre l'envoi en une seule fois de toutes les notes pour tous les élèves. #}
-
 {% extends 'base.html.twig' %}
+
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %} {{ 'Add notes' | trans }} {% endblock %}
-{% block title %}{{ 'Add notes for this activity' | trans }}{% endblock %}
+
+{% block title %}
+    {{ 'Add notes for this activity' | trans }}
+    {% set help = 'Students' %}
+    {% include 'help/help-dialog.html.twig' %}
+{% endblock %}
 
 {% block body %}
 

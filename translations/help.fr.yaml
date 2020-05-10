@@ -1,0 +1,29 @@
+Help: Aide
+
+intro: >
+  Les différentes actions peuvent être effectuées en cliquant sur les icones se situant à droite.
+  En fonction de vos droits d'accès en lecture et écriture, certaines fonctionnalités vous seront cachées.
+
+users:
+  title:
+    Utilisateurs
+
+  actions: |
+   <ul>
+     <li><i class="fas fa-plus"></i><span>Ajouter un nouvel utilisateur</span></li>
+     <li><i class="fas fa-eye"></i><span>Voir les étudiants/classes attaché(es) à l'utilisateur</span></li>
+     <li><i class="fas fa-edit"></i><span>Editer les informations de base d'un utilisateur.</span></li>
+     <li><i class="fas fa-trash"></i><span>Supprimer un utilisateur (a utiliser avec précaution).</span></li>
+   </ul>
+
+implantations:
+  title: Implantations
+
+  actions: |
+    <ul>
+      <li><i class="fas fa-plus"></i><span>Ajouter une nouvelle implantation</span></li>
+      <li><i class="fas fa-eye"></i><span>Voir les classes liées à l'implantation</span></li>
+      <li><i class="fas fa-stopwatch"></i><span>Gérer les périodes de l'implantation</span></li>
+      <li><i class="fas fa-edit"></i><span>Editer l'adresse et le nom de l'implantation.</span></li>
+      <li><i class="fas fa-trash"></i><span>Supprimer une implantation (a utiliser avec précaution).</span></li>
+    </ul>

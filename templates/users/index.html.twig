@@ -2,7 +2,11 @@
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %} {{ 'Users' | trans }} {% endblock %}
-{% block title %}{{ 'Users' | trans }}{% endblock %}
+{% block title %}
+    {{ 'Users' | trans }}
+    {% set help = {'title': 'users.title', 'intro': 'intro', 'actions': 'users.actions'} %}
+    {% include 'help/help-dialog.html.twig' %}
+{% endblock %}
 
 {% block body %}
     <table class="full-width">
