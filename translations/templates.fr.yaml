@@ -3,6 +3,7 @@ Notebook: Cahier de notes
 Notebooks: Cahiers de notes
 Activities: Activités
 Students: Etudiants
+Student: Etudiant
 Classes: Classes
 Class: Classe
 Owner: Titulaire
@@ -76,6 +77,9 @@ Ponderation: Ponderation
 Date: Date
 View: Voir
 Note: Noter
+Add notes: Ajouter des notes
+Add notes for this activity: Ajoutez des notes pour cette activité.
+You do not have any student in your class: Vous n'avez aucun étudiant dans votre classe
 
 
 roles:

@@ -3,6 +3,7 @@ Notebook: Notebook
 Notebooks: Notebooks
 Activities: Activities
 Students: Students
+Student: Student
 Classes: Classes
 Class: Class
 Owner: Owner
@@ -73,6 +74,9 @@ Ponderation: Ponderation
 Date: Date
 View: View
 Note: Note
+Add notes: Add notes
+Add notes for this activity: Add notes for this activity
+You do not have any student in your class: You do not have any student in your class
 
 
 roles:

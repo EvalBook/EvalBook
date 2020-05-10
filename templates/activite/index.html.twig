@@ -37,7 +37,9 @@
                 <!-- Note activity -->
                 <td class="text-center">
                     {% if owner %}
-                        <i class="fas fa-medal text-yellow"></i>
+                        <a href="{{ path('activite_note_add', {'id': activite.id}) }}">
+                            <i class="fas fa-medal text-yellow"></i>
+                        </a>
                     {% else %}
                         <span>-</span>
                     {% endif %}

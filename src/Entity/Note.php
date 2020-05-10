@@ -63,6 +63,16 @@ class Note
     private $comment;
 
 
+    /**µ
+     * Note constructor.
+     */
+    public function __construct()
+    {
+        // Setting the date here for auto insert.
+        $this->date = new \DateTime('now');
+    }
+
+
     /**
      * Return the Note ID.
      * @return int|null

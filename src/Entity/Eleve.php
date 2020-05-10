@@ -209,6 +209,23 @@ class Eleve
 
 
     /**
+     * Return true if the student has provided activity.
+     *
+     * @param Activite $activite
+     * @return bool
+     */
+    public function hasNoteFor(Activite $activite)
+    {
+        foreach($this->getNotes() as $note) {
+            if($note->getActivite() === $activite)
+                return true;
+        }
+
+        return false;
+    }
+
+
+    /**
      * Remove a note to the Eleve object.
      * @param Note $note
      * @return $this

@@ -72,7 +72,7 @@ class Activite
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="activite")
+     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="activite", cascade={"persist"})
      */
     private $notes;
 
@@ -263,7 +263,7 @@ class Activite
     {
         if (!$this->notes->contains($note)) {
             $this->notes[] = $note;
-            $note->addActivite($this);
+            $note->setActivite($this);
         }
 
         return $this;
@@ -279,9 +279,15 @@ class Activite
     {
         if ($this->notes->contains($note)) {
             $this->notes->removeElement($note);
-            $note->removeActivite($this);
+            $note->setActivite(null);
         }
 
         return $this;
+    }
+
+
+    public function __toString()
+    {
+        return $this->getPeriode() . " - " . $this->getName();
     }
 }
