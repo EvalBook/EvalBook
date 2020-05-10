@@ -128,7 +128,7 @@ class ActiviteController extends AbstractController
 
 
     /**
-     * @Route("/activite/delete/{id}", name="activite_delete")
+     * @Route("/activite/delete/{id}", name="activite_delete", methods={"POST"})
      *
      * @param Request $request
      * @param Activite $activite
@@ -136,12 +136,21 @@ class ActiviteController extends AbstractController
      */
     public function delete(Request $request, Activite $activite): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$activite->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($activite);
-            $entityManager->flush();
+        $jsonRequest = json_decode($request->getContent(), true);
+        if( !isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('activite_delete'.$activite->getId(), $jsonRequest['csrf'])) {
+            return $this->json(['message' => 'Invalid csrf token'], 201);
         }
 
-        return $this->redirectToRoute('activites');
+        $entityManager = $this->getDoctrine()->getManager();
+
+        // Deleting notes attached to this activity.
+        foreach($activite->getNotes() as $note) {
+            $entityManager->remove($note);
+        }
+
+        $entityManager->remove($activite);
+        $entityManager->flush();
+
+        return $this->json(['message' => 'Activity deleted'], 200);
     }
 }

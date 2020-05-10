@@ -11,7 +11,7 @@
                 <th>{{ 'Class'|trans }}</th>
                 <th>{{ 'User'|trans }}</th>
                 <th>{{ 'Name'|trans }}</th>
-                <th{{ 'Date'|trans }}></th>
+                <th>{{ 'Date'|trans }}></th>
                 <th class="text-center">{{ 'View'|trans }}</th>
                 <th class="text-center">{{ 'Note'|trans }}</th>
                 <th class="text-center">{{ 'Edit'|trans }}</th>
@@ -21,7 +21,7 @@
         <tbody>
         {% for activite in activites %}
             {% set owner = (activite.user is same as(app.user)) ? true : false %}
-            <tr>
+            <tr data-id="{{ activite.id }}" data-trigger="{{ path('activite_edit', {'id': activite.id}) }}">
                 <td>{{ activite.classe }}</td>
                 <td>{{ activite.user }}</td>
                 <td>{{ activite.name }}</td>
@@ -42,7 +42,7 @@
                 </td>
 
                 <!-- Edit activity -->
-                <td class="text-center">
+                <td class="text-center" data-mobile="0">
                     {% if owner %}
                         <i class="fas fa-edit"></i>
                     {% else %}
@@ -51,9 +51,15 @@
                 </td>
 
                 <!-- Delete activity -->
-                <td class="text-center">
+                <td class="text-center" data-mobile="0">
                     {% if owner %}
-                        <i class="fas fa-trash"></i>
+                        <div data-target="activite"
+                             data-targetid="{{ activite.id }}"
+                             data-action="{{ path('activite_delete', {'id': activite.id}) }}"
+                             data-class="fas fa-trash"
+                             data-csrf="{{ csrf_token('activite_delete' ~ activite.id) }}"
+                        >
+                        </div>
                     {% else %}
                         <span>-</span>
                     {% endif %}
@@ -61,12 +67,12 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="4" class="text-center">
+                <td colspan="8" class="text-center">
                     {{ 'It sounds like you do not have any activity or any class'|trans }}
                 </td>
             </tr>
             <tr>
-                <td colspan="4" class="text-center">
+                <td colspan="8" class="text-center">
                     {{ 'You can create a new one for one of your classe(s) by clicking the "+" button at the bottom of the screen'|trans }}
                 </td>
             </tr>
