@@ -2,7 +2,11 @@
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %} {{ 'Students' | trans }} {% endblock %}
-{% block title %}{{ 'Students' | trans }}{% endblock %}
+{% block title %}
+    {{ 'Students' | trans }}
+    {% set help = {'title': 'eleve.title', 'intro': 'intro', 'actions': 'eleve.actions'} %}
+    {% include 'help/help-dialog.html.twig' %}
+{% endblock %}
 
 {% block body %}
     <table class="full-width">

@@ -2,7 +2,11 @@
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %} {{ 'Activities'|trans }} {% endblock %}
-{% block title %} {{ 'Activities'|trans }} {% endblock %}
+{% block title %}
+    {{ 'Activities'|trans }}
+    {% set help = {'title': 'activites.title', 'intro': 'activites.intro', 'actions': 'activites.actions'} %}
+    {% include 'help/help-dialog.html.twig' %}
+{% endblock %}
 
 {% block body %}
     <table class="full-width">
