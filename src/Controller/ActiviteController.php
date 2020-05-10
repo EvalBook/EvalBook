@@ -111,7 +111,18 @@ class ActiviteController extends AbstractController
      */
     public function edit(Request $request, Activite $activite): Response
     {
-        $form = $this->createForm(ActiviteType::class, $activite);
+        $periodes = array();
+
+        foreach( $activite->getClasse()->getImplantation()->getPeriodes() as $periode) {
+            // dd($periode->getDateEnd(), date('now'));
+            if($periode->getDateEnd() > new \DateTime('now')) {
+                $periodes[] = $periode;
+            }
+        }
+
+        $form = $this->createForm(ActiviteType::class, $activite, [
+            'periodes' => $periodes,
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

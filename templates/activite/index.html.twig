@@ -11,7 +11,8 @@
                 <th>{{ 'Class'|trans }}</th>
                 <th>{{ 'User'|trans }}</th>
                 <th>{{ 'Name'|trans }}</th>
-                <th>{{ 'Date'|trans }}></th>
+                <th>{{ 'Date'|trans }}</th>
+                <th>{{ 'Period'|trans }}</th>
                 <th class="text-center">{{ 'View'|trans }}</th>
                 <th class="text-center">{{ 'Note'|trans }}</th>
                 <th class="text-center">{{ 'Edit'|trans }}</th>
@@ -26,6 +27,7 @@
                 <td>{{ activite.user }}</td>
                 <td>{{ activite.name }}</td>
                 <td>{{ activite.dateAdded|date('d/m/Y') }}</td>
+                <td>{{ activite.periode.name }}</td>
 
                 <!-- View actvity -->
                 <td class="text-center">
@@ -44,7 +46,9 @@
                 <!-- Edit activity -->
                 <td class="text-center" data-mobile="0">
                     {% if owner %}
-                        <i class="fas fa-edit"></i>
+                        <a href="{{ path('activite_edit', {'id': activite.id}) }}">
+                            <i class="fas fa-edit"></i>
+                        </a>
                     {% else %}
                         <span>-</span>
                     {% endif %}
