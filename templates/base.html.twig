@@ -5,7 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logos/favicon.ico') }}" />
     <script src="https://kit.fontawesome.com/af99847773.js" crossorigin="anonymous"></script>
+
     {{ encore_entry_link_tags('theme') }}
     {{ encore_entry_link_tags('dialogs') }}
 
@@ -46,12 +48,6 @@
                 <!-- User top right links -->
                 <div id="user-links">
                     <div class="menuTopIcon">
-                        <a href="{{ path('dashboard') }}">
-                            <i class="fas fa-tachometer-alt"></i>
-                            <span>{{ 'Dashboard'|trans }}</span>
-                        </a>
-                    </div>
-                    <div class="menuTopIcon">
                         <a href="{{ path('user_profile') }}">
                             <i class="fas fa-user"></i>
                             <span>{{ 'My profile'|trans }}</span>
@@ -78,14 +74,14 @@
                     </a>
                 {% endif %}
 
-                {% if is_granted('ROLE_STUDENT_LIST_ALL') %}
-                    <a href="{{ path('eleves') }}">
-                        <div class="menuItem">
-                            <i class="fas fa-user-graduate"></i>
-                            <span>{{ 'Students'|trans }}</span>
-                        </div>
-                    </a>
-                {% endif %}
+
+                <a href="{{ path('eleves') }}">
+                    <div class="menuItem">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>{{ 'Students'|trans }}</span>
+                    </div>
+                </a>
+
 
                 <a href="{{ path('activites') }}">
                     <div class="menuItem">
@@ -124,8 +120,6 @@
             <div id="mobile-top-nav">
                 <div id="mobile-menu-items">
                     <ul>
-                        <li><i class="fas fa-tachometer-alt"></i></li>
-
                         {% if is_granted('ROLE_USER_LIST_ALL') %}
                             <li><i class="fas fa-users"></i></li>
                         {% endif %}
@@ -138,10 +132,6 @@
                         <li><i class="fas fa-sign-out-alt"></i></li>
                     </ul>
                     <ul>
-                        <li>
-                            <a href="{{ path('dashboard') }}">{{ 'Dashboard'|trans }}</a>
-                        </li>
-
                         {% if is_granted('ROLE_USER_LIST_ALL') %}
                             <li><a href="{{ path('users') }}">{{ 'Users'|trans }}</a></li>
                         {% endif %}

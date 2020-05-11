@@ -43,7 +43,10 @@ let ModalDialog = function(parent, className, action, csrf, targetId) {
             }, {
                 action: this._actionRequestCallback,
                 param: targetId,
-                message: this.labels['Element deleted'],
+                message: {
+                    success: this.labels['Element deleted'],
+                    error:   this.labels['Error deleting element']
+                },
             });
 
             parent.removeChild(this.modalDiv);
@@ -58,14 +61,20 @@ let ModalDialog = function(parent, className, action, csrf, targetId) {
     }
 
 
-    this._actionRequestCallback = function(target, message) {
+    this._actionRequestCallback = function(error, target, messages) {
         let element = document.querySelector(`[data-id="${target}"]`);
-        element.parentElement.removeChild(element);
 
         let messageDialog = document.createElement('div');
         messageDialog.classList.add('dialog');
-        messageDialog.classList.add('dialog-success');
-        messageDialog.innerHTML = message
+        if(!error) {
+            messageDialog.classList.add('dialog-success');
+            messageDialog.innerHTML = messages['success'];
+            element.parentElement.removeChild(element);
+        }
+        else {
+            messageDialog.classList.add('dialog-error');
+            messageDialog.innerHTML = messages['error'];
+        }
         document.body.appendChild(messageDialog);
     }
 
@@ -97,7 +106,7 @@ async function getStrings() {
         'Are you sure you want to delete this element ?',
         'All attached data will be deleted or marked orphan',
         'Element deleted',
-        'Element not deleted',
+        'Error deleting element',
         'Invalid csrf token',
         'Yes',
         'No'

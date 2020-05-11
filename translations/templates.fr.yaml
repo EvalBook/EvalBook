@@ -1,8 +1,8 @@
-Dashboard: Tableau de bord
 Notebook: Cahier de notes
 Notebooks: Cahiers de notes
 Activities: Activités
 Students: Etudiants
+Student: Etudiant
 Classes: Classes
 Class: Classe
 Owner: Titulaire
@@ -76,6 +76,12 @@ Ponderation: Ponderation
 Date: Date
 View: Voir
 Note: Noter
+Add notes: Ajouter des notes
+Add notes for this activity: Ajoutez des notes pour cette activité.
+You do not have any student in your class: Vous n'avez aucun étudiant dans votre classe
+Error deleting element: Une erreur est survenue en supprimant l'élément.
+The combination last name / first name is already taken: La combinaison nom / prénom est déjà utilisée.
+Ensure you have students registered to your classes: Ensure you have students registered to your classes
 
 
 roles:

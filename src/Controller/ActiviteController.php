@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Activite;
 use App\Entity\Classe;
+use App\Entity\Note;
+use App\Form\ActiviteNotesType;
 use App\Form\ActiviteType;
 use App\Repository\ActiviteRepository;
 use App\Repository\NoteTypeRepository;
@@ -111,7 +113,18 @@ class ActiviteController extends AbstractController
      */
     public function edit(Request $request, Activite $activite): Response
     {
-        $form = $this->createForm(ActiviteType::class, $activite);
+        $periodes = array();
+
+        foreach( $activite->getClasse()->getImplantation()->getPeriodes() as $periode) {
+            // dd($periode->getDateEnd(), date('now'));
+            if($periode->getDateEnd() > new \DateTime('now')) {
+                $periodes[] = $periode;
+            }
+        }
+
+        $form = $this->createForm(ActiviteType::class, $activite, [
+            'periodes' => $periodes,
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -128,7 +141,7 @@ class ActiviteController extends AbstractController
 
 
     /**
-     * @Route("/activite/delete/{id}", name="activite_delete")
+     * @Route("/activite/delete/{id}", name="activite_delete", methods={"POST"})
      *
      * @param Request $request
      * @param Activite $activite
@@ -136,12 +149,63 @@ class ActiviteController extends AbstractController
      */
     public function delete(Request $request, Activite $activite): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$activite->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($activite);
-            $entityManager->flush();
+        $jsonRequest = json_decode($request->getContent(), true);
+        if( !isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('activite_delete'.$activite->getId(), $jsonRequest['csrf'])) {
+            return $this->json(['message' => 'Invalid csrf token'], 201);
         }
 
-        return $this->redirectToRoute('activites');
+        $entityManager = $this->getDoctrine()->getManager();
+
+        // Deleting notes attached to this activity.
+        foreach($activite->getNotes() as $note) {
+            $entityManager->remove($note);
+        }
+
+        $entityManager->remove($activite);
+        $entityManager->flush();
+
+        return $this->json(['message' => 'Activity deleted'], 200);
+    }
+
+
+    /**
+     * @Route("/activite/note/add/{id}", name="activite_note_add")
+     *
+     * @param Activite $activite
+     * @param Request $request
+     * @return Response
+     */
+    public function addNotes(Activite $activite, Request $request)
+    {
+        // To make sure the user how is inserting notes is the activity owner.
+        if(!$activite->getUser() === $this->getUser())
+            return $this->redirectToRoute('activites');
+
+        foreach($activite->getClasse()->getEleves() as $student) {
+            // If student was not be noted for this activity, then setting a new note for him.
+            if(!$student->hasNoteFor($activite)) {
+                $note = new Note();
+                $note->setEleve($student);
+                $activite->addNote($note);
+            }
+        }
+
+        $form = $this->createForm(ActiviteNotesType::class, $activite);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('activites', [
+                'id' => $activite->getId(),
+            ]);
+        }
+
+        return $this->render('activite/notes-add.html.twig', [
+            'activity' => $activite,
+            'students' => $activite->getClasse()->getEleves(),
+            'form' => $form->createView(),
+        ]);
     }
 }

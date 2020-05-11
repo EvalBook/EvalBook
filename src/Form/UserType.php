@@ -34,6 +34,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UserType extends AbstractType
 {
+
     /**
      * Build the user add / edit form.
      * @param FormBuilderInterface $builder
@@ -50,7 +51,7 @@ class UserType extends AbstractType
                         'max' => 100,
                         'minMessage' => 'user.first-name-too-short',
                         'maxMessage' => 'user.first-name-too-long',
-                    ])
+                    ]),
                 ]
             ])
 

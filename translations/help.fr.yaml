@@ -1,0 +1,85 @@
+Help: Aide
+
+intro: >
+  Les différentes actions peuvent être effectuées en cliquant sur les icones se situant à droite.
+  En fonction de vos droits d'accès en lecture et écriture, certaines fonctionnalités vous seront cachées.
+
+users:
+  title:
+    Les utilisateurs
+
+  actions: |
+   <ul>
+     <li><i class="fas fa-plus"></i><span>Ajouter un nouvel utilisateur</span></li>
+     <li><i class="fas fa-eye"></i><span>Voir les étudiants/classes attaché(es) à l'utilisateur</span></li>
+     <li><i class="fas fa-edit"></i><span>Editer les informations de base d'un utilisateur.</span></li>
+     <li><i class="fas fa-trash"></i><span>Supprimer un utilisateur (a utiliser avec précaution)</span></li>
+   </ul>
+    Attention, si vous supprimez un utilisateur, les activités seront conservées et les notes déjà attribuées le seront
+    également. Néanmoins, il sera impossible d'attribuer une note pour cette activité à un nouvel élève entrant dans la classe,
+    ou modifier les notes existantes.
+    Vous ne pourrez pas supprimer ou éditer un administrateur.
+
+implantations:
+  title: Les implantations
+
+  actions: |
+    <ul>
+      <li><i class="fas fa-plus"></i><span>Ajouter une nouvelle implantation</span></li>
+      <li><i class="fas fa-eye"></i><span>Voir les classes liées à l'implantation</span></li>
+      <li><i class="fas fa-stopwatch"></i><span>Gérer les périodes de l'implantation</span></li>
+      <li><i class="fas fa-edit"></i><span>Editer l'adresse et le nom de l'implantation.</span></li>
+      <li><i class="fas fa-trash"></i><span>Supprimer une implantation (a utiliser avec précaution)</span></li>
+    </ul>
+    Attention, si vous supprimez une implantation, tous les éléments attachés seront également supprimés, à
+    l'exeption des notes des étudiants. Vous n'aurez définitivement plus accès aux activités, aux classes et à
+    l'implantation en elle même.
+
+classes:
+  title: Les classes
+
+  actions: |
+    <ul>
+      <li><i class="fas fa-plus"></i><span>Ajouter une classe et l'attacher à une implantation</span></li>
+      <li><i class="fas fa-eye"></i><span>Voir les étudiants liés à la classes</span></li>
+      <li><i class="fas fa-eye"></i><span>Voir les utilisateurs ayant accès à la classe</span></li>
+      <li><i class="fas fa-edit"></i><span>Editer la classe, par exemple changer d'implantation</span></li>
+      <li><i class="fas fa-wrench"></i><span>Attacher des élèves à la classe</span></li>
+      <li><i class="fas fa-cogs"></i><span>Attribuer la classe a des utilisateurs</span></li>
+      <li><i class="fas fa-trash"></i><span>Supprimer une la classe (a utiliser avec précaution).</span></li>
+    </ul>
+    Attention, vous ne pourrez pas supprimer une classe qui contient déjà des activités, le système part en effet du
+    principe ou une classe ayant des activités en son seing est une classe active. Si vous souhaitez tout de même
+    supprimer cette classe, vous devrez au préalable en supprimer manuellement toutes les activités.
+
+
+eleve:
+  title: Les élèves
+
+  actions: |
+    <ul>
+      <li><i class="fas fa-plus"></i><span>Ajouter un nouvel élève</span></li>
+      <li><i class="fas fa-eye"></i><span>Voir les classes dont l'étudiant fait partie</span></li>
+      <li><i class="fas fa-edit"></i><span>Editer les informations de base de l'étudiant</span></li>
+      <li><i class="fas fa-trash"></i><span>Supprimer l'étudiant (a utiliser avec précaution)</span></li>
+    </ul>
+    Attention, si vous supprimez un élève, toutes les notes obtenues seront également supprimées, utilisez
+    cette fonctionnalité avec grande précaution, car les notes n'apparaîtront plus dans le cahier de notes.
+
+activites:
+  title: Les activités.
+
+  intro: >
+    Si vous êtes l'utilisateur d'au moins une classe, alors vous pouvez créer des activités et y ajouter des notes
+    pour chaque élève de la classe cible, appuyez sur le bouton '+', sélectionnez la classe dans laquelle se déroule
+    l'activité, et laissez vous guilder.
+
+  actions: |
+    <ul>
+      <li><i class="fas fa-plus"></i><span>Ajouter une nouvelle activité</span></li>
+      <li><i class="fas fa-eye"></i><span>Voir la fiche de l'activité ( notes et détails )</span></li>
+      <li><i class="fas fa-medal text-yellow"></i><span>Ajouter / éditer les notes des élèves</span></li>
+      <li><i class="fas fa-edit"></i><span>Editer les informations de base de l'activité</span></li>
+      <li><i class="fas fa-trash"></i><span>Supprimer l'activité</span></li>
+    </ul>
+    Attention, si vous supprimez une activité, alors toutes les notes seront également supprimées !

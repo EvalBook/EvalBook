@@ -324,8 +324,12 @@ th {
     color: white;
 }
 
+tr, td {
+    white-space: nowrap;
+}
+
 th, td {
-    padding: 16px;
+    padding: 6px;
     border-bottom: 1px solid #ddd;
 }
 
@@ -337,13 +341,26 @@ tr:nth-child(even) {
     background-color: #fff;
 }
 
-tr:hover {
-    color: white;
-}
-
 tr:hover i, tr:hover a {
     color: white;
     font-weight: bold;
+}
+
+
+.small {
+    width: 10%;
+}
+
+.large {
+    width: 50%;
+}
+
+.large input {
+    width: 80%;
+}
+
+.large input, .small input {
+    width: 90%;
 }
 
 
@@ -385,6 +402,11 @@ tr:hover i, tr:hover a {
 
 .text-yellow {
     color: var(--secondary-color);
+}
+
+.bg-yellow {
+    background-color: var(--secondary-color);
+    border: 1px solid var(--primary-color);
 }
 
 /* Usually elements that must be grouped */

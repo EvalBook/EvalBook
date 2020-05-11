@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 
 class EleveController extends AbstractController
@@ -19,12 +20,27 @@ class EleveController extends AbstractController
      * @IsGranted("ROLE_STUDENT_LIST_ALL", statusCode=404, message="Not found")
      *
      * @param EleveRepository $eleveRepository
+     * @param Security $security
      * @return Response
      */
-    public function index(EleveRepository $eleveRepository): Response
+    public function index(EleveRepository $eleveRepository, Security $security): Response
     {
+        $user = $security->getUser();
+
+        // Getting all classes students if user has role to view all.
+        if(in_array('ROLE_STUDENT_LIST_ALL', $user->getRoles()) || in_array('ROLE_ADMIN', $user->getRoles())) {
+            $eleves = $eleveRepository->findAll();
+        }
+        // If not, getting classes the user is subscribed to.
+        else {
+            $eleves = array();
+            foreach($user->getClasses() as $classe) {
+                $eleves = array_merge($eleves, $classe->getEleves());
+            }
+        }
+
         return $this->render('eleve/index.html.twig', [
-            'eleves' => $eleveRepository->findAll(),
+            'eleves' => array_unique($eleves),
         ]);
     }
 
@@ -72,20 +88,26 @@ class EleveController extends AbstractController
 
 
     /**
-     * @Route("/eleve/edit/{id}", name="eleve_edit")
+     * @Route("/eleve/edit/{id}/{redirect}", name="eleve_edit", defaults={"redirect"=null})
      * @IsGranted("ROLE_STUDENT_EDIT", statusCode=404, message="Not found")
      *
      * @param Request $request
      * @param Eleve $eleve
+     * @param String|null $redirect
      * @return Response
      */
-    public function edit(Request $request, Eleve $eleve): Response
+    public function edit(Request $request, Eleve $eleve, ?String $redirect): Response
     {
         $form = $this->createForm(EleveType::class, $eleve);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            if(!is_null($redirect)) {
+                $redirect = json_decode(base64_decode($redirect), true);
+                return $this->redirectToRoute($redirect['route'], $redirect["params"]);
+            }
 
             return $this->redirectToRoute('eleves');
         }
@@ -113,6 +135,13 @@ class EleveController extends AbstractController
         }
 
         $entityManager = $this->getDoctrine()->getManager();
+        // Deleting all student notes too.
+        foreach($eleve->getNotes() as $note) {
+            $entityManager->remove($note);
+        }
+        $entityManager->flush();
+
+        // Removing student.
         $entityManager->remove($eleve);
         $entityManager->flush();
 
@@ -130,6 +159,10 @@ class EleveController extends AbstractController
     {
         return $this->render('classe/index.html.twig', [
             'classes' => $eleve->getClasses(),
+            'redirect' => base64_encode(json_encode([
+                'route'  => 'student_view_classes',
+                'params' => ['id' => $eleve->getId()],
+            ])),
         ]);
     }
 }

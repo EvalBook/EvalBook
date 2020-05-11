@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'templates' %}
+
+{% block pageTitle %} {{ 'Add notes' | trans }} {% endblock %}
+
+{% block title %}
+    {{ 'Add notes for this activity' | trans }}
+    {#
+    {% set help = 'Students' %}
+    {% include 'help/help-dialog.html.twig' %}
+    #}
+{% endblock %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+    <table class="full-width">
+        <thead>
+        <tr>
+            <th>{{ 'Student'|trans }}</th>
+            <th class="text-center large">{{ 'Comment'|trans }}</th>
+            <th class="text-center small">{{ 'Note'|trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+
+
+        {% for note in form.notes %}
+            <tr>
+                <td>
+                    {{ note.eleve.vars.value }}
+                    {% do note.eleve.setRendered() %}
+                </td>
+                <td class="large">{{ form_row(note.comment) }}</td>
+                <td class="bg-yellow">{{ form_row(note.note) }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2" class="text-center">
+                    {{ 'You do not have any student in your class'|trans }}
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    {# Submit button #}
+    {{ form_row(form.submit, {
+        'label': 'Send'|trans,
+        'attr': {'class': 'margin-15'},
+    }) }}
+
+    {{ form_end(form) }}
+
+{% endblock %}

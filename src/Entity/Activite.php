@@ -51,7 +51,7 @@ class Activite
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="activites")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $user;
 
@@ -72,7 +72,7 @@ class Activite
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="activite")
+     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="activite", cascade={"persist"})
      */
     private $notes;
 
@@ -263,7 +263,7 @@ class Activite
     {
         if (!$this->notes->contains($note)) {
             $this->notes[] = $note;
-            $note->addActivite($this);
+            $note->setActivite($this);
         }
 
         return $this;
@@ -279,9 +279,29 @@ class Activite
     {
         if ($this->notes->contains($note)) {
             $this->notes->removeElement($note);
-            $note->removeActivite($this);
+            $note->setActivite(null);
         }
 
         return $this;
+    }
+
+
+    /**
+     * Detach notes preserving all students notes.
+     * @return $this
+     */
+    public function detachNotes(): self {
+        foreach($this->getNotes() as $note) {
+            $note->setActivite(null);
+        }
+        $this->notes = [];
+
+        return $this;
+    }
+
+
+    public function __toString()
+    {
+        return $this->getPeriode() . " - " . $this->getName();
     }
 }

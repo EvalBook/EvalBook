@@ -12,8 +12,10 @@ let Api = {
         })
 
         let data = await response.json();
+        let error = data.hasOwnProperty('error');
+
         if(callback)
-            callback.action(callback.param, callback.message);
+            callback.action(error, callback.param, callback.message);
         return data;
 
     }

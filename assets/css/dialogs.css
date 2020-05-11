@@ -47,6 +47,42 @@
     width: 50%;
 }
 
+.dialog-medium {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    top: 2em;
+    width: 15em;
+    height: 20em;
+    overflow-y: auto;
+}
+
+.dialog-medium p, .dialog-medium div {
+    font-size: 0.7em;
+    color: var(--primary-color);
+    text-align: justify;
+}
+
+.dialog-medium ul {
+    list-style-type: none;
+}
+
+.dialog-medium ul li i {
+    width: 1em;
+}
+
+.dialog-medium ul li {
+    line-height: 2.5em;
+}
+
+.dialog-medium span {
+    margin-left: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
 .button-ok, .button-cancel {
     cursor: pointer;
     margin-left: 30px;

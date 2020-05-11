@@ -8,6 +8,7 @@ let Controls = {
      */
     init: function() {
         setInterval(() => this._hideDialog(), 4000);
+        this.initHelpMessages();
     },
 
 
@@ -66,6 +67,21 @@ let Controls = {
             }
         });
     },
+
+
+    /**
+     * Init the page help message.
+     */
+    initHelpMessages: function() {
+        document.getElementById('help-dialog').addEventListener('click', function() {
+           let help = document.getElementById('help-message');
+           help.style.display = 'flex';
+        });
+
+        document.querySelector('#help-message button').addEventListener('click', function(event) {
+            event.target.parentElement.style.display = 'none';
+        });
+    }
 };
 
 

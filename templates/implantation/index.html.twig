@@ -2,7 +2,11 @@
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %} {{ 'Implantations' | trans }} {% endblock %}
-{% block title %}{{ 'Implantations' | trans }}{% endblock %}
+{% block title %}
+    {{ 'Implantations' | trans }}
+    {% set help = {'title': 'implantations.title', 'intro': 'intro', 'actions': 'implantations.actions'} %}
+    {% include 'help/help-dialog.html.twig' %}
+{% endblock %}
 
 {% block body %}
     <table class="full-width">

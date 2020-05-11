@@ -73,9 +73,9 @@ class User implements UserInterface
     private $activites;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Classe", mappedBy="titulaire", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Classe", mappedBy="titulaire", cascade={"persist", "remove"})
      */
-    private $classeTitulaire;
+    private $classesTitulaire;
 
 
     /**

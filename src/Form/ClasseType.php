@@ -4,8 +4,6 @@ namespace App\Form;
 
 use App\Entity\Classe;
 use App\Entity\User;
-use App\Repository\ClasseRepository;
-use App\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -17,25 +15,6 @@ use Symfony\Component\Validator\Constraints\Length;
 
 class ClasseType extends AbstractType
 {
-    public $users = array();
-
-    public function __construct(ClasseRepository $repository, UserRepository $userRepository)
-    {
-        $titulaires = array();
-
-        // Fetching all olready owners.
-        foreach($repository->findAll() as $classe) {
-            if(!is_null($classe->getTitulaire())) {
-                $titulaires[] = $classe->getTitulaire();
-            }
-        }
-
-        foreach($userRepository->findAll() as $user) {
-            if(!in_array($user, $titulaires)) {
-                $this->users[] = $user;
-            }
-        }
-    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -53,12 +32,8 @@ class ClasseType extends AbstractType
             ])
 
             // The class owner.
-
-                // Trouver la liste des utilisateurs qui ne sont pas titulaires.
             ->add('titulaire', EntityType::class, [
                 'class' => User::class,
-                'choices' => $this->users,
-
             ])
 
             // The class implantation
@@ -73,6 +48,7 @@ class ClasseType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Classe::class,
+            'users' => array(),
         ]);
     }
 }

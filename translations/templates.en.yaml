@@ -1,8 +1,8 @@
-Dashboard: Dashboard
 Notebook: Notebook
 Notebooks: Notebooks
 Activities: Activities
 Students: Students
+Student: Student
 Classes: Classes
 Class: Class
 Owner: Owner
@@ -73,6 +73,12 @@ Ponderation: Ponderation
 Date: Date
 View: View
 Note: Note
+Add notes: Add notes
+Add notes for this activity: Add notes for this activity
+You do not have any student in your class: You do not have any student in your class
+Error deleting element: Error deleting element
+The combination last name / first name is already taken: The combination last name / first name is already taken
+Ensure you have students registered to your classes: Assurez vous d'avoir des élèves attachés à votre classe
 
 
 roles:
