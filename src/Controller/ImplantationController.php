@@ -127,11 +127,20 @@ class ImplantationController extends AbstractController
 
         $entityManager = $this->getDoctrine()->getManager();
 
-        // Deleting implantation, attached classes and attached periods, making others orphan.
-        $attached = array_merge($implantation->getClasses()->toArray(), $implantation->getPeriodes()->toArray());
-        foreach($attached as $attachedEntity) {
-            $entityManager->remove($attachedEntity);
+        // Deleting activities and classes. Detach attributed notes from classes activities.
+        foreach($implantation->getClasses() as $classe) {
+            foreach($classe->getActivites() as $activite) {
+                $activite->detachNotes();
+                $entityManager->remove($activite);
+            }
+            $entityManager->remove($classe);
         }
+        $entityManager->flush();
+
+        foreach($implantation->getPeriodes() as $periode) {
+            $entityManager->remove($periode);
+        }
+
         $entityManager->remove($implantation);
         $entityManager->flush();
 

@@ -51,7 +51,7 @@ class Activite
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="activites")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $user;
 
@@ -281,6 +281,20 @@ class Activite
             $this->notes->removeElement($note);
             $note->setActivite(null);
         }
+
+        return $this;
+    }
+
+
+    /**
+     * Detach notes preserving all students notes.
+     * @return $this
+     */
+    public function detachNotes(): self {
+        foreach($this->getNotes() as $note) {
+            $note->setActivite(null);
+        }
+        $this->notes = [];
 
         return $this;
     }

@@ -37,9 +37,9 @@ class Note
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Activite", inversedBy="notes")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $activite;
+    private $activite; // Nullable true in order to keep students note in case of implantation deletion.
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Eleve", inversedBy="notes")
@@ -98,7 +98,7 @@ class Note
      * @param Activite $activite
      * @return $this
      */
-    public function setActivite(Activite $activite): self
+    public function setActivite(?Activite $activite): self
     {
         $this->activite = $activite;
         return $this;

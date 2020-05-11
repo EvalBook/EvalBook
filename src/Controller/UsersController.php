@@ -125,6 +125,12 @@ class UsersController extends AbstractController
         }
 
         $entityManager = $this->getDoctrine()->getManager();
+        // Setting all user activities owner to orphan ( null ) in order to keep notes already attributed.
+        foreach($user->getActivites() as $activity) {
+            $activity->setUser(null);
+            $entityManager->persist($activity);
+        }
+
         $entityManager->remove($user);
         $entityManager->flush();
 

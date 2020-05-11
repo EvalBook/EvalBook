@@ -123,11 +123,15 @@ class ClasseController extends AbstractController
             return $this->json(['message' => 'Invalid csrf token'], 201);
         }
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($classe);
-        $entityManager->flush();
+        // Checking if the class has activities in it.
+        if(!($classe->getActivites()) > 0) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($classe);
+            $entityManager->flush();
+            return $this->json(['message' => 'Classe deleted'], 200);
+        }
 
-        return $this->json(['message' => 'Classe deleted'], 200);
+        return $this->json(['error' => true], 200);
     }
 
 

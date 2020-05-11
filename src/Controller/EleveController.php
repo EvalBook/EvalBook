@@ -113,6 +113,13 @@ class EleveController extends AbstractController
         }
 
         $entityManager = $this->getDoctrine()->getManager();
+        // Deleting all student notes too.
+        foreach($eleve->getNotes() as $note) {
+            $entityManager->remove($note);
+        }
+        $entityManager->flush();
+
+        // Removing student.
         $entityManager->remove($eleve);
         $entityManager->flush();
 

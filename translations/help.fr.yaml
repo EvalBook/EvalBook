@@ -15,6 +15,9 @@ users:
      <li><i class="fas fa-edit"></i><span>Editer les informations de base d'un utilisateur.</span></li>
      <li><i class="fas fa-trash"></i><span>Supprimer un utilisateur (a utiliser avec précaution)</span></li>
    </ul>
+    Attention, si vous supprimez un utilisateur, les activités seront conservées et les notes déjà attribuées le seront
+    également. Néanmoins, il sera impossible d'attribuer une note pour cette activité à un nouvel élève entrant dans la classe,
+    ou modifier les notes existantes.
 
 implantations:
   title: Les implantations
@@ -27,6 +30,9 @@ implantations:
       <li><i class="fas fa-edit"></i><span>Editer l'adresse et le nom de l'implantation.</span></li>
       <li><i class="fas fa-trash"></i><span>Supprimer une implantation (a utiliser avec précaution)</span></li>
     </ul>
+    Attention, si vous supprimez une implantation, tous les éléments attachés seront également supprimés, à
+    l'exeption des notes des étudiants. Vous n'aurez définitivement plus accès aux activités, aux classes et à
+    l'implantation en elle même.
 
 classes:
   title: Les classes
@@ -41,6 +47,9 @@ classes:
       <li><i class="fas fa-cogs"></i><span>Attribuer la classe a des utilisateurs</span></li>
       <li><i class="fas fa-trash"></i><span>Supprimer une la classe (a utiliser avec précaution).</span></li>
     </ul>
+    Attention, vous ne pourrez pas supprimer une classe qui contient déjà des activités, le système part en effet du
+    principe ou une classe ayant des activités en son seing est une classe active. Si vous souhaitez tout de même
+    supprimer cette classe, vous devrez au préalable en supprimer manuellement toutes les activités.
 
 
 eleve:
@@ -53,6 +62,8 @@ eleve:
       <li><i class="fas fa-edit"></i><span>Editer les informations de base de l'étudiant</span></li>
       <li><i class="fas fa-trash"></i><span>Supprimer l'étudiant (a utiliser avec précaution)</span></li>
     </ul>
+    Attention, si vous supprimez un élève, toutes les notes obtenues seront également supprimées, utilisez
+    cette fonctionnalité avec grande précaution, car les notes n'apparaîtront plus dans le cahier de notes.
 
 activites:
   title: Les activités.
