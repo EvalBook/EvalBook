@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 
 class EleveController extends AbstractController
@@ -19,12 +20,27 @@ class EleveController extends AbstractController
      * @IsGranted("ROLE_STUDENT_LIST_ALL", statusCode=404, message="Not found")
      *
      * @param EleveRepository $eleveRepository
+     * @param Security $security
      * @return Response
      */
-    public function index(EleveRepository $eleveRepository): Response
+    public function index(EleveRepository $eleveRepository, Security $security): Response
     {
+        $user = $security->getUser();
+
+        // Getting all classes students if user has role to view all.
+        if(in_array('ROLE_STUDENT_LIST_ALL', $user->getRoles()) || in_array('ROLE_ADMIN', $user->getRoles())) {
+            $eleves = $eleveRepository->findAll();
+        }
+        // If not, getting classes the user is subscribed to.
+        else {
+            $eleves = array();
+            foreach($user->getClasses() as $classe) {
+                $eleves = array_merge($eleves, $classe->getEleves());
+            }
+        }
+
         return $this->render('eleve/index.html.twig', [
-            'eleves' => $eleveRepository->findAll(),
+            'eleves' => array_unique($eleves),
         ]);
     }
 

@@ -74,14 +74,14 @@
                     </a>
                 {% endif %}
 
-                {% if is_granted('ROLE_STUDENT_LIST_ALL') %}
-                    <a href="{{ path('eleves') }}">
-                        <div class="menuItem">
-                            <i class="fas fa-user-graduate"></i>
-                            <span>{{ 'Students'|trans }}</span>
-                        </div>
-                    </a>
-                {% endif %}
+
+                <a href="{{ path('eleves') }}">
+                    <div class="menuItem">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>{{ 'Students'|trans }}</span>
+                    </div>
+                </a>
+
 
                 <a href="{{ path('activites') }}">
                     <div class="menuItem">
