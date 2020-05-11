@@ -53,7 +53,7 @@ class Classe
     private $eleves;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="classeTitulaire", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="classesTitulaire")
      */
     private $titulaire;
 

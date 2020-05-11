@@ -22,7 +22,6 @@ class ClasseController extends AbstractController
     /**
      * @Route("/classes", name="classes")
      *
-     * @param ClasseRepository $classeRepository
      * @param Security $security
      * @return Response
      */
