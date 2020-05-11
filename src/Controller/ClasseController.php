@@ -20,6 +20,7 @@ use Symfony\Component\Security\Core\Security;
 class ClasseController extends AbstractController
 {
     /**
+     * @Route("/")
      * @Route("/classes", name="classes")
      *
      * @param Security $security

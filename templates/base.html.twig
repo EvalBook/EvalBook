@@ -48,12 +48,6 @@
                 <!-- User top right links -->
                 <div id="user-links">
                     <div class="menuTopIcon">
-                        <a href="{{ path('dashboard') }}">
-                            <i class="fas fa-tachometer-alt"></i>
-                            <span>{{ 'Dashboard'|trans }}</span>
-                        </a>
-                    </div>
-                    <div class="menuTopIcon">
                         <a href="{{ path('user_profile') }}">
                             <i class="fas fa-user"></i>
                             <span>{{ 'My profile'|trans }}</span>
@@ -126,8 +120,6 @@
             <div id="mobile-top-nav">
                 <div id="mobile-menu-items">
                     <ul>
-                        <li><i class="fas fa-tachometer-alt"></i></li>
-
                         {% if is_granted('ROLE_USER_LIST_ALL') %}
                             <li><i class="fas fa-users"></i></li>
                         {% endif %}
@@ -140,10 +132,6 @@
                         <li><i class="fas fa-sign-out-alt"></i></li>
                     </ul>
                     <ul>
-                        <li>
-                            <a href="{{ path('dashboard') }}">{{ 'Dashboard'|trans }}</a>
-                        </li>
-
                         {% if is_granted('ROLE_USER_LIST_ALL') %}
                             <li><a href="{{ path('users') }}">{{ 'Users'|trans }}</a></li>
                         {% endif %}
