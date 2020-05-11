@@ -2,7 +2,11 @@
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %} {{ 'Periods' | trans }} {% endblock %}
-{% block title %} {{ 'Periods' | trans }} {% endblock %}
+{% block title %}
+    {{ 'Periods' | trans }}
+    {% set help = {'title': 'periodes.title', 'intro': 'periodes.intro', 'actions': 'periodes.actions'} %}
+    {% include 'help/help-dialog.html.twig' %}
+{% endblock %}
 
 {% block body %}
     <div class="flex column full-width">

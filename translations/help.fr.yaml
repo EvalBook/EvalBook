@@ -83,3 +83,21 @@ activites:
       <li><i class="fas fa-trash"></i><span>Supprimer l'activité</span></li>
     </ul>
     Attention, si vous supprimez une activité, alors toutes les notes seront également supprimées !
+
+periodes:
+  title: Les périodes
+
+  intro: >
+    Vous trouverez ici les différentes périodes disponibles pour votre implantation, vous pourrez également en ajouter
+    jusqu'a 6 selon vos besoins.
+
+  actions: |
+    <ul>
+      <li><i class="fas fa-plus"></i><span>Ajouter une nouvelle période ( 6 maximum )</span></li>
+      <li><i class="fas fa-edit"></i><span>Editer les informations de base d'une période</span></li>
+      <li><i class="fas fa-trash"></i><span>Supprimer une période (a utiliser avec précaution)</span></li>
+    </ul>
+
+    Attention, vous ne pourrez supprimer une période que si cette dernière n'a pas encore débuté. Vous ne pourrez
+    donc pas éditer une période clôturée ou en cours. Vous ne pourrez pas non plus supprimer une période pour
+    laquelle des activités existent déjà ( exemple: repport de notes à une période ultérieure ).

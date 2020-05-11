@@ -131,7 +131,7 @@ class ClasseController extends AbstractController
         }
 
         // Checking if the class has activities in it.
-        if(!($classe->getActivites()) > 0) {
+        if(! count($classe->getActivites()) > 0) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($classe);
             $entityManager->flush();
