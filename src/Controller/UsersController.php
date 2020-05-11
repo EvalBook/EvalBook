@@ -48,8 +48,15 @@ class UsersController extends AbstractController
      */
     public function index(UserRepository $repository)
     {
+        // Getting all non admin users.
+        if(!in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
+            $users = $repository->findByRole('ROLE_ADMIN', false);
+        }
+        else {
+            $users = $repository->findAll();
+        }
         return $this->render('users/index.html.twig', [
-            'users' => $repository->findAll(),
+            'users' => $users,
         ]);
     }
 
