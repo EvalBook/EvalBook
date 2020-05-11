@@ -44,8 +44,9 @@
                 </td>
 
                 {% if is_granted('ROLE_STUDENT_EDIT') %}
+                    {% set params = (redirect is defined) ? {'id': eleve.id, 'redirect': redirect} : {'id': eleve.id} %}
                     <td class="text-center" data-mobile="0">
-                        <a href="{{ path('eleve_edit', {'id': eleve.id}) }}">
+                        <a href="{{ path('eleve_edit', params) }}">
                             <i class="fas fa-edit"></i>
                         </a>
                     </td>

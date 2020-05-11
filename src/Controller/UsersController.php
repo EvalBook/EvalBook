@@ -70,14 +70,15 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("/user/edit/{id}", name="user_edit")
+     * @Route("/user/edit/{id}/{redirect}", name="user_edit", defaults={"redirect"=null})
      * @IsGranted("ROLE_USER_EDIT", statusCode=404, message="Not found")
      *
      * @param Request $request
      * @param User $user
+     * @param String $redirect
      * @return Response
      */
-    public function edit(Request $request, User $user)
+    public function edit(Request $request, User $user, ?string $redirect)
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -87,11 +88,17 @@ class UsersController extends AbstractController
             if($this->validateNamePairs($user)) {
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('success', 'Successfully updated');
-
-                return $this->redirectToRoute('users');
-            }else {
+            }
+            else {
                 $this->addFlash('error', 'The combination last name / first name is already taken');
             }
+
+            if(!is_null($redirect)) {
+                $redirect = json_decode(base64_decode($redirect), true);
+                return $this->redirectToRoute($redirect['route'], $redirect["params"]);
+            }
+
+            return $this->redirectToRoute('users');
         }
 
         return $this->render('users/form.html.twig', [
@@ -121,12 +128,12 @@ class UsersController extends AbstractController
                 $entityManager->persist($user);
                 $entityManager->flush();
                 $this->addFlash('success', 'Successfully added');
-
-                return $this->redirectToRoute('users');
             }
             else {
                 $this->addFlash('error', 'The combination last name / first name is already taken');
             }
+
+            return $this->redirectToRoute('users');
         }
 
         return $this->render('users/form.html.twig', [
@@ -202,6 +209,10 @@ class UsersController extends AbstractController
     {
         return $this->render('classe/index.html.twig', [
             'classes' => $user->getClasses(),
+            'redirect' => base64_encode(json_encode([
+                'route'  => 'user_view_classes',
+                'params' => ['id' => $user->getId()],
+            ])),
         ]);
     }
 
@@ -216,6 +227,10 @@ class UsersController extends AbstractController
     {
         return $this->render('eleve/index.html.twig', [
             'eleves' => $user->getEleves(),
+            'redirect' => base64_encode(json_encode([
+                'route'  => 'user_view_students',
+                'params' => ['id' => $user->getId()],
+            ])),
         ]);
     }
 

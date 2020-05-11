@@ -56,8 +56,9 @@
                 </td>
 
                 {% if is_granted('ROLE_USER_EDIT') %}
+                    {% set params = (redirect is defined) ? {'id': user.id, 'redirect': redirect} : {'id': user.id} %}
                     <td class="text-center" data-mobile="0">
-                        <a href="{{ path('user_edit', {'id': user.id}) }}">
+                        <a href="{{ path('user_edit', params) }}">
                             <i class="fas fa-edit"></i>
                         </a>
                     </td>

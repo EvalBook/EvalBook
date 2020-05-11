@@ -158,6 +158,10 @@ class ImplantationController extends AbstractController
     {
         return $this->render('classe/index.html.twig', [
             'classes' => $implantation->getClasses(),
+            'redirect' => base64_encode(json_encode([
+                'route'  => 'implantation_view_classes',
+                'params' => ['id' => $implantation->getId()],
+            ])),
         ]);
     }
 

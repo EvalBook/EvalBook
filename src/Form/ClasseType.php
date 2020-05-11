@@ -53,8 +53,6 @@ class ClasseType extends AbstractType
             ])
 
             // The class owner.
-
-                // Trouver la liste des utilisateurs qui ne sont pas titulaires.
             ->add('titulaire', EntityType::class, [
                 'class' => User::class,
                 'choices' => $this->users,

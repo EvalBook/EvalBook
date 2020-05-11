@@ -84,20 +84,26 @@ class ClasseController extends AbstractController
     }
 
     /**
-     * @Route("/classe/edit/{id}", name="classe_edit")
+     * @Route("/classe/edit/{id}/{redirect}", name="classe_edit", defaults={"redirect"=null})
      * @IsGranted("ROLE_CLASS_EDIT", statusCode=404, message="Not found")
      *
      * @param Request $request
      * @param Classe $classe
      * @return Response
      */
-    public function edit(Request $request, Classe $classe): Response
+    public function edit(Request $request, Classe $classe, ?String $redirect): Response
     {
         $form = $this->createForm(ClasseType::class, $classe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            if(!is_null($redirect)) {
+                $redirect = json_decode(base64_decode($redirect), true);
+                return $this->redirectToRoute($redirect['route'], $redirect["params"]);
+            }
+
             return $this->redirectToRoute('classes');
         }
 
@@ -244,7 +250,11 @@ class ClasseController extends AbstractController
     public function viewClassUsers(Classe $classe)
     {
         return $this->render('users/index.html.twig', [
-           'users' => $classe->getUsers(),
+           'users'   => $classe->getUsers(),
+           'redirect' => base64_encode(json_encode([
+               'route'  => 'classe_view_users',
+               'params' => ['id' => $classe->getId()],
+           ])),
         ]);
     }
 
@@ -259,6 +269,10 @@ class ClasseController extends AbstractController
     {
         return $this->render('eleve/index.html.twig', [
             'eleves' => $classe->getEleves(),
+            'redirect' => base64_encode(json_encode([
+                'route'  => 'classe_view_students',
+                'params' => ['id' => $classe->getId()],
+            ])),
         ]);
     }
 

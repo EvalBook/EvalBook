@@ -72,20 +72,26 @@ class EleveController extends AbstractController
 
 
     /**
-     * @Route("/eleve/edit/{id}", name="eleve_edit")
+     * @Route("/eleve/edit/{id}/{redirect}", name="eleve_edit", defaults={"redirect"=null})
      * @IsGranted("ROLE_STUDENT_EDIT", statusCode=404, message="Not found")
      *
      * @param Request $request
      * @param Eleve $eleve
+     * @param String|null $redirect
      * @return Response
      */
-    public function edit(Request $request, Eleve $eleve): Response
+    public function edit(Request $request, Eleve $eleve, ?String $redirect): Response
     {
         $form = $this->createForm(EleveType::class, $eleve);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            if(!is_null($redirect)) {
+                $redirect = json_decode(base64_decode($redirect), true);
+                return $this->redirectToRoute($redirect['route'], $redirect["params"]);
+            }
 
             return $this->redirectToRoute('eleves');
         }
@@ -137,6 +143,10 @@ class EleveController extends AbstractController
     {
         return $this->render('classe/index.html.twig', [
             'classes' => $eleve->getClasses(),
+            'redirect' => base64_encode(json_encode([
+                'route'  => 'student_view_classes',
+                'params' => ['id' => $eleve->getId()],
+            ])),
         ]);
     }
 }
