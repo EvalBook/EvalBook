@@ -58,21 +58,29 @@
                 {% if is_granted('ROLE_USER_EDIT') %}
                     {% set params = (redirect is defined) ? {'id': user.id, 'redirect': redirect} : {'id': user.id} %}
                     <td class="text-center" data-mobile="0">
-                        <a href="{{ path('user_edit', params) }}">
-                            <i class="fas fa-edit"></i>
-                        </a>
+                        {% if 'ROLE_ADMIN' not in user.roles %}
+                            <a href="{{ path('user_edit', params) }}">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        {% else %}
+                            <span>-</span>
+                        {% endif %}
                     </td>
                 {% endif %}
 
                 {% if is_granted('ROLE_USER_DELETE') %}
                     <td class="text-center" data-mobile="0">
-                        <div data-target="user"
-                             data-targetid="{{ user.id }}"
-                             data-action="{{ path('user_delete', {'id': user.id}) }}"
-                             data-class="fas fa-trash"
-                             data-csrf="{{ csrf_token('user_delete' ~ user.id) }}"
-                        >
+                        {% if 'ROLE_ADMIN' not in user.roles %}
+                            <div data-target="user"
+                                 data-targetid="{{ user.id }}"
+                                 data-action="{{ path('user_delete', {'id': user.id}) }}"
+                                 data-class="fas fa-trash"
+                                 data-csrf="{{ csrf_token('user_delete' ~ user.id) }}"
+                            >
                         </div>
+                        {% else %}
+                            <span>-</span>
+                        {% endif %}
                     </td>
                 {% endif %}
 

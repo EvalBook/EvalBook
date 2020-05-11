@@ -18,6 +18,7 @@ users:
     Attention, si vous supprimez un utilisateur, les activités seront conservées et les notes déjà attribuées le seront
     également. Néanmoins, il sera impossible d'attribuer une note pour cette activité à un nouvel élève entrant dans la classe,
     ou modifier les notes existantes.
+    Vous ne pourrez pas supprimer ou éditer un administrateur.
 
 implantations:
   title: Les implantations
