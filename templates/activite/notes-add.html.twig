@@ -6,10 +6,6 @@
 
 {% block title %}
     {{ 'Add notes for this activity' | trans }}
-    {#
-    {% set help = 'Students' %}
-    {% include 'help/help-dialog.html.twig' %}
-    #}
 {% endblock %}
 
 {% block body %}
@@ -33,7 +29,9 @@
                     {% do note.eleve.setRendered() %}
                     {{ form_row(note.comment) }}
                 </td>
-                <td>note.</td>
+                <td>{{ 'From'|trans }}
+                    {{ activity.noteType.ponderation|replace({'..' : (' ' ~ 'to'|trans ~ ' ') }) }}
+                </td>
                 <td class="bg-yellow small text-center">{{ form_row(note.note) }}</td>
             </tr>
         {% else %}
