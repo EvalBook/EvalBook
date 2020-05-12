@@ -32,7 +32,7 @@ class ClasseController extends AbstractController
         $user = $security->getUser();
 
         // Getting all classes if user has role to view all.
-        if(in_array('ROLE_CLASS_LIST_ALL', $user->getRoles()) || in_array('ROLE_ADMIN', $user->getRoles()))
+        if($security->isGranted('ROLE_STUDENT_LIST_ALL'))
             $classes = $classeRepository->findAll();
         // If not, getting classes the user is subscribed to.
         else
@@ -70,19 +70,6 @@ class ClasseController extends AbstractController
         ]);
     }
 
-
-    /**
-     * @Route("/classe/view/{id}", name="classe_view")
-     *
-     * @param Classe $classe
-     * @return Response
-     */
-    public function show(Classe $classe): Response
-    {
-        return $this->render('classe/show.html.twig', [
-            'classe' => $classe,
-        ]);
-    }
 
     /**
      * @Route("/classe/edit/{id}/{redirect}", name="classe_edit", defaults={"redirect"=null})

@@ -12,19 +12,19 @@
     <table class="full-width">
         <thead>
         <tr>
-            <th scope="col">{{ 'Implantations' | trans }}</th>
-            <th scope="col">{{ 'Address' | trans }}</th>
-            <th scope="col" data-mobile="0">{{ 'Zip-code' | trans }}</th>
-            <th scope="col">{{ 'Country' | trans }}</th>
+            <th scope="col">{{ 'Implantation' | trans }}</th>
+            <th scope="col" class="mobile-hidden-td">{{ 'Address' | trans }}</th>
+            <th scope="col" class="mobile-hidden-td">{{ 'Zip-code' | trans }}</th>
+            <th scope="col" class="mobile-hidden-td">{{ 'Country' | trans }}</th>
             <th scope="col" class="text-center">{{ 'Classes'|trans }}</th>
 
             {% if is_granted('ROLE_IMPLANTATION_EDIT') %}
-                <th scope="col" class="text-center" data-mobile="0">{{ 'Periods'|trans }}</th>
-                <th scope="col" class="text-center" data-mobile="0">{{ 'Edit' | trans }}</th>
+                <th scope="col" class="text-center mobile-hidden-td">{{ 'Periods'|trans }}</th>
+                <th scope="col" class="text-center mobile-hidden-td">{{ 'Edit' | trans }}</th>
             {% endif %}
 
             {% if is_granted('ROLE_IMPLANTATION_DELETE') %}
-                <th scope="col" class="text-center" data-mobile="0">{{ 'Delete' | trans }}</th>
+                <th scope="col" class="text-center mobile-hidden-td">{{ 'Delete' | trans }}</th>
             {% endif %}
         </tr>
         </thead>
@@ -32,9 +32,9 @@
         {% for implantation in implantations %}
             <tr data-id="{{ implantation.id }}" data-trigger="{{ path('implantation_edit', {'id': implantation.id}) }}">
                 <td>{{ implantation.name }}</td>
-                <td>{{ implantation.address }}</td>
-                <td data-mobile="0">{{ implantation.zipCode }}</td>
-                <td>{{ implantation.country }}</td>
+                <td class="mobile-hidden-td">{{ implantation.address }}</td>
+                <td class="mobile-hidden-td">{{ implantation.zipCode }}</td>
+                <td class="mobile-hidden-td">{{ implantation.country }}</td>
 
                 {# Display implantation class count with a link if user has rights to see clesses. #}
                 <td class="text-center">
@@ -51,13 +51,13 @@
                 {% if is_granted('ROLE_IMPLANTATION_EDIT') %}
 
                     <!-- Implantation periods -->
-                    <td class="text-center">
+                    <td class="text-center mobile-hidden-td">
                         <a href="{{ path('implantation_period_list', {'id': implantation.id}) }}">
                             <i class="fas fa-stopwatch"></i>
                         </a>
                     </td>
                     <!-- Implantation edition -->
-                    <td class="text-center" data-mobile="0">
+                    <td class="text-center mobile-hidden-td">
                         <a href="{{ path('implantation_edit', {'id': implantation.id}) }}">
                             <i class="fas fa-edit"></i>
                         </a>
@@ -66,7 +66,7 @@
 
                 {# Only those having implantation delete rights. #}
                 {% if is_granted('ROLE_IMPLANTATION_DELETE') %}
-                    <td class="text-center" data-mobile="0">
+                    <td class="text-center mobile-hidden-td">
                         <div data-target="implantation"
                              data-targetid="{{ implantation.id }}"
                              data-action="{{ path('implantation_delete', {'id': implantation.id}) }}"
@@ -80,12 +80,12 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="7" class="text-center">
+                <td colspan="8" class="text-center">
                     {{ 'No implantation found' | trans }}
                 </td>
             </tr>
             <tr>
-                <td colspan="7" class="text-center">
+                <td colspan="8" class="text-center">
                     {{ 'You do not have rights to view implantations or no impantation was created'|trans }}
                 </td>
             </tr>

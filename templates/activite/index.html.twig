@@ -13,14 +13,13 @@
         <thead>
             <tr>
                 <th>{{ 'Class'|trans }}</th>
-                <th>{{ 'User'|trans }}</th>
+                <th class="mobile-hidden-td">{{ 'User'|trans }}</th>
                 <th>{{ 'Name'|trans }}</th>
-                <th>{{ 'Date'|trans }}</th>
-                <th>{{ 'Period'|trans }}</th>
-                <th class="text-center">{{ 'View'|trans }}</th>
+                <th class="mobile-hidden-td">{{ 'Date'|trans }}</th>
+                <th class="mobile-hidden-td">{{ 'Period'|trans }}</th>
                 <th class="text-center">{{ 'Note'|trans }}</th>
-                <th class="text-center">{{ 'Edit'|trans }}</th>
-                <th class="text-center">{{ 'Delete'|trans }}</th>
+                <th class="text-center mobile-hidden-td">{{ 'Edit'|trans }}</th>
+                <th class="text-center mobile-hidden-td">{{ 'Delete'|trans }}</th>
             </tr>
         </thead>
         <tbody>
@@ -28,15 +27,10 @@
             {% set owner = (activite.user is same as(app.user)) ? true : false %}
             <tr data-id="{{ activite.id }}" data-trigger="{{ path('activite_edit', {'id': activite.id}) }}">
                 <td>{{ activite.classe }}</td>
-                <td>{{ activite.user }}</td>
+                <td class="mobile-hidden-td">{{ activite.user }}</td>
                 <td>{{ activite.name }}</td>
-                <td>{{ activite.dateAdded|date('d/m/Y') }}</td>
-                <td>{{ activite.periode.name }}</td>
-
-                <!-- View actvity -->
-                <td class="text-center">
-                    <i class="fas fa-eye"></i>
-                </td>
+                <td class="mobile-hidden-td">{{ activite.dateAdded|date('d/m/Y') }}</td>
+                <td class="mobile-hidden-td">{{ activite.periode.name }}</td>
 
                 <!-- Note activity -->
                 <td class="text-center">
@@ -50,7 +44,7 @@
                 </td>
 
                 <!-- Edit activity -->
-                <td class="text-center" data-mobile="0">
+                <td class="text-center mobile-hidden-td">
                     {% if owner %}
                         <a href="{{ path('activite_edit', {'id': activite.id}) }}">
                             <i class="fas fa-edit"></i>
@@ -61,7 +55,7 @@
                 </td>
 
                 <!-- Delete activity -->
-                <td class="text-center" data-mobile="0">
+                <td class="text-center mobile-hidden-td">
                     {% if owner %}
                         <div data-target="activite"
                              data-targetid="{{ activite.id }}"
@@ -79,11 +73,6 @@
             <tr>
                 <td colspan="8" class="text-center">
                     {{ 'It sounds like you do not have any activity or any class'|trans }}
-                </td>
-            </tr>
-            <tr>
-                <td colspan="8" class="text-center">
-                    {{ 'You can create a new one for one of your classe(s) by clicking the "+" button at the bottom of the screen'|trans }}
                 </td>
             </tr>
         {% endfor %}

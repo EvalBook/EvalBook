@@ -14,24 +14,24 @@
             <tr>
                 <th>{{ 'Implantation'|trans }}</th>
                 <th>{{ 'Class'|trans }}</th>
-                <th>{{ 'Owner'|trans }}</th>
+                <th class="mobile-hidden-td">{{ 'Owner'|trans }}</th>
                 <th class="text-center">{{ 'Students'|trans }}</th>
-                <th class="text-center">{{ 'Users'|trans }}</th>
+                <th class="text-center mobile-hidden-td">{{ 'Users'|trans }}</th>
 
                 {% if is_granted('ROLE_CLASS_EDIT') %}
-                    <th class="text-center" data-mobile="0">{{ 'Edit'|trans }}</th>
+                    <th class="text-center mobile-hidden-td">{{ 'Edit'|trans }}</th>
                 {% endif %}
 
                 {% if is_granted('ROLE_CLASS_EDIT_STUDENTS') %}
-                    <th class="text-center" data-mobile="0">{{ 'Manage students'|trans }}</th>
+                    <th class="text-center mobile-hidden-td">{{ 'Manage students'|trans }}</th>
                 {% endif %}
 
                 {% if is_granted('ROLE_CLASS_EDIT_USERS') %}
-                    <th class="text-center" data-mobile="0">{{ 'Manage users'|trans }}</th>
+                    <th class="text-center mobile-hidden-td">{{ 'Manage users'|trans }}</th>
                 {% endif %}
 
                 {% if is_granted('ROLE_CLASS_DELETE') %}
-                    <th class="text-center" data-mobile="0">{{ 'Delete'|trans }}</th>
+                    <th class="text-center mobile-hidden-td">{{ 'Delete'|trans }}</th>
                 {% endif %}
 
             </tr>
@@ -41,7 +41,7 @@
             <tr data-id="{{ classe.id }}" data-trigger="{{ path('classe_edit', {'id': classe.id}) }}">
                 <td>{{ classe.implantation }}</td>
                 <td>{{ classe.name }}</td>
-                <td>{{ classe.titulaire }}</td>
+                <td class="mobile-hidden-td">{{ classe.titulaire }}</td>
 
                 <td class="text-center">
                     {% if classe.eleves|length > 0 %}
@@ -53,7 +53,7 @@
                     {% endif %}
                 </td>
 
-                <td class="text-center">
+                <td class="text-center mobile-hidden-td">
                     {% if classe.users|length > 0 %}
                         <a href="{{ path('classe_view_users', {'id': classe.id} ) }}">
                             <i class="fas fa-eye"></i> ({{ classe.users|length }})
@@ -65,7 +65,7 @@
 
                 {% if is_granted('ROLE_CLASS_EDIT') %}
                     {% set params = (redirect is defined) ? {'id': classe.id, 'redirect': redirect} : {'id': classe.id} %}
-                    <td class="text-center" data-mobile="0">
+                    <td class="text-center mobile-hidden-td">
                         <a href="{{ path('classe_edit', params) }}">
                             <i class="fas fa-edit"></i>
                         </a>
@@ -73,7 +73,7 @@
                 {% endif %}
 
                 {% if is_granted('ROLE_CLASS_EDIT_STUDENTS') %}
-                    <td class="text-center" data-mobile="0">
+                    <td class="text-center mobile-hidden-td">
                         <a href="{{ path('classe_manage_students', {'id': classe.id}) }}">
                             <i class="fas fa-wrench"></i>
                         </a>
@@ -81,7 +81,7 @@
                 {% endif %}
 
                 {% if is_granted('ROLE_CLASS_EDIT_USERS') %}
-                    <td class="text-center" data-mobile="0">
+                    <td class="text-center mobile-hidden-td">
                         <a href="{{ path('classe_manage_users', {'id': classe.id}) }}">
                             <i class="fas fa-cogs"></i>
                         </a>
@@ -89,7 +89,7 @@
                 {% endif %}
 
                 {% if is_granted('ROLE_CLASS_DELETE') %}
-                    <td class="text-center" data-mobile="0">
+                    <td class="text-center mobile-hidden-td">
                         <div data-target="classe"
                              data-targetid="{{ classe.id }}"
                              data-action="{{ path('classe_delete', {'id': classe.id}) }}"

@@ -61,7 +61,6 @@ You already have 6 periods for this implantation, you cannot add a new one: You 
 You cannot edit or delete a period that is in progress or closed: You cannot edit or delete a period that is in progress or closed
 The period start date must be lower then the end date: The period start date must be lower then the end date
 It sounds like you do not have any activity or any class: It sounds like you do not have any activity or any class
-You can create a new one for one of your classe(s) by clicking the "+" button at the bottom of the screen: You can create a new one for one of your classe(s) by clicking the "+" button at the bottom of the screen
 Select implantation / class pairs: Select implantation / class pairs
 You do not have any class: You do not have any class
 Add activity: Add activity
@@ -79,6 +78,9 @@ You do not have any student in your class: You do not have any student in your c
 Error deleting element: Error deleting element
 The combination last name / first name is already taken: The combination last name / first name is already taken
 Ensure you have students registered to your classes: Assurez vous d'avoir des élèves attachés à votre classe
+My rights as a user: Mes droits en tant qu'utilisateur
+If you want more rights on the system or if you cannot make some crutial operations, contact your EvalBook admin.: Si vous souhaitez plus de droits sur le système, ou constatez que vous ne pouvez réaliser certaines opérations, merci de contacter votre administrateur EvalBook
+Type: Type
 
 
 roles:
@@ -101,6 +103,8 @@ roles:
   ROLE_IMPLANTATION_EDIT: Editer une implantation
   ROLE_IMPLANTATION_CREATE: Créer une implantation
   ROLE_IMPLANTATION_DELETE: Supprimer une implantation
+  ROLE_ADMIN: Role admin
+
 
 help:
   ROLE_IMPLANTATION_LIST_ALL: Vous permet de lister l'ensemble des établissements disponibles dans le système.
@@ -121,3 +125,4 @@ help:
   ROLE_CLASS_DELETE: Permet la suppression pure et simple d'une classe, à utiliser avec précaution.
   ROLE_CLASS_EDIT_STUDENTS: Ce rôle permet à un utilisateur d'assigner un ou plusieurs élèves à une classe.
   ROLE_CLASS_EDIT_USERS: Ce rôle permet d'attribuer le droit d'actions à un ou plusieurs utilisateurs sur une classe précise.
+  ROLE_ADMIN: Le rôle admin peut absolument tout faire, à l'exception de l'édition de ses pairs.
