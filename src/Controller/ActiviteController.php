@@ -90,19 +90,6 @@ class ActiviteController extends AbstractController
         }
     }
 
-    /**
-     * @Route("/activite/view/{id}", name="activite_view")
-     *
-     * @param Activite $activite
-     * @return Response
-     */
-    public function show(Activite $activite): Response
-    {
-        return $this->render('activite/show.html.twig', [
-            'activite' => $activite,
-        ]);
-    }
-
 
     /**
      * @Route("/activite/edit/{id}", name="activite_edit")

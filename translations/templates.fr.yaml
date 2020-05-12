@@ -63,8 +63,7 @@ Not started: Non démarré
 In progress: En cours
 Closed: Clôturé
 The period start date must be lower then the end date: La date de début de période doit être inférieure à la date de fin.
-It sounds like you do not have any activity or any class: Il semble que vous n'ayez encore aucune activité ou aucune classe.
-You can create a new one for one of your classe(s) by clicking the "+" button at the bottom of the screen: Vous pouvez en créer une nouvelle pour une de vos classes en cliquant sur le bouton "+" en bas de l'écran.
+It sounds like you do not have any activity or any class: Vous n'avez encore aucune activité/classe.
 Select implantation / class pairs: Sélectionnez une paire implantation / Classe
 You do not have any class: Vous n'avez aucune classe
 Add activity: Ajouter une activité
@@ -81,7 +80,10 @@ Add notes for this activity: Ajoutez des notes pour cette activité.
 You do not have any student in your class: Vous n'avez aucun étudiant dans votre classe
 Error deleting element: Une erreur est survenue en supprimant l'élément.
 The combination last name / first name is already taken: La combinaison nom / prénom est déjà utilisée.
-Ensure you have students registered to your classes: Ensure you have students registered to your classes
+Ensure you have students registered to your classes: Assurez vous d'avoir des élèves attachés à votre classe
+My rights as a user: Mes droits en tant qu'utilisateur
+If you want more rights on the system or if you cannot make some crutial operations, contact your EvalBook admin.: Si vous souhaitez plus de droits sur le système, ou constatez que vous ne pouvez réaliser certaines opérations, merci de contacter votre administrateur EvalBook
+Type: Type
 
 
 roles:
@@ -104,6 +106,7 @@ roles:
   ROLE_IMPLANTATION_EDIT: Editer une implantation
   ROLE_IMPLANTATION_CREATE: Créer une implantation
   ROLE_IMPLANTATION_DELETE: Supprimer une implantation
+  ROLE_ADMIN: Rôle admin
 
 help:
   ROLE_IMPLANTATION_LIST_ALL: Vous permet de lister l'ensemble des établissements disponibles dans le système.
@@ -124,3 +127,4 @@ help:
   ROLE_CLASS_DELETE: Permet la suppression pure et simple d'une classe, à utiliser avec précaution.
   ROLE_CLASS_EDIT_STUDENTS: Ce rôle permet à un utilisateur d'assigner un ou plusieurs élèves à une classe.
   ROLE_CLASS_EDIT_USERS: Ce rôle permet d'attribuer le droit d'actions à un ou plusieurs utilisateurs sur une classe précise.
+  ROLE_ADMIN: Le rôle admin peut absolument tout faire, à l'exception de l'édition de ses pairs.

@@ -28,13 +28,6 @@ let Controls = {
         // Initialize the mobile menu.
         this.initMobileMenu();
 
-        // Hiding unwanted elements.
-        let hiddenElements = document.querySelectorAll('[data-mobile="0"]');
-
-        for(let element of hiddenElements) {
-            element.style.display = 'none';
-        }
-
         // Adding a click event to the tr tables elements in order to show the contextual menu.
         let trElements = document.querySelectorAll('[data-trigger]');
         for(let element of trElements) {
@@ -73,14 +66,17 @@ let Controls = {
      * Init the page help message.
      */
     initHelpMessages: function() {
-        document.getElementById('help-dialog').addEventListener('click', function() {
-           let help = document.getElementById('help-message');
-           help.style.display = 'flex';
-        });
+        let help = document.getElementById('help-dialog');
+        if(help) {
+            help.addEventListener('click', function() {
+                let help = document.getElementById('help-message');
+                help.style.display = 'flex';
+            });
 
-        document.querySelector('#help-message button').addEventListener('click', function(event) {
-            event.target.parentElement.style.display = 'none';
-        });
+            document.querySelector('#help-message button').addEventListener('click', function(event) {
+                event.target.parentElement.style.display = 'none';
+            });
+        }
     }
 };
 

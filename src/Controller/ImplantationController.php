@@ -261,11 +261,16 @@ class ImplantationController extends AbstractController
             return $this->json(['message' => 'Invalid csrf token'], 201);
         }
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($periode);
-        $entityManager->flush();
+        // Only allowing deletion if the period has no activity attached to it.
+        if(! count($periode->getActivites()) > 0) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($periode);
+            $entityManager->flush();
 
-        return $this->json(['message' => 'Period deleted'], 200);
+            return $this->json(['message' => 'Period deleted'], 200);
+        }
+
+        return $this->json(['error' => true], 200);
     }
 
 }

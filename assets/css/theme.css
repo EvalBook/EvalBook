@@ -31,6 +31,10 @@ a {
     color: var(--primary-color);
 }
 
+#try-again {
+    color: var(--secondary-color);
+}
+
 i {
     text-shadow:  3px 3px rgba(198, 190, 176, 0.75);
 }
@@ -55,7 +59,7 @@ h1, h2 {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 13em;
+    height: 16em;
 }
 
 /**
@@ -67,27 +71,12 @@ h1, h2 {
     overflow: auto;
 }
 
-.help {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+.mobile-hidden-td {
+    display: table-cell;
 }
 
-.help .item {
-    background: white;
-}
-
-.help h3 {
-    font-weight: bold;
-}
-
-.help .item span {
-    margin-left: 10px;
-}
-
-.help h2, form h2 {
-    color: var(--secondary-color);
-    font-weight: bold;
+.mobile-hidden {
+    display: inline-block;
 }
 
 
@@ -279,6 +268,12 @@ button[type="submit"] {
     margin-right: 3em;
 }
 
+#change_password_form_plainPassword, #change_password_form_plainPassword div {
+    display:flex;
+    flex-direction: column;
+    width: 100%;
+}
+
 .form-row, .form-row label, .form-row input {
     display:flex;
     flex-direction: column;
@@ -329,7 +324,7 @@ tr, td {
 }
 
 th, td {
-    padding: 6px;
+    padding: 1em 0.8em;
     border-bottom: 1px solid #ddd;
 }
 
@@ -346,23 +341,27 @@ tr:hover i, tr:hover a {
     font-weight: bold;
 }
 
-
-.small {
-    width: 10%;
+#activite-notes {
+    line-height: 2em;
 }
 
-.large {
-    width: 50%;
+#activite-notes td {
+    padding: 0.5em;
 }
 
 .large input {
     width: 80%;
 }
 
-.large input, .small input {
-    width: 90%;
+.small {
+    width: 20%;
+    text-align: center;
 }
 
+.small input {
+    text-align: center;
+    width: 60%;
+}
 
 /**
  * Polishing classes.
@@ -381,10 +380,6 @@ tr:hover i, tr:hover a {
 
 .width-25-percent {
     width: 25%;
-}
-
-.width-50-percent {
-    width: 48%;
 }
 
 .text-red {
@@ -428,6 +423,10 @@ tr:hover i, tr:hover a {
     justify-content: flex-start;
 }
 
+.align-items-start {
+    align-items: flex-start;
+}
+
 .display-row {
     flex-direction: row;
     flex-wrap: wrap;
@@ -452,12 +451,22 @@ tr:hover i, tr:hover a {
     .width-25-percent {
         width: 33%;
     }
+
+    th, td {
+        word-wrap: anywhere;
+        white-space: initial;
+        padding: 1em 0.5em;
+    }
 }
 
 /**
  * Small screens.
  */
 @media all and (max-width: 800px) {
+
+    body {
+        font-size: 0.75em;
+    }
 
     #user-links, header > nav, footer p, #add-functionality, #logo-mini {
         display: none;
@@ -473,8 +482,20 @@ tr:hover i, tr:hover a {
         height: 6em;
     }
 
+    footer a {
+        color: var(--primary-color);
+    }
+
     .width-25-percent {
         width: 50%;
+    }
+
+    .mobile-hidden {
+        display: none;
+    }
+
+    .mobile-hidden-td {
+        display: none;
     }
 }
 

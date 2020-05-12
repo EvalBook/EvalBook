@@ -15,12 +15,12 @@
 {% block body %}
 
     {{ form_start(form) }}
-    <table class="full-width">
+    <table class="full-width" id="activite-notes">
         <thead>
         <tr>
-            <th>{{ 'Student'|trans }}</th>
-            <th class="text-center large">{{ 'Comment'|trans }}</th>
-            <th class="text-center small">{{ 'Note'|trans }}</th>
+            <th>{{ 'Comment'|trans }}</th>
+            <th>{{ 'Type'|trans }}</th>
+            <th class="text-center">{{ 'Note'|trans }}</th>
         </tr>
         </thead>
         <tbody>
@@ -28,12 +28,13 @@
 
         {% for note in form.notes %}
             <tr>
-                <td>
+                <td class="large">
                     {{ note.eleve.vars.value }}
                     {% do note.eleve.setRendered() %}
+                    {{ form_row(note.comment) }}
                 </td>
-                <td class="large">{{ form_row(note.comment) }}</td>
-                <td class="bg-yellow">{{ form_row(note.note) }}</td>
+                <td>note.</td>
+                <td class="bg-yellow small text-center">{{ form_row(note.note) }}</td>
             </tr>
         {% else %}
             <tr>

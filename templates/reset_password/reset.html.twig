@@ -1,0 +1,45 @@
+{% extends 'base-no-menu.html.twig' %}
+{% trans_default_domain 'security' %}
+
+{% block pageTitle %}
+    {{ 'Password'|trans }}
+{% endblock %}
+
+{% block body %}
+    <div class="modal-center">
+        <div>
+            <img id="logo-mini" src="{{ asset('assets/img/logos/logo_evalbook_mini.png') }}" alt="EvalBook logo mini" />
+        </div>
+
+        <div class="full-width flex column align-items-start">
+
+            <h1>{{ 'Reset your password'|trans }}</h1>
+
+            {{ form_start(resetForm) }}
+
+            {# User password #}
+            <div class="form-row">
+                {{ form_label(resetForm.plainPassword.first, 'New password'|trans) }}
+                {{ form_widget(resetForm.plainPassword.first) }}
+                <span class="form-error">
+                    {{ form_errors(resetForm.plainPassword.first) }}
+                </span>
+            </div>
+
+            {# User password repeat #}
+            <div class="form-row">
+                {{ form_label(resetForm.plainPassword.second, 'Repeat Password'|trans) }}
+                {{ form_widget(resetForm.plainPassword.second) }}
+                <span class="form-error">
+                    {{ form_errors(resetForm.plainPassword.second) }}
+                </span>
+            </div>
+
+            {# {{ form_widget(resetForm.plainPassword) }} #}
+            <button class="button-ok">{{ 'Send'|trans({}, 'templates') }}</button>
+
+            {{ form_end(resetForm) }}
+
+        </div>
+    </div>
+{% endblock %}

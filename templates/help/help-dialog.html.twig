@@ -1,8 +1,8 @@
 <a href="#" id="help-dialog">
-    <i class="far fa-question-circle text-yellow"></i>
+    <i class="far fa-question-circle text-yellow mobile-hidden"></i>
 </a>
 
-<div class="dialog-modal dialog-medium column hidden" id="help-message">
+<div class="dialog-modal dialog-medium column hidden mobile-hidden" id="help-message">
     <div>
         {% if help is defined %}
             <h2>{{ help.title|trans({}, 'help') }}</h2>

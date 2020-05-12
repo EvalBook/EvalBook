@@ -14,15 +14,15 @@
         <tr>
             <th>{{ 'Name'|trans }}</th>
             <th>{{ 'First name'|trans }}</th>
-            <th>{{ 'Birthday'|trans }}</th>
+            <th class="mobile-hidden-td">{{ 'Birthday'|trans }}</th>
             <th class="text-center">{{ 'Classes'|trans }}</th>
 
             {% if is_granted('ROLE_STUDENT_EDIT') %}
-                <th scope="col" class="text-center" data-mobile="0">{{ 'Edit' | trans }}</th>
+                <th scope="col" class="text-center mobile-hidden-td">{{ 'Edit' | trans }}</th>
             {% endif %}
 
             {% if is_granted('ROLE_STUDENT_DELETE') %}
-                <th scope="col" class="text-center" data-mobile="0">{{ 'Delete' | trans }}</th>
+                <th scope="col" class="text-center mobile-hidden-td">{{ 'Delete' | trans }}</th>
             {% endif %}
         </tr>
         </thead>
@@ -31,7 +31,7 @@
             <tr data-id="{{ eleve.id }}" data-trigger="{{ path('eleve_edit', {'id': eleve.id}) }}">
                 <td>{{ eleve.lastName }}</td>
                 <td>{{ eleve.firstName }}</td>
-                <td>{{ eleve.birthday|date('d/m/Y') }}</td>
+                <td class="mobile-hidden-td">{{ eleve.birthday|date('d/m/Y') }}</td>
 
                 <td class="text-center">
                     {% if eleve.classes|length > 0 %}
@@ -45,7 +45,7 @@
 
                 {% if is_granted('ROLE_STUDENT_EDIT') %}
                     {% set params = (redirect is defined) ? {'id': eleve.id, 'redirect': redirect} : {'id': eleve.id} %}
-                    <td class="text-center" data-mobile="0">
+                    <td class="text-center mobile-hidden-td">
                         <a href="{{ path('eleve_edit', params) }}">
                             <i class="fas fa-edit"></i>
                         </a>
@@ -53,7 +53,7 @@
                 {% endif %}
 
                 {% if is_granted('ROLE_STUDENT_DELETE') %}
-                    <td class="text-center" data-mobile="0">
+                    <td class="text-center mobile-hidden-td">
                         <div data-target="eleve"
                              data-targetid="{{ eleve.id }}"
                              data-action="{{ path('eleve_delete', {'id': eleve.id}) }}"

@@ -2,7 +2,11 @@
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %} {{ 'Periods' | trans }} {% endblock %}
-{% block title %} {{ 'Periods' | trans }} {% endblock %}
+{% block title %}
+    {{ 'Periods' | trans }}
+    {% set help = {'title': 'periodes.title', 'intro': 'periodes.intro', 'actions': 'periodes.actions'} %}
+    {% include 'help/help-dialog.html.twig' %}
+{% endblock %}
 
 {% block body %}
     <div class="flex column full-width">
@@ -80,12 +84,12 @@
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="4" class="text-center">
+                    <td colspan="6" class="text-center">
                         {{ 'No period found for this implantation' | trans }}
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="7" class="text-center">
+                    <td colspan="6" class="text-center">
                         {{ 'Or you do not have rights to view'|trans }}
                     </td>
                 </tr>

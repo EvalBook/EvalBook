@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/af99847773.js" crossorigin="anonymous"></script>
+
+    {{ encore_entry_link_tags('theme') }}
+    {{ encore_entry_link_tags('dialogs') }}
+
+    <title>EvalBook - {% block pageTitle %} {% endblock %}</title>
+</head>
+<body>
+<div class="container">
+
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="dialog dialog-{{ label }}">
+                {{ message | trans }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <header>
+        <div class="heading">
+            <!-- Header -->
+            <div id="logo">
+                <img src="{{ asset('assets/img/logos/logo_evalbook.png') }}" alt="EvalBook logo">
+                <span>{{ 'Teachers evaluation tool'|trans({}, 'templates') }}</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Application contents -->
+    <section class="content">
+        {% block body %} {% endblock %}
+    </section>
+</div>
+
+{{ encore_entry_script_tags('modalDialogs') }}
+
+</body>
+</html>

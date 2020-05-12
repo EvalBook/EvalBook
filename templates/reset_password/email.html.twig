@@ -1,0 +1,13 @@
+{% trans_default_domain 'security' %}
+
+<h1>{{ 'Hi!'|trans }}</h1>
+
+<p>
+    {{ 'To reset your password, please visit'|trans}}
+    <a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ 'this link'|trans }}</a>
+    {{ 'The link will expire quickly'|trans }}
+</p>
+
+<p>
+    {{ 'Cheers!' }}
+</p>

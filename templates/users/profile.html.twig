@@ -5,28 +5,10 @@
 {% block title %} {{ 'Profile' | trans }} {% endblock %}
 
 {% block body %}
-    <div class="full-width flex">
-
-        {# User rights details #}
-        <div class="help width-50-percent">
-            <h2>Mes droits en tant qu'utilisateur: </h2>
-            <p>
-                Si vous souhaitez plus de droits sur le système, ou constatez que vous ne pouvez réaliser certaines opérations,
-                merci de contacter votre administrateur EvalBook
-            </p>
-            {% for role in user.roles %}
-                {# I keep this role for later on, when more functionnalities will be implemented such as parents view #}
-                {%  if role != 'ROLE_USER' %}
-                    <div class="help-item">
-                        <h3>{{ ('roles.' ~ role)|trans }}</h3>
-                        <p>{{ ('help.' ~ role)|trans }}</p>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        </div>
+    <div class="full-width">
 
         {# Profile edition form. #}
-        <div class="form-content width-50-percent">
+        <div class="form-content">
             <h2>Modifier mes informations </h2>
             {{ form_start(userProfileForm) }}
 
@@ -62,6 +44,23 @@
             }) }}
 
             {{ form_end(userProfileForm) }}
+        </div>
+
+        {# User rights details #}
+        <div class="margin-15">
+            <h2 class="text-yellow"> {{ 'My rights as a user'|trans }} </h2>
+            <p class="text-center">
+                {{ 'If you want more rights on the system or if you cannot make some crutial operations, contact your EvalBook admin.'|trans }}
+            </p>
+            {% for role in user.roles %}
+                {# I keep this role for later on, when more functionnalities will be implemented such as parents view #}
+                {%  if role != 'ROLE_USER' %}
+                    <div class="help-item">
+                        <h3>{{ ('roles.' ~ role)|trans }}</h3>
+                        <p>{{ ('help.' ~ role)|trans }}</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

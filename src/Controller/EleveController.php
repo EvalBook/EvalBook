@@ -17,7 +17,6 @@ class EleveController extends AbstractController
 {
     /**
      * @Route("/eleves", name="eleves", methods={"GET"})
-     * @IsGranted("ROLE_STUDENT_LIST_ALL", statusCode=404, message="Not found")
      *
      * @param EleveRepository $eleveRepository
      * @param Security $security
@@ -28,34 +27,19 @@ class EleveController extends AbstractController
         $user = $security->getUser();
 
         // Getting all classes students if user has role to view all.
-        if(in_array('ROLE_STUDENT_LIST_ALL', $user->getRoles()) || in_array('ROLE_ADMIN', $user->getRoles())) {
+        if($security->isGranted('ROLE_STUDENT_LIST_ALL')) {
             $eleves = $eleveRepository->findAll();
         }
         // If not, getting classes the user is subscribed to.
         else {
             $eleves = array();
             foreach($user->getClasses() as $classe) {
-                $eleves = array_merge($eleves, $classe->getEleves());
+                $eleves = array_merge($eleves, $classe->getEleves()->toArray());
             }
         }
 
         return $this->render('eleve/index.html.twig', [
             'eleves' => array_unique($eleves),
-        ]);
-    }
-
-
-    /**
-     * @Route("/eleve/view/{id}", name="eleve_view")
-     *
-     * @param Eleve $eleve
-     * @return Response
-     */
-    public function view(Eleve $eleve): Response
-    {
-        // TODO add student infos as notes and activities...
-        return $this->render('eleve/show.html.twig', [
-            'eleve' => $eleve,
         ]);
     }
 
