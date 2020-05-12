@@ -65,7 +65,7 @@
 
             <!-- Navigation -->
             <nav>
-                {% if is_granted('ROLE_CLASS_LIST_ALL') or app.user.classes|length > 0%}
+                {% if is_granted('ROLE_CLASS_LIST_ALL') or ( app.user.classes is defined and app.user.classes|length > 0) %}
                     <a href="{{ path('classes') }}">
                         <div class="menuItem">
                             <i class="fas fa-clock"></i>
@@ -171,7 +171,7 @@
         <nav id="mobile-menu">
 
             <!-- Quick access on mobile bottom. -->
-            {% if is_granted('ROLE_CLASS_LIST_ALL') or app.user.classes|length > 0%}
+            {% if is_granted('ROLE_CLASS_LIST_ALL') or ( app.user.classes is defined and app.user.classes|length > 0) %}
                 <a href="{{ path('classes') }}">
                     <div class="menuItem">
                         <i class="fas fa-clock"></i>

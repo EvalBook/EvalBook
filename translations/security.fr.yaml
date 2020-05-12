@@ -20,3 +20,23 @@
 'Remember me': 'Se souvenir de moi'
 'Log in': 'Connexion'
 'Email could not be found.': "L'adresse e-mail ne peut être trouvée."
+'No reset password token found in the URL or in the session.': 'Aucun token de mise à jour de mot de passe trouvé dans l url ou dans la session.'
+'There was a problem validating your reset request': 'Il y a eu un problème lors de la validation de votre demande de mise à jour du mot de passe.'
+'There was a problem handling your password reset request': 'Il y a eu un problème en gérant votre demande de mise à jour de mot de passe.'
+'Your password reset request': 'Votre demande de réinitialisation de votre mot de passe'
+'Reset password': 'Mot de passe oublié'
+'Reset your password': 'Réinitialisez votre mot de passe'
+'Send password mail': 'Envoyer'
+'Enter your email address and we we will send you a link to reset your password.': 'Entrez votre adresse mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.'
+'Password Reset Email Sent' : 'Email de réinitialisation du mot de passe envoyé'
+'An email has been sent that contains a link that you can click to reset your password.': 'Un email contenant un lien de réinitialisation a été envoyé à votre adresse mail.'
+'This token will expire soon': "Ce token expirera rapidement, veuillez donc l'utiliser aussi vite que possible."
+"If you don't receive an email please check your spam folder or": "Si vous n'avez pas reçu l'email, vérifiez dans vos courriers indésirables ou"
+'try again': 'essayez à nouveau'
+'Hi!': 'Hello!'
+'To reset your password, please visit': 'Pour mettre à jour votre mot de passe, visitez '
+'this link': 'ce lien'
+'The link will expire quickly': 'Dépéchez vous, ce lien expirera bientôt ( 1 heure )'
+'Cheers!': 'Cordialement !'
+'New password': 'Nouveau mot de passe'
+'Repeat Password': 'Répétez le mot de passe'

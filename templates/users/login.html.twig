@@ -1,65 +1,48 @@
-<!DOCTYPE html>
+{% extends 'base-no-menu.html.twig' %}
 {% trans_default_domain 'security' %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/af99847773.js" crossorigin="anonymous"></script>
 
-    {{ encore_entry_link_tags('theme') }}
-    {{ encore_entry_link_tags('dialogs') }}
+{% block pageTitle %}
+    {{ 'Log in'|trans }}
+{% endblock %}
 
-    <title>EvalBook - {{ 'Log in'|trans }}</title>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <div class="heading">
-                <!-- Header -->
-                <div id="logo">
-                    <img src="{{ asset('assets/img/logos/logo_evalbook.png') }}" alt="EvalBook logo">
-                    <span>{{ 'Teachers evaluation tool'|trans({}, 'templates') }}</span>
+{% block body %}
+    <div class="modal-center">
+        <div>
+            <img id="logo-mini" src="{{ asset('assets/img/logos/logo_evalbook_mini.png') }}" alt="EvalBook logo mini" />
+        </div>
+
+        <form method="post">
+            {% if error %}
+                <div class="dialog dialog-error">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
                 </div>
-            </div>
-        </header>
+            {% endif %}
 
-        <!-- Application contents -->
-        <section class="content">
+            <label for="inputEmail">{{ "E-mail address"|trans }}</label>
+            <input type="email" id="inputEmail" name="email" placeholder="{{ "My e-mail"|trans }} ">
+            <label for="inputPassword">{{ "Password"|trans }}</label>
+            <input type="password" id="inputPassword" name="password" placeholder="{{ "My password"|trans }} ">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-            <div class="modal-center">
-                <div>
-                    <img id="logo-mini" src="{{ asset('assets/img/logos/logo_evalbook_mini.png') }}" alt="EvalBook logo mini" />
-                </div>
+            {#See https://symfony.com/doc/current/security/remember_me.html#}
 
-                <form method="post">
-                    {% if error %}
-                        <div class="dialog dialog-error">
-                            {{ error.messageKey|trans(error.messageData, 'security') }}
-                        </div>
-                    {% endif %}
-
-                    <label for="inputEmail">{{ "E-mail address"|trans }}</label>
-                    <input type="email" id="inputEmail" name="email" placeholder="{{ "My e-mail"|trans }} ">
-                    <label for="inputPassword">{{ "Password"|trans }}</label>
-                    <input type="password" id="inputPassword" name="password" placeholder="{{ "My password"|trans }} ">
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-                    {#See https://symfony.com/doc/current/security/remember_me.html#}
-
-                    <div class="checkbox mb-3">
-                        <label>
-                            <input type="checkbox" name="_remember_me"> {{ "Remember me"|trans }}
-                        </label>
-                    </div>
-
-                    <button type="submit">
-                        {{ 'Log in'|trans }}
-                    </button>
-                </form>
-
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" name="_remember_me"> {{ "Remember me"|trans }}
+                </label>
             </div>
 
-        </section>
+            <div class="checkbox mb-3">
+                <label>
+                    <a href="{{ path('app_forgot_password_request') }}"> {{ "Reset password"|trans }}</a>
+                </label>
+            </div>
+
+            <button type="submit">
+                {{ 'Log in'|trans }}
+            </button>
+        </form>
+
     </div>
-</body>
-</html>
+
+{% endblock %}

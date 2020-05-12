@@ -31,6 +31,10 @@ a {
     color: var(--primary-color);
 }
 
+#try-again {
+    color: var(--secondary-color);
+}
+
 i {
     text-shadow:  3px 3px rgba(198, 190, 176, 0.75);
 }
@@ -55,7 +59,7 @@ h1, h2 {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 13em;
+    height: 16em;
 }
 
 /**
@@ -279,6 +283,12 @@ button[type="submit"] {
     margin-right: 3em;
 }
 
+#change_password_form_plainPassword, #change_password_form_plainPassword div {
+    display:flex;
+    flex-direction: column;
+    width: 100%;
+}
+
 .form-row, .form-row label, .form-row input {
     display:flex;
     flex-direction: column;
@@ -426,6 +436,10 @@ tr:hover i, tr:hover a {
 .column {
     flex-direction: column;
     justify-content: flex-start;
+}
+
+.align-items-start {
+    align-items: flex-start;
 }
 
 .display-row {
