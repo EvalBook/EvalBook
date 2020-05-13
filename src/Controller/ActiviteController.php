@@ -103,7 +103,7 @@ class ActiviteController extends AbstractController
         $periodes = array();
 
         foreach( $activite->getClasse()->getImplantation()->getPeriodes() as $periode) {
-            // dd($periode->getDateEnd(), date('now'));
+
             if($periode->getDateEnd() > new \DateTime('now')) {
                 $periodes[] = $periode;
             }
@@ -115,6 +115,19 @@ class ActiviteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Checking the note type attributed to the activity if notes were provided.
+            if( count($activite->getNotes()) > 0) {
+                // Then checking agin notes and redirect if the pattern does not match the previously provided notes.
+                foreach ($activite->getNotes() as $note) {
+
+                    if(!$note->isValid($activite->getNoteType())) {
+                        $this->addFlash('error', 'Please, update the notes you provided as you changed the activity note type');
+                        return $this->redirectToRoute('activite_note_add', [
+                            'id' => $activite->getId(),
+                        ]);
+                    }
+                }
+            }
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('activites');
@@ -182,6 +195,21 @@ class ActiviteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // Checking provided notes format.
+            foreach($activite->getNotes() as $note) {
+                if(!$note->isValid($activite->getNoteType())) {
+                    $this->addFlash('error', 'The notes you provided does not match the note type pattern of activity !');
+
+                    return $this->render('activite/notes-add.html.twig', [
+                        'activity' => $activite,
+                        'students' => $activite->getClasse()->getEleves(),
+                        'form' => $form->createView(),
+                    ]);
+                }
+            }
+
+            // Then register updated information.
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('activites', [

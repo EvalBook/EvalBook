@@ -11,8 +11,10 @@
 {% endblock %}
 
 {% block body %}
+    {% if form.notes|length > 0 %}
+        {{ form_start(form) }}
+    {% endif %}
 
-    {{ form_start(form) }}
     <table class="full-width" id="activite-notes">
         <thead>
         <tr>
@@ -38,7 +40,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="2" class="text-center">
+                <td colspan="3" class="text-center">
                     {{ 'You do not have any student in your class'|trans }}
                 </td>
             </tr>
@@ -46,12 +48,14 @@
 
         </tbody>
     </table>
-    {# Submit button #}
-    {{ form_row(form.submit, {
-        'label': 'Send'|trans,
-        'attr': {'class': 'margin-15'},
-    }) }}
+    {% if form.notes|length > 0 %}
+        {# Submit button #}
+        {{ form_row(form.submit, {
+            'label': 'Send'|trans,
+            'attr': {'class': 'margin-15'},
+        }) }}
 
-    {{ form_end(form) }}
+        {{ form_end(form) }}
+    {% endif %}
 
 {% endblock %}

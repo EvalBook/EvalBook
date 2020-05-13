@@ -192,4 +192,39 @@ class Note
         $this->comment = $comment;
         return $this;
     }
+
+
+    /**
+     * Check if a note match the provided note type pattern.
+     *
+     * @param NoteType|null $noteType
+     * @return bool
+     */
+    public function isValid(?NoteType $noteType)
+    {
+        // Student was sick for example, then allow to store ABS - abs value.
+        if(strtolower($this->getNote() === 'abs')) {
+            // Ensure to store uppercase values for beauty of the thing ^^.
+            $this->setNote(strtoupper($this->getNote()));
+            return true;
+        }
+
+        $lower = strtolower(substr($noteType->getPonderation(), 0, strpos($noteType->getPonderation(), '.')));
+        $higher = strtolower(substr($noteType->getPonderation(), 1 + strrpos($noteType->getPonderation(), '.')));
+
+        // Check format.
+        if(!is_numeric($lower)) {
+            // If user provided a numeric value but the note type is alphabetical, then return note is not valid.
+            if(is_numeric($this->getNote()))
+                return false;
+
+            $this->setNote(strtoupper($this->getNote()));
+            return ord($this->getNote()) >= ord($lower) && ord($this->getNote()) <= ord($higher);
+        }
+
+        $result = is_numeric($this->getNote()) && (int)$this->getNote() >= (int)$lower && (int)$this->getNote() <= $higher;
+        // Ensure 0000 is stored as 0 to keep the db clean.
+        $this->setNote(intval($this->getNote()));
+        return $result;
+    }
 }
