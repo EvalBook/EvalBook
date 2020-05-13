@@ -29,9 +29,9 @@ class NoteBookController extends AbstractController
      */
     public function index()
     {
+        $classes = $this->getUser()->getClasses();
         return $this->render('note_book/index.html.twig', [
-            'controller_name' => 'NoteBookController',
+            'classes' => $classes,
         ]);
     }
 }
-

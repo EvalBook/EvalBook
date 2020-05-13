@@ -88,6 +88,8 @@ From: From
 to: to
 The notes you provided does not match the note type pattern of activity !: The notes you provided does not match the note type pattern of activity !
 Please, update the notes you provided as you changed the activity note type: Please, update the notes you provided as you changed the activity note type
+Your notebook: Your notebook
+
 
 roles:
   ROLE_USER_LIST_ALL: List all users

@@ -90,10 +90,12 @@
                     </div>
                 </a>
 
-                <div class="menuItem">
-                    <i class="fas fa-book-open"></i>
-                    <span>Cahier de notes</span>
-                </div>
+                <a href="{{ path('note_book') }}">
+                    <div class="menuItem">
+                        <i class="fas fa-book-open"></i>
+                        <span>{{ 'Notebook'|trans }}</span>
+                    </div>
+                </a>
 
                 {# Display implantation menu if Admin / ROLE_IMPLANTATION_LIST_ALL #}
                 {% if is_granted('ROLE_IMPLANTATION_LIST_ALL') %}
@@ -196,10 +198,12 @@
                 </div>
             </a>
 
-            <div class="menuItem">
-                <i class="fas fa-book-open"></i>
-                <span>{{ 'Notebook'|trans }}</span>
-            </div>
+            <a href="{{ path('note_book') }}">
+                <div class="menuItem">
+                    <i class="fas fa-book-open"></i>
+                    <span>{{ 'Notebook'|trans }}</span>
+                </div>
+            </a>
 
         </nav>
     </footer>
