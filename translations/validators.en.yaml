@@ -111,18 +111,18 @@ user:
   last-name-too-long: The name should not have more than 100 letters.
   email-is-null: The mail address cannot be empty.
   password-not-match: The password check has failed.
-  confirm-delete: Etes vous sûr de vouloir supprimer cet utlisateur ?
+  confirm-delete: Are you sure you want to delete this user ?
 
 classe:
   name-too-short: The class name is too short
   name-too-long: The class name is too long
 
 period:
-  name-too-short: Le nom de la période est trop court
-  name-too-long: Le nom de la période est trop long
+  name-too-short: The period name is too short
+  name-too-long: The period name is too long
 
 activity:
-  name-empty: Le nom de l'activité ne peut être vide
+  name-empty: The activity name cannot be empty.
 
 noteType:
   name-empty: Empty note type name

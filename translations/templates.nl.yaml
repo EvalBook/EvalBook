@@ -1,21 +1,23 @@
-Dashboard: Dashboard
 Notebook: Notebook
+Notebooks: Notebooks
 Activities: Activities
-School reports: School Reports
 Students: Students
+Student: Student
 Classes: Classes
+Class: Class
+Owner: Owner
 Users: Users
+User: User
+Periods: Periods
 My profile: Profile
 Log out: Log out
 Teachers evaluation tool: Teachers evaluation tool
 Source code on: Source code on
 Profile: Profile
 Implantations: Implantations
+Implantation: Implantation
 No implantation found: No implantation found
-Implantation deleted: Implantation deleted
-Implantation not deleted: Erreur lors de la suppression de l'implantation
-All data such as classes attached to it will be deleted too !: All data such as classes attached to it will be deleted too !
-Are you sure you want to delete this implantation ?: Are you sure you want to delete this implantation ?
+No users found: No users found
 Invalid csrf token: Invalid csrf token
 Id: Id
 Address: Adress
@@ -28,9 +30,103 @@ Edit: Edit
 Delete: Delete
 Add: Add
 Name: Name
+First name: First name
 Send: Send
 Return to list: Return to list
 Successfully updated: Successfully updated
 Successfully added: Successfully added
 Yes: Yes
 No: No
+Roles management: Roles management
+Are you sure you want to delete this element ?: Are you sure you want to delete this element
+All attached data will be deleted or marked orphan: All attached data will be deleted or marked orphan
+Element deleted: Element deleted
+Element not deleted: Element not deleted
+No student found: No student found
+No class found: No class found
+Birthday: Birthday
+Select implantation: Select implantation
+Manage students: Manage students
+Manage users: Manage users
+You do not have rights to view all classes or you do not own any class, contact your EvalBook admin for more help: You do not have rights to view all classes or you do not own any class, contact your EvalBook admin for more help
+You do not have rights to view implantations or no impantation was created: You do not have rights to view implantations or no impantation was created
+You do not have rights to see users or no users exists in the database: Vous n'avez pas les droits de voir tous les utilisateurs ou aucun utilisateur n'existse dans la base de données.
+Start date: Start date
+End date: End date
+Status: Status
+No period found for this implantation: No period found for this implantation
+Or you do not have rights to view: Or you do not have rights to view
+You can add up to 6 period for each implantation, the best pratice is to create all of them before the year start: You can add up to 6 period for each implantation, the best pratice is to create all of them before the year start
+You already have 6 periods for this implantation, you cannot add a new one: You already have 6 periods for this implantation, you cannot add a new one
+You cannot edit or delete a period that is in progress or closed: You cannot edit or delete a period that is in progress or closed
+Not started: Not started
+In progress: In progress
+Closed: Closed
+The period start date must be lower then the end date: The period start date must be lower then the end date
+It sounds like you do not have any activity or any class: It sounds like you do not have any activity or any class
+Select implantation / class pairs: Select implantation / class pairs
+You do not have any class: You do not have any class
+Add activity: Add activity
+Period: Period
+Note type: Note type
+Comment: Comment
+Add a note type: Add a note type
+Ponderation: Ponderation
+Date: Date
+View: View
+Note: Note
+Add notes: Add notes
+Add notes for this activity: Add notes for this activity
+You do not have any student in your class: You do not have any student in your class
+Error deleting element: Error deleting element
+The combination last name / first name is already taken: The combination last name / first name is already taken
+Ensure you have students registered to your classes: Ensure you have students registered to your classes
+My rights as a user: My rights as a user
+If you want more rights on the system or if you cannot make some crutial operations, contact your EvalBook admin.: If you want more rights on the system or if you cannot make some crutial operations, contact your EvalBook admin.
+Type: Type
+From: From
+to: to
+
+
+roles:
+  ROLE_USER_LIST_ALL: List all users
+  ROLE_USER_CREATE: Create users
+  ROLE_USER_EDIT: Edit user
+  ROLE_USER_DELETE: Delete user
+  ROLE_STUDENT_LIST_ALL: List all students
+  ROLE_STUDENT_CREATE: Create student
+  ROLE_STUDENT_EDIT: Edit student
+  ROLE_STUDENT_DELETE: Delete student
+  ROLE_CLASS_LIST_ALL: List all classes
+  ROLE_CLASS_CREATE: Create class
+  ROLE_CLASS_EDIT: Edit class
+  ROLE_CLASS_DELETE: Delete class
+  ROLE_CLASS_EDIT_STUDENTS: Assign student to a class.
+  ROLE_CLASS_EDIT_USERS: Assign user to a class.
+  ROLE_NOTEBOOK_VIEW: View notebook
+  ROLE_IMPLANTATION_LIST_ALL: List all implantations
+  ROLE_IMPLANTATION_EDIT: Edit implantation
+  ROLE_IMPLANTATION_CREATE: Create implantation
+  ROLE_IMPLANTATION_DELETE: Delete implantation
+  ROLE_ADMIN: Role admin
+
+help:
+  ROLE_IMPLANTATION_LIST_ALL: Allow you to list all available implantations.
+  ROLE_IMPLANTATION_EDIT: Allow you to edit bacis implantation information such as address, name and periods.
+  ROLE_IMPLANTATION_CREATE: Allow you to create ne implantations and assign basic information such as the name and address.
+  ROLE_IMPLANTATION_DELETE: Allow you to delete implantation, be careful, all attached data such as periods and activities will be lost, use it with caution, a backward is not possible yet !
+  ROLE_USER_LIST_ALL: All you to list all system users in one place, allow to access users that does not have assigned class in order to edit them for example.
+  ROLE_USER_CREATE: Allow to create new EvalBook users.
+  ROLE_USER_EDIT: Allow to edit uses information from the complete users list or anywhere a user is visible, allow to edit users roles too.
+  ROLE_USER_DELETE: Allow to delete a user, use this access right with caution !
+  ROLE_STUDENT_LIST_ALL: Allow you to see the complete student list, including the ones that are not still attached to a class.
+  ROLE_STUDENT_CREATE: Allow you to create new students.
+  ROLE_STUDENT_EDIT: Allow you to edit students basic information from the complete students list or anywhere else from EvalBook system.
+  ROLE_STUDENT_DELETE: Allow to delete a student, be careful using this right !
+  ROLE_CLASS_LIST_ALL: Allow you to see the complete class list of all registered implantations.
+  ROLE_CLASS_CREATE: Allow you to create a new class in any available implantation.
+  ROLE_CLASS_EDIT: Allow you to edit a class information from anywhere of the EvalBook system.
+  ROLE_CLASS_DELETE: Allow you to delete a class, use this right with caution !
+  ROLE_CLASS_EDIT_STUDENTS: This role allow a user to assign students his class or any class if the user has role to view all classes.
+  ROLE_CLASS_EDIT_USERS: This role allow you to attach a user to a class.
+  ROLE_ADMIN: The admin rôle can do ANYTHING, feel the superpower !

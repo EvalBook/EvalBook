@@ -59,6 +59,9 @@ Or you do not have rights to view: Or you do not have rights to view
 You can add up to 6 period for each implantation, the best pratice is to create all of them before the year start: You can add up to 6 period for each implantation, the best pratice is to create all of them before the year start
 You already have 6 periods for this implantation, you cannot add a new one: You already have 6 periods for this implantation, you cannot add a new one
 You cannot edit or delete a period that is in progress or closed: You cannot edit or delete a period that is in progress or closed
+Not started: Not started
+In progress: In progress
+Closed: Closed
 The period start date must be lower then the end date: The period start date must be lower then the end date
 It sounds like you do not have any activity or any class: It sounds like you do not have any activity or any class
 Select implantation / class pairs: Select implantation / class pairs
@@ -77,54 +80,53 @@ Add notes for this activity: Add notes for this activity
 You do not have any student in your class: You do not have any student in your class
 Error deleting element: Error deleting element
 The combination last name / first name is already taken: The combination last name / first name is already taken
-Ensure you have students registered to your classes: Assurez vous d'avoir des élèves attachés à votre classe
-My rights as a user: Mes droits en tant qu'utilisateur
-If you want more rights on the system or if you cannot make some crutial operations, contact your EvalBook admin.: Si vous souhaitez plus de droits sur le système, ou constatez que vous ne pouvez réaliser certaines opérations, merci de contacter votre administrateur EvalBook
+Ensure you have students registered to your classes: Ensure you have students registered to your classes
+My rights as a user: My rights as a user
+If you want more rights on the system or if you cannot make some crutial operations, contact your EvalBook admin.: If you want more rights on the system or if you cannot make some crutial operations, contact your EvalBook admin.
 Type: Type
 From: From
-to: à
+to: to
 
 
 roles:
-  ROLE_USER_LIST_ALL: Lister les utilisateurs
-  ROLE_USER_CREATE: Créer un utilisateur
-  ROLE_USER_EDIT: Editer un utilisateur
-  ROLE_USER_DELETE: Supprimer un utilisateur
-  ROLE_STUDENT_LIST_ALL: Lister les étudiants
-  ROLE_STUDENT_CREATE: Créer un étudiant
-  ROLE_STUDENT_EDIT: Editer un étudiant
-  ROLE_STUDENT_DELETE: Supprimer un étudiant
-  ROLE_CLASS_LIST_ALL: Lister les classes
-  ROLE_CLASS_CREATE: Créer une classe
-  ROLE_CLASS_EDIT: Editer une classe
-  ROLE_CLASS_DELETE: Supprimer une classe
+  ROLE_USER_LIST_ALL: List all users
+  ROLE_USER_CREATE: Create users
+  ROLE_USER_EDIT: Edit user
+  ROLE_USER_DELETE: Delete user
+  ROLE_STUDENT_LIST_ALL: List all students
+  ROLE_STUDENT_CREATE: Create student
+  ROLE_STUDENT_EDIT: Edit student
+  ROLE_STUDENT_DELETE: Delete student
+  ROLE_CLASS_LIST_ALL: List all classes
+  ROLE_CLASS_CREATE: Create class
+  ROLE_CLASS_EDIT: Edit class
+  ROLE_CLASS_DELETE: Delete class
   ROLE_CLASS_EDIT_STUDENTS: Assign student to a class.
   ROLE_CLASS_EDIT_USERS: Assign user to a class.
-  ROLE_NOTEBOOK_VIEW: Voir le cahier de notes
-  ROLE_IMPLANTATION_LIST_ALL: Lister les implantations
-  ROLE_IMPLANTATION_EDIT: Editer une implantation
-  ROLE_IMPLANTATION_CREATE: Créer une implantation
-  ROLE_IMPLANTATION_DELETE: Supprimer une implantation
+  ROLE_NOTEBOOK_VIEW: View notebook
+  ROLE_IMPLANTATION_LIST_ALL: List all implantations
+  ROLE_IMPLANTATION_EDIT: Edit implantation
+  ROLE_IMPLANTATION_CREATE: Create implantation
+  ROLE_IMPLANTATION_DELETE: Delete implantation
   ROLE_ADMIN: Role admin
 
-
 help:
-  ROLE_IMPLANTATION_LIST_ALL: Vous permet de lister l'ensemble des établissements disponibles dans le système.
-  ROLE_IMPLANTATION_EDIT: Vous permet d'étider les informations de base d'une implantation, le nom, l'adresse complète.
-  ROLE_IMPLANTATION_CREATE: Créer une nouvelle implantation et lui assigner les informations de base comme l'adresse, le nom.
-  ROLE_IMPLANTATION_DELETE: Vous permet de supprimer une implantation, attention toutefois, toutes les données attachées seront supprimées, telles que les différentes périodes et activités, utilisez ce droit avec grande précaution, un retour en arrière n'est pas possible !
-  ROLE_USER_LIST_ALL: Lister tous les utilisateurs du système en un seul endroit, permet d'accéder à des utilisateurs qui n'ont pas encore de classe attitrée pour éventuellement effectuer des actions si vous en avez les droits.
-  ROLE_USER_CREATE: Permet de créer de nouveaux utilisateurs dans le système EvalBook.
-  ROLE_USER_EDIT: Permet de mettre à jour les informations d'un utilisateur à partir de la liste complète ou tout autre endroit du système, il permet également de gérer les rôles que vous souhaitez attribuer / retirer à l'utilisateur sélectionné.
-  ROLE_USER_DELETE: Permet de supprimer un utilisateur, ce droit est à utiliser avec grande précaution !
-  ROLE_STUDENT_LIST_ALL: Permet d'afficher la liste complète des étudiants, y compris celles et ceux qui ne sont pas encore repris dans une classe, afin éventuellement d'affectuer des opérations de suppression ou de mise à jour.
-  ROLE_STUDENT_CREATE: Permet de créer un nouvel étudiant pour ensuite l'assigner à une classe si vous en avez le droit.
-  ROLE_STUDENT_EDIT: Permet de modifier les informations de base d'un étudiant à partie de la liste complète des étudiants ou à partir d'un autre endroit du système.
-  ROLE_STUDENT_DELETE: Permet de complètement supprimer un étudiant, attention, à utiliser avec précaution !
-  ROLE_CLASS_LIST_ALL: Permet d'afficher le listing complet de toutes les classes de l'implantation cible ou de toutes les implantations.
-  ROLE_CLASS_CREATE: Permet la création d'une classe et l'attribution au sein d'un établissement.
-  ROLE_CLASS_EDIT: Permet l'édition de toutes les information de base d'une classe à partir de tout emplacement du système.
-  ROLE_CLASS_DELETE: Permet la suppression pure et simple d'une classe, à utiliser avec précaution.
-  ROLE_CLASS_EDIT_STUDENTS: Ce rôle permet à un utilisateur d'assigner un ou plusieurs élèves à une classe.
-  ROLE_CLASS_EDIT_USERS: Ce rôle permet d'attribuer le droit d'actions à un ou plusieurs utilisateurs sur une classe précise.
-  ROLE_ADMIN: Le rôle admin peut absolument tout faire, à l'exception de l'édition de ses pairs.
+  ROLE_IMPLANTATION_LIST_ALL: Allow you to list all available implantations.
+  ROLE_IMPLANTATION_EDIT: Allow you to edit bacis implantation information such as address, name and periods.
+  ROLE_IMPLANTATION_CREATE: Allow you to create ne implantations and assign basic information such as the name and address.
+  ROLE_IMPLANTATION_DELETE: Allow you to delete implantation, be careful, all attached data such as periods and activities will be lost, use it with caution, a backward is not possible yet !
+  ROLE_USER_LIST_ALL: All you to list all system users in one place, allow to access users that does not have assigned class in order to edit them for example.
+  ROLE_USER_CREATE: Allow to create new EvalBook users.
+  ROLE_USER_EDIT: Allow to edit uses information from the complete users list or anywhere a user is visible, allow to edit users roles too.
+  ROLE_USER_DELETE: Allow to delete a user, use this access right with caution !
+  ROLE_STUDENT_LIST_ALL: Allow you to see the complete student list, including the ones that are not still attached to a class.
+  ROLE_STUDENT_CREATE: Allow you to create new students.
+  ROLE_STUDENT_EDIT: Allow you to edit students basic information from the complete students list or anywhere else from EvalBook system.
+  ROLE_STUDENT_DELETE: Allow to delete a student, be careful using this right !
+  ROLE_CLASS_LIST_ALL: Allow you to see the complete class list of all registered implantations.
+  ROLE_CLASS_CREATE: Allow you to create a new class in any available implantation.
+  ROLE_CLASS_EDIT: Allow you to edit a class information from anywhere of the EvalBook system.
+  ROLE_CLASS_DELETE: Allow you to delete a class, use this right with caution !
+  ROLE_CLASS_EDIT_STUDENTS: This role allow a user to assign students his class or any class if the user has role to view all classes.
+  ROLE_CLASS_EDIT_USERS: This role allow you to attach a user to a class.
+  ROLE_ADMIN: The admin rôle can do ANYTHING, feel the superpower !

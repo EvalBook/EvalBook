@@ -89,22 +89,22 @@ to: à
 
 
 roles:
-  ROLE_USER_LIST_ALL: Lister les utilisateurs
+  ROLE_USER_LIST_ALL: Lister tous les utilisateurs
   ROLE_USER_CREATE: Créer un utilisateur
   ROLE_USER_EDIT: Editer un utilisateur
   ROLE_USER_DELETE: Supprimer un utilisateur
-  ROLE_STUDENT_LIST_ALL: Lister les étudiants
+  ROLE_STUDENT_LIST_ALL: Lister tous les étudiants
   ROLE_STUDENT_CREATE: Créer un étudiant
   ROLE_STUDENT_EDIT: Editer un étudiant
   ROLE_STUDENT_DELETE: Supprimer un étudiant
-  ROLE_CLASS_LIST_ALL: Lister les classes
+  ROLE_CLASS_LIST_ALL: Lister toutes les classes
   ROLE_CLASS_CREATE: Créer une classe
   ROLE_CLASS_EDIT: Editer une classe
   ROLE_CLASS_DELETE: Supprimer une classe
   ROLE_CLASS_EDIT_STUDENTS: Assigner un élève à une classe
   ROLE_CLASS_EDIT_USERS: Assigner un utilisateur à une classe.
   ROLE_NOTEBOOK_VIEW: Voir le cahier de notes
-  ROLE_IMPLANTATION_LIST_ALL: Lister les implantations
+  ROLE_IMPLANTATION_LIST_ALL: Lister toutes les implantations
   ROLE_IMPLANTATION_EDIT: Editer une implantation
   ROLE_IMPLANTATION_CREATE: Créer une implantation
   ROLE_IMPLANTATION_DELETE: Supprimer une implantation
@@ -112,7 +112,7 @@ roles:
 
 help:
   ROLE_IMPLANTATION_LIST_ALL: Vous permet de lister l'ensemble des établissements disponibles dans le système.
-  ROLE_IMPLANTATION_EDIT: Vous permet d'étider les informations de base d'une implantation, le nom, l'adresse complète.
+  ROLE_IMPLANTATION_EDIT: Vous permet d'étider les informations de base d'une implantation, le nom, l'adresse complète et les périodes.
   ROLE_IMPLANTATION_CREATE: Créer une nouvelle implantation et lui assigner les informations de base comme l'adresse, le nom.
   ROLE_IMPLANTATION_DELETE: Vous permet de supprimer une implantation, attention toutefois, toutes les données attachées seront supprimées, telles que les différentes périodes et activités, utilisez ce droit avec grande précaution, un retour en arrière n'est pas possible !
   ROLE_USER_LIST_ALL: Lister tous les utilisateurs du système en un seul endroit, permet d'accéder à des utilisateurs qui n'ont pas encore de classe attitrée pour éventuellement effectuer des actions si vous en avez les droits.
