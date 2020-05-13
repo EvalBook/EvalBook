@@ -198,16 +198,6 @@ class User implements UserInterface
 
 
     /**
-     * Return the used salt.
-     * @see UserInterface
-     */
-    public function getSalt()
-    {
-        // not needed when using the "bcrypt" algorithm in security.yaml
-    }
-
-
-    /**
      * Erase credentials.
      * @see UserInterface
      */
@@ -296,6 +286,7 @@ class User implements UserInterface
     {
         if ($this->classes->contains($classe)) {
             $this->classes->removeElement($classe);
+            $classe->removeUser($this);
         }
 
         return $this;
@@ -353,7 +344,7 @@ class User implements UserInterface
      */
     public function getClasseTitulaire(): ?Classe
     {
-        return $this->classeTitulaire;
+        return $this->classesTitulaire;
     }
 
 
@@ -425,5 +416,10 @@ class User implements UserInterface
     public function __toString()
     {
         return $this->getFirstName() . " " . $this->getLastName();
+    }
+
+    public function getSalt()
+    {
+        // Implement getSalt() method.
     }
 }

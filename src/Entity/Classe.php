@@ -22,6 +22,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 use function Sodium\add;
 
 
@@ -132,7 +133,7 @@ class Classe
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
-            $user->addClass($this);
+            $user->addClasse($this);
         }
 
         return $this;
@@ -148,8 +149,42 @@ class Classe
     {
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);
-            $user->removeClass($this);
+            $user->removeClasse($this);
         }
+
+        return $this;
+    }
+
+
+    /**
+     * Removes all users in a class and add new ones passed.
+     * @param array $usersCollection
+     * @return $this
+     */
+    public function setUsers(array $usersCollection)
+    {
+        foreach($this->getUsers() as $user)
+            $this->removeUser($user);
+
+        foreach($usersCollection as $user)
+            $this->addUser($user);
+
+        return $this;
+    }
+
+
+    /**
+     * Removes all students in a class and add new ones passed.
+     * @param array $usersCollection
+     * @return $this
+     */
+    public function setStudents(array $studentsCollection)
+    {
+        foreach($this->getEleves() as $student)
+            $this->removeEleve($student);
+
+        foreach($studentsCollection as $student)
+            $this->addEleve($student);
 
         return $this;
     }
@@ -174,7 +209,7 @@ class Classe
     {
         if (!$this->eleves->contains($eleve)) {
             $this->eleves[] = $eleve;
-            $eleve->addClass($this);
+            $eleve->addClasse($this);
         }
 
         return $this;
@@ -190,7 +225,7 @@ class Classe
     {
         if ($this->eleves->contains($eleve)) {
             $this->eleves->removeElement($eleve);
-            $eleve->removeClass($this);
+            $eleve->removeClasse($this);
         }
 
         return $this;
@@ -260,22 +295,6 @@ class Classe
     public function addActivite(Activite $activity)
     {
         $this->activites[] = $activity;
-        return $this;
-    }
-
-
-    /**
-     * Removes an activity from the class.
-     *
-     * @param Activite $activity
-     * @return $this
-     */
-    public function removeActivite(Activite $activity)
-    {
-        if ($this->activites->contains($activity)) {
-            $this->activites->removeElement($activity);
-            $activity->removeClass($this);
-        }
         return $this;
     }
 
