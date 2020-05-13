@@ -2,19 +2,19 @@
 
 {% trans_default_domain 'templates' %}
 
-{% block pageTitle %} {{ 'Add notes' | trans }} {% endblock %}
+{% block pageTitle %}{{ 'Add notes' | trans }}{% endblock %}
 
 {% block title %}
     {{ 'Add notes for this activity' | trans }}
-    {#
-    {% set help = 'Students' %}
+    {% set help = {'title': 'notes.title', 'intro': 'notes.intro', 'actions': 'notes.use'} %}
     {% include 'help/help-dialog.html.twig' %}
-    #}
 {% endblock %}
 
 {% block body %}
+    {% if form.notes|length > 0 %}
+        {{ form_start(form) }}
+    {% endif %}
 
-    {{ form_start(form) }}
     <table class="full-width" id="activite-notes">
         <thead>
         <tr>
@@ -33,12 +33,14 @@
                     {% do note.eleve.setRendered() %}
                     {{ form_row(note.comment) }}
                 </td>
-                <td>note.</td>
+                <td>{{ 'From'|trans }}
+                    {{ activity.noteType.ponderation|replace({'..' : (' ' ~ 'to'|trans ~ ' ') }) }}
+                </td>
                 <td class="bg-yellow small text-center">{{ form_row(note.note) }}</td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="2" class="text-center">
+                <td colspan="3" class="text-center">
                     {{ 'You do not have any student in your class'|trans }}
                 </td>
             </tr>
@@ -46,12 +48,14 @@
 
         </tbody>
     </table>
-    {# Submit button #}
-    {{ form_row(form.submit, {
-        'label': 'Send'|trans,
-        'attr': {'class': 'margin-15'},
-    }) }}
+    {% if form.notes|length > 0 %}
+        {# Submit button #}
+        {{ form_row(form.submit, {
+            'label': 'Send'|trans,
+            'attr': {'class': 'margin-15'},
+        }) }}
 
-    {{ form_end(form) }}
+        {{ form_end(form) }}
+    {% endif %}
 
 {% endblock %}

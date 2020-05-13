@@ -42,7 +42,7 @@ Are you sure you want to delete this element ?: Etes vous sûr de vouloir suppri
 All attached data will be deleted or marked orphan: Toutes les données attachées seront soit supprimées, soit marquées orphelines.
 Element deleted: Elément supprimé
 Element not deleted: Elément non supprimé
-No student found: Pas d'élève trouvé
+No student found: Pas d'élèves trouvés
 No class found: Aucune classe trouvée
 Birthday: Naissance
 Select implantation: Sélectionnez une implantation
@@ -74,7 +74,7 @@ Add a note type: Ajouter un type de note
 Ponderation: Ponderation
 Date: Date
 View: Voir
-Note: Noter
+Note: Note
 Add notes: Ajouter des notes
 Add notes for this activity: Ajoutez des notes pour cette activité.
 You do not have any student in your class: Vous n'avez aucun étudiant dans votre classe
@@ -84,25 +84,29 @@ Ensure you have students registered to your classes: Assurez vous d'avoir des é
 My rights as a user: Mes droits en tant qu'utilisateur
 If you want more rights on the system or if you cannot make some crutial operations, contact your EvalBook admin.: Si vous souhaitez plus de droits sur le système, ou constatez que vous ne pouvez réaliser certaines opérations, merci de contacter votre administrateur EvalBook
 Type: Type
+From: De
+to: à
+The notes you provided does not match the note type pattern of activity !: Les notes que vous avez entrées ne correspondent pas avec le pattern du type de note choisi pour l'activité !
+Please, update the notes you provided as you changed the activity note type: S'il vous plaît, veuillez mettre à jour les notes que vous avez déjà entrées car le type de note a été changé.
 
 
 roles:
-  ROLE_USER_LIST_ALL: Lister les utilisateurs
+  ROLE_USER_LIST_ALL: Lister tous les utilisateurs
   ROLE_USER_CREATE: Créer un utilisateur
   ROLE_USER_EDIT: Editer un utilisateur
   ROLE_USER_DELETE: Supprimer un utilisateur
-  ROLE_STUDENT_LIST_ALL: Lister les étudiants
+  ROLE_STUDENT_LIST_ALL: Lister tous les étudiants
   ROLE_STUDENT_CREATE: Créer un étudiant
   ROLE_STUDENT_EDIT: Editer un étudiant
   ROLE_STUDENT_DELETE: Supprimer un étudiant
-  ROLE_CLASS_LIST_ALL: Lister les classes
+  ROLE_CLASS_LIST_ALL: Lister toutes les classes
   ROLE_CLASS_CREATE: Créer une classe
   ROLE_CLASS_EDIT: Editer une classe
   ROLE_CLASS_DELETE: Supprimer une classe
   ROLE_CLASS_EDIT_STUDENTS: Assigner un élève à une classe
   ROLE_CLASS_EDIT_USERS: Assigner un utilisateur à une classe.
   ROLE_NOTEBOOK_VIEW: Voir le cahier de notes
-  ROLE_IMPLANTATION_LIST_ALL: Lister les implantations
+  ROLE_IMPLANTATION_LIST_ALL: Lister toutes les implantations
   ROLE_IMPLANTATION_EDIT: Editer une implantation
   ROLE_IMPLANTATION_CREATE: Créer une implantation
   ROLE_IMPLANTATION_DELETE: Supprimer une implantation
@@ -110,7 +114,7 @@ roles:
 
 help:
   ROLE_IMPLANTATION_LIST_ALL: Vous permet de lister l'ensemble des établissements disponibles dans le système.
-  ROLE_IMPLANTATION_EDIT: Vous permet d'étider les informations de base d'une implantation, le nom, l'adresse complète.
+  ROLE_IMPLANTATION_EDIT: Vous permet d'étider les informations de base d'une implantation, le nom, l'adresse complète et les périodes.
   ROLE_IMPLANTATION_CREATE: Créer une nouvelle implantation et lui assigner les informations de base comme l'adresse, le nom.
   ROLE_IMPLANTATION_DELETE: Vous permet de supprimer une implantation, attention toutefois, toutes les données attachées seront supprimées, telles que les différentes périodes et activités, utilisez ce droit avec grande précaution, un retour en arrière n'est pas possible !
   ROLE_USER_LIST_ALL: Lister tous les utilisateurs du système en un seul endroit, permet d'accéder à des utilisateurs qui n'ont pas encore de classe attitrée pour éventuellement effectuer des actions si vous en avez les droits.

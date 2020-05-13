@@ -20,6 +20,12 @@ Encore
     .addStyleEntry('theme', './assets/css/theme.css')
     .addStyleEntry('dialogs', './assets/css/dialogs.css')
 
+    // Copying images files.
+    .copyFiles({
+        from: './assets/images',
+        pattern: /\.(png|ico)$/
+    })
+
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 

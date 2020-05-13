@@ -101,3 +101,22 @@ periodes:
     Attention, vous ne pourrez supprimer une période que si cette dernière n'a pas encore débuté. Vous ne pourrez
     donc pas éditer une période clôturée ou en cours. Vous ne pourrez pas non plus supprimer une période pour
     laquelle des activités existent déjà ( exemple: repport de notes à une période ultérieure ).
+
+notes:
+  title: Les notes
+
+  intro: >
+    Voici la liste des élèves disponibles pour la classe cible de l'activité, ajoutez leur une note en fonction du type
+    note que vous aurez choisi pour votre activité.
+  use: |
+    Si vous avez choisi le type de note A..F, alors vous devrez noter vos élèves avec une note de valeur se situant entre A et F,
+    en majuscule ou minuscule.
+    <br /><br />
+    Si un élève est absent lors de l'activité, utilisez ABS ou abs pour signaler qu'il était absent, cela permet de tracer
+    les élèves ayant passé l'activité.
+    <br /><br />
+    Si un nouvel élève arrive en cours d'année, vous aurez la possibilité de lui faire passer l'activité et de lui
+    attribuer une note à tout moment.
+    <br /><br />
+    Si pour une raison qui vous est propre, vous souhaitez changer la période de l'évaluation, il vous sera possible
+    de le faire, a condition bien sûr que la période ne soit pas déjà clôturée.
