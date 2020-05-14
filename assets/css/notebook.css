@@ -1,0 +1,49 @@
+.tabs {
+    width: 100%;
+    padding: 1em;
+    background-color: var(--primary-color);
+}
+
+.tabs button {
+    background-color: var(--primary-color);
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0.8em;
+    transition: 0.3s;
+    color: white;
+    font-weight: bold;
+}
+
+.tabs button:hover, .tabs button.active {
+    background-color: var(--secondary-color);
+}
+
+.tab-content {
+    margin-top: 6px;
+    display: none;
+    border-top: none;
+}
+
+.bordered {
+    border-left: 1px solid #cdd0d4;
+    border-bottom: 1px solid #cdd0d4;
+}
+
+th.rotate {
+    height: 140px;
+    white-space: nowrap;
+}
+
+th.rotate > div {
+    transform:
+            translate(25px, 51px)
+            rotate(330deg);
+    width: 30px;
+}
+
+th.rotate > div > span {
+    border-bottom: 1px solid #ccc;
+    padding: 5px 10px;
+}

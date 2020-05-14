@@ -19,19 +19,59 @@
 
 namespace App\Controller;
 
+use App\Entity\Classe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class NoteBookController extends AbstractController
 {
     /**
-     * @Route("/note/book", name="note_book")
+     * @Route("/notebook/classe/{classe}", name="note_book_view")
+     *
+     * @param Classe $classe
+     * @return Response
+     */
+    public function viewNotebook(Classe $classe)
+    {
+        return $this->render('note_book/notebook.html.twig', [
+            'classe'  => $classe,
+            'notebook' => $this->constructNotebook($classe),
+        ]);
+    }
+
+
+    /**
+     * @Route("/notebook/classes", name="note_book_select_class")
+     *
+     * @return Response
      */
     public function index()
     {
-        $classes = $this->getUser()->getClasses();
         return $this->render('note_book/index.html.twig', [
-            'classes' => $classes,
+            'classes' => $this->getUser()->getClasses(),
         ]);
+    }
+
+
+    /**
+     * Generate a more 'workable' notebook for template.
+     *
+     * @param Classe $classe
+     * @return array
+     */
+    private function constructNotebook(Classe $classe)
+    {
+        $notebook = array();
+
+        $notebook[$classe->getId()] = array();
+        foreach($classe->getEleves() as $eleve) {
+            foreach($classe->getActivites() as $activity) {
+                $note = $eleve->getNote($activity) ? $eleve->getNote($activity) : '-';
+                $notebook[$classe->getId()][$eleve->getLastName() . ' ' . $eleve->getFirstName()][] = $note;
+            }
+        }
+
+        return $notebook;
     }
 }

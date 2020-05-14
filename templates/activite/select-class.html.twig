@@ -16,7 +16,7 @@
         </thead>
         <tbody>
         {% for classe in classes %}
-            <tr data-id="{{ classe.id }}" data-trigger="{{ path('classe_edit', {'id': classe.id}) }}">
+            <tr>
                 <td>{{ classe.implantation }}</td>
                 <td>{{ classe.name }}</td>
                 <td class="text-center mobile-hidden-td">{{ classe.activites|length }}</td>

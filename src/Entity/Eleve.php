@@ -192,6 +192,18 @@ class Eleve
     }
 
 
+    public function getNote(Activite $activite)
+    {
+        foreach($this->getNotes() as $note) {
+            if($note->getActivite() === $activite) {
+                return $note->getNote();
+            }
+        }
+
+        return null;
+    }
+
+
     /**
      * Add a note to the Eleve object.
      * @param Note $note

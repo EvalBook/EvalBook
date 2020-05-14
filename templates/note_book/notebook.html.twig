@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block head %}
+    {{ encore_entry_link_tags('notebook-style') }}
+{% endblock %}
+
+{% block pageTitle %}{{ 'Notebook' | trans }}{% endblock %}
+
+{% block title %}
+    {{ 'Notebook' | trans }} {{ classe.name }}
+{% endblock %}
+
+{% block body %}
+    <div class="full-width flex column">
+        <table class="full-width">
+            <thead class="bg-yellow">
+            <th></th>
+            {% for activity in classe.activites %}
+                <th class="rotate">
+                    {# will be breaked later on #}
+                    <div><span>{{ activity.name|length > 35 ? activity.name|slice(0, 35) ~ '...' : activity.name }}</span></div>
+                </th>
+            {% endfor%}
+            </thead>
+            <tbody>
+            {% for key, notes in notebook %}
+                {% if classe.id is same as(key) %}
+                    {% for eleve, notes in notes %}
+                        <tr>
+                            <td>{{ eleve }}</td>
+                            {% for note in notes %}
+                                <td class="text-center bordered">{{ note }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -403,8 +403,6 @@ class User implements UserInterface
             'ROLE_CLASS_DELETE',
             'ROLE_CLASS_EDIT_STUDENTS',
             'ROLE_CLASS_EDIT_USERS',
-            // Notebook related.
-            'ROLE_NOTEBOOK_VIEW',
             // Implantations related.
             'ROLE_IMPLANTATION_LIST_ALL',
             'ROLE_IMPLANTATION_EDIT',

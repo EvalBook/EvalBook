@@ -19,6 +19,7 @@ Encore
     // CSS.
     .addStyleEntry('theme', './assets/css/theme.css')
     .addStyleEntry('dialogs', './assets/css/dialogs.css')
+    .addStyleEntry('notebook-style', './assets/css/notebook.css')
 
     // Copying images files.
     .copyFiles({
