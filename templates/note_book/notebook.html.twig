@@ -13,29 +13,36 @@
 
 {% block body %}
     <div class="full-width flex column">
-        <table class="full-width">
-            <thead class="bg-yellow">
-            <th></th>
-            {% for activity in classe.activites %}
-                <th class="rotate">
-                    {# will be breaked later on #}
-                    <div><span>{{ activity.name|length > 35 ? activity.name|slice(0, 35) ~ '...' : activity.name }}</span></div>
+        <table class="full-width" id="notebook">
+            <thead class="bg-yellow sticky-top">
+                <th class="text-center">
+                    <i class="fas fa-book-open text-bigger text-yellow" aria-hidden="true"></i>
                 </th>
-            {% endfor%}
-            </thead>
-            <tbody>
-            {% for key, notes in notebook %}
-                {% if classe.id is same as(key) %}
-                    {% for eleve, notes in notes %}
+                {% for activity in classe.activites %}
+                    <th class="rotate">
+                        {# will be breaked later on #}
+                        <div><span>{{ activity.name|length > 35 ? activity.name|slice(0, 35) ~ '...' : activity.name }}</span></div>
+                    </th>
+                {% endfor%}
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        {% for name, count in periodes %}
+                            <td colspan="{{ count }}" class="bg-yellow text-center text-white text-bold">{{ name }}</td>
+                        {% endfor %}
+                    </tr>
+
+                    {% set counter = 0 %}
+                    {% for eleve, notes in notebook %}
                         <tr>
-                            <td>{{ eleve }}</td>
+                            <td class="names sticky-left {{ counter is divisible by(2) ? 'sticky-even' : 'sticky-odd' }}">{{ eleve }}</td>
+                            {% set counter = counter + 1 %}
                             {% for note in notes %}
                                 <td class="text-center bordered">{{ note }}</td>
                             {% endfor %}
                         </tr>
                     {% endfor %}
-                {% endif %}
-            {% endfor %}
             </tbody>
         </table>
     </div>

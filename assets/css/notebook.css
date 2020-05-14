@@ -1,29 +1,37 @@
-.tabs {
-    width: 100%;
-    padding: 1em;
-    background-color: var(--primary-color);
+#notebook {
+    overflow-y: auto;
 }
 
-.tabs button {
-    background-color: var(--primary-color);
-    float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 0.8em;
-    transition: 0.3s;
-    color: white;
-    font-weight: bold;
+#notebook th, #notebook td:not(.names) {
+    min-width: 5em;
+    max-width: 5em;
 }
 
-.tabs button:hover, .tabs button.active {
-    background-color: var(--secondary-color);
+td.names {
+    min-width: 13em;
+    max-width: 13em;
 }
 
-.tab-content {
-    margin-top: 6px;
-    display: none;
-    border-top: none;
+.sticky-top {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+}
+
+.sticky-left {
+    position: sticky;
+    left:0;
+    z-index: 2;
+}
+
+.sticky-even {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.sticky-odd {
+    background-color: var(--background-color);
+    border-bottom: 1px solid #ddd;
 }
 
 .bordered {
@@ -32,18 +40,20 @@
 }
 
 th.rotate {
-    height: 140px;
+    height: 110px;
     white-space: nowrap;
 }
 
 th.rotate > div {
     transform:
             translate(25px, 51px)
-            rotate(330deg);
+            rotate(335deg);
     width: 30px;
+    margin-left: -2.5em;
 }
 
 th.rotate > div > span {
+    width: 100%;
     border-bottom: 1px solid #ccc;
     padding: 5px 10px;
 }

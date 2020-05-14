@@ -37,6 +37,7 @@ class NoteBookController extends AbstractController
         return $this->render('note_book/notebook.html.twig', [
             'classe'  => $classe,
             'notebook' => $this->constructNotebook($classe),
+            'periodes' => $this->getNotebookPeriods($classe),
         ]);
     }
 
@@ -64,14 +65,29 @@ class NoteBookController extends AbstractController
     {
         $notebook = array();
 
-        $notebook[$classe->getId()] = array();
         foreach($classe->getEleves() as $eleve) {
             foreach($classe->getActivites() as $activity) {
-                $note = $eleve->getNote($activity) ? $eleve->getNote($activity) : '-';
-                $notebook[$classe->getId()][$eleve->getLastName() . ' ' . $eleve->getFirstName()][] = $note;
+                $note = !is_null($eleve->getNote($activity)) ? $eleve->getNote($activity) : '-';
+                $notebook[$eleve->getLastName() . ' ' . $eleve->getFirstName()][] = $note;
             }
         }
 
         return $notebook;
+    }
+
+
+    /**
+     * Return available periods for notebook.
+     *
+     * @param Classe $classe
+     * @return array
+     */
+    private function getNotebookPeriods(Classe $classe)
+    {
+        $periods = array();
+        foreach($classe->getActivites() as $activite) {
+            $periods[] = $activite->getPeriode()->getName();
+        }
+        return array_count_values($periods);
     }
 }

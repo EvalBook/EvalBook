@@ -394,6 +394,14 @@ tr:hover i, tr:hover a {
     font-weight: bold;
 }
 
+.text-white {
+    color: white;
+}
+
+.text-bigger {
+    font-size: 6em;
+}
+
 
 .text-yellow {
     color: var(--secondary-color);
