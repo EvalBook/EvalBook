@@ -8,8 +8,13 @@
     {% include 'help/help-dialog.html.twig' %}
 {% endblock %}
 
+{% block titleBottom %}
+    {% set placeholder = 'Search for user'|trans %}
+    {% include 'search.html.twig' %}
+{% endblock %}
+
 {% block body %}
-    <table class="full-width">
+    <table class="full-width" id="searchable">
         <thead>
         <tr>
             <th scope="col">{{ 'Name'|trans }}</th>
@@ -31,9 +36,9 @@
         <tbody>
         {% for user in users %}
             <tr data-id="{{ user.id }}" data-trigger="{{ path('user_edit', {'id': user.id}) }}">
-                <td>{{ user.firstName }}</td>
-                <td>{{ user.lastName }}</td>
-                <td class="mobile-hidden-td">{{ user.email }}</td>
+                <td class="search-target">{{ user.firstName }}</td>
+                <td class="search-target">{{ user.lastName }}</td>
+                <td class="search-target mobile-hidden-td">{{ user.email }}</td>
 
                 <td class="text-center mobile-hidden-td">
                     {% if is_granted('ROLE_STUDENT_LIST_ALL') %}
@@ -117,4 +122,5 @@
 
 {% block javascripts %}
     {{ encore_entry_script_tags('modalDialogs') }}
+    {{ encore_entry_script_tags('search') }}
 {% endblock %}

@@ -88,6 +88,14 @@ From: From
 to: to
 The notes you provided does not match the note type pattern of activity !: The notes you provided does not match the note type pattern of activity !
 Please, update the notes you provided as you changed the activity note type: Please, update the notes you provided as you changed the activity note type
+Your notebook: Your notebook
+Select a class you own: Select a class you own
+Search for implantation: Search for implantation
+Search for user: Search for user
+Search for class: Search for class
+Search for student: Search for student
+Search for activity: Search for activity
+
 
 roles:
   ROLE_USER_LIST_ALL: List all users
@@ -104,7 +112,6 @@ roles:
   ROLE_CLASS_DELETE: Delete class
   ROLE_CLASS_EDIT_STUDENTS: Assign student to a class.
   ROLE_CLASS_EDIT_USERS: Assign user to a class.
-  ROLE_NOTEBOOK_VIEW: View notebook
   ROLE_IMPLANTATION_LIST_ALL: List all implantations
   ROLE_IMPLANTATION_EDIT: Edit implantation
   ROLE_IMPLANTATION_CREATE: Create implantation

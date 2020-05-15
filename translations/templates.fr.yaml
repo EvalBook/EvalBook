@@ -88,6 +88,13 @@ From: De
 to: à
 The notes you provided does not match the note type pattern of activity !: Les notes que vous avez entrées ne correspondent pas avec le pattern du type de note choisi pour l'activité !
 Please, update the notes you provided as you changed the activity note type: S'il vous plaît, veuillez mettre à jour les notes que vous avez déjà entrées car le type de note a été changé.
+Your notebook: Vos cahiers de notes.
+Select a class you own: Sélectionnez une de vos classes
+Search for implantation: Rechercher une implantation
+Search for user: Rechercher un utilisateur
+Search for class: Rechercher une classe
+Search for student: Chercher un élève
+Search for activity: Rechercher une activité
 
 
 roles:
@@ -105,7 +112,6 @@ roles:
   ROLE_CLASS_DELETE: Supprimer une classe
   ROLE_CLASS_EDIT_STUDENTS: Assigner un élève à une classe
   ROLE_CLASS_EDIT_USERS: Assigner un utilisateur à une classe.
-  ROLE_NOTEBOOK_VIEW: Voir le cahier de notes
   ROLE_IMPLANTATION_LIST_ALL: Lister toutes les implantations
   ROLE_IMPLANTATION_EDIT: Editer une implantation
   ROLE_IMPLANTATION_CREATE: Créer une implantation

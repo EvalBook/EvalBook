@@ -146,11 +146,12 @@ class ClasseController extends AbstractController
                   'class' => User::class,
                   'multiple' => true,
                   'expanded' => true,
+                  // !! Remember this to force storing without refernce^^
+                  'by_reference' => false,
               ])
 
               // Submit button.
               ->add('submit', SubmitType::class)
-
               ->getForm()
         ;
 
@@ -158,14 +159,12 @@ class ClasseController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // Getting posted information.
-            $users = $form->getData()["users"];
-            if(!is_null($users) && count($users) > 0) {
-                foreach ($users as $user) {
-                    $user->addClasse($classe);
-                }
-                // Saving added users.
+            $users = $form["users"]->getData()->toArray();
+
+            if(!is_null($users)) {
                 $em = $this->getDoctrine()->getManager();
-                $em->persist($user);
+                $classe->setUsers($users);
+                $em->persist($classe);
                 $em->flush();
             }
 
@@ -196,11 +195,11 @@ class ClasseController extends AbstractController
                 'class' => Eleve::class,
                 'multiple' => true,
                 'expanded' => true,
+                'by_reference' => false,
             ])
 
             // Submit button.
             ->add('submit', SubmitType::class)
-
             ->getForm()
         ;
 
@@ -208,14 +207,11 @@ class ClasseController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $students = $form->getData()["students"];
-            if(!is_null($students) && count($students) > 0) {
-                foreach ($students as $student) {
-                    $student->addClasse($classe);
-                }
-                // Saving added users.
+            $students = $form->getData()["students"]->toArray();
+            if(!is_null($students)) {
                 $em = $this->getDoctrine()->getManager();
-                $em->persist($student);
+                $classe->setStudents($students);
+                $em->persist($classe);
                 $em->flush();
             }
 

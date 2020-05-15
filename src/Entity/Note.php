@@ -218,8 +218,9 @@ class Note
             if(is_numeric($this->getNote()))
                 return false;
 
+            $note = strtolower($this->getNote());
             $this->setNote(strtoupper($this->getNote()));
-            return ord($this->getNote()) >= ord($lower) && ord($this->getNote()) <= ord($higher);
+            return ord($note) >= ord($lower) && ord($note) <= ord($higher);
         }
 
         $result = is_numeric($this->getNote()) && (int)$this->getNote() >= (int)$lower && (int)$this->getNote() <= $higher;

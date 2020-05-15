@@ -8,6 +8,11 @@
     {% include 'help/help-dialog.html.twig' %}
 {% endblock %}
 
+{% block titleBottom %}
+    {% set placeholder = 'Search for student'|trans %}
+    {% include 'search.html.twig' %}
+{% endblock %}
+
 {% block body %}
     <table class="full-width">
         <thead>
@@ -29,9 +34,9 @@
         <tbody>
         {% for eleve in eleves %}
             <tr data-id="{{ eleve.id }}" data-trigger="{{ path('eleve_edit', {'id': eleve.id}) }}">
-                <td>{{ eleve.lastName }}</td>
-                <td>{{ eleve.firstName }}</td>
-                <td class="mobile-hidden-td">{{ eleve.birthday|date('d/m/Y') }}</td>
+                <td class="search-target">{{ eleve.lastName }}</td>
+                <td class="search-target">{{ eleve.firstName }}</td>
+                <td class="mobile-hidden-td search-target">{{ eleve.birthday|date('d/m/Y') }}</td>
 
                 <td class="text-center">
                     {% if eleve.classes|length > 0 %}
@@ -97,4 +102,5 @@
 
 {% block javascripts %}
     {{ encore_entry_script_tags('modalDialogs') }}
+    {{ encore_entry_script_tags('search') }}
 {% endblock %}

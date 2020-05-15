@@ -8,6 +8,11 @@
     {% include 'help/help-dialog.html.twig' %}
 {% endblock %}
 
+{% block titleBottom %}
+    {% set placeholder = 'Search for activity'|trans %}
+    {% include 'search.html.twig' %}
+{% endblock %}
+
 {% block body %}
     <table class="full-width">
         <thead>
@@ -26,11 +31,11 @@
         {% for activite in activites %}
             {% set owner = (activite.user is same as(app.user)) ? true : false %}
             <tr data-id="{{ activite.id }}" data-trigger="{{ path('activite_edit', {'id': activite.id}) }}">
-                <td>{{ activite.classe }}</td>
-                <td class="mobile-hidden-td">{{ activite.user }}</td>
-                <td>{{ activite.name }}</td>
-                <td class="mobile-hidden-td">{{ activite.dateAdded|date('d/m/Y') }}</td>
-                <td class="mobile-hidden-td">{{ activite.periode.name }}</td>
+                <td class="search-target">{{ activite.classe }}</td>
+                <td class="mobile-hidden-td search-target">{{ activite.user }}</td>
+                <td class="search-target">{{ activite.name }}</td>
+                <td class="mobile-hidden-td search-target">{{ activite.dateAdded|date('d/m/Y') }}</td>
+                <td class="mobile-hidden-td search-target">{{ activite.periode.name }}</td>
 
                 <!-- Note activity -->
                 <td class="text-center">
@@ -101,4 +106,5 @@
 
 {% block javascripts %}
     {{ encore_entry_script_tags('modalDialogs') }}
+    {{ encore_entry_script_tags('search') }}
 {% endblock %}

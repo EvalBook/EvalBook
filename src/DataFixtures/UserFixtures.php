@@ -74,8 +74,6 @@ class UserFixtures extends Fixture
                      'ROLE_CLASS_DELETE',
                      'ROLE_CLASS_EDIT_STUDENTS',
                      'ROLE_CLASS_EDIT_USERS',
-                     // Notebook related.
-                     'ROLE_NOTEBOOK_VIEW',
                  ));
 
             $manager->persist($user);

@@ -1,0 +1,10 @@
+{% block head %}
+    {{ encore_entry_link_tags('search-style') }}
+{% endblock %}
+
+<div class="search-box">
+    <label for="search-box">
+        <span class="fa fa-search fa-flip-horizontal fa-2x"></span>
+    </label>
+    <input type="search" id="search-box" placeholder="{{ placeholder is defined ? placeholder : '...' }}">
+</div>

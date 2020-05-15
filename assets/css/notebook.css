@@ -1,0 +1,59 @@
+#notebook {
+    overflow-y: auto;
+}
+
+#notebook th, #notebook td:not(.names) {
+    min-width: 5em;
+    max-width: 5em;
+}
+
+td.names {
+    min-width: 13em;
+    max-width: 13em;
+}
+
+.sticky-top {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+}
+
+.sticky-left {
+    position: sticky;
+    left:0;
+    z-index: 2;
+}
+
+.sticky-even {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.sticky-odd {
+    background-color: var(--background-color);
+    border-bottom: 1px solid #ddd;
+}
+
+.bordered {
+    border-left: 1px solid #cdd0d4;
+    border-bottom: 1px solid #cdd0d4;
+}
+
+th.rotate {
+    height: 110px;
+    white-space: nowrap;
+}
+
+th.rotate > div {
+    transform:
+            translate(25px, 51px)
+            rotate(335deg);
+    width: 30px;
+    margin-left: -2.5em;
+}
+
+th.rotate > div > span {
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    padding: 5px 10px;
+}
