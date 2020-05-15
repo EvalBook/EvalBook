@@ -15,11 +15,13 @@ Encore
     .addEntry('modalDialogs', './assets/js/modal-dialogs.js')
     .addEntry('controls', './assets/js/controls.js')
     .addEntry('api', './assets/js/api.js')
+    .addEntry('search', './assets/js/search.js')
 
     // CSS.
     .addStyleEntry('theme', './assets/css/theme.css')
     .addStyleEntry('dialogs', './assets/css/dialogs.css')
     .addStyleEntry('notebook-style', './assets/css/notebook.css')
+    .addStyleEntry('search-style', './assets/css/search.css')
 
     // Copying images files.
     .copyFiles({

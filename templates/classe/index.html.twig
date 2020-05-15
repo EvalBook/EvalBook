@@ -8,6 +8,12 @@
     {% include 'help/help-dialog.html.twig' %}
 {% endblock %}
 
+{% block titleBottom %}
+    {% set placeholder = 'Search for class'|trans %}
+    {% include 'search.html.twig' %}
+{% endblock %}
+
+
 {% block body %}
     <table class="full-width">
         <thead>
@@ -39,8 +45,8 @@
         <tbody>
         {% for classe in classes %}
             <tr data-id="{{ classe.id }}" data-trigger="{{ path('classe_edit', {'id': classe.id}) }}">
-                <td>{{ classe.implantation }}</td>
-                <td>{{ classe.name }}</td>
+                <td class="search-target">{{ classe.implantation }}</td>
+                <td class="search-target">{{ classe.name }}</td>
                 <td class="mobile-hidden-td">{{ classe.titulaire }}</td>
 
                 <td class="text-center">
@@ -137,4 +143,5 @@
 
 {% block javascripts %}
     {{ encore_entry_script_tags('modalDialogs') }}
+    {{ encore_entry_script_tags('search') }}
 {% endblock %}

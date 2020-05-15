@@ -8,6 +8,11 @@
     {% include 'help/help-dialog.html.twig' %}
 {% endblock %}
 
+{% block titleBottom %}
+    {% set placeholder = 'Search for implantation'|trans %}
+    {% include 'search.html.twig' %}
+{% endblock %}
+
 {% block body %}
     <table class="full-width">
         <thead>
@@ -31,10 +36,10 @@
         <tbody>
         {% for implantation in implantations %}
             <tr data-id="{{ implantation.id }}" data-trigger="{{ path('implantation_edit', {'id': implantation.id}) }}">
-                <td>{{ implantation.name }}</td>
-                <td class="mobile-hidden-td">{{ implantation.address }}</td>
+                <td class="search-target">{{ implantation.name }}</td>
+                <td class="mobile-hidden-td search-target">{{ implantation.address }}</td>
                 <td class="mobile-hidden-td">{{ implantation.zipCode }}</td>
-                <td class="mobile-hidden-td">{{ implantation.country }}</td>
+                <td class="mobile-hidden-td search-target">{{ implantation.country }}</td>
 
                 {# Display implantation class count with a link if user has rights to see clesses. #}
                 <td class="text-center">
@@ -114,4 +119,5 @@
 
 {% block javascripts %}
     {{ encore_entry_script_tags('modalDialogs') }}
+    {{ encore_entry_script_tags('search') }}
 {% endblock %}
