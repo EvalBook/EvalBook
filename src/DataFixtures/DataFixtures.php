@@ -135,7 +135,7 @@ class DataFixtures extends Fixture implements ContainerAwareInterface, FixtureIn
                     ->setName("Primaire $j")
                     ->setImplantation($implantation)
                     ->setStudents($faker->randomElements($students, mt_rand(10, 25)))
-                    ->setUsers($faker->randomElements($users, mt_rand(2, 5)))
+                    ->setUsers($faker->randomElements($users, mt_rand(2, 4)))
                     ->setTitulaire($faker->randomElement($users))
                 ;
                 $em->persist($classe);
@@ -148,7 +148,7 @@ class DataFixtures extends Fixture implements ContainerAwareInterface, FixtureIn
 
                     $activity
                         ->setName("Activité $name $k")
-                        ->setUser($faker->randomElement($users))
+                        ->setUser($faker->randomElement($classe->getUsers()))
                         ->setPeriode($faker->randomElement($classe->getImplantation()->getPeriodes()))
                         ->setComment("Generated activity comment N° $k")
                         ->setNoteType($activityNoteType)
