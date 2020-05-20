@@ -13,8 +13,17 @@ use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
+/**
+ * Class PeriodeType
+ * @package App\Form
+ */
 class PeriodeType extends AbstractType
 {
+    /**
+     * Build a form for Period entity ( create new periods )
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -39,6 +48,7 @@ class PeriodeType extends AbstractType
 
             ->add('dateEnd', DateType::class, [
                 'constraints' => [
+                    // Enable callback to check if start date is lower than period end date.
                     new Callback(function($object, ExecutionContextInterface $context) {
                         // Getting the period as it was sent with form.
                         $periode = $context->getRoot()->getData();
@@ -60,6 +70,10 @@ class PeriodeType extends AbstractType
     }
 
 
+    /**
+     * Default options.
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

@@ -367,6 +367,10 @@ class User implements UserInterface
     }
 
 
+    /**
+     * Return students that are attached to at least one of this user class.
+     * @return array
+     */
     public function getEleves()
     {
         $students = array();
@@ -376,7 +380,7 @@ class User implements UserInterface
             }
         }
 
-        return $students;
+        return array_unique($students);
     }
 
 
@@ -411,11 +415,20 @@ class User implements UserInterface
         );
     }
 
+    /**
+     * Return the User string representation.
+     * @return string
+     */
     public function __toString()
     {
         return $this->getFirstName() . " " . $this->getLastName();
     }
 
+
+    /**
+     * Unused -> interface related method.
+     * @return string|void|null
+     */
     public function getSalt()
     {
         // Implement getSalt() method.

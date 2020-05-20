@@ -135,6 +135,7 @@ class Eleve
 
 
     /**
+     * Set the student birthday.
      * @param DateTime $birthday
      */
     public function setBirthday(DateTime $birthday) {
@@ -256,7 +257,10 @@ class Eleve
     }
 
 
-
+    /**
+     * Return the Eleve string representation.
+     * @return string
+     */
     public function __toString()
     {
         return $this->getLastName() . " " . $this->getFirstName();

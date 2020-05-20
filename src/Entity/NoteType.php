@@ -158,6 +158,10 @@ class NoteType
     }
 
 
+    /**
+     * Return NoteType string representation.
+     * @return string
+     */
     public function __toString()
     {
         return "Range - " . $this->getName();

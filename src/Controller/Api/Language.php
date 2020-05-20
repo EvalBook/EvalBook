@@ -25,7 +25,7 @@ class Language extends AbstractController {
     public function getString(Request $request, TranslatorInterface $translator)
     {
         $jsonRequest = json_decode($request->getContent(), true);
-
+        // Send missing parameter if translation domain is not provided.
         if(!isset($jsonRequest['domain']) || !isset($jsonRequest['strings'])) {
             // Send 'Missing parameter code' in case translation domain was not provided.
             return $this->json(['message' => 'Missing parameter'], 201);

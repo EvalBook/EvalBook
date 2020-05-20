@@ -1,4 +1,7 @@
-
+/**
+ * Literal Javascript object provifind searches on tables elements tagged with .target-entity CSS class.
+ * @type {{process: Search.process}}
+ */
 Search = {
 
     /**

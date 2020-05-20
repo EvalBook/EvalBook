@@ -25,12 +25,23 @@ class ResetPasswordRequest implements ResetPasswordRequestInterface
      */
     private $user;
 
+    /**
+     * ResetPasswordRequest constructor.
+     * @param object $user
+     * @param \DateTimeInterface $expiresAt
+     * @param string $selector
+     * @param string $hashedToken
+     */
     public function __construct(object $user, \DateTimeInterface $expiresAt, string $selector, string $hashedToken)
     {
         $this->user = $user;
         $this->initialize($expiresAt, $selector, $hashedToken);
     }
 
+    /**
+     * Return the current user.
+     * @return object
+     */
     public function getUser(): object
     {
         return $this->user;

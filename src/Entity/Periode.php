@@ -213,6 +213,10 @@ class Periode
     }
 
 
+    /**
+     * Return the Periode string representation.
+     * @return string
+     */
     public function __toString()
     {
         return $this->getName() . " (" . $this->getDateStart()->format('d/m/Y') . " - " . $this->getDateEnd()->format('d/m/Y') . ") ";

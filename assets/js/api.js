@@ -1,4 +1,7 @@
-
+/**
+ * Perform Ajax requests.
+ * @type {{baseUrl: string, query: (function(*, *=, *=): any)}}
+ */
 let Api = {
     // The base url to call in order to consume api.
     baseUrl: window.location.protocol + "//" + window.location.host,
@@ -20,6 +23,7 @@ let Api = {
 
     }
 };
+
 
 /**
  * Handle translations api requests.

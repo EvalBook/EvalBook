@@ -30,6 +30,11 @@ class ResetPasswordController extends AbstractController
     private $resetPasswordHelper;
     private $translator;
 
+    /**
+     * ResetPasswordController constructor.
+     * @param ResetPasswordHelperInterface $resetPasswordHelper
+     * @param TranslatorInterface $translator
+     */
     public function __construct(ResetPasswordHelperInterface $resetPasswordHelper, TranslatorInterface $translator)
     {
         $this->resetPasswordHelper = $resetPasswordHelper;
@@ -41,6 +46,7 @@ class ResetPasswordController extends AbstractController
      * Display & process form to request a password reset.
      *
      * @Route("", name="app_forgot_password_request")
+     *
      * @param Request $request
      * @param MailerInterface $mailer
      * @return Response
@@ -84,6 +90,7 @@ class ResetPasswordController extends AbstractController
      * Validates and process the reset URL that the user clicked in their email.
      *
      * @Route("/reset/{token}", name="app_reset_password")
+     *
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param string|null $token
@@ -142,6 +149,7 @@ class ResetPasswordController extends AbstractController
 
 
     /**
+     * Send the password reset link to user.
      * @param string $emailFormData
      * @param MailerInterface $mailer
      * @return RedirectResponse

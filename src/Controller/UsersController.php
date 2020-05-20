@@ -51,6 +51,7 @@ class UsersController extends AbstractController
     /**
      * @Route("/users", name="users")
      * @IsGranted("ROLE_USER_LIST_ALL", statusCode=404, message="Not found")
+     *
      * @param UserRepository $repository
      * @return Response
      */
