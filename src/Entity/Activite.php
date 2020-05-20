@@ -39,7 +39,6 @@ class Activite
 
     /**
      * @ORM\Column(type="datetime", nullable=false)
-     * @ORM\GeneratedValue()
      */
     private $dateAdded;
 

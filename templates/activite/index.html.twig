@@ -40,7 +40,7 @@
                 <!-- Note activity -->
                 <td class="text-center">
                     {% if owner %}
-                        <a href="{{ path('activite_note_add', {'id': activite.id}) }}">
+                        <a href="{{ path('activite_note_add', {'id': activite.id}) }}" title="Add activity notes">
                             <i class="fas fa-medal text-yellow"></i>
                         </a>
                     {% else %}
@@ -51,7 +51,7 @@
                 <!-- Edit activity -->
                 <td class="text-center mobile-hidden-td">
                     {% if owner %}
-                        <a href="{{ path('activite_edit', {'id': activite.id}) }}">
+                        <a href="{{ path('activite_edit', {'id': activite.id}) }}" title="Edit activity">
                             <i class="fas fa-edit"></i>
                         </a>
                     {% else %}
@@ -89,7 +89,7 @@
 
 {% block functionnalities %}
     {% if classes|length > 0 %}
-        <a href="{{ path('activite_add') }}">
+        <a href="{{ path('activite_add') }}" title="Add activity">
             <i class="fas fa-plus"></i>
         </a>
     {% endif %}
@@ -98,7 +98,7 @@
 
 {% block functionnalitiesMobile %}
     {% if classes|length > 0 %}
-        <a href="{{ path('activite_add') }}">
+        <a href="{{ path('activite_add') }}" title="Add activity">
             <i class="fas fa-plus"></i>
         </a>
     {% endif %}

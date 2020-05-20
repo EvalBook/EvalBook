@@ -11,7 +11,10 @@ let Controls = {
         this.initHelpMessages();
     },
 
-
+    /**
+     * Hide dialog messages success / error windows by completely removing them.
+     * @private
+     */
     _hideDialog: function() {
         // Hiding dialog errors / dialog success after 5 seconds.
         let dialogs = document.getElementsByClassName("dialog");
@@ -19,7 +22,6 @@ let Controls = {
             dialog.parentElement.removeChild(dialog);
         }
     },
-
 
     /**
      * Hide not mobile elements.
@@ -37,7 +39,6 @@ let Controls = {
             });
         }
     },
-
 
     /**
      * Init mobile only behavior.
@@ -60,7 +61,6 @@ let Controls = {
             }
         });
     },
-
 
     /**
      * Init the page help message.

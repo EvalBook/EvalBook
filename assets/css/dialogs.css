@@ -29,6 +29,12 @@
     padding: 50px;
 }
 
+.dialog-confirm {
+    height: 8em;
+    width: 40em;
+    font-weight: bold;
+}
+
 .dialog-error {
     background-color: #D98484;
 }
@@ -37,11 +43,6 @@
     background-color: #82d9a7;
 }
 
-.dialog-confirm {
-    height: 8em;
-    width: 40em;
-    font-weight: bold;
-}
 
 .dialog-mobile-menu {
     width: 50%;

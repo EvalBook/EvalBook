@@ -44,7 +44,7 @@
                 {# Display implantation class count with a link if user has rights to see clesses. #}
                 <td class="text-center">
                     {% if is_granted('ROLE_CLASS_LIST_ALL') %}
-                        <a href="{{ path('implantation_view_classes', {'id': implantation.id} ) }}">
+                        <a href="{{ path('implantation_view_classes', {'id': implantation.id} ) }}" title="View classes">
                             <i class="fas fa-eye"></i> ({{ implantation.classes|length }})
                         </a>
                     {% else %}
@@ -57,13 +57,13 @@
 
                     <!-- Implantation periods -->
                     <td class="text-center mobile-hidden-td">
-                        <a href="{{ path('implantation_period_list', {'id': implantation.id}) }}">
+                        <a href="{{ path('implantation_period_list', {'id': implantation.id}) }}" title="View implantation periods">
                             <i class="fas fa-stopwatch"></i>
                         </a>
                     </td>
                     <!-- Implantation edition -->
                     <td class="text-center mobile-hidden-td">
-                        <a href="{{ path('implantation_edit', {'id': implantation.id}) }}">
+                        <a href="{{ path('implantation_edit', {'id': implantation.id}) }}" title="Edit implantation">
                             <i class="fas fa-edit"></i>
                         </a>
                     </td>
@@ -102,7 +102,7 @@
 
 {% block functionnalities %}
     {% if is_granted('ROLE_IMPLANTATION_CREATE') %}
-        <a href="{{ path('implantation_add') }}">
+        <a href="{{ path('implantation_add') }}" title="Add implantation">
             <i class="fas fa-plus"></i>
         </a>
     {% endif %}
@@ -111,7 +111,7 @@
 
 {% block functionnalitiesMobile %}
     {% if is_granted('ROLE_IMPLANTATION_CREATE') %}
-        <a href="{{ path('implantation_add') }}">
+        <a href="{{ path('implantation_add') }}" title="Add implantation">
             <i class="fas fa-plus"></i>
         </a>
     {% endif %}

@@ -60,7 +60,13 @@ let ModalDialog = function(parent, className, action, csrf, targetId) {
         parent.appendChild(this.modalDiv);
     }
 
-
+    /**
+     * Api response callback, create status dialog and delete target deleted element.
+     * @param error
+     * @param target
+     * @param messages
+     * @private
+     */
     this._actionRequestCallback = function(error, target, messages) {
         let element = document.querySelector(`[data-id="${target}"]`);
 

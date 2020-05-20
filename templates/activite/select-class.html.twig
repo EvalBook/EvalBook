@@ -21,7 +21,7 @@
                 <td>{{ classe.name }}</td>
                 <td class="text-center mobile-hidden-td">{{ classe.activites|length }}</td>
                 <td>
-                    <a href="{{ path('activite_add', {'classe': classe.id} ) }}">
+                    <a href="{{ path('activite_add', {'classe': classe.id} ) }}" title="Add activity to the class">
                         <i class="fas fa-plus text-yellow"></i>
                     </a>
                 </td>

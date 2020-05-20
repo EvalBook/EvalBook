@@ -48,13 +48,13 @@
                 <!-- User top right links -->
                 <div id="user-links">
                     <div class="menuTopIcon">
-                        <a href="{{ path('user_profile') }}">
+                        <a href="{{ path('user_profile') }}" title="User profile">
                             <i class="fas fa-user"></i>
                             <span>{{ 'My profile'|trans }}</span>
                         </a>
                     </div>
                     <div class="menuTopIcon">
-                        <a href="{{ path('app_logout') }}">
+                        <a href="{{ path('app_logout') }}" title="Log out">
                             <i class="fas fa-sign-out-alt"></i>
                             <span>{{ 'Log out'|trans }}</span>
                         </a>
@@ -66,7 +66,7 @@
             <!-- Navigation -->
             <nav>
                 {% if is_granted('ROLE_CLASS_LIST_ALL') or ( app.user.classes is defined and app.user.classes|length > 0) %}
-                    <a href="{{ path('classes') }}">
+                    <a href="{{ path('classes') }}" title="Classes">
                         <div class="menuItem">
                             <i class="fas fa-clock"></i>
                             <span>{{ 'Classes'|trans }}</span>
@@ -74,23 +74,21 @@
                     </a>
                 {% endif %}
 
-
-                <a href="{{ path('eleves') }}">
+                <a href="{{ path('eleves') }}" title="Students">
                     <div class="menuItem">
                         <i class="fas fa-user-graduate"></i>
                         <span>{{ 'Students'|trans }}</span>
                     </div>
                 </a>
 
-
-                <a href="{{ path('activites') }}">
+                <a href="{{ path('activites') }}" title="Activities">
                     <div class="menuItem">
                         <i class="fas fa-brain"></i>
                         <span>{{ 'Activities'|trans }}</span>
                     </div>
                 </a>
 
-                <a href="{{ path('note_book_select_class') }}">
+                <a href="{{ path('note_book_select_class') }}" title="Notebook">
                     <div class="menuItem">
                         <i class="fas fa-book-open"></i>
                         <span>{{ 'Notebook'|trans }}</span>
@@ -99,7 +97,7 @@
 
                 {# Display implantation menu if Admin / ROLE_IMPLANTATION_LIST_ALL #}
                 {% if is_granted('ROLE_IMPLANTATION_LIST_ALL') %}
-                    <a href="{{ path('implantations') }}">
+                    <a href="{{ path('implantations') }}" title="Implantations">
                         <div class="menuItem">
                             <i class="fas fa-school"></i>
                             <span>{{ 'Implantations'|trans }}</span>
@@ -108,7 +106,7 @@
                 {% endif %}
 
                 {% if is_granted('ROLE_USER_LIST_ALL') %}
-                    <a href="{{ path('users') }}">
+                    <a href="{{ path('users') }}" title="Users">
                         <div class="menuItem">
                             <i class="fas fa-users"></i>
                             <span>{{ 'Users'|trans }}</span>
@@ -135,15 +133,22 @@
                     </ul>
                     <ul>
                         {% if is_granted('ROLE_USER_LIST_ALL') %}
-                            <li><a href="{{ path('users') }}">{{ 'Users'|trans }}</a></li>
+                            <li>
+                                <a href="{{ path('users') }}" title="Users">{{ 'Users'|trans }}</a>
+                            </li>
                         {% endif %}
 
                         {% if is_granted('ROLE_IMPLANTATION_LIST_ALL') %}
-                            <li><a href="{{ path('implantations') }}">{{ 'Implantations'|trans }}</a></li>
+                            <li>
+                                <a href="{{ path('implantations') }}" title="Implantations">{{ 'Implantations'|trans }}</a>
+                            </li>
                         {% endif %}
-
-                        <li><a href="{{ path('user_profile') }}">{{ 'My profile'|trans }}</li>
-                        <li><a href="{{ path('app_logout') }}">{{ 'Log out'|trans }}</a></li>
+                        <li>
+                            <a href="{{ path('user_profile') }}" title="Profile">{{ 'My profile'|trans }}
+                        </li>
+                        <li>
+                            <a href="{{ path('app_logout') }}" title="Log out">{{ 'Log out'|trans }}</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -172,10 +177,9 @@
             <span>{{ 'Source code on'|trans }} </span><a href="https://github.com/EvalBook/EvalBook" title="Eval book github repository">Github</a>
         </p>
         <nav id="mobile-menu">
-
             <!-- Quick access on mobile bottom. -->
             {% if is_granted('ROLE_CLASS_LIST_ALL') or ( app.user.classes is defined and app.user.classes|length > 0) %}
-                <a href="{{ path('classes') }}">
+                <a href="{{ path('classes') }}" title="Classes">
                     <div class="menuItem">
                         <i class="fas fa-clock"></i>
                         <span>{{ 'Classes'|trans }}</span>
@@ -184,7 +188,7 @@
             {% endif %}
 
             {% if is_granted('ROLE_STUDENT_LIST_ALL') %}
-                <a href="{{ path('eleves') }}">
+                <a href="{{ path('eleves') }}" title="Students">
                     <div class="menuItem">
                         <i class="fas fa-user-graduate"></i>
                         <span>{{ 'Students'|trans }}</span>
@@ -192,20 +196,19 @@
                 </a>
             {% endif %}
 
-            <a href="{{ path('activites') }}">
+            <a href="{{ path('activites') }}" title="Activites">
                 <div class="menuItem">
                     <i class="fas fa-brain"></i>
                     <span>{{ 'Activities'|trans }}</span>
                 </div>
             </a>
 
-            <a href="{{ path('note_book_select_class') }}">
+            <a href="{{ path('note_book_select_class') }}" title="Classes">
                 <div class="menuItem">
                     <i class="fas fa-book-open"></i>
                     <span>{{ 'Notebook'|trans }}</span>
                 </div>
             </a>
-
         </nav>
     </footer>
 

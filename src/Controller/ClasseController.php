@@ -32,7 +32,7 @@ class ClasseController extends AbstractController
         $user = $security->getUser();
 
         // Getting all classes if user has role to view all.
-        if($security->isGranted('ROLE_STUDENT_LIST_ALL'))
+        if($security->isGranted('ROLE_CLASS_LIST_ALL'))
             $classes = $classeRepository->findAll();
         // If not, getting classes the user is subscribed to.
         else

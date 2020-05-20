@@ -4,7 +4,9 @@
 
 <p>
     {{ 'To reset your password, please visit'|trans}}
-    <a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ 'this link'|trans }}</a>
+    <a href="{{ url('app_reset_password', {token: resetToken.token}) }}" title="Click to reset">
+        {{ 'this link'|trans }}
+    </a>
     {{ 'The link will expire quickly'|trans }}
 </p>
 
