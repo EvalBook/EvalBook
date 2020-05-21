@@ -22,6 +22,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use mysql_xdevapi\CollectionAdd;
 
 
 /**
@@ -113,12 +114,17 @@ class Classe
 
 
     /**
-     * Return the available Classe Users ( eg: Prof, Special master, ... all allowed users to manage the Class ).
+     * Return the available Classe Users, including 'titulaire'.
+     * @param bool|null $includeTitulaire
      * @return Collection|User[]
      */
     public function getUsers(): Collection
     {
-        return $this->users;
+        $users = $this->users;
+        if($this->getTitulaire() && !$users->contains($this->getTitulaire()))
+            $users->add($this->getTitulaire());
+
+        return $users;
     }
 
 
@@ -173,7 +179,7 @@ class Classe
 
     /**
      * Removes all students in a class and add new ones passed.
-     * @param array $usersCollection
+     * @param array $studentsCollection
      * @return $this
      */
     public function setStudents(array $studentsCollection)

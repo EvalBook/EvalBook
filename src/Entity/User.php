@@ -191,7 +191,7 @@ class User implements UserInterface
     public function setPassword(?string $password): self
     {
         if(!is_null($password)) {
-            $this->password = $password;
+            $this->password = password_hash($password, PASSWORD_BCRYPT);
         }
         return $this;
     }
@@ -258,7 +258,15 @@ class User implements UserInterface
      */
     public function getClasses(): Collection
     {
-        return $this->classes;
+        $classes = $this->classes;
+        foreach($this->getClasseTitulaire() as $classeTitulaire)
+        {
+            if(!$classes->contains($classeTitulaire)) {
+                $classes[] = $classeTitulaire;
+            }
+        }
+
+        return $classes;
     }
 
 
@@ -340,9 +348,9 @@ class User implements UserInterface
 
     /**
      * Return the Classe the User is 'titulaire'.
-     * @return Classe|null
+     * @return Collection|null
      */
-    public function getClasseTitulaire(): ?Classe
+    public function getClasseTitulaire(): ?Collection
     {
         return $this->classesTitulaire;
     }
@@ -375,7 +383,7 @@ class User implements UserInterface
     {
         $students = array();
         foreach($this->getClasses() as $classe) {
-            foreach($classe->getEleves() as $eleve) {
+            foreach ($classe->getEleves() as $eleve) {
                 $students[] = $eleve;
             }
         }
