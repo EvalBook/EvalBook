@@ -36,6 +36,7 @@ class ClasseController extends AbstractController
             $classes = $classeRepository->findAll();
         // If not, getting classes the user is subscribed to.
         else
+            // Ajouter le cas du titulaire de classe
             $classes = $user->getClasses();
 
         return $this->render('classe/index.html.twig', [
