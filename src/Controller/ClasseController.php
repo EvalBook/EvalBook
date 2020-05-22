@@ -7,10 +7,12 @@ use App\Entity\Eleve;
 use App\Entity\User;
 use App\Form\ClasseType;
 use App\Repository\ClasseRepository;
+use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,11 +34,14 @@ class ClasseController extends AbstractController
         $user = $security->getUser();
 
         // Getting all classes if user has role to view all.
-        if($security->isGranted('ROLE_STUDENT_LIST_ALL'))
+        if ($security->isGranted('ROLE_CLASS_LIST_ALL')) {
             $classes = $classeRepository->findAll();
-        // If not, getting classes the user is subscribed to.
-        else
+        }
+        else {
+            // If not, getting classes the user is subscribed to.
+            // Ajouter le cas du titulaire de classe
             $classes = $user->getClasses();
+        }
 
         return $this->render('classe/index.html.twig', [
             'classes' => $classes,
@@ -133,11 +138,21 @@ class ClasseController extends AbstractController
      * @Route("/classe/users/{id}", name="classe_manage_users")
      * @IsGranted("ROLE_CLASS_EDIT_USERS", statusCode=404, message="Not found")
      *
+     * @param UserRepository $userRepository
      * @param Request $request
      * @param Classe $classe
+     * @return RedirectResponse|Response
      */
-    public function manageClassUsers(Request $request, Classe $classe)
+    public function manageClassUsers(UserRepository $userRepository, Request $request, Classe $classe)
     {
+        $formUsers = $userRepository->findAll();
+        // Removing titulaire as it has full rights on his class.
+        $titulaire = $classe->getTitulaire();
+        if($titulaire && in_array($titulaire, $formUsers)) {
+            if($key = array_search($titulaire, $formUsers))
+                unset($formUsers[$key]);
+        }
+
         $form = $this->createFormBuilder([
                 'users' => $classe->getUsers(),
               ])
@@ -148,6 +163,7 @@ class ClasseController extends AbstractController
                   'expanded' => true,
                   // !! Remember this to force storing without refernce^^
                   'by_reference' => false,
+                  'choices' => $formUsers,
               ])
 
               // Submit button.

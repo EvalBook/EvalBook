@@ -10,6 +10,7 @@
         <tr>
             <th>{{ 'Implantation'|trans }}</th>
             <th>{{ 'Class'|trans }}</th>
+            <th>{{ 'Owner'|trans }}</th>
             <th></th>
         </tr>
         </thead>
@@ -19,10 +20,19 @@
                 <td>{{ classe.implantation }}</td>
                 <td>{{ classe.name }}</td>
                 <td>
+                    {% if app.user is same as(classe.titulaire) %}
+                        <span><< <strong>{{ 'Me'|trans }}</strong> >></span>
+                    {% else %}
+                        {{ classe.titulaire }}
+                    {% endif%}
+                </td>
+                <td>
                     {% if classe.activites|length > 0 %}
-                        <a href="{{ path('note_book_view', {'classe': classe.id} ) }}">
+                        <a href="{{ path('note_book_view', {'classe': classe.id} ) }}" title="View this notebook">
                             <i class="fas fa-eye"></i>
                         </a>
+                    {% else %}
+                        <span class="text-center">-</span>
                     {% endif %}
                 </td>
             </tr>

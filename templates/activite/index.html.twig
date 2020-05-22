@@ -29,19 +29,31 @@
         </thead>
         <tbody>
         {% for activite in activites %}
+
             {% set owner = (activite.user is same as(app.user)) ? true : false %}
+            {% set editable = activite.periode.dateEnd > date() %}
+
             <tr data-id="{{ activite.id }}" data-trigger="{{ path('activite_edit', {'id': activite.id}) }}">
                 <td class="search-target">{{ activite.classe }}</td>
-                <td class="mobile-hidden-td search-target">{{ activite.user }}</td>
+
+                <td class="mobile-hidden-td search-target">
+                    {%  if owner %}
+                        <span><< <strong>{{ 'Me'|trans }}</strong> >></span>
+                    {% else %}
+                        {{ activite.user }}
+                    {% endif %}
+                </td>
+
                 <td class="search-target">{{ activite.name }}</td>
                 <td class="mobile-hidden-td search-target">{{ activite.dateAdded|date('d/m/Y') }}</td>
                 <td class="mobile-hidden-td search-target">{{ activite.periode.name }}</td>
 
                 <!-- Note activity -->
-                <td class="text-center">
-                    {% if owner %}
-                        <a href="{{ path('activite_note_add', {'id': activite.id}) }}">
-                            <i class="fas fa-medal text-yellow"></i>
+                <td class="search-target text-center">
+                    {% if owner and editable %}
+                        <a href="{{ path('activite_note_add', {'id': activite.id}) }}" title="Add activity notes">
+                            {% set cssClass = activite.notes|length > 0 ? 'text-yellow' : 'text-red'  %}
+                            <i class="fas fa-medal {{ cssClass }}"></i>
                         </a>
                     {% else %}
                         <span>-</span>
@@ -50,8 +62,8 @@
 
                 <!-- Edit activity -->
                 <td class="text-center mobile-hidden-td">
-                    {% if owner %}
-                        <a href="{{ path('activite_edit', {'id': activite.id}) }}">
+                    {% if owner and editable %}
+                        <a href="{{ path('activite_edit', {'id': activite.id}) }}" title="Edit activity">
                             <i class="fas fa-edit"></i>
                         </a>
                     {% else %}
@@ -61,7 +73,7 @@
 
                 <!-- Delete activity -->
                 <td class="text-center mobile-hidden-td">
-                    {% if owner %}
+                    {% if owner and editable %}
                         <div data-target="activite"
                              data-targetid="{{ activite.id }}"
                              data-action="{{ path('activite_delete', {'id': activite.id}) }}"
@@ -73,6 +85,7 @@
                         <span>-</span>
                     {% endif %}
                 </td>
+
             </tr>
         {% else %}
             <tr>
@@ -89,7 +102,7 @@
 
 {% block functionnalities %}
     {% if classes|length > 0 %}
-        <a href="{{ path('activite_add') }}">
+        <a href="{{ path('activite_add') }}" title="Add activity">
             <i class="fas fa-plus"></i>
         </a>
     {% endif %}
@@ -98,7 +111,7 @@
 
 {% block functionnalitiesMobile %}
     {% if classes|length > 0 %}
-        <a href="{{ path('activite_add') }}">
+        <a href="{{ path('activite_add') }}" title="Add activity">
             <i class="fas fa-plus"></i>
         </a>
     {% endif %}

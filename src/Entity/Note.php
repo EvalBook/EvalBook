@@ -19,8 +19,7 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -209,8 +208,8 @@ class Note
             return true;
         }
 
-        $lower = strtolower(substr($noteType->getPonderation(), 0, strpos($noteType->getPonderation(), '.')));
-        $higher = strtolower(substr($noteType->getPonderation(), 1 + strrpos($noteType->getPonderation(), '.')));
+        $lower = $noteType->getMin();
+        $higher = $noteType->getMax();
 
         // Check format.
         if(!is_numeric($lower)) {
@@ -219,13 +218,21 @@ class Note
                 return false;
 
             $note = strtolower($this->getNote());
+            if(strlen($note) > 1 && 'abs' !== $note)
+                return false;
             $this->setNote(strtoupper($this->getNote()));
             return ord($note) >= ord($lower) && ord($note) <= ord($higher);
         }
 
         $result = is_numeric($this->getNote()) && (int)$this->getNote() >= (int)$lower && (int)$this->getNote() <= $higher;
+        $result = $result || 'abs' === strtolower($this->getNote());
         // Ensure 0000 is stored as 0 to keep the db clean.
-        $this->setNote(intval($this->getNote()));
+
+        if(strtolower($this->getNote()) !== 'abs')
+            $this->setNote(intval($this->getNote()));
+        else
+            $this->setNote(strtoupper($this->getNote()));
+
         return $result;
     }
 }

@@ -10,6 +10,7 @@
         <tr>
             <th>{{ 'Implantation'|trans }}</th>
             <th>{{ 'Class'|trans }}</th>
+            <th>{{ 'Owner'|trans }}</th>
             <th class="text-center mobile-hidden-td">{{ 'Activities'|trans }}</th>
             <th></th>
         </tr>
@@ -19,9 +20,16 @@
             <tr>
                 <td>{{ classe.implantation }}</td>
                 <td>{{ classe.name }}</td>
+                <td>
+                    {%  if app.user is same as(classe.titulaire) %}
+                        <span><< <strong>{{ 'Me'|trans }}</strong> >></span>
+                    {% else %}
+                        {{ classe.titulaire }}
+                    {% endif %}
+                </td>
                 <td class="text-center mobile-hidden-td">{{ classe.activites|length }}</td>
                 <td>
-                    <a href="{{ path('activite_add', {'classe': classe.id} ) }}">
+                    <a href="{{ path('activite_add', {'classe': classe.id} ) }}" title="Add activity to the class">
                         <i class="fas fa-plus text-yellow"></i>
                     </a>
                 </td>

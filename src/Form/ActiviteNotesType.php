@@ -17,6 +17,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class ActiviteNotesType extends AbstractType
 {
+    /**
+     * Create a form for ActiviteNotesType.
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -29,6 +34,10 @@ class ActiviteNotesType extends AbstractType
         ;
     }
 
+    /**
+     * Define default options.
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

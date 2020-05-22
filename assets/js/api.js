@@ -1,7 +1,10 @@
-
+/**
+ * Perform Ajax requests.
+ * @type {{baseUrl: string, query: (function(*, *=, *=): any)}}
+ */
 let Api = {
     // The base url to call in order to consume api.
-    baseUrl: 'https://127.0.0.1:8000',
+    baseUrl: window.location.protocol + "//" + window.location.host,
 
     query: async function(route, body, callback) {
 
@@ -20,6 +23,7 @@ let Api = {
 
     }
 };
+
 
 /**
  * Handle translations api requests.

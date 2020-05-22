@@ -16,6 +16,11 @@ use Symfony\Component\Validator\Constraints\Length;
 class ClasseType extends AbstractType
 {
 
+    /**
+     * Build a form to add / edit classes.
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -44,6 +49,10 @@ class ClasseType extends AbstractType
         ;
     }
 
+    /**
+     * Default options.
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

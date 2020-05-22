@@ -1,11 +1,22 @@
 import {Api, Language} from "./api.js";
 
-
+/**
+ * Create a ModalDialog object enhancing deletion process.
+ * @param parent
+ * @param className
+ * @param action
+ * @param csrf
+ * @param targetId
+ * @constructor
+ */
 let ModalDialog = function(parent, className, action, csrf, targetId) {
 
     this.labels = JSON.parse(localStorage.getItem('labels'));
     this.modalDiv = null;
 
+    /**
+     * Init component by providing a button to click on.
+     */
     this.init = function() {
         let parentLink = document.createElement('a');
         parentLink.innerHTML = `<i class="${className}"></i>`;
@@ -15,6 +26,9 @@ let ModalDialog = function(parent, className, action, csrf, targetId) {
     }
 
 
+    /**
+     * Show the modal dialog on component click.
+     */
     this.showModal = function() {
         this.modalDiv = document.createElement('div');
         let okButton = document.createElement('button');
@@ -60,7 +74,13 @@ let ModalDialog = function(parent, className, action, csrf, targetId) {
         parent.appendChild(this.modalDiv);
     }
 
-
+    /**
+     * Api response callback, create status dialog and delete target deleted element.
+     * @param error
+     * @param target
+     * @param messages
+     * @private
+     */
     this._actionRequestCallback = function(error, target, messages) {
         let element = document.querySelector(`[data-id="${target}"]`);
 

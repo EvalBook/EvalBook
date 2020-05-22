@@ -10,6 +10,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class NoteType extends AbstractType
 {
+    /**
+     * Create a form to add notes to activities.
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -28,10 +33,17 @@ class NoteType extends AbstractType
             ->add('comment', TextType::class, [
                 'label' => false,
                 'required' => false,
+                'attr' => [
+                    'tabindex' => "-1",
+                ]
             ])
         ;
     }
 
+    /**
+     * Default options.
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

@@ -39,7 +39,6 @@ class Activite
 
     /**
      * @ORM\Column(type="datetime", nullable=false)
-     * @ORM\GeneratedValue()
      */
     private $dateAdded;
 
@@ -245,7 +244,6 @@ class Activite
 
     /**
      * Set the activity class.
-     *
      * @param Classe $classe
      */
     public function setClasse(Classe $classe)
@@ -253,6 +251,7 @@ class Activite
         if(!is_null($classe))
             $this->classe = $classe;
     }
+
 
     /**
      * Add a note to the activity.
@@ -299,7 +298,10 @@ class Activite
         return $this;
     }
 
-
+    /**
+     * Return the Activite string representation.
+     * @return string
+     */
     public function __toString()
     {
         return $this->getPeriode() . " - " . $this->getName();

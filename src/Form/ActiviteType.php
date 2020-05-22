@@ -15,6 +15,11 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 class ActiviteType extends AbstractType
 {
 
+    /**
+     * Build a form to add / edit activities.
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -42,6 +47,10 @@ class ActiviteType extends AbstractType
         ;
     }
 
+    /**
+     * Default options.
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

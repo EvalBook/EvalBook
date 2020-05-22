@@ -25,10 +25,13 @@
         </thead>
         <tbody>
 
+        {# counter is used to specify the tab index order #}
+        {% set counter = 0 %}
 
         {% for note in form.notes %}
+            {% set counter = counter + 1 %}
             <tr>
-                <td class="large">
+                <td tabindex="-1" class="large">
                     {{ note.eleve.vars.value }}
                     {% do note.eleve.setRendered() %}
                     {{ form_row(note.comment) }}
@@ -36,7 +39,7 @@
                 <td>{{ 'From'|trans }}
                     {{ activity.noteType.ponderation|replace({'..' : (' ' ~ 'to'|trans ~ ' ') }) }}
                 </td>
-                <td class="bg-yellow small text-center">{{ form_row(note.note) }}</td>
+                <td tabindex="{{ counter }}" class="bg-yellow small text-center">{{ form_row(note.note) }}</td>
             </tr>
         {% else %}
             <tr>

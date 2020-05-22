@@ -10,7 +10,7 @@
 
 {% block body %}
     <div class="flex column full-width">
-        <a class="go-back" href="{{ app.request.headers.get('referer') }}">
+        <a class="go-back" href="{{ app.request.headers.get('referer') }}" title="Go back">
             <i class="fas fa-long-arrow-alt-left"></i>
         </a>
 
@@ -56,7 +56,7 @@
 
                     <td class="text-center">
                         {% set editLink %}
-                            <a href="{{ path('implantation_period_edit', {'id': period.id}) }}">
+                            <a href="{{ path('implantation_period_edit', {'id': period.id}) }}" title="Edit periods">
                                 <i class="fas fa-edit"></i>
                             </a>
                         {% endset %}
@@ -64,7 +64,7 @@
                         {{ (notStarted) ? editLink : '-' }}
                     </td>
 
-                    <td class="text-center" data-mobile="0">
+                    <td class="text-center">
                         {% set deleteLink %}
                             {# Those how can edit implantation can delete periods #}
                             {% if is_granted('ROLE_IMPLANTATION_EDIT') %}
@@ -101,7 +101,7 @@
 
 {% block functionnalities %}
     {% if is_granted('ROLE_IMPLANTATION_EDIT') and periods|length < 6 %}
-        <a href="{{ path('implantation_period_add', {'id': implantation.id}) }}">
+        <a href="{{ path('implantation_period_add', {'id': implantation.id}) }}" title="Add period">
             <i class="fas fa-plus"></i>
         </a>
     {% endif %}
@@ -110,7 +110,7 @@
 
 {% block functionnalitiesMobile %}
     {% if is_granted('ROLE_IMPLANTATION_EDIT') and periods|length < 6 %}
-        <a href="{{ path('implantation_period_add', {'id': implantation.id}) }}">
+        <a href="{{ path('implantation_period_add', {'id': implantation.id}) }}" title="Add period">
             <i class="fas fa-plus"></i>
         </a>
     {% endif %}

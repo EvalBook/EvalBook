@@ -47,11 +47,17 @@
             <tr data-id="{{ classe.id }}" data-trigger="{{ path('classe_edit', {'id': classe.id}) }}">
                 <td class="search-target">{{ classe.implantation }}</td>
                 <td class="search-target">{{ classe.name }}</td>
-                <td class="mobile-hidden-td">{{ classe.titulaire }}</td>
+                <td class="search-target mobile-hidden-td">
+                    {% if app.user is same as(classe.titulaire) %}
+                        <span><< <strong>{{ 'Me'|trans }}</strong> >></span>
+                    {% else %}
+                        {{ classe.titulaire }}
+                    {% endif %}
+                </td>
 
                 <td class="text-center">
                     {% if classe.eleves|length > 0 %}
-                        <a href="{{ path('classe_view_students', {'id': classe.id} ) }}">
+                        <a href="{{ path('classe_view_students', {'id': classe.id} ) }}" title="View class students">
                             <i class="fas fa-eye"></i> ({{ classe.eleves|length }})
                         </a>
                     {% else %}
@@ -61,7 +67,7 @@
 
                 <td class="text-center mobile-hidden-td">
                     {% if classe.users|length > 0 %}
-                        <a href="{{ path('classe_view_users', {'id': classe.id} ) }}">
+                        <a href="{{ path('classe_view_users', {'id': classe.id} ) }}" title="View class users">
                             <i class="fas fa-eye"></i> ({{ classe.users|length }})
                         </a>
                     {% else %}
@@ -72,7 +78,7 @@
                 {% if is_granted('ROLE_CLASS_EDIT') %}
                     {% set params = (redirect is defined) ? {'id': classe.id, 'redirect': redirect} : {'id': classe.id} %}
                     <td class="text-center mobile-hidden-td">
-                        <a href="{{ path('classe_edit', params) }}">
+                        <a href="{{ path('classe_edit', params) }}" title="Edit class">
                             <i class="fas fa-edit"></i>
                         </a>
                     </td>
@@ -80,7 +86,7 @@
 
                 {% if is_granted('ROLE_CLASS_EDIT_STUDENTS') %}
                     <td class="text-center mobile-hidden-td">
-                        <a href="{{ path('classe_manage_students', {'id': classe.id}) }}">
+                        <a href="{{ path('classe_manage_students', {'id': classe.id}) }}" title="Add students to class">
                             <i class="fas fa-wrench"></i>
                         </a>
                     </td>
@@ -88,7 +94,7 @@
 
                 {% if is_granted('ROLE_CLASS_EDIT_USERS') %}
                     <td class="text-center mobile-hidden-td">
-                        <a href="{{ path('classe_manage_users', {'id': classe.id}) }}">
+                        <a href="{{ path('classe_manage_users', {'id': classe.id}) }}" title="Add users to class">
                             <i class="fas fa-cogs"></i>
                         </a>
                     </td>
@@ -126,7 +132,7 @@
 
 {% block functionnalities %}
     {% if is_granted('ROLE_CLASS_CREATE') %}
-        <a href="{{ path('classe_add') }}">
+        <a href="{{ path('classe_add') }}" title="Add class">
             <i class="fas fa-plus"></i>
         </a>
     {% endif %}
@@ -135,7 +141,7 @@
 
 {% block functionnalitiesMobile %}
     {% if is_granted('ROLE_CLASS_CREATE') %}
-        <a href="{{ path('classe_add') }}">
+        <a href="{{ path('classe_add') }}" title="Add class">
             <i class="fas fa-plus"></i>
         </a>
     {% endif %}
