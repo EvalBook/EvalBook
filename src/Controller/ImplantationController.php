@@ -228,6 +228,8 @@ class ImplantationController extends AbstractController
      */
     public function editPeriod(Periode $periode, Request $request)
     {
+        $this->canManipulatePeriod($periode);
+
         $form = $this->createForm(PeriodeType::class, $periode);
         $form->handleRequest($request);
 
@@ -257,6 +259,9 @@ class ImplantationController extends AbstractController
      */
     public function deletePeriod(Periode $periode, Request $request)
     {
+        // Check if period can be deleted.
+        $this->canManipulatePeriod($periode);
+
         $jsonRequest = json_decode($request->getContent(), true);
         if( !isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('implantation_periode_delete'.$periode->getId(), $jsonRequest['csrf'])) {
             return $this->json(['message' => 'Invalid csrf token'], 201);
@@ -272,6 +277,20 @@ class ImplantationController extends AbstractController
         }
 
         return $this->json(['error' => true], 200);
+    }
+
+
+    /**
+     * Check period start date, if period already started or closed, then throwing access denied.
+     * @param Periode|null $periode
+     */
+    private function canManipulatePeriod(?Periode $periode)
+    {
+        if(!is_null($periode)) {
+            if ($periode->getDateStart() < new \DateTime()) {
+                throw $this->createAccessDeniedException();
+            }
+        }
     }
 
 }
