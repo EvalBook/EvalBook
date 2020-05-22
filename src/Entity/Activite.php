@@ -78,6 +78,7 @@ class Activite
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Classe", inversedBy="activites")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $classe;
 
@@ -246,7 +247,7 @@ class Activite
      * Set the activity class.
      * @param Classe $classe
      */
-    public function setClasse(Classe $classe)
+    public function setClasse(?Classe $classe)
     {
         if(!is_null($classe))
             $this->classe = $classe;
@@ -295,6 +296,16 @@ class Activite
         }
         $this->notes = [];
 
+        return $this;
+    }
+
+
+    /**
+     * Detach Class.
+     * @return $this
+     */
+    public function detachClass(): self {
+        $this->classe = null;
         return $this;
     }
 

@@ -3,6 +3,7 @@
         "@symfony/webpack-encore": "^0.29.0",
         "core-js": "^3.0.0",
         "css-loader": "^3.5.3",
+        "font-awesome": "^4.7.0",
         "regenerator-runtime": "^0.13.2",
         "webpack-notifier": "^1.6.0"
     },

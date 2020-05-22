@@ -367,8 +367,10 @@ class User implements UserInterface
 
         // set (or unset) the owning side of the relation if necessary
         $newTitulaire = null === $classeTitulaire ? null : $this;
-        if ($classeTitulaire->getTitulaire() !== $newTitulaire) {
-            $classeTitulaire->setTitulaire($newTitulaire);
+        if(null !== $newTitulaire) {
+            if ($classeTitulaire->getTitulaire() !== $newTitulaire) {
+                $classeTitulaire->setTitulaire($newTitulaire);
+            }
         }
 
         return $this;

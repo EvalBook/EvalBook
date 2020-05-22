@@ -6,6 +6,7 @@ use App\Entity\Classe;
 use App\Entity\Eleve;
 use App\Entity\User;
 use App\Form\ClasseType;
+use App\Repository\ActiviteRepository;
 use App\Repository\ClasseRepository;
 use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -110,26 +111,29 @@ class ClasseController extends AbstractController
      * @Route("/classe/delete/{id}", name="classe_delete", methods={"POST"})
      * @IsGranted("ROLE_CLASS_DELETE", statusCode=404, message="Not found")
      *
+     * @param ActiviteRepository $activiteRepository
      * @param Request $request
      * @param Classe $classe
      * @return Response
      */
-    public function delete(Request $request, Classe $classe): Response
+    public function delete(ActiviteRepository $activiteRepository, Request $request, Classe $classe): Response
     {
         $jsonRequest = json_decode($request->getContent(), true);
         if( !isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('classe_delete'.$classe->getId(), $jsonRequest['csrf'])) {
             return $this->json(['message' => 'Invalid csrf token'], 201);
         }
 
-        // Checking if the class has activities in it.
-        if(! count($classe->getActivites()) > 0) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($classe);
+        $entityManager = $this->getDoctrine()->getManager();
+        // Making activities orphans
+        foreach($classe->getActivites()->toArray() as $activite) {
+            $activite->detachClass();
             $entityManager->flush();
-            return $this->json(['message' => 'Classe deleted'], 200);
         }
 
-        return $this->json(['error' => true], 200);
+        $entityManager->remove($classe);
+        $entityManager->flush();
+        return $this->json(['message' => 'Classe deleted'], 200);
+
     }
 
 
