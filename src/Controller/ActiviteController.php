@@ -29,6 +29,11 @@ class ActiviteController extends AbstractController
         foreach($this->getUser()->getClasses() as $classe) {
             $activities = array_merge($activities, $classe->getActivites()->toArray());
         }
+        // Setting activities with the right order ( by date descending ).
+        usort($activities, function(Activite $one, Activite $two) {
+            return $one->getDateAdded() < $two->getDateAdded();
+        });
+
         // Getting the user activities.
         return $this->render('activite/index.html.twig', [
             'classes' => $this->getUser()->getClasses(),
@@ -223,4 +228,5 @@ class ActiviteController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
 }
