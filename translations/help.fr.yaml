@@ -83,6 +83,7 @@ activites:
       <li><i class="fas fa-trash"></i><span>Supprimer l'activité</span></li>
     </ul>
     Attention, si vous supprimez une activité, alors toutes les notes seront également supprimées !
+    Si la médaille est rouge, cela signifie qu'aucune note n'a été attribuée à l'activité.
 
 periodes:
   title: Les périodes

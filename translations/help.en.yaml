@@ -76,6 +76,7 @@ activites:
       <li><i class="fas fa-trash"></i><span>Delete activity</span></li>
     </ul>
     If you delete an activity, all notes will be deleted too !
+    If the medal color is red, that mean you did not entered notes yet.
 
 periodes:
   title: Periods

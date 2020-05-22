@@ -49,7 +49,8 @@
                 <td class="search-target text-center">
                     {% if owner %}
                         <a href="{{ path('activite_note_add', {'id': activite.id}) }}" title="Add activity notes">
-                            <i class="fas fa-medal text-yellow"></i>
+                            {% set cssClass = activite.notes|length > 0 ? 'text-yellow' : 'text-red'  %}
+                            <i class="fas fa-medal {{ cssClass }}"></i>
                         </a>
                     {% else %}
                         <span>-</span>
