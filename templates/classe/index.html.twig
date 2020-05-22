@@ -47,7 +47,13 @@
             <tr data-id="{{ classe.id }}" data-trigger="{{ path('classe_edit', {'id': classe.id}) }}">
                 <td class="search-target">{{ classe.implantation }}</td>
                 <td class="search-target">{{ classe.name }}</td>
-                <td class="mobile-hidden-td">{{ classe.titulaire }}</td>
+                <td class="mobile-hidden-td">
+                    {% if app.user is same as(classe.titulaire) %}
+                        <span><< <strong>{{ 'Moi'|trans }}</strong> >></span>
+                    {% else %}
+                        {{ classe.titulaire }}
+                    {% endif %}
+                </td>
 
                 <td class="text-center">
                     {% if classe.eleves|length > 0 %}
