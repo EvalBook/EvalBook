@@ -34,6 +34,8 @@ class NoteBookController extends AbstractController
      */
     public function viewNotebook(Classe $classe)
     {
+        $this->checkClassAccesses($classe);
+
         return $this->render('note_book/notebook.html.twig', [
             'classe'  => $classe,
             'notebook' => $this->constructNotebook($classe),
@@ -90,5 +92,19 @@ class NoteBookController extends AbstractController
             $periods[] = $activite->getPeriode()->getName();
         }
         return array_count_values($periods);
+    }
+
+    /**
+     * Check the provided class user acces and throw access denied if user does not have rights to see it.
+     * @param Classe|null $classe
+     */
+    private function checkClassAccesses(?Classe $classe)
+    {
+        // If user is not allowed to use the class, then return a 405
+        if(!is_null($classe)) {
+            if (!$this->getUser() === $classe->getTitulaire() || !in_array($this->getUser(), $classe->getUsers()->toArray())) {
+                throw $this->createAccessDeniedException();
+            }
+        }
     }
 }

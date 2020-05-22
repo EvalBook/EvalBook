@@ -39,7 +39,6 @@ class ClasseController extends AbstractController
         }
         else {
             // If not, getting classes the user is subscribed to.
-            // Ajouter le cas du titulaire de classe
             $classes = $user->getClasses();
         }
 

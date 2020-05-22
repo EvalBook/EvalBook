@@ -150,6 +150,7 @@ class ImplantationController extends AbstractController
 
     /**
      * @Route("/implantation/view/classes/{id}", name="implantation_view_classes")
+     * @IsGranted("ROLE_IMPLANTATION_LIST_ALL", statusCode=404, message="Not found")
      *
      * @param Implantation $implantation
      * @return Response

@@ -1,0 +1,11 @@
+{% extends 'bundles/TwigBundle/Exception/error.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block errorTitle %}
+    {{ 'Error 403 !' | trans }}
+{% endblock %}
+
+
+{% block errorMessage %}
+    {{ "You do not allowed to do this action !"|trans }}
+{% endblock %}
