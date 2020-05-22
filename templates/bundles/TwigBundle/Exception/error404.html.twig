@@ -1,0 +1,19 @@
+{% extends 'base-no-menu.html.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block pageTitle %} {{ 'Users' | trans }} {% endblock %}
+{% block title %}
+    {{ 'Error 404 !' | trans }}
+{% endblock %}
+
+{% block body %}
+    <div class="container full-width text-center">
+        <h1 class="text-yellow text-bold">{{ 'Error 404 !'|trans }}</h1>
+        <p>
+            {{ "The requested page couldn't be located. Checkout for any URL misspelling."|trans }}
+        </p>
+        <div>
+            <a href="{{ path('classes') }}"><i class="fas fa-home text-bigger"></i></a>.
+        </div>
+    </div>
+{% endblock %}

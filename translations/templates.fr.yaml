@@ -97,6 +97,8 @@ Search for student: Chercher un élève
 Search for activity: Rechercher une activité
 Help: Aide
 Me: Moi
+Error 404 !: Erreur 404 !
+The requested page couldn't be located. Checkout for any URL misspelling.: La page demandée n'existe pas. Vérifiez d'avoir entré correctement l'URL.
 
 
 roles:
