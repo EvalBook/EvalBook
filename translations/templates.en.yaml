@@ -98,7 +98,10 @@ Search for activity: Search for activity
 Help: Help
 Me: Me
 Error 404 !: Error 404 !
+Error 405 !: Error 405 !
 The requested page couldn't be located. Checkout for any URL misspelling.: The requested page couldn''t be located. Checkout for any URL misspelling.
+You do not have rights to do this action !: You do not have rights to do this action !
+Error !: Error !
 
 
 roles:

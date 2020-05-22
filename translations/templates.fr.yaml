@@ -98,7 +98,10 @@ Search for activity: Rechercher une activité
 Help: Aide
 Me: Moi
 Error 404 !: Erreur 404 !
+Error 405 !: Erreur 405!
 The requested page couldn't be located. Checkout for any URL misspelling.: La page demandée n'existe pas. Vérifiez d'avoir entré correctement l'URL.
+You do not have rights to do this action !: Vous n'avez pas le droit de réaliser cette action !
+Error !: Erreur !
 
 
 roles:
