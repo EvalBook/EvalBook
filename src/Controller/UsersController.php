@@ -85,14 +85,8 @@ class UsersController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // If first name ans last name are not already taken.
-            if($this->validateNamePairs($user)) {
-                $this->getDoctrine()->getManager()->flush();
-                $this->addFlash('success', 'Successfully updated');
-            }
-            else {
-                $this->addFlash('error', 'The combination last name / first name is already taken');
-            }
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Successfully updated');
 
             if(!is_null($redirect)) {
                 $redirect = json_decode(base64_decode($redirect), true);
@@ -123,16 +117,10 @@ class UsersController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // If first name ans last name are not already taken.
-            if($this->validateNamePairs($user)) {
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($user);
-                $entityManager->flush();
-                $this->addFlash('success', 'Successfully added');
-            }
-            else {
-                $this->addFlash('error', 'The combination last name / first name is already taken');
-            }
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+            $this->addFlash('success', 'Successfully added');
 
             return $this->redirectToRoute('users');
         }
@@ -233,23 +221,6 @@ class UsersController extends AbstractController
                 'params' => ['id' => $user->getId()],
             ])),
         ]);
-    }
-
-
-    /**
-     * Validate a key pair ( first name and last name ) that have to be unique with this MVP, but not with next project features.
-     *
-     * @param User $user
-     * @return boolean
-     */
-    private function validateNamePairs(User $user)
-    {
-        $result = $this->repository->count([
-           'lastName'  => $user->getLastName(),
-           'firstName' => $user->getFirstName(),
-        ]);
-
-        return $result === 0;
     }
 
 }

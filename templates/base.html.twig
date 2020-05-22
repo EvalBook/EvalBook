@@ -50,7 +50,7 @@
                     <div class="menuTopIcon">
                         <a href="{{ path('user_profile') }}" title="User profile">
                             <i class="fas fa-user"></i>
-                            <span>{{ 'My profile'|trans }}</span>
+                            <span>{{ app.user is defined ? (app.user.firstName ~ ' ' ~ app.user.lastName) : 'My profile'|trans }}</span>
                         </a>
                     </div>
                     <div class="menuTopIcon">
