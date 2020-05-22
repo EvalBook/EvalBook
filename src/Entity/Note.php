@@ -218,6 +218,8 @@ class Note
                 return false;
 
             $note = strtolower($this->getNote());
+            if(strlen($note) > 1)
+                return false;
             $this->setNote(strtoupper($this->getNote()));
             return ord($note) >= ord($lower) && ord($note) <= ord($higher);
         }
