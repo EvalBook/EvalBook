@@ -33,6 +33,9 @@ class NoteType extends AbstractType
             ->add('comment', TextType::class, [
                 'label' => false,
                 'required' => false,
+                'attr' => [
+                    'tabindex' => "-1",
+                ]
             ])
         ;
     }
