@@ -159,6 +159,24 @@ class NoteType
 
 
     /**
+     * Return the minimum allowed assignable note.
+     */
+    public function getMin()
+    {
+        return strtolower(substr($this->getPonderation(), 0, strpos($this->getPonderation(), '.')));
+    }
+
+
+    /**
+     * Retuyrn the maximum allowed assignable note.
+     */
+    public function getMax()
+    {
+       return strtolower(substr($this->getPonderation(), 1 + strrpos($this->getPonderation(), '.')));
+    }
+
+
+    /**
      * Return NoteType string representation.
      * @return string
      */

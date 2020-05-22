@@ -208,8 +208,8 @@ class Note
             return true;
         }
 
-        $lower = strtolower(substr($noteType->getPonderation(), 0, strpos($noteType->getPonderation(), '.')));
-        $higher = strtolower(substr($noteType->getPonderation(), 1 + strrpos($noteType->getPonderation(), '.')));
+        $lower = $noteType->getMin();
+        $higher = $noteType->getMax();
 
         // Check format.
         if(!is_numeric($lower)) {

@@ -67,7 +67,8 @@ class NoteBookController extends AbstractController
 
         foreach($classe->getEleves() as $eleve) {
             foreach($classe->getActivites() as $activity) {
-                $note = !is_null($eleve->getNote($activity)) ? $eleve->getNote($activity) : '-';
+                $max = $activity->getNoteType()->getMax();
+                $note = !is_null($eleve->getNote($activity)) ? $eleve->getNote($activity) . " / $max" : '-';
                 $notebook[$eleve->getLastName() . ' ' . $eleve->getFirstName()][] = $note;
             }
         }
