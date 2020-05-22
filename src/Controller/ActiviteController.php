@@ -105,6 +105,10 @@ class ActiviteController extends AbstractController
      */
     public function edit(Request $request, Activite $activite): Response
     {
+        // If activity period target is passed, then redirect to activities list.
+        if($activite->getPeriode()->getDateEnd() < new \DateTime())
+            return $this->redirectToRoute('activites');
+
         $periodes = array();
 
         foreach( $activite->getClasse()->getImplantation()->getPeriodes() as $periode) {
@@ -154,6 +158,10 @@ class ActiviteController extends AbstractController
      */
     public function delete(Request $request, Activite $activite): Response
     {
+        // If activity period target is passed, then redirect to activities list.
+        if($activite->getPeriode()->getDateEnd() < new \DateTime())
+            return $this->redirectToRoute('activites');
+
         $jsonRequest = json_decode($request->getContent(), true);
         if( !isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('activite_delete'.$activite->getId(), $jsonRequest['csrf'])) {
             return $this->json(['message' => 'Invalid csrf token'], 201);
@@ -182,6 +190,10 @@ class ActiviteController extends AbstractController
      */
     public function addNotes(Activite $activite, Request $request)
     {
+        // If activity period target is passed, then redirect to activities list.
+        if($activite->getPeriode()->getDateEnd() < new \DateTime())
+            return $this->redirectToRoute('activites');
+
         // To make sure the user how is inserting notes is the activity owner.
         if(!$activite->getUser() === $this->getUser())
             return $this->redirectToRoute('activites');
