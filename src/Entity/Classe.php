@@ -22,7 +22,6 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use mysql_xdevapi\CollectionAdd;
 
 
 /**
@@ -287,17 +286,6 @@ class Classe
     public function getActivites()
     {
         return $this->activites;
-    }
-
-
-    /**
-     * Add an activity to the class.
-     * @param Activite $activity
-     */
-    public function addActivite(Activite $activity)
-    {
-        $this->activites[] = $activity;
-        return $this;
     }
 
 

@@ -19,6 +19,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -88,7 +89,7 @@ class Activite
      */
     public function __construct()
     {
-        $this->dateAdded = new \DateTime();
+        $this->dateAdded = new DateTime();
         $this->notes = new ArrayCollection();
     }
 
@@ -216,7 +217,7 @@ class Activite
 
     /**
      * Return the activity date added.
-     * @return \DateTime
+     * @return DateTime
      */
     public function getDateAdded()
     {

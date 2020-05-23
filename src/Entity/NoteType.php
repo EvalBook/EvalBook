@@ -19,8 +19,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -49,15 +47,6 @@ class NoteType
      * @ORM\OneToMany(targetEntity="App\Entity\Activite", mappedBy="noteType")
      */
     private $activites;
-
-
-    /**
-     * NoteType constructor.
-     */
-    public function __construct()
-    {
-        $this->activites = new ArrayCollection();
-    }
 
 
     /**
@@ -109,51 +98,6 @@ class NoteType
     public function setPonderation(string $ponderation): self
     {
         $this->ponderation = $ponderation;
-        return $this;
-    }
-
-
-    /**
-     * Return a collection of activities based on the NoteType.
-     * @return Collection|Activite[]
-     */
-    public function getActivites(): Collection
-    {
-        return $this->activites;
-    }
-
-
-    /**
-     * Add an Activite based on the NoteType.
-     * @param Activite $activite
-     * @return $this
-     */
-    public function addActivite(Activite $activite): self
-    {
-        if (!$this->activites->contains($activite)) {
-            $this->activites[] = $activite;
-            $activite->setNoteType($this);
-        }
-
-        return $this;
-    }
-
-
-    /**
-     * Removes an Activite based on the NoteType.
-     * @param Activite $activite
-     * @return $this
-     */
-    public function removeActivite(Activite $activite): self
-    {
-        if ($this->activites->contains($activite)) {
-            $this->activites->removeElement($activite);
-            // set the owning side to null (unless already changed)
-            if ($activite->getNoteType() === $this) {
-                $activite->setNoteType(null);
-            }
-        }
-
         return $this;
     }
 

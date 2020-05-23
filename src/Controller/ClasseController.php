@@ -6,7 +6,6 @@ use App\Entity\Classe;
 use App\Entity\Eleve;
 use App\Entity\User;
 use App\Form\ClasseType;
-use App\Repository\ActiviteRepository;
 use App\Repository\ClasseRepository;
 use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -111,12 +110,11 @@ class ClasseController extends AbstractController
      * @Route("/classe/delete/{id}", name="classe_delete", methods={"POST"})
      * @IsGranted("ROLE_CLASS_DELETE", statusCode=404, message="Not found")
      *
-     * @param ActiviteRepository $activiteRepository
      * @param Request $request
      * @param Classe $classe
      * @return Response
      */
-    public function delete(ActiviteRepository $activiteRepository, Request $request, Classe $classe): Response
+    public function delete(Request $request, Classe $classe): Response
     {
         $jsonRequest = json_decode($request->getContent(), true);
         if( !isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('classe_delete'.$classe->getId(), $jsonRequest['csrf'])) {

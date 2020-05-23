@@ -20,6 +20,8 @@
 namespace App\Entity;
 
 
+use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -68,7 +70,7 @@ class Note
     public function __construct()
     {
         // Setting the date here for auto insert.
-        $this->date = new \DateTime('now');
+        $this->date = new DateTime('now');
     }
 
 
@@ -144,16 +146,15 @@ class Note
     public function setNote(string $note): self
     {
         $this->note = $note;
-
         return $this;
     }
 
 
     /**
      * Return the Date the Note were written.
-     * @return \DateTimeInterface|null
+     * @return DateTimeInterface|null
      */
-    public function getDate(): ?\DateTimeInterface
+    public function getDate(): ?DateTimeInterface
     {
         return $this->date;
     }
@@ -161,10 +162,10 @@ class Note
 
     /**
      * Set the date the Note were written.
-     * @param \DateTimeInterface $date
+     * @param DateTimeInterface $date
      * @return $this
      */
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate(DateTimeInterface $date): self
     {
         $this->date = $date;
         return $this;
