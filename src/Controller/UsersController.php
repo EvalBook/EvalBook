@@ -22,6 +22,7 @@ namespace App\Controller;
 use App\Form\UserProfileType;
 use App\Form\UserType;
 use App\Entity\User;
+use App\Repository\ClasseRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -135,11 +136,12 @@ class UsersController extends AbstractController
      * @Route("/user/delete/{id}", name="user_delete", methods={"POST"})
      * @IsGranted("ROLE_USER_DELETE", statusCode=404, message="Not found")
      *
+     * @param ClasseRepository $classeRepository
      * @param Request $request
      * @param User $user
      * @return JsonResponse
      */
-    public function delete(Request $request, User $user)
+    public function delete(ClasseRepository $classeRepository, Request $request, User $user)
     {
         $jsonRequest = json_decode($request->getContent(), true);
         if( !isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('user_delete'.$user->getId(), $jsonRequest['csrf'])) {
@@ -147,11 +149,31 @@ class UsersController extends AbstractController
         }
 
         $entityManager = $this->getDoctrine()->getManager();
+
         // Setting all user activities owner to orphan ( null ) in order to keep notes already attributed.
         foreach($user->getActivites() as $activity) {
             $activity->setUser(null);
+            $user->removeActivite($activity);
             $entityManager->persist($activity);
+            $entityManager->persist($user);
+            $entityManager->flush();
         }
+
+        foreach($classeRepository->findAll() as $classe) {
+
+            if($classe->getTitulaire() === $user) {
+                $classe->setTitulaire(null);
+                $entityManager->persist($classe);
+            }
+
+            if(in_array($user, $classe->getUsers()->toArray())) {
+                $classe->removeUser($user);
+                $entityManager->persist($classe);
+            }
+            $entityManager->flush();
+        }
+
+
 
         $entityManager->remove($user);
         $entityManager->flush();

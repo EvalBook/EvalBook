@@ -1,0 +1,11 @@
+{% extends 'bundles/TwigBundle/Exception/error.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block errorTitle %}
+    {{ 'Error 404 !' | trans }}
+{% endblock %}
+
+
+{% block errorMessage %}
+    {{ "The requested page couldn't be located. Checkout for any URL misspelling."|trans }}
+{% endblock %}

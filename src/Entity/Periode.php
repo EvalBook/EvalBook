@@ -19,6 +19,7 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -105,9 +106,9 @@ class Periode
 
     /**
      * Return the Period start date.
-     * @return \DateTimeInterface|null
+     * @return DateTimeInterface|null
      */
-    public function getDateStart(): ?\DateTimeInterface
+    public function getDateStart(): ?DateTimeInterface
     {
         return $this->dateStart;
     }
@@ -115,10 +116,10 @@ class Periode
 
     /**
      * Set the Period start date.
-     * @param \DateTimeInterface $dateStart
+     * @param DateTimeInterface $dateStart
      * @return $this
      */
-    public function setDateStart(\DateTimeInterface $dateStart): self
+    public function setDateStart(DateTimeInterface $dateStart): self
     {
         $this->dateStart = $dateStart;
         return $this;
@@ -126,9 +127,9 @@ class Periode
 
     /**
      * Return the Period end date.
-     * @return \DateTimeInterface|null
+     * @return DateTimeInterface|null
      */
-    public function getDateEnd(): ?\DateTimeInterface
+    public function getDateEnd(): ?DateTimeInterface
     {
         return $this->dateEnd;
     }
@@ -136,10 +137,10 @@ class Periode
 
     /**
      * Set the Period end date.
-     * @param \DateTimeInterface $dateEnd
+     * @param DateTimeInterface $dateEnd
      * @return $this
      */
-    public function setDateEnd(\DateTimeInterface $dateEnd): self
+    public function setDateEnd(DateTimeInterface $dateEnd): self
     {
         $this->dateEnd = $dateEnd;
         return $this;
@@ -153,41 +154,6 @@ class Periode
     public function getActivites(): Collection
     {
         return $this->activites;
-    }
-
-
-    /**
-     * Add an activite to the Period.
-     * @param Activite $activite
-     * @return $this
-     */
-    public function addActivite(Activite $activite): self
-    {
-        if (!$this->activites->contains($activite)) {
-            $this->activites[] = $activite;
-            $activite->setPeriode($this);
-        }
-
-        return $this;
-    }
-
-
-    /**
-     * Remove an Activite from the Period.
-     * @param Activite $activite
-     * @return $this
-     */
-    public function removeActivite(Activite $activite): self
-    {
-        if ($this->activites->contains($activite)) {
-            $this->activites->removeElement($activite);
-            // set the owning side to null (unless already changed)
-            if ($activite->getPeriode() === $this) {
-                $activite->setPeriode(null);
-            }
-        }
-
-        return $this;
     }
 
 

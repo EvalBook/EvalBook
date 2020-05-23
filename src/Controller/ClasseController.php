@@ -39,7 +39,6 @@ class ClasseController extends AbstractController
         }
         else {
             // If not, getting classes the user is subscribed to.
-            // Ajouter le cas du titulaire de classe
             $classes = $user->getClasses();
         }
 
@@ -122,15 +121,17 @@ class ClasseController extends AbstractController
             return $this->json(['message' => 'Invalid csrf token'], 201);
         }
 
-        // Checking if the class has activities in it.
-        if(! count($classe->getActivites()) > 0) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($classe);
+        $entityManager = $this->getDoctrine()->getManager();
+        // Making activities orphans
+        foreach($classe->getActivites()->toArray() as $activite) {
+            $activite->detachClass();
             $entityManager->flush();
-            return $this->json(['message' => 'Classe deleted'], 200);
         }
 
-        return $this->json(['error' => true], 200);
+        $entityManager->remove($classe);
+        $entityManager->flush();
+        return $this->json(['message' => 'Classe deleted'], 200);
+
     }
 
 

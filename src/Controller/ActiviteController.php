@@ -51,6 +51,9 @@ class ActiviteController extends AbstractController
      */
     public function add(?Classe $classe, Request $request, NoteTypeRepository $noteTypeRepository): Response
     {
+        // If user is not allowed to use the class, then return a 405
+        $this->checkClassAccesses($classe);
+
         // If no implantation was specified, then go to the implantation / school pair selection.
         if(is_null($classe)) {
             return $this->render('activite/select-class.html.twig', [
@@ -105,6 +108,9 @@ class ActiviteController extends AbstractController
      */
     public function edit(Request $request, Activite $activite): Response
     {
+        // Throw a 403 error if user can't edit the activity.
+        $this->checkActivityAccesses($activite);
+
         // If activity period target is passed, then redirect to activities list.
         if($activite->getPeriode()->getDateEnd() < new \DateTime())
             return $this->redirectToRoute('activites');
@@ -158,6 +164,9 @@ class ActiviteController extends AbstractController
      */
     public function delete(Request $request, Activite $activite): Response
     {
+        // Throw a 403 error if user can't delete this activity ( not the owner ).
+        $this->checkActivityAccesses($activite);
+
         // If activity period target is passed, then redirect to activities list.
         if($activite->getPeriode()->getDateEnd() < new \DateTime())
             return $this->redirectToRoute('activites');
@@ -190,6 +199,9 @@ class ActiviteController extends AbstractController
      */
     public function addNotes(Activite $activite, Request $request)
     {
+        // Throw a 403 error if user can't add notes to this activity ( not the owner ).
+        $this->checkActivityAccesses($activite);
+
         // If activity period target is passed, then redirect to activities list.
         if($activite->getPeriode()->getDateEnd() < new \DateTime())
             return $this->redirectToRoute('activites');
@@ -239,6 +251,32 @@ class ActiviteController extends AbstractController
             'students' => $activite->getClasse()->getEleves(),
             'form' => $form->createView(),
         ]);
+    }
+
+
+    /**
+     * Check the provided class user acces and throw access denied if user does not have rights to see it.
+     * @param Classe|null $classe
+     */
+    private function checkClassAccesses(?Classe $classe)
+    {
+        // If user is not allowed to use the class, then return a 405
+        if(!is_null($classe)) {
+            if (!$this->getUser() === $classe->getTitulaire() || !in_array($this->getUser(), $classe->getUsers()->toArray())) {
+                throw $this->createAccessDeniedException();
+            }
+        }
+    }
+
+
+    /**
+     * Check activity accesses and throw 403 error if an other user is trying to edit an activity.
+     * @param Activite|null $activity
+     */
+    private function checkActivityAccesses(?Activite $activity)
+    {
+        if($activity->getUser() !== $this->getUser())
+            throw $this->createAccessDeniedException();
     }
 
 }

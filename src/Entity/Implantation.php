@@ -188,82 +188,12 @@ class Implantation
 
 
     /**
-     * Add a Class to the Implantation object.
-     * @param Classe $class
-     * @return $this
-     */
-    public function addClass(Classe $class): self
-    {
-        if (!$this->classes->contains($class)) {
-            $this->classes[] = $class;
-            $class->setImplantation($this);
-        }
-
-        return $this;
-    }
-
-
-    /**
-     * Remove a class from Implantation.
-     * @param Classe $class
-     * @return $this
-     */
-    public function removeClass(Classe $class): self
-    {
-        if ($this->classes->contains($class)) {
-            $this->classes->removeElement($class);
-            // set the owning side to null (unless already changed)
-            if ($class->getImplantation() === $this) {
-                $class->setImplantation(null);
-            }
-        }
-
-        return $this;
-    }
-
-
-    /**
      * Return the available list of Perdiod objects for the Implantation.
      * @return Collection|Periode[]
      */
     public function getPeriodes(): Collection
     {
         return $this->periodes;
-    }
-
-
-    /**
-     * Add a Period object to the Implantation.
-     * @param Periode $periode
-     * @return $this
-     */
-    public function addPeriode(Periode $periode): self
-    {
-        if (!$this->periodes->contains($periode)) {
-            $this->periodes[] = $periode;
-            $periode->setImplantation($this);
-        }
-
-        return $this;
-    }
-
-
-    /**
-     * Remove a Perdiod from the Implantation.
-     * @param Periode $periode
-     * @return $this
-     */
-    public function removePeriode(Periode $periode): self
-    {
-        if ($this->periodes->contains($periode)) {
-            $this->periodes->removeElement($periode);
-            // set the owning side to null (unless already changed)
-            if ($periode->getImplantation() === $this) {
-                $periode->setImplantation(null);
-            }
-        }
-
-        return $this;
     }
 
 

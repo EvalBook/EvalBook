@@ -19,6 +19,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -78,6 +79,7 @@ class Activite
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Classe", inversedBy="activites")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $classe;
 
@@ -87,7 +89,7 @@ class Activite
      */
     public function __construct()
     {
-        $this->dateAdded = new \DateTime();
+        $this->dateAdded = new DateTime();
         $this->notes = new ArrayCollection();
     }
 
@@ -215,7 +217,7 @@ class Activite
 
     /**
      * Return the activity date added.
-     * @return \DateTime
+     * @return DateTime
      */
     public function getDateAdded()
     {
@@ -246,7 +248,7 @@ class Activite
      * Set the activity class.
      * @param Classe $classe
      */
-    public function setClasse(Classe $classe)
+    public function setClasse(?Classe $classe)
     {
         if(!is_null($classe))
             $this->classe = $classe;
@@ -295,6 +297,16 @@ class Activite
         }
         $this->notes = [];
 
+        return $this;
+    }
+
+
+    /**
+     * Detach Class.
+     * @return $this
+     */
+    public function detachClass(): self {
+        $this->classe = null;
         return $this;
     }
 

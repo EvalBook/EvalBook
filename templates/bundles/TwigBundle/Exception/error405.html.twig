@@ -1,0 +1,11 @@
+{% extends 'bundles/TwigBundle/Exception/error.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block errorTitle %}
+    {{ 'Error 405 !' | trans }}
+{% endblock %}
+
+
+{% block errorMessage %}
+    {{ "You do not have rights to do this action !"|trans }}
+{% endblock %}

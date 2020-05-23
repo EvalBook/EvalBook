@@ -312,22 +312,6 @@ class User implements UserInterface
 
 
     /**
-     * Add an Activity to User.
-     * @param Activite $activite
-     * @return $this
-     */
-    public function addActivite(Activite $activite): self
-    {
-        if (!$this->activites->contains($activite)) {
-            $this->activites[] = $activite;
-            $activite->setUser($this);
-        }
-
-        return $this;
-    }
-
-
-    /**
      * Remove an Activite from the User Activite collection.
      * @param Activite $activite
      * @return $this
@@ -353,25 +337,6 @@ class User implements UserInterface
     public function getClasseTitulaire(): ?Collection
     {
         return $this->classesTitulaire;
-    }
-
-
-    /**
-     * Set the Class User is 'titulaire'.
-     * @param Classe|null $classeTitulaire
-     * @return $this
-     */
-    public function setClasseTitulaire(?Classe $classeTitulaire): self
-    {
-        $this->classeTitulaire = $classeTitulaire;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newTitulaire = null === $classeTitulaire ? null : $this;
-        if ($classeTitulaire->getTitulaire() !== $newTitulaire) {
-            $classeTitulaire->setTitulaire($newTitulaire);
-        }
-
-        return $this;
     }
 
 

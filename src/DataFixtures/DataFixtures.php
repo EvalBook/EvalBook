@@ -122,7 +122,7 @@ class DataFixtures extends Fixture implements ContainerAwareInterface, FixtureIn
                     ->setDateEnd($faker->dateTimeBetween($startDate = '-8 months', $endDate = '+2 months', $timezone = null))
                     ->setDateStart($faker->dateTimeBetween($startDate = '-2 months', $endDate = '+6 months', $timezone = null))
                 ;
-                $implantation->addPeriode($periode);
+                $periode->setImplantation($implantation);
                 $em->persist($periode);
             }
             // Persist implantation with provided periods.
