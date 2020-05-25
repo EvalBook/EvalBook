@@ -60,42 +60,41 @@ class ActiviteController extends AbstractController
                 'classes' => $this->getUser()->getClasses(),
             ]);
         }
-        else {
-            if($noteTypeRepository->count([]) === 0) {
-                // No not type found, then populating database with the default ones.
-                $noteTypeRepository->populate();
-            }
-            $activite = new Activite();
-            $periodes = array();
 
-            foreach( $classe->getImplantation()->getPeriodes() as $periode) {
-                // dd($periode->getDateEnd(), date('now'));
-                if($periode->getDateEnd() > new \DateTime('now')) {
-                    $periodes[] = $periode;
-                }
-            }
-            $form = $this->createForm(ActiviteType::class, $activite, [
-                'periodes' => $periodes,
-            ]);
-
-            $form->handleRequest($request);
-            // Make sur to override any other values sent by request.
-            $activite->setClasse($classe);
-            $activite->setUser($this->getUser());
-
-            if ($form->isSubmitted() && $form->isValid()) {
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($activite);
-                $entityManager->flush();
-
-                return $this->redirectToRoute('activites');
-            }
-
-            return $this->render('activite/form.html.twig', [
-                'activite' => $activite,
-                'form' => $form->createView(),
-            ]);
+        if($noteTypeRepository->count([]) === 0) {
+            // No not type found, then populating database with the default ones.
+            $noteTypeRepository->populate();
         }
+        $activite = new Activite();
+        $periodes = array();
+
+        foreach( $classe->getImplantation()->getPeriodes() as $periode) {
+            // dd($periode->getDateEnd(), date('now'));
+            if($periode->getDateEnd() > new \DateTime('now')) {
+                $periodes[] = $periode;
+            }
+        }
+        $form = $this->createForm(ActiviteType::class, $activite, [
+            'periodes' => $periodes,
+        ]);
+
+        $form->handleRequest($request);
+        // Make sur to override any other values sent by request.
+        $activite->setClasse($classe);
+        $activite->setUser($this->getUser());
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($activite);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('activites');
+        }
+
+        return $this->render('activite/form.html.twig', [
+            'activite' => $activite,
+            'form' => $form->createView(),
+        ]);
     }
 
 

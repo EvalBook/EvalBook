@@ -198,6 +198,21 @@ class Implantation
 
 
     /**
+     * Add a period to the implantation.
+     * @param Periode $periode
+     * @return $this
+     */
+    public function addPeriode(Periode $periode): self
+    {
+        if(!$this->periodes->contains($periode)) {
+            $this->periodes[] = $periode;
+            $periode->setImplantation($this);
+        }
+        return $this;
+    }
+
+
+    /**
      * To string to use with FormBuilder.
      * @return string|null
      */

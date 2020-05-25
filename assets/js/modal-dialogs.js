@@ -117,6 +117,7 @@ for(let element of document.querySelectorAll('[data-target]')) {
 // Getting strings labels from api.
 getStrings();
 
+
 /**
  * Get strings labels and store them to the local storage.
  * @returns {Promise<void>}

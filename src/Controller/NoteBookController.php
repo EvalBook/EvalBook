@@ -63,7 +63,7 @@ class NoteBookController extends AbstractController
      * @param Classe $classe
      * @return array
      */
-    private function constructNotebook(Classe $classe)
+    public function constructNotebook(Classe $classe)
     {
         $notebook = array();
 
@@ -85,7 +85,7 @@ class NoteBookController extends AbstractController
      * @param Classe $classe
      * @return array
      */
-    private function getNotebookPeriods(Classe $classe)
+    public function getNotebookPeriods(Classe $classe)
     {
         $periods = array();
         foreach($classe->getActivites() as $activite) {

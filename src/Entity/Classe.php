@@ -288,6 +288,21 @@ class Classe
         return $this->activites;
     }
 
+    /**
+     * Add an activity object to the Classe object.
+     * @param Activite $activite
+     * @return $this
+     */
+    public function addActivite(Activite $activite): self
+    {
+        if (!$this->activites->contains($activite)) {
+            $this->activites[] = $activite;
+            $activite->setClasse($this);
+        }
+
+        return $this;
+    }
+
 
     /**
      * To string magic method used by EleveType.
