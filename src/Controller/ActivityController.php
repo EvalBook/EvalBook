@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-class ActiviteController extends AbstractController
+class ActivityController extends AbstractController
 {
     /**
      * @Route("/activites", name="activites")
@@ -35,7 +35,7 @@ class ActiviteController extends AbstractController
         });
 
         // Getting the user activities.
-        return $this->render('activite/index.html.twig', [
+        return $this->render('activities/index.html.twig', [
             'classes' => $this->getUser()->getClasses(),
             'activites' => $activities,
         ]);
@@ -56,7 +56,7 @@ class ActiviteController extends AbstractController
 
         // If no implantation was specified, then go to the implantation / school pair selection.
         if(is_null($classe)) {
-            return $this->render('activite/select-class.html.twig', [
+            return $this->render('activities/select-class.html.twig', [
                 'classes' => $this->getUser()->getClasses(),
             ]);
         }
@@ -91,7 +91,7 @@ class ActiviteController extends AbstractController
             return $this->redirectToRoute('activites');
         }
 
-        return $this->render('activite/form.html.twig', [
+        return $this->render('activities/form.html.twig', [
             'activite' => $activite,
             'form' => $form->createView(),
         ]);
@@ -147,7 +147,7 @@ class ActiviteController extends AbstractController
             return $this->redirectToRoute('activites');
         }
 
-        return $this->render('activite/form.html.twig', [
+        return $this->render('activities/form.html.twig', [
             'activite' => $activite,
             'form' => $form->createView(),
         ]);
@@ -229,7 +229,7 @@ class ActiviteController extends AbstractController
                 if(!$note->isValid($activite->getNoteType())) {
                     $this->addFlash('error', 'The notes you provided does not match the note type pattern of activity !');
 
-                    return $this->render('activite/notes-add.html.twig', [
+                    return $this->render('activities/notes-add.html.twig', [
                         'activity' => $activite,
                         'students' => $activite->getClasse()->getEleves(),
                         'form' => $form->createView(),
@@ -245,7 +245,7 @@ class ActiviteController extends AbstractController
             ]);
         }
 
-        return $this->render('activite/notes-add.html.twig', [
+        return $this->render('activities/notes-add.html.twig', [
             'activity' => $activite,
             'students' => $activite->getClasse()->getEleves(),
             'form' => $form->createView(),
@@ -279,3 +279,4 @@ class ActiviteController extends AbstractController
     }
 
 }
+
