@@ -4,7 +4,7 @@
 {% block pageTitle %} {{ 'Students' | trans }} {% endblock %}
 {% block title %}
     {{ 'Students' | trans }}
-    {% set help = {'title': 'eleve.title', 'intro': 'intro', 'actions': 'eleve.actions'} %}
+    {% set help = {'title': 'students.title', 'intro': 'intro', 'actions': 'students.actions'} %}
     {% include 'help/help-dialog.html.twig' %}
 {% endblock %}
 
@@ -32,16 +32,16 @@
         </tr>
         </thead>
         <tbody>
-        {% for eleve in eleves %}
-            <tr data-id="{{ eleve.id }}" data-trigger="{{ path('eleve_edit', {'id': eleve.id}) }}">
-                <td class="search-target">{{ eleve.lastName }}</td>
-                <td class="search-target">{{ eleve.firstName }}</td>
-                <td class="mobile-hidden-td search-target">{{ eleve.birthday|date('d/m/Y') }}</td>
+        {% for student in students %}
+            <tr data-id="{{ student.id }}" data-trigger="{{ path('student_edit', {'id': student.id}) }}">
+                <td class="search-target">{{ student.lastName }}</td>
+                <td class="search-target">{{ student.firstName }}</td>
+                <td class="mobile-hidden-td search-target">{{ student.birthday|date('d/m/Y') }}</td>
 
                 <td class="text-center">
-                    {% if eleve.classes|length > 0 %}
-                        <a href="{{ path('student_view_classes', {'id': eleve.id} ) }}" title="View student classes">
-                            <i class="fas fa-eye"></i> ({{ eleve.classes|length }})
+                    {% if student.classrooms|length > 0 %}
+                        <a href="{{ path('student_view_classrooms', {'id': student.id} ) }}" title="View student classes">
+                            <i class="fas fa-eye"></i> ({{ student.classrooms|length }})
                         </a>
                     {% else %}
                         <span>0</span>
@@ -49,9 +49,9 @@
                 </td>
 
                 {% if is_granted('ROLE_STUDENT_EDIT') %}
-                    {% set params = (redirect is defined) ? {'id': eleve.id, 'redirect': redirect} : {'id': eleve.id} %}
+                    {% set params = (redirect is defined) ? {'id': student.id, 'redirect': redirect} : {'id': student.id} %}
                     <td class="text-center mobile-hidden-td">
-                        <a href="{{ path('eleve_edit', params) }}" title="Edit student">
+                        <a href="{{ path('student_edit', params) }}" title="Edit student">
                             <i class="fas fa-edit"></i>
                         </a>
                     </td>
@@ -59,11 +59,11 @@
 
                 {% if is_granted('ROLE_STUDENT_DELETE') %}
                     <td class="text-center mobile-hidden-td">
-                        <div data-target="eleve"
-                             data-targetid="{{ eleve.id }}"
-                             data-action="{{ path('eleve_delete', {'id': eleve.id}) }}"
+                        <div data-target="student"
+                             data-targetid="{{ student.id }}"
+                             data-action="{{ path('student_delete', {'id': student.id}) }}"
                              data-class="fas fa-trash"
-                             data-csrf="{{ csrf_token('eleve_delete' ~ eleve.id) }}"
+                             data-csrf="{{ csrf_token('student_delete' ~ student.id) }}"
                         >
                         </div>
                     </td>
@@ -85,7 +85,7 @@
 
 {% block functionnalities %}
     {% if is_granted('ROLE_STUDENT_CREATE') %}
-        <a href="{{ path('eleve_add') }}" title="Add a student">
+        <a href="{{ path('student_add') }}" title="Add a student">
             <i class="fas fa-plus"></i>
         </a>
     {% endif %}
@@ -94,7 +94,7 @@
 
 {% block functionnalitiesMobile %}
     {% if is_granted('ROLE_STUDENT_CREATE') %}
-        <a href="{{ path('eleve_add') }}" title="Add a student">
+        <a href="{{ path('student_add') }}" title="Add a student">
             <i class="fas fa-plus"></i>
         </a>
     {% endif %}

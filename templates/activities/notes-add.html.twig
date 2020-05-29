@@ -32,8 +32,8 @@
             {% set counter = counter + 1 %}
             <tr>
                 <td tabindex="-1" class="large">
-                    {{ note.eleve.vars.value }}
-                    {% do note.eleve.setRendered() %}
+                    {{ note.student.vars.value }}
+                    {% do note.student.setRendered() %}
                     {{ form_row(note.comment) }}
                 </td>
                 <td>{{ 'From'|trans }}

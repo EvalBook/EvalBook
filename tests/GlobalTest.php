@@ -3,7 +3,7 @@
 namespace App\Tests;
 
 use App\Entity\Classe;
-use App\Entity\Periode;
+use App\Entity\Period;
 use App\Controller\NoteBookController;
 use Doctrine\DBAL\Exception\NotNullConstraintViolationException;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -60,13 +60,13 @@ class GlobalTest extends KernelTestCase
         $implantation = $this->utils->createImplantation('n', 'a', '6', 'c',true);
         $periode->setImplantation($implantation);
         $this->utils->persistAndFlush($periode);
-        $this->assertNotNull($this->utils->getRepository(Periode::class)->find($periode->getId()));
+        $this->assertNotNull($this->utils->getRepository(Period::class)->find($periode->getId()));
 
         // Can update / read
         $startDate = new \DateTime();
         $periode->setDateStart($startDate);
         $this->utils->persistAndFlush($periode);
-        $saved = $this->utils->getRepository(Periode::class)->find($periode->getId());
+        $saved = $this->utils->getRepository(Period::class)->find($periode->getId());
         $this->assertEquals($startDate, $saved->getDateStart());
 
         // Assert a constraint violation will be thrown by not providing an implantation.

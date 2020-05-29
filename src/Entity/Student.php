@@ -25,9 +25,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\EleveRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\StudentRepository")
  */
-class Eleve
+class Student
 {
     /**
      * @ORM\Id()
@@ -52,12 +52,12 @@ class Eleve
     private $birthday;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Classe", inversedBy="eleves")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Classroom", inversedBy="students")
      */
-    private $classes;
+    private $classrooms;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="eleve")
+     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="student")
      */
     private $notes;
 
@@ -67,13 +67,13 @@ class Eleve
      */
     public function __construct()
     {
-        $this->classes = new ArrayCollection();
+        $this->classrooms = new ArrayCollection();
         $this->notes = new ArrayCollection();
     }
 
 
     /**
-     * Return the Eleve ID
+     * Return the Student ID
      * @return int|null
      */
     public function getId(): ?int
@@ -83,7 +83,7 @@ class Eleve
 
 
     /**
-     * Return the Eleve object last name.
+     * Return the Student object last name.
      * @return string|null
      */
     public function getLastName(): ?string
@@ -93,7 +93,7 @@ class Eleve
 
 
     /**
-     * Set the Eleve object last name.
+     * Set the Student object last name.
      * @param string $lastName
      * @return $this
      */
@@ -105,7 +105,7 @@ class Eleve
 
 
     /**
-     * Return the Eleve object first name.
+     * Return the Student object first name.
      * @return string|null
      */
     public function getFirstName(): ?string
@@ -115,7 +115,7 @@ class Eleve
 
 
     /**
-     * Set the Eleve object first name.
+     * Set the Student object first name.
      * @param string $firstName
      * @return $this
      */
@@ -144,24 +144,24 @@ class Eleve
 
 
     /**
-     * Return a collection of Classe objects Eleve is registered to.
-     * @return Collection|Classe[]
+     * Return a collection of Classrooms objects Student is registered to.
+     * @return Collection|Classroom[]
      */
-    public function getClasses(): Collection
+    public function getClassrooms(): Collection
     {
-        return $this->classes;
+        return $this->classrooms;
     }
 
 
     /**
-     * Register a Classe object to the Eleve.
-     * @param Classe $classe
+     * Register a Classroom object to the Student.
+     * @param Classroom $classroom
      * @return $this
      */
-    public function addClasse(Classe $classe): self
+    public function addClassroom(Classroom $classroom): self
     {
-        if (!$this->classes->contains($classe)) {
-            $this->classes[] = $classe;
+        if (!$this->classrooms->contains($classroom)) {
+            $this->classrooms[] = $classroom;
         }
 
         return $this;
@@ -169,14 +169,14 @@ class Eleve
 
 
     /**
-     * Remlove a Classe object from the Eleve.
-     * @param Classe $classe
+     * Remlove a Classroom object from the Student.
+     * @param Classroom $classroom
      * @return $this
      */
-    public function removeClasse(Classe $classe): self
+    public function removeClassroom(Classroom $classroom): self
     {
-        if ($this->classes->contains($classe)) {
-            $this->classes->removeElement($classe);
+        if ($this->classrooms->contains($classroom)) {
+            $this->classrooms->removeElement($classroom);
         }
 
         return $this;
@@ -193,10 +193,14 @@ class Eleve
     }
 
 
-    public function getNote(Activite $activite)
+    /**
+     * @param Activity $activity
+     * @return string|null
+     */
+    public function getNote(Activity $activity)
     {
         foreach($this->getNotes() as $note) {
-            if($note->getActivite() === $activite) {
+            if($note->getActivity() === $activity) {
                 return $note->getNote();
             }
         }
@@ -206,7 +210,7 @@ class Eleve
 
 
     /**
-     * Add a note to the Eleve object.
+     * Add a note to the Student object.
      * @param Note $note
      * @return $this
      */
@@ -214,7 +218,7 @@ class Eleve
     {
         if (!$this->notes->contains($note)) {
             $this->notes[] = $note;
-            $note->setEleve($this);
+            $note->setStudent($this);
         }
 
         return $this;
@@ -224,13 +228,13 @@ class Eleve
     /**
      * Return true if the student has provided activity.
      *
-     * @param Activite $activite
+     * @param Activity $activity
      * @return bool
      */
-    public function hasNoteFor(Activite $activite)
+    public function hasNoteFor(Activity $activity)
     {
         foreach($this->getNotes() as $note) {
-            if($note->getActivite() === $activite)
+            if($note->getActivity() === $activity)
                 return true;
         }
 
@@ -239,7 +243,7 @@ class Eleve
 
 
     /**
-     * Remove a note to the Eleve object.
+     * Remove a note to the Student object.
      * @param Note $note
      * @return $this
      */
@@ -248,8 +252,8 @@ class Eleve
         if ($this->notes->contains($note)) {
             $this->notes->removeElement($note);
             // set the owning side to null (unless already changed)
-            if ($note->getEleve() === $this) {
-                $note->setEleve(null);
+            if ($note->getStudent() === $this) {
+                $note->setStudent(null);
             }
         }
 

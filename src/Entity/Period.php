@@ -25,9 +25,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\PeriodeRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\PeriodRepository")
  */
-class Periode
+class Period
 {
     /**
      * @ORM\Id()
@@ -52,23 +52,23 @@ class Periode
     private $dateEnd;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Activite", mappedBy="periode")
+     * @ORM\OneToMany(targetEntity="Activity", mappedBy="period")
      */
-    private $activites;
+    private $activities;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Implantation", inversedBy="periodes")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Implantation", inversedBy="periods")
      * @ORM\JoinColumn(nullable=false)
      */
     private $implantation;
 
 
     /**
-     * Periode constructor.
+     * Period constructor.
      */
     public function __construct()
     {
-        $this->activites = new ArrayCollection();
+        $this->activities = new ArrayCollection();
     }
 
 
@@ -149,11 +149,11 @@ class Periode
 
     /**
      * Return a collection of Activite for the Period.
-     * @return Collection|Activite[]
+     * @return Collection|Activity[]
      */
-    public function getActivites(): Collection
+    public function getActivities(): Collection
     {
-        return $this->activites;
+        return $this->activities;
     }
 
 

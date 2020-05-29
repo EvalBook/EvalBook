@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Periode;
+use App\Entity\Period;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -51,9 +51,9 @@ class PeriodeType extends AbstractType
                     // Enable callback to check if start date is lower than period end date.
                     new Callback(function($object, ExecutionContextInterface $context) {
                         // Getting the period as it was sent with form.
-                        $periode = $context->getRoot()->getData();
+                        $period = $context->getRoot()->getData();
 
-                        if ($periode->getDateStart() > $periode->getDateEnd()) {
+                        if ($period->getDateStart() > $period->getDateEnd()) {
                             $context->buildViolation('The period start date must be lower then the end date')
                                     ->addViolation();
                         }
@@ -77,7 +77,7 @@ class PeriodeType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Periode::class,
+            'data_class' => Period::class,
         ]);
     }
 }

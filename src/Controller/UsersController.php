@@ -22,7 +22,7 @@ namespace App\Controller;
 use App\Form\UserProfileType;
 use App\Form\UserType;
 use App\Entity\User;
-use App\Repository\ClasseRepository;
+use App\Repository\ClassroomRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -53,7 +53,6 @@ class UsersController extends AbstractController
      * @Route("/users", name="users")
      * @IsGranted("ROLE_USER_LIST_ALL", statusCode=404, message="Not found")
      *
-     * @param UserRepository $repository
      * @return Response
      */
     public function index()
@@ -136,12 +135,12 @@ class UsersController extends AbstractController
      * @Route("/user/delete/{id}", name="user_delete", methods={"POST"})
      * @IsGranted("ROLE_USER_DELETE", statusCode=404, message="Not found")
      *
-     * @param ClasseRepository $classeRepository
+     * @param ClassroomRepository $classroomRepository
      * @param Request $request
      * @param User $user
      * @return JsonResponse
      */
-    public function delete(ClasseRepository $classeRepository, Request $request, User $user)
+    public function delete(ClassroomRepository $classroomRepository, Request $request, User $user)
     {
         $jsonRequest = json_decode($request->getContent(), true);
         if( !isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('user_delete'.$user->getId(), $jsonRequest['csrf'])) {
@@ -151,24 +150,24 @@ class UsersController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
 
         // Setting all user activities owner to orphan ( null ) in order to keep notes already attributed.
-        foreach($user->getActivites() as $activity) {
+        foreach($user->getActivities() as $activity) {
             $activity->setUser(null);
-            $user->removeActivite($activity);
+            $user->removeActivity($activity);
             $entityManager->persist($activity);
             $entityManager->persist($user);
             $entityManager->flush();
         }
 
-        foreach($classeRepository->findAll() as $classe) {
+        foreach($classroomRepository->findAll() as $classroom) {
 
-            if($classe->getTitulaire() === $user) {
-                $classe->setTitulaire(null);
-                $entityManager->persist($classe);
+            if($classroom->getOwner() === $user) {
+                $classroom->setOwner(null);
+                $entityManager->persist($classroom);
             }
 
-            if(in_array($user, $classe->getUsers()->toArray())) {
-                $classe->removeUser($user);
-                $entityManager->persist($classe);
+            if(in_array($user, $classroom->getUsers()->toArray())) {
+                $classroom->removeUser($user);
+                $entityManager->persist($classroom);
             }
             $entityManager->flush();
         }
@@ -211,17 +210,17 @@ class UsersController extends AbstractController
 
 
     /**
-     * @Route("/user/view/classes/{id}", name="user_view_classes")
+     * @Route("/user/view/classrooms/{id}", name="user_view_classrooms")
      *
      * @param User $user
      * @return Response
      */
     public function viewClasses(User $user)
     {
-        return $this->render('classe/index.html.twig', [
-            'classes' => $user->getClasses(),
+        return $this->render('classrooms/index.html.twig', [
+            'classrooms' => $user->getClassrooms(),
             'redirect' => base64_encode(json_encode([
-                'route'  => 'user_view_classes',
+                'route'  => 'user_view_classrooms',
                 'params' => ['id' => $user->getId()],
             ])),
         ]);
@@ -236,8 +235,8 @@ class UsersController extends AbstractController
      */
     public function viewStudents(User $user)
     {
-        return $this->render('eleve/index.html.twig', [
-            'eleves' => $user->getEleves(),
+        return $this->render('students/index.html.twig', [
+            'students' => $user->getStudents(),
             'redirect' => base64_encode(json_encode([
                 'route'  => 'user_view_students',
                 'params' => ['id' => $user->getId()],

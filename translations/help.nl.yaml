@@ -48,7 +48,7 @@ classes:
     You cannot delete a class that contains activities, if you want to delete a class that contains activities, then you will
     need to manually delete all attached activities.
 
-eleve:
+students:
   title: Students
 
   actions: |
@@ -61,7 +61,7 @@ eleve:
     If you delete a student, all his notes will be deleted too, use this with caution. All given notes will
     not appear inside the notebook !
 
-activites:
+activities:
   title: Activities
 
   intro: >
@@ -78,7 +78,7 @@ activites:
     If you delete an activity, all notes will be deleted too !
     If the medal color is red, that mean you did not entered notes yet.
 
-periodes:
+periods:
   title: Periods
 
   intro: >

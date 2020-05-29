@@ -2,11 +2,11 @@
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %}
-    {{ eleve.id is defined ? 'Edit'|trans : 'Add'|trans }}
+    {{ classroom.id is defined ? 'Edit'|trans : 'Add'|trans }}
 {% endblock %}
 
 {% block title %}
-    {{ eleve.id is defined ? 'Edit'|trans : 'Add'|trans }}
+    {{ classroom.id is defined ? 'Edit'|trans : 'Add'|trans }}
 {% endblock %}
 
 {% block body %}
@@ -18,30 +18,30 @@
         <div class="form-content">
             {{ form_start(form) }}
 
-            {# Student last name #}
+            {# Class name #}
             <div class="form-row">
-                {{ form_label(form.lastName, 'Name'|trans) }}
-                {{ form_widget(form.lastName) }}
+                {{ form_label(form.name, 'Name'|trans) }}
+                {{ form_widget(form.name) }}
                 <span class="form-error">
-                    {{ form_errors(form.lastName) }}
+                    {{ form_errors(form.name) }}
                 </span>
             </div>
 
-            {# Student first name #}
+            {# Class owner - titulaire #}
             <div class="form-row">
-                {{ form_label(form.firstName, 'First name'|trans) }}
-                {{ form_widget(form.firstName) }}
+                {{ form_label(form.owner, 'Owner'|trans) }}
+                {{ form_widget(form.owner) }}
                 <span class="form-error">
-                    {{ form_errors(form.firstName) }}
+                    {{ form_errors(form.owner) }}
                 </span>
             </div>
 
-            {# Student birthday #}
+            {# Class implantation #}
             <div class="form-row">
-                {{ form_label(form.birthday, 'Birthday'|trans) }}
-                {{ form_widget(form.birthday) }}
+                {{ form_label(form.implantation, 'Implantation'|trans) }}
+                {{ form_widget(form.implantation) }}
                 <span class="form-error">
-                    {{ form_errors(form.birthday) }}
+                    {{ form_errors(form.implantation) }}
                 </span>
             </div>
 

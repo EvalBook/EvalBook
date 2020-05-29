@@ -65,8 +65,8 @@
 
             <!-- Navigation -->
             <nav>
-                {% if is_granted('ROLE_CLASS_LIST_ALL') or ( app.user.classes is defined and app.user.classes|length > 0) %}
-                    <a href="{{ path('classes') }}" title="Classes">
+                {% if is_granted('ROLE_CLASS_LIST_ALL') or ( app.user.classrooms is defined and app.user.classrooms|length > 0) %}
+                    <a href="{{ path('classrooms') }}" title="Classes">
                         <div class="menuItem">
                             <i class="fas fa-clock"></i>
                             <span>{{ 'Classes'|trans }}</span>
@@ -74,21 +74,21 @@
                     </a>
                 {% endif %}
 
-                <a href="{{ path('eleves') }}" title="Students">
+                <a href="{{ path('students') }}" title="Students">
                     <div class="menuItem">
                         <i class="fas fa-user-graduate"></i>
                         <span>{{ 'Students'|trans }}</span>
                     </div>
                 </a>
 
-                <a href="{{ path('activites') }}" title="Activities">
+                <a href="{{ path('activities') }}" title="Activities">
                     <div class="menuItem">
                         <i class="fas fa-brain"></i>
                         <span>{{ 'Activities'|trans }}</span>
                     </div>
                 </a>
 
-                <a href="{{ path('note_book_select_class') }}" title="Notebook">
+                <a href="{{ path('note_book_select_classroom') }}" title="Notebook">
                     <div class="menuItem">
                         <i class="fas fa-book-open"></i>
                         <span>{{ 'Notebook'|trans }}</span>
@@ -178,8 +178,8 @@
         </p>
         <nav id="mobile-menu">
             <!-- Quick access on mobile bottom. -->
-            {% if is_granted('ROLE_CLASS_LIST_ALL') or ( app.user.classes is defined and app.user.classes|length > 0) %}
-                <a href="{{ path('classes') }}" title="Classes">
+            {% if is_granted('ROLE_CLASS_LIST_ALL') or ( app.user.classrooms is defined and app.user.classrooms|length > 0) %}
+                <a href="{{ path('classrooms') }}" title="Classes">
                     <div class="menuItem">
                         <i class="fas fa-clock"></i>
                         <span>{{ 'Classes'|trans }}</span>
@@ -188,7 +188,7 @@
             {% endif %}
 
             {% if is_granted('ROLE_STUDENT_LIST_ALL') %}
-                <a href="{{ path('eleves') }}" title="Students">
+                <a href="{{ path('students') }}" title="Students">
                     <div class="menuItem">
                         <i class="fas fa-user-graduate"></i>
                         <span>{{ 'Students'|trans }}</span>
@@ -196,14 +196,14 @@
                 </a>
             {% endif %}
 
-            <a href="{{ path('activites') }}" title="Activites">
+            <a href="{{ path('activities') }}" title="Activites">
                 <div class="menuItem">
                     <i class="fas fa-brain"></i>
                     <span>{{ 'Activities'|trans }}</span>
                 </div>
             </a>
 
-            <a href="{{ path('note_book_select_class') }}" title="Classes">
+            <a href="{{ path('note_book_select_classroom') }}" title="Classes">
                 <div class="menuItem">
                     <i class="fas fa-book-open"></i>
                     <span>{{ 'Notebook'|trans }}</span>

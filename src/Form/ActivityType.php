@@ -2,8 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\Activite;
-use App\Entity\Periode;
+use App\Entity\Activity;
+use App\Entity\Period;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class ActiviteType extends AbstractType
+class ActivityType extends AbstractType
 {
 
     /**
@@ -24,9 +24,9 @@ class ActiviteType extends AbstractType
     {
         $builder
             // Available periods.
-            ->add('periode', EntityType::class, [
-                'class' => Periode::class,
-                'choices' => $options['periodes'],
+            ->add('period', EntityType::class, [
+                'class' => Period::class,
+                'choices' => $options['periods'],
             ])
 
             // The note type.
@@ -54,8 +54,8 @@ class ActiviteType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Activite::class,
-            'periodes' => array(),
+            'data_class' => Activity::class,
+            'periods' => array(),
         ]);
     }
 }

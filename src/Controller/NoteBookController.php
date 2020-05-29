@@ -19,7 +19,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Classe;
+use App\Entity\Classroom;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,32 +27,32 @@ use Symfony\Component\Routing\Annotation\Route;
 class NoteBookController extends AbstractController
 {
     /**
-     * @Route("/notebook/classe/{classe}", name="note_book_view")
+     * @Route("/notebook/classroom/{classroom}", name="note_book_view")
      *
-     * @param Classe $classe
+     * @param Classroom $classroom
      * @return Response
      */
-    public function viewNotebook(Classe $classe)
+    public function viewNotebook(Classroom $classroom)
     {
-        $this->checkClassAccesses($classe);
+        $this->checkClassroomAccesses($classroom);
 
         return $this->render('note_book/notebook.html.twig', [
-            'classe'  => $classe,
-            'notebook' => $this->constructNotebook($classe),
-            'periodes' => $this->getNotebookPeriods($classe),
+            'classroom' => $classroom,
+            'notebook'  => $this->constructNotebook($classroom),
+            'periods'   => $this->getNotebookPeriods($classroom),
         ]);
     }
 
 
     /**
-     * @Route("/notebook/classes", name="note_book_select_class")
+     * @Route("/notebook/classrooms", name="note_book_select_classroom")
      *
      * @return Response
      */
     public function index()
     {
         return $this->render('note_book/index.html.twig', [
-            'classes' => $this->getUser()->getClasses(),
+            'classrooms' => $this->getUser()->getClassrooms(),
         ]);
     }
 
@@ -60,18 +60,18 @@ class NoteBookController extends AbstractController
     /**
      * Generate a more 'workable' notebook for template.
      *
-     * @param Classe $classe
+     * @param Classroom $classroom
      * @return array
      */
-    public function constructNotebook(Classe $classe)
+    public function constructNotebook(Classroom $classroom)
     {
         $notebook = array();
 
-        foreach($classe->getEleves() as $eleve) {
-            foreach($classe->getActivites() as $activity) {
+        foreach($classroom->getStudents() as $student) {
+            foreach($classroom->getActivities() as $activity) {
                 $max = strtoupper($activity->getNoteType()->getMax());
-                $note = !is_null($eleve->getNote($activity)) ? $eleve->getNote($activity) . " / $max" : '-';
-                $notebook[$eleve->getLastName() . ' ' . $eleve->getFirstName()][] = $note;
+                $note = !is_null($student->getNote($activity)) ? $student->getNote($activity) . " / $max" : '-';
+                $notebook[$student->getLastName() . ' ' . $student->getFirstName()][] = $note;
             }
         }
 
@@ -82,27 +82,28 @@ class NoteBookController extends AbstractController
     /**
      * Return available periods for notebook.
      *
-     * @param Classe $classe
+     * @param Classroom $classroom
      * @return array
      */
-    public function getNotebookPeriods(Classe $classe)
+    public function getNotebookPeriods(Classroom $classroom)
     {
         $periods = array();
-        foreach($classe->getActivites() as $activite) {
-            $periods[] = $activite->getPeriode()->getName();
+        foreach($classroom->getActivities() as $activity) {
+            $periods[] = $activity->getPeriod()->getName();
         }
         return array_count_values($periods);
     }
 
+
     /**
-     * Check the provided class user acces and throw access denied if user does not have rights to see it.
-     * @param Classe|null $classe
+     * Check the provided class user access and throw access denied if user does not have rights to see it.
+     * @param Classroom|null $classroom
      */
-    private function checkClassAccesses(?Classe $classe)
+    private function checkClassroomAccesses(?Classroom $classroom)
     {
         // If user is not allowed to use the class, then return a 405
-        if(!is_null($classe)) {
-            if (!$this->getUser() === $classe->getTitulaire() || !in_array($this->getUser(), $classe->getUsers()->toArray())) {
+        if(!is_null($classroom)) {
+            if (!$this->getUser() === $classroom->getOwner() || !in_array($this->getUser(), $classroom->getUsers()->toArray())) {
                 throw $this->createAccessDeniedException();
             }
         }

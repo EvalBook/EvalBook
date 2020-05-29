@@ -20,11 +20,11 @@
 namespace App\Controller;
 
 use App\Entity\Implantation;
-use App\Entity\Periode;
+use App\Entity\Period;
 use App\Form\ImplantationType;
 use App\Form\PeriodeType;
 use App\Repository\ImplantationRepository;
-use App\Repository\PeriodeRepository;
+use App\Repository\PeriodRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -49,7 +49,7 @@ class ImplantationController extends AbstractController
      */
     public function index(ImplantationRepository $repository)
     {
-        return $this->render('implantation/index.html.twig', [
+        return $this->render('implantations/index.html.twig', [
             'implantations' => $repository->findAll()
         ]);
     }
@@ -77,7 +77,7 @@ class ImplantationController extends AbstractController
             return $this->redirectToRoute('implantations');
         }
 
-        return $this->render('implantation/form.html.twig', [
+        return $this->render('implantations/form.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -103,7 +103,7 @@ class ImplantationController extends AbstractController
             return $this->redirectToRoute('implantations');
         }
 
-        return $this->render('implantation/form.html.twig', [
+        return $this->render('implantations/form.html.twig', [
             'implantation' => $implantation,
             'form' => $form->createView(),
         ]);
@@ -128,17 +128,17 @@ class ImplantationController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
 
         // Deleting activities and classes. Detach attributed notes from classes activities.
-        foreach($implantation->getClasses() as $classe) {
-            foreach($classe->getActivites() as $activite) {
-                $activite->detachNotes();
-                $entityManager->remove($activite);
+        foreach($implantation->getClassrooms() as $classroom) {
+            foreach($classroom->getActivities() as $activity) {
+                $activity->detachNotes();
+                $entityManager->remove($activity);
             }
-            $entityManager->remove($classe);
+            $entityManager->remove($classroom);
         }
         $entityManager->flush();
 
-        foreach($implantation->getPeriodes() as $periode) {
-            $entityManager->remove($periode);
+        foreach($implantation->getPeriods() as $period) {
+            $entityManager->remove($period);
         }
 
         $entityManager->remove($implantation);
@@ -149,16 +149,16 @@ class ImplantationController extends AbstractController
 
 
     /**
-     * @Route("/implantation/view/classes/{id}", name="implantation_view_classes")
+     * @Route("/implantation/view/classrooms/{id}", name="implantation_view_classrooms")
      * @IsGranted("ROLE_IMPLANTATION_LIST_ALL", statusCode=404, message="Not found")
      *
      * @param Implantation $implantation
      * @return Response
      */
-    public function viewClasses(Implantation $implantation)
+    public function viewClassrooms(Implantation $implantation)
     {
-        return $this->render('classe/index.html.twig', [
-            'classes' => $implantation->getClasses(),
+        return $this->render('classrooms/index.html.twig', [
+            'classrooms' => $implantation->getClassrooms(),
             'redirect' => base64_encode(json_encode([
                 'route'  => 'implantation_view_classes',
                 'params' => ['id' => $implantation->getId()],
@@ -172,12 +172,12 @@ class ImplantationController extends AbstractController
      * @IsGranted("ROLE_IMPLANTATION_EDIT", statusCode=404, message="Not found")
      *
      * @param Implantation $implantation
-     * @param PeriodeRepository $repository
+     * @param PeriodRepository $repository
      * @return Response
      */
-    public function viewPeriods(Implantation $implantation, PeriodeRepository $repository)
+    public function viewPeriods(Implantation $implantation, PeriodRepository $repository)
     {
-        return $this->render('implantation/periode-index.html.twig', [
+        return $this->render('implantations/period-index.html.twig', [
             'periods' => $repository->findBy(
                 ['implantation' => $implantation->getId()],
                 ['dateStart' => 'ASC']
@@ -197,7 +197,7 @@ class ImplantationController extends AbstractController
      */
     public function addPeriod(Implantation $implantation, Request $request)
     {
-        $period = new Periode();
+        $period = new Period();
         $period->setImplantation($implantation);
 
         $form = $this->createForm(PeriodeType::class, $period);
@@ -212,7 +212,7 @@ class ImplantationController extends AbstractController
             return $this->redirectToRoute('implantations');
         }
 
-        return $this->render('implantation/periode-form.html.twig', [
+        return $this->render('implantations/period-form.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -222,11 +222,11 @@ class ImplantationController extends AbstractController
      * @Route("/implantation/period/edit/{id}", name="implantation_period_edit")
      * @IsGranted("ROLE_IMPLANTATION_EDIT", statusCode=404, message="Not found")
      *
-     * @param Periode $periode
+     * @param Period $periode
      * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function editPeriod(Periode $periode, Request $request)
+    public function editPeriod(Period $periode, Request $request)
     {
         $this->canManipulatePeriod($periode);
 
@@ -242,8 +242,8 @@ class ImplantationController extends AbstractController
             ]);
         }
 
-        return $this->render('implantation/periode-form.html.twig', [
-            'periode' => $periode,
+        return $this->render('implantations/period-form.html.twig', [
+            'period' => $periode,
             'form' => $form->createView(),
         ]);
     }
@@ -253,24 +253,24 @@ class ImplantationController extends AbstractController
      * @Route("/implantation/period/delete/{id}", name="implantation_periode_delete", methods={"POST"})
      * @IsGranted("ROLE_IMPLANTATION_EDIT", statusCode=404, message="Not found")
      *
-     * @param Periode $periode
+     * @param Period $period
      * @param Request $request
      * @return JsonResponse
      */
-    public function deletePeriod(Periode $periode, Request $request)
+    public function deletePeriod(Period $period, Request $request)
     {
         // Check if period can be deleted.
-        $this->canManipulatePeriod($periode);
+        $this->canManipulatePeriod($period);
 
         $jsonRequest = json_decode($request->getContent(), true);
-        if( !isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('implantation_periode_delete'.$periode->getId(), $jsonRequest['csrf'])) {
+        if( !isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('implantation_period_delete'.$period->getId(), $jsonRequest['csrf'])) {
             return $this->json(['message' => 'Invalid csrf token'], 201);
         }
 
         // Only allowing deletion if the period has no activity attached to it.
-        if(! count($periode->getActivites()) > 0) {
+        if(! count($period->getActivities()) > 0) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($periode);
+            $entityManager->remove($period);
             $entityManager->flush();
 
             return $this->json(['message' => 'Period deleted'], 200);
@@ -282,12 +282,12 @@ class ImplantationController extends AbstractController
 
     /**
      * Check period start date, if period already started or closed, then throwing access denied.
-     * @param Periode|null $periode
+     * @param Period|null $period
      */
-    private function canManipulatePeriod(?Periode $periode)
+    private function canManipulatePeriod(?Period $period)
     {
-        if(!is_null($periode)) {
-            if ($periode->getDateStart() < new \DateTime()) {
+        if(!is_null($period)) {
+            if ($period->getDateStart() < new \DateTime()) {
                 throw $this->createAccessDeniedException();
             }
         }

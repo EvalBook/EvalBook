@@ -2,11 +2,11 @@
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %}
-    {{ classe.id is defined ? 'Edit'|trans : 'Add'|trans }}
+    {{ student.id is defined ? 'Edit'|trans : 'Add'|trans }}
 {% endblock %}
 
 {% block title %}
-    {{ classe.id is defined ? 'Edit'|trans : 'Add'|trans }}
+    {{ student.id is defined ? 'Edit'|trans : 'Add'|trans }}
 {% endblock %}
 
 {% block body %}
@@ -18,30 +18,30 @@
         <div class="form-content">
             {{ form_start(form) }}
 
-            {# Class name #}
+            {# Student last name #}
             <div class="form-row">
-                {{ form_label(form.name, 'Name'|trans) }}
-                {{ form_widget(form.name) }}
+                {{ form_label(form.lastName, 'Name'|trans) }}
+                {{ form_widget(form.lastName) }}
                 <span class="form-error">
-                    {{ form_errors(form.name) }}
+                    {{ form_errors(form.lastName) }}
                 </span>
             </div>
 
-            {# Class owner - titulaire #}
+            {# Student first name #}
             <div class="form-row">
-                {{ form_label(form.titulaire, 'Owner'|trans) }}
-                {{ form_widget(form.titulaire) }}
+                {{ form_label(form.firstName, 'First name'|trans) }}
+                {{ form_widget(form.firstName) }}
                 <span class="form-error">
-                    {{ form_errors(form.titulaire) }}
+                    {{ form_errors(form.firstName) }}
                 </span>
             </div>
 
-            {# Class implantation #}
+            {# Student birthday #}
             <div class="form-row">
-                {{ form_label(form.implantation, 'Implantation'|trans) }}
-                {{ form_widget(form.implantation) }}
+                {{ form_label(form.birthday, 'Birthday'|trans) }}
+                {{ form_widget(form.birthday) }}
                 <span class="form-error">
-                    {{ form_errors(form.implantation) }}
+                    {{ form_errors(form.birthday) }}
                 </span>
             </div>
 

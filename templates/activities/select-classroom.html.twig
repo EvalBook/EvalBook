@@ -16,20 +16,20 @@
         </tr>
         </thead>
         <tbody>
-        {% for classe in classes %}
+        {% for classroom in classrooms %}
             <tr>
-                <td>{{ classe.implantation }}</td>
-                <td>{{ classe.name }}</td>
+                <td>{{ classroom.implantation }}</td>
+                <td>{{ classroom.name }}</td>
                 <td>
-                    {%  if app.user is same as(classe.titulaire) %}
+                    {%  if app.user is same as(classroom.owner) %}
                         <span><< <strong>{{ 'Me'|trans }}</strong> >></span>
                     {% else %}
-                        {{ classe.titulaire }}
+                        {{ classroom.owner }}
                     {% endif %}
                 </td>
-                <td class="text-center mobile-hidden-td">{{ classe.activites|length }}</td>
+                <td class="text-center mobile-hidden-td">{{ classroom.activities|length }}</td>
                 <td>
-                    <a href="{{ path('activite_add', {'classe': classe.id} ) }}" title="Add activity to the class">
+                    <a href="{{ path('activity_add', {'classroom': classroom.id} ) }}" title="Add activity to the class">
                         <i class="fas fa-plus text-yellow"></i>
                     </a>
                 </td>

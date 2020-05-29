@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Activite;
+use App\Entity\Activity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -15,7 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *
  * @package App\Form
  */
-class ActiviteNotesType extends AbstractType
+class ActivityNotesType extends AbstractType
 {
     /**
      * Create a form for ActiviteNotesType.
@@ -41,7 +41,7 @@ class ActiviteNotesType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Activite::class,
+            'data_class' => Activity::class,
         ]);
     }
 }

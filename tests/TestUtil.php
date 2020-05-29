@@ -2,13 +2,13 @@
 
 namespace App\Tests;
 
-use App\Entity\Activite;
+use App\Entity\Activity;
 use App\Entity\Classe;
-use App\Entity\Eleve;
+use App\Entity\Student;
 use App\Entity\Implantation;
 use App\Entity\Note;
 use App\Entity\NoteType;
-use App\Entity\Periode;
+use App\Entity\Period;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Persistence\ObjectRepository;
 
@@ -85,11 +85,11 @@ class TestUtil
      * @param String $modifier
      * @param String $name
      * @param bool $persist
-     * @return Periode
+     * @return Period
      */
-    public function createPeriod(String $modifier, String $name, bool $persist = false): Periode
+    public function createPeriod(String $modifier, String $name, bool $persist = false): Period
     {
-        $period = new Periode();
+        $period = new Period();
         $period
             ->setDateStart((new \DateTime())->modify("- $modifier month"))
             ->setDateEnd((new \DateTime())->modify("+ $modifier month"))
@@ -149,11 +149,11 @@ class TestUtil
      * @param String $firstName
      * @param String $lastName
      * @param bool $persist
-     * @return Eleve
+     * @return Student
      */
-    public function createStudent(String $firstName, String $lastName, bool $persist = false): Eleve
+    public function createStudent(String $firstName, String $lastName, bool $persist = false): Student
     {
-        $student = new Eleve();
+        $student = new Student();
         $student
             ->setFirstName($firstName)
             ->setLastName($lastName)
@@ -169,15 +169,15 @@ class TestUtil
     /**
      * Create an activity and perform persist if needed.
      * @param NoteType $noteType
-     * @param Periode $period
+     * @param Period $period
      * @param String $name
      * @param bool $persist
-     * @return Activite
+     * @return Activity
      */
-    public function createActivity(NoteType $noteType, Periode $period, String $name, bool $persist = false): Activite
+    public function createActivity(NoteType $noteType, Period $period, String $name, bool $persist = false): Activity
     {
         // Setting up activities.
-        $activity = new Activite();
+        $activity = new Activity();
         $activity
             ->setNoteType($noteType)
             ->setName($name)
@@ -192,12 +192,12 @@ class TestUtil
 
     /**
      * Create a Note object and persist if needed.
-     * @param Eleve $student
+     * @param Student $student
      * @param String $noteValue
      * @param bool $persist
      * @return Note
      */
-    public function createNote(Eleve $student, String $noteValue, bool $persist = false): Note
+    public function createNote(Student $student, String $noteValue, bool $persist = false): Note
     {
         $note = new Note();
         $note

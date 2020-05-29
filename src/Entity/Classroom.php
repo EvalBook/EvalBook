@@ -25,9 +25,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ClasseRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ClassroomRepository")
  */
-class Classe
+class Classroom
 {
     /**
      * @ORM\Id()
@@ -42,31 +42,31 @@ class Classe
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="classes")
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="classrooms")
      */
     private $users;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Eleve", mappedBy="classes")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Student", mappedBy="classrooms")
      */
-    private $eleves;
+    private $students;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="classesTitulaire")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="classroomsOwner")
      */
-    private $titulaire;
+    private $owner;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Implantation", inversedBy="classes")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Implantation", inversedBy="classrooms")
      * @ORM\JoinColumn(nullable=false)
      */
     private $implantation;
 
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Activite", mappedBy="classe")
+     * @ORM\OneToMany(targetEntity="App\Entity\Activity", mappedBy="classroom")
      */
-    private $activites;
+    private $activities;
 
 
     /**
@@ -75,13 +75,13 @@ class Classe
     public function __construct()
     {
         $this->users = new ArrayCollection();
-        $this->eleves = new ArrayCollection();
-        $this->activites = new ArrayCollection();
+        $this->students = new ArrayCollection();
+        $this->activities = new ArrayCollection();
     }
 
 
     /**
-     * Return the Class ID.
+     * Return the Classroom ID.
      * @return int|null
      */
     public function getId(): ?int
@@ -91,7 +91,7 @@ class Classe
 
 
     /**
-     * Return the classe name.
+     * Return the classroom name.
      * @return string|null
      */
     public function getName(): ?string
@@ -101,7 +101,7 @@ class Classe
 
 
     /**
-     * Set the classe name.
+     * Set the classroom name.
      * @param string $name
      * @return $this
      */
@@ -113,22 +113,21 @@ class Classe
 
 
     /**
-     * Return the available Classe Users, including 'titulaire'.
-     * @param bool|null $includeTitulaire
+     * Return the available Classroom Users, including 'owner'.
      * @return Collection|User[]
      */
     public function getUsers(): Collection
     {
         $users = $this->users;
-        if($this->getTitulaire() && !$users->contains($this->getTitulaire()))
-            $users->add($this->getTitulaire());
+        if($this->getOwner() && !$users->contains($this->getOwner()))
+            $users->add($this->getOwner());
 
         return $users;
     }
 
 
     /**
-     * Enable a user to manage this Class by adding it to the object users list.
+     * Enable a user to manage this Classroom by adding it to the object users list.
      * @param User $user
      * @return $this
      */
@@ -136,7 +135,7 @@ class Classe
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
-            $user->addClasse($this);
+            $user->addClassroom($this);
         }
 
         return $this;
@@ -144,7 +143,7 @@ class Classe
 
 
     /**
-     * Removes a user from allowed users for the Classe.
+     * Removes a user from allowed users for the Classroom.
      * @param User $user
      * @return $this
      */
@@ -152,7 +151,7 @@ class Classe
     {
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);
-            $user->removeClasse($this);
+            $user->removeClassroom($this);
         }
 
         return $this;
@@ -160,7 +159,7 @@ class Classe
 
 
     /**
-     * Removes all users in a class and add new ones passed.
+     * Removes all users in a classroom and add new ones passed.
      * @param array $usersCollection
      * @return $this
      */
@@ -177,42 +176,42 @@ class Classe
 
 
     /**
-     * Removes all students in a class and add new ones passed.
+     * Removes all students in a classroom and add new ones passed.
      * @param array $studentsCollection
      * @return $this
      */
     public function setStudents(array $studentsCollection)
     {
-        foreach($this->getEleves() as $student)
-            $this->removeEleve($student);
+        foreach($this->getStudents() as $student)
+            $this->removeStudent($student);
 
         foreach($studentsCollection as $student)
-            $this->addEleve($student);
+            $this->addStudent($student);
 
         return $this;
     }
 
 
     /**
-     * Return a Collection of Eleve objects registered to the Class object.
-     * @return Collection|Eleve[]
+     * Return a Collection of Student objects registered to the Classroom object.
+     * @return Collection|Student[]
      */
-    public function getEleves(): Collection
+    public function getStudents(): Collection
     {
-        return $this->eleves;
+        return $this->students;
     }
 
 
     /**
-     * Add an Eleve object to the Classe object.
-     * @param Eleve $eleve
+     * Add a student object to the Classroom object.
+     * @param Student $student
      * @return $this
      */
-    public function addEleve(Eleve $eleve): self
+    public function addStudent(Student $student): self
     {
-        if (!$this->eleves->contains($eleve)) {
-            $this->eleves[] = $eleve;
-            $eleve->addClasse($this);
+        if (!$this->students->contains($student)) {
+            $this->students[] = $student;
+            $student->addClassroom($this);
         }
 
         return $this;
@@ -220,15 +219,15 @@ class Classe
 
 
     /**
-     * Remove an Eleve Object to the Classe object.
-     * @param Eleve $eleve
+     * Remove a student Object to the Classroom object.
+     * @param Student $student
      * @return $this
      */
-    public function removeEleve(Eleve $eleve): self
+    public function removeStudent(Student $student): self
     {
-        if ($this->eleves->contains($eleve)) {
-            $this->eleves->removeElement($eleve);
-            $eleve->removeClasse($this);
+        if ($this->students->contains($student)) {
+            $this->students->removeElement($student);
+            $student->removeClassroom($this);
         }
 
         return $this;
@@ -239,26 +238,26 @@ class Classe
      * Return the User object that own the Class ( aka titulaire ).
      * @return User|null
      */
-    public function getTitulaire(): ?User
+    public function getOwner(): ?User
     {
-        return $this->titulaire;
+        return $this->owner;
     }
 
 
     /**
      * Set the class object owner ( aka titulaire ).
-     * @param User|null $titulaire
+     * @param User|null $owner
      * @return $this
      */
-    public function setTitulaire(?User $titulaire): self
+    public function setOwner(?User $owner): self
     {
-        $this->titulaire = $titulaire;
+        $this->owner = $owner;
         return $this;
     }
 
 
     /**
-     * Return the Classe object implantation.
+     * Return the Classroom object implantation.
      * @return Implantation|null
      */
     public function getImplantation(): ?Implantation
@@ -283,21 +282,21 @@ class Classe
      * Return the class activities.
      * @return ArrayCollection
      */
-    public function getActivites()
+    public function getActivities()
     {
-        return $this->activites;
+        return $this->activities;
     }
 
     /**
-     * Add an activity object to the Classe object.
-     * @param Activite $activite
+     * Add an activity object to the Classroom object.
+     * @param Activity $activity
      * @return $this
      */
-    public function addActivite(Activite $activite): self
+    public function addActivity(Activity $activity): self
     {
-        if (!$this->activites->contains($activite)) {
-            $this->activites[] = $activite;
-            $activite->setClasse($this);
+        if (!$this->activities->contains($activity)) {
+            $this->activities[] = $activity;
+            $activity->setClassroom($this);
         }
 
         return $this;
