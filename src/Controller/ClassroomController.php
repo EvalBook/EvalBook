@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Classe;
-use App\Entity\Eleve;
+use App\Entity\Classroom;
+use App\Entity\Student;
 use App\Entity\User;
-use App\Form\ClasseType;
-use App\Repository\ClasseRepository;
+use App\Form\ClassroomType;
+use App\Repository\ClassroomRepository;
 use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -19,37 +19,37 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
 
-class ClasseController extends AbstractController
+class ClassroomController extends AbstractController
 {
     /**
      * @Route("/")
-     * @Route("/classes", name="classes")
+     * @Route("/classrooms", name="classrooms")
      *
-     * @param ClasseRepository $classeRepository
+     * @param ClassroomRepository $classroomRepository
      * @param Security $security
      * @return Response
      */
-    public function index(ClasseRepository $classeRepository, Security $security): Response
+    public function index(ClassroomRepository $classroomRepository, Security $security): Response
     {
         $user = $security->getUser();
 
         // Getting all classes if user has role to view all.
         if ($security->isGranted('ROLE_CLASS_LIST_ALL')) {
-            $classes = $classeRepository->findAll();
+            $classrooms = $classroomRepository->findAll();
         }
         else {
             // If not, getting classes the user is subscribed to.
-            $classes = $user->getClasses();
+            $classrooms = $user->getClassrooms();
         }
 
-        return $this->render('classe/index.html.twig', [
-            'classes' => $classes,
+        return $this->render('classrooms/index.html.twig', [
+            'classrooms' => $classrooms,
         ]);
     }
 
 
     /**
-     * @Route("/classe/add", name="classe_add")
+     * @Route("/classroom/add", name="classroom_add")
      * @IsGranted("ROLE_CLASS_CREATE", statusCode=404, message="Not found")
      *
      * @param Request $request
@@ -57,35 +57,36 @@ class ClasseController extends AbstractController
      */
     public function add(Request $request): Response
     {
-        $classe = new Classe();
-        $form = $this->createForm(ClasseType::class, $classe);
+        $classroom = new Classroom();
+        $form = $this->createForm(ClassroomType::class, $classroom);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($classe);
+            $entityManager->persist($classroom);
             $entityManager->flush();
 
-            return $this->redirectToRoute('classes');
+            return $this->redirectToRoute('classrooms');
         }
 
-        return $this->render('classe/form.html.twig', [
+        return $this->render('classrooms/form.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
 
     /**
-     * @Route("/classe/edit/{id}/{redirect}", name="classe_edit", defaults={"redirect"=null})
+     * @Route("/classroom/edit/{id}/{redirect}", name="classroom_edit", defaults={"redirect"=null})
      * @IsGranted("ROLE_CLASS_EDIT", statusCode=404, message="Not found")
      *
      * @param Request $request
-     * @param Classe $classe
+     * @param Classroom $classroom
+     * @param String|null $redirect
      * @return Response
      */
-    public function edit(Request $request, Classe $classe, ?String $redirect): Response
+    public function edit(Request $request, Classroom $classroom, ?String $redirect): Response
     {
-        $form = $this->createForm(ClasseType::class, $classe);
+        $form = $this->createForm(ClassroomType::class, $classroom);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -96,66 +97,66 @@ class ClasseController extends AbstractController
                 return $this->redirectToRoute($redirect['route'], $redirect["params"]);
             }
 
-            return $this->redirectToRoute('classes');
+            return $this->redirectToRoute('classrooms');
         }
 
-        return $this->render('classe/form.html.twig', [
-            'classe' => $classe,
+        return $this->render('classrooms/form.html.twig', [
+            'classroom' => $classroom,
             'form' => $form->createView(),
         ]);
     }
 
 
     /**
-     * @Route("/classe/delete/{id}", name="classe_delete", methods={"POST"})
+     * @Route("/classroom/delete/{id}", name="classroom_delete", methods={"POST"})
      * @IsGranted("ROLE_CLASS_DELETE", statusCode=404, message="Not found")
      *
      * @param Request $request
-     * @param Classe $classe
+     * @param Classroom $classroom
      * @return Response
      */
-    public function delete(Request $request, Classe $classe): Response
+    public function delete(Request $request, Classroom $classroom): Response
     {
         $jsonRequest = json_decode($request->getContent(), true);
-        if( !isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('classe_delete'.$classe->getId(), $jsonRequest['csrf'])) {
+        if( !isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('classroom_delete'.$classroom->getId(), $jsonRequest['csrf'])) {
             return $this->json(['message' => 'Invalid csrf token'], 201);
         }
 
         $entityManager = $this->getDoctrine()->getManager();
         // Making activities orphans
-        foreach($classe->getActivites()->toArray() as $activite) {
-            $activite->detachClass();
+        foreach($classroom->getActivities()->toArray() as $activity) {
+            $activity->detachClassroom();
             $entityManager->flush();
         }
 
-        $entityManager->remove($classe);
+        $entityManager->remove($classroom);
         $entityManager->flush();
-        return $this->json(['message' => 'Classe deleted'], 200);
+        return $this->json(['message' => 'Class deleted'], 200);
 
     }
 
 
     /**
-     * @Route("/classe/users/{id}", name="classe_manage_users")
+     * @Route("/classroom/users/{id}", name="classroom_manage_users")
      * @IsGranted("ROLE_CLASS_EDIT_USERS", statusCode=404, message="Not found")
      *
      * @param UserRepository $userRepository
      * @param Request $request
-     * @param Classe $classe
+     * @param Classroom $classroom
      * @return RedirectResponse|Response
      */
-    public function manageClassUsers(UserRepository $userRepository, Request $request, Classe $classe)
+    public function manageClassroomUsers(UserRepository $userRepository, Request $request, Classroom $classroom)
     {
         $formUsers = $userRepository->findAll();
-        // Removing titulaire as it has full rights on his class.
-        $titulaire = $classe->getTitulaire();
-        if($titulaire && in_array($titulaire, $formUsers)) {
-            if($key = array_search($titulaire, $formUsers))
+        // Removing owner as it has full rights on his class.
+        $owner = $classroom->getOwner();
+        if($owner && in_array($owner, $formUsers)) {
+            if($key = array_search($owner, $formUsers))
                 unset($formUsers[$key]);
         }
 
         $form = $this->createFormBuilder([
-                'users' => $classe->getUsers(),
+                'users' => $classroom->getUsers(),
               ])
 
               ->add('users', EntityType::class, [
@@ -180,36 +181,36 @@ class ClasseController extends AbstractController
 
             if(!is_null($users)) {
                 $em = $this->getDoctrine()->getManager();
-                $classe->setUsers($users);
-                $em->persist($classe);
+                $classroom->setUsers($users);
+                $em->persist($classroom);
                 $em->flush();
             }
 
-            return $this->redirectToRoute('classes');
+            return $this->redirectToRoute('classrooms');
         }
 
-        return $this->render('classe/form-manage-users.html.twig', [
-            'classe' => $classe,
+        return $this->render('classrooms/form-manage-users.html.twig', [
+            'classroom' => $classroom,
             'form' => $form->createView(),
         ]);
     }
 
 
     /**
-     * @Route("/classe/students/{id}", name="classe_manage_students")
+     * @Route("/classroom/students/{id}", name="classroom_manage_students")
      * @IsGranted("ROLE_CLASS_EDIT_STUDENTS", statusCode=404, message="Not found")
      *
      * @param Request $request
-     * @param Classe $classe
+     * @param Classroom $classroom
      */
-    public function manageClassStudents(Request $request, Classe $classe)
+    public function manageClassroomStudents(Request $request, Classroom $classroom)
     {
         $form = $this->createFormBuilder([
-            'students' => $classe->getEleves(),
+            'students' => $classroom->getStudents(),
         ])
 
             ->add('students', EntityType::class, [
-                'class' => Eleve::class,
+                'class' => Student::class,
                 'multiple' => true,
                 'expanded' => true,
                 'by_reference' => false,
@@ -227,52 +228,52 @@ class ClasseController extends AbstractController
             $students = $form->getData()["students"]->toArray();
             if(!is_null($students)) {
                 $em = $this->getDoctrine()->getManager();
-                $classe->setStudents($students);
-                $em->persist($classe);
+                $classroom->setStudents($students);
+                $em->persist($classroom);
                 $em->flush();
             }
 
-            return $this->redirectToRoute('classes');
+            return $this->redirectToRoute('classrooms');
         }
 
-        return $this->render('classe/form-manage-students.html.twig', [
-            'classe' => $classe,
+        return $this->render('classrooms/form-manage-students.html.twig', [
+            'classroom' => $classroom,
             'form' => $form->createView(),
         ]);
     }
 
 
     /**
-     * @Route("/classe/view/users/{id}", name="classe_view_users")
+     * @Route("/classroom/view/users/{id}", name="classroom_view_users")
      *
-     * @param Classe $classe
+     * @param Classroom $classroom
      * @return Response
      */
-    public function viewClassUsers(Classe $classe)
+    public function viewClassroomUsers(Classroom $classroom)
     {
         return $this->render('users/index.html.twig', [
-           'users'   => $classe->getUsers(),
+           'users'   => $classroom->getUsers(),
            'redirect' => base64_encode(json_encode([
-               'route'  => 'classe_view_users',
-               'params' => ['id' => $classe->getId()],
+               'route'  => 'classroom_view_users',
+               'params' => ['id' => $classroom->getId()],
            ])),
         ]);
     }
 
 
     /**
-     * @Route("/classe/view/students/{id}", name="classe_view_students")
+     * @Route("/classroom/view/students/{id}", name="classroom_view_students")
      *
-     * @param Classe $classe
+     * @param Classroom $classroom
      * @return Response
      */
-    public function viewClassStudents(Classe $classe)
+    public function viewClassroomStudents(Classroom $classroom)
     {
-        return $this->render('eleve/index.html.twig', [
-            'eleves' => $classe->getEleves(),
+        return $this->render('students/index.html.twig', [
+            'students' => $classroom->getStudents(),
             'redirect' => base64_encode(json_encode([
-                'route'  => 'classe_view_students',
-                'params' => ['id' => $classe->getId()],
+                'route'  => 'classroom_view_students',
+                'params' => ['id' => $classroom->getId()],
             ])),
         ]);
     }

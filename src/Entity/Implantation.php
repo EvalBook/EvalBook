@@ -58,14 +58,14 @@ class Implantation
     private $country;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Classe", mappedBy="implantation", cascade="persist")
+     * @ORM\OneToMany(targetEntity="App\Entity\Classroom", mappedBy="implantation", cascade="persist")
      */
-    private $classes;
+    private $classrooms;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Periode", mappedBy="implantation")
+     * @ORM\OneToMany(targetEntity="App\Entity\Period", mappedBy="implantation")
      */
-    private $periodes;
+    private $periods;
 
 
     /**
@@ -73,8 +73,8 @@ class Implantation
      */
     public function __construct()
     {
-        $this->classes = new ArrayCollection();
-        $this->periodes = new ArrayCollection();
+        $this->classrooms = new ArrayCollection();
+        $this->periods = new ArrayCollection();
     }
 
 
@@ -178,22 +178,37 @@ class Implantation
 
 
     /**
-     * Return a collection of Classe object owned byt the Implantation object.
-     * @return Collection|Classe[]
+     * Return a collection of Classroom object owned byt the Implantation object.
+     * @return Collection|Classroom[]
      */
-    public function getClasses(): Collection
+    public function getClassrooms(): Collection
     {
-        return $this->classes;
+        return $this->classrooms;
     }
 
 
     /**
-     * Return the available list of Perdiod objects for the Implantation.
-     * @return Collection|Periode[]
+     * Return the available list of Period objects for the Implantation.
+     * @return Collection|Period[]
      */
-    public function getPeriodes(): Collection
+    public function getPeriods(): Collection
     {
-        return $this->periodes;
+        return $this->periods;
+    }
+
+
+    /**
+     * Add a period to the implantation.
+     * @param Period $period
+     * @return $this
+     */
+    public function addPeriod(Period $period): self
+    {
+        if(!$this->periods->contains($period)) {
+            $this->periods[] = $period;
+            $period->setImplantation($this);
+        }
+        return $this;
     }
 
 

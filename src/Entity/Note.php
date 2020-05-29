@@ -37,16 +37,16 @@ class Note
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Activite", inversedBy="notes")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Activity", inversedBy="notes")
      * @ORM\JoinColumn(nullable=true)
      */
-    private $activite; // Nullable true in order to keep students note in case of implantation deletion.
+    private $activity; // Nullable true in order to keep students note in case of implantation deletion.
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Eleve", inversedBy="notes")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Student", inversedBy="notes")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $eleve;
+    private $student;
 
     /**
      * @ORM\Column(type="string", length=45)
@@ -85,45 +85,45 @@ class Note
 
 
     /**
-     * Return the Activite object attached to the Note.
-     * @return Activite|null
+     * Return the Activity object attached to the Note.
+     * @return Activity|null
      */
-    public function getActivite(): ?Activite
+    public function getActivity(): ?Activity
     {
-        return $this->activite;
+        return $this->activity;
     }
 
 
     /**
      * Set the Note object Activity.
-     * @param Activite $activite
+     * @param Activity $activity
      * @return $this
      */
-    public function setActivite(?Activite $activite): self
+    public function setActivity(?Activity $activity): self
     {
-        $this->activite = $activite;
+        $this->activity = $activity;
         return $this;
     }
 
 
     /**
-     * Return the Eleve object the Note is attached to.
-     * @return Eleve|null
+     * Return the Student object the Note is attached to.
+     * @return Student|null
      */
-    public function getEleve(): ?Eleve
+    public function getStudent(): ?Student
     {
-        return $this->eleve;
+        return $this->student;
     }
 
 
     /**
-     * Set the Eleve object the Note is attached to.
-     * @param Eleve|null $eleve
+     * Set the Student object the Note is attached to.
+     * @param Student|null $student
      * @return $this
      */
-    public function setEleve(?Eleve $eleve): self
+    public function setStudent(?Student $student): self
     {
-        $this->eleve = $eleve;
+        $this->student = $student;
         return $this;
     }
 

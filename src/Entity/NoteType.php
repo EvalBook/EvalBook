@@ -44,9 +44,9 @@ class NoteType
     private $ponderation;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Activite", mappedBy="noteType")
+     * @ORM\OneToMany(targetEntity="App\Entity\Activity", mappedBy="noteType")
      */
-    private $activites;
+    private $activities;
 
 
     /**

@@ -4,7 +4,7 @@
 {% block pageTitle %} {{ 'Periods' | trans }} {% endblock %}
 {% block title %}
     {{ 'Periods' | trans }}
-    {% set help = {'title': 'periodes.title', 'intro': 'periodes.intro', 'actions': 'periodes.actions'} %}
+    {% set help = {'title': 'periods.title', 'intro': 'periods.intro', 'actions': 'periods.actions'} %}
     {% include 'help/help-dialog.html.twig' %}
 {% endblock %}
 
@@ -72,7 +72,7 @@
                                      data-targetid="{{ period.id }}"
                                      data-action="{{ path('implantation_periode_delete', {'id': period.id}) }}"
                                      data-class="fas fa-trash"
-                                     data-csrf="{{ csrf_token('implantation_periode_delete' ~ period.id) }}"
+                                     data-csrf="{{ csrf_token('implantation_period_delete' ~ period.id) }}"
                                 >
                                 </div>
                             {% endif %}

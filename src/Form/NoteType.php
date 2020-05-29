@@ -18,7 +18,7 @@ class NoteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('eleve', TextType::class,[
+            ->add('student', TextType::class,[
                 'disabled' => true,
                 'label' => false,
             ])

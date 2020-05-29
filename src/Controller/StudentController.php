@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Eleve;
-use App\Form\EleveType;
-use App\Repository\EleveRepository;
+use App\Entity\Student;
+use App\Form\StudentType;
+use App\Repository\StudentRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,39 +13,39 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
 
-class EleveController extends AbstractController
+class StudentController extends AbstractController
 {
     /**
-     * @Route("/eleves", name="eleves", methods={"GET"})
+     * @Route("/students", name="students", methods={"GET"})
      *
-     * @param EleveRepository $eleveRepository
+     * @param StudentRepository $studentRepository
      * @param Security $security
      * @return Response
      */
-    public function index(EleveRepository $eleveRepository, Security $security): Response
+    public function index(StudentRepository $studentRepository, Security $security): Response
     {
         $user = $security->getUser();
 
         // Getting all classes students if user has role to view all.
         if($security->isGranted('ROLE_STUDENT_LIST_ALL')) {
-            $eleves = $eleveRepository->findAll();
+            $students = $studentRepository->findAll();
         }
         // If not, getting classes the user is subscribed to.
         else {
-            $eleves = array();
-            foreach($user->getClasses() as $classe) {
-                $eleves = array_merge($eleves, $classe->getEleves()->toArray());
+            $students = array();
+            foreach($user->getClassrooms() as $classroom) {
+                $students = array_merge($students, $classroom->getStudents()->toArray());
             }
         }
 
-        return $this->render('eleve/index.html.twig', [
-            'eleves' => array_unique($eleves),
+        return $this->render('students/index.html.twig', [
+            'students' => array_unique($students),
         ]);
     }
 
 
     /**
-     * @Route("/eleve/add", name="eleve_add")
+     * @Route("/student/add", name="student_add")
      * @IsGranted("ROLE_STUDENT_CREATE", statusCode=404, message="Not found")
      *
      * @param Request $request
@@ -53,36 +53,36 @@ class EleveController extends AbstractController
      */
     public function add(Request $request): Response
     {
-        $eleve = new Eleve();
-        $form = $this->createForm(EleveType::class, $eleve);
+        $student = new Student();
+        $form = $this->createForm(StudentType::class, $student);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($eleve);
+            $entityManager->persist($student);
             $entityManager->flush();
 
-            return $this->redirectToRoute('eleves');
+            return $this->redirectToRoute('students');
         }
 
-        return $this->render('eleve/form.html.twig', [
+        return $this->render('students/form.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
 
     /**
-     * @Route("/eleve/edit/{id}/{redirect}", name="eleve_edit", defaults={"redirect"=null})
+     * @Route("/student/edit/{id}/{redirect}", name="student_edit", defaults={"redirect"=null})
      * @IsGranted("ROLE_STUDENT_EDIT", statusCode=404, message="Not found")
      *
      * @param Request $request
-     * @param Eleve $eleve
+     * @param Student $student
      * @param String|null $redirect
      * @return Response
      */
-    public function edit(Request $request, Eleve $eleve, ?String $redirect): Response
+    public function edit(Request $request, Student $student, ?String $redirect): Response
     {
-        $form = $this->createForm(EleveType::class, $eleve);
+        $form = $this->createForm(StudentType::class, $student);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -93,40 +93,40 @@ class EleveController extends AbstractController
                 return $this->redirectToRoute($redirect['route'], $redirect["params"]);
             }
 
-            return $this->redirectToRoute('eleves');
+            return $this->redirectToRoute('students');
         }
 
-        return $this->render('eleve/form.html.twig', [
-            'eleve' => $eleve,
+        return $this->render('students/form.html.twig', [
+            'student' => $student,
             'form' => $form->createView(),
         ]);
     }
 
 
     /**
-     * @Route("/eleve/delete/{id}", name="eleve_delete", methods={"POST"})
+     * @Route("/student/delete/{id}", name="student_delete", methods={"POST"})
      * @IsGranted("ROLE_STUDENT_DELETE", statusCode=404, message="Not found")
      *
      * @param Request $request
-     * @param Eleve $eleve
+     * @param Student $student
      * @return Response
      */
-    public function delete(Request $request, Eleve $eleve): Response
+    public function delete(Request $request, Student $student): Response
     {
         $jsonRequest = json_decode($request->getContent(), true);
-        if( !isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('eleve_delete'.$eleve->getId(), $jsonRequest['csrf'])) {
+        if( !isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('student_delete'.$student->getId(), $jsonRequest['csrf'])) {
             return $this->json(['message' => 'Invalid csrf token'], 201);
         }
 
         $entityManager = $this->getDoctrine()->getManager();
         // Deleting all student notes too.
-        foreach($eleve->getNotes() as $note) {
+        foreach($student->getNotes() as $note) {
             $entityManager->remove($note);
         }
         $entityManager->flush();
 
         // Removing student.
-        $entityManager->remove($eleve);
+        $entityManager->remove($student);
         $entityManager->flush();
 
         return $this->json(['message' => 'Student deleted'], 200);
@@ -134,18 +134,18 @@ class EleveController extends AbstractController
 
 
     /**
-     * @Route("/eleve/view/classes/{id}", name="student_view_classes")
+     * @Route("/student/view/classrooms/{id}", name="student_view_classrooms")
      *
-     * @param Eleve $eleve
+     * @param Student $student
      * @return Response
      */
-    public function viewClasses(Eleve $eleve)
+    public function viewClassrooms(Student $student)
     {
-        return $this->render('classe/index.html.twig', [
-            'classes' => $eleve->getClasses(),
+        return $this->render('classrooms/index.html.twig', [
+            'classrooms' => $student->getClassrooms(),
             'redirect' => base64_encode(json_encode([
-                'route'  => 'student_view_classes',
-                'params' => ['id' => $eleve->getId()],
+                'route'  => 'student_view_classrooms',
+                'params' => ['id' => $student->getId()],
             ])),
         ]);
     }

@@ -63,19 +63,19 @@ class User implements UserInterface
     private $firstName;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Classe", inversedBy="users")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Classroom", inversedBy="users")
      */
-    private $classes;
+    private $classrooms;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Activite", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Activity", mappedBy="user")
      */
-    private $activites;
+    private $activities;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Classe", mappedBy="titulaire", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Classroom", mappedBy="owner", cascade={"persist", "remove"})
      */
-    private $classesTitulaire;
+    private $classroomsOwner;
 
 
     /**
@@ -83,8 +83,8 @@ class User implements UserInterface
      */
     public function __construct()
     {
-        $this->classes = new ArrayCollection();
-        $this->activites = new ArrayCollection();
+        $this->classrooms = new ArrayCollection();
+        $this->activities = new ArrayCollection();
     }
 
 
@@ -254,31 +254,31 @@ class User implements UserInterface
 
     /**
      * Return a collection of Classes the user own.
-     * @return Collection|Classe[]
+     * @return Collection|Classroom[]
      */
-    public function getClasses(): Collection
+    public function getClassrooms(): Collection
     {
-        $classes = $this->classes;
-        foreach($this->getClasseTitulaire() as $classeTitulaire)
+        $classrooms = $this->classrooms;
+        foreach($this->getClassroomsOwner() as $classroomOwner)
         {
-            if(!$classes->contains($classeTitulaire)) {
-                $classes[] = $classeTitulaire;
+            if(!$classrooms->contains($classroomOwner)) {
+                $classrooms[] = $classroomOwner;
             }
         }
 
-        return $classes;
+        return $classrooms;
     }
 
 
     /**
      * Add a class to the user.
-     * @param Classe $classe
+     * @param Classroom $classroom
      * @return $this
      */
-    public function addClasse(Classe $classe): self
+    public function addClassroom(Classroom $classroom): self
     {
-        if (!$this->classes->contains($classe)) {
-            $this->classes[] = $classe;
+        if (!$this->classrooms->contains($classroom)) {
+            $this->classrooms[] = $classroom;
         }
 
         return $this;
@@ -287,14 +287,14 @@ class User implements UserInterface
 
     /**
      * Remove a class a user own.
-     * @param Classe $classe
+     * @param Classroom $classroom
      * @return $this
      */
-    public function removeClasse(Classe $classe): self
+    public function removeClassroom(Classroom $classroom): self
     {
-        if ($this->classes->contains($classe)) {
-            $this->classes->removeElement($classe);
-            $classe->removeUser($this);
+        if ($this->classrooms->contains($classroom)) {
+            $this->classrooms->removeElement($classroom);
+            $classroom->removeUser($this);
         }
 
         return $this;
@@ -303,26 +303,26 @@ class User implements UserInterface
 
     /**
      * Return a collection of Activite User created.
-     * @return Collection|Activite[]
+     * @return Collection|Activity[]
      */
-    public function getActivites(): Collection
+    public function getActivities(): Collection
     {
-        return $this->activites;
+        return $this->activities;
     }
 
 
     /**
      * Remove an Activite from the User Activite collection.
-     * @param Activite $activite
+     * @param Activity $activity
      * @return $this
      */
-    public function removeActivite(Activite $activite): self
+    public function removeActivity(Activity $activity): self
     {
-        if ($this->activites->contains($activite)) {
-            $this->activites->removeElement($activite);
+        if ($this->activities->contains($activity)) {
+            $this->activities->removeElement($activity);
             // set the owning side to null (unless already changed)
-            if ($activite->getUser() === $this) {
-                $activite->setUser(null);
+            if ($activity->getUser() === $this) {
+                $activity->setUser(null);
             }
         }
 
@@ -334,9 +334,9 @@ class User implements UserInterface
      * Return the Classe the User is 'titulaire'.
      * @return Collection|null
      */
-    public function getClasseTitulaire(): ?Collection
+    public function getClassroomsOwner(): ?Collection
     {
-        return $this->classesTitulaire;
+        return $this->classroomsOwner;
     }
 
 
@@ -344,12 +344,12 @@ class User implements UserInterface
      * Return students that are attached to at least one of this user class.
      * @return array
      */
-    public function getEleves()
+    public function getStudents()
     {
         $students = array();
-        foreach($this->getClasses() as $classe) {
-            foreach ($classe->getEleves() as $eleve) {
-                $students[] = $eleve;
+        foreach($this->getClassrooms() as $classroom) {
+            foreach ($classroom->getStudents() as $student) {
+                $students[] = $student;
             }
         }
 

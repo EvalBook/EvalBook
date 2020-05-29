@@ -26,9 +26,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ActiviteRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ActivityRepository")
  */
-class Activite
+class Activity
 {
 
     /**
@@ -44,22 +44,22 @@ class Activite
     private $dateAdded;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\NoteType", inversedBy="activites")
+     * @ORM\ManyToOne(targetEntity="App\Entity\NoteType", inversedBy="activities")
      * @ORM\JoinColumn(nullable=false)
      */
     private $noteType;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="activites")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="activities")
      * @ORM\JoinColumn(nullable=true)
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Periode", inversedBy="activites")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Period", inversedBy="activities")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $periode;
+    private $period;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -72,16 +72,16 @@ class Activite
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="activite", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="activity", cascade={"persist"})
      */
     private $notes;
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Classe", inversedBy="activites")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Classroom", inversedBy="activities")
      * @ORM\JoinColumn(nullable=true)
      */
-    private $classe;
+    private $classroom;
 
 
     /**
@@ -151,22 +151,22 @@ class Activite
 
     /**
      * Return the Period attached to the activity.
-     * @return Periode|null
+     * @return Period|null
      */
-    public function getPeriode(): ?Periode
+    public function getPeriod(): ?Period
     {
-        return $this->periode;
+        return $this->period;
     }
 
 
     /**
      * Set the period attache to the activity.
-     * @param Periode|null $periode
+     * @param Period|null $period
      * @return $this
      */
-    public function setPeriode(?Periode $periode): self
+    public function setPeriod(?Period $period): self
     {
-        $this->periode = $periode;
+        $this->period = $period;
         return $this;
     }
 
@@ -236,22 +236,22 @@ class Activite
 
 
     /**
-     * Return the activity class.
+     * Return the activity classroom.
      */
-    public function getClasse()
+    public function getClassroom()
     {
-        return $this->classe;
+        return $this->classroom;
     }
 
 
     /**
-     * Set the activity class.
-     * @param Classe $classe
+     * Set the activity classroom.
+     * @param Classroom $classroom
      */
-    public function setClasse(?Classe $classe)
+    public function setClassroom(?Classroom $classroom)
     {
-        if(!is_null($classe))
-            $this->classe = $classe;
+        if(!is_null($classroom))
+            $this->classroom = $classroom;
     }
 
 
@@ -264,7 +264,7 @@ class Activite
     {
         if (!$this->notes->contains($note)) {
             $this->notes[] = $note;
-            $note->setActivite($this);
+            $note->setActivity($this);
         }
 
         return $this;
@@ -280,7 +280,7 @@ class Activite
     {
         if ($this->notes->contains($note)) {
             $this->notes->removeElement($note);
-            $note->setActivite(null);
+            $note->setActivity(null);
         }
 
         return $this;
@@ -293,7 +293,7 @@ class Activite
      */
     public function detachNotes(): self {
         foreach($this->getNotes() as $note) {
-            $note->setActivite(null);
+            $note->setActivity(null);
         }
         $this->notes = [];
 
@@ -302,20 +302,20 @@ class Activite
 
 
     /**
-     * Detach Class.
+     * Detach Classroom.
      * @return $this
      */
-    public function detachClass(): self {
-        $this->classe = null;
+    public function detachClassroom(): self {
+        $this->classroom = null;
         return $this;
     }
 
     /**
-     * Return the Activite string representation.
+     * Return the Activity string representation.
      * @return string
      */
     public function __toString()
     {
-        return $this->getPeriode() . " - " . $this->getName();
+        return $this->getPeriod() . " - " . $this->getName();
     }
 }

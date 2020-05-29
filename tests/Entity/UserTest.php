@@ -2,9 +2,9 @@
 
 namespace App\Tests\Entity;
 
-use App\Entity\Activite;
+use App\Entity\Activity;
 use App\Entity\Classe;
-use App\Entity\Eleve;
+use App\Entity\Student;
 use App\Entity\User;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\PhpUnit\SetUpTearDownTrait;
@@ -65,8 +65,8 @@ class UserTest extends TestCase {
     {
         for($i = 0; $i < 3; $i++) {
             $classe = new Classe();
-            $eleve = new Eleve();
-            $activity = new Activite();
+            $eleve = new Student();
+            $activity = new Activity();
 
             // Adding new items to user.
             $this->user->addClasse($classe);

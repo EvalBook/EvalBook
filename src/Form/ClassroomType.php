@@ -2,9 +2,10 @@
 
 namespace App\Form;
 
-use App\Entity\Eleve;
+use App\Entity\Classroom;
+use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -12,46 +13,40 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 
 
-class EleveType extends AbstractType
+class ClassroomType extends AbstractType
 {
+
     /**
-     * Create a form to add / edit students.
+     * Build a form to add / edit classes.
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            // Student first name.
-            ->add('lastName', TextType::class, [
+            // The class name.
+            ->add('name', TextType::class, [
                 'constraints' => [
                     new Length([
                         'min' => 3,
                         'max' => 100,
-                        'minMessage' => 'user.first-name-too-short',
-                        'maxMessage' => 'user.first-name-too-long',
+                        'minMessage' => 'classe.name-too-short',
+                        'maxMessage' => 'classe.name-too-long',
                     ])
                 ]
             ])
 
-            // Student last name.
-            ->add('firstName', TextType::class, [
-                'constraints' => [
-                    new Length([
-                        'min' => 3,
-                        'max' => 100,
-                        'minMessage' => 'user.last-name-too-short',
-                        'maxMessage' => 'user.last-name-too-long',
-                    ])
-                ]
+            // The class owner.
+            ->add('owner', EntityType::class, [
+                'class' => User::class,
             ])
 
-            // Birthday.
-            ->add('birthday', BirthdayType::class)
+            // The class implantation
+            ->add('implantation')
 
+            // Submit button.
             ->add('submit', SubmitType::class)
         ;
-
     }
 
     /**
@@ -61,7 +56,8 @@ class EleveType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Eleve::class,
+            'data_class' => Classroom::class,
+            'users' => array(),
         ]);
     }
 }

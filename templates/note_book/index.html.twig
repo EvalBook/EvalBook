@@ -15,20 +15,20 @@
         </tr>
         </thead>
         <tbody>
-        {% for classe in classes %}
+        {% for classroom in classrooms %}
             <tr>
-                <td>{{ classe.implantation }}</td>
-                <td>{{ classe.name }}</td>
+                <td>{{ classroom.implantation }}</td>
+                <td>{{ classroom.name }}</td>
                 <td>
-                    {% if app.user is same as(classe.titulaire) %}
+                    {% if app.user is same as(classroom.owner) %}
                         <span><< <strong>{{ 'Me'|trans }}</strong> >></span>
                     {% else %}
-                        {{ classe.titulaire }}
+                        {{ classroom.owner }}
                     {% endif%}
                 </td>
                 <td>
-                    {% if classe.activites|length > 0 %}
-                        <a href="{{ path('note_book_view', {'classe': classe.id} ) }}" title="View this notebook">
+                    {% if classroom.activities|length > 0 %}
+                        <a href="{{ path('note_book_view', {'classroom': classroom.id} ) }}" title="View this notebook">
                             <i class="fas fa-eye"></i>
                         </a>
                     {% else %}

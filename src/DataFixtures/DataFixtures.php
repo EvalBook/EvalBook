@@ -2,13 +2,13 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Activite;
-use App\Entity\Classe;
-use App\Entity\Eleve;
+use App\Entity\Activity;
+use App\Entity\Classroom;
+use App\Entity\Student;
 use App\Entity\Implantation;
 use App\Entity\Note;
 use App\Entity\NoteType;
-use App\Entity\Periode;
+use App\Entity\Period;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
@@ -63,13 +63,13 @@ class DataFixtures extends Fixture implements ContainerAwareInterface, FixtureIn
 
         // Creating Users.
         $users = array();
-        for($i = 0; $i < 50; $i++) {
+        for($i = 0; $i < 20; $i++) {
             $user = new User();
             $user
                 ->setLastName($faker->lastName)
                 ->setFirstName($faker->firstName)
                 ->setEmail($faker->email)
-                ->setPassword(password_hash('Dev007!!', PASSWORD_BCRYPT))
+                ->setPassword('Dev007!!')
                 ->setRoles(["ROLE_USER, ROLE_CLASS_EDIT_STUDENTS"])
                 // Reste classe titulaire et classes.
             ;
@@ -83,7 +83,7 @@ class DataFixtures extends Fixture implements ContainerAwareInterface, FixtureIn
             ->setLastName('Admin')
             ->setFirstName('Super')
             ->setEmail("admin@evalbook.dev")
-            ->setPassword(password_hash('Dev007!!', PASSWORD_BCRYPT))
+            ->setPassword('Dev007!!')
             ->setRoles(["ROLE_ADMIN"])
         ;
         $em->persist($user);
@@ -91,8 +91,8 @@ class DataFixtures extends Fixture implements ContainerAwareInterface, FixtureIn
 
         // Creating Eleves.
         $students = array();
-        for($i = 0; $i < 500; $i++) {
-            $student = new Eleve();
+        for($i = 0; $i < 250; $i++) {
+            $student = new Student();
             $student
                 ->setLastName($faker->lastName)
                 ->setFirstName($faker->firstName)
@@ -103,57 +103,59 @@ class DataFixtures extends Fixture implements ContainerAwareInterface, FixtureIn
         }
 
 
-        for($i = 0; $i < 6; $i++) {
+        for($i = 0; $i < 3; $i++) {
             // Creating Implantations
             $implantation = new Implantation();
             $implantation
-                ->setName($faker->company)
+                ->setName("Implantation " . $faker->name)
                 ->setCountry($faker->country)
                 ->setZipCode($faker->postcode)
                 ->setAddress($faker->address)
             ;
 
             // Creating Periods.
+            $periodes = array();
             for($j = 0; $j < 4; $j++) {
-                $periode = new Periode();
+                $periode = new Period();
                 $periode
-                    ->setName("Periode $i")
+                    ->setName("Periode $j")
                     ->setImplantation($implantation)
                     ->setDateEnd($faker->dateTimeBetween($startDate = '-8 months', $endDate = '+2 months', $timezone = null))
                     ->setDateStart($faker->dateTimeBetween($startDate = '-2 months', $endDate = '+6 months', $timezone = null))
                 ;
                 $periode->setImplantation($implantation);
                 $em->persist($periode);
+                $periodes[] = $periode;
             }
             // Persist implantation with provided periods.
             $em->persist($implantation);
 
             // Creating Classes
             for($j = 0; $j < 6; $j++) {
-                $classe = new Classe();
+                $classe = new Classroom();
                 $classe
                     ->setName("Primaire $j")
                     ->setImplantation($implantation)
                     ->setStudents($faker->randomElements($students, mt_rand(10, 25)))
                     ->setUsers($faker->randomElements($users, mt_rand(2, 4)))
-                    ->setTitulaire($faker->randomElement($users))
+                    ->setOwner($faker->randomElement($users))
                 ;
                 $em->persist($classe);
 
                 // Adding activities to this class.
-                for($k = 0; $k < 10; $k++) {
-                    $activity = new Activite();
+                for($k = 0; $k < 5; $k++) {
+                    $activity = new Activity();
                     $name = $k % 2 ? "maths" : "français";
                     $activityNoteType = $faker->randomElement($notesTypes);
 
                     $activity
                         ->setName("Activité $name $k")
                         ->setUser($faker->randomElement($classe->getUsers()))
-                        ->setPeriode($faker->randomElement($classe->getImplantation()->getPeriodes()))
+                        ->setPeriod($faker->randomElement($periodes))
                         ->setComment("Generated activity comment N° $k")
                         ->setNoteType($activityNoteType)
                         // Last one cause void method, no chaining possible.
-                        ->setClasse($classe)
+                        ->setClassroom($classe)
                     ;
 
                     $em->persist($activity);
@@ -161,12 +163,12 @@ class DataFixtures extends Fixture implements ContainerAwareInterface, FixtureIn
                     // Adding notes to this activity.
                     $notesComments = ["Peux mieux faire", "On y va !", "Comme on", "Tu progresse vite", "A ton rythme", "Au suivant !"];
 
-                    foreach($classe->getEleves() as $eleve) {
+                    foreach($classe->getStudents() as $eleve) {
                         $note = new Note();
                         $note
-                            ->setActivite($activity)
+                            ->setActivity($activity)
                             ->setComment($faker->randomElement($notesComments))
-                            ->setEleve($eleve)
+                            ->setStudent($eleve)
                             ->setNote($this->generateNote($activity->getNoteType(), $faker))
                         ;
                         $em->persist($note);

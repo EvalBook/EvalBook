@@ -53,7 +53,7 @@ classes:
     supprimer cette classe, vous devrez au préalable en supprimer manuellement toutes les activités.
 
 
-eleve:
+students:
   title: Les élèves
 
   actions: |
@@ -66,7 +66,7 @@ eleve:
     Attention, si vous supprimez un élève, toutes les notes obtenues seront également supprimées, utilisez
     cette fonctionnalité avec grande précaution, car les notes n'apparaîtront plus dans le cahier de notes.
 
-activites:
+activities:
   title: Les activités.
 
   intro: >
@@ -86,7 +86,7 @@ activites:
     Si la médaille est rouge, cela signifie qu'aucune note n'a été attribuée à l'activité.
     Vous ne pouvez pas éditer une activité dont la période spécifiée est terminée.
 
-periodes:
+periods:
   title: Les périodes
 
   intro: >
