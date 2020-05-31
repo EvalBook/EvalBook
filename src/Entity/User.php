@@ -77,6 +77,11 @@ class User implements UserInterface
      */
     private $classroomsOwner;
 
+    /**
+     * @ORM\OneToOne(targetEntity=UserConfiguration::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $userConfiguration;
+
 
     /**
      * User constructor.
@@ -405,5 +410,23 @@ class User implements UserInterface
     public function getSalt()
     {
         // Implement getSalt() method.
+    }
+
+    public function getUserConfiguration(): ?UserConfiguration
+    {
+        return $this->userConfiguration;
+    }
+
+    public function setUserConfiguration(?UserConfiguration $userConfiguration): self
+    {
+        $this->userConfiguration = $userConfiguration;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newUser = null === $userConfiguration ? null : $this;
+        if ($userConfiguration->getUser() !== $newUser) {
+            $userConfiguration->setUser($newUser);
+        }
+
+        return $this;
     }
 }
