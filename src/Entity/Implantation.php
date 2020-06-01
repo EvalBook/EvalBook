@@ -48,16 +48,6 @@ class Implantation
     private $address;
 
     /**
-     * @ORM\Column(type="string", length=10)
-     */
-    private $zipCode;
-
-    /**
-     * @ORM\Column(type="string", length=150)
-     */
-    private $country;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Classroom", mappedBy="implantation", cascade="persist")
      */
     private $classrooms;
@@ -66,6 +56,11 @@ class Implantation
      * @ORM\OneToMany(targetEntity="App\Entity\Period", mappedBy="implantation")
      */
     private $periods;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=School::class, inversedBy="implantations")
+     */
+    private $school;
 
 
     /**
@@ -134,50 +129,6 @@ class Implantation
 
 
     /**
-     * Return the Implantation zip code.
-     * @return string|null
-     */
-    public function getZipCode(): ?string
-    {
-        return $this->zipCode;
-    }
-
-
-    /**
-     * Set the Implantation zip code.
-     * @param string $zipCode
-     * @return $this
-     */
-    public function setZipCode(string $zipCode): self
-    {
-        $this->zipCode = $zipCode;
-        return $this;
-    }
-
-
-    /**
-     * Return the Implantation country.
-     * @return string|null
-     */
-    public function getCountry(): ?string
-    {
-        return $this->country;
-    }
-
-
-    /**
-     * Set the Implantation country.
-     * @param string $country
-     * @return $this
-     */
-    public function setCountry(string $country): self
-    {
-        $this->country = $country;
-        return $this;
-    }
-
-
-    /**
      * Return a collection of Classroom object owned byt the Implantation object.
      * @return Collection|Classroom[]
      */
@@ -219,5 +170,28 @@ class Implantation
     public function __toString()
     {
         return $this->getName();
+    }
+
+
+    /**
+     * Return the school the implantation is attached to.
+     * @return School|null
+     */
+    public function getSchool(): ?School
+    {
+        return $this->school;
+    }
+
+
+    /**
+     * Set the school the implantation is attached to.
+     * @param School|null $school
+     * @return $this
+     */
+    public function setSchool(?School $school): self
+    {
+        $this->school = $school;
+
+        return $this;
     }
 }

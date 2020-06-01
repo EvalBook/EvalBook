@@ -18,6 +18,18 @@ users:
      add new notes attached to this activity to new incoming students and you will be unable to edit notes / activities.
      You cannot delete a super admin !
 
+schools:
+  title: Schools
+
+  actions: |
+    <ul>
+      <li><i class="fas fa-plus"></i><span>Add a new school</span></li>
+      <li><i class="fas fa-eye"></i><span>View implantations attached to the school</span></li>
+      <li><i class="fas fa-edit"></i><span>Edit a school</span></li>
+      <li><i class="fas fa-trash"></i><span>Delete a school</span></li>
+    </ul>
+    If you decide to delete a school, all attached data will be lost !
+
 implantations:
   title: Implantations
 

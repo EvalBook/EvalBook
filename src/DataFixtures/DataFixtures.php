@@ -4,12 +4,14 @@ namespace App\DataFixtures;
 
 use App\Entity\Activity;
 use App\Entity\Classroom;
+use App\Entity\School;
 use App\Entity\Student;
 use App\Entity\Implantation;
 use App\Entity\Note;
 use App\Entity\NoteType;
 use App\Entity\Period;
 use App\Entity\User;
+use App\Repository\SchoolRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -105,12 +107,14 @@ class DataFixtures extends Fixture implements ContainerAwareInterface, FixtureIn
 
         for($i = 0; $i < 3; $i++) {
             // Creating Implantations
+            $school = new School();
+            $school->setName("Ecole $i");
+
             $implantation = new Implantation();
             $implantation
                 ->setName("Implantation " . $faker->name)
-                ->setCountry($faker->country)
-                ->setZipCode($faker->postcode)
                 ->setAddress($faker->address)
+                ->setSchool($school)
             ;
 
             // Creating Periods.
@@ -128,6 +132,7 @@ class DataFixtures extends Fixture implements ContainerAwareInterface, FixtureIn
                 $periodes[] = $periode;
             }
             // Persist implantation with provided periods.
+            $em->persist($school);
             $em->persist($implantation);
 
             // Creating Classes

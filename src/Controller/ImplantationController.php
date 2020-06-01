@@ -116,21 +116,30 @@ class ImplantationController extends AbstractController
      *
      * @param Implantation $implantation
      * @param Request $request
+     * @param bool $checkToken
      * @return JsonResponse
      */
-    public function delete(Implantation $implantation, Request $request)
+    public function delete(Implantation $implantation, Request $request, $checkToken=true)
     {
         $jsonRequest = json_decode($request->getContent(), true);
-        if( !isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('implantation_delete'.$implantation->getId(), $jsonRequest['csrf'])) {
-            return $this->json(['message' => 'Invalid csrf token'], 201);
+
+        if($checkToken) {
+            if (!isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('implantation_delete' . $implantation->getId(), $jsonRequest['csrf'])) {
+                return $this->json(['message' => 'Invalid csrf token'], 201);
+            }
         }
 
         $entityManager = $this->getDoctrine()->getManager();
 
         // Deleting activities and classes. Detach attributed notes from classes activities.
         foreach($implantation->getClassrooms() as $classroom) {
+
             foreach($classroom->getActivities() as $activity) {
                 $activity->detachNotes();
+                $activity->setPeriod(null);
+                $entityManager->persist($activity);
+                $entityManager->flush();
+
                 $entityManager->remove($activity);
             }
             $entityManager->remove($classroom);

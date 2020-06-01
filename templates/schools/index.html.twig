@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block pageTitle %} {{ 'Schools' | trans }} {% endblock %}
+{% block title %}
+    {{ 'Schools' | trans }}
+    {% set help = {'title': 'schools.title', 'intro': 'intro', 'actions': 'schools.actions'} %}
+    {% include 'help/help-dialog.html.twig' %}
+{% endblock %}
+
+{% block titleBottom %}
+    {% set placeholder = 'Search for school'|trans %}
+    {% include 'search.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    <table class="full-width">
+        <thead>
+        <tr>
+            <th scope="col">{{ 'School' | trans }}</th>
+            <th scope="col" class="text-center">{{ 'Implantations'|trans }}</th>
+
+            {% if is_granted('ROLE_SCHOOL_EDIT') %}
+                <th scope="col" class="text-center mobile-hidden-td">{{ 'Edit' | trans }}</th>
+            {% endif %}
+
+            {% if is_granted('ROLE_SCHOOL_DELETE') %}
+                <th scope="col" class="text-center mobile-hidden-td">{{ 'Delete' | trans }}</th>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for school in schools %}
+            <tr data-id="{{ school.id }}" data-trigger="{{ path('implantation_edit', {'id': school.id}) }}">
+                <td class="search-target">{{ school.name }}</td>
+
+                {# Display school implantations count. #}
+                <td class="text-center">
+                    {% if is_granted('ROLE_IMPLANTATION_LIST_ALL') %}
+                        <a href="{{ path('school_view_implantations', {'id': school.id} ) }}" title="View implantations">
+                            <i class="fas fa-eye"></i> ({{ school.implantations|length }})
+                        </a>
+                    {% else %}
+                        <span>{{ school.implantations|length }}</span>
+                    {% endif %}
+                </td>
+
+                {# School edition. #}
+                {% if is_granted('ROLE_SCHOOL_EDIT') %}
+                    <td class="text-center mobile-hidden-td">
+                        <a href="{{ path('school_edit', {'id': school.id}) }}" title="Edit school">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
+                {% endif %}
+
+                {# School deletion. #}
+                {% if is_granted('ROLE_SCHOOL_DELETE') %}
+                    <td class="text-center mobile-hidden-td">
+                        <div data-target="school"
+                             data-targetid="{{ school.id }}"
+                             data-action="{{ path('school_delete', {'id': school.id}) }}"
+                             data-class="fas fa-trash"
+                             data-csrf="{{ csrf_token('school_delete' ~ school.id) }}"
+                        >
+                        </div>
+                    </td>
+                {% endif %}
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4" class="text-center">
+                    {{ 'No school found' | trans }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" class="text-center">
+                    {{ 'You do not have rights to view schools or no school was created'|trans }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+
+{% block functionnalities %}
+    {% if is_granted('ROLE_SCHOOL_CREATE') %}
+        <a href="{{ path('school_add') }}" title="Add school">
+            <i class="fas fa-plus"></i>
+        </a>
+    {% endif %}
+{% endblock %}
+
+
+{% block functionnalitiesMobile %}
+    {% if is_granted('ROLE_SCHOOL_CREATE') %}
+        <a href="{{ path('school_add') }}" title="Add school">
+            <i class="fas fa-plus"></i>
+        </a>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('modalDialogs') }}
+    {{ encore_entry_script_tags('search') }}
+{% endblock %}
