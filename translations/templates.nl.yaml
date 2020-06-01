@@ -110,6 +110,8 @@ School: School
 Search for school: Search for school
 No school found: No school found
 You do not have rights to view schools or no school was created: You do not have rights to view schools or no school was created
+school deleted: School deleted
+A school with this name already exists: A school with this name already exists
 
 
 roles:

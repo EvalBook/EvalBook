@@ -57,7 +57,7 @@ class Activity
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Period", inversedBy="activities")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $period;
 

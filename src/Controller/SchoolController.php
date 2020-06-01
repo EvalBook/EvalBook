@@ -36,21 +36,26 @@ class SchoolController extends AbstractController
      * @IsGranted("ROLE_SCHOOL_CREATE", statusCode=404, message="Not found")
      *
      * @param Request $request
+     * @param SchoolRepository $repository
      * @return RedirectResponse|Response
      */
-    public function add(Request $request)
+    public function add(Request $request, SchoolRepository $repository)
     {
         $school = new School();
         $form = $this->createForm(SchoolType::class, $school);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($school);
-            $entityManager->flush();
-            $this->addFlash('success', 'Successfully added');
-
-            return $this->redirectToRoute('schools');
+            if($repository->count(['name' => $school->getName()]) > 0) {
+                $this->addFlash('error', 'A school with this name already exists');
+            }
+            else {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($school);
+                $entityManager->flush();
+                $this->addFlash('success', 'Successfully added');
+                return $this->redirectToRoute('schools');
+            }
         }
 
         return $this->render('schools/form.html.twig', [
@@ -90,11 +95,12 @@ class SchoolController extends AbstractController
      * @Route("/school/delete/{id}", name="school_delete", methods={"POST"})
      * @IsGranted("ROLE_SCHOOL_DELETE", statusCode=404, message="Not found")
      *
+     * @param ImplantationController $implController
      * @param School $school
      * @param Request $request
      * @return JsonResponse
      */
-    public function delete(School $school, Request $request)
+    public function delete(ImplantationController $implController, School $school, Request $request)
     {
         $jsonRequest = json_decode($request->getContent(), true);
         if( !isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('school_delete'.$school->getId(), $jsonRequest['csrf'])) {
@@ -103,29 +109,13 @@ class SchoolController extends AbstractController
 
         $entityManager = $this->getDoctrine()->getManager();
 
-        foreach($school->getImplantations() as $implantation) {
-
-            foreach ($implantation->getClassrooms() as $classroom) {
-                foreach ($classroom->getActivities() as $activity) {
-                    $activity->detachNotes();
-                    $entityManager->remove($activity);
-                }
-                $entityManager->remove($classroom);
-            }
-            $entityManager->flush();
-
-            foreach ($implantation->getPeriods() as $period) {
-                $entityManager->remove($period);
-            }
-
-            $entityManager->remove($implantation);
-            $entityManager->flush();
-
+        foreach($school->getImplantations()->toArray() as $implantation) {
+            $implController->delete($implantation, $request, false);
         }
-        $entityManager->persist($school);
+        $entityManager->remove($school);
         $entityManager->flush();
 
-        return $this->json(['message' => 'Implantation deleted'], 200);
+        return $this->json(['message' => 'school deleted'], 200);
     }
 
 

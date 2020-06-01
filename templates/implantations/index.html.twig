@@ -18,6 +18,7 @@
         <thead>
         <tr>
             <th scope="col">{{ 'Implantation' | trans }}</th>
+            <th scope="col">{{ 'School'|trans }}</th>
             <th scope="col" class="mobile-hidden-td">{{ 'Address' | trans }}</th>
             <th scope="col" class="mobile-hidden-td">{{ 'Zip-code' | trans }}</th>
             <th scope="col" class="mobile-hidden-td">{{ 'Country' | trans }}</th>
@@ -37,6 +38,7 @@
         {% for implantation in implantations %}
             <tr data-id="{{ implantation.id }}" data-trigger="{{ path('implantation_edit', {'id': implantation.id}) }}">
                 <td class="search-target">{{ implantation.name }}</td>
+                <td class="search-target">{{ implantation.school ? implantation.school : '-' }}</td>
                 <td class="mobile-hidden-td search-target">{{ implantation.address }}</td>
                 <td class="mobile-hidden-td">{{ implantation.zipCode }}</td>
                 <td class="mobile-hidden-td search-target">{{ implantation.country }}</td>
