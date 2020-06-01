@@ -87,20 +87,26 @@ class ImplantationController extends AbstractController
      * @Route("/implantation/edit/{id}", name="implantation_edit")
      * @IsGranted("ROLE_IMPLANTATION_EDIT", statusCode=404, message="Not found")
      *
-     * @param Request $request
      * @param Implantation $implantation
+     * @param Request $request
+     * @param ImplantationRepository $repository
      * @return RedirectResponse|Response
      */
-    public function edit(Implantation $implantation, Request $request)
+    public function edit(Implantation $implantation, Request $request, ImplantationRepository $repository)
     {
         $form = $this->createForm(ImplantationType::class, $implantation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success', 'Successfully updated');
+            if($repository->implantationNameAlreadyTaken($implantation)) {
+                $this->addFlash('error', 'An implantation in the same school already exists with this name');
+            }
+            else {
+                $this->getDoctrine()->getManager()->flush();
+                $this->addFlash('success', 'Successfully updated');
 
-            return $this->redirectToRoute('implantations');
+                return $this->redirectToRoute('implantations');
+            }
         }
 
         return $this->render('implantations/form.html.twig', [
@@ -169,7 +175,7 @@ class ImplantationController extends AbstractController
         return $this->render('classrooms/index.html.twig', [
             'classrooms' => $implantation->getClassrooms(),
             'redirect' => base64_encode(json_encode([
-                'route'  => 'implantation_view_classes',
+                'route'  => 'implantation_view_classrooms',
                 'params' => ['id' => $implantation->getId()],
             ])),
         ]);
