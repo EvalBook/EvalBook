@@ -104,6 +104,8 @@ The requested page couldn't be located. Checkout for any URL misspelling.: La pa
 You do not have rights to do this action !: Vous n'avez pas le droit de réaliser cette action !
 You do not allowed to do this action !: Vous n'êtes pas autorisé à réaliser cette action
 Error !: Erreur !
+Configuration: Configuration
+Schools: Ecoles
 
 
 roles:
@@ -125,9 +127,17 @@ roles:
   ROLE_IMPLANTATION_EDIT: Editer une implantation
   ROLE_IMPLANTATION_CREATE: Créer une implantation
   ROLE_IMPLANTATION_DELETE: Supprimer une implantation
+  ROLE_SCHOOL_LIST_ALL: Lister toutes les écoles
+  ROLE_SCHOOL_EDIT: Editer une école
+  ROLE_SCHOOL_CREATE: Créer une école
+  ROLE_SCHOOL_DELETE: Supprimer une école
   ROLE_ADMIN: Rôle admin
 
 help:
+  ROLE_SCHOOL_LIST_ALL: Vous permet de lister l'ensemble des écoles enregistrées dans le système.
+  ROLE_SCHOOL_EDIT: Vous permet d'éditer une école en modifiant les informations de nom et de siège principal.
+  ROLE_SCHOOL_CREATE: Vous permet de créer une nouvelle école.
+  ROLE_SCHOOL_DELETE: Vous permet de supprimer une école, attention, l'ensemble des données seront également supprimées.
   ROLE_IMPLANTATION_LIST_ALL: Vous permet de lister l'ensemble des établissements disponibles dans le système.
   ROLE_IMPLANTATION_EDIT: Vous permet d'étider les informations de base d'une implantation, le nom, l'adresse complète et les périodes.
   ROLE_IMPLANTATION_CREATE: Créer une nouvelle implantation et lui assigner les informations de base comme l'adresse, le nom.

@@ -104,6 +104,8 @@ The requested page couldn't be located. Checkout for any URL misspelling.: The r
 You do not have rights to do this action !: You do not have rights to do this action !
 You do not allowed to do this action !: You do not allowed to do this action !
 Error !: Error !
+Configuration: Configuration
+Schools: Schools
 
 
 roles:
@@ -125,9 +127,17 @@ roles:
   ROLE_IMPLANTATION_EDIT: Edit implantation
   ROLE_IMPLANTATION_CREATE: Create implantation
   ROLE_IMPLANTATION_DELETE: Delete implantation
+  ROLE_SCHOOL_LIST_ALL: List all schools
+  ROLE_SCHOOL_EDIT: Edit school
+  ROLE_SCHOOL_CREATE: Create school
+  ROLE_SCHOOL_DELETE: Delete school
   ROLE_ADMIN: Role admin
 
 help:
+  ROLE_SCHOOL_LIST_ALL: Allow you to list all schools available in the system.
+  ROLE_SCHOOL_EDIT: Allow you to edit a registered school by modifying basic information.
+  ROLE_SCHOOL_CREATE: Allow you to create a new school.
+  ROLE_SCHOOL_DELETE: Allow you to completely delet a school, all related data will be lost !
   ROLE_IMPLANTATION_LIST_ALL: Allow you to list all available implantations.
   ROLE_IMPLANTATION_EDIT: Allow you to edit bacis implantation information such as address, name and periods.
   ROLE_IMPLANTATION_CREATE: Allow you to create ne implantations and assign basic information such as the name and address.

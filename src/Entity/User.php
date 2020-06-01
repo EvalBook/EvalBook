@@ -390,6 +390,11 @@ class User implements UserInterface
             'ROLE_IMPLANTATION_EDIT',
             'ROLE_IMPLANTATION_CREATE',
             'ROLE_IMPLANTATION_DELETE',
+            // Schools related.
+            'ROLE_SCHOOL_LIST_ALL',
+            'ROLE_SCHOOL_EDIT',
+            'ROLE_SCHOOL_CREATE',
+            'ROLE_SCHOOL_DELETE',
         );
     }
 
