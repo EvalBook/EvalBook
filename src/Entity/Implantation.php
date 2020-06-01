@@ -48,16 +48,6 @@ class Implantation
     private $address;
 
     /**
-     * @ORM\Column(type="string", length=10)
-     */
-    private $zipCode;
-
-    /**
-     * @ORM\Column(type="string", length=150)
-     */
-    private $country;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Classroom", mappedBy="implantation", cascade="persist")
      */
     private $classrooms;
@@ -134,50 +124,6 @@ class Implantation
     public function setAddress(string $address): self
     {
         $this->address = $address;
-        return $this;
-    }
-
-
-    /**
-     * Return the Implantation zip code.
-     * @return string|null
-     */
-    public function getZipCode(): ?string
-    {
-        return $this->zipCode;
-    }
-
-
-    /**
-     * Set the Implantation zip code.
-     * @param string $zipCode
-     * @return $this
-     */
-    public function setZipCode(string $zipCode): self
-    {
-        $this->zipCode = $zipCode;
-        return $this;
-    }
-
-
-    /**
-     * Return the Implantation country.
-     * @return string|null
-     */
-    public function getCountry(): ?string
-    {
-        return $this->country;
-    }
-
-
-    /**
-     * Set the Implantation country.
-     * @param string $country
-     * @return $this
-     */
-    public function setCountry(string $country): self
-    {
-        $this->country = $country;
         return $this;
     }
 

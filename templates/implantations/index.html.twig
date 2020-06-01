@@ -20,8 +20,6 @@
             <th scope="col">{{ 'Implantation' | trans }}</th>
             <th scope="col">{{ 'School'|trans }}</th>
             <th scope="col" class="mobile-hidden-td">{{ 'Address' | trans }}</th>
-            <th scope="col" class="mobile-hidden-td">{{ 'Zip-code' | trans }}</th>
-            <th scope="col" class="mobile-hidden-td">{{ 'Country' | trans }}</th>
             <th scope="col" class="text-center">{{ 'Classes'|trans }}</th>
 
             {% if is_granted('ROLE_IMPLANTATION_EDIT') %}
@@ -40,8 +38,6 @@
                 <td class="search-target">{{ implantation.name }}</td>
                 <td class="search-target">{{ implantation.school ? implantation.school : '-' }}</td>
                 <td class="mobile-hidden-td search-target">{{ implantation.address }}</td>
-                <td class="mobile-hidden-td">{{ implantation.zipCode }}</td>
-                <td class="mobile-hidden-td search-target">{{ implantation.country }}</td>
 
                 {# Display implantation class count with a link if user has rights to see clesses. #}
                 <td class="text-center">

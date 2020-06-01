@@ -49,45 +49,12 @@ class ImplantationType extends AbstractType
                 ]
             ])
 
-            // Implantation zip code.
-            ->add('zipCode', IntegerType::class, [
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'implantation.zip-is-blank'
-                    ]),
-                ]
-            ])
-
-            // Implantation country.
-            ->add('country', TextType::class, [
-                'constraints' => [
-                    new Length([
-                        'min' => 4,
-                        'max' => 100,
-                        'minMessage' => 'implantation.country-name-too-short',
-                        'maxMessage' => 'implantation.country-name-too-long'
-                    ]),
-                ]
-            ])
-
             ->add('school', EntityType::class, [
                 'class' => 'App\Entity\School',
             ])
 
             // Submit button.
             ->add('submit', SubmitType::class)
-        ;
-
-        $builder->get('zipCode')
-            ->addModelTransformer(new CallbackTransformer(
-                function ($zipCode) {
-                    return (int) $zipCode;
-                },
-
-                function ($zipCode) {
-                    return (string) $zipCode;
-                }
-            ))
         ;
     }
 

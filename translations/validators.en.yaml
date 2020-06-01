@@ -100,9 +100,6 @@ implantation:
   name-too-long: The implantation name is too long.
   address-too-short: Address is too short.
   address-too-long: Address is too long.
-  zip-is-blank: Zip code cannot be empty.
-  country-name-too-short: Country name is too short.
-  country-name-too-long: Country name is too long.
 
 user:
   first-name-too-short: The first name must have 3 letters at least.
