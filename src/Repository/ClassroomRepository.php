@@ -20,8 +20,11 @@
 namespace App\Repository;
 
 use App\Entity\Classroom;
+use App\Entity\Implantation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 
 /**
  * @method Classroom|null find($id, $lockMode = null, $lockVersion = null)
@@ -34,5 +37,37 @@ class ClassroomRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Classroom::class);
+    }
+
+    /**
+     * Return true if entity already exists.
+     * @param Classroom $classroom
+     * @return int|mixed|string
+     */
+    public function classroomNameAlreadyTaken(Classroom $classroom)
+    {
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+        $queryBuilder
+            ->select('count(c.id)')
+            ->from(Classroom::class, 'c')
+            ->where('c.id != :id')
+            ->andWhere('c.name = :name')
+            ->andWhere('c.implantation = :id_implantation')
+            ->setParameter('id', $classroom->getId())
+            ->setParameter('name', $classroom->getName())
+            ->setParameter('id_implantation', $classroom->getImplantation()->getId())
+        ;
+
+        try {
+            $count = $queryBuilder->getQuery()->getSingleScalarResult();
+        }
+        catch (NoResultException $e) {
+            return false;
+        }
+        catch (NonUniqueResultException $e) {
+            return true;
+        }
+
+        return intval($count) !== 0;
     }
 }

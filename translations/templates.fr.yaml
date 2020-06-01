@@ -110,6 +110,11 @@ No school found: Aucune école trouvée
 You do not have rights to view schools or no school was created: Vous n'avez pas les droits pour voir toutes les écoles, ou aucune école n'a encore été ajoutée
 school deleted: Ecole supprimée
 A school with this name already exists: Une école avec ce nom existe déjà
+Name already taken: Ce nom est déjà pris
+An implantation in the same school already exists with this name: An implantation in the same school already exists with this name
+User already exists: L'utilisateur existe déjà
+Class name already taken in the class implantation: Ce nom de clase est déjà utilisé dans l'implantation
+Password is empty: Le mot de passe est vide.
 
 
 roles:

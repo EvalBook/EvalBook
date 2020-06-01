@@ -106,7 +106,8 @@ user:
   first-name-too-long: Le prénom de l'utilisateur ne peut pas dépasser 100 lettres.
   last-name-too-short: Le nom de l'utilisateur doit comporter plus de trois lettres.
   last-name-too-long: Le nom de l'utilisateur ne peut pas dépasser 100 lettres.
-  email-is-null: L'adresse e-mail ne peut être nulle.
+  email-is-null: L'adresse e-mail ne peut être vide.
+  password-is-null: Le mot de passe ne peut être vide
   password-not-match: La vérification du mot de passe a échoué.
   confirm-delete: Etes vous sûr de vouloir supprimer cet utlisateur ?
 

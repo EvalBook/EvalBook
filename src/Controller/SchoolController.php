@@ -70,18 +70,25 @@ class SchoolController extends AbstractController
      *
      * @param School $school
      * @param Request $request
+     * @param SchoolRepository $repository
      * @return RedirectResponse|Response
      */
-    public function edit(School $school, Request $request)
+    public function edit(School $school, Request $request, SchoolRepository $repository)
     {
         $form = $this->createForm(SchoolType::class, $school);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success', 'Successfully updated');
 
-            return $this->redirectToRoute('schools');
+            if($repository->schoolNameAlreadyTaken($school)) {
+                $this->addFlash('error', 'Name already taken');
+            }
+            else {
+                $this->getDoctrine()->getManager()->flush();
+                $this->addFlash('success', 'Successfully updated');
+
+                return $this->redirectToRoute('schools');
+            }
         }
 
         return $this->render('schools/form.html.twig', [

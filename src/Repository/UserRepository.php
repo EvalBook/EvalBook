@@ -22,6 +22,8 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -76,13 +78,39 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
 
     /**
-     * Return either or not the user exists.
-     * @param string $email
-     * @return bool
+     * Return true if entity already exists.
+     * @param User $user
+     * @return int|mixed|string
      */
-    public function userExists(string $email)
+    public function userExists(User $user)
     {
-        return $this->findOneBy(array("email" => $email)) !== null;
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+        $queryBuilder
+            ->select('count(u.email)')
+            ->from(User::class, 'u')
+            ->where('u.email = :email')
+        ;
+
+        if($user->getId() !== null) {
+            $queryBuilder
+                ->andWhere('u.id != :id')
+                ->setParameter('id', $user->getId())
+            ;
+        }
+
+        $queryBuilder->setParameter('email', $user->getEmail());
+
+        try {
+            $count = $queryBuilder->getQuery()->getSingleScalarResult();
+        }
+        catch (NoResultException $e) {
+            return false;
+        }
+        catch (NonUniqueResultException $e) {
+            return true;
+        }
+
+        return intval($count) !== 0;
     }
 
 }

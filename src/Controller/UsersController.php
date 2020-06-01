@@ -79,21 +79,26 @@ class UsersController extends AbstractController
      * @param String $redirect
      * @return Response
      */
-    public function edit(Request $request, User $user, ?string $redirect)
+    public function edit(Request $request, User $user, UserRepository $repository, ?string $redirect)
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success', 'Successfully updated');
-
-            if(!is_null($redirect)) {
-                $redirect = json_decode(base64_decode($redirect), true);
-                return $this->redirectToRoute($redirect['route'], $redirect["params"]);
+            if($repository->userExists($user)) {
+                $this->addFlash('error', 'User already exists');
             }
+            else {
+                $this->getDoctrine()->getManager()->flush();
+                $this->addFlash('success', 'Successfully updated');
 
-            return $this->redirectToRoute('users');
+                if (!is_null($redirect)) {
+                    $redirect = json_decode(base64_decode($redirect), true);
+                    return $this->redirectToRoute($redirect['route'], $redirect["params"]);
+                }
+
+                return $this->redirectToRoute('users');
+            }
         }
 
         return $this->render('users/form.html.twig', [
@@ -108,21 +113,33 @@ class UsersController extends AbstractController
      * @IsGranted("ROLE_USER_CREATE", statusCode=404, message="Not found")
      *
      * @param Request $request
+     * @param UserRepository $repository
      * @return RedirectResponse|Response
      */
-    public function add(Request $request)
+    public function add(Request $request, UserRepository $repository)
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-            $this->addFlash('success', 'Successfully added');
+            if($repository->userExists($user)) {
+                $this->addFlash('error', 'User already exists');
+            }
+            else {
+                if(empty($user->getPassword())) {
+                    // Checking here, cause user can update its profile without password modification !
+                    $this->addFlash('error', "Password is empty");
+                }
+                else {
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($user);
+                    $entityManager->flush();
+                    $this->addFlash('success', 'Successfully added');
 
-            return $this->redirectToRoute('users');
+                    return $this->redirectToRoute('users');
+                }
+            }
         }
 
         return $this->render('users/form.html.twig', [

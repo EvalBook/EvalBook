@@ -53,20 +53,26 @@ class ClassroomController extends AbstractController
      * @IsGranted("ROLE_CLASS_CREATE", statusCode=404, message="Not found")
      *
      * @param Request $request
+     * @param ClassroomRepository $repository
      * @return Response
      */
-    public function add(Request $request): Response
+    public function add(Request $request, ClassroomRepository $repository): Response
     {
         $classroom = new Classroom();
         $form = $this->createForm(ClassroomType::class, $classroom);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($classroom);
-            $entityManager->flush();
+            if($repository->classroomNameAlreadyTaken($classroom)) {
+                $this->addFlash('error', 'Class name already taken in the class implantation');
+            }
+            else {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($classroom);
+                $entityManager->flush();
 
-            return $this->redirectToRoute('classrooms');
+                return $this->redirectToRoute('classrooms');
+            }
         }
 
         return $this->render('classrooms/form.html.twig', [
@@ -84,20 +90,25 @@ class ClassroomController extends AbstractController
      * @param String|null $redirect
      * @return Response
      */
-    public function edit(Request $request, Classroom $classroom, ?String $redirect): Response
+    public function edit(Request $request, Classroom $classroom, ClassroomRepository $repository, ?String $redirect): Response
     {
         $form = $this->createForm(ClassroomType::class, $classroom);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            if(!is_null($redirect)) {
-                $redirect = json_decode(base64_decode($redirect), true);
-                return $this->redirectToRoute($redirect['route'], $redirect["params"]);
+            if($repository->classroomNameAlreadyTaken($classroom)) {
+                $this->addFlash('error', 'Class name already taken in the class implantation');
             }
+            else {
+                $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('classrooms');
+                if (!is_null($redirect)) {
+                    $redirect = json_decode(base64_decode($redirect), true);
+                    return $this->redirectToRoute($redirect['route'], $redirect["params"]);
+                }
+
+                return $this->redirectToRoute('classrooms');
+            }
         }
 
         return $this->render('classrooms/form.html.twig', [

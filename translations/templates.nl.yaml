@@ -110,6 +110,11 @@ No school found: No school found
 You do not have rights to view schools or no school was created: You do not have rights to view schools or no school was created
 school deleted: School deleted
 A school with this name already exists: A school with this name already exists
+Name already taken: Name already taken
+An implantation in the same school already exists with this name: An implantation in the same school already exists with this name
+User already exists: User already exists
+Class name already taken in the class implantation: Class name already taken in the class implantation
+Password is empty: Password is empty
 
 
 roles:
