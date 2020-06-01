@@ -67,6 +67,11 @@ class Implantation
      */
     private $periods;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=School::class, inversedBy="implantations")
+     */
+    private $school;
+
 
     /**
      * Implantation constructor.
@@ -219,5 +224,28 @@ class Implantation
     public function __toString()
     {
         return $this->getName();
+    }
+
+
+    /**
+     * Return the school the implantation is attached to.
+     * @return School|null
+     */
+    public function getSchool(): ?School
+    {
+        return $this->school;
+    }
+
+
+    /**
+     * Set the school the implantation is attached to.
+     * @param School|null $school
+     * @return $this
+     */
+    public function setSchool(?School $school): self
+    {
+        $this->school = $school;
+
+        return $this;
     }
 }

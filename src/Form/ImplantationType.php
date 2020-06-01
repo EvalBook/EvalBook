@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Implantation;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -67,6 +68,10 @@ class ImplantationType extends AbstractType
                         'maxMessage' => 'implantation.country-name-too-long'
                     ]),
                 ]
+            ])
+
+            ->add('school', EntityType::class, [
+                'class' => 'App\Entity\School',
             ])
 
             // Submit button.
