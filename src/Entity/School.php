@@ -108,4 +108,14 @@ class School
 
         return $this;
     }
+
+
+    /**
+     * Object to string conversion.
+     * @return string|null
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

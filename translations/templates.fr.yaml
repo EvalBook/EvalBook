@@ -107,6 +107,9 @@ Error !: Erreur !
 Configuration: Configuration
 Schools: Ecoles
 School: Ecole
+Search for school: Chercher une école
+No school found: Aucune école trouvée
+You do not have rights to view schools or no school was created: Vous n'avez pas les droits pour voir toutes les écoles, ou aucune école n'a encore été ajoutée
 
 
 roles:

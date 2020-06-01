@@ -111,9 +111,8 @@
                     </a>
                 {% endif %}
 
-                {# TODO implements school listing #}
                 {% if is_granted('ROLE_SCHOOL_LIST_ALL') %}
-                    <a href="{{ path('implantations') }}" title="Schools">
+                    <a href="{{ path('schools') }}" title="Schools">
                         <div class="menuItem">
                             <i class="fas fa-school"></i>
                             <span>{{ 'Schools'|trans }}</span>
@@ -164,10 +163,9 @@
                             </li>
                         {% endif %}
 
-                        {# TODO implement school listing #}
                         {% if is_granted('ROLE_SCHOOL_LIST_ALL') %}
                             <li>
-                                <a href="{{ path('implantations') }}" title="Schools">{{ 'Schools'|trans }}</a>
+                                <a href="{{ path('schools') }}" title="Schools">{{ 'Schools'|trans }}</a>
                             </li>
                         {% endif %}
 
