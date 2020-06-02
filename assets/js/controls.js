@@ -51,6 +51,16 @@ let Controls = {
             mobileMenuToggleButton.classList.toggle('fa-ellipsis-v');
             let val = window.getComputedStyle(mobileMenu).getPropertyValue('display');
             mobileMenu.style.display = (val === 'none') ? 'block' : 'none';
+
+            let menuItems = mobileMenu.querySelector('#mobile-menu-items');
+            menuItems.style.zIndex = '100';
+            // Compute menu position.
+            let position = mobileMenuToggleButton.offsetLeft.toString();
+            let menuWidth = parseFloat(getComputedStyle(menuItems).width);
+            if(position > menuWidth)
+                position -= menuWidth;
+
+            menuItems.style.left = position.toString() + 'px';
         });
 
         // Hiding mobile menu on any content section.

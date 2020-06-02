@@ -192,8 +192,10 @@
 
             <!-- Content head title -->
             <div class="content-title">
-                <h1>{% block title %} {% endblock %}</h1>
-                {% block titleBottom %} {% endblock %}
+                {% if config.showTitle %}
+                    <h1>{% block title %} {% endblock %}</h1>
+                    {% block titleBottom %} {% endblock %}
+                {% endif %}
             </div>
         </header>
 
@@ -208,46 +210,52 @@
         {% block functionnalities %} {% endblock %}
     </div>
 
-    <footer>
-        <p>
-            <i class="fab fa-github-alt"></i>
-            <span>{{ 'Source code on'|trans }} </span><a href="https://github.com/EvalBook/EvalBook" title="Eval book github repository">Github</a>
-        </p>
-        <nav id="mobile-menu">
-            <!-- Quick access on mobile bottom. -->
-            {% if is_granted('ROLE_CLASS_LIST_ALL') or ( app.user.classrooms is defined and app.user.classrooms|length > 0) %}
-                <a href="{{ path('classrooms') }}" title="Classes">
-                    <div class="menuItem">
-                        <i class="fas fa-clock"></i>
-                        <span>{{ 'Classes'|trans }}</span>
-                    </div>
-                </a>
-            {% endif %}
-
-            {% if is_granted('ROLE_STUDENT_LIST_ALL') %}
-                <a href="{{ path('students') }}" title="Students">
-                    <div class="menuItem">
-                        <i class="fas fa-user-graduate"></i>
-                        <span>{{ 'Students'|trans }}</span>
-                    </div>
-                </a>
-            {% endif %}
-
-            <a href="{{ path('activities') }}" title="Activites">
+    <!-- Quick access on mobile bottom. -->
+    <nav id="mobile-menu">
+        {% if is_granted('ROLE_CLASS_LIST_ALL') or ( app.user.classrooms is defined and app.user.classrooms|length > 0) %}
+            <a href="{{ path('classrooms') }}" title="Classes">
                 <div class="menuItem">
-                    <i class="fas fa-brain"></i>
-                    <span>{{ 'Activities'|trans }}</span>
+                    <i class="fas fa-clock"></i>
+                    <span>{{ 'Classes'|trans }}</span>
                 </div>
             </a>
+        {% endif %}
 
-            <a href="{{ path('note_book_select_classroom') }}" title="Classes">
+        {% if is_granted('ROLE_STUDENT_LIST_ALL') %}
+            <a href="{{ path('students') }}" title="Students">
                 <div class="menuItem">
-                    <i class="fas fa-book-open"></i>
-                    <span>{{ 'Notebook'|trans }}</span>
+                    <i class="fas fa-user-graduate"></i>
+                    <span>{{ 'Students'|trans }}</span>
                 </div>
             </a>
-        </nav>
-    </footer>
+        {% endif %}
+
+        <a href="{{ path('activities') }}" title="Activites">
+            <div class="menuItem">
+                <i class="fas fa-brain"></i>
+                <span>{{ 'Activities'|trans }}</span>
+            </div>
+        </a>
+
+        <a href="{{ path('note_book_select_classroom') }}" title="Classes">
+            <div class="menuItem">
+                <i class="fas fa-book-open"></i>
+                <span>{{ 'Notebook'|trans }}</span>
+            </div>
+        </a>
+    </nav>
+
+    {# Desktop footer #}
+    {% if config.showFooter %}
+        <footer>
+            <p>
+                <i class="fab fa-github-alt"></i>
+                <span>{{ 'Source code on'|trans }} </span><a href="https://github.com/EvalBook/EvalBook" title="Eval book github repository">Github</a>
+            </p>
+        </footer>
+    {% endif %}
+
+
 
     {{ encore_entry_script_tags('controls') }}
     {% block javascripts %} {% endblock %}

@@ -128,8 +128,8 @@ nav i, nav span {
     text-align: center;
 }
 
-/* For the header AND footer nav */
-nav .menuItem {
+/* For the header */
+header nav .menuItem, #mobile-menu .menuItem {
     display: inline-flex;
     flex-direction: column;
     justify-content: center;
@@ -145,7 +145,6 @@ nav .menuItem {
     box-shadow: 0 0 4px var(--secondary-color);
     position: absolute;
     width: 22em;
-    right: 2.3em;
     top: 4em;
     user-select: none;
 }
@@ -158,7 +157,7 @@ nav .menuItem {
 #mobile-menu-toggle, #mobile-add-functionality {
     display: none;
     font-size: 2em;
-    margin-left: 0.8em;
+    margin-right: 0.8em;
 }
 
 #mobile-menu-toggle i {
@@ -189,7 +188,7 @@ nav .menuItem {
 /**
  * Footer related.
  */
-footer {
+footer, #mobile-menu {
     position: fixed;
     left: 3em;
     right: 3em;
@@ -197,6 +196,17 @@ footer {
     height: 3em;
     background-color: #e8e8e8;
     box-shadow:inset 0 15px 5px -16px var(--secondary-color);
+}
+
+#mobile-menu {
+    left: 0;
+    right: 0;
+    height: 6em;
+    display: none;
+}
+
+#mobile-menu i {
+    font-size: 3.5em;
 }
 
 footer p {
@@ -210,10 +220,6 @@ footer a {
 footer nav {
     margin-top: 0.2em;
     box-shadow: none;
-}
-
-footer nav i {
-    font-size: 3.5em;
 }
 
 /**
@@ -484,14 +490,12 @@ tr:hover i, tr:hover a {
         display: inline-block;
     }
 
-    footer {
-        left: 0;
-        right: 0;
-        height: 6em;
+    #mobile-menu {
+        display: flex;
     }
 
-    footer a {
-        color: var(--primary-color);
+    footer {
+        display: none;
     }
 
     .width-25-percent {

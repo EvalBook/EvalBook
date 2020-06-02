@@ -18,15 +18,4 @@ class UserConfigurationRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, UserConfiguration::class);
     }
-
-
-    public function hasGlobalConfiguration()
-    {
-
-    }
-
-    public function getGlobalConfiguration()
-    {
-
-    }
 }

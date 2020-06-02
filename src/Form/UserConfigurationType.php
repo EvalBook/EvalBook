@@ -16,6 +16,10 @@ class UserConfigurationType extends AbstractType
     {
         $builder
             ->add('showLogo')
+            ->add('showFooter')
+            ->add('showHelp')
+            ->add('showTitle')
+            ->add('showSearch')
         ;
 
         if(in_array('ROLE_ADMIN', $options['roles'])) {

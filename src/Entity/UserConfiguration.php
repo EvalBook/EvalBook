@@ -28,6 +28,26 @@ class UserConfiguration
     private $isGlobalConfig;
 
     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $showFooter;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $showHelp;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $showTitle;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $showSearch;
+
+    /**
      * @ORM\OneToOne(targetEntity=User::class, inversedBy="userConfiguration", cascade={"persist", "remove"})
      */
     private $user;
@@ -48,7 +68,7 @@ class UserConfiguration
      */
     public function getShowLogo(): ?bool
     {
-        return $this->showLogo;
+        return $this->showLogo || is_null($this->showLogo);
     }
 
 
@@ -60,6 +80,98 @@ class UserConfiguration
     public function setShowLogo(?bool $showLogo): self
     {
         $this->showLogo = $showLogo;
+
+        return $this;
+    }
+
+
+    /**
+     * Return true if user want to see footer.
+     * @return bool|null
+     */
+    public function getShowFooter(): ?bool
+    {
+        return $this->showFooter || is_null($this->showFooter);
+    }
+
+
+    /**
+     * Set to true so the user will see the footer.
+     * @param bool|null $showFooter
+     * @return $this
+     */
+    public function setShowFooter(?bool $showFooter): self
+    {
+        $this->showFooter = $showFooter;
+
+        return $this;
+    }
+
+
+    /**
+     * Return true if user want to see help buttons.
+     * @return bool|null
+     */
+    public function getShowHelp(): ?bool
+    {
+        return $this->showHelp || is_null($this->showHelp);
+    }
+
+
+    /**
+     * Set to true so the user will see the help buttons.
+     * @param bool|null $showHelp
+     * @return $this
+     */
+    public function setShowHelp(?bool $showHelp): self
+    {
+        $this->showHelp = $showHelp;
+
+        return $this;
+    }
+
+
+    /**
+     * Return true if user want to see pages title.
+     * @return bool|null
+     */
+    public function getShowTitle(): ?bool
+    {
+        return $this->showTitle || is_null($this->showTitle);
+    }
+
+
+    /**
+     * Set to true so the user will see the footer.
+     * @param bool|null $showTitle
+     * @return $this
+     */
+    public function setShowTitle(?bool $showTitle): self
+    {
+        $this->showTitle = $showTitle;
+
+        return $this;
+    }
+
+
+    /**
+     * Return true if user want to see search bar.
+     * @return bool|null
+     */
+    public function getShowSearch(): ?bool
+    {
+        return $this->showSearch || is_null($this->showSearch);
+    }
+
+
+    /**
+     * Set to true so the user will see search bar.
+     * @param bool|null $showSearch
+     * @return $this
+     */
+    public function setShowSearch(?bool $showSearch): self
+    {
+        $this->showSearch = $showSearch;
 
         return $this;
     }
@@ -118,6 +230,9 @@ class UserConfiguration
     {
         $this->setShowLogo(true);
         $this->setIsGlobalConfig(false);
-
+        $this->setShowFooter(true);
+        $this->setShowHelp(true);
+        $this->setShowTitle(true);
+        $this->setShowSearch(true);
     }
 }
