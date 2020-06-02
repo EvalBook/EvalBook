@@ -47,7 +47,7 @@ h1, h2 {
     margin: 2%;
     display: flex;
     flex-direction: column;
-    height: 88vh;
+    height: 94vh;
 }
 
 .modal-center {
@@ -74,8 +74,8 @@ h1, h2 {
 
 #add-functionality {
     position: absolute;
-    top: 13.5em;
-    right: 2.5em;
+    top: 18em;
+    right: 4em;
 }
 
 
@@ -372,6 +372,18 @@ tr:hover i, tr:hover a {
  */
 .margin-15 {
     margin-top: 15px;
+}
+
+.margin-plus {
+    margin-top: 3.8em;
+}
+
+.position-minus {
+    top: 12.5em !important;
+}
+
+.position-minus-plus {
+    top: 16em !important;
 }
 
 .margin-left {

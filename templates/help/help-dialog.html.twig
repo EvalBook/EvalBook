@@ -1,14 +1,16 @@
-<a href="#" id="help-dialog" title="Help">
-    <i class="far fa-question-circle text-yellow mobile-hidden"></i>
-</a>
+{% if config.showHelp %}
+    <a href="#" id="help-dialog" title="Help">
+        <i class="far fa-question-circle text-yellow mobile-hidden"></i>
+    </a>
 
-<div class="dialog-modal dialog-medium column hidden mobile-hidden" id="help-message">
-    <div>
-        {% if help is defined %}
-            <h2>{{ help.title|trans({}, 'help') }}</h2>
-            <p> {{ help.intro|trans({}, 'help')|raw }} </p>
-            <div> {{ help.actions|trans({}, 'help')|raw }} </div>
-        {% endif %}
+    <div class="dialog-modal dialog-medium column hidden mobile-hidden" id="help-message">
+        <div>
+            {% if help is defined %}
+                <h2>{{ help.title|trans({}, 'help') }}</h2>
+                <p> {{ help.intro|trans({}, 'help')|raw }} </p>
+                <div> {{ help.actions|trans({}, 'help')|raw }} </div>
+            {% endif %}
+        </div>
+        <button class="button-ok">Ok</button>
     </div>
-    <button class="button-ok">Ok</button>
-</div>
+{%  endif %}

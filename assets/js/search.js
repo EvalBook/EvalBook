@@ -38,11 +38,13 @@ Search = {
 
 
 let input = document.getElementById('search-box');
-// Empty search box when focus is lost.
-input.onblur = function() {
-    input.value = '';
-}
+if(null !== input) {
+    // Empty search box when focus is lost.
+    input.onblur = function () {
+        input.value = '';
+    }
 
-input.addEventListener('keyup', function(event) {
-    Search.process(input.value);
-})
+    input.addEventListener('keyup', function (event) {
+        Search.process(input.value);
+    })
+}

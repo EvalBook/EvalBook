@@ -200,7 +200,14 @@
                 {% block titleBottom %} {% endblock %}
 
                 <!-- Add 'something' functionality -->
-                <div id="add-functionality">
+                {% if config.showLogo is same as (false) %}
+                    {% set suppClass = 'position-minus' %}
+                {% elseif config.showTitle is same as (false) and config.showLogo is same as (true) %}
+                    {% set suppClass = 'position-minus-plus' %}
+                {% else %}
+                    {% set suppClass = '' %}
+                {% endif %}
+                <div id="add-functionality" class="{{ suppClass }}">
                     {% block functionnalities %} {% endblock %}
                 </div>
 
@@ -208,7 +215,8 @@
         </header>
 
         <!-- Application contents -->
-        <section class="content">
+        {% set suppClass = config.showSearch is same as (false) and config.showTitle is same as (false) ? 'margin-plus' : '' %}
+        <section class="content {{ suppClass }}">
             {% block body %}{% endblock %}
         </section>
     </div>
