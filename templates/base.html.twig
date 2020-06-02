@@ -16,6 +16,9 @@
     <title>EvalBook - {% block pageTitle %} {% endblock %}</title>
 </head>
 <body>
+    <!-- Fetching user configuration -->
+    {% set config = interfaceConfiguration.load(app.user) %}
+
     <!-- Display potentials error / success messages -->
     {% for label, messages in app.flashes %}
         {% for message in messages %}
@@ -30,10 +33,12 @@
             <div class="heading">
 
                 <!-- Header -->
-                <div id="logo">
-                    <img src="{{ asset('build/logo_evalbook.png') }}" alt="EvalBook logo">
-                    <span>{{ 'Teachers evaluation tool'|trans }}</span>
-                </div>
+                {% if config.showLogo %}
+                    <div id="logo">
+                        <img src="{{ asset('build/logo_evalbook.png') }}" alt="EvalBook logo">
+                        <span>{{ 'Teachers evaluation tool'|trans }}</span>
+                    </div>
+                {% endif %}
 
                 <div id="mobile-header">
                     <div id="mobile-add-functionality">
@@ -53,16 +58,18 @@
                             <span>{{ app.user is defined ? (app.user.firstName ~ ' ' ~ app.user.lastName) : 'My profile'|trans }}</span>
                         </a>
                     </div>
+
+                    <div class="menuTopIcon">
+                        <a href="{{ path('user_settings') }}" title="User configuration">
+                            <i class="fas fa-users-cog"></i>
+                            <span>{{ 'Configuration'|trans }}</span>
+                        </a>
+                    </div>
+
                     <div class="menuTopIcon">
                         <a href="{{ path('app_logout') }}" title="Log out">
                             <i class="fas fa-sign-out-alt"></i>
                             <span>{{ 'Log out'|trans }}</span>
-                        </a>
-                    </div>
-                    <div class="menuTopIcon">
-                        <a href="{{ path('user_profile') }}" title="User configuration">
-                            <i class="fas fa-users-cog"></i>
-                            <span>{{ 'Configuration'|trans }}</span>
                         </a>
                     </div>
                 </div>
@@ -148,6 +155,7 @@
                         {% endif %}
 
                         <li><i class="fas fa-user"></i></li>
+                        <li><i class="fas fa-users-cog"></i></li>
                         <li><i class="fas fa-sign-out-alt"></i></li>
                     </ul>
                     <ul>
@@ -171,6 +179,9 @@
 
                         <li>
                             <a href="{{ path('user_profile') }}" title="Profile">{{ 'My profile'|trans }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('user_settings') }}" title="Profile">{{ 'Configuration'|trans }}</a>
                         </li>
                         <li>
                             <a href="{{ path('app_logout') }}" title="Log out">{{ 'Log out'|trans }}</a>

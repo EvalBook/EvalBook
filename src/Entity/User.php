@@ -417,11 +417,22 @@ class User implements UserInterface
         // Implement getSalt() method.
     }
 
+
+    /**
+     * Get the current user configuration.
+     * @return UserConfiguration|null
+     */
     public function getUserConfiguration(): ?UserConfiguration
     {
         return $this->userConfiguration;
     }
 
+
+    /**
+     * Set the current user configuration.
+     * @param UserConfiguration|null $userConfiguration
+     * @return $this
+     */
     public function setUserConfiguration(?UserConfiguration $userConfiguration): self
     {
         $this->userConfiguration = $userConfiguration;

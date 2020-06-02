@@ -109,4 +109,15 @@ class UserConfiguration
 
         return $this;
     }
+
+
+    /**
+     * Set the default configuration values.
+     */
+    public function setDefaults()
+    {
+        $this->setShowLogo(true);
+        $this->setIsGlobalConfig(false);
+
+    }
 }

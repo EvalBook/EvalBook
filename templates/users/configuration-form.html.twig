@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block pageTitle %}
+    {{ configuration.id is defined ? 'Edit'|trans : 'Add'|trans }}
+{% endblock %}
+
+{% block title %}
+    {{ user.id is defined ? 'Edit'|trans : 'Add'|trans }}
+{% endblock %}
+
+{% block body %}
+    {{ form(form) }}
+{% endblock %}
