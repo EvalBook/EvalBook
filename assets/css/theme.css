@@ -71,6 +71,25 @@ h1, h2 {
     overflow: auto;
 }
 
+
+#add-functionality {
+    position: absolute;
+    top: 13.5em;
+    right: 2.5em;
+}
+
+
+#add-functionality i {
+    font-size: 3em;
+    color: var(--secondary-color);
+}
+
+.go-back {
+    font-size: 4em;
+    margin-top: -0.3em;
+    color: var(--secondary-color);
+}
+
 .mobile-hidden-td {
     display: table-cell;
 }
@@ -162,27 +181,6 @@ header nav .menuItem, #mobile-menu .menuItem {
 
 #mobile-menu-toggle i {
     width: 1em;
-}
-
-/**
- * Add functionality.
- */
-#add-functionality {
-    position: fixed;
-    left: 3em;
-    right: 3em;
-    bottom: 3.5em;
-}
-
-#add-functionality i {
-    font-size: 3em;
-    color: var(--secondary-color);
-}
-
-.go-back {
-    font-size: 4em;
-    margin-top: -0.3em;
-    color: var(--secondary-color);
 }
 
 /**

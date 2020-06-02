@@ -191,11 +191,19 @@
             </div>
 
             <!-- Content head title -->
-            <div class="content-title">
+            <div class="content-top">
                 {% if config.showTitle %}
                     <h1>{% block title %} {% endblock %}</h1>
-                    {% block titleBottom %} {% endblock %}
                 {% endif %}
+
+                <!-- Search box for example. -->
+                {% block titleBottom %} {% endblock %}
+
+                <!-- Add 'something' functionality -->
+                <div id="add-functionality">
+                    {% block functionnalities %} {% endblock %}
+                </div>
+
             </div>
         </header>
 
@@ -205,10 +213,7 @@
         </section>
     </div>
 
-    <!-- Add 'something' functionality -->
-    <div id="add-functionality">
-        {% block functionnalities %} {% endblock %}
-    </div>
+
 
     <!-- Quick access on mobile bottom. -->
     <nav id="mobile-menu">
