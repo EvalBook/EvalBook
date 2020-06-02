@@ -35,9 +35,9 @@
         <tbody>
         {% for implantation in implantations %}
             <tr data-id="{{ implantation.id }}" data-trigger="{{ path('implantation_edit', {'id': implantation.id}) }}">
-                <td class="search-target">{{ implantation.name }}</td>
-                <td class="search-target">{{ implantation.school ? implantation.school : '-' }}</td>
-                <td class="mobile-hidden-td search-target">{{ implantation.address }}</td>
+                <td class="js-search-target">{{ implantation.name }}</td>
+                <td class="js-search-target">{{ implantation.school ? implantation.school : '-' }}</td>
+                <td class="mobile-hidden-td js-search-target">{{ implantation.address }}</td>
 
                 {# Display implantation class count with a link if user has rights to see clesses. #}
                 <td class="text-center">

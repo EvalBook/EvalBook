@@ -32,7 +32,7 @@
         <tbody>
         {% for school in schools %}
             <tr data-id="{{ school.id }}" data-trigger="{{ path('implantation_edit', {'id': school.id}) }}">
-                <td class="search-target">{{ school.name }}</td>
+                <td class="js-search-target">{{ school.name }}</td>
 
                 {# Display school implantations count. #}
                 <td class="text-center">

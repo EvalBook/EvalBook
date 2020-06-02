@@ -36,9 +36,9 @@
         <tbody>
         {% for user in users %}
             <tr data-id="{{ user.id }}" data-trigger="{{ path('user_edit', {'id': user.id}) }}">
-                <td class="search-target">{{ user.firstName }}</td>
-                <td class="search-target">{{ user.lastName }}</td>
-                <td class="search-target mobile-hidden-td">{{ user.email }}</td>
+                <td class="js-search-target">{{ user.firstName }}</td>
+                <td class="js-search-target">{{ user.lastName }}</td>
+                <td class="js-search-target mobile-hidden-td">{{ user.email }}</td>
 
                 <td class="text-center mobile-hidden-td">
                     {% if is_granted('ROLE_STUDENT_LIST_ALL') %}

@@ -34,9 +34,9 @@
             {% set editable = activity.period.dateEnd >= date() %}
 
             <tr data-id="{{ activity.id }}" data-trigger="{{ path('activity_edit', {'id': activity.id}) }}">
-                <td class="search-target">{{ activity.classroom }}</td>
+                <td class="js-search-target">{{ activity.classroom }}</td>
 
-                <td class="mobile-hidden-td search-target">
+                <td class="mobile-hidden-td js-search-target">
                     {%  if owner %}
                         <span><< <strong>{{ 'Me'|trans }}</strong> >></span>
                     {% else %}
@@ -44,12 +44,12 @@
                     {% endif %}
                 </td>
 
-                <td class="search-target">{{ activity.name }}</td>
-                <td class="mobile-hidden-td search-target">{{ activity.dateAdded|date('d/m/Y') }}</td>
-                <td class="mobile-hidden-td search-target">{{ activity.period.name }}</td>
+                <td class="js-search-target">{{ activity.name }}</td>
+                <td class="mobile-hidden-td js-search-target">{{ activity.dateAdded|date('d/m/Y') }}</td>
+                <td class="mobile-hidden-td js-search-target">{{ activity.period.name }}</td>
 
                 <!-- Note activity -->
-                <td class="search-target text-center">
+                <td class="js-search-target text-center">
                     {% if owner and editable %}
                         <a href="{{ path('activity_note_add', {'id': activity.id}) }}" title="Add activity notes">
                             {% set cssClass = activity.notes|length > 0 ? 'text-yellow' : 'text-red'  %}
