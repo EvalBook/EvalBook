@@ -115,6 +115,14 @@ An implantation in the same school already exists with this name: An implantatio
 User already exists: L'utilisateur existe déjà
 Class name already taken in the class implantation: Ce nom de clase est déjà utilisé dans l'implantation
 Password is empty: Le mot de passe est vide.
+Your user settings: Vos paramètres utilisateur
+Interface settings: Paramètres d'interface
+Display EvalBook logo: Afficher le logo EvalBook
+Display the footer: Afficher le pied de page
+Display help next to titles: Afficher l'aide
+Display the search bar: Afficher la barre de recherche
+Display pages titles: Afficher les titres
+Set this configuration for all users ?: Cette configuration est elle la 'défaut' ?
 
 
 roles:

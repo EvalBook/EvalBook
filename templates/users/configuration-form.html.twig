@@ -2,13 +2,83 @@
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %}
-    {{ configuration.id is defined ? 'Edit'|trans : 'Add'|trans }}
+    {{ 'Configuration'|trans }}
 {% endblock %}
 
 {% block title %}
-    {{ user.id is defined ? 'Edit'|trans : 'Add'|trans }}
+    {{ 'Your user settings'|trans }}
 {% endblock %}
 
 {% block body %}
-    {{ form(form) }}
+    <div class="full-width flex column">
+        <a class="go-back" href="{{ app.request.headers.get('referer') }}" title="Go back">
+            <i class="fas fa-long-arrow-alt-left"></i>
+        </a>
+
+        {{ form_start(form) }}
+        <div class="form-content">
+            <h2>{{ 'Interface settings'|trans }}</h2>
+
+            <div class="form-row display-row space-between">
+                <div class="width-25-percent">
+                    {{ form_label(form.showLogo, 'Display EvalBook logo'|trans) }}
+                    {{ form_widget(form.showLogo, {'attr': {'class': 'width-100'}}) }}
+                    <span class="form-error">
+                        {{ form_errors(form.showLogo) }}
+                    </span>
+                </div>
+
+                <div class="width-25-percent">
+                    {{ form_label(form.showFooter, 'Display the footer'|trans) }}
+                    {{ form_widget(form.showFooter, {'attr': {'class': 'width-100'}}) }}
+                    <span class="form-error">
+                        {{ form_errors(form.showFooter) }}
+                    </span>
+                </div>
+
+                <div class="width-25-percent">
+                    {{ form_label(form.showHelp, 'Display help next to titles'|trans) }}
+                    {{ form_widget(form.showHelp, {'attr': {'class': 'width-100'}}) }}
+                    <span class="form-error">
+                        {{ form_errors(form.showHelp) }}
+                    </span>
+                </div>
+
+            </div>
+
+            <div class="form-row display-row space-between">
+
+                <div class="width-25-percent">
+                    {{ form_label(form.showSearch, 'Display the search bar'|trans) }}
+                    {{ form_widget(form.showSearch, {'attr': {'class': 'width-100'}}) }}
+                    <span class="form-error">
+                        {{ form_errors(form.showSearch) }}
+                    </span>
+                </div>
+
+                <div class="width-25-percent">
+                    {{ form_label(form.showTitle, 'Display pages titles'|trans) }}
+                    {{ form_widget(form.showTitle, {'attr': {'class': 'width-100'}}) }}
+                    <span class="form-error">
+                        {{ form_errors(form.showTitle) }}
+                    </span>
+                </div>
+
+                <div class="width-25-percent">
+                    {{ form_label(form.isGlobalConfig, 'Set this configuration for all users ?'|trans) }}
+                    {{ form_widget(form.isGlobalConfig, {'attr': {'class': 'width-100'}}) }}
+                    <span class="form-error">
+                        {{ form_errors(form.isGlobalConfig) }}
+                    </span>
+                </div>
+            </div>
+
+            {# Submit button #}
+            {{ form_row(form.submit, {
+                'label': 'Send'|trans,
+                'attr': {'class': 'margin-15'},
+            }) }}
+        </div>
+        {{ form_end(form) }}
+    </div>
 {% endblock %}

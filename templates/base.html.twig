@@ -200,10 +200,10 @@
                 {% block titleBottom %} {% endblock %}
 
                 <!-- Add 'something' functionality -->
-                {% if config.showLogo is same as (false) %}
+                {% if config.showLogo is same as (false) or config.showSearch is same as (false) %}
                     {% set suppClass = 'position-minus' %}
-                {% elseif config.showTitle is same as (false) and config.showLogo is same as (true) %}
-                    {% set suppClass = 'position-minus-plus' %}
+                {% elseif config.showLogo is same as (false) and config.showSearch is same as (false) %}
+                    {% set suppClass = 'position-minus2' %}
                 {% else %}
                     {% set suppClass = '' %}
                 {% endif %}
