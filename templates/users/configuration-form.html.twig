@@ -73,12 +73,28 @@
                 </div>
             </div>
 
+            <h2>{{ 'Functionnalities settings'|trans }}</h2>
+
+            <div class="form-row display-row space-between">
+                <div class="width-25-percent">
+                    {{ form_label(form.useSchools, 'Use schools'|trans) }}
+                    {{ form_widget(form.useSchools, {'attr': {'class': 'width-100'}}) }}
+                    <span class="form-error">
+                        {{ form_errors(form.useSchools) }}
+                    </span>
+                </div>
+
+                <div class="width-25-percent"></div>
+            </div>
+
             {# Submit button #}
             {{ form_row(form.submit, {
                 'label': 'Send'|trans,
                 'attr': {'class': 'margin-15'},
             }) }}
+
         </div>
+
         {{ form_end(form) }}
     </div>
 {% endblock %}

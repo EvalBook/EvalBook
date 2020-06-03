@@ -35,7 +35,8 @@
             </div>
 
             {# Implantation attach to school #}
-            <div class="form-row">
+            {% set hidden = config.useSchools ? '' : 'display-none' %}
+            <div class="form-row {{ hidden }}">
                 {{ form_label(form.school, 'School'|trans) }}
                 {{ form_widget(form.school) }}
                 <span class="form-error">

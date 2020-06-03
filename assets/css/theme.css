@@ -464,6 +464,14 @@ tr:hover i, tr:hover a {
     justify-content: space-between;
 }
 
+.flex-start {
+    justify-content: flex-start;
+}
+
+.display-none {
+    display: none;
+}
+
 /**
  * Medium screens.
  */

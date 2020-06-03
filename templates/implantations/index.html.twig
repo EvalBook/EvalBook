@@ -18,7 +18,11 @@
         <thead>
         <tr>
             <th scope="col">{{ 'Implantation' | trans }}</th>
-            <th scope="col">{{ 'School'|trans }}</th>
+
+            {% if config.useSchools %}
+                <th scope="col">{{ 'School'|trans }}</th>
+            {% endif %}
+
             <th scope="col" class="mobile-hidden-td">{{ 'Address' | trans }}</th>
             <th scope="col" class="text-center">{{ 'Classes'|trans }}</th>
 
@@ -36,7 +40,11 @@
         {% for implantation in implantations %}
             <tr data-id="{{ implantation.id }}" data-trigger="{{ path('implantation_edit', {'id': implantation.id}) }}">
                 <td class="js-search-target">{{ implantation.name }}</td>
-                <td class="js-search-target">{{ implantation.school ? implantation.school : '-' }}</td>
+
+                {% if config.useSchools %}
+                    <td class="js-search-target">{{ implantation.school ? implantation.school : '-' }}</td>
+                {% endif %}
+
                 <td class="mobile-hidden-td js-search-target">{{ implantation.address }}</td>
 
                 {# Display implantation class count with a link if user has rights to see clesses. #}

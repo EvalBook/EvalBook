@@ -48,6 +48,12 @@ class UserConfiguration
     private $showSearch;
 
     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $useSchools;
+
+
+    /**
      * @ORM\OneToOne(targetEntity=User::class, inversedBy="userConfiguration", cascade={"persist", "remove"})
      */
     private $user;
@@ -176,6 +182,28 @@ class UserConfiguration
         return $this;
     }
 
+    /**
+     * Return true if user want to use schools feature.
+     * @return bool|null
+     */
+    public function getUseSchools(): ?bool
+    {
+        return $this->useSchools || is_null($this->useSchools);
+    }
+
+
+    /**
+     * Set to true so the user will use schools feature.
+     * @param bool|null $useSchools
+     * @return $this
+     */
+    public function setUseSchools(?bool $useSchools): self
+    {
+        $this->useSchools = $useSchools;
+
+        return $this;
+    }
+
 
     /**
      * Return true if the current configuration was made GLOBAL ( all system users )
@@ -234,5 +262,6 @@ class UserConfiguration
         $this->setShowHelp(true);
         $this->setShowTitle(true);
         $this->setShowSearch(true);
+        $this->setUseSchools(true);
     }
 }
