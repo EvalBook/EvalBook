@@ -45,9 +45,9 @@
         <tbody>
         {% for classroom in classrooms %}
             <tr data-id="{{ classroom.id }}" data-trigger="{{ path('classroom_edit', {'id': classroom.id}) }}">
-                <td class="search-target">{{ classroom.implantation }}</td>
-                <td class="search-target">{{ classroom.name }}</td>
-                <td class="search-target mobile-hidden-td">
+                <td class="js-search-target">{{ classroom.implantation }}</td>
+                <td class="js-search-target">{{ classroom.name }}</td>
+                <td class="js-search-target mobile-hidden-td">
                     {% if app.user is same as(classroom.owner) %}
                         <span><< <strong>{{ 'Me'|trans }}</strong> >></span>
                     {% else %}

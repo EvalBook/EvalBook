@@ -34,9 +34,9 @@
         <tbody>
         {% for student in students %}
             <tr data-id="{{ student.id }}" data-trigger="{{ path('student_edit', {'id': student.id}) }}">
-                <td class="search-target">{{ student.lastName }}</td>
-                <td class="search-target">{{ student.firstName }}</td>
-                <td class="mobile-hidden-td search-target">{{ student.birthday|date('d/m/Y') }}</td>
+                <td class="js-search-target">{{ student.lastName }}</td>
+                <td class="js-search-target">{{ student.firstName }}</td>
+                <td class="mobile-hidden-td js-search-target">{{ student.birthday|date('d/m/Y') }}</td>
 
                 <td class="text-center">
                     {% if student.classrooms|length > 0 %}
@@ -82,23 +82,10 @@
     </table>
 {% endblock %}
 
-
-{% block functionnalities %}
-    {% if is_granted('ROLE_STUDENT_CREATE') %}
-        <a href="{{ path('student_add') }}" title="Add a student">
-            <i class="fas fa-plus"></i>
-        </a>
-    {% endif %}
-{% endblock %}
-
-
-{% block functionnalitiesMobile %}
-    {% if is_granted('ROLE_STUDENT_CREATE') %}
-        <a href="{{ path('student_add') }}" title="Add a student">
-            <i class="fas fa-plus"></i>
-        </a>
-    {% endif %}
-{% endblock %}
+{# Add button desktop / mobile #}
+{% set params = {'role': 'ROLE_STUDENT_CREATE', 'route': 'student_add'} %}
+{% block functionnalities %} {% include 'add-button.html.twig' with params %} {% endblock %}
+{% block functionnalitiesMobile %} {% include 'add-button.html.twig' with params %} {% endblock %}
 
 {% block javascripts %}
     {{ encore_entry_script_tags('modalDialogs') }}

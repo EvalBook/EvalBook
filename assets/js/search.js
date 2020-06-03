@@ -12,7 +12,7 @@ Search = {
         searchText = searchText.toLowerCase();
 
         for(let tr of document.querySelectorAll('tbody tr')) {
-            let searchTargets = tr.getElementsByClassName('search-target');
+            let searchTargets = tr.getElementsByClassName('js-search-target');
             let found = false;
 
             // Iterate over search target elements.
@@ -38,11 +38,13 @@ Search = {
 
 
 let input = document.getElementById('search-box');
-// Empty search box when focus is lost.
-input.onblur = function() {
-    input.value = '';
-}
+if(null !== input) {
+    // Empty search box when focus is lost.
+    input.onblur = function () {
+        input.value = '';
+    }
 
-input.addEventListener('keyup', function(event) {
-    Search.process(input.value);
-})
+    input.addEventListener('keyup', function (event) {
+        Search.process(input.value);
+    })
+}

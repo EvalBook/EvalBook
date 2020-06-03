@@ -18,7 +18,11 @@
         <thead>
         <tr>
             <th scope="col">{{ 'Implantation' | trans }}</th>
-            <th scope="col">{{ 'School'|trans }}</th>
+
+            {% if config.useSchools %}
+                <th scope="col">{{ 'School'|trans }}</th>
+            {% endif %}
+
             <th scope="col" class="mobile-hidden-td">{{ 'Address' | trans }}</th>
             <th scope="col" class="text-center">{{ 'Classes'|trans }}</th>
 
@@ -35,9 +39,13 @@
         <tbody>
         {% for implantation in implantations %}
             <tr data-id="{{ implantation.id }}" data-trigger="{{ path('implantation_edit', {'id': implantation.id}) }}">
-                <td class="search-target">{{ implantation.name }}</td>
-                <td class="search-target">{{ implantation.school ? implantation.school : '-' }}</td>
-                <td class="mobile-hidden-td search-target">{{ implantation.address }}</td>
+                <td class="js-search-target">{{ implantation.name }}</td>
+
+                {% if config.useSchools %}
+                    <td class="js-search-target">{{ implantation.school ? implantation.school : '-' }}</td>
+                {% endif %}
+
+                <td class="mobile-hidden-td js-search-target">{{ implantation.address }}</td>
 
                 {# Display implantation class count with a link if user has rights to see clesses. #}
                 <td class="text-center">
@@ -97,23 +105,10 @@
     </table>
 {% endblock %}
 
-
-{% block functionnalities %}
-    {% if is_granted('ROLE_IMPLANTATION_CREATE') %}
-        <a href="{{ path('implantation_add') }}" title="Add implantation">
-            <i class="fas fa-plus"></i>
-        </a>
-    {% endif %}
-{% endblock %}
-
-
-{% block functionnalitiesMobile %}
-    {% if is_granted('ROLE_IMPLANTATION_CREATE') %}
-        <a href="{{ path('implantation_add') }}" title="Add implantation">
-            <i class="fas fa-plus"></i>
-        </a>
-    {% endif %}
-{% endblock %}
+{# Add button desktop / mobile #}
+{% set params = {'role': 'ROLE_IMPLANTATION_CREATE', 'route': 'implantation_add'} %}
+{% block functionnalities %} {% include 'add-button.html.twig' with params %} {% endblock %}
+{% block functionnalitiesMobile %} {% include 'add-button.html.twig' with params %} {% endblock %}
 
 {% block javascripts %}
     {{ encore_entry_script_tags('modalDialogs') }}

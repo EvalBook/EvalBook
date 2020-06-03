@@ -12,9 +12,7 @@
 {% block body %}
 
     <div class="full-width flex column">
-        <a class="go-back" href="{{ app.request.headers.get('referer') }}" title="Go back">
-            <i class="fas fa-long-arrow-alt-left"></i>
-        </a>
+        {% include 'go-back.html.twig' %}
 
         <div class="form-content">
             {{ form_start(form) }}

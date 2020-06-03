@@ -19,11 +19,13 @@
 
 namespace App\Controller;
 
+use App\Form\UserConfigurationType;
 use App\Form\UserProfileType;
 use App\Form\UserType;
 use App\Entity\User;
 use App\Repository\ClassroomRepository;
 use App\Repository\UserRepository;
+use App\Service\ConfigurationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -102,8 +104,8 @@ class UsersController extends AbstractController
         }
 
         return $this->render('users/form.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
+            'user'   => $user,
+            'form'   => $form->createView(),
         ]);
     }
 
@@ -211,8 +213,7 @@ class UsersController extends AbstractController
 
         $userForm->handleRequest($request);
 
-        if ($userForm->isSubmitted() && $userForm->isValid())
-        {
+        if ($userForm->isSubmitted() && $userForm->isValid()) {
             $entityManager->persist($this->getUser());
             $entityManager->flush();
             $this->addFlash('success', 'Successfully updated');
@@ -258,6 +259,36 @@ class UsersController extends AbstractController
                 'route'  => 'user_view_students',
                 'params' => ['id' => $user->getId()],
             ])),
+        ]);
+    }
+
+
+    /**
+     * @Route("/user/settings", name="user_settings")
+     * @param Request $request
+     * @return Response|void
+     */
+    public function configureInterface(Request $request, ConfigurationService $configurationService)
+    {
+        $user = $this->getUser();
+        $configuration = $configurationService->load($user);
+
+        $configurationForm = $this->createForm(UserConfigurationType::class, $configuration, [
+            'roles' => $user->getRoles(),
+        ]);
+
+        $configurationForm->handleRequest($request);
+
+        if ($configurationForm->isSubmitted() && $configurationForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($configuration);
+            $em->flush();
+            $this->addFlash('success', 'Successfully updated your configuration');
+        }
+
+        return $this->render('users/configuration-form.html.twig', [
+            'configuration' => $configuration,
+            'form' => $configurationForm->createView(),
         ]);
     }
 

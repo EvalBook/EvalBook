@@ -36,9 +36,9 @@
         <tbody>
         {% for user in users %}
             <tr data-id="{{ user.id }}" data-trigger="{{ path('user_edit', {'id': user.id}) }}">
-                <td class="search-target">{{ user.firstName }}</td>
-                <td class="search-target">{{ user.lastName }}</td>
-                <td class="search-target mobile-hidden-td">{{ user.email }}</td>
+                <td class="js-search-target">{{ user.firstName }}</td>
+                <td class="js-search-target">{{ user.lastName }}</td>
+                <td class="js-search-target mobile-hidden-td">{{ user.email }}</td>
 
                 <td class="text-center mobile-hidden-td">
                     {% if is_granted('ROLE_STUDENT_LIST_ALL') %}
@@ -102,23 +102,11 @@
     </table>
 {% endblock %}
 
+{# Add button desktop / mobile #}
+{% set params = {'role': 'ROLE_USER_CREATE', 'route': 'user_add'} %}
+{% block functionnalities %} {% include 'add-button.html.twig' with params %} {% endblock %}
+{% block functionnalitiesMobile %} {% include 'add-button.html.twig' with params %} {% endblock %}
 
-{% block functionnalities %}
-    {% if is_granted('ROLE_USER_CREATE') %}
-        <a href="{{ path('user_add') }}" title="Create a user">
-            <i class="fas fa-plus"></i>
-        </a>
-    {% endif %}
-{% endblock %}
-
-
-{% block functionnalitiesMobile %}
-    {% if is_granted('ROLE_USER_CREATE') %}
-        <a href="{{ path('user_add') }}" title="Create a user">
-            <i class="fas fa-plus"></i>
-        </a>
-    {% endif %}
-{% endblock %}
 
 {% block javascripts %}
     {{ encore_entry_script_tags('modalDialogs') }}
