@@ -1,0 +1,7 @@
+{% if role is defined and route is defined %}
+    {% if is_granted(role) %}
+        <a href="{{ path(route, (params is defined ? params : {}) ) }}" title="Add">
+            <i class="fas fa-plus"></i>
+        </a>
+    {% endif %}
+{% endif %}

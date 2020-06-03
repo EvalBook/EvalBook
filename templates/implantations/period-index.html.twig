@@ -99,22 +99,10 @@
     </div>
 {% endblock %}
 
-{% block functionnalities %}
-    {% if is_granted('ROLE_IMPLANTATION_EDIT') and periods|length < 6 %}
-        <a href="{{ path('implantation_period_add', {'id': implantation.id}) }}" title="Add period">
-            <i class="fas fa-plus"></i>
-        </a>
-    {% endif %}
-{% endblock %}
-
-
-{% block functionnalitiesMobile %}
-    {% if is_granted('ROLE_IMPLANTATION_EDIT') and periods|length < 6 %}
-        <a href="{{ path('implantation_period_add', {'id': implantation.id}) }}" title="Add period">
-            <i class="fas fa-plus"></i>
-        </a>
-    {% endif %}
-{% endblock %}
+{# Add button desktop / mobile #}
+{% set params = {'role': 'ROLE_IMPLANTATION_EDIT', 'route': 'implantation_period_add', 'params': {'id': implantation.id}} %}
+{% block functionnalities %} {% include 'add-button.html.twig' with params %} {% endblock %}
+{% block functionnalitiesMobile %} {% include 'add-button.html.twig' with params %} {% endblock %}
 
 {% block javascripts %}
     {{ encore_entry_script_tags('modalDialogs') }}

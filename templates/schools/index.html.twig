@@ -84,23 +84,10 @@
     </table>
 {% endblock %}
 
-
-{% block functionnalities %}
-    {% if is_granted('ROLE_SCHOOL_CREATE') %}
-        <a href="{{ path('school_add') }}" title="Add school">
-            <i class="fas fa-plus"></i>
-        </a>
-    {% endif %}
-{% endblock %}
-
-
-{% block functionnalitiesMobile %}
-    {% if is_granted('ROLE_SCHOOL_CREATE') %}
-        <a href="{{ path('school_add') }}" title="Add school">
-            <i class="fas fa-plus"></i>
-        </a>
-    {% endif %}
-{% endblock %}
+{# Add button desktop / mobile #}
+{% set params = {'role': 'ROLE_SCHOOL_CREATE', 'route': 'school_add'} %}
+{% block functionnalities %} {% include 'add-button.html.twig' with params %} {% endblock %}
+{% block functionnalitiesMobile %} {% include 'add-button.html.twig' with params %} {% endblock %}
 
 {% block javascripts %}
     {{ encore_entry_script_tags('modalDialogs') }}
