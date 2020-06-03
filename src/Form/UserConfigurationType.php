@@ -20,6 +20,7 @@ class UserConfigurationType extends AbstractType
             ->add('showTitle', ChoiceType::class, ['choices' => $options['choices']])
             ->add('showSearch', ChoiceType::class, ['choices' => $options['choices']])
             ->add('useSchools', ChoiceType::class, ['choices' => $options['choices']])
+            ->add('useContacts', ChoiceType::class, ['choices' => $options['choices']])
         ;
 
         if(in_array('ROLE_ADMIN', $options['roles'])) {
