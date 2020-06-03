@@ -19,7 +19,6 @@
 
 namespace App\Controller;
 
-use App\Entity\UserConfiguration;
 use App\Form\UserConfigurationType;
 use App\Form\UserProfileType;
 use App\Form\UserType;
@@ -105,8 +104,8 @@ class UsersController extends AbstractController
         }
 
         return $this->render('users/form.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
+            'user'   => $user,
+            'form'   => $form->createView(),
         ]);
     }
 

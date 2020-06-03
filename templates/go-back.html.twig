@@ -1,0 +1,9 @@
+{% if route is defined %}
+    {% set path = route %}
+{% else %}
+    {% set path = app.request.headers.get('referer') %}
+{% endif %}
+
+<a class="go-back" href="{{ path }}" title="Go back">
+    <i class="fas fa-long-arrow-alt-left"></i>
+</a>
