@@ -313,6 +313,18 @@ class Student
     }
 
 
+    public function getMedicalContacts()
+    {
+
+    }
+
+
+    public function getNonMedicalContacts()
+    {
+
+    }
+
+
     /**
      * Return the Eleve string representation.
      * @return string
