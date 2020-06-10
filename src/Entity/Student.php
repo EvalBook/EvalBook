@@ -63,12 +63,19 @@ class Student
 
 
     /**
+     * @ORM\OneToMany(targetEntity=StudentContactRelation::class, mappedBy="student", orphanRemoval=true)
+     */
+    private $studentContactRelations;
+
+
+    /**
      * Eleve constructor.
      */
     public function __construct()
     {
         $this->classrooms = new ArrayCollection();
         $this->notes = new ArrayCollection();
+        $this->studentContactRelations = new ArrayCollection();
     }
 
 
@@ -258,6 +265,63 @@ class Student
         }
 
         return $this;
+    }
+
+
+    /**
+     * Return the student relations with available StudentContact.
+     * @return Collection|StudentContactRelation[]
+     */
+    public function getStudentContactRelations(): Collection
+    {
+        return $this->studentContactRelations;
+    }
+
+
+    /**
+     * Add a new relation with StudentContact through StudentContactRelation.
+     * @param StudentContactRelation $studentContactRelation
+     * @return $this
+     */
+    public function addStudentContactRelation(StudentContactRelation $studentContactRelation): self
+    {
+        if (!$this->studentContactRelations->contains($studentContactRelation)) {
+            $this->studentContactRelations[] = $studentContactRelation;
+            $studentContactRelation->setStudent($this);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * Remove a student contact relation.
+     * @param StudentContactRelation $studentContactRelation
+     * @return $this
+     */
+    public function removeStudentContactRelation(StudentContactRelation $studentContactRelation): self
+    {
+        if ($this->studentContactRelations->contains($studentContactRelation)) {
+            $this->studentContactRelations->removeElement($studentContactRelation);
+            // set the owning side to null (unless already changed)
+            if ($studentContactRelation->getStudent() === $this) {
+                $studentContactRelation->setStudent(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    public function getMedicalContacts()
+    {
+
+    }
+
+
+    public function getNonMedicalContacts()
+    {
+
     }
 
 

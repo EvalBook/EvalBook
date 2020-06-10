@@ -84,6 +84,14 @@
                     </span>
                 </div>
 
+                <div class="width-25-percent">
+                    {{ form_label(form.useContacts, 'Use contacts'|trans) }}
+                    {{ form_widget(form.useContacts, {'attr': {'class': 'width-100'}}) }}
+                    <span class="form-error">
+                        {{ form_errors(form.useContacts) }}
+                    </span>
+                </div>
+
                 <div class="width-25-percent"></div>
             </div>
 

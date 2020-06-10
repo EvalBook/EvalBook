@@ -52,6 +52,11 @@ class UserConfiguration
      */
     private $useSchools;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $useContacts;
+
 
     /**
      * @ORM\OneToOne(targetEntity=User::class, inversedBy="userConfiguration", cascade={"persist", "remove"})
@@ -206,6 +211,29 @@ class UserConfiguration
 
 
     /**
+     * Return true if user want to use contacts feature.
+     * @return bool|null
+     */
+    public function getUseContacts(): ?bool
+    {
+        return $this->useContacts || is_null($this->useContacts);
+    }
+
+
+    /**
+     * Set to true so the user will use contacts feature.
+     * @param bool|null $useContacts
+     * @return $this
+     */
+    public function setUseContacts(?bool $useContacts): self
+    {
+        $this->useContacts = $useContacts;
+
+        return $this;
+    }
+
+
+    /**
      * Return true if the current configuration was made GLOBAL ( all system users )
      * @return bool|null
      */
@@ -263,5 +291,6 @@ class UserConfiguration
         $this->setShowTitle(true);
         $this->setShowSearch(true);
         $this->setUseSchools(true);
+        $this->setUseContacts(true);
     }
 }

@@ -195,6 +195,7 @@ class User implements UserInterface
      */
     public function setPassword(?string $password): self
     {
+        // FIXME make use of password encoder into the user controller.
         if(!is_null($password)) {
             $this->password = password_hash($password, PASSWORD_ARGON2I);
         }

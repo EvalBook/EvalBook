@@ -22,6 +22,11 @@
             <th class="mobile-hidden-td">{{ 'Birthday'|trans }}</th>
             <th class="text-center">{{ 'Classes'|trans }}</th>
 
+            {% if config.useContacts %}
+                <th class="text-center">{{ 'Contacts'|trans }}</th>
+                <th class="text-center">{{ 'Medicals'|trans }}</th>
+            {% endif %}
+
             {% if is_granted('ROLE_STUDENT_EDIT') %}
                 <th scope="col" class="text-center mobile-hidden-td">{{ 'Edit' | trans }}</th>
             {% endif %}
@@ -48,6 +53,20 @@
                     {% endif %}
                 </td>
 
+                {# Contacts and medical contacts #}
+                {% if config.useContacts %}
+                    <td class="text-center">
+                        <a href="#">
+                            <i class="far fa-address-book"></i> ({{ student.nonMedicalContacts|length }})
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        <a href="#">
+                            <i class="fas fa-briefcase-medical"></i> ({{ student.medicalContacts|length }})
+                        </a>
+                    </td>
+                {% endif %}
+
                 {% if is_granted('ROLE_STUDENT_EDIT') %}
                     {% set params = (redirect is defined) ? {'id': student.id, 'redirect': redirect} : {'id': student.id} %}
                     <td class="text-center mobile-hidden-td">
@@ -72,10 +91,10 @@
             </tr>
         {% else %}
             <tr>
-                <td class="text-center" colspan="6">{{ 'No student found' | trans }}</td>
+                <td class="text-center" colspan="8">{{ 'No student found' | trans }}</td>
             </tr>
             <tr>
-                <td class="text-center" colspan="6">{{ 'Ensure you have students registered to your classes' | trans }}</td>
+                <td class="text-center" colspan="8">{{ 'Ensure you have students registered to your classes' | trans }}</td>
             </tr>
         {% endfor %}
         </tbody>
