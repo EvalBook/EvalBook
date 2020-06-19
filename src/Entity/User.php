@@ -157,6 +157,9 @@ class User implements UserInterface
      */
     public function setRoles(array $roles): self
     {
+        // Make sure at least ROLE_USER exists in database.
+        if(empty($roles))
+            $roles[] = 'ROLE_USER';
         $this->roles = $roles;
         return $this;
     }
@@ -195,10 +198,8 @@ class User implements UserInterface
      */
     public function setPassword(?string $password): self
     {
-        // FIXME make use of password encoder into the user controller.
-        if(!is_null($password)) {
-            $this->password = password_hash($password, PASSWORD_ARGON2I);
-        }
+        if(!is_null($password))
+            $this->password = $password;
         return $this;
     }
 

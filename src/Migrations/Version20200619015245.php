@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200603114146 extends AbstractMigration
+final class Version20200619015245 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -36,7 +36,7 @@ final class Version20200603114146 extends AbstractMigration
         $this->addSql('CREATE TABLE student_contact_relation (id INT AUTO_INCREMENT NOT NULL, contact_id INT NOT NULL, student_id INT NOT NULL, relation VARCHAR(255) NOT NULL, send_school_report TINYINT(1) NOT NULL, INDEX IDX_2AFDFAABE7A1254A (contact_id), INDEX IDX_2AFDFAABCB944F1A (student_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, last_name VARCHAR(100) NOT NULL, first_name VARCHAR(100) NOT NULL, UNIQUE INDEX UNIQ_8D93D649E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user_classroom (user_id INT NOT NULL, classroom_id INT NOT NULL, INDEX IDX_499DBD79A76ED395 (user_id), INDEX IDX_499DBD796278D5A8 (classroom_id), PRIMARY KEY(user_id, classroom_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE user_configuration (id INT AUTO_INCREMENT NOT NULL, user_id INT DEFAULT NULL, show_logo TINYINT(1) DEFAULT NULL, is_global_config TINYINT(1) NOT NULL, show_footer TINYINT(1) DEFAULT NULL, show_help TINYINT(1) DEFAULT NULL, show_title TINYINT(1) DEFAULT NULL, show_search TINYINT(1) DEFAULT NULL, use_schools TINYINT(1) DEFAULT NULL, UNIQUE INDEX UNIQ_4B6C0887A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE user_configuration (id INT AUTO_INCREMENT NOT NULL, user_id INT DEFAULT NULL, show_logo TINYINT(1) DEFAULT NULL, is_global_config TINYINT(1) NOT NULL, show_footer TINYINT(1) DEFAULT NULL, show_help TINYINT(1) DEFAULT NULL, show_title TINYINT(1) DEFAULT NULL, show_search TINYINT(1) DEFAULT NULL, use_schools TINYINT(1) DEFAULT NULL, use_contacts TINYINT(1) DEFAULT NULL, UNIQUE INDEX UNIQ_4B6C0887A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE activity ADD CONSTRAINT FK_AC74095A44EA4809 FOREIGN KEY (note_type_id) REFERENCES note_type (id)');
         $this->addSql('ALTER TABLE activity ADD CONSTRAINT FK_AC74095AA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE activity ADD CONSTRAINT FK_AC74095AEC8B7ADE FOREIGN KEY (period_id) REFERENCES period (id)');
