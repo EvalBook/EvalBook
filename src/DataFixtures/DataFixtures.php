@@ -77,7 +77,7 @@ class DataFixtures extends Fixture implements ContainerAwareInterface, FixtureIn
                 ->setFirstName($faker->firstName)
                 ->setEmail($faker->email)
                 ->setPassword($this->passwordEncoder->encodePassword($user, 'Dev007!!'))
-                ->setRoles(["ROLE_USER, ROLE_CLASS_EDIT_STUDENTS"])
+                ->setRoles(["ROLE_USER", "ROLE_CLASS_EDIT_STUDENTS"])
                 // Reste classe titulaire et classes.
             ;
             $em->persist($user);

@@ -96,7 +96,9 @@ class UsersController extends AbstractController
                 if(strlen($plainPassword) > 6) {
                     $user->setPassword($passwordEncoder->encodePassword($user, $plainPassword));
                 }
-                $this->getDoctrine()->getManager()->flush();
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
                 $this->addFlash('success', 'Successfully updated');
 
                 if (!is_null($redirect)) {
