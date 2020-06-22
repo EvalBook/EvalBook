@@ -34,6 +34,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
 /**
@@ -81,7 +82,7 @@ class UsersController extends AbstractController
      * @param String $redirect
      * @return Response
      */
-    public function edit(Request $request, User $user, UserRepository $repository, ?string $redirect)
+    public function edit(Request $request, User $user, UserRepository $repository, UserPasswordEncoderInterface $passwordEncoder, ?string $redirect)
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -91,7 +92,13 @@ class UsersController extends AbstractController
                 $this->addFlash('error', 'User already exists');
             }
             else {
-                $this->getDoctrine()->getManager()->flush();
+                $plainPassword = $form->get('password')->getData();
+                if(strlen($plainPassword) > 6) {
+                    $user->setPassword($passwordEncoder->encodePassword($user, $plainPassword));
+                }
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
                 $this->addFlash('success', 'Successfully updated');
 
                 if (!is_null($redirect)) {
@@ -118,7 +125,7 @@ class UsersController extends AbstractController
      * @param UserRepository $repository
      * @return RedirectResponse|Response
      */
-    public function add(Request $request, UserRepository $repository)
+    public function add(Request $request, UserRepository $repository, UserPasswordEncoderInterface $passwordEncoder)
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -134,6 +141,10 @@ class UsersController extends AbstractController
                     $this->addFlash('error', "Password is empty");
                 }
                 else {
+                    $plainPassword = $form->get('password')->getData();
+                    if(strlen($plainPassword) > 6) {
+                        $user->setPassword($passwordEncoder->encodePassword($user, $plainPassword));
+                    }
                     $entityManager = $this->getDoctrine()->getManager();
                     $entityManager->persist($user);
                     $entityManager->flush();
@@ -207,13 +218,17 @@ class UsersController extends AbstractController
      * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function profile(EntityManagerInterface $entityManager, Request $request)
+    public function profile(EntityManagerInterface $entityManager, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         $userForm = $this->createForm(UserProfileType::class, $this->getUser());
 
         $userForm->handleRequest($request);
 
         if ($userForm->isSubmitted() && $userForm->isValid()) {
+            $plainPassword = $userForm->get('password')->getData();
+            if(strlen($plainPassword) > 6) {
+                $this->getUser()->setPassword($passwordEncoder->encodePassword($this->getUser(), $plainPassword));
+            }
             $entityManager->persist($this->getUser());
             $entityManager->flush();
             $this->addFlash('success', 'Successfully updated');

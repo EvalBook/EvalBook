@@ -90,3 +90,7 @@ En plus du rôle par défaut attribué, chaque utilisateur peut disposer de un o
 ## Support
 Pour toute demande de support ou pour signaler un bug, envoyer nous une issue via github, un site internet est en cours de construction, mais
 n'est actuellement pas encore disponible.
+
+## Sponsors 
+JetBrains a généreusement offert une licence Open Source a EvalBook, n'hésitez pas à faire un tour sur leur site !
+[www.jetbrains.com](https://www.jetbrains.com/?from=EvalBook)

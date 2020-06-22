@@ -19,12 +19,17 @@ use Doctrine\common\Persistence\ObjectManager;
 use Faker\Factory;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
 class DataFixtures extends Fixture implements ContainerAwareInterface, FixtureInterface, OrderedFixtureInterface
 {
-
     private $container;
+    private $passwordEncoder;
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder) {
+        $this->passwordEncoder = $passwordEncoder;
+    }
 
     public function setContainer(ContainerInterface $container = null)
     {
@@ -71,8 +76,8 @@ class DataFixtures extends Fixture implements ContainerAwareInterface, FixtureIn
                 ->setLastName($faker->lastName)
                 ->setFirstName($faker->firstName)
                 ->setEmail($faker->email)
-                ->setPassword('Dev007!!')
-                ->setRoles(["ROLE_USER, ROLE_CLASS_EDIT_STUDENTS"])
+                ->setPassword($this->passwordEncoder->encodePassword($user, 'Dev007!!'))
+                ->setRoles(["ROLE_USER", "ROLE_CLASS_EDIT_STUDENTS"])
                 // Reste classe titulaire et classes.
             ;
             $em->persist($user);
@@ -85,7 +90,7 @@ class DataFixtures extends Fixture implements ContainerAwareInterface, FixtureIn
             ->setLastName('Admin')
             ->setFirstName('Super')
             ->setEmail("admin@evalbook.dev")
-            ->setPassword('Dev007!!')
+            ->setPassword($this->passwordEncoder->encodePassword($user, 'Dev007!!'))
             ->setRoles(["ROLE_ADMIN"])
         ;
         $em->persist($user);
