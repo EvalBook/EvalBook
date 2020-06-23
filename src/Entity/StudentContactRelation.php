@@ -150,12 +150,12 @@ class StudentContactRelation
      */
     public function getAvailableRelations() {
         return array(
-            'mother',
-            'father',
-            'medical',
-            'grand parents',
-            'legal guardian',
-            'other',
+            'MOTHER',
+            'FATHER',
+            'MEDICAL',
+            'GRAND PARENTS',
+            'LEGAL GUARDIAN',
+            'OTHER',
         );
     }
 }

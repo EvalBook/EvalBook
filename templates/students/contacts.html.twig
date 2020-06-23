@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block pageTitle %} {{ 'Student contacts' | trans }} {% endblock %}
+{% block title %} {{ 'Student contacts' | trans }} {% endblock %}
+
+{% block titleBottom %}
+    {% set placeholder = 'Search for contact'|trans %}
+    {% include 'search.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    <table class="full-width">
+        <thead>
+        <tr>
+            <th>{{ 'Name'|trans }}</th>
+            <th>{{ 'First name'|trans }}</th>
+            <th class="mobile-hidden-td">{{ 'Address'|trans }}</th>
+            <th>{{ 'Phone'|trans }}</th>
+            <th>{{ 'Mail'|trans }}</th>
+            <th>{{ 'Relation'|trans }}</th>
+            <th>{{ 'Send report'|trans }}</th>
+
+            {% if is_granted('ROLE_STUDENT_EDIT') %}
+                <th scope="col" class="text-center mobile-hidden-td">{{ 'Edit' | trans }}</th>
+            {% endif %}
+
+            {% if is_granted('ROLE_STUDENT_DELETE') %}
+                <th scope="col" class="text-center mobile-hidden-td">{{ 'Delete' | trans }}</th>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for contact in contacts %}
+            <tr data-id="{{ contact.id }}" data-trigger="{{ path('student_edit', {'id': contact.id}) }}">
+                <td class="js-search-target">{{ contact.lastName }}</td>
+                <td class="js-search-target">{{ contact.firstName }}</td>
+                <td class="mobile-hidden-td js-search-target">{{ contact.address }}</td>
+                <td>{{ contact.phone }}</td>
+                <td>{{ contact.mail }}</td>
+                <td>{{ contact.relation|lower|capitalize }}</td>
+                <td></td>
+
+                {% if is_granted('ROLE_STUDENT_EDIT') %}
+                    {% set params = (redirect is defined) ? {'id': contact.id, 'redirect': redirect} : {'id': contact.id} %}
+                    <td class="text-center mobile-hidden-td">
+                        <a href="{{ path('student_edit', params) }}" title="Edit contact">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
+                {% endif %}
+
+                {% if is_granted('ROLE_STUDENT_DELETE') %}
+                    <td class="text-center mobile-hidden-td">
+                        <div data-target="student"
+                             data-targetid="{{ contact.id }}"
+                             data-action="{{ path('student_delete', {'id': contact.id}) }}"
+                             data-class="fas fa-trash"
+                             data-csrf="{{ csrf_token('contact_delete' ~ contact.id) }}"
+                        >
+                        </div>
+                    </td>
+                {% endif %}
+
+            </tr>
+        {% else %}
+            <tr>
+                <td class="text-center" colspan="9">{{ 'No student contact found' | trans }}</td>
+            </tr>
+            <tr>
+                <td class="text-center" colspan="9">{{ 'Ensure this student has related contacts' | trans }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+
+{# Add button desktop / mobile #}
+{% set params = {'role': 'ROLE_STUDENT_EDIT', 'route': 'student_add_contact', 'params': {'id': student.id}} %}
+{% block functionnalities %} {% include 'add-button.html.twig' with params %} {% endblock %}
+{% block functionnalitiesMobile %} {% include 'add-button.html.twig' with params %} {% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('modalDialogs') }}
+    {{ encore_entry_script_tags('search') }}
+{% endblock %}

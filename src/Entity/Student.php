@@ -313,15 +313,28 @@ class Student
     }
 
 
+    /**
+     * Return the student medical contacts.
+     * @return StudentContact[]|Collection
+     */
     public function getMedicalContacts()
     {
-
+        return array_filter($this->getStudentContactRelations()->toArray(), function(StudentContactRelation $contact) {
+            return strtoupper($contact->getRelation()) === 'MEDICAL';
+        });
     }
 
 
+    /**
+     * Return non medical student contacts.
+     * @return StudentContact[]|Collection
+     */
     public function getNonMedicalContacts()
     {
-
+        // Return contact  instead of contact relation ?
+        return array_filter($this->getStudentContactRelations()->toArray(), function(StudentContactRelation $contact) {
+            return strtoupper($contact->getRelation()) !== 'MEDICAL';
+        });
     }
 
 
