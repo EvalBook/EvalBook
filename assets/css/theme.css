@@ -409,6 +409,10 @@ tr:hover i, tr:hover a {
     margin-left: 5px;
 }
 
+.margin-right {
+    margin-right: 5px;
+}
+
 .full-width {
     width: 100%;
 }
@@ -419,6 +423,10 @@ tr:hover i, tr:hover a {
 
 .width-100 {
     width: 95%;
+}
+
+.width-50-percent {
+    width: 50%;
 }
 
 .text-red {
