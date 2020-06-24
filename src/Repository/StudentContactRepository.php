@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\StudentContact;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,32 +21,39 @@ class StudentContactRepository extends ServiceEntityRepository
         parent::__construct($registry, StudentContact::class);
     }
 
-    // /**
-    //  * @return StudentContact[] Returns an array of StudentContact objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * Return true if entity already exists.
+     * @param StudentContact $contact
+     * @return int|mixed|string
+     */
+    public function contactExists(StudentContact $contact)
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+        $queryBuilder
+            ->select('count(sc.email)')
+            ->from(StudentContact::class, 'sc')
+            ->where('sc.email = :email')
         ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?StudentContact
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if($contact->getId() !== null) {
+            $queryBuilder
+                ->andWhere('sc.id != :id')
+                ->setParameter('id', $contact->getId())
+            ;
+        }
+
+        $queryBuilder->setParameter('email', $contact->getEmail());
+
+        try {
+            $count = $queryBuilder->getQuery()->getSingleScalarResult();
+        }
+        catch (NoResultException $e) {
+            return false;
+        }
+        catch (NonUniqueResultException $e) {
+            return true;
+        }
+
+        return intval($count) !== 0;
     }
-    */
 }

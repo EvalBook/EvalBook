@@ -227,4 +227,14 @@ class StudentContact
 
         return $this;
     }
+
+
+    /**
+     * Return the string representation of a student contact.
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getLastName() . " " . $this->getFirstName() . " ( " . $this->getEmail() . " ) ";
+    }
 }

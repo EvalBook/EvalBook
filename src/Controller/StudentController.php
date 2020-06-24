@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Student;
+use App\Entity\StudentContact;
 use App\Entity\StudentContactRelation;
 use App\Form\StudentContactType;
 use App\Form\StudentType;
+use App\Repository\StudentContactRepository;
 use App\Repository\StudentRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -192,24 +195,56 @@ class StudentController extends AbstractController
      *
      * @param Student $student
      * @param Request $request
+     * @param StudentContactRepository $scRepository
      * @return Response
      */
-    public function addContact(Student $student, Request $request)
+    public function addContact(Student $student, Request $request, StudentContactRepository $scRepository)
     {
-        // TODO => dans la même page, un formulaire pour ajouter un contact, et un formulaire listant les contacts disponibles existants déjà !
+        $existingContactsForm = $this->createFormBuilder()
+            ->add('contact', EntityType::class, [
+                'class' => StudentContact::class,
+            ])
+            ->getForm()
+        ;
 
-        $form = $this->createForm(StudentContactType::class, null, [
+        $newContactForm = $this->createForm(StudentContactType::class, null, [
             'relations' => StudentContactRelation::getAvailableRelations(),
         ]);
-        $form->handleRequest($request);
+        $newContactForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // TODO
+        if ($newContactForm->isSubmitted() && $newContactForm->isValid()) {
+            $contact = (new StudentContact())
+                ->setFirstName($newContactForm->get('firstName')->getData())
+                ->setLastName($newContactForm->get('lastName')->getData())
+                ->setEmail($newContactForm->get('email')->getData())
+                ->setAddress($newContactForm->get('address')->getData())
+                ->setPhone($newContactForm->get('phone')->getData())
+            ;
+
+            $contactRelation = (new StudentContactRelation())
+                ->setStudent($student)
+                ->setContact($contact)
+                ->setRelation($newContactForm->get('relation')->getData())
+                ->setSendSchoolReport($newContactForm->get('schoolReport')->getData())
+            ;
+            // Checking if contact already exists in database before flushing.
+            if(!$scRepository->contactExists($contact)) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($contact);
+                $em->persist($contactRelation);
+                $em->flush();
+                $this->addFlash('success', 'The new contact was added and linked to the student');
+            }
+            else {
+                $this->addFlash('error', 'Error, it sounds like this contact already exists, please use the box to select the contact');
+            }
+
         }
 
         return $this->render('students/contact-add-form.html.twig', [
             'student' => $student,
-            'form' => $form->createView(),
+            'existingContactsForm' => $existingContactsForm->createView(),
+            'newContactForm' => $newContactForm->createView(),
         ]);
     }
 
