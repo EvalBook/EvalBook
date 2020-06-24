@@ -124,3 +124,6 @@ activity:
 
 noteType:
   name-empty: Nom du type de note vide
+
+field:
+  empty: Ce champs ne peut être vide

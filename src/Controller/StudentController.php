@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Student;
+use App\Entity\StudentContactRelation;
+use App\Form\StudentContactType;
 use App\Form\StudentType;
 use App\Repository\StudentRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -187,11 +189,28 @@ class StudentController extends AbstractController
 
     /**
      * @Route("/student/contact/add/{id}", name="student_add_contact")
+     *
      * @param Student $student
+     * @param Request $request
+     * @return Response
      */
-    public function addContact(Student $student)
+    public function addContact(Student $student, Request $request)
     {
+        // TODO => dans la même page, un formulaire pour ajouter un contact, et un formulaire listant les contacts disponibles existants déjà !
 
+        $form = $this->createForm(StudentContactType::class, null, [
+            'relations' => StudentContactRelation::getAvailableRelations(),
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // TODO
+        }
+
+        return $this->render('students/contact-add-form.html.twig', [
+            'student' => $student,
+            'form' => $form->createView(),
+        ]);
     }
 
 

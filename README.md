@@ -62,30 +62,30 @@ Ajoutez vos écoles, vos classes, vos utilisateurs et élèves, et vous êtes pa
 
 ## Les rôles
 En plus du rôle par défaut attribué, chaque utilisateur peut disposer de un ou plusieurs des rôles suivants : 
-* ROLE_ADMIN: Le rôle admin peut absolument tout faire, à l'exception de l'édition de ses pairs et de l'ajout de notes et activités pour une classe dont il n'est pas utilisateur.
-* ROLE_USER : Est le rôle par défaut de tout utilisateur enregistré, il permet de gérer l'ensemble des classes détenues par l'utilisateur ( + activités et notes ).
-* Lister toutes les écoles : Vous permet de lister l'ensemble des écoles enregistrées dans le système.
-* Editer une école : Vous permet d'éditer une école en modifiant les informations de nom et de siège principal.
-* Créer une école : Vous permet de créer une nouvelle école.
-* Supprimer une école : Vous permet de supprimer une école, attention, l'ensemble des données seront également supprimées.
-* Lister toutes les implantations : Vous permet de lister l'ensemble des établissements disponibles dans le système.
-* Editer une implantation : Vous permet d'étider les informations de base d'une implantation, le nom, l'adresse complète et les périodes.
-* Créer une implantation : Créer une nouvelle implantation et lui assigner les informations de base comme l'adresse, le nom.
-* Supprimer une implantation : Vous permet de supprimer une implantation, attention toutefois, toutes les données attachées seront supprimées, telles que les différentes périodes et activités, utilisez ce droit avec grande précaution, un retour en arrière n'est pas possible !
-* Lister tous les utilisateurs : Lister tous les utilisateurs du système en un seul endroit, permet d'accéder à des utilisateurs qui n'ont pas encore de classe attitrée pour éventuellement effectuer des actions si vous en avez les droits.
-* Créer un utilisateur : Permet de créer de nouveaux utilisateurs dans le système EvalBook.
-* Editer un utilisateur : Permet de mettre à jour les informations d'un utilisateur à partir de la liste complète ou tout autre endroit du système, il permet également de gérer les rôles que vous souhaitez attribuer / retirer à l'utilisateur sélectionné.
-* Supprimer un utilisateur : Permet de supprimer un utilisateur, ce droit est à utiliser avec grande précaution !
-* Lister tous les étudiants : Permet d'afficher la liste complète des étudiants, y compris celles et ceux qui ne sont pas encore repris dans une classe, afin éventuellement d'affectuer des opérations de suppression ou de mise à jour.
-* Créer un étudiant : Permet de créer un nouvel étudiant pour ensuite l'assigner à une classe si vous en avez le droit.
-* Editer un étudiant : Permet de modifier les informations de base d'un étudiant à partie de la liste complète des étudiants ou à partir d'un autre endroit du système.
-* Supprimer un étudiant : Permet de complètement supprimer un étudiant, attention, à utiliser avec précaution !
-* Lister toutes les classes : Permet d'afficher le listing complet de toutes les classes de l'implantation cible ou de toutes les implantations.
-* Créer une classe : Permet la création d'une classe et l'attribution au sein d'un établissement.
-* Editer une classe : Permet l'édition de toutes les information de base d'une classe à partir de tout emplacement du système.
-* Supprimer une classe : Permet la suppression pure et simple d'une classe, à utiliser avec précaution.
-* Assigner un élève à une classe : Ce rôle permet à un utilisateur d'assigner un ou plusieurs élèves à une classe.
-* Assigner un utilisateur à une classe : Ce rôle permet d'attribuer le droit d'actions à un ou plusieurs utilisateurs sur une classe précise.
+* **ROLE_ADMIN**: Le rôle admin peut absolument tout faire, à l'exception de l'édition de ses pairs et de l'ajout de notes et activités pour une classe dont il n'est pas utilisateur.
+* **ROLE_USER** : Est le rôle par défaut de tout utilisateur enregistré, il permet de gérer l'ensemble des classes détenues par l'utilisateur ( + activités et notes ).
+* **Lister toutes les écoles** : Vous permet de lister l'ensemble des écoles enregistrées dans le système.
+* **Editer une école** : Vous permet d'éditer une école en modifiant les informations de nom et de siège principal.
+* **Créer une école** : Vous permet de créer une nouvelle école.
+* **Supprimer une école** : Vous permet de supprimer une école, attention, l'ensemble des données seront également supprimées.
+* **Lister toutes les implantations** : Vous permet de lister l'ensemble des établissements disponibles dans le système.
+* **Editer une implantation** : Vous permet d'étider les informations de base d'une implantation, le nom, l'adresse complète et les périodes.
+* **Créer une implantation** : Créer une nouvelle implantation et lui assigner les informations de base comme l'adresse, le nom.
+* **Supprimer une implantation** : Vous permet de supprimer une implantation, attention toutefois, toutes les données attachées seront supprimées, telles que les différentes périodes et activités, utilisez ce droit avec grande précaution, un retour en arrière n'est pas possible !
+* **Lister tous les utilisateurs** : Lister tous les utilisateurs du système en un seul endroit, permet d'accéder à des utilisateurs qui n'ont pas encore de classe attitrée pour éventuellement effectuer des actions si vous en avez les droits.
+* **Créer un utilisateur** : Permet de créer de nouveaux utilisateurs dans le système EvalBook.
+* **Editer un utilisateur** : Permet de mettre à jour les informations d'un utilisateur à partir de la liste complète ou tout autre endroit du système, il permet également de gérer les rôles que vous souhaitez attribuer / retirer à l'utilisateur sélectionné.
+* **Supprimer un utilisateur** : Permet de supprimer un utilisateur, ce droit est à utiliser avec grande précaution !
+* **Lister tous les étudiants** : Permet d'afficher la liste complète des étudiants, y compris celles et ceux qui ne sont pas encore repris dans une classe, afin éventuellement d'affectuer des opérations de suppression ou de mise à jour.
+* **Créer un étudiant** : Permet de créer un nouvel étudiant pour ensuite l'assigner à une classe si vous en avez le droit. Permet également la création d'un contact étudiant.
+* **Editer un étudiant** : Permet de modifier les informations de base d'un étudiant à partie de la liste complète des étudiants ou à partir d'un autre endroit du système. Permet également l'ajout et la modification des contacts étudiants, y compris les contacts médicaux.
+* **Supprimer un étudiant** : Permet de complètement supprimer un étudiant, attention, à utiliser avec précaution ! Permet également la suppression d'un contact étudiant. 
+* **Lister toutes les classes** : Permet d'afficher le listing complet de toutes les classes de l'implantation cible ou de toutes les implantations.
+* **Créer une classe** : Permet la création d'une classe et l'attribution au sein d'un établissement.
+* **Editer une classe** : Permet l'édition de toutes les information de base d'une classe à partir de tout emplacement du système.
+* **Supprimer une classe** : Permet la suppression pure et simple d'une classe, à utiliser avec précaution.
+* **Assigner un élève à une classe** : Ce rôle permet à un utilisateur d'assigner un ou plusieurs élèves à une classe.
+* **Assigner un utilisateur à une classe** : Ce rôle permet d'attribuer le droit d'actions à un ou plusieurs utilisateurs sur une classe précise.
 
 ## Support
 Pour toute demande de support ou pour signaler un bug, envoyer nous une issue via github, un site internet est en cours de construction, mais

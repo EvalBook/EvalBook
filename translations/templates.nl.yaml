@@ -129,6 +129,23 @@ Use contacts: Use contacts
 Contacts: Contacts
 Medicals: Medicals
 Sponsors: Sponsors
+MOTHER: Mother
+FATHER: Father
+MOTHER FATHER: Mother and Father
+MEDICAL: Medical
+GRAND PARENTS: Grand parents
+LEGAL GUARDIAN: Legal guardian
+OTHER: other
+Student contacts: Student contacts
+Search for contact: Search for contact
+Phone: Phone
+Email: Email
+Relation: Relation
+Send report: Send report
+No student contact found: No student contact found
+Ensure this student has related contacts: Ensure this student has related contacts
+Add student contact: Add student contact
+Send school report: Send school report
 
 
 roles:

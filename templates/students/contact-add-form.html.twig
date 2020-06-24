@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block pageTitle %} {{ 'Add student contact' | trans }} {% endblock %}
+{% block title %} {{ 'Add student contact' | trans }} {% endblock %}
+
+{% block body %}
+    <div class="full-width flex column">
+        {% include 'go-back.html.twig' %}
+
+        <div class="form-content">
+            {{ form_start(form) }}
+
+            {# Contact first name #}
+            <div class="form-row">
+                {{ form_label(form.firstName, 'Name'|trans) }}
+                {{ form_widget(form.firstName) }}
+                <span class="form-error">
+                    {{ form_errors(form.firstName) }}
+                </span>
+            </div>
+
+            {# Contact last name #}
+            <div class="form-row">
+                {{ form_label(form.lastName, 'First name'|trans) }}
+                {{ form_widget(form.lastName) }}
+                <span class="form-error">
+                    {{ form_errors(form.lastName) }}
+                </span>
+            </div>
+
+            {# Contact email #}
+            <div class="form-row">
+                {{ form_label(form.email, 'Mail address'|trans) }}
+                {{ form_widget(form.email) }}
+                <span class="form-error">
+                    {{ form_errors(form.email) }}
+                </span>
+            </div>
+
+
+            {# Contact phone #}
+            <div class="form-row">
+                {{ form_label(form.phone, 'Phone'|trans) }}
+                {{ form_widget(form.phone) }}
+                <span class="form-error">
+                    {{ form_errors(form.phone) }}
+                </span>
+            </div>
+
+            {# Contact address #}
+            <div class="form-row">
+                {{ form_label(form.address, 'Address'|trans) }}
+                {{ form_widget(form.address) }}
+                <span class="form-error">
+                    {{ form_errors(form.address) }}
+                </span>
+            </div>
+
+            {# Contact relation with current student #}
+            <div class="form-row display-row">
+                {{ form_label(form.relation, 'Relation'|trans) }}
+                <select name="student_contact[relation]" id="student_contact_relation" class="full-width">
+                    {% for key, choice in form.relation.vars.choices %}
+                            <option value="{{ choice.value }}">{{ choice.label|trans }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% do form.relation.setRendered() %}
+
+            {# Contact sent student school report #}
+            <div class="form-row display-row">
+                {{ form_label(form.schoolReport, 'Send school report'|trans) }}
+                <select name="student_contact[schoolReport]" id="student_contact_schoolReport" class="full-width">
+                    {% for key, choice in form.schoolReport.vars.choices %}
+                        <option value="{{ choice.value }}">{{ choice.label|trans }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% do form.schoolReport.setRendered() %}
+
+            {# Submit button #}
+            {{ form_row(form.submit, {
+                'label': 'Send'|trans,
+                'attr': {'class': 'margin-15'},
+            }) }}
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

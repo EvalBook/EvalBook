@@ -129,6 +129,23 @@ Use contacts: Utiliser les contacts élèves
 Contacts: Contacts
 Medicals: Médecins
 Sponsors: Sponsors
+MOTHER: Mère
+FATHER: Père
+MOTHER FATHER: Père et mère
+MEDICAL: Médecin
+GRAND PARENTS: Grands parents
+LEGAL GUARDIAN: Tuteur légal
+OTHER: Autre
+Student contacts: Contacts étudiant
+Search for contact: Rechercher un contact
+Phone: Téléphone
+Email: Email
+Relation: Relation
+Send report: Envoi bulletin
+No student contact found: Aucun contact étudiant trouvé
+Ensure this student has related contacts: Assurez vous que cet étudiant ait des contacts
+Add student contact: Ajouter un contact étudiant
+Send school report: Envoyer le bulletin
 
 
 roles:
