@@ -315,9 +315,9 @@ class Student
 
     /**
      * Return the student medical contacts.
-     * @return StudentContact[]|Collection
+     * @return StudentContactRelation[]|Collection
      */
-    public function getMedicalContacts()
+    public function getMedicalContactsRelations()
     {
         return array_filter($this->getStudentContactRelations()->toArray(), function(StudentContactRelation $contact) {
             return strtoupper($contact->getRelation()) === 'MEDICAL';
@@ -327,9 +327,9 @@ class Student
 
     /**
      * Return non medical student contacts.
-     * @return StudentContact[]|Collection
+     * @return StudentContactRelation[]|Collection
      */
-    public function getNonMedicalContacts()
+    public function getNonMedicalContactsRelations()
     {
         // Return contact  instead of contact relation ?
         return array_filter($this->getStudentContactRelations()->toArray(), function(StudentContactRelation $contact) {

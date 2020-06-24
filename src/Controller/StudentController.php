@@ -167,11 +167,9 @@ class StudentController extends AbstractController
      */
     public function viewContacts(Student $student)
     {
-        $contacts = $this->getContacts($student->getNonMedicalContacts());
-
         return $this->render('students/contacts.html.twig', [
             'student' => $student,
-            'contacts' => $contacts,
+            'contactsRelations' => $student->getNonMedicalContactsRelations(),
         ]);
     }
 
@@ -184,11 +182,9 @@ class StudentController extends AbstractController
      */
     public function viewMedicalContacts(Student $student)
     {
-        $contacts = $this->getContacts($student->getMedicalContacts());
-
         return $this->render('students/contacts-medical.html.twig', [
             'student' => $student,
-            'contacts' => $contacts,
+            'contactsRelations' => $student->getMedicalContactsRelations(),
         ]);
     }
 
@@ -270,18 +266,5 @@ class StudentController extends AbstractController
             'existingContactsForm' => $existingContactsForm->createView(),
             'newContactForm' => $newContactForm->createView(),
         ]);
-    }
-
-
-    /**
-     * Return an array of StudentContact objects related to the student.
-     * @param array $contactsRelations
-     * @return array
-     */
-    private function getContacts(array $contactsRelations)
-    {
-        return array_map(function($contactRelation) {
-            return  $contactRelation->getContact();
-        }, $contactsRelations);
     }
 }
