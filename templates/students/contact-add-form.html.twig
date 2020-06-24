@@ -14,13 +14,19 @@
                 {{ form_start(existingContactsForm) }}
                 {% if existingContactsForm.contact.vars.choices|length > 0 %}
                     <h2>{{ 'Choose an existing contact'|trans }}</h2>
-                    <p class="text-center">
-                        {{ 'The selected contact will be linked to the current selected student'|trans }}
-                    </p>
+                    <p>{{ 'The selected contact will be linked to the current selected student'|trans }}</p>
 
                     {# Available contacts list #}
-                    {{ form_label(existingContactsForm.contact, 'Choose an existing contact in the list above'|trans) }}
-                    {{ form_widget(existingContactsForm.contact) }}
+                    {% set placeholder = 'Search for contact'|trans %}
+                    {% include 'search.html.twig' %}
+
+                    <div class="form-row">
+                        {{ form_label(existingContactsForm.contact, 'Choose an existing contact in the list above'|trans) }}
+                        {{ form_widget(existingContactsForm.contact, {
+                            'attr': {'class': 'js-searchable-select',}
+                            })
+                        }}
+                    </div>
                     <span class="form-error"> {{ form_errors(existingContactsForm.contact) }} </span>
 
                     <div class="flex">
@@ -58,12 +64,10 @@
                 {{ form_end(existingContactsForm) }}
             </div>
 
-            <div class="full-width">
+            <div class="full-width margin-plus">
                 <!-- Add a new contact form. -->
                 <h2>{{ 'Add a new contact'|trans }}</h2>
-                <p class="text-center">
-                    {{ 'If you cannot find the right contact from the contacts list, then simply add a new one, it will be automatically assigne to the student'|trans }}
-                </p>
+                <p>{{ 'If you cannot find the right contact from the contacts list, then simply add a new one, it will be automatically assigne to the student'|trans }}</p>
                 {{ form_start(newContactForm) }}
 
                 <div class="flex">
@@ -141,4 +145,8 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('search') }}
 {% endblock %}
