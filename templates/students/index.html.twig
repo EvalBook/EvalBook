@@ -57,12 +57,12 @@
                 {% if config.useContacts %}
                     <td class="text-center">
                         <a href="{{ path('student_view_contact', {'id': student.id}) }}">
-                            <i class="far fa-address-book"></i> ({{ student.nonMedicalContacts|length }})
+                            <i class="far fa-address-book"></i> ({{ student.nonMedicalContactsRelations|length }})
                         </a>
                     </td>
                     <td class="text-center">
                         <a href="{{ path('student_view_medical', {'id': student.id}) }}">
-                            <i class="fas fa-briefcase-medical"></i> ({{ student.medicalContacts|length }})
+                            <i class="fas fa-briefcase-medical"></i> ({{ student.medicalContactsRelations|length }})
                         </a>
                     </td>
                 {% endif %}
