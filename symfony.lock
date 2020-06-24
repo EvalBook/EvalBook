@@ -118,7 +118,7 @@
         "version": "1.9.5"
     },
     "nikic/php-parser": {
-        "version": "v4.3.0"
+        "version": "v4.5.0"
     },
     "ocramius/package-versions": {
         "version": "1.5.1"
@@ -483,6 +483,9 @@
     },
     "symfony/polyfill-php73": {
         "version": "v1.14.0"
+    },
+    "symfony/polyfill-php80": {
+        "version": "v1.17.1"
     },
     "symfony/process": {
         "version": "v5.0.5"

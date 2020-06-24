@@ -124,3 +124,6 @@ activity:
 
 noteType:
   name-empty: Empty note type name
+
+field:
+  empty: This field can not be empty.

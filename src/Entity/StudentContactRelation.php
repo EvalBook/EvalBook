@@ -145,17 +145,18 @@ class StudentContactRelation
 
 
     /**
-     * Return a list of available rela
+     * Return a list of available relations
      * @return string[]
      */
-    public function getAvailableRelations() {
+    public static function getAvailableRelations() {
         return array(
-            'mother',
-            'father',
-            'medical',
-            'grand parents',
-            'legal guardian',
-            'other',
+            'MOTHER',
+            'FATHER',
+            'MOTHER FATHER',
+            'MEDICAL',
+            'GRAND PARENTS',
+            'LEGAL GUARDIAN',
+            'OTHER',
         );
     }
 }

@@ -3,10 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\Student;
+use App\Entity\StudentContact;
+use App\Entity\StudentContactRelation;
+use App\Form\StudentContactType;
+use App\Form\StudentExistingContactType;
 use App\Form\StudentType;
+use App\Repository\StudentContactRepository;
 use App\Repository\StudentRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -148,5 +156,132 @@ class StudentController extends AbstractController
                 'params' => ['id' => $student->getId()],
             ])),
         ]);
+    }
+
+
+    /**
+     * @Route("/student/view/contacts/{id}", name="student_view_contact")
+     *
+     * @param Student $student
+     * @return Response
+     */
+    public function viewContacts(Student $student)
+    {
+        $contacts = $this->getContacts($student->getNonMedicalContacts());
+
+        return $this->render('students/contacts.html.twig', [
+            'student' => $student,
+            'contacts' => $contacts,
+        ]);
+    }
+
+
+    /**
+     * @Route("/student/view/medical/{id}", name="student_view_medical")
+     *
+     * @param Student $student
+     * @return Response
+     */
+    public function viewMedicalContacts(Student $student)
+    {
+        $contacts = $this->getContacts($student->getMedicalContacts());
+
+        return $this->render('students/contacts-medical.html.twig', [
+            'student' => $student,
+            'contacts' => $contacts,
+        ]);
+    }
+
+
+    /**
+     * @Route("/student/contact/add/{id}", name="student_add_contact")
+     *
+     * @param Student $student
+     * @param Request $request
+     * @return Response
+     */
+    public function addContact(Student $student, Request $request)
+    {
+        $relations = StudentContactRelation::getAvailableRelations();
+        // Create a form with existing contacts.
+        $existingContactsForm = $this->createForm(StudentExistingContactType::class, null, ['relations' => $relations]);
+        // Create a form to ass new contacts and attach it to the selected student.
+        $newContactForm = $this->createForm(StudentContactType::class, null, ['relations' => $relations]);
+
+        $existingContactsForm->handleRequest($request);
+        $newContactForm->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+
+        // New contact form was submited, so adding a new contact.
+        if ($newContactForm->isSubmitted() && $newContactForm->isValid()) {
+            $contact = (new StudentContact())
+                ->setFirstName($newContactForm->get('firstName')->getData())
+                ->setLastName($newContactForm->get('lastName')->getData())
+                ->setEmail($newContactForm->get('email')->getData())
+                ->setAddress($newContactForm->get('address')->getData())
+                ->setPhone($newContactForm->get('phone')->getData())
+            ;
+
+            $contactRelation = (new StudentContactRelation())
+                ->setStudent($student)
+                ->setContact($contact)
+                ->setRelation($newContactForm->get('relation')->getData())
+                ->setSendSchoolReport($newContactForm->get('schoolReport')->getData())
+            ;
+            // Checking if contact already exists in database before flushing.
+            $scRepository = $this->getDoctrine()->getRepository(StudentContact::class);
+            if(!$scRepository->contactExists($contact)) {
+                $em->persist($contact);
+                $em->persist($contactRelation);
+                $em->flush();
+                $this->addFlash('success', 'The new contact was added and linked to the student');
+            }
+            else {
+                $this->addFlash('error', 'Error, it sounds like this contact already exists, please use the box to select the contact');
+            }
+
+        }
+
+        // Existing form was submited, so attaching an existing contact to the student
+        if ($existingContactsForm->isSubmitted() && $existingContactsForm->isValid()) {
+            // TODO check if the relation between student and contact already exists
+            $contact = $existingContactsForm->get('contact')->getData();
+            $contactRelation = (new StudentContactRelation())
+                ->setStudent($student)
+                ->setContact($contact)
+                ->setRelation($existingContactsForm->get('relation')->getData())
+                ->setSendSchoolReport($existingContactsForm->get('schoolReport')->getData())
+            ;
+
+            $scrRepository = $this->getDoctrine()->getRepository(StudentContactRelation::class);
+            if(!$scrRepository->contactRelationExists($contact, $student)) {
+                $em->persist($contact);
+                $em->persist($contactRelation);
+                $em->flush();
+                $this->addFlash('success', 'A new relation with the selected contact was added to the selected student');
+            }
+            else {
+                $this->addFlash('error', 'It sounds like a relation with this contact already exists for this student');
+            }
+        }
+
+        return $this->render('students/contact-add-form.html.twig', [
+            'student' => $student,
+            'existingContactsForm' => $existingContactsForm->createView(),
+            'newContactForm' => $newContactForm->createView(),
+        ]);
+    }
+
+
+    /**
+     * Return an array of StudentContact objects related to the student.
+     * @param array $contactsRelations
+     * @return array
+     */
+    private function getContacts(array $contactsRelations)
+    {
+        return array_map(function($contactRelation) {
+            return  $contactRelation->getContact();
+        }, $contactsRelations);
     }
 }

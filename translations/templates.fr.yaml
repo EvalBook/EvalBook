@@ -129,6 +129,32 @@ Use contacts: Utiliser les contacts élèves
 Contacts: Contacts
 Medicals: Médecins
 Sponsors: Sponsors
+MOTHER: Mère
+FATHER: Père
+MOTHER FATHER: Père et mère
+MEDICAL: Médecin
+GRAND PARENTS: Grands parents
+LEGAL GUARDIAN: Tuteur légal
+OTHER: Autre
+Student contacts: Contacts étudiant
+Search for contact: Rechercher un contact
+Phone: Téléphone
+Email: Email
+Relation: Relation
+Send report: Envoi bulletin
+No student contact found: Aucun contact étudiant trouvé
+Ensure this student has related contacts: Assurez vous que cet étudiant ait des contacts
+Add student contact: Ajouter un contact étudiant
+Send school report: Envoyer le bulletin
+Choose an existing contact: Choisisez un contact existant
+The selected contact will be linked to the current selected student: Le contact sélectionné sera lié à l'étudiant que vous avez choisi
+Add a new contact: Ajouter un nouveau contact
+If you cannot find the right contact from the contacts list, then simply add a new one, it will be automatically assigne to the student: Si vous ne trouvez pas le contact à partir de la liste des contacts, vous pouvez en ajouter un nouveau, il sera automatiquement lié à l'étudiant que vous avez choisi.
+Choose an existing contact in the list above: Choisissez une contact dans la liste ce dessous
+The new contact was added and linked to the student: Le nouveau contact a été ajouté et lié à l'étudiant que vous avez choisi
+Error, it sounds like this contact already exists, please use the box to select the contact: Erreur, il semble que ce contact existe déjà, veuillez utilisez la liste de sélection plus haut svp.
+A new relation with the selected contact was added to the selected student: Une nouvelle relation entre le contact et l'élève sélectionné a été ajoutée
+It sounds like a relation with this contact already exists for this student: Il semble qu'une relation entre ce contact et cet étudiant existe déjà !
 
 
 roles:
