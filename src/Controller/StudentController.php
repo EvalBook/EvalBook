@@ -6,12 +6,15 @@ use App\Entity\Student;
 use App\Entity\StudentContact;
 use App\Entity\StudentContactRelation;
 use App\Form\StudentContactType;
+use App\Form\StudentExistingContactType;
 use App\Form\StudentType;
 use App\Repository\StudentContactRepository;
 use App\Repository\StudentRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -195,23 +198,21 @@ class StudentController extends AbstractController
      *
      * @param Student $student
      * @param Request $request
-     * @param StudentContactRepository $scRepository
      * @return Response
      */
-    public function addContact(Student $student, Request $request, StudentContactRepository $scRepository)
+    public function addContact(Student $student, Request $request)
     {
-        $existingContactsForm = $this->createFormBuilder()
-            ->add('contact', EntityType::class, [
-                'class' => StudentContact::class,
-            ])
-            ->getForm()
-        ;
+        $relations = StudentContactRelation::getAvailableRelations();
+        // Create a form with existing contacts.
+        $existingContactsForm = $this->createForm(StudentExistingContactType::class, null, ['relations' => $relations]);
+        // Create a form to ass new contacts and attach it to the selected student.
+        $newContactForm = $this->createForm(StudentContactType::class, null, ['relations' => $relations]);
 
-        $newContactForm = $this->createForm(StudentContactType::class, null, [
-            'relations' => StudentContactRelation::getAvailableRelations(),
-        ]);
+        $existingContactsForm->handleRequest($request);
         $newContactForm->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
 
+        // New contact form was submited, so adding a new contact.
         if ($newContactForm->isSubmitted() && $newContactForm->isValid()) {
             $contact = (new StudentContact())
                 ->setFirstName($newContactForm->get('firstName')->getData())
@@ -228,8 +229,8 @@ class StudentController extends AbstractController
                 ->setSendSchoolReport($newContactForm->get('schoolReport')->getData())
             ;
             // Checking if contact already exists in database before flushing.
+            $scRepository = $this->getDoctrine()->getRepository(StudentContact::class);
             if(!$scRepository->contactExists($contact)) {
-                $em = $this->getDoctrine()->getManager();
                 $em->persist($contact);
                 $em->persist($contactRelation);
                 $em->flush();
@@ -239,6 +240,29 @@ class StudentController extends AbstractController
                 $this->addFlash('error', 'Error, it sounds like this contact already exists, please use the box to select the contact');
             }
 
+        }
+
+        // Existing form was submited, so attaching an existing contact to the student
+        if ($existingContactsForm->isSubmitted() && $existingContactsForm->isValid()) {
+            // TODO check if the relation between student and contact already exists
+            $contact = $existingContactsForm->get('contact')->getData();
+            $contactRelation = (new StudentContactRelation())
+                ->setStudent($student)
+                ->setContact($contact)
+                ->setRelation($existingContactsForm->get('relation')->getData())
+                ->setSendSchoolReport($existingContactsForm->get('schoolReport')->getData())
+            ;
+
+            $scrRepository = $this->getDoctrine()->getRepository(StudentContactRelation::class);
+            if(!$scrRepository->contactRelationExists($contact, $student)) {
+                $em->persist($contact);
+                $em->persist($contactRelation);
+                $em->flush();
+                $this->addFlash('success', 'A new relation with the selected contact was added to the selected student');
+            }
+            else {
+                $this->addFlash('error', 'It sounds like a relation with this contact already exists for this student');
+            }
         }
 
         return $this->render('students/contact-add-form.html.twig', [

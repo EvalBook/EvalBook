@@ -153,6 +153,8 @@ If you cannot find the right contact from the contacts list, then simply add a n
 Choose an existing contact in the list above: Choose an existing contact in the list above
 The new contact was added and linked to the student: The new contact was added and linked to the student
 Error, it sounds like this contact already exists, please use the box to select the contact: Error, it sounds like this contact already exists, please use the box to select the contact
+A new relation with the selected contact was added to the selected student: A new relation with the selected contact was added to the selected student
+It sounds like a relation with this contact already exists for this student: It sounds like a relation with this contact already exists for this student
 
 
 roles:

@@ -16,14 +16,42 @@
                     <h2>{{ 'Choose an existing contact'|trans }}</h2>
                     <p class="text-center">
                         {{ 'The selected contact will be linked to the current selected student'|trans }}
-
-                        {# Available contacts list #}
-                        {{ form_label(existingContactsForm.contact, 'Choose an existing contact in the list above'|trans) }}
-                        {{ form_widget(existingContactsForm.contact) }}
-                        <span class="form-error"> {{ form_errors(existingContactsForm.contact) }} </span>
-
-                        <input type="submit">
                     </p>
+
+                    {# Available contacts list #}
+                    {{ form_label(existingContactsForm.contact, 'Choose an existing contact in the list above'|trans) }}
+                    {{ form_widget(existingContactsForm.contact) }}
+                    <span class="form-error"> {{ form_errors(existingContactsForm.contact) }} </span>
+
+                    <div class="flex">
+                        <div class="width-50-percent form-row margin-right">
+                            {# Contact relation with current student #}
+                            {{ form_label(existingContactsForm.relation, 'Relation'|trans) }}
+                            <select name="student_existing_contact[relation]" id="student_existing_contact_relation" class="full-width">
+                                {% for key, choice in existingContactsForm.relation.vars.choices %}
+                                    <option value="{{ choice.value }}">{{ choice.label|trans }}</option>
+                                {% endfor %}
+                            </select>
+                            {% do existingContactsForm.relation.setRendered() %}
+                        </div>
+
+                        <div class="width-50-percent form-row margin-left">
+                            {# Contact sent student school report #}
+                            {{ form_label(existingContactsForm.schoolReport, 'Send school report'|trans) }}
+                            <select name="student_existing_contact[schoolReport]" id="student_existing_contact_schoolReport" class="full-width">
+                                {% for key, choice in existingContactsForm.schoolReport.vars.choices %}
+                                    <option value="{{ choice.value }}">{{ choice.label|trans }}</option>
+                                {% endfor %}
+                            </select>
+                            {% do existingContactsForm.schoolReport.setRendered() %}
+                        </div>
+                    </div>
+
+                    {{ form_row(existingContactsForm.submit, {
+                        'label': 'Send'|trans,
+                        'attr': {'class': 'margin-15'},
+                    }) }}
+
                 {% else %}
                     {% do existingContactsForm.contact.setRendered() %}
                 {% endif %}
