@@ -16,15 +16,40 @@ class StudentContactType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $firstName = '';
+        $lastName = '';
+        $address = '';
+        $phone = '';
+        $email = '';
+        $relation = '';
+        $schoolReport = '';
+
+        if(!is_null($options['contactRelation'])) {
+            $firstName = $options['contactRelation']->getContact()->getFirstName();
+            $lastName = $options['contactRelation']->getContact()->getLastName();
+            $address = $options['contactRelation']->getContact()->getAddress();
+            $phone = $options['contactRelation']->getContact()->getPhone();
+            $email = $options['contactRelation']->getContact()->getEmail();
+            $schoolReport = $options['contactRelation']->getSendSchoolReport();
+            $relation = $options['contactRelation']->getRelation();
+        }
+
         $builder
             // Classic contact object information.
-            ->add('firstName', TextType::class)
+            ->add('firstName', TextType::class, [
+                'data' => $firstName,
+            ])
 
-            ->add('lastName', TextType::class)
+            ->add('lastName', TextType::class, [
+                'data' => $lastName,
+            ])
 
-            ->add('address', TextType::class)
+            ->add('address', TextType::class, [
+                'data' => $address,
+            ])
 
             ->add('phone', TextType::class, [
+                'data' => $phone,
                 'constraints' => [
                     // Enable callback to check if start date is lower than period end date.
                     new Regex([
@@ -34,12 +59,15 @@ class StudentContactType extends AbstractType
                 ]
             ])
 
-            ->add('email', EmailType::class)
+            ->add('email', EmailType::class, [
+                'data' => $email,
+            ])
 
             // Relation with current student.
             ->add('relation', ChoiceType::class, [
                 'expanded' => false,
                 'choices' => array_combine($options['relations'], $options['relations']),
+                'data' => $relation,
             ])
 
             ->add('schoolReport', ChoiceType::class, [
@@ -47,7 +75,8 @@ class StudentContactType extends AbstractType
                 'choices' => [
                     'No' => false,
                     'Yes' => true,
-                ]
+                ],
+                'data' => $schoolReport,
             ])
 
             // Submit button.
@@ -58,13 +87,14 @@ class StudentContactType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
+            'contactRelation' => null,
             'relations' => [],
             'required' => true,
             'constraints' => [
                 new NotBlank([
                     'message' => 'field.empty',
                 ]),
-            ]
+            ],
         ]);
     }
 }

@@ -159,6 +159,9 @@ This phone number is invalid, it must match +32479111111 or +32 479 11 11 11 or 
 No student parents contact found: Aucun contact parent pour l'étudiant
 No medical contact found: Aucun contact médical pour l'étudiant
 Other contacts: Autres contacts
+Edit a contact: Editer un contact
+If you modify the contact name, phone, email, etc... then the changed values will be propaged into the whole system: Si vous modifiez le nom du contact, le numéro de téléphone, ou encore l'adresse email, ces nouvelles informations seront propagées dans tout le système
+Edit student contact: Editer un contact étudiant
 
 
 roles:

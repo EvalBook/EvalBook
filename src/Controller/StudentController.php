@@ -12,6 +12,7 @@ use App\Repository\StudentRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -267,11 +268,52 @@ class StudentController extends AbstractController
      * @Route("/student/contact/edit/{id}", name="student_edit_contact")
      *
      * @param StudentContactRelation $contactRelation
-     * @return void
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
-    public function editContact(StudentContactRelation $contactRelation)
+    public function editContact(StudentContactRelation $contactRelation, Request $request)
     {
+        $contact = $contactRelation->getContact();
+        $contactForm = $this->createForm(StudentContactType::class, null, [
+            'relations' => StudentContactRelation::getAvailableRelations(),
+            'contactRelation' => $contactRelation,
+        ]);
 
+        $contactForm->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+
+        // New contact form was submited, so adding a new contact.
+        if ($contactForm->isSubmitted() && $contactForm->isValid()) {
+            $contact
+                ->setFirstName($contactForm->get('firstName')->getData())
+                ->setLastName($contactForm->get('lastName')->getData())
+                ->setEmail($contactForm->get('email')->getData())
+                ->setAddress($contactForm->get('address')->getData())
+                ->setPhone($contactForm->get('phone')->getData())
+            ;
+
+            $contactRelation
+                ->setRelation($contactForm->get('relation')->getData())
+                ->setSendSchoolReport($contactForm->get('schoolReport')->getData())
+            ;
+
+            $em->persist($contact);
+            $em->persist($contactRelation);
+            $em->flush();
+            $this->addFlash('success', 'The contact was updated');
+
+
+            // Redirect to the selected student.
+            return $this->redirectToRoute('student_view_contact', [
+                'id' => $contactRelation->getStudent()->getId(),
+            ]);
+
+        }
+
+        return $this->render('students/contact-add-form.html.twig', [
+            'student' => $contactRelation->getStudent(),
+            'newContactForm' => $contactForm->createView(),
+        ]);
     }
 
 
