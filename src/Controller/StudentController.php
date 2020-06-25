@@ -220,6 +220,11 @@ class StudentController extends AbstractController
                 $this->addFlash('error', 'Error, it sounds like this contact already exists, please use the box to select the contact');
             }
 
+            // Redirect to the selected student.
+            return $this->redirectToRoute('student_view_contact', [
+                'id' => $student->getId(),
+            ]);
+
         }
 
         // Existing form was submited, so attaching an existing contact to the student
@@ -243,6 +248,11 @@ class StudentController extends AbstractController
             else {
                 $this->addFlash('error', 'It sounds like a relation with this contact already exists for this student');
             }
+
+            // Redirect to the selected student.
+            return $this->redirectToRoute('student_view_contact', [
+                'id' => $student->getId(),
+            ]);
         }
 
         return $this->render('students/contact-add-form.html.twig', [
