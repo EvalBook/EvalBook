@@ -169,22 +169,9 @@ class StudentController extends AbstractController
     {
         return $this->render('students/contacts.html.twig', [
             'student' => $student,
-            'contactsRelations' => $student->getNonMedicalContactsRelations(),
-        ]);
-    }
-
-
-    /**
-     * @Route("/student/view/medical/{id}", name="student_view_medical")
-     *
-     * @param Student $student
-     * @return Response
-     */
-    public function viewMedicalContacts(Student $student)
-    {
-        return $this->render('students/contacts-medical.html.twig', [
-            'student' => $student,
-            'contactsRelations' => $student->getMedicalContactsRelations(),
+            'medicalContactsRelations' => $student->getMedicalContactsRelations(),
+            'parentsContactsRelations' => $student->getParentsContactsRelations(),
+            'otherContactsRelations' => $student->getOtherContactsRelations(),
         ]);
     }
 

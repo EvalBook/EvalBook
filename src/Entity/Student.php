@@ -326,14 +326,25 @@ class Student
 
 
     /**
-     * Return non medical student contacts.
+     * Return parent student contacts ( mother, father, or both ).
      * @return StudentContactRelation[]|Collection
      */
-    public function getNonMedicalContactsRelations()
+    public function getParentsContactsRelations()
     {
-        // Return contact  instead of contact relation ?
         return array_filter($this->getStudentContactRelations()->toArray(), function(StudentContactRelation $contact) {
-            return strtoupper($contact->getRelation()) !== 'MEDICAL';
+            return in_array(strtoupper($contact->getRelation()), ['MOTHER', 'FATHER', 'MOTHER FATHER']);
+        });
+    }
+
+
+    /**
+     * Return other contacts ( legal guardian, grand parents, etc... )
+     * @return array
+     */
+    public function getOtherContactsRelations()
+    {
+        return array_filter($this->getStudentContactRelations()->toArray(), function(StudentContactRelation $contact) {
+            return !in_array(strtoupper($contact->getRelation()), ['MOTHER', 'FATHER', 'MOTHER FATHER', 'MEDICAL']);
         });
     }
 

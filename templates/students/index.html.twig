@@ -24,7 +24,6 @@
 
             {% if config.useContacts %}
                 <th class="text-center">{{ 'Contacts'|trans }}</th>
-                <th class="text-center">{{ 'Medicals'|trans }}</th>
             {% endif %}
 
             {% if is_granted('ROLE_STUDENT_EDIT') %}
@@ -58,11 +57,6 @@
                     <td class="text-center">
                         <a href="{{ path('student_view_contact', {'id': student.id}) }}">
                             <i class="far fa-address-book"></i> ({{ student.nonMedicalContactsRelations|length }})
-                        </a>
-                    </td>
-                    <td class="text-center">
-                        <a href="{{ path('student_view_medical', {'id': student.id}) }}">
-                            <i class="fas fa-briefcase-medical"></i> ({{ student.medicalContactsRelations|length }})
                         </a>
                     </td>
                 {% endif %}

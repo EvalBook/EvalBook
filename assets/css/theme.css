@@ -344,6 +344,13 @@ table, .form-content {
     border-collapse: collapse;
 }
 
+table .sub-header {
+    background: #82a7c8 !important;
+    color: white;
+    font-weight: bold;
+    user-select: none;
+}
+
 th {
     background-color: var(--primary-color);
     font-weight: bold;

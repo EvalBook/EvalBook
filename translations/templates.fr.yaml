@@ -156,6 +156,8 @@ Error, it sounds like this contact already exists, please use the box to select 
 A new relation with the selected contact was added to the selected student: Une nouvelle relation entre le contact et l'élève sélectionné a été ajoutée
 It sounds like a relation with this contact already exists for this student: Il semble qu'une relation entre ce contact et cet étudiant existe déjà !
 This phone number is invalid, it must match +32479111111 or +32 479 11 11 11 or +32479 11 11 11: Ce numéro de téléphone est invalide,il doit correspondre au format +32479111111 ou +32 479 11 11 11 ou +32479 11 11 11
+No student parents contact found: Aucun contact parent pour l'étudiant
+No medical contact found: Aucun contact médical pour l'étudiant
 
 
 roles:
