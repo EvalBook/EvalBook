@@ -45,8 +45,8 @@ class StudentContactType extends AbstractType
             ->add('schoolReport', ChoiceType::class, [
                 'expanded' => false,
                 'choices' => [
-                    'Yes' => true,
                     'No' => false,
+                    'Yes' => true,
                 ]
             ])
 
