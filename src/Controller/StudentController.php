@@ -8,13 +8,10 @@ use App\Entity\StudentContactRelation;
 use App\Form\StudentContactType;
 use App\Form\StudentExistingContactType;
 use App\Form\StudentType;
-use App\Repository\StudentContactRepository;
 use App\Repository\StudentRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -253,5 +250,40 @@ class StudentController extends AbstractController
             'existingContactsForm' => $existingContactsForm->createView(),
             'newContactForm' => $newContactForm->createView(),
         ]);
+    }
+
+
+    /**
+     * @Route("/student/contact/edit/{id}", name="student_edit_contact")
+     *
+     * @param StudentContactRelation $contactRelation
+     * @return void
+     */
+    public function editContact(StudentContactRelation $contactRelation)
+    {
+
+    }
+
+
+    /**
+     * @Route("/student/contact/delete/{id}", name="student_delete_contact")
+     *
+     * @param StudentContactRelation $contactRelation
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function deleteContact(StudentContactRelation $contactRelation, Request $request)
+    {
+        $jsonRequest = json_decode($request->getContent(), true);
+        if( !isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('contact_relation_delete'.$contactRelation->getId(), $jsonRequest['csrf'])) {
+            return $this->json(['message' => 'Invalid csrf token'], 201);
+        }
+
+        // Removing student contact relation, NOT the contact itself.
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($contactRelation);
+        $entityManager->flush();
+
+        return $this->json(['message' => 'Element deleted'], 200);
     }
 }

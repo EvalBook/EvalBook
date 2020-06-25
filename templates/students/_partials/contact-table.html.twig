@@ -38,7 +38,7 @@
         <tbody>
 
         {% for relation in contactsRelations %}
-            <tr data-id="{{ relation.contact.id }}" data-trigger="{{ path('student_edit', {'id': relation.contact.id}) }}">
+            <tr data-id="{{ relation.id }}" data-trigger="{{ path('student_edit_contact', {'id': relation.id}) }}">
                 <td class="js-search-target">{{ relation.contact.lastName }}</td>
                 <td class="js-search-target">{{ relation.contact.firstName }}</td>
                 <td class="mobile-hidden-td js-search-target">{{ relation.contact.address }}</td>
@@ -46,11 +46,11 @@
                 {% if hiddenReport is not defined %}
                     <td class="text-center">{{ relation.sendSchoolReport is same as(true) ? 'Yes'|trans : 'No'|trans }}</td>
                 {% endif %}
-                {# Role student edit also handle contact addition / deletion / addintion #}
+                {# Role student edit also handle contact addition / deletion / addition #}
                 {% if is_granted('ROLE_STUDENT_EDIT') %}
-                    {% set params = (redirect is defined) ? {'id': relation.contact.id, 'redirect': redirect} : {'id': relation.contact.id} %}
+                    {% set params = (redirect is defined) ? {'id': relation.id, 'redirect': redirect} : {'id': relation.id} %}
                     <td class="text-center mobile-hidden-td">
-                        <a href="{{ path('student_edit', params) }}" title="Edit contact">
+                        <a href="{{ path('student_edit_contact', params) }}" title="Edit contact relation">
                             <i class="fas fa-edit"></i>
                         </a>
                     </td>
@@ -59,10 +59,10 @@
                 {% if is_granted('ROLE_STUDENT_DELETE') %}
                     <td class="text-center mobile-hidden-td">
                         <div data-target="student"
-                             data-targetid="{{ relation.contact.id }}"
-                             data-action="{{ path('student_delete', {'id': relation.contact.id}) }}"
+                             data-targetid="{{ relation.id }}"
+                             data-action="{{ path('student_delete_contact', {'id': relation.id}) }}"
                              data-class="fas fa-trash"
-                             data-csrf="{{ csrf_token('contact_delete' ~ relation.contact.id) }}"
+                             data-csrf="{{ csrf_token('contact_relation_delete' ~ relation.id) }}"
                         >
                         </div>
                     </td>
