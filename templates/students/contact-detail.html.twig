@@ -5,16 +5,43 @@
 {% block title %} {{ 'Contact details' | trans }} {% endblock %}
 
 {% block body %}
-    {# Init contact actions #}
-    <div id="mobile-contact-actions" class="shadow">
-        <div>
-            <a href=""><i class="fas fa-envelope-open-text"></i></a>
+    <div class="full-width">
+        {# Init contact actions #}
+        <div id="mobile-contact-actions" class="shadow">
+            <div>
+                <a href=""><i class="fas fa-envelope-open-text"></i></a>
+            </div>
+            <div>
+                <a href="sms: {{ contact.phone }}"><i class="fas fa-sms"></i></a>
+            </div>
+            <div>
+                <a href="tel:{{ contact.phone }}"><i class="fas fa-phone-square-alt"></i></a>
+            </div>
         </div>
-        <div>
-            <a href="sms: {{ contact.phone }}"><i class="fas fa-sms"></i></a>
-        </div>
-        <div>
-            <a href="tel:{{ contact.phone }}"><i class="fas fa-phone-square-alt"></i></a>
-        </div>
+
+
+        <table class="margin-plus full-width">
+            <tr>
+                <th>First Name:</th>
+                <td>{{ contact.firstName }}</td>
+            </tr>
+            <tr>
+                <th>Last Name:</th>
+                <td>{{ contact.lastName }}</td>
+            </tr>
+            <tr>
+                <th>Address:</th>
+                <td>{{ contact.address }}</td>
+            </tr>
+            <tr>
+                <th>Email:</th>
+                <td>{{ contact.email }}</td>
+            </tr>
+            <tr>
+                <th>Phone:</th>
+                <td>{{ contact.phone }}</td>
+            </tr>
+        </table>
+
     </div>
 {% endblock %}
