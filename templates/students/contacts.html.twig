@@ -11,6 +11,7 @@
 
 {% block body %}
 <div class="full-width">
+    {% include 'go-back.html.twig' %}
     {# Medical contacts #}
     {% set vars = {
         'contactsRelations': medicalContactsRelations,

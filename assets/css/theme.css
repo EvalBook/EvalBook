@@ -516,6 +516,10 @@ tr:hover i, tr:hover a {
     display: none;
 }
 
+#contact-send-mail i {
+    font-size: 2.5em;
+}
+
 /**
  * Medium screens.
  */
@@ -578,6 +582,10 @@ tr:hover i, tr:hover a {
 
     .mobile-hidden-td {
         display: none;
+    }
+
+    #contact-details {
+        margin-top: 3.5em;
     }
 }
 

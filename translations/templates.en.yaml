@@ -163,6 +163,7 @@ Edit a contact: Edit a contact
 If you modify the contact name, phone, email, etc... then the changed values will be propaged into the whole system: If you modify the contact name, phone, email, etc... then the changed values will be propaged into the whole system
 Edit student contact: Edit student contact
 Contact details: Contact details
+Send a mail to contact: Send a mail to contact
 
 
 roles:
