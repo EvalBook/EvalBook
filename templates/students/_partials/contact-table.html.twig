@@ -5,7 +5,7 @@
         <thead>
         {% if title is defined and titleIcon is defined %}
             <tr class="text-center">
-                <th colspan="7">
+                <th colspan="8">
                     <i class="{{ titleIcon }}"></i>
                     <span class="margin-left">
                         {{ title|trans }}
@@ -14,15 +14,20 @@
             </tr>
         {% endif %}
 
+        {# Display table headers only if there are at least one contact in the student contacts list #}
         {% if contactsRelations|length > 0 %}
             <tr>
                 <th>{{ 'Name'|trans }}</th>
                 <th>{{ 'First name'|trans }}</th>
                 <th class="mobile-hidden-td">{{ 'Address'|trans }}</th>
                 <th>{{ 'Relation'|trans }}</th>
+
+                {# Some relations between a student and a contact does not need to get the school report ( medical contacts for example )#}
                 {% if hiddenReport is not defined %}
                     <th class="text-center">{{ 'Send report'|trans }}</th>
                 {% endif %}
+
+                <th scope="col" class="text-center">{{ 'View'|trans }}</th>
 
                 {% if is_granted('ROLE_STUDENT_EDIT') %}
                     <th scope="col" class="text-center mobile-hidden-td">{{ 'Edit' | trans }}</th>
@@ -46,6 +51,14 @@
                 {% if hiddenReport is not defined %}
                     <td class="text-center">{{ relation.sendSchoolReport is same as(true) ? 'Yes'|trans : 'No'|trans }}</td>
                 {% endif %}
+
+                {# View contact details and access mobile fonctionnalities #}
+                <td class="text-center">
+                    <a href="{{ path('student_view_contact', {'id': relation.contact.id}) }}">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                </td>
+
                 {# Role student edit also handle contact addition / deletion / addition #}
                 {% if is_granted('ROLE_STUDENT_EDIT') %}
                     {% set params = (redirect is defined) ? {'id': relation.id, 'redirect': redirect} : {'id': relation.id} %}
@@ -70,7 +83,7 @@
             </tr>
         {% else %}
             <tr>
-                <td class="text-center" colspan="7">{{ noContactMessage | trans }}</td>
+                <td class="text-center" colspan="8">{{ noContactMessage | trans }}</td>
             </tr>
         {% endfor %}
 

@@ -506,6 +506,16 @@ tr:hover i, tr:hover a {
     display: none;
 }
 
+#mobile-contact-actions {
+    margin: 0 auto;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    height: 2em;
+    font-size: 4em;
+    display: none;
+}
+
 /**
  * Medium screens.
  */
@@ -550,7 +560,7 @@ tr:hover i, tr:hover a {
         display: inline-block;
     }
 
-    #mobile-menu {
+    #mobile-menu, #mobile-contact-actions {
         display: flex;
     }
 

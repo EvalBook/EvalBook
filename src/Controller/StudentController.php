@@ -158,7 +158,7 @@ class StudentController extends AbstractController
 
 
     /**
-     * @Route("/student/view/contacts/{id}", name="student_view_contact")
+     * @Route("/student/view/contacts/{id}", name="student_view_contacts")
      *
      * @param Student $student
      * @return Response
@@ -170,6 +170,20 @@ class StudentController extends AbstractController
             'medicalContactsRelations' => $student->getMedicalContactsRelations(),
             'parentsContactsRelations' => $student->getParentsContactsRelations(),
             'otherContactsRelations' => $student->getOtherContactsRelations(),
+        ]);
+    }
+
+
+    /**
+     * @Route("/student/view/contact/{id}", name="student_view_contact")
+     *
+     * @param StudentContact $contact
+     * @return Response
+     */
+    public function viewContact(StudentContact $contact)
+    {
+        return $this->render('students/contact-detail.html.twig', [
+            'contact' => $contact,
         ]);
     }
 

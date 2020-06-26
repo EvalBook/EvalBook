@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block pageTitle %} {{ 'Contact details' | trans }} {% endblock %}
+{% block title %} {{ 'Contact details' | trans }} {% endblock %}
+
+{% block body %}
+    {# Init contact actions #}
+    <div id="mobile-contact-actions" class="shadow">
+        <div>
+            <a href=""><i class="fas fa-envelope-open-text"></i></a>
+        </div>
+        <div>
+            <a href="sms: {{ contact.phone }}"><i class="fas fa-sms"></i></a>
+        </div>
+        <div>
+            <a href="tel:{{ contact.phone }}"><i class="fas fa-phone-square-alt"></i></a>
+        </div>
+    </div>
+{% endblock %}
