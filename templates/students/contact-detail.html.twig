@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block pageTitle %} {{ 'Contact details' | trans }} {% endblock %}
+{% block title %} {{ 'Contact details' | trans }} {% endblock %}
+
+{% block body %}
+    <div class="full-width">
+        {% include 'go-back.html.twig' %}
+        {# Init contact actions #}
+        <div id="mobile-contact-actions" class="shadow">
+            <div>
+                <a href="{{ path('send_mail', {'from': app.user.email, 'to': contact.email}) }}">
+                    <i class="fas fa-envelope-open-text"></i>
+                </a>
+            </div>
+            <div>
+                <a href="sms: {{ contact.phone }}"><i class="fas fa-sms"></i></a>
+            </div>
+            <div>
+                <a href="tel:{{ contact.phone }}"><i class="fas fa-phone-square-alt"></i></a>
+            </div>
+        </div>
+
+        <table id="contact-details" class="full-width">
+            <tr>
+                <th>{{ 'First name'|trans }}:</th>
+                <td>{{ contact.firstName }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'Name'|trans }}:</th>
+                <td>{{ contact.lastName }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'Address'|trans }}:</th>
+                <td>{{ contact.address }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'Email' }}:</th>
+                <td>{{ contact.email }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'Phone'|trans }}:</th>
+                <td>{{ contact.phone }}</td>
+            </tr>
+        </table>
+
+        {# Send mail - desktop only #}
+        <div id="contact-send-mail" class="mobile-hidden margin-15">
+            <a href="{{ path('send_mail', {'from': app.user.email, 'to': contact.email}) }}">
+                <i class="fas fa-envelope-open-text"></i>
+                <span class="margin-left">{{ 'Send a mail to contact'|trans }}</span>
+            </a>
+        </div>
+
+    </div>
+{% endblock %}

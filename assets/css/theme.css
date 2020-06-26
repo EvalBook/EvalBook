@@ -39,7 +39,7 @@ i {
     text-shadow:  3px 3px rgba(198, 190, 176, 0.75);
 }
 
-h1, h2 {
+h1 {
     text-align: center;
 }
 
@@ -344,6 +344,13 @@ table, .form-content {
     border-collapse: collapse;
 }
 
+table .sub-header {
+    background: #82a7c8 !important;
+    color: white;
+    font-weight: bold;
+    user-select: none;
+}
+
 th {
     background-color: var(--primary-color);
     font-weight: bold;
@@ -499,6 +506,20 @@ tr:hover i, tr:hover a {
     display: none;
 }
 
+#mobile-contact-actions {
+    margin: 0 auto;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    height: 2em;
+    font-size: 4em;
+    display: none;
+}
+
+#contact-send-mail i {
+    font-size: 2.5em;
+}
+
 /**
  * Medium screens.
  */
@@ -543,7 +564,7 @@ tr:hover i, tr:hover a {
         display: inline-block;
     }
 
-    #mobile-menu {
+    #mobile-menu, #mobile-contact-actions {
         display: flex;
     }
 
@@ -561,6 +582,10 @@ tr:hover i, tr:hover a {
 
     .mobile-hidden-td {
         display: none;
+    }
+
+    #contact-details {
+        margin-top: 3.5em;
     }
 }
 

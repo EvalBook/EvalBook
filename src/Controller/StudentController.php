@@ -8,13 +8,11 @@ use App\Entity\StudentContactRelation;
 use App\Form\StudentContactType;
 use App\Form\StudentExistingContactType;
 use App\Form\StudentType;
-use App\Repository\StudentContactRepository;
 use App\Repository\StudentRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -160,35 +158,32 @@ class StudentController extends AbstractController
 
 
     /**
-     * @Route("/student/view/contacts/{id}", name="student_view_contact")
+     * @Route("/student/view/contacts/{id}", name="student_view_contacts")
      *
      * @param Student $student
      * @return Response
      */
     public function viewContacts(Student $student)
     {
-        $contacts = $this->getContacts($student->getNonMedicalContacts());
-
         return $this->render('students/contacts.html.twig', [
             'student' => $student,
-            'contacts' => $contacts,
+            'medicalContactsRelations' => $student->getMedicalContactsRelations(),
+            'parentsContactsRelations' => $student->getParentsContactsRelations(),
+            'otherContactsRelations' => $student->getOtherContactsRelations(),
         ]);
     }
 
 
     /**
-     * @Route("/student/view/medical/{id}", name="student_view_medical")
+     * @Route("/student/view/contact/{id}", name="student_view_contact")
      *
-     * @param Student $student
+     * @param StudentContact $contact
      * @return Response
      */
-    public function viewMedicalContacts(Student $student)
+    public function viewContact(StudentContact $contact)
     {
-        $contacts = $this->getContacts($student->getMedicalContacts());
-
-        return $this->render('students/contacts-medical.html.twig', [
-            'student' => $student,
-            'contacts' => $contacts,
+        return $this->render('students/contact-detail.html.twig', [
+            'contact' => $contact,
         ]);
     }
 
@@ -240,6 +235,11 @@ class StudentController extends AbstractController
                 $this->addFlash('error', 'Error, it sounds like this contact already exists, please use the box to select the contact');
             }
 
+            // Redirect to the selected student.
+            return $this->redirectToRoute('student_view_contact', [
+                'id' => $student->getId(),
+            ]);
+
         }
 
         // Existing form was submited, so attaching an existing contact to the student
@@ -263,6 +263,11 @@ class StudentController extends AbstractController
             else {
                 $this->addFlash('error', 'It sounds like a relation with this contact already exists for this student');
             }
+
+            // Redirect to the selected student.
+            return $this->redirectToRoute('student_view_contact', [
+                'id' => $student->getId(),
+            ]);
         }
 
         return $this->render('students/contact-add-form.html.twig', [
@@ -274,14 +279,77 @@ class StudentController extends AbstractController
 
 
     /**
-     * Return an array of StudentContact objects related to the student.
-     * @param array $contactsRelations
-     * @return array
+     * @Route("/student/contact/edit/{id}", name="student_edit_contact")
+     *
+     * @param StudentContactRelation $contactRelation
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
-    private function getContacts(array $contactsRelations)
+    public function editContact(StudentContactRelation $contactRelation, Request $request)
     {
-        return array_map(function($contactRelation) {
-            return  $contactRelation->getContact();
-        }, $contactsRelations);
+        $contact = $contactRelation->getContact();
+        $contactForm = $this->createForm(StudentContactType::class, null, [
+            'relations' => StudentContactRelation::getAvailableRelations(),
+            'contactRelation' => $contactRelation,
+        ]);
+
+        $contactForm->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+
+        // New contact form was submited, so adding a new contact.
+        if ($contactForm->isSubmitted() && $contactForm->isValid()) {
+            $contact
+                ->setFirstName($contactForm->get('firstName')->getData())
+                ->setLastName($contactForm->get('lastName')->getData())
+                ->setEmail($contactForm->get('email')->getData())
+                ->setAddress($contactForm->get('address')->getData())
+                ->setPhone($contactForm->get('phone')->getData())
+            ;
+
+            $contactRelation
+                ->setRelation($contactForm->get('relation')->getData())
+                ->setSendSchoolReport($contactForm->get('schoolReport')->getData())
+            ;
+
+            $em->persist($contact);
+            $em->persist($contactRelation);
+            $em->flush();
+            $this->addFlash('success', 'The contact was updated');
+
+
+            // Redirect to the selected student.
+            return $this->redirectToRoute('student_view_contact', [
+                'id' => $contactRelation->getStudent()->getId(),
+            ]);
+
+        }
+
+        return $this->render('students/contact-add-form.html.twig', [
+            'student' => $contactRelation->getStudent(),
+            'newContactForm' => $contactForm->createView(),
+        ]);
+    }
+
+
+    /**
+     * @Route("/student/contact/delete/{id}", name="student_delete_contact")
+     *
+     * @param StudentContactRelation $contactRelation
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function deleteContact(StudentContactRelation $contactRelation, Request $request)
+    {
+        $jsonRequest = json_decode($request->getContent(), true);
+        if( !isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('contact_relation_delete'.$contactRelation->getId(), $jsonRequest['csrf'])) {
+            return $this->json(['message' => 'Invalid csrf token'], 201);
+        }
+
+        // Removing student contact relation, NOT the contact itself.
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($contactRelation);
+        $entityManager->flush();
+
+        return $this->json(['message' => 'Element deleted'], 200);
     }
 }

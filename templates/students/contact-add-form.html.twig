@@ -1,8 +1,14 @@
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'templates' %}
 
-{% block pageTitle %} {{ 'Add student contact' | trans }} {% endblock %}
-{% block title %} {{ 'Add student contact' | trans }} {% endblock %}
+{% if existingContactsForm is not defined %}
+    {% set pTitle = 'Edit student contact' %}
+{% else %}
+    {% set pTitle = 'Add student contact' %}
+{% endif %}
+
+{% block pageTitle %} {{ pTitle | trans }} {% endblock %}
+{% block title %} {{ pTitle | trans }} {% endblock %}
 
 {% block body %}
     <div class="full-width flex column">
@@ -10,60 +16,75 @@
 
         <div class="form-content">
             <!-- Select an existing contact form -->
-            <div class="full-width">
-                {{ form_start(existingContactsForm) }}
-                {% if existingContactsForm.contact.vars.choices|length > 0 %}
-                    <h2>{{ 'Choose an existing contact'|trans }}</h2>
-                    <p class="text-center">
-                        {{ 'The selected contact will be linked to the current selected student'|trans }}
-                    </p>
+            {% if existingContactsForm is defined %}
+                <div class="full-width">
+                    {{ form_start(existingContactsForm) }}
+                    {% if existingContactsForm.contact.vars.choices|length > 0 %}
+                        <h2>{{ 'Choose an existing contact'|trans }}</h2>
+                        <p>{{ 'The selected contact will be linked to the current selected student'|trans }}</p>
 
-                    {# Available contacts list #}
-                    {{ form_label(existingContactsForm.contact, 'Choose an existing contact in the list above'|trans) }}
-                    {{ form_widget(existingContactsForm.contact) }}
-                    <span class="form-error"> {{ form_errors(existingContactsForm.contact) }} </span>
+                        {# Available contacts list #}
+                        {% set placeholder = 'Search for contact'|trans %}
+                        {% include 'search.html.twig' %}
 
-                    <div class="flex">
-                        <div class="width-50-percent form-row margin-right">
-                            {# Contact relation with current student #}
-                            {{ form_label(existingContactsForm.relation, 'Relation'|trans) }}
-                            <select name="student_existing_contact[relation]" id="student_existing_contact_relation" class="full-width">
-                                {% for key, choice in existingContactsForm.relation.vars.choices %}
-                                    <option value="{{ choice.value }}">{{ choice.label|trans }}</option>
-                                {% endfor %}
-                            </select>
-                            {% do existingContactsForm.relation.setRendered() %}
+                        <div class="form-row">
+                            {{ form_label(existingContactsForm.contact, 'Choose an existing contact in the list above'|trans) }}
+                            {{ form_widget(existingContactsForm.contact, {
+                                'attr': {'class': 'js-searchable-select',}
+                                })
+                            }}
+                        </div>
+                        <span class="form-error"> {{ form_errors(existingContactsForm.contact) }} </span>
+
+                        <div class="flex">
+                            <div class="width-50-percent form-row margin-right">
+                                {# Contact relation with current student #}
+                                {{ form_label(existingContactsForm.relation, 'Relation'|trans) }}
+                                <select name="student_existing_contact[relation]" id="student_existing_contact_relation" class="full-width">
+                                    {% for key, choice in existingContactsForm.relation.vars.choices %}
+                                        <option value="{{ choice.value }}">{{ choice.label|trans }}</option>
+                                    {% endfor %}
+                                </select>
+                                {% do existingContactsForm.relation.setRendered() %}
+                            </div>
+                            <div class="width-50-percent form-row margin-left">
+                                {# Contact sent student school report #}
+                                {{ form_label(existingContactsForm.schoolReport, 'Send school report'|trans) }}
+                                <select name="student_existing_contact[schoolReport]" id="student_existing_contact_schoolReport" class="full-width">
+                                    {% for key, choice in existingContactsForm.schoolReport.vars.choices %}
+                                        <option value="{{ choice.value }}">{{ choice.label|trans }}</option>
+                                    {% endfor %}
+                                </select>
+                                {% do existingContactsForm.schoolReport.setRendered() %}
+                            </div>
                         </div>
 
-                        <div class="width-50-percent form-row margin-left">
-                            {# Contact sent student school report #}
-                            {{ form_label(existingContactsForm.schoolReport, 'Send school report'|trans) }}
-                            <select name="student_existing_contact[schoolReport]" id="student_existing_contact_schoolReport" class="full-width">
-                                {% for key, choice in existingContactsForm.schoolReport.vars.choices %}
-                                    <option value="{{ choice.value }}">{{ choice.label|trans }}</option>
-                                {% endfor %}
-                            </select>
-                            {% do existingContactsForm.schoolReport.setRendered() %}
-                        </div>
-                    </div>
+                        {{ form_row(existingContactsForm.submit, {
+                            'label': 'Send'|trans,
+                            'attr': {'class': 'margin-15'},
+                        }) }}
 
-                    {{ form_row(existingContactsForm.submit, {
-                        'label': 'Send'|trans,
-                        'attr': {'class': 'margin-15'},
-                    }) }}
+                    {% else %}
+                        {% do existingContactsForm.contact.setRendered() %}
+                    {% endif %}
+                    {{ form_end(existingContactsForm) }}
+                </div>
+            {% endif %}
 
+            <div class="full-width margin-plus">
+
+                {# If existingContactsForm is defined, then user want to add a contact to a student #}
+                {% if existingContactsForm is not defined %}
+                    {% set title = 'Edit a contact' %}
+                    {% set explanation = 'If you modify the contact name, phone, email, etc... then the changed values will be propaged into the whole system' %}
                 {% else %}
-                    {% do existingContactsForm.contact.setRendered() %}
+                    {% set title = 'Add a new contact' %}
+                    {% set explanation = 'If you cannot find the right contact from the contacts list, then simply add a new one, it will be automatically assigne to the student' %}
                 {% endif %}
-                {{ form_end(existingContactsForm) }}
-            </div>
 
-            <div class="full-width">
                 <!-- Add a new contact form. -->
-                <h2>{{ 'Add a new contact'|trans }}</h2>
-                <p class="text-center">
-                    {{ 'If you cannot find the right contact from the contacts list, then simply add a new one, it will be automatically assigne to the student'|trans }}
-                </p>
+                <h2>{{ title|trans }}</h2>
+                <p>{{ explanation|trans }}</p>
                 {{ form_start(newContactForm) }}
 
                 <div class="flex">
@@ -109,22 +130,26 @@
 
                 <div class="flex">
                     <div class="width-50-percent form-row margin-right">
+                        {% set selectedValue = newContactForm.relation.vars.value %}
                         {# Contact relation with current student #}
                         {{ form_label(newContactForm.relation, 'Relation'|trans) }}
                         <select name="student_contact[relation]" id="student_contact_relation" class="full-width">
                             {% for key, choice in newContactForm.relation.vars.choices %}
-                                <option value="{{ choice.value }}">{{ choice.label|trans }}</option>
+                                <option value="{{ choice.value }}" {{ (choice.value is same as(selectedValue) ) ? ' selected' : '' }}>{{ choice.label|trans }}</option>
                             {% endfor %}
                         </select>
                         {% do newContactForm.relation.setRendered() %}
                     </div>
 
                     <div class="width-50-percent form-row margin-left">
+                        {% set selectedValue = newContactForm.schoolReport.vars.value %}
                         {# Contact sent student school report #}
                         {{ form_label(newContactForm.schoolReport, 'Send school report'|trans) }}
                         <select name="student_contact[schoolReport]" id="student_contact_schoolReport" class="full-width">
                             {% for key, choice in newContactForm.schoolReport.vars.choices %}
-                                <option value="{{ choice.value }}">{{ choice.label|trans }}</option>
+                                <option value="{{ choice.value }}" {{ (choice.value is same as(selectedValue) ) ? ' selected' : '' }}>
+                                    {{ choice.label|trans }}
+                                </option>
                             {% endfor %}
                         </select>
                         {% do newContactForm.schoolReport.setRendered() %}
@@ -141,4 +166,8 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('search') }}
 {% endblock %}
