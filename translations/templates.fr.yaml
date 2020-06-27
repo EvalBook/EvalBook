@@ -165,6 +165,8 @@ Edit student contact: Editer un contact étudiant
 Contact details: Détail du contact
 Send a mail to contact: Envoyer un mail à ce contact
 Send email: Envoyer un mail
+Your mail was sent !: Votre mail a été envoyé !
+Your mail was not sent, an error occurred.: Votre mail n'a pas été envoyé, une erreur s'est produite.
 
 
 roles:

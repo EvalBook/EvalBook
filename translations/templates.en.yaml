@@ -165,7 +165,13 @@ Edit student contact: Edit student contact
 Contact details: Contact details
 Send a mail to contact: Send a mail to contact
 Send email: Send email
+Your mail was sent !: Your mail was sent !
+Your mail was not sent, an error occurred.: Your mail was not sent, an error occurred.
 
+The mail subject can not be empty: The mail subject can not be empty
+The mail content can not be empty: The mail content can not be empty
+The file type is not allowed: The file type is not allowed
+A mail address in carbon copy is not valid: A mail address in carbon copy is not valid
 
 roles:
   ROLE_USER_LIST_ALL: List all users
