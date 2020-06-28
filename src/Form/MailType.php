@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -21,10 +22,12 @@ class MailType extends AbstractType
         $builder
             ->add('from', EmailType::class, [
                 'data' => $options['from'],
+                'disabled' => strlen($options['from']) > 0,
             ])
 
             ->add('to', EmailType::class, [
                 'data' => $options['to'],
+                'disabled' => strlen($options['to']) > 0,
             ])
 
             ->add('carbonCopy', TextType::class, [
@@ -61,6 +64,9 @@ class MailType extends AbstractType
                 'constraints' => new NotBlank([
                     'message' => 'The mail content can not be empty'
                 ]),
+                'attr' => [
+                    'rows' => '10',
+                ],
             ])
 
             ->add('attachement', FileType::class, [

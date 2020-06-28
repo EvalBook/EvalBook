@@ -5,5 +5,81 @@
 {% block title %} {{ 'Send email'|trans }}{% endblock %}
 
 {% block body %}
-    {{ form(mailForm) }}
+    <div class="full-width flex column">
+        {% include 'go-back.html.twig' %}
+
+        <div class="form-content">
+            {{ form_start(mailForm) }}
+
+            {# Mail sender from #}
+            <div class="form-row">
+                {{ form_label(mailForm.from, 'From'|trans) }}
+                {{ form_widget(mailForm.from) }}
+                <span class="form-error">
+                    {{ form_errors(mailForm.from) }}
+                </span>
+            </div>
+
+            {# Mail receiver #}
+            <div class="form-row">
+                {{ form_label(mailForm.to, 'To'|trans) }}
+                {{ form_widget(mailForm.to) }}
+                <span class="form-error">
+                    {{ form_errors(mailForm.to) }}
+                </span>
+            </div>
+
+            {# Carbon Copy #}
+            <div class="form-row">
+                {{ form_label(mailForm.carbonCopy, 'Carbon Copy'|trans) }}
+                <span>
+                    {{ 'Add as many mail addresses you need, each one seperated by a coma'|trans }}
+                </span>
+                {{ form_widget(mailForm.carbonCopy) }}
+                <span class="form-error">
+                    {{ form_errors(mailForm.carbonCopy) }}
+                </span>
+            </div>
+
+            {# Mail sibject #}
+            <div class="form-row">
+                {{ form_label(mailForm.subject, 'Subject'|trans) }}
+                {{ form_widget(mailForm.subject) }}
+                <span class="form-error">
+                    {{ form_errors(mailForm.subject) }}
+                </span>
+            </div>
+
+
+            {# Mail content #}
+            <div class="form-row">
+                {{ form_label(mailForm.message, 'Message'|trans) }}
+                {{ form_widget(mailForm.message) }}
+                <span class="form-error">
+                    {{ form_errors(mailForm.message) }}
+                </span>
+            </div>
+
+
+            {# Mail attachement #}
+            <div class="form-row">
+                {{ form_label(mailForm.attachement, 'Attachement'|trans) }}
+                {{ form_widget(mailForm.attachement) }}
+                <span class="form-error">
+                    {{ form_errors(mailForm.attachement) }}
+                </span>
+            </div>
+
+
+            {# Submit button #}
+            {{ form_row(mailForm.submit, {
+                'label': 'Send'|trans,
+                'attr': {'class': 'margin-15'},
+            }) }}
+
+            {{ form_end(mailForm) }}
+        </div>
+
+    </div>
 {% endblock %}
+
