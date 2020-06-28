@@ -10,7 +10,7 @@
         {# Init contact actions #}
         <div id="mobile-contact-actions" class="shadow">
             <div>
-                <a href="{{ path('send_mail', {'from': app.user.email, 'to': contact.email}) }}">
+                <a href="{{ path('send_mail', {'user': app.user.id, 'studentContact': contact.id}) }}">
                     <i class="fas fa-envelope-open-text"></i>
                 </a>
             </div>
@@ -47,7 +47,7 @@
 
         {# Send mail - desktop only #}
         <div id="contact-send-mail" class="mobile-hidden margin-15">
-            <a href="{{ path('send_mail', {'from': app.user.email, 'to': contact.email}) }}">
+            <a href="{{ path('send_mail', {'user': app.user.id, 'studentContact': contact.id}) }}">
                 <i class="fas fa-envelope-open-text"></i>
                 <span class="margin-left">{{ 'Send a mail to contact'|trans }}</span>
             </a>

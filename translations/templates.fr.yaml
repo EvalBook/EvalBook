@@ -164,6 +164,19 @@ If you modify the contact name, phone, email, etc... then the changed values wil
 Edit student contact: Editer un contact étudiant
 Contact details: Détail du contact
 Send a mail to contact: Envoyer un mail à ce contact
+Send email: Envoyer un mail
+Your mail was sent !: Votre mail a été envoyé !
+Your mail was not sent, an error occurred.: Votre mail n'a pas été envoyé, une erreur s'est produite.
+The mail subject can not be empty: Le sujet du mail ne peut pas être vide
+The mail content can not be empty: Le contenu du mail ne peut pas être vide
+The file type is not allowed: Ce type de fichiers n'est pas autorisé
+A mail address in carbon copy is not valid: Une adresse mails dans les copies carbonne n'est pas valide
+To: Pour
+Carbon Copy: Copie carbonne
+Subject: Sujet
+Message: Message
+Attachement: Attachement
+Add as many mail addresses you need, each one seperated by a coma: Ajoutez toutes les addresses en les séparant par des virgules, ce champs est optionnel.
 
 
 roles:
