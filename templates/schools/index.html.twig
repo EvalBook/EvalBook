@@ -21,7 +21,7 @@
             <th scope="col" class="text-center">{{ 'Implantations'|trans }}</th>
 
             {% if is_granted('ROLE_SCHOOL_EDIT') %}
-                <th scope="col" class="text-center mobile-hidden-td">{{ 'Edit' | trans }}</th>
+                <th scope="col" class="text-center">{{ 'Edit' | trans }}</th>
             {% endif %}
 
             {% if is_granted('ROLE_SCHOOL_DELETE') %}
@@ -31,14 +31,14 @@
         </thead>
         <tbody>
         {% for school in schools %}
-            <tr data-id="{{ school.id }}" data-trigger="{{ path('implantation_edit', {'id': school.id}) }}">
+            <tr>
                 <td class="js-search-target">{{ school.name }}</td>
 
                 {# Display school implantations count. #}
                 <td class="text-center">
                     {% if is_granted('ROLE_IMPLANTATION_LIST_ALL') %}
                         <a href="{{ path('school_view_implantations', {'id': school.id} ) }}" title="View implantations">
-                            <i class="fas fa-eye"></i> ({{ school.implantations|length }})
+                            <i class="fas fa-building"></i> ({{ school.implantations|length }})
                         </a>
                     {% else %}
                         <span>{{ school.implantations|length }}</span>
@@ -47,7 +47,7 @@
 
                 {# School edition. #}
                 {% if is_granted('ROLE_SCHOOL_EDIT') %}
-                    <td class="text-center mobile-hidden-td">
+                    <td class="text-center">
                         <a href="{{ path('school_edit', {'id': school.id}) }}" title="Edit school">
                             <i class="fas fa-edit"></i>
                         </a>

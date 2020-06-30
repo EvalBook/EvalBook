@@ -23,22 +23,6 @@ let Controls = {
         }
     },
 
-    /**
-     * Hide not mobile elements.
-     */
-    activateMobileNavigation: function() {
-        // Initialize the mobile menu.
-        this.initMobileMenu();
-
-        // Adding a click event to the tr tables elements in order to show the contextual menu.
-        let trElements = document.querySelectorAll('[data-trigger]');
-        for(let element of trElements) {
-            element.style.cursor = 'pointer';
-            element.addEventListener('click', function() {
-                window.location.href = element.dataset.trigger;
-            });
-        }
-    },
 
     /**
      * Init mobile only behavior.
@@ -96,5 +80,5 @@ Controls.init();
 
 // Activate mobile js navigation in case of screen smaller than 800px.
 if(window.innerWidth <= 800) {
-    Controls.activateMobileNavigation();
+    Controls.initMobileMenu();
 }

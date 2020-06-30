@@ -244,7 +244,6 @@ class StudentController extends AbstractController
 
         // Existing form was submited, so attaching an existing contact to the student
         if ($existingContactsForm->isSubmitted() && $existingContactsForm->isValid()) {
-            // TODO check if the relation between student and contact already exists
             $contact = $existingContactsForm->get('contact')->getData();
             $contactRelation = (new StudentContactRelation())
                 ->setStudent($student)

@@ -28,7 +28,7 @@
                 </td>
                 <td>
                     {% if classroom.activities|length > 0 %}
-                        <a href="{{ path('note_book_view', {'classroom': classroom.id} ) }}" title="View this notebook">
+                        <a href="{{ path('note_book_view', {'classroom': classroom.id} ) }}" title="{{ 'View this notebook'|trans }}">
                             <i class="fas fa-eye"></i>
                         </a>
                     {% else %}
