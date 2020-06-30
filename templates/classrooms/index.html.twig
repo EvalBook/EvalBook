@@ -29,11 +29,11 @@
                 {% endif %}
 
                 {% if is_granted('ROLE_CLASS_EDIT_STUDENTS') %}
-                    <th class="text-center">{{ 'Manage students'|trans }}</th>
+                    <th class="text-center mobile-hidden-td">{{ 'Manage students'|trans }}</th>
                 {% endif %}
 
                 {% if is_granted('ROLE_CLASS_EDIT_USERS') %}
-                    <th class="text-center">{{ 'Manage users'|trans }}</th>
+                    <th class="text-center mobile-hidden-td">{{ 'Manage users'|trans }}</th>
                 {% endif %}
 
                 {% if is_granted('ROLE_CLASS_DELETE') %}
@@ -85,7 +85,7 @@
                 {% endif %}
 
                 {% if is_granted('ROLE_CLASS_EDIT_STUDENTS') %}
-                    <td class="text-center">
+                    <td class="text-center mobile-hidden-td">
                         <a href="{{ path('classroom_manage_students', {'id': classroom.id}) }}" title="Add students to class">
                             <i class="fas fa-wrench"></i>
                         </a>
@@ -93,7 +93,7 @@
                 {% endif %}
 
                 {% if is_granted('ROLE_CLASS_EDIT_USERS') %}
-                    <td class="text-center">
+                    <td class="text-center mobile-hidden-td">
                         <a href="{{ path('classroom_manage_users', {'id': classroom.id}) }}" title="Add users to class">
                             <i class="fas fa-cogs"></i>
                         </a>
