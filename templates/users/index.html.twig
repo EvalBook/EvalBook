@@ -1,3 +1,20 @@
+{#**
+* Copyleft (c) 2020 EvalBook
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the European Union Public Licence (EUPL V 1.2),
+* version 1.2 (or any later version).
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* European Union Public Licence for more details.
+*
+* You should have received a copy of the European Union Public Licence
+* along with this program. If not, see
+* https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+**#}
+
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'templates' %}
 
@@ -24,7 +41,7 @@
             <th scope="col" class="text-center">{{ 'Classes' | trans }}</th>
 
             {% if is_granted('ROLE_USER_EDIT') %}
-                <th scope="col" class="text-center mobile-hidden-td">{{ 'Edit'|trans }}</th>
+                <th scope="col" class="text-center">{{ 'Edit'|trans }}</th>
             {% endif %}
 
             {% if is_granted('ROLE_USER_DELETE') %}
@@ -35,7 +52,7 @@
         </thead>
         <tbody>
         {% for user in users %}
-            <tr data-id="{{ user.id }}" data-trigger="{{ path('user_edit', {'id': user.id}) }}">
+            <tr>
                 <td class="js-search-target">{{ user.firstName }}</td>
                 <td class="js-search-target">{{ user.lastName }}</td>
                 <td class="js-search-target mobile-hidden-td">{{ user.email }}</td>
@@ -43,7 +60,7 @@
                 <td class="text-center mobile-hidden-td">
                     {% if is_granted('ROLE_STUDENT_LIST_ALL') %}
                         <a href="{{ path('user_view_students', {'id': user.id} ) }}" title="View user students list">
-                            <i class="fas fa-eye"></i> ({{ user.students|length }})
+                            <i class="fas fa-user-graduate"></i> ({{ user.students|length }})
                         </a>
                     {% else %}
                         <span>{{ user.students|length }}</span>
@@ -53,7 +70,7 @@
                 <td class="text-center">
                     {% if is_granted('ROLE_CLASS_LIST_ALL') %}
                         <a href="{{ path('user_view_classrooms', {'id': user.id} ) }}" title="View user classes">
-                            <i class="fas fa-eye"></i> ({{ user.classrooms|length }})
+                            <i class="fas fa-clock"></i> ({{ user.classrooms|length }})
                         </a>
                     {% else %}
                         <span>{{ user.classrooms|length }}</span>
@@ -62,7 +79,7 @@
 
                 {% if is_granted('ROLE_USER_EDIT') %}
                     {% set params = (redirect is defined) ? {'id': user.id, 'redirect': redirect} : {'id': user.id} %}
-                    <td class="text-center mobile-hidden-td">
+                    <td class="text-center">
                         {% if 'ROLE_ADMIN' not in user.roles %}
                             <a href="{{ path('user_edit', params) }}" title="Edit user">
                                 <i class="fas fa-edit"></i>

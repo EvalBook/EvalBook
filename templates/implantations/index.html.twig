@@ -1,3 +1,20 @@
+{#**
+* Copyleft (c) 2020 EvalBook
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the European Union Public Licence (EUPL V 1.2),
+* version 1.2 (or any later version).
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* European Union Public Licence for more details.
+*
+* You should have received a copy of the European Union Public Licence
+* along with this program. If not, see
+* https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+**#}
+
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'templates' %}
 
@@ -27,8 +44,8 @@
             <th scope="col" class="text-center">{{ 'Classes'|trans }}</th>
 
             {% if is_granted('ROLE_IMPLANTATION_EDIT') %}
-                <th scope="col" class="text-center mobile-hidden-td">{{ 'Periods'|trans }}</th>
-                <th scope="col" class="text-center mobile-hidden-td">{{ 'Edit' | trans }}</th>
+                <th scope="col" class="text-center">{{ 'Periods'|trans }}</th>
+                <th scope="col" class="text-center">{{ 'Edit' | trans }}</th>
             {% endif %}
 
             {% if is_granted('ROLE_IMPLANTATION_DELETE') %}
@@ -38,7 +55,7 @@
         </thead>
         <tbody>
         {% for implantation in implantations %}
-            <tr data-id="{{ implantation.id }}" data-trigger="{{ path('implantation_edit', {'id': implantation.id}) }}">
+            <tr>
                 <td class="js-search-target">{{ implantation.name }}</td>
 
                 {% if config.useSchools %}
@@ -51,7 +68,7 @@
                 <td class="text-center">
                     {% if is_granted('ROLE_CLASS_LIST_ALL') %}
                         <a href="{{ path('implantation_view_classrooms', {'id': implantation.id} ) }}" title="View classes">
-                            <i class="fas fa-eye"></i> ({{ implantation.classrooms|length }})
+                            <i class="fas fa-clock"></i> ({{ implantation.classrooms|length }})
                         </a>
                     {% else %}
                         <span>{{ implantation.classrooms|length }}</span>
@@ -62,13 +79,13 @@
                 {% if is_granted('ROLE_IMPLANTATION_EDIT') %}
 
                     <!-- Implantation periods -->
-                    <td class="text-center mobile-hidden-td">
+                    <td class="text-center">
                         <a href="{{ path('implantation_period_list', {'id': implantation.id}) }}" title="View implantation periods">
                             <i class="fas fa-stopwatch"></i>
                         </a>
                     </td>
                     <!-- Implantation edition -->
-                    <td class="text-center mobile-hidden-td">
+                    <td class="text-center">
                         <a href="{{ path('implantation_edit', {'id': implantation.id}) }}" title="Edit implantation">
                             <i class="fas fa-edit"></i>
                         </a>

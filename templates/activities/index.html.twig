@@ -1,3 +1,20 @@
+{#**
+* Copyleft (c) 2020 EvalBook
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the European Union Public Licence (EUPL V 1.2),
+* version 1.2 (or any later version).
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* European Union Public Licence for more details.
+*
+* You should have received a copy of the European Union Public Licence
+* along with this program. If not, see
+* https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+**#}
+
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'templates' %}
 
@@ -23,7 +40,7 @@
                 <th class="mobile-hidden-td">{{ 'Date'|trans }}</th>
                 <th class="mobile-hidden-td">{{ 'Period'|trans }}</th>
                 <th class="text-center">{{ 'Note'|trans }}</th>
-                <th class="text-center mobile-hidden-td">{{ 'Edit'|trans }}</th>
+                <th class="text-center">{{ 'Edit'|trans }}</th>
                 <th class="text-center mobile-hidden-td">{{ 'Delete'|trans }}</th>
             </tr>
         </thead>
@@ -33,7 +50,7 @@
             {% set owner = (activity.user is same as(app.user)) ? true : false %}
             {% set editable = activity.period.dateEnd >= date() %}
 
-            <tr data-id="{{ activity.id }}" data-trigger="{{ path('activity_edit', {'id': activity.id}) }}">
+            <tr>
                 <td class="js-search-target">{{ activity.classroom }}</td>
 
                 <td class="mobile-hidden-td js-search-target">
@@ -61,7 +78,7 @@
                 </td>
 
                 <!-- Edit activity -->
-                <td class="text-center mobile-hidden-td">
+                <td class="text-center">
                     {% if owner and editable %}
                         <a href="{{ path('activity_edit', {'id': activity.id}) }}" title="Edit activity">
                             <i class="fas fa-edit"></i>

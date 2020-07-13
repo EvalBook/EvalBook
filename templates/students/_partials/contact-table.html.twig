@@ -1,3 +1,20 @@
+{#**
+* Copyleft (c) 2020 EvalBook
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the European Union Public Licence (EUPL V 1.2),
+* version 1.2 (or any later version).
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* European Union Public Licence for more details.
+*
+* You should have received a copy of the European Union Public Licence
+* along with this program. If not, see
+* https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+**#}
+
 {% trans_default_domain 'templates' %}
 
     {% set class = class is defined ? class : '' %}
@@ -30,7 +47,7 @@
                 <th scope="col" class="text-center">{{ 'View'|trans }}</th>
 
                 {% if is_granted('ROLE_STUDENT_EDIT') %}
-                    <th scope="col" class="text-center mobile-hidden-td">{{ 'Edit' | trans }}</th>
+                    <th scope="col" class="text-center">{{ 'Edit' | trans }}</th>
                 {% endif %}
 
                 {% if is_granted('ROLE_STUDENT_EDIT') %}
@@ -43,7 +60,7 @@
         <tbody>
 
         {% for relation in contactsRelations %}
-            <tr data-id="{{ relation.id }}" data-trigger="{{ path('student_edit_contact', {'id': relation.id}) }}">
+            <tr>
                 <td class="js-search-target">{{ relation.contact.lastName }}</td>
                 <td class="js-search-target">{{ relation.contact.firstName }}</td>
                 <td class="mobile-hidden-td js-search-target">{{ relation.contact.address }}</td>
@@ -62,7 +79,7 @@
                 {# Role student edit also handle contact addition / deletion / addition #}
                 {% if is_granted('ROLE_STUDENT_EDIT') %}
                     {% set params = (redirect is defined) ? {'id': relation.id, 'redirect': redirect} : {'id': relation.id} %}
-                    <td class="text-center mobile-hidden-td">
+                    <td class="text-center">
                         <a href="{{ path('student_edit_contact', params) }}" title="Edit contact relation">
                             <i class="fas fa-edit"></i>
                         </a>

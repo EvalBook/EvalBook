@@ -8,7 +8,7 @@
 
 body {
     font-family: 'Raleway', sans-serif;
-    font-size: 1em;
+    font-size: 0.70em;
     background-color: var(--background-color);
     margin: 0;
     overflow: hidden;
@@ -551,10 +551,6 @@ tr:hover i, tr:hover a {
  * Small screens.
  */
 @media all and (max-width: 800px) {
-
-    body {
-        font-size: 0.70em;
-    }
 
     #user-links, header > nav, footer p, #add-functionality, #logo-mini {
         display: none;

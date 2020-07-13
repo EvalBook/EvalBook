@@ -1,3 +1,20 @@
+{#**
+* Copyleft (c) 2020 EvalBook
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the European Union Public Licence (EUPL V 1.2),
+* version 1.2 (or any later version).
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* European Union Public Licence for more details.
+*
+* You should have received a copy of the European Union Public Licence
+* along with this program. If not, see
+* https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+**#}
+
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'templates' %}
 
@@ -25,7 +42,7 @@
                 <th class="text-center mobile-hidden-td">{{ 'Users'|trans }}</th>
 
                 {% if is_granted('ROLE_CLASS_EDIT') %}
-                    <th class="text-center mobile-hidden-td">{{ 'Edit'|trans }}</th>
+                    <th class="text-center">{{ 'Edit'|trans }}</th>
                 {% endif %}
 
                 {% if is_granted('ROLE_CLASS_EDIT_STUDENTS') %}
@@ -44,7 +61,7 @@
         </thead>
         <tbody>
         {% for classroom in classrooms %}
-            <tr data-id="{{ classroom.id }}" data-trigger="{{ path('classroom_edit', {'id': classroom.id}) }}">
+            <tr>
                 <td class="js-search-target">{{ classroom.implantation }}</td>
                 <td class="js-search-target">{{ classroom.name }}</td>
                 <td class="js-search-target mobile-hidden-td">
@@ -58,7 +75,7 @@
                 <td class="text-center">
                     {% if classroom.students|length > 0 %}
                         <a href="{{ path('classroom_view_students', {'id': classroom.id} ) }}" title="View class students">
-                            <i class="fas fa-eye"></i> ({{ classroom.students|length }})
+                            <i class="fas fa-user-graduate"></i> ({{ classroom.students|length }})
                         </a>
                     {% else %}
                         <span>0</span>
@@ -68,7 +85,7 @@
                 <td class="text-center mobile-hidden-td">
                     {% if classroom.users|length > 0 %}
                         <a href="{{ path('classroom_view_users', {'id': classroom.id} ) }}" title="View class users">
-                            <i class="fas fa-eye"></i> ({{ classroom.users|length }})
+                            <i class="fas fa-users"></i> ({{ classroom.users|length }})
                         </a>
                     {% else %}
                         <span>0</span>
@@ -77,7 +94,7 @@
 
                 {% if is_granted('ROLE_CLASS_EDIT') %}
                     {% set params = (redirect is defined) ? {'id': classroom.id, 'redirect': redirect} : {'id': classroom.id} %}
-                    <td class="text-center mobile-hidden-td">
+                    <td class="text-center">
                         <a href="{{ path('classroom_edit', params) }}" title="Edit class">
                             <i class="fas fa-edit"></i>
                         </a>
