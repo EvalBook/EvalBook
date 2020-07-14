@@ -27,7 +27,7 @@
 
 {% block titleBottom %}
     {% set placeholder = 'Search for student'|trans %}
-    {% include 'search.html.twig' %}
+    {% include '_partials/search.html.twig' %}
 {% endblock %}
 
 {% block body %}
@@ -119,8 +119,8 @@
 
 {# Add button desktop / mobile #}
 {% set params = {'role': 'ROLE_STUDENT_CREATE', 'route': 'student_add'} %}
-{% block functionnalities %} {% include 'add-button.html.twig' with params %} {% endblock %}
-{% block functionnalitiesMobile %} {% include 'add-button.html.twig' with params %} {% endblock %}
+{% block functionnalities %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
+{% block functionnalitiesMobile %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
 
 {% block javascripts %}
     {{ encore_entry_script_tags('modalDialogs') }}
