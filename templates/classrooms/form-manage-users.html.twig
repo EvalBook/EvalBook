@@ -15,6 +15,10 @@
 * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 **#}
 
+{#
+    * Form to assign users to a classroom.
+#}
+
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'templates' %}
 
@@ -29,6 +33,7 @@
 {% block body %}
 
     <div class="full-width flex column">
+        {# Include the go back button #}
         {% include '_partials/go-back.html.twig' %}
 
         <div class="form-content">

@@ -15,23 +15,32 @@
 * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 **#}
 
+{#
+    * List ALL available classrooms if user has role CLASS_LIST_ALL, logged in user classrooms otherwise.
+#}
+
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %} {{ 'Classes' | trans }} {% endblock %}
 {% block title %}
     {{ 'Classes' | trans }}
+    {# Display the help message button #}
     {% set help = {'title': 'classes.title', 'intro': 'intro', 'actions': 'classes.actions'} %}
     {% include 'help/help-dialog.html.twig' %}
 {% endblock %}
 
 {% block titleBottom %}
     {% set placeholder = 'Search for class'|trans %}
+    {# Including search box. #}
     {% include '_partials/search.html.twig' %}
 {% endblock %}
 
 
 {% block body %}
+    {#
+        The .mobile-hidden-to and .mobile-hidden classes makes element hidden on mobile.
+    #}
     <table class="full-width">
         <thead>
             <tr>
@@ -62,16 +71,24 @@
         <tbody>
         {% for classroom in classrooms %}
             <tr>
+                {# Implantation name #}
                 <td class="js-search-target">{{ classroom.implantation }}</td>
+
+                {# Classroom name #}
                 <td class="js-search-target">{{ classroom.name }}</td>
+
+                {# Classroom owner #}
                 <td class="js-search-target mobile-hidden-td">
+                    {# Display << me >> if logged in user is same as classroom owner ( main user )#}
                     {% if app.user is same as(classroom.owner) %}
                         <span><< <strong>{{ 'Me'|trans }}</strong> >></span>
                     {% else %}
+                    {# Classroom owner otherwise #}
                         {{ classroom.owner }}
                     {% endif %}
                 </td>
 
+                {# Display classroom students count and provide a link to the classroom students list ( edit / delete, ... ) #}
                 <td class="text-center">
                     {% if classroom.students|length > 0 %}
                         <a href="{{ path('classroom_view_students', {'id': classroom.id} ) }}" title="View class students">
@@ -82,6 +99,7 @@
                     {% endif %}
                 </td>
 
+                {# Display classroom users count and provide a link to the classroom users list ( edit / delete, ... ) #}
                 <td class="text-center mobile-hidden-td">
                     {% if classroom.users|length > 0 %}
                         <a href="{{ path('classroom_view_users', {'id': classroom.id} ) }}" title="View class users">
@@ -92,6 +110,7 @@
                     {% endif %}
                 </td>
 
+                {# Provide edit classroom link if user has rights to edit classrooms #}
                 {% if is_granted('ROLE_CLASS_EDIT') %}
                     {% set params = (redirect is defined) ? {'id': classroom.id, 'redirect': redirect} : {'id': classroom.id} %}
                     <td class="text-center">
@@ -101,6 +120,7 @@
                     </td>
                 {% endif %}
 
+                {# Provide a link to manage student in the classroom if the logged in user has the right to assign students to a classroom #}
                 {% if is_granted('ROLE_CLASS_EDIT_STUDENTS') %}
                     <td class="text-center mobile-hidden-td">
                         <a href="{{ path('classroom_manage_students', {'id': classroom.id}) }}" title="Add students to class">
@@ -109,6 +129,7 @@
                     </td>
                 {% endif %}
 
+                {# Provide a link to manage users that have access to the classroom if the logged in user has the right to assign users to a classroom #}
                 {% if is_granted('ROLE_CLASS_EDIT_USERS') %}
                     <td class="text-center mobile-hidden-td">
                         <a href="{{ path('classroom_manage_users', {'id': classroom.id}) }}" title="Add users to class">
@@ -117,6 +138,7 @@
                     </td>
                 {% endif %}
 
+                {# Provide a link to delete a classroom if user has the right to do it. #}
                 {% if is_granted('ROLE_CLASS_DELETE') %}
                     <td class="text-center mobile-hidden-td">
                         <div data-target="classroom"
@@ -131,6 +153,7 @@
 
             </tr>
         {% else %}
+            {# Provide message in case no classroom were found for the current logged in user #}
             <tr>
                 <td colspan="9" class="text-center">
                     {{ 'No class found'|trans }}
@@ -146,7 +169,7 @@
     </table>
 {% endblock %}
 
-
+{# Desktop - Add activity #}
 {% block functionnalities %}
     {% if is_granted('ROLE_CLASS_CREATE') %}
         <a href="{{ path('classroom_add') }}" title="Add class">
@@ -155,7 +178,7 @@
     {% endif %}
 {% endblock %}
 
-
+{# Mobile - Add activity #}
 {% block functionnalitiesMobile %}
     {% if is_granted('ROLE_CLASS_CREATE') %}
         <a href="{{ path('classroom_add') }}" title="Add class">
@@ -164,6 +187,7 @@
     {% endif %}
 {% endblock %}
 
+{# Import needed Javascripts #}
 {% block javascripts %}
     {{ encore_entry_script_tags('modalDialogs') }}
     {{ encore_entry_script_tags('search') }}

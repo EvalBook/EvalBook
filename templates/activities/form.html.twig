@@ -15,6 +15,10 @@
 * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 **#}
 
+{#
+    * Allow a classroom owner / user to add an activity.
+#}
+
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'templates' %}
 
@@ -28,7 +32,7 @@
         <div class="form-content">
             {{ form_start(form) }}
 
-            {# Activity period #}
+            {# Activity period ( Only not closed periods are returned by controller ) #}
             <div class="form-row">
                 {{ form_label(form.period, 'Period'|trans) }}
                 {{ form_widget(form.period) }}

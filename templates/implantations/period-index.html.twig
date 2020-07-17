@@ -15,21 +15,28 @@
 * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 **#}
 
+{#
+    * List ALL available periods for a given implantation.
+#}
+
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %} {{ 'Periods' | trans }} {% endblock %}
 {% block title %}
     {{ 'Periods' | trans }}
+    {# Include help message button #}
     {% set help = {'title': 'periods.title', 'intro': 'periods.intro', 'actions': 'periods.actions'} %}
     {% include 'help/help-dialog.html.twig' %}
 {% endblock %}
 
 {% block body %}
+    {#
+        The .mobile-hidden-to and .mobile-hidden classes makes element hidden on mobile.
+    #}
     <div class="flex column full-width">
-        <a class="go-back" href="{{ app.request.headers.get('referer') }}" title="Go back">
-            <i class="fas fa-long-arrow-alt-left"></i>
-        </a>
+        {# Include go back template #}
+        {% include '_partials/go-back.html.twig' %}
 
         <p>
             {% if periods|length < 6 %}
@@ -52,14 +59,21 @@
                 </tr>
             </thead>
             <tbody>
+
+            {# Display implantation periods. #}
             {% for period in periods %}
 
                 {% set notStarted = period.dateStart > date() %}
                 {% set inProgress = not notStarted and period.dateEnd > date() %}
 
                 <tr>
+                    {# Period name #}
                     <td>{{ period.name }}</td>
+
+                    {# Period start date #}
                     <td>{{ period.dateStart|date('d/m/Y') }}</td>
+
+                    {# Period end date #}
                     <td data-mobile="0">{{ period.dateEnd|date('d/m/Y') }}</td>
                     <td>
                         {% if notStarted %}
@@ -71,6 +85,7 @@
                         {% endif %}
                     </td>
 
+                    {# Period edit link, only if period isn't closed due to date limit. #}
                     <td class="text-center">
                         {% set editLink %}
                             <a href="{{ path('implantation_period_edit', {'id': period.id}) }}" title="Edit periods">
@@ -81,6 +96,7 @@
                         {{ (notStarted) ? editLink : '-' }}
                     </td>
 
+                    {# Period delete link, only if period isn't closed due to date limit. #}
                     <td class="text-center mobile-hidden-td">
                         {% set deleteLink %}
                             {# Those how can edit implantation can delete periods #}
@@ -100,6 +116,7 @@
 
                 </tr>
             {% else %}
+                {# Display no available periods message #}
                 <tr>
                     <td colspan="6" class="text-center">
                         {{ 'No period found for this implantation' | trans }}
@@ -121,6 +138,7 @@
 {% block functionnalities %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
 {% block functionnalitiesMobile %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
 
+{# Include Javascript files #}
 {% block javascripts %}
     {{ encore_entry_script_tags('modalDialogs') }}
 {% endblock %}

@@ -15,22 +15,32 @@
 * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 **#}
 
+{#
+    * List ALL available implantations if user has role ROLE_LIST_ALL_IMPLANTATIONS, not available otherwise.
+#}
+
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %} {{ 'Implantations' | trans }} {% endblock %}
 {% block title %}
     {{ 'Implantations' | trans }}
+    {# Include help message button #}
     {% set help = {'title': 'implantations.title', 'intro': 'intro', 'actions': 'implantations.actions'} %}
     {% include 'help/help-dialog.html.twig' %}
 {% endblock %}
 
 {% block titleBottom %}
+    {# Include search box template #}
     {% set placeholder = 'Search for implantation'|trans %}
     {% include '_partials/search.html.twig' %}
 {% endblock %}
 
 {% block body %}
+    {#
+        The .mobile-hidden-to and .mobile-hidden classes makes element hidden on mobile.
+    #}
+
     <table class="full-width">
         <thead>
         <tr>
@@ -54,17 +64,21 @@
         </tr>
         </thead>
         <tbody>
+
         {% for implantation in implantations %}
             <tr>
+                {# Implantation name #}
                 <td class="js-search-target">{{ implantation.name }}</td>
 
+                {# Implantation school ( if user want to use schools option ) #}
                 {% if config.useSchools %}
                     <td class="js-search-target">{{ implantation.school ? implantation.school : '-' }}</td>
                 {% endif %}
 
+                {# Implantation address #}
                 <td class="mobile-hidden-td js-search-target">{{ implantation.address }}</td>
 
-                {# Display implantation class count with a link if user has rights to see clesses. #}
+                {# Display implantation classrooms count with a link if user has rights to see clessrooms. #}
                 <td class="text-center">
                     {% if is_granted('ROLE_CLASS_LIST_ALL') %}
                         <a href="{{ path('implantation_view_classrooms', {'id': implantation.id} ) }}" title="View classes">
@@ -75,16 +89,16 @@
                     {% endif %}
                 </td>
 
-                {# Only those having the implantation edit rights. #}
+                {# Implantation edition ( impl + periods ). Only those having the implantation edit rights. #}
                 {% if is_granted('ROLE_IMPLANTATION_EDIT') %}
 
-                    <!-- Implantation periods -->
+                    {# Implantation periods, provide a link to interract with periods #}
                     <td class="text-center">
                         <a href="{{ path('implantation_period_list', {'id': implantation.id}) }}" title="View implantation periods">
                             <i class="fas fa-stopwatch"></i>
                         </a>
                     </td>
-                    <!-- Implantation edition -->
+                    {# Implantation edition, provide a link to edit implantation basic information #}
                     <td class="text-center">
                         <a href="{{ path('implantation_edit', {'id': implantation.id}) }}" title="Edit implantation">
                             <i class="fas fa-edit"></i>
@@ -92,7 +106,7 @@
                     </td>
                 {% endif %}
 
-                {# Only those having implantation delete rights. #}
+                {# Implantation deletion. Only those having implantation delete rights. #}
                 {% if is_granted('ROLE_IMPLANTATION_DELETE') %}
                     <td class="text-center mobile-hidden-td">
                         <div data-target="implantation"
@@ -107,6 +121,7 @@
 
             </tr>
         {% else %}
+            {# Display message in case of no implantations found #}
             <tr>
                 <td colspan="8" class="text-center">
                     {{ 'No implantation found' | trans }}
@@ -127,6 +142,7 @@
 {% block functionnalities %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
 {% block functionnalitiesMobile %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
 
+{# Needed Javascript files #}
 {% block javascripts %}
     {{ encore_entry_script_tags('modalDialogs') }}
     {{ encore_entry_script_tags('search') }}
