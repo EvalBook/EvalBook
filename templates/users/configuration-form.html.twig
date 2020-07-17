@@ -40,7 +40,7 @@
         <div class="form-content">
             <h2>{{ 'Interface settings'|trans }}</h2>
 
-            <div class="form-row display-row space-between">
+            <div class="form-row display-row">
                 {# Choice: EvalBook logo #}
                 <div class="width-25-percent">
                     {{ form_label(form.showLogo, 'Display EvalBook logo'|trans) }}
@@ -70,7 +70,7 @@
 
             </div>
 
-            <div class="form-row display-row space-between">
+            <div class="form-row display-row">
 
                 {# Choice: Display search box #}
                 <div class="width-25-percent">
@@ -91,31 +91,34 @@
                 </div>
 
                 {# Choice: If admin user, can this configuration be propagated to all users ? #}
-                {# FIXME rights #}
-                <div class="width-25-percent">
-                    {{ form_label(form.isGlobalConfig, 'Set this configuration for all users ?'|trans) }}
-                    {{ form_widget(form.isGlobalConfig, {'attr': {'class': 'width-100'}}) }}
-                    <span class="form-error">
-                        {{ form_errors(form.isGlobalConfig) }}
-                    </span>
-                </div>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="width-25-percent">
+                        {{ form_label(form.isGlobalConfig, 'Set this configuration for all users ?'|trans) }}
+                        {{ form_widget(form.isGlobalConfig, {'attr': {'class': 'width-100'}}) }}
+                        <span class="form-error">
+                            {{ form_errors(form.isGlobalConfig) }}
+                        </span>
+                    </div>
+                {% endif %}
             </div>
 
             <h2>{{ 'Functionnalities settings'|trans }}</h2>
 
-            <div class="form-row display-row space-between">
+            <div class="form-row display-row">
                 {# Choice: User want to use school functionality ? #}
-                {# FIXME rights #}
-                <div class="width-25-percent">
-                    {{ form_label(form.useSchools, 'Use schools'|trans) }}
-                    {{ form_widget(form.useSchools, {'attr': {'class': 'width-100'}}) }}
-                    <span class="form-error">
-                        {{ form_errors(form.useSchools) }}
-                    </span>
-                </div>
+                {% if is_granted('ROLE_IMPLANTATION_LIST_ALL') %}
+                    <div class="width-25-percent">
+                        {{ form_label(form.useSchools, 'Use schools'|trans) }}
+                        {{ form_widget(form.useSchools, {'attr': {'class': 'width-100'}}) }}
+                        <span class="form-error">
+                            {{ form_errors(form.useSchools) }}
+                        </span>
+                    </div>
+                {% else %}
+                    {% do form.useSchools.setRendered() %}
+                {% endif %}
 
                 {# Choice: User want to use contacts functionality ? #}
-                {# FIXME rights #}
                 <div class="width-25-percent">
                     {{ form_label(form.useContacts, 'Use contacts'|trans) }}
                     {{ form_widget(form.useContacts, {'attr': {'class': 'width-100'}}) }}
