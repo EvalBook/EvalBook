@@ -15,22 +15,32 @@
 * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 **#}
 
+{#
+    * List ALL activities attached to a selected classroom ( see: activities/select-classroom.html.twig for classroom selection ).
+#}
+
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %} {{ 'Activities'|trans }} {% endblock %}
 {% block title %}
     {{ 'Activities'|trans }}
+    {# Display the help dialog with related text #}
     {% set help = {'title': 'activities.title', 'intro': 'activities.intro', 'actions': 'activities.actions'} %}
     {% include 'help/help-dialog.html.twig' %}
 {% endblock %}
 
 {% block titleBottom %}
+    {# Display the search box #}
     {% set placeholder = 'Search for activity'|trans %}
-    {% include 'search.html.twig' %}
+    {% include '_partials/search.html.twig' %}
 {% endblock %}
 
 {% block body %}
+    {#
+        The .mobile-hidden-to and .mobile-hidden classes makes element hidden on mobile.
+        All activities are sorted as 'last in -> first displayed'
+    #}
     <table class="full-width">
         <thead>
             <tr>
@@ -46,13 +56,17 @@
         </thead>
         <tbody>
         {% for activity in activities %}
-
+            {# Flag to check if activity owner is the same as the current logged in user to display <<me>> instead of user name #}
             {% set owner = (activity.user is same as(app.user)) ? true : false %}
+
+            {# Checking if the activity is editable ( if period is closed, then the activity is not editable ) #}
             {% set editable = activity.period.dateEnd >= date() %}
 
             <tr>
+                {# Activity classroom #}
                 <td class="js-search-target">{{ activity.classroom }}</td>
 
+                {# Activity owner #}
                 <td class="mobile-hidden-td js-search-target">
                     {%  if owner %}
                         <span><< <strong>{{ 'Me'|trans }}</strong> >></span>
@@ -61,11 +75,16 @@
                     {% endif %}
                 </td>
 
+                {# Activity name #}
                 <td class="js-search-target">{{ activity.name }}</td>
+
+                {# Activity date add #}
                 <td class="mobile-hidden-td js-search-target">{{ activity.dateAdded|date('d/m/Y') }}</td>
+
+                {# Activity period #}
                 <td class="mobile-hidden-td js-search-target">{{ activity.period.name }}</td>
 
-                <!-- Note activity -->
+                {# Note activity access ( Provide a link to not student on this activity ) #}
                 <td class="js-search-target text-center">
                     {% if owner and editable %}
                         <a href="{{ path('activity_note_add', {'id': activity.id}) }}" title="Add activity notes">
@@ -77,7 +96,7 @@
                     {% endif %}
                 </td>
 
-                <!-- Edit activity -->
+                {# Edit activity access - Only if current logged in user is the activity owner and if the activity period isn't closed #}
                 <td class="text-center">
                     {% if owner and editable %}
                         <a href="{{ path('activity_edit', {'id': activity.id}) }}" title="Edit activity">
@@ -88,7 +107,7 @@
                     {% endif %}
                 </td>
 
-                <!-- Delete activity -->
+                {# Delete activity access - Only if activity owner and activity period not closed #}
                 <td class="text-center mobile-hidden-td">
                     {% if owner and editable %}
                         <div data-target="activite"
@@ -105,6 +124,7 @@
 
             </tr>
         {% else %}
+            {# No activity found message #}
             <tr>
                 <td colspan="8" class="text-center">
                     {{ 'It sounds like you do not have any activity or any class'|trans }}
@@ -116,7 +136,7 @@
 
 {% endblock %}
 
-
+{# Desktop - Add activity #}
 {% block functionnalities %}
     {% if classrooms|length > 0 %}
         <a href="{{ path('activity_add') }}" title="Add activity">
@@ -125,7 +145,7 @@
     {% endif %}
 {% endblock %}
 
-
+{# Mobile - Add activity #}
 {% block functionnalitiesMobile %}
     {% if classrooms|length > 0 %}
         <a href="{{ path('activity_add') }}" title="Add activity">
@@ -134,6 +154,7 @@
     {% endif %}
 {% endblock %}
 
+{# Import needed Javascripts #}
 {% block javascripts %}
     {{ encore_entry_script_tags('modalDialogs') }}
     {{ encore_entry_script_tags('search') }}

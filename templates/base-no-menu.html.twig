@@ -15,6 +15,10 @@
 * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 **#}
 
+{# This template is used to display a basic EB container #}
+{# Used in login page and error pages #}
+{# Basic usage: {% extends 'base-no-menu.html.twig' %}#}
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -33,6 +37,7 @@
 <body>
 <div class="container">
 
+    {# Display potential messages from controller::addFlash() #}
     {% for label, messages in app.flashes %}
         {% for message in messages %}
             <div class="dialog dialog-{{ label }}">
@@ -41,6 +46,7 @@
         {% endfor %}
     {% endfor %}
 
+    {# Global header #}
     <header>
         <div class="heading">
             <!-- Header -->
@@ -51,7 +57,7 @@
         </div>
     </header>
 
-    <!-- Application contents -->
+    {# Application contents #}
     <section class="content">
         {% block body %} {% endblock %}
     </section>

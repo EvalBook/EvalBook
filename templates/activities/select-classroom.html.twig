@@ -15,6 +15,10 @@
 * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 **#}
 
+{#
+    * Allow user to select a classroom to check / add / delete / provide notes / edit attached activities.
+#}
+
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'templates' %}
 
@@ -33,18 +37,26 @@
         </tr>
         </thead>
         <tbody>
+
+        {# classrooms => contain all classrooms the user can interract with #}
         {% for classroom in classrooms %}
             <tr>
                 <td>{{ classroom.implantation }}</td>
                 <td>{{ classroom.name }}</td>
                 <td>
+                    {# Display <<me>> if current logged in user is same as classroom owner user #}
                     {%  if app.user is same as(classroom.owner) %}
                         <span><< <strong>{{ 'Me'|trans }}</strong> >></span>
                     {% else %}
+                    {# Display the classroom owner otherwise ( titular ) #}
                         {{ classroom.owner }}
                     {% endif %}
                 </td>
+
+                {# Display activities count #}
                 <td class="text-center mobile-hidden-td">{{ classroom.activities|length }}</td>
+
+                {# Provide a link to add activity to the selected classroom #}
                 <td>
                     <a href="{{ path('activity_add', {'classroom': classroom.id} ) }}" title="Add activity to the class">
                         <i class="fas fa-plus text-yellow"></i>
@@ -52,6 +64,7 @@
                 </td>
             </tr>
         {% else %}
+            {# No attribued classroom OR no available classroom message #}
             <tr>
                 <td colspan="4" class="text-center">
                     {{ 'You do not have any class'|trans }}

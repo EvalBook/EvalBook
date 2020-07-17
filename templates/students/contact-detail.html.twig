@@ -15,6 +15,10 @@
 * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 **#}
 
+{#
+    * Single contact details view, allowing actions as send mail, direct call, etc...
+#}
+
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'templates' %}
 
@@ -23,22 +27,29 @@
 
 {% block body %}
     <div class="full-width">
-        {% include 'go-back.html.twig' %}
-        {# Init contact actions #}
+        {% include '_partials/go-back.html.twig' %}
+
+        {# Mobile - Init contact actions #}
         <div id="mobile-contact-actions" class="shadow">
+            {# Send a mail to contact #}
             <div>
                 <a href="{{ path('send_mail', {'user': app.user.id, 'studentContact': contact.id}) }}">
                     <i class="fas fa-envelope-open-text"></i>
                 </a>
             </div>
+
+            {# Send an sms to the contact #}
             <div>
                 <a href="sms: {{ contact.phone }}"><i class="fas fa-sms"></i></a>
             </div>
+
+            {# Give a call to the contact #}
             <div>
                 <a href="tel:{{ contact.phone }}"><i class="fas fa-phone-square-alt"></i></a>
             </div>
         </div>
 
+        {# Contact details as a table #}
         <table id="contact-details" class="full-width">
             <tr>
                 <th>{{ 'First name'|trans }}:</th>

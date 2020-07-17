@@ -15,6 +15,10 @@
 * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 **#}
 
+{#
+    * Attach existing / Add new contact to a student.
+#}
+
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'templates' %}
 
@@ -29,10 +33,12 @@
 
 {% block body %}
     <div class="full-width flex column">
-        {% include 'go-back.html.twig' %}
+        {# Include go back template #}
+        {% include '_partials/go-back.html.twig' %}
 
         <div class="form-content">
-            <!-- Select an existing contact form -->
+
+            {# Form allowing to select an existing contact #}
             {% if existingContactsForm is defined %}
                 <div class="full-width">
                     {{ form_start(existingContactsForm) }}
@@ -42,7 +48,7 @@
 
                         {# Available contacts list #}
                         {% set placeholder = 'Search for contact'|trans %}
-                        {% include 'search.html.twig' %}
+                        {% include '_partials/search.html.twig' %}
 
                         <div class="form-row">
                             {{ form_label(existingContactsForm.contact, 'Choose an existing contact in the list above'|trans) }}
@@ -54,8 +60,8 @@
                         <span class="form-error"> {{ form_errors(existingContactsForm.contact) }} </span>
 
                         <div class="flex">
+                            {# Contact relation with current student #}
                             <div class="width-50-percent form-row margin-right">
-                                {# Contact relation with current student #}
                                 {{ form_label(existingContactsForm.relation, 'Relation'|trans) }}
                                 <select name="student_existing_contact[relation]" id="student_existing_contact_relation" class="full-width">
                                     {% for key, choice in existingContactsForm.relation.vars.choices %}
@@ -64,8 +70,9 @@
                                 </select>
                                 {% do existingContactsForm.relation.setRendered() %}
                             </div>
+
+                            {# Contact sent student school report #}
                             <div class="width-50-percent form-row margin-left">
-                                {# Contact sent student school report #}
                                 {{ form_label(existingContactsForm.schoolReport, 'Send school report'|trans) }}
                                 <select name="student_existing_contact[schoolReport]" id="student_existing_contact_schoolReport" class="full-width">
                                     {% for key, choice in existingContactsForm.schoolReport.vars.choices %}
@@ -88,6 +95,7 @@
                 </div>
             {% endif %}
 
+            {# Form to add a new contact ( not existing in global contacts list #}
             <div class="full-width margin-plus">
 
                 {# If existingContactsForm is defined, then user want to add a contact to a student #}
@@ -95,11 +103,12 @@
                     {% set title = 'Edit a contact' %}
                     {% set explanation = 'If you modify the contact name, phone, email, etc... then the changed values will be propaged into the whole system' %}
                 {% else %}
+                    {# Else, a new contact must be added #}
                     {% set title = 'Add a new contact' %}
                     {% set explanation = 'If you cannot find the right contact from the contacts list, then simply add a new one, it will be automatically assigne to the student' %}
                 {% endif %}
 
-                <!-- Add a new contact form. -->
+                {# Add a new contact form. #}
                 <h2>{{ title|trans }}</h2>
                 <p>{{ explanation|trans }}</p>
                 {{ form_start(newContactForm) }}
@@ -146,9 +155,9 @@
                 </div>
 
                 <div class="flex">
+                    {# Contact relation with current student #}
                     <div class="width-50-percent form-row margin-right">
                         {% set selectedValue = newContactForm.relation.vars.value %}
-                        {# Contact relation with current student #}
                         {{ form_label(newContactForm.relation, 'Relation'|trans) }}
                         <select name="student_contact[relation]" id="student_contact_relation" class="full-width">
                             {% for key, choice in newContactForm.relation.vars.choices %}
@@ -158,9 +167,9 @@
                         {% do newContactForm.relation.setRendered() %}
                     </div>
 
+                    {# Should a school report be sent to this contact for selected student ? #}
                     <div class="width-50-percent form-row margin-left">
                         {% set selectedValue = newContactForm.schoolReport.vars.value %}
-                        {# Contact sent student school report #}
                         {{ form_label(newContactForm.schoolReport, 'Send school report'|trans) }}
                         <select name="student_contact[schoolReport]" id="student_contact_schoolReport" class="full-width">
                             {% for key, choice in newContactForm.schoolReport.vars.choices %}
@@ -185,6 +194,7 @@
     </div>
 {% endblock %}
 
+{# Include needed Javascript files #}
 {% block javascripts %}
     {{ encore_entry_script_tags('search') }}
 {% endblock %}

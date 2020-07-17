@@ -15,22 +15,31 @@
 * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 **#}
 
+{#
+    * List ALL available student if connected user has rights to see ALL USERS, or user classrooms students otherwise.
+#}
+
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %} {{ 'Students' | trans }} {% endblock %}
 {% block title %}
     {{ 'Students' | trans }}
+    {# Include help message button #}
     {% set help = {'title': 'students.title', 'intro': 'intro', 'actions': 'students.actions'} %}
     {% include 'help/help-dialog.html.twig' %}
 {% endblock %}
 
 {% block titleBottom %}
+    {# Include search box #}
     {% set placeholder = 'Search for student'|trans %}
-    {% include 'search.html.twig' %}
+    {% include '_partials/search.html.twig' %}
 {% endblock %}
 
 {% block body %}
+    {#
+        The .mobile-hidden-to and .mobile-hidden classes makes element hidden on mobile.
+    #}
     <table class="full-width">
         <thead>
         <tr>
@@ -55,10 +64,16 @@
         <tbody>
         {% for student in students %}
             <tr>
+                {# Student last name #}
                 <td class="js-search-target">{{ student.lastName }}</td>
+
+                {# Student first name #}
                 <td class="js-search-target">{{ student.firstName }}</td>
+
+                {# Student birthday #}
                 <td class="mobile-hidden-td js-search-target">{{ student.birthday|date('d/m/Y') }}</td>
 
+                {# Display a link to classrooms list the student is attached to #}
                 <td class="text-center">
                     {% if student.classrooms|length > 0 %}
                         <a href="{{ path('student_view_classrooms', {'id': student.id} ) }}" title="View student classes">
@@ -83,6 +98,7 @@
                     </td>
                 {% endif %}
 
+                {# Provide a link to edit the selected student if user has rights to do it #}
                 {% if is_granted('ROLE_STUDENT_EDIT') %}
                     {% set params = (redirect is defined) ? {'id': student.id, 'redirect': redirect} : {'id': student.id} %}
                     <td class="text-center">
@@ -92,6 +108,7 @@
                     </td>
                 {% endif %}
 
+                {# Provide a link to delete the student if the user has the rights to do it #}
                 {% if is_granted('ROLE_STUDENT_DELETE') %}
                     <td class="text-center mobile-hidden-td">
                         <div data-target="student"
@@ -106,6 +123,7 @@
 
             </tr>
         {% else %}
+            {# Display a message if no student was found for the connected user. #}
             <tr>
                 <td class="text-center" colspan="8">{{ 'No student found' | trans }}</td>
             </tr>
@@ -119,9 +137,10 @@
 
 {# Add button desktop / mobile #}
 {% set params = {'role': 'ROLE_STUDENT_CREATE', 'route': 'student_add'} %}
-{% block functionnalities %} {% include 'add-button.html.twig' with params %} {% endblock %}
-{% block functionnalitiesMobile %} {% include 'add-button.html.twig' with params %} {% endblock %}
+{% block functionnalities %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
+{% block functionnalitiesMobile %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
 
+{# Include needed Javascript files #}
 {% block javascripts %}
     {{ encore_entry_script_tags('modalDialogs') }}
     {{ encore_entry_script_tags('search') }}

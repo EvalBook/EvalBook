@@ -15,6 +15,24 @@
 * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 **#}
 
+{#
+    * Provide a simple help template with button.
+
+    * Help messages are stored in translations/help.locale.
+
+    * Usage:
+
+        1) Include this template in YOUR file providing route option
+            {% set help = {'title': 'activities.title', 'intro': 'activities.intro', 'actions': 'activities.actions'} %}
+            {% include 'help/help-dialog.html.twig' %}
+
+            Where => 'title'   is the help dialog title.
+                  => 'intro'   is the help introduction.
+                  => 'actions' is the help text.
+
+        2) Enjoy.
+#}
+
 {% if config.showHelp %}
     <a href="#" id="help-dialog" title="Help">
         <i class="far fa-question-circle text-yellow mobile-hidden"></i>

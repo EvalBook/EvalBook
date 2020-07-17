@@ -15,6 +15,10 @@
 * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 **#}
 
+{#
+    * Generic form to send a mail.
+#}
+
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'templates' %}
 
@@ -23,7 +27,7 @@
 
 {% block body %}
     <div class="full-width flex column">
-        {% include 'go-back.html.twig' %}
+        {% include '_partials/go-back.html.twig' %}
 
         <div class="form-content">
             {{ form_start(mailForm) }}
@@ -58,7 +62,7 @@
                 </span>
             </div>
 
-            {# Mail sibject #}
+            {# Mail subject #}
             <div class="form-row">
                 {{ form_label(mailForm.subject, 'Subject'|trans) }}
                 {{ form_widget(mailForm.subject) }}

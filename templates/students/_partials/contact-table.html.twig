@@ -15,94 +15,107 @@
 * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 **#}
 
+{#
+    * Partial template displaying students contacts, one contact type by table.
+    The .mobile-hidden-to and .mobile-hidden classes makes element hidden on mobile.
+#}
+
 {% trans_default_domain 'templates' %}
+{% set class = class is defined ? class : '' %}
 
-    {% set class = class is defined ? class : '' %}
-    <table class="full-width {{ class }}">
-        <thead>
-        {% if title is defined and titleIcon is defined %}
-            <tr class="text-center">
-                <th colspan="8">
-                    <i class="{{ titleIcon }}"></i>
-                    <span class="margin-left">
-                        {{ title|trans }}
-                    </span>
-                </th>
-            </tr>
-        {% endif %}
+<table class="full-width {{ class }}">
+    <thead>
+    {% if title is defined and titleIcon is defined %}
+        <tr class="text-center">
+            <th colspan="8">
+                <i class="{{ titleIcon }}"></i>
+                <span class="margin-left">
+                    {{ title|trans }}
+                </span>
+            </th>
+        </tr>
+    {% endif %}
 
-        {# Display table headers only if there are at least one contact in the student contacts list #}
-        {% if contactsRelations|length > 0 %}
-            <tr>
-                <th>{{ 'Name'|trans }}</th>
-                <th>{{ 'First name'|trans }}</th>
-                <th class="mobile-hidden-td">{{ 'Address'|trans }}</th>
-                <th>{{ 'Relation'|trans }}</th>
+    {# Display global table headers only if there are at least one contact in the student contacts list #}
+    {% if contactsRelations|length > 0 %}
+        <tr>
+            <th>{{ 'Name'|trans }}</th>
+            <th>{{ 'First name'|trans }}</th>
+            <th class="mobile-hidden-td">{{ 'Address'|trans }}</th>
+            <th>{{ 'Relation'|trans }}</th>
 
-                {# Some relations between a student and a contact does not need to get the school report ( medical contacts for example )#}
-                {% if hiddenReport is not defined %}
-                    <th class="text-center">{{ 'Send report'|trans }}</th>
-                {% endif %}
+            {# Some relations between a student and a contact does not need to get the school report ( medical contacts for example )#}
+            {% if hiddenReport is not defined %}
+                <th class="text-center">{{ 'Send report'|trans }}</th>
+            {% endif %}
 
-                <th scope="col" class="text-center">{{ 'View'|trans }}</th>
+            <th scope="col" class="text-center">{{ 'View'|trans }}</th>
 
-                {% if is_granted('ROLE_STUDENT_EDIT') %}
-                    <th scope="col" class="text-center">{{ 'Edit' | trans }}</th>
-                {% endif %}
+            {% if is_granted('ROLE_STUDENT_EDIT') %}
+                <th scope="col" class="text-center">{{ 'Edit' | trans }}</th>
+            {% endif %}
 
-                {% if is_granted('ROLE_STUDENT_EDIT') %}
-                    <th scope="col" class="text-center mobile-hidden-td">{{ 'Delete' | trans }}</th>
-                {% endif %}
-            </tr>
-        {% endif %}
+            {% if is_granted('ROLE_STUDENT_EDIT') %}
+                <th scope="col" class="text-center mobile-hidden-td">{{ 'Delete' | trans }}</th>
+            {% endif %}
+        </tr>
+    {% endif %}
 
-        </thead>
-        <tbody>
+    </thead>
+    <tbody>
 
-        {% for relation in contactsRelations %}
-            <tr>
-                <td class="js-search-target">{{ relation.contact.lastName }}</td>
-                <td class="js-search-target">{{ relation.contact.firstName }}</td>
-                <td class="mobile-hidden-td js-search-target">{{ relation.contact.address }}</td>
-                <td>{{ relation.relation|trans }}</td>
-                {% if hiddenReport is not defined %}
-                    <td class="text-center">{{ relation.sendSchoolReport is same as(true) ? 'Yes'|trans : 'No'|trans }}</td>
-                {% endif %}
+    {% for relation in contactsRelations %}
+        <tr>
+            {# Contact last name #}
+            <td class="js-search-target">{{ relation.contact.lastName }}</td>
 
-                {# View contact details and access mobile fonctionnalities #}
+            {# Contact first name #}
+            <td class="js-search-target">{{ relation.contact.firstName }}</td>
+
+            {# Contact address #}
+            <td class="mobile-hidden-td js-search-target">{{ relation.contact.address }}</td>
+
+            {# Relation between contact and student, hiddeReport is used to hide repport row ( eg: medical contacts do not need it ) #}
+            <td>{{ relation.relation|trans }}</td>
+            {% if hiddenReport is not defined %}
+                <td class="text-center">{{ relation.sendSchoolReport is same as(true) ? 'Yes'|trans : 'No'|trans }}</td>
+            {% endif %}
+
+            {# View contact details and access mobile fonctionnalities #}
+            <td class="text-center">
+                <a href="{{ path('student_view_contact', {'id': relation.contact.id}) }}">
+                    <i class="fas fa-eye"></i>
+                </a>
+            </td>
+
+            {# Role student edit also handle contact addition / deletion / addition #}
+            {% if is_granted('ROLE_STUDENT_EDIT') %}
+                {% set params = (redirect is defined) ? {'id': relation.id, 'redirect': redirect} : {'id': relation.id} %}
                 <td class="text-center">
-                    <a href="{{ path('student_view_contact', {'id': relation.contact.id}) }}">
-                        <i class="fas fa-eye"></i>
+                    <a href="{{ path('student_edit_contact', params) }}" title="Edit contact relation">
+                        <i class="fas fa-edit"></i>
                     </a>
                 </td>
+            {% endif %}
 
-                {# Role student edit also handle contact addition / deletion / addition #}
-                {% if is_granted('ROLE_STUDENT_EDIT') %}
-                    {% set params = (redirect is defined) ? {'id': relation.id, 'redirect': redirect} : {'id': relation.id} %}
-                    <td class="text-center">
-                        <a href="{{ path('student_edit_contact', params) }}" title="Edit contact relation">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                    </td>
-                {% endif %}
+            {% if is_granted('ROLE_STUDENT_DELETE') %}
+                <td class="text-center mobile-hidden-td">
+                    <div data-target="student"
+                         data-targetid="{{ relation.id }}"
+                         data-action="{{ path('student_delete_contact', {'id': relation.id}) }}"
+                         data-class="fas fa-trash"
+                         data-csrf="{{ csrf_token('contact_relation_delete' ~ relation.id) }}"
+                    >
+                    </div>
+                </td>
+            {% endif %}
+        </tr>
+    {% else %}
+        {# No student contact found message #}
+        <tr>
+            <td class="text-center" colspan="8">{{ noContactMessage | trans }}</td>
+        </tr>
+    {% endfor %}
 
-                {% if is_granted('ROLE_STUDENT_DELETE') %}
-                    <td class="text-center mobile-hidden-td">
-                        <div data-target="student"
-                             data-targetid="{{ relation.id }}"
-                             data-action="{{ path('student_delete_contact', {'id': relation.id}) }}"
-                             data-class="fas fa-trash"
-                             data-csrf="{{ csrf_token('contact_relation_delete' ~ relation.id) }}"
-                        >
-                        </div>
-                    </td>
-                {% endif %}
-            </tr>
-        {% else %}
-            <tr>
-                <td class="text-center" colspan="8">{{ noContactMessage | trans }}</td>
-            </tr>
-        {% endfor %}
-
-        </tbody>
-    </table>
+    </tbody>
+</table>

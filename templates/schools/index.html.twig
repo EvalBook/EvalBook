@@ -15,22 +15,31 @@
 * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 **#}
 
+{#
+    * List all available schools if user has rights to see all implantations.
+#}
+
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %} {{ 'Schools' | trans }} {% endblock %}
 {% block title %}
     {{ 'Schools' | trans }}
+    {# Include help messages button #}
     {% set help = {'title': 'schools.title', 'intro': 'intro', 'actions': 'schools.actions'} %}
     {% include 'help/help-dialog.html.twig' %}
 {% endblock %}
 
 {% block titleBottom %}
+    {# Include search box #}
     {% set placeholder = 'Search for school'|trans %}
-    {% include 'search.html.twig' %}
+    {% include '_partials/search.html.twig' %}
 {% endblock %}
 
 {% block body %}
+    {#
+        The .mobile-hidden-to and .mobile-hidden classes makes element hidden on mobile.
+    #}
     <table class="full-width">
         <thead>
         <tr>
@@ -49,6 +58,7 @@
         <tbody>
         {% for school in schools %}
             <tr>
+                {# School name #}
                 <td class="js-search-target">{{ school.name }}</td>
 
                 {# Display school implantations count. #}
@@ -62,7 +72,7 @@
                     {% endif %}
                 </td>
 
-                {# School edition. #}
+                {# School edition if user can do it. #}
                 {% if is_granted('ROLE_SCHOOL_EDIT') %}
                     <td class="text-center">
                         <a href="{{ path('school_edit', {'id': school.id}) }}" title="Edit school">
@@ -71,7 +81,7 @@
                     </td>
                 {% endif %}
 
-                {# School deletion. #}
+                {# School deletion if user can do it. #}
                 {% if is_granted('ROLE_SCHOOL_DELETE') %}
                     <td class="text-center mobile-hidden-td">
                         <div data-target="school"
@@ -103,9 +113,10 @@
 
 {# Add button desktop / mobile #}
 {% set params = {'role': 'ROLE_SCHOOL_CREATE', 'route': 'school_add'} %}
-{% block functionnalities %} {% include 'add-button.html.twig' with params %} {% endblock %}
-{% block functionnalitiesMobile %} {% include 'add-button.html.twig' with params %} {% endblock %}
+{% block functionnalities %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
+{% block functionnalitiesMobile %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
 
+{# Include Javascript files. #}
 {% block javascripts %}
     {{ encore_entry_script_tags('modalDialogs') }}
     {{ encore_entry_script_tags('search') }}

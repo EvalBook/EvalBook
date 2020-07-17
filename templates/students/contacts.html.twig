@@ -15,6 +15,10 @@
 * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 **#}
 
+{#
+    * List ALL available student contacts.
+#}
+
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'templates' %}
 
@@ -23,12 +27,12 @@
 
 {% block titleBottom %}
     {% set placeholder = 'Search for contact'|trans %}
-    {% include 'search.html.twig' %}
+    {% include '_partials/search.html.twig' %}
 {% endblock %}
 
 {% block body %}
 <div class="full-width">
-    {% include 'go-back.html.twig' %}
+    {% include '_partials/go-back.html.twig' %}
     {# Medical contacts #}
     {% set vars = {
         'contactsRelations': medicalContactsRelations,
@@ -64,9 +68,10 @@
 
 {# Add button desktop / mobile #}
 {% set params = {'role': 'ROLE_STUDENT_EDIT', 'route': 'student_add_contact', 'params': {'id': student.id}} %}
-{% block functionnalities %} {% include 'add-button.html.twig' with params %} {% endblock %}
-{% block functionnalitiesMobile %} {% include 'add-button.html.twig' with params %} {% endblock %}
+{% block functionnalities %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
+{% block functionnalitiesMobile %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
 
+{# Include needed Javascript files #}
 {% block javascripts %}
     {{ encore_entry_script_tags('modalDialogs') }}
     {{ encore_entry_script_tags('search') }}

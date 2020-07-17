@@ -15,6 +15,10 @@
 * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 **#}
 
+{#
+    * Add students note for the selected activity.
+#}
+
 {% extends 'base.html.twig' %}
 
 {% trans_default_domain 'templates' %}
@@ -23,6 +27,8 @@
 
 {% block title %}
     {{ 'Add notes for this activity' | trans }}
+
+    {# Display the help dialog with related text #}
     {% set help = {'title': 'notes.title', 'intro': 'notes.intro', 'actions': 'notes.use'} %}
     {% include 'help/help-dialog.html.twig' %}
 {% endblock %}
@@ -42,7 +48,7 @@
         </thead>
         <tbody>
 
-        {# counter is used to specify the tab index order #}
+        {# Counter is used to specify the tab index order #}
         {% set counter = 0 %}
 
         {% for note in form.notes %}
@@ -59,6 +65,7 @@
                 <td tabindex="{{ counter }}" class="bg-yellow small text-center">{{ form_row(note.note) }}</td>
             </tr>
         {% else %}
+            {# Display a message if no student were found for the target classroom #}
             <tr>
                 <td colspan="3" class="text-center">
                     {{ 'You do not have any student in your class'|trans }}

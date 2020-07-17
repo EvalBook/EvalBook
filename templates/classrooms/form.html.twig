@@ -15,6 +15,10 @@
 * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 **#}
 
+{#
+    * Form to add new classrooms.
+#}
+
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'templates' %}
 
@@ -28,12 +32,12 @@
 
 {% block body %}
     <div class="full-width flex column">
-        {% include 'go-back.html.twig' %}
+        {% include '_partials/go-back.html.twig' %}
 
         <div class="form-content">
             {{ form_start(form) }}
 
-            {# Class name #}
+            {# Classroom name #}
             <div class="form-row">
                 {{ form_label(form.name, 'Name'|trans) }}
                 {{ form_widget(form.name) }}
@@ -42,7 +46,7 @@
                 </span>
             </div>
 
-            {# Class owner - titulaire #}
+            {# Classroom owner - 'titulaire' #}
             <div class="form-row">
                 {{ form_label(form.owner, 'Owner'|trans) }}
                 {{ form_widget(form.owner) }}
@@ -51,7 +55,7 @@
                 </span>
             </div>
 
-            {# Class implantation #}
+            {# Classroom implantation #}
             <div class="form-row">
                 {{ form_label(form.implantation, 'Implantation'|trans) }}
                 {{ form_widget(form.implantation) }}
