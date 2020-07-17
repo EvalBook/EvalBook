@@ -15,7 +15,31 @@
 * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 **#}
 
-{#  #}
+
+{#
+   * Template used where a search on <table> or <select> is needed
+   * Usage :
+
+     1) Include this template
+           {% include '_partials/search.html.twig' %}
+
+     2) Include Js file in YOUR template:
+           {% block javascripts %} {{ encore_entry_script_tags('search') }} {% endblock %}
+
+     3) Table : Apply the class 'js-search-target' to the searchable <td> element(s) :
+           <td class="js-search-target">Searchable text</td>
+
+     4) Select: Apply the class 'js-searchable-select' to the searchable <select> element(s)
+           <select class='js-searchable-select'>
+               <option>Searchable use case one</option>
+               <option>Searchable use case two</option>
+           </select>
+
+     5) Envoy.
+
+#}
+
+{# Displayed only if current logged in user choose to display search boxes #}
 {% if config.showSearch %}
 
     {# Adding search box css style #}

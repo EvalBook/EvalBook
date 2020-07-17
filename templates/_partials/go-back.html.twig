@@ -15,6 +15,23 @@
 * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 **#}
 
+{#
+    * Provide a generic go back button based on referer
+
+    * Basic usage:
+        1) Include this template in YOUR file
+            {% include '_partials/go-back.html.twig' %}
+
+        2) Enjoy.
+
+    * Usage defining a specific route
+        1) Include this template in YOUR file providing route option
+            {% include '_partials/go-back.html.twig', with {'route': 'my_route'} %}
+
+        2) Enjoy.
+
+#}
+
 {% if route is defined %}
     {% set path = route %}
 {% else %}
