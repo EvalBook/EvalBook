@@ -15,6 +15,10 @@
 * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 **#}
 
+{#
+    * List available user classroom and provide a link to the notebook.
+#}
+
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'templates' %}
 
@@ -34,8 +38,13 @@
         <tbody>
         {% for classroom in classrooms %}
             <tr>
+                {# Implantation name #}
                 <td>{{ classroom.implantation }}</td>
+
+                {# Classroom name #}
                 <td>{{ classroom.name }}</td>
+
+                {# Classroom owner #}
                 <td>
                     {% if app.user is same as(classroom.owner) %}
                         <span><< <strong>{{ 'Me'|trans }}</strong> >></span>
@@ -43,6 +52,8 @@
                         {{ classroom.owner }}
                     {% endif%}
                 </td>
+
+                {# Classroom activities count #}
                 <td>
                     {% if classroom.activities|length > 0 %}
                         <a href="{{ path('note_book_view', {'classroom': classroom.id} ) }}" title="{{ 'View this notebook'|trans }}">
@@ -54,6 +65,7 @@
                 </td>
             </tr>
         {% else %}
+            {# No classroom found message #}
             <tr>
                 <td colspan="4" class="text-center">
                     {{ 'You do not have any class'|trans }}

@@ -15,6 +15,10 @@
 * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 **#}
 
+{#
+    * Notebook view.
+#}
+
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'templates' %}
 
@@ -37,7 +41,7 @@
                 </th>
                 {% for activity in classroom.activities %}
                     <th class="rotate">
-                        {# will be breaked later on #}
+                        {# FIXME will be breaked later on #}
                         <div><span>{{ activity.name|length > 35 ? activity.name|slice(0, 35) ~ '...' : activity.name }}</span></div>
                     </th>
                 {% endfor%}

@@ -15,6 +15,10 @@
 * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 **#}
 
+{#
+    * Form used to add new users.
+#}
+
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'templates' %}
 
@@ -28,6 +32,7 @@
 
 {% block body %}
     <div class="full-width flex column">
+        {# Include go back template #}
         {% include '_partials/go-back.html.twig' %}
 
         <div class="form-content">
