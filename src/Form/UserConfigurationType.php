@@ -32,7 +32,6 @@ class UserConfigurationType extends AbstractType
     {
         $builder
             ->add('showLogo', ChoiceType::class, ['choices' => $options['choices']])
-            ->add('showFooter', ChoiceType::class, ['choices' => $options['choices']])
             ->add('showHelp', ChoiceType::class, ['choices' => $options['choices']])
             ->add('showTitle', ChoiceType::class, ['choices' => $options['choices']])
             ->add('showSearch', ChoiceType::class, ['choices' => $options['choices']])

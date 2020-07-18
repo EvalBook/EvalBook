@@ -56,6 +56,28 @@ let Controls = {
         });
     },
 
+
+    /**
+     * Init the user top links menu on desktop.
+     */
+    initDesktopUserLinks: function() {
+        let userLinks = document.getElementById('user-links');
+        let menu = document.getElementById('user-links-toggle');
+
+        userLinks.addEventListener('click', function() {
+            let val = window.getComputedStyle(menu).getPropertyValue('display');
+            menu.style.display = (val === 'none') ? 'flex' : 'none';
+
+        });
+
+        // Hiding mobile menu on any content section.
+        window.addEventListener('click', function(event) {
+            if(event.target !== userLinks.firstElementChild) {
+                menu.style.display = 'none';
+            }
+        });
+    },
+
     /**
      * Init the page help message.
      */
@@ -82,3 +104,5 @@ Controls.init();
 if(window.innerWidth <= 800) {
     Controls.initMobileMenu();
 }
+
+Controls.initDesktopUserLinks();

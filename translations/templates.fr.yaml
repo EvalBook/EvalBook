@@ -195,6 +195,23 @@ Message: Message
 Attachement: Attachement
 Add as many mail addresses you need, each one seperated by a coma: Ajoutez toutes les addresses en les séparant par des virgules, ce champs est optionnel.
 View this notebook: Voir ce cachier de notes
+About: A propos
+Improve code: Améliorer le code
+EvalBook is totally free of use, you can also redistribute it and modify it following the EUPL licence: EvalBook est totalement gratuit, sentez vous libre de l'utiliser, de le modifier, ou encore de le redistribuer en suivant les règles imposées par la licence EUPL
+You want to contribute to EvalBook project ?: Vous souhaitez contribuer au projet EvalBook ?
+We need your help to: Nous avon besoin de vous pour
+Test application and report bugs: Tester l'application et reporter les bugs
+Implement new functionalities by coding: Implémenter de nouvelles fonctionnalités si vous êtes à l'aise avec le code
+Help us with english and dutch translations ( or any other else ): Nous aider avec les traductions en anglais et en néerlandais ( ou toute autre langue )
+You are not a coder / tester / master of translations ?: Vous n'êtes pas un développeur / testeur ou maitre de la traduction ?
+You can help us to pay for domain names, servers and add functionalities by making a uniq donation on: Vous pouvez aussi nous aider en faisant un don, cela nou permet de nous rembourser les noms de domaines, les différents serveurs. Cela nous permet également de pouvoir ajouter de nouvelles fonctionnalités à EvalBook
+Make a tip !: Faire un tip
+Make a kkbb donation: Faire un don KKBB
+Visit Jetbrain, our sponsor !: Visitez JetBrain, notre partenaire
+Visit Forsud, our sponsor !: Visitez Forsud, notre partenaire
+Follow us on github: Suivez nous sur Github
+Our partners: Nos partenaires
+Follow us: Suivez nous
 
 
 roles:
@@ -246,3 +263,4 @@ help:
   ROLE_CLASS_EDIT_STUDENTS: Ce rôle permet à un utilisateur d'assigner un ou plusieurs élèves à une classe.
   ROLE_CLASS_EDIT_USERS: Ce rôle permet d'attribuer le droit d'actions à un ou plusieurs utilisateurs sur une classe précise.
   ROLE_ADMIN: Le rôle admin peut absolument tout faire, à l'exception de l'édition de ses pairs.
+

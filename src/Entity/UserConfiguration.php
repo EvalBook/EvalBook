@@ -47,11 +47,6 @@ class UserConfiguration
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $showFooter;
-
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
     private $showHelp;
 
     /**
@@ -108,29 +103,6 @@ class UserConfiguration
     public function setShowLogo(?bool $showLogo): self
     {
         $this->showLogo = $showLogo;
-
-        return $this;
-    }
-
-
-    /**
-     * Return true if user want to see footer.
-     * @return bool|null
-     */
-    public function getShowFooter(): ?bool
-    {
-        return $this->showFooter || is_null($this->showFooter);
-    }
-
-
-    /**
-     * Set to true so the user will see the footer.
-     * @param bool|null $showFooter
-     * @return $this
-     */
-    public function setShowFooter(?bool $showFooter): self
-    {
-        $this->showFooter = $showFooter;
 
         return $this;
     }
@@ -303,7 +275,6 @@ class UserConfiguration
     {
         $this->setShowLogo(true);
         $this->setIsGlobalConfig(false);
-        $this->setShowFooter(true);
         $this->setShowHelp(true);
         $this->setShowTitle(true);
         $this->setShowSearch(true);

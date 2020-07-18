@@ -74,28 +74,32 @@
                     </div>
                 </div>
 
-                {# User top right links #}
+                {# Desktop user top right links #}
                 <div id="user-links">
-                    {# Logged in user profile #}
-                    <div class="menuTopIcon">
+                    <i class="fas fa-user-circle"></i>
+
+                    <div id="user-links-toggle">
+                        {# Logged in user profile #}
                         <a href="{{ path('user_profile') }}" title="User profile">
                             <i class="fas fa-user"></i>
                             <span>{{ app.user is defined ? (app.user.firstName ~ ' ' ~ app.user.lastName) : 'My profile'|trans }}</span>
                         </a>
-                    </div>
 
-                    {# Logged in user preferences / settings #}
-                    <div class="menuTopIcon">
+                        {# Logged in user preferences / settings #}
                         <a href="{{ path('user_settings') }}" title="User configuration">
                             <i class="fas fa-users-cog"></i> <span>{{ 'Configuration'|trans }}</span>
                         </a>
-                    </div>
 
-                    {# Logout path #}
-                    <div class="menuTopIcon">
+                        {# Logout path #}
                         <a href="{{ path('app_logout') }}" title="Log out">
                             <i class="fas fa-sign-out-alt"></i> <span>{{ 'Log out'|trans }}</span>
                         </a>
+
+                        {# About EvalBook #}
+                        <a href="{{ path('about') }}" title="About EvalBook">
+                            <i class="fas fa-info-circle"></i> <span>{{ 'About'|trans }}</span>
+                        </a>
+
                     </div>
                 </div>
 
@@ -285,22 +289,6 @@
             </div>
         </a>
     </nav>
-
-    {# Desktop only footer #}
-    {% if config.showFooter %}
-        <footer>
-            <p>
-                <i class="fab fa-github-alt"></i>
-                <span>{{ 'Source code on'|trans }} </span><a href="https://github.com/EvalBook/EvalBook" title="Eval book github repository"> Github</a>
-            </p>
-            <p>
-                <span>{{ 'Sponsors'|trans }}</span> <img src="{{ asset('build/jetbrains.png') }}" alt="JetBrains sponsor">
-                <a href="https://www.jetbrains.com" title="JetBrain support">
-                    <span>{{ 'JetBrains' }}</span>
-                </a>
-            </p>
-        </footer>
-    {% endif %}
 
 
     {# Include Javascript controls #}
