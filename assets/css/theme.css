@@ -8,7 +8,7 @@
 
 body {
     font-family: 'Raleway', sans-serif;
-    font-size: 0.70em;
+    font-size: 0.73em;
     background-color: var(--background-color);
     margin: 0;
     overflow: hidden;
@@ -45,7 +45,7 @@ h1 {
 }
 
 .container {
-    margin: 2%;
+    margin: 1.5%;
     display: flex;
     flex-direction: column;
     height: 92vh;
@@ -117,21 +117,16 @@ h1 {
     justify-content: space-between;
 }
 
-.menuTopIcon {
-    display: inline-block;
-    margin-left: 16px;
-}
-
-.menuTopIcon > i, header nav i {
+header nav i {
     font-size: 3em;
 }
 
-.menuTopIcon > span, #logo span, header nav span {
+#logo span, header nav span {
     font-size: 1em;
     margin-top: 10px;
 }
 
-.menuTopIcon > i:hover, .menuItem > i:hover, #mobile-top-nav i:hover {
+.menuItem > i:hover, #mobile-top-nav i:hover {
     animation: faMouseIn;
     animation-fill-mode: forwards;
     animation-duration: 0.8s;
@@ -167,6 +162,7 @@ header nav .menuItem, #mobile-menu .menuItem {
     display: none;
 }
 
+
 #mobile-menu-items {
     display: flex;
     background-color: white;
@@ -191,6 +187,37 @@ header nav .menuItem, #mobile-menu .menuItem {
 #mobile-menu-toggle i {
     width: 1em;
 }
+
+
+#user-links > i {
+    font-size: 2em;
+    color: var(--secondary-color);
+}
+
+#user-links > i:hover {
+    animation: faMouseIn;
+    animation-fill-mode: revert;
+    animation-duration: 0.2s;
+}
+
+#user-links-toggle {
+    display: none;
+    background: white;
+    box-shadow: 0 2px 35px -15px rgba(0,0,0,0.75);
+    /*display: flex;*/
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2em;
+    height: 9em;
+    position: absolute;
+    right: 2em;
+    top: 3.5em;
+}
+
+#user-links-toggle > a > i {
+    margin-right: 0.5em;
+}
+
 
 /**
  * Footer related.
@@ -299,6 +326,7 @@ button[type="submit"] {
     height: 26em;
     margin-right: 3em;
 }
+
 
 #change_password_form_plainPassword, #change_password_form_plainPassword div {
     display:flex;
@@ -526,9 +554,6 @@ tr:hover i, tr:hover a {
  */
 @media all and (max-width: 1370px) {
 
-    body {
-        font-size: 0.58em;
-    }
 }
 
 @media all and (max-width: 1050px) {

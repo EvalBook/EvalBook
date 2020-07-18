@@ -74,28 +74,32 @@
                     </div>
                 </div>
 
-                {# User top right links #}
+                {# Desktop user top right links #}
                 <div id="user-links">
-                    {# Logged in user profile #}
-                    <div class="menuTopIcon">
+                    <i class="fas fa-user-circle"></i>
+
+                    <div id="user-links-toggle">
+                        {# Logged in user profile #}
                         <a href="{{ path('user_profile') }}" title="User profile">
                             <i class="fas fa-user"></i>
                             <span>{{ app.user is defined ? (app.user.firstName ~ ' ' ~ app.user.lastName) : 'My profile'|trans }}</span>
                         </a>
-                    </div>
 
-                    {# Logged in user preferences / settings #}
-                    <div class="menuTopIcon">
+                        {# Logged in user preferences / settings #}
                         <a href="{{ path('user_settings') }}" title="User configuration">
                             <i class="fas fa-users-cog"></i> <span>{{ 'Configuration'|trans }}</span>
                         </a>
-                    </div>
 
-                    {# Logout path #}
-                    <div class="menuTopIcon">
+                        {# Logout path #}
                         <a href="{{ path('app_logout') }}" title="Log out">
                             <i class="fas fa-sign-out-alt"></i> <span>{{ 'Log out'|trans }}</span>
                         </a>
+
+                        {# TODO about #}
+                        <a href="{{ path('app_logout') }}" title="About EvalBook">
+                            <i class="fas fa-sign-out-alt"></i> <span>{{ 'About'|trans }}</span>
+                        </a>
+
                     </div>
                 </div>
 
