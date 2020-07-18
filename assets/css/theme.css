@@ -41,6 +41,7 @@ i {
 
 h1 {
     text-align: center;
+    margin-bottom: 0;
 }
 
 .container {
@@ -141,8 +142,8 @@ h1 {
  * Navigation.
  */
 nav {
-    margin-top: 2em;
-    height: 6.5em; /* To keep it in proportions */
+    margin-top: 1.5em;
+    height: 6.3em; /* To keep it in proportions */
     background-color: #e8e8e8;
     /*box-shadow: 1px 1px #eaaf19;*/
     box-shadow: 0 2px 35px -15px rgba(0,0,0,0.75);
@@ -526,7 +527,7 @@ tr:hover i, tr:hover a {
 @media all and (max-width: 1370px) {
 
     body {
-        font-size: 0.65em;
+        font-size: 0.58em;
     }
 }
 
