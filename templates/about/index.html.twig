@@ -1,0 +1,82 @@
+{#**
+* Copyleft (c) 2020 EvalBook
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the European Union Public Licence (EUPL V 1.2),
+* version 1.2 (or any later version).
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* European Union Public Licence for more details.
+*
+* You should have received a copy of the European Union Public Licence
+* along with this program. If not, see
+* https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+**#}
+
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block pageTitle %} {{ 'About'|trans }} {% endblock %}
+{% block title %} {{ 'About'|trans }} {% endblock %}
+
+
+
+{% block body %}
+    <div class="full-width">
+        <div class="about">
+            <p>{{ 'EvalBook is totally free of use, you can also redistribute it and modify it following the EUPL licence'|trans }}</p>
+
+            <h2>{{ 'You want to contribute to EvalBook project ?'|trans }} </h2>
+
+            <div id="coding-support">
+                <p>{{ 'We need your help to'|trans }}</p>
+                <ul>
+                    <li><i class="fas fa-check"></i><span>{{ 'Improve code'|trans }}</span></li>
+                    <li><i class="fas fa-check"></i><span>{{ 'Test application and report bugs'|trans }}</span></li>
+                    <li><i class="fas fa-check"></i><span>{{ 'Implement new functionalities by coding'|trans }}</span></li>
+                    <li><i class="fas fa-check"></i><span>{{ 'Help us with english and dutch translations ( or any other else )'|trans }}</span></li>
+                </ul>
+            </div>
+
+            <div id="financial-support">
+                <p>{{ 'You are not a coder / tester / master of translations ?'|trans }} </p>
+                <p>{{ 'You can help us to pay for domain names, servers and add functionalities by making a uniq donation on'|trans }}</p>
+
+                <div class="flex space-around">
+                    {# Tipeee donation #}
+                    <a href="#" title="Tipeee">
+                        <img src="{{ asset('build/tipeee_logo.png') }}" alt="{{ 'Make a tip !'|trans }}">
+                    </a>
+
+                    {# KissKissBankBank donation #}
+                    <a href="#" title="KissKissBankbank">
+                        <img src="{{ asset('build/kisskiss_logo.png') }}" alt="{{ 'Make a kkbb donation'|trans}}">
+                    </a>
+                </div>
+            </div>
+
+            <h2>{{ 'Our partners'|trans }}</h2>
+            <div class="flex space-around">
+                {# Jetbrain support #}
+                <a href="https://www.jetbrains.com" title="Jetbrain support">
+                    <img src="{{ asset('build/jetbrains.png') }}" alt="{{ 'Visit Jetbrain, our sponsor !'|trans }}">
+                </a>
+
+                {# Forsud support #}
+                <a href="https://www.forsud.be" title="Forsud sponsor">
+                    <img src="{{ asset('build/forsud.png') }}" alt="{{ 'Visit Forsud, our sponsor !'|trans }}">
+                </a>
+            </div>
+
+            <h2>{{ 'Follow us'|trans }}</h2>
+            <ul>
+                <li>
+                    <i class="fab fa-github-alt"></i>
+                    <a href="https://github.com/EvalBook/EvalBook">{{ 'Follow us on github'|trans }}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
