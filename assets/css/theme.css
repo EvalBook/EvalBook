@@ -48,7 +48,7 @@ h1 {
     margin: 1.5%;
     display: flex;
     flex-direction: column;
-    height: 92vh;
+    height: 94vh;
 }
 
 .modal-center {
@@ -220,9 +220,9 @@ header nav .menuItem, #mobile-menu .menuItem {
 
 
 /**
- * Footer related.
+ * Mobile footer related.
  */
-footer, #mobile-menu {
+#mobile-menu {
     position: fixed;
     left: 3em;
     right: 3em;
@@ -244,36 +244,6 @@ footer, #mobile-menu {
     font-size: 3.5em;
 }
 
-footer p {
-    padding-left: 1em;
-    width: 50%;
-    display: flex;
-    justify-content: flex-start;
-}
-
-footer p:last-child {
-    justify-content: flex-end;
-    margin-right: 1em;
-}
-
-footer img {
-    width: 2.5em;
-    height: 2.5em;
-    align-self: center;
-}
-
-footer a {
-    color: var(--secondary-color);
-}
-
-footer nav {
-    margin-top: 0.2em;
-    box-shadow: none;
-}
-
-footer span, footer a {
-    margin-left: 0.5em;
-}
 
 /**
  * Forms and forms elements.
@@ -595,7 +565,7 @@ tr:hover i, tr:hover a {
  */
 @media all and (max-width: 800px) {
 
-    #user-links, header > nav, footer p, #add-functionality, #logo-mini {
+    #user-links, header > nav, #add-functionality, #logo-mini {
         display: none;
     }
 
@@ -605,10 +575,6 @@ tr:hover i, tr:hover a {
 
     #mobile-menu, #mobile-contact-actions {
         display: flex;
-    }
-
-    footer {
-        display: none;
     }
 
     .width-25-percent {

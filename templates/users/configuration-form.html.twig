@@ -50,15 +50,6 @@
                     </span>
                 </div>
 
-                {# Choice: Interface footer #}
-                <div class="width-25-percent">
-                    {{ form_label(form.showFooter, 'Display the footer'|trans) }}
-                    {{ form_widget(form.showFooter, {'attr': {'class': 'width-100'}}) }}
-                    <span class="form-error">
-                        {{ form_errors(form.showFooter) }}
-                    </span>
-                </div>
-
                 {# Choice: Display help button / messages #}
                 <div class="width-25-percent">
                     {{ form_label(form.showHelp, 'Display help next to titles'|trans) }}
@@ -68,10 +59,6 @@
                     </span>
                 </div>
 
-            </div>
-
-            <div class="form-row display-row">
-
                 {# Choice: Display search box #}
                 <div class="width-25-percent">
                     {{ form_label(form.showSearch, 'Display the search bar'|trans) }}
@@ -80,6 +67,10 @@
                         {{ form_errors(form.showSearch) }}
                     </span>
                 </div>
+
+            </div>
+
+            <div class="form-row display-row">
 
                 {# Choice: Display pages title #}
                 <div class="width-25-percent">

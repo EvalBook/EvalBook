@@ -290,22 +290,6 @@
         </a>
     </nav>
 
-    {# Desktop only footer #}
-    {% if config.showFooter %}
-        <footer>
-            <p>
-                <i class="fab fa-github-alt"></i>
-                <span>{{ 'Source code on'|trans }} </span><a href="https://github.com/EvalBook/EvalBook" title="Eval book github repository"> Github</a>
-            </p>
-            <p>
-                <span>{{ 'Sponsors'|trans }}</span> <img src="{{ asset('build/jetbrains.png') }}" alt="JetBrains sponsor">
-                <a href="https://www.jetbrains.com" title="JetBrain support">
-                    <span>{{ 'JetBrains' }}</span>
-                </a>
-            </p>
-        </footer>
-    {% endif %}
-
 
     {# Include Javascript controls #}
     {{ encore_entry_script_tags('controls') }}
