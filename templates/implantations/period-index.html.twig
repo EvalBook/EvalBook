@@ -145,9 +145,6 @@
     </div>
 {% endblock %}
 
-{# Add button desktop / mobile #}
-{% set params = {'role': 'ROLE_IMPLANTATION_EDIT', 'route': 'implantation_period_add', 'params': {'id': implantation.id}} %}
-{% block functionnalitiesMobile %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
 
 {# Include Javascript files #}
 {% block javascripts %}

@@ -150,9 +150,6 @@
     </table>
 {% endblock %}
 
-{# Add button desktop / mobile #}
-{% set params = {'role': 'ROLE_IMPLANTATION_CREATE', 'route': 'implantation_add'} %}
-{% block functionnalitiesMobile %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
 
 {# Needed Javascript files #}
 {% block javascripts %}

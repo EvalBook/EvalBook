@@ -80,10 +80,6 @@
 {% endblock %}
 
 
-{# Add button desktop / mobile #}
-{% set params = {'role': 'ROLE_STUDENT_EDIT', 'route': 'student_add_contact', 'params': {'id': student.id}} %}
-{% block functionnalitiesMobile %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
-
 {# Include needed Javascript files #}
 {% block javascripts %}
     {{ encore_entry_script_tags('modalDialogs') }}

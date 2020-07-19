@@ -182,15 +182,6 @@
 {% endblock %}
 
 
-{# Mobile - Add activity #}
-{% block functionnalitiesMobile %}
-    {% if is_granted('ROLE_CLASS_CREATE') %}
-        <a href="{{ path('classroom_add') }}" title="Add class">
-            <i class="fas fa-plus"></i>
-        </a>
-    {% endif %}
-{% endblock %}
-
 {# Import needed Javascripts #}
 {% block javascripts %}
     {{ encore_entry_script_tags('modalDialogs') }}

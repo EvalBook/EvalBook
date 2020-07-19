@@ -147,9 +147,6 @@
     </table>
 {% endblock %}
 
-{# Add button desktop / mobile #}
-{% set params = {'role': 'ROLE_STUDENT_CREATE', 'route': 'student_add'} %}
-{% block functionnalitiesMobile %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
 
 {# Include needed Javascript files #}
 {% block javascripts %}

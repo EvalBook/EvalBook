@@ -140,7 +140,7 @@ header nav .menuItem, #mobile-menu .menuItem {
 
 .add-button {
     color: var(--secondary-color);
-    margin-left: 0.5em;
+    margin-left: 0.3em;
 }
 
 #mobile-top-nav {
@@ -153,7 +153,6 @@ header nav .menuItem, #mobile-menu .menuItem {
     box-shadow: 0 0 4px var(--secondary-color);
     position: absolute;
     width: 22em;
-    top: 4em;
     user-select: none;
 }
 
@@ -162,7 +161,7 @@ header nav .menuItem, #mobile-menu .menuItem {
     line-height: 3em;
 }
 
-#mobile-menu-toggle, #mobile-add-functionality {
+#mobile-menu-toggle {
     display: none;
     font-size: 2em;
     margin-right: 0.8em;
@@ -549,11 +548,15 @@ tr:hover i, tr:hover a {
  */
 @media all and (max-width: 800px) {
 
+    .add-button {
+        margin-left: 0.1em;
+    }
+
     #user-links, header > nav, #logo-mini {
         display: none;
     }
 
-    #mobile-menu-toggle, #mobile-add-functionality {
+    #mobile-menu-toggle {
         display: inline-block;
     }
 

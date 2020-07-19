@@ -149,16 +149,6 @@
 {% endblock %}
 
 
-{# Mobile - Add activity #}
-{% block functionnalitiesMobile %}
-    {% if classrooms|length > 0 %}
-        <a href="{{ path('activity_add') }}" title="Add activity">
-            <i class="fas fa-plus"></i>
-        </a>
-    {% endif %}
-{% endblock %}
-
-
 {# Import needed Javascripts #}
 {% block javascripts %}
     {{ encore_entry_script_tags('modalDialogs') }}
