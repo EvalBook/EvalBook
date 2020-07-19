@@ -299,10 +299,19 @@ button[type="submit"] {
     padding: 0;
 }
 
-.form-error {
+.form-error, .form-info {
     font-size: 0.8em;
     color: #D98484;
     font-weight: bold;
+}
+
+.form-info {
+    color: inherit;
+}
+
+.form-info a {
+    color: var(--secondary-color);
+    margin-left: 0.2em;
 }
 
 .form-row {

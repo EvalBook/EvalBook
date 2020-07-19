@@ -42,6 +42,10 @@
             <div class="form-row">
                 {{ form_label(form.noteType, 'Note type'|trans) }}
                 {{ form_widget(form.noteType) }}
+                <span class="form-info">
+                    {{ 'Select a note type or'|trans }}
+                    <a href="{{ '#' }}">{{ 'add a new one'|trans }}</a>
+                </span>
             </div>
 
             {# Activity name #}
