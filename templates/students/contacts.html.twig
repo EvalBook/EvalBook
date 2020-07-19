@@ -23,12 +23,26 @@
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %} {{ 'Student contacts' | trans }} {% endblock %}
-{% block title %} {{ 'Student contacts' | trans }} {% endblock %}
+
+
+{% block title %}
+    {{ 'Student contacts' | trans }}
+
+    {# Desktop add student contact button #}
+    {% if is_granted('ROLE_STUDENT_EDIT') %}
+        <a href="{{ path('student_add_contact', {'id': student.id}) }}" title="Add student contact" class="add-button">
+            <i class="fas fa-plus"></i>
+        </a>
+    {% endif %}
+
+{% endblock %}
+
 
 {% block titleBottom %}
     {% set placeholder = 'Search for contact'|trans %}
     {% include '_partials/search.html.twig' %}
 {% endblock %}
+
 
 {% block body %}
 <div class="full-width">
@@ -68,7 +82,6 @@
 
 {# Add button desktop / mobile #}
 {% set params = {'role': 'ROLE_STUDENT_EDIT', 'route': 'student_add_contact', 'params': {'id': student.id}} %}
-{% block functionnalities %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
 {% block functionnalitiesMobile %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
 
 {# Include needed Javascript files #}

@@ -22,7 +22,7 @@
 
         1) Include this template in YOUR file providing route option
             {% set params = {'role': 'ROLE_STUDENT_CREATE', 'route': 'student_add'} %}
-            {% include '_partials/add-button.html.twig', with params %}
+            {% include '_partials/add-button.html.twig' with params %}
 
             Where => 'role'  is the rôle the user must own to see the + button.
                   => 'route' is the route to apply in case of the user rôle match the provided role.

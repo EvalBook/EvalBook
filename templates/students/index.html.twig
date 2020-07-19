@@ -23,18 +23,30 @@
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %} {{ 'Students' | trans }} {% endblock %}
+
 {% block title %}
     {{ 'Students' | trans }}
+
     {# Include help message button #}
     {% set help = {'title': 'students.title', 'intro': 'intro', 'actions': 'students.actions'} %}
     {% include 'help/help-dialog.html.twig' %}
+
+    {# Desktop add student button #}
+    {% if is_granted('ROLE_STUDENT_CREATE') %}
+        <a href="{{ path('student_add') }}" title="Add student" class="add-button">
+            <i class="fas fa-plus"></i>
+        </a>
+    {% endif %}
+
 {% endblock %}
+
 
 {% block titleBottom %}
     {# Include search box #}
     {% set placeholder = 'Search for student'|trans %}
     {% include '_partials/search.html.twig' %}
 {% endblock %}
+
 
 {% block body %}
     {#
@@ -137,7 +149,6 @@
 
 {# Add button desktop / mobile #}
 {% set params = {'role': 'ROLE_STUDENT_CREATE', 'route': 'student_add'} %}
-{% block functionnalities %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
 {% block functionnalitiesMobile %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
 
 {# Include needed Javascript files #}

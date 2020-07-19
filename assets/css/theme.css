@@ -73,26 +73,6 @@ h1 {
 }
 
 
-#add-functionality {
-    position: absolute;
-    top: 18em;
-    right: 4em;
-}
-
-#add-functionality.position-minus {
-    top: 16.5em !important;
-}
-
-#add-functionality.position-minus {
-    top: 14em !important;
-}
-
-
-#add-functionality i {
-    font-size: 3em;
-    color: var(--secondary-color);
-}
-
 .go-back {
     font-size: 4em;
     margin-top: -0.3em;
@@ -158,10 +138,14 @@ header nav .menuItem, #mobile-menu .menuItem {
     justify-content: center;
 }
 
+.add-button {
+    color: var(--secondary-color);
+    margin-left: 0.5em;
+}
+
 #mobile-top-nav {
     display: none;
 }
-
 
 #mobile-menu-items {
     display: flex;
@@ -565,7 +549,7 @@ tr:hover i, tr:hover a {
  */
 @media all and (max-width: 800px) {
 
-    #user-links, header > nav, #add-functionality, #logo-mini {
+    #user-links, header > nav, #logo-mini {
         display: none;
     }
 

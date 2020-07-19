@@ -20,10 +20,10 @@
 #}
 
 {% extends 'base.html.twig' %}
-
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %}{{ 'Add notes' | trans }}{% endblock %}
+
 
 {% block title %}
     {{ 'Add notes for this activity' | trans }}
@@ -32,6 +32,7 @@
     {% set help = {'title': 'notes.title', 'intro': 'notes.intro', 'actions': 'notes.use'} %}
     {% include 'help/help-dialog.html.twig' %}
 {% endblock %}
+
 
 {% block body %}
     {% if form.notes|length > 0 %}

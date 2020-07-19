@@ -23,18 +23,30 @@
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %} {{ 'Activities'|trans }} {% endblock %}
+
 {% block title %}
     {{ 'Activities'|trans }}
+
     {# Display the help dialog with related text #}
     {% set help = {'title': 'activities.title', 'intro': 'activities.intro', 'actions': 'activities.actions'} %}
     {% include 'help/help-dialog.html.twig' %}
+
+    {# Desktop add activity button #}
+    {% if classrooms|length > 0 %}
+        <a href="{{ path('activity_add') }}" title="Add activity" class="add-button">
+            <i class="fas fa-plus"></i>
+        </a>
+    {% endif %}
+
 {% endblock %}
+
 
 {% block titleBottom %}
     {# Display the search box #}
     {% set placeholder = 'Search for activity'|trans %}
     {% include '_partials/search.html.twig' %}
 {% endblock %}
+
 
 {% block body %}
     {#
@@ -136,14 +148,6 @@
 
 {% endblock %}
 
-{# Desktop - Add activity #}
-{% block functionnalities %}
-    {% if classrooms|length > 0 %}
-        <a href="{{ path('activity_add') }}" title="Add activity">
-            <i class="fas fa-plus"></i>
-        </a>
-    {% endif %}
-{% endblock %}
 
 {# Mobile - Add activity #}
 {% block functionnalitiesMobile %}
@@ -153,6 +157,7 @@
         </a>
     {% endif %}
 {% endblock %}
+
 
 {# Import needed Javascripts #}
 {% block javascripts %}

@@ -25,9 +25,18 @@
 {% block pageTitle %} {{ 'Users' | trans }} {% endblock %}
 {% block title %}
     {{ 'Users' | trans }}
+
     {# Include help message button #}
     {% set help = {'title': 'users.title', 'intro': 'intro', 'actions': 'users.actions'} %}
     {% include 'help/help-dialog.html.twig' %}
+
+    {# Desktop add user button #}
+    {% if is_granted('ROLE_USER_CREATE') %}
+        <a href="{{ path('user_add') }}" title="Add user" class="add-button">
+            <i class="fas fa-plus"></i>
+        </a>
+    {% endif %}
+
 {% endblock %}
 
 {% block titleBottom %}
@@ -140,9 +149,8 @@
     </table>
 {% endblock %}
 
-{# Add button desktop / mobile #}
+{# Add button mobile #}
 {% set params = {'role': 'ROLE_USER_CREATE', 'route': 'user_add'} %}
-{% block functionnalities %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
 {% block functionnalitiesMobile %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
 
 {# Include Javascript files. #}
