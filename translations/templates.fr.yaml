@@ -214,6 +214,7 @@ Our partners: Nos partenaires
 Follow us: Suivez nous
 Select a note type or: Selectionnez un type de note
 add a new one: ou ajoutez en un nouveau
+Unable to add new activities, no active period detected: Impossible d'ajouter une nouvelle activité, aucune période ouverte n'a été détectée.
 
 
 roles:
@@ -265,4 +266,3 @@ help:
   ROLE_CLASS_EDIT_STUDENTS: Ce rôle permet à un utilisateur d'assigner un ou plusieurs élèves à une classe.
   ROLE_CLASS_EDIT_USERS: Ce rôle permet d'attribuer le droit d'actions à un ou plusieurs utilisateurs sur une classe précise.
   ROLE_ADMIN: Le rôle admin peut absolument tout faire, à l'exception de l'édition de ses pairs.
-
