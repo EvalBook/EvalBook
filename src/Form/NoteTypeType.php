@@ -13,7 +13,11 @@ class NoteTypeType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('ponderation')
+            ->add('description')
+            ->add('minimum')
+            ->add('interval')
+            ->add('maximum')
+            ->add('coefficient')
         ;
     }
 
