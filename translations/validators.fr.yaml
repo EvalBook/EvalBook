@@ -111,6 +111,7 @@ Error: Erreur
 'This form should not contain extra fields.': 'Ce formulaire ne doit pas contenir des champs supplémentaires.'
 'The uploaded file was too large. Please try to upload a smaller file.': 'Le fichier téléchargé est trop volumineux. Merci d''essayer d''envoyer un fichier plus petit.'
 'The CSRF token is invalid. Please try to resubmit the form.': 'Le jeton CSRF est invalide. Veuillez renvoyer le formulaire.'
+'Coefficient should be between 1 and 10': 'Le coefficient doit se situer entre 1 et 10'
 
 implantation:
   name-too-short: Le nom de l'implantation doit comporter plus de 4 lettres.
@@ -139,8 +140,10 @@ period:
 activity:
   name-empty: Le nom de l'activité ne peut être vide
 
-noteType:
-  name-empty: Nom du type de note vide
-
 field:
   empty: Ce champs ne peut être vide
+
+noteType:
+  name-empty: Le nom du type de note ne peut être vide
+  field-too-short: Ce champs est trop court
+  field-too-long: Ce champs est trop long

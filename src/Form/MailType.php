@@ -19,7 +19,6 @@ namespace App\Form;
  * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
  **/
 
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
