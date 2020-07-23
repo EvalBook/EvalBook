@@ -63,25 +63,26 @@ class DataFixtures extends Fixture implements ContainerAwareInterface, FixtureIn
 
         // A..F interval
         $noteType1 = new NoteType();
-        $noteType1->setName("A..F");
-        $noteType1->setPonderation("A..F");
+        $noteType1->setName("A..F coeff 1")
+                  ->setDescription("Notation de A à F coefficient 1")
+                  ->setMaximum('A')
+                  ->setMinimum('F')
+                  ->setIntervals(['B', 'C', 'D', 'E'])
+                  ->setCoefficient(1);
 
         $noteType2 = new NoteType();
-        $noteType2->setName("A..Z");
-        $noteType2->setPonderation("A..Z");
+        $noteType2->setName("A..Z coeff 1")
+                  ->setDescription("Notation de A à Z coefficient 1")
+                  ->setMaximum('A')
+                  ->setMinimum('Z')
+                  ->setIntervals(['B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
+                                 'T', 'U', 'V', 'W', 'X', 'Y'])
+                  ->setCoefficient(1);
 
         $em->persist($noteType1);
         $em->persist($noteType2);
         $notesTypes[] = $noteType1;
         $notesTypes[] = $noteType2;
-
-        for($i = 5; $i <= 100; $i += 5) {
-            $nt = new NoteType();
-            $nt->setName("0..$i");
-            $nt->setPonderation("0..$i");
-            $em->persist($nt);
-            $notesTypes[] = $nt;
-        }
 
 
         // Creating Users.
@@ -215,22 +216,8 @@ class DataFixtures extends Fixture implements ContainerAwareInterface, FixtureIn
      */
     private function generateNote(NoteType $noteType, \Faker\Generator $faker)
     {
-
-        $lower = strtolower(substr($noteType->getPonderation(), 0, strpos($noteType->getPonderation(), '.')));
-        $higher = strtolower(substr($noteType->getPonderation(), 1 + strrpos($noteType->getPonderation(), '.')));
-
-        // Check format.
-        if (!is_numeric($lower)) {
-
-            $data = [];
-            for ($i = ord($lower); $i <= ord($higher); $i++) {
-                $data[] = chr($i);
-            }
-
-            return $faker->randomElement($data);
-        }
-
-        return $faker->randomNumber(strlen($higher));
+        $notes = array_merge([$noteType->getMinimum(), $noteType->getMaximum()], $noteType->getIntervals());
+        return $faker->randomElement($notes);
     }
 
 

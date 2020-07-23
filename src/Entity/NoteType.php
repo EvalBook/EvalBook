@@ -54,14 +54,14 @@ class NoteType
     private $maximum;
 
     /**
-     * @ORM\Column(type="array", length=255)
+     * @ORM\Column(type="array")
      */
-    private $interval;
+    private $intervals;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $coef;
+    private $coefficient;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Activity", mappedBy="noteType")
@@ -104,7 +104,7 @@ class NoteType
      * Return the NoteType description.
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -168,11 +168,11 @@ class NoteType
 
     /**
      * Return the allowed note intervals.
-     * @return string|null
+     * @return array|null
      */
-    public function getInterval(): ?string
+    public function getIntervals(): ?array
     {
-        return $this->interval;
+        return $this->intervals;
     }
 
 
@@ -181,9 +181,9 @@ class NoteType
      * @param array $intervals
      * @return $this
      */
-    public function setInterval(array $intervals): self
+    public function setIntervals(array $intervals): self
     {
-        $this->interval = $intervals;
+        $this->intervals = $intervals;
         return $this;
     }
 
@@ -191,20 +191,20 @@ class NoteType
      * Return the note type coefficient.
      * @return int|null
      */
-    public function getCoef(): ?int
+    public function getCoefficient(): ?int
     {
-        return $this->coef || 0;
+        return $this->coefficient || 0;
     }
 
 
     /**
      * Set the NoteType coefficient.
-     * @param int $coef
+     * @param int $coefficient
      * @return $this
      */
-    public function setCoef(int $coef): self
+    public function setCoefficient(int $coefficient): self
     {
-        $this->coef = $coef;
+        $this->coefficient = $coefficient;
         return $this;
     }
 
