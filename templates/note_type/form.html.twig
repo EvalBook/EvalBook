@@ -7,21 +7,97 @@
 
 {% block body %}
 
-<table class="full-width">
-    <thead>
-    <tr>
-        <th>{{ 'Class'|trans }}</th>
-        <th class="text-center mobile-hidden-td">{{ 'Delete'|trans }}</th>
-    </tr>
-    </thead>
+<div class="full-width flex column">
+    {% include '_partials/go-back.html.twig' %}
+    {# Add new note type form #}
+    <div class="form-content">
+        {{ form_start(form) }}
 
-    <tbody>
+        <div class="full-width flex">
+            {# Note type friendly name #}
+            <div class="form-row width-50-percent margins">
+                {{ form_label(form.name, 'Name'|trans) }}
+                {{ form_widget(form.name) }}
+                <span class="form-info">
+                    {{ 'This name is used to identity your note type while adding a new activity'|trans }}
+                </span>
+                <span class="form-error width-50-percent">
+                    {{ form_errors(form.name) }}
+                </span>
+            </div>
 
-    </tbody>
+            {# Note type coefficient #}
+            <div class="form-row width-50-percent margins">
+                {{ form_label(form.coefficient, 'Coefficient to apply'|trans) }}
+                {{ form_widget(form.coefficient) }}
+                <span class="form-info">
+                    {{ 'The default coefficient is 1'|trans }}
+                </span>
+                <span class="form-error">
+                    {{ form_errors(form.coefficient) }}
+                </span>
+            </div>
+        </div>
 
-</table>
-    {% for noteType in availableNoteTypes %}
+        {# Note type description short #}
+        <div class="form-row margins">
+            {{ form_label(form.description, 'Description'|trans) }}
+            {{ form_widget(form.description) }}
+            <span class="form-info">
+                {{ 'A short description on how to use your note type'|trans }}
+            </span>
+            <span class="form-error">
+                {{ form_errors(form.description) }}
+            </span>
+        </div>
 
-    {% endfor %}
+        <div class="full-width flex">
+            {# Note type maximum note #}
+            <div class="form-row width-50-percent margins">
+                {{ form_label(form.maximum, 'Maximum note'|trans) }}
+                {{ form_widget(form.maximum) }}
+                <span class="form-info">
+                    {{ 'The maximum allowable note'|trans }}
+                </span>
+                <span class="form-error">
+                    {{ form_errors(form.maximum) }}
+                </span>
+            </div>
 
+            {# Note type minimum note #}
+            <div class="form-row width-50-percent margins">
+                {{ form_label(form.minimum, 'Minimum note'|trans) }}
+                {{ form_widget(form.minimum) }}
+                <span class="form-info">
+                    {{ 'The minimum allowable note'|trans }}
+                </span>
+                <span class="form-error">
+                        {{ form_errors(form.minimum) }}
+                    </span>
+            </div>
+        </div>
+
+        {# Note type intervals #}
+        <div class="form-row">
+            {{ form_label(form.intervals, 'Intervals'|trans) }}
+            {{ form_widget(form.intervals) }}
+            <span class="form-info">
+                {{ 'The intervals are all available notes between MAX and MIN, ex A(MAX), B, C, D(MIN)'|trans }}
+            </span>
+            <span class="form-error">
+                {{ form_errors(form.intervals) }}
+            </span>
+        </div>
+
+
+        {# Submit button #}
+        {{ form_row(form.submit, {
+            'label': 'Send'|trans,
+            'attr': {'class': 'margin-15'},
+        }) }}
+
+        {{ form_end(form) }}
+    </div>
+
+</div>
 {% endblock %}

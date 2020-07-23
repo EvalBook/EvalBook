@@ -419,6 +419,11 @@ tr:hover i, tr:hover a {
     margin-right: 5px;
 }
 
+.margins {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 .full-width {
     width: 100%;
 }

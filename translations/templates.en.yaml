@@ -215,6 +215,17 @@ Follow us: Follow us
 Select a note type or: Select a note type or
 add a new one: add a new one
 Unable to add new activities, no active period detected: Unable to add new activities, no active period detected
+This name is used to identity your note type while adding a new activity: This name is used to identity your note type while adding a new activity
+Coefficient to apply: Coefficient to apply
+The default coefficient is 1: The default coefficient is 1
+Description: Description
+A short description on how to use your note type: A short description on how to use your note type
+Maximum note: Maximum note
+The maximum allowable note: The maximum allowable note
+Minimum note: Minimum note
+The minimum allowable note: The minimum allowable note
+Intervals: Intervals
+The intervals are all available notes between MAX and MIN, ex A(MAX), B, C, D(MIN): The intervals are all available notes between MAX and MIN, ex A(MAX), B, C, D(MIN)
 
 
 roles:

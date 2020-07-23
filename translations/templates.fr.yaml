@@ -215,6 +215,17 @@ Follow us: Suivez nous
 Select a note type or: Selectionnez un type de note
 add a new one: ou ajoutez en un nouveau
 Unable to add new activities, no active period detected: Impossible d'ajouter une nouvelle activité, aucune période ouverte n'a été détectée.
+This name is used to identity your note type while adding a new activity: 'templates'
+Coefficient to apply: Coefficient à appliquer
+The default coefficient is 1: Le coefficient par défaut est 1
+Description: Description
+A short description on how to use your note type: Une description courte expliquant comment utiliser ce type de notes
+Maximum note: Note maximale
+The maximum allowable note: Note maximale attribuable aux élèves
+Minimum note: Note minimale
+The minimum allowable note: Note minimale attribuable aux élèves
+Intervals: Intervales
+The intervals are all available notes between MAX and MIN, ex A(MAX), B, C, D(MIN): Toutes les notes possibles attribuables entre MAX et MIN, séparées par une virgule. Ex pour une note de 1 à 5 -> 2,3,4
 
 
 roles:
