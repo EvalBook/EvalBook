@@ -23,12 +23,24 @@
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %} {{ 'Classes' | trans }} {% endblock %}
+
+
 {% block title %}
     {{ 'Classes' | trans }}
+
     {# Display the help message button #}
     {% set help = {'title': 'classes.title', 'intro': 'intro', 'actions': 'classes.actions'} %}
     {% include 'help/help-dialog.html.twig' %}
+
+    {# Desktop add classroom button #}
+    {% if is_granted('ROLE_CLASS_CREATE') %}
+        <a href="{{ path('classroom_add') }}" title="Add class" class="add-button">
+            <i class="fas fa-plus"></i>
+        </a>
+    {% endif %}
+
 {% endblock %}
+
 
 {% block titleBottom %}
     {% set placeholder = 'Search for class'|trans %}
@@ -169,23 +181,6 @@
     </table>
 {% endblock %}
 
-{# Desktop - Add activity #}
-{% block functionnalities %}
-    {% if is_granted('ROLE_CLASS_CREATE') %}
-        <a href="{{ path('classroom_add') }}" title="Add class">
-            <i class="fas fa-plus"></i>
-        </a>
-    {% endif %}
-{% endblock %}
-
-{# Mobile - Add activity #}
-{% block functionnalitiesMobile %}
-    {% if is_granted('ROLE_CLASS_CREATE') %}
-        <a href="{{ path('classroom_add') }}" title="Add class">
-            <i class="fas fa-plus"></i>
-        </a>
-    {% endif %}
-{% endblock %}
 
 {# Import needed Javascripts #}
 {% block javascripts %}

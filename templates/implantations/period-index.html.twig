@@ -23,12 +23,24 @@
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %} {{ 'Periods' | trans }} {% endblock %}
+
+
 {% block title %}
     {{ 'Periods' | trans }}
+
     {# Include help message button #}
     {% set help = {'title': 'periods.title', 'intro': 'periods.intro', 'actions': 'periods.actions'} %}
     {% include 'help/help-dialog.html.twig' %}
+
+    {# Desktop add implantation period button #}
+    {% if is_granted('ROLE_IMPLANTATION_EDIT') %}
+        <a href="{{ path('implantation_period_add', {'id': implantation.id}) }}" title="Add implantation period" class="add-button">
+            <i class="fas fa-plus"></i>
+        </a>
+    {% endif %}
+
 {% endblock %}
+
 
 {% block body %}
     {#
@@ -133,10 +145,6 @@
     </div>
 {% endblock %}
 
-{# Add button desktop / mobile #}
-{% set params = {'role': 'ROLE_IMPLANTATION_EDIT', 'route': 'implantation_period_add', 'params': {'id': implantation.id}} %}
-{% block functionnalities %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
-{% block functionnalitiesMobile %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
 
 {# Include Javascript files #}
 {% block javascripts %}

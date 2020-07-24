@@ -63,11 +63,6 @@
 
                 {# Mobile top actions#}
                 <div id="mobile-header">
-                    {# Mobile - Define a space to display the + button ( or whatever you want ) #}
-                    <div id="mobile-add-functionality">
-                        {% block functionnalitiesMobile %} {% endblock %}
-                    </div>
-
                     {# Mobile - display the menu click element #}
                     <div id="mobile-menu-toggle">
                         <i class="fas fa-ellipsis-h"></i>
@@ -226,18 +221,6 @@
 
                 {# Define a block containg elements above the main page title, the search box for exemple #}
                 {% block titleBottom %} {% endblock %}
-
-                {# Define add fonctionnality block and positioning ( + button on student / classrooms / users... pages )#}
-                {% if config.showLogo is same as (false) or config.showSearch is same as (false) %}
-                    {% set suppClass = 'position-minus' %}
-                {% elseif config.showLogo is same as (false) and config.showSearch is same as (false) %}
-                    {% set suppClass = 'position-minus2' %}
-                {% else %}
-                    {% set suppClass = '' %}
-                {% endif %}
-                <div id="add-functionality" class="{{ suppClass }}">
-                    {% block functionnalities %} {% endblock %}
-                </div>
 
             </div>
         </header>

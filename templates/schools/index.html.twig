@@ -23,18 +23,31 @@
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %} {{ 'Schools' | trans }} {% endblock %}
+
+
 {% block title %}
     {{ 'Schools' | trans }}
+
     {# Include help messages button #}
     {% set help = {'title': 'schools.title', 'intro': 'intro', 'actions': 'schools.actions'} %}
     {% include 'help/help-dialog.html.twig' %}
+
+    {# Desktop add classroom button #}
+    {% if is_granted('ROLE_SCHOOL_CREATE') %}
+        <a href="{{ path('school_add') }}" title="Add school" class="add-button">
+            <i class="fas fa-plus"></i>
+        </a>
+    {% endif %}
+
 {% endblock %}
+
 
 {% block titleBottom %}
     {# Include search box #}
     {% set placeholder = 'Search for school'|trans %}
     {% include '_partials/search.html.twig' %}
 {% endblock %}
+
 
 {% block body %}
     {#
@@ -111,10 +124,6 @@
     </table>
 {% endblock %}
 
-{# Add button desktop / mobile #}
-{% set params = {'role': 'ROLE_SCHOOL_CREATE', 'route': 'school_add'} %}
-{% block functionnalities %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
-{% block functionnalitiesMobile %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
 
 {# Include Javascript files. #}
 {% block javascripts %}

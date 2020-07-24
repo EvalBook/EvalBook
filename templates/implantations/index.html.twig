@@ -23,18 +23,31 @@
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %} {{ 'Implantations' | trans }} {% endblock %}
+
+
 {% block title %}
     {{ 'Implantations' | trans }}
+
     {# Include help message button #}
     {% set help = {'title': 'implantations.title', 'intro': 'intro', 'actions': 'implantations.actions'} %}
     {% include 'help/help-dialog.html.twig' %}
+
+    {# Desktop add implantation button #}
+    {% if is_granted('ROLE_IMPLANTATION_CREATE') %}
+        <a href="{{ path('implantation_add') }}" title="Add implantation" class="add-button">
+            <i class="fas fa-plus"></i>
+        </a>
+    {% endif %}
+
 {% endblock %}
+
 
 {% block titleBottom %}
     {# Include search box template #}
     {% set placeholder = 'Search for implantation'|trans %}
     {% include '_partials/search.html.twig' %}
 {% endblock %}
+
 
 {% block body %}
     {#
@@ -137,10 +150,6 @@
     </table>
 {% endblock %}
 
-{# Add button desktop / mobile #}
-{% set params = {'role': 'ROLE_IMPLANTATION_CREATE', 'route': 'implantation_add'} %}
-{% block functionnalities %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
-{% block functionnalitiesMobile %} {% include '_partials/add-button.html.twig' with params %} {% endblock %}
 
 {# Needed Javascript files #}
 {% block javascripts %}

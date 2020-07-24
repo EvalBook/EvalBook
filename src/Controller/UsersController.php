@@ -123,6 +123,7 @@ class UsersController extends AbstractController
      *
      * @param Request $request
      * @param UserRepository $repository
+     * @param UserPasswordEncoderInterface $passwordEncoder
      * @return RedirectResponse|Response
      */
     public function add(Request $request, UserRepository $repository, UserPasswordEncoderInterface $passwordEncoder)

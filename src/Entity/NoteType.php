@@ -41,7 +41,27 @@ class NoteType
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $ponderation;
+    private $description;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $minimum;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $maximum;
+
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $intervals;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $coefficient;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Activity", mappedBy="noteType")
@@ -81,43 +101,119 @@ class NoteType
 
 
     /**
-     * Return the NoteType ponderation.
-     * @return string|null
+     * Return the NoteType description.
+     * @return string
      */
-    public function getPonderation(): ?string
+    public function getDescription(): ?string
     {
-        return $this->ponderation;
+        return $this->description;
     }
 
 
     /**
-     * Set the NoteType ponderation.
-     * @param string $ponderation
+     * Set the note type description.
+     * @param string $description
      * @return $this
      */
-    public function setPonderation(string $ponderation): self
+    public function setDescription(string $description): self
     {
-        $this->ponderation = $ponderation;
+        $this->description = $description;
         return $this;
     }
 
 
     /**
-     * Return the minimum allowed assignable note.
+     * Return the NoteType ponderation.
+     * @return string|null
      */
-    public function getMin()
+    public function getMinimum(): ?string
     {
-        return strtolower(substr($this->getPonderation(), 0, strpos($this->getPonderation(), '.')));
+        return strtoupper($this->minimum);
     }
 
 
     /**
-     * Retuyrn the maximum allowed assignable note.
+     * Set the NoteType ponderation.
+     * @param string $min
+     * @return $this
      */
-    public function getMax()
+    public function setMinimum(string $min): self
     {
-       return strtolower(substr($this->getPonderation(), 1 + strrpos($this->getPonderation(), '.')));
+        $this->minimum = strtoupper($min);
+        return $this;
     }
+
+
+    /**
+     * Return the maximum allowable note.
+     * @return string|null
+     */
+    public function getMaximum(): ?string
+    {
+        return strtoupper($this->maximum);
+    }
+
+
+    /**
+     * Set the NoteType maximum allowable note.
+     * @param string $max
+     * @return $this
+     */
+    public function setMaximum(string $max): self
+    {
+        $this->maximum = strtoupper($max);
+        return $this;
+    }
+
+
+    /**
+     * Return the allowed note intervals.
+     * @return array|null
+     */
+    public function getIntervals(): ?array
+    {
+        return $this->intervals;
+    }
+
+
+    /**
+     * Set the NoteType allowable notes interval.
+     * @param array $intervals
+     * @return $this
+     */
+    public function setIntervals(array $intervals): self
+    {
+        // Ensure all intervals are uppercase.
+        $intervals = array_map(function($interval){
+            return strtoupper($interval);
+        }, $intervals);
+
+        $this->intervals = $intervals;
+
+        return $this;
+    }
+
+    /**
+     * Return the note type coefficient.
+     * @return int|null
+     */
+    public function getCoefficient(): ?int
+    {
+        return $this->coefficient || 0;
+    }
+
+
+    /**
+     * Set the NoteType coefficient.
+     * @param int $coefficient
+     * @return $this
+     */
+    public function setCoefficient(int $coefficient): self
+    {
+        $this->coefficient = $coefficient;
+        return $this;
+    }
+
 
 
     /**

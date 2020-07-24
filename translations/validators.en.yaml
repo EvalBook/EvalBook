@@ -111,6 +111,8 @@ Error: Error
 'This form should not contain extra fields.': 'This form should not contain extra fields.'
 'The uploaded file was too large. Please try to upload a smaller file.': 'The uploaded file was too large. Please try to upload a smaller file.'
 'The CSRF token is invalid. Please try to resubmit the form.': 'The CSRF token is invalid. Please try to resubmit the form.'
+'Coefficient should be between 1 and 10': 'Coefficient should be between 1 and 10'
+'The minimum and maximum values cannot be used as intervals': 'The minimum and maximum values cannot be used as intervals'
 
 implantation:
   name-too-short: The implantation name is too short.
@@ -139,8 +141,10 @@ period:
 activity:
   name-empty: The activity name cannot be empty.
 
-noteType:
-  name-empty: Empty note type name
-
 field:
   empty: This field can not be empty.
+
+noteType:
+  name-empty: The note type name cannot be empty
+  field-too-short: This field is too short
+  field-too-long: This field is too long

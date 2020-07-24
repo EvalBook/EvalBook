@@ -41,7 +41,7 @@ i {
 
 h1 {
     text-align: center;
-    margin-bottom: 0;
+    margin-bottom: 0.5em;
 }
 
 .container {
@@ -52,15 +52,23 @@ h1 {
 }
 
 .modal-center {
-    width: 60%;
+    width: 40%;
     margin: auto;
     background-color: #e8e8e8;
     box-shadow: 0 2px 35px -15px rgba(0,0,0,0.75);
-    padding: 50px;
+    padding: 3em;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 16em;
+    height: 22em;
+}
+
+.modal-center form {
+    margin-top: 5em;
+}
+
+.modal-center input {
+    margin-bottom: 2em;
 }
 
 /**
@@ -72,26 +80,6 @@ h1 {
     overflow: auto;
 }
 
-
-#add-functionality {
-    position: absolute;
-    top: 18em;
-    right: 4em;
-}
-
-#add-functionality.position-minus {
-    top: 16.5em !important;
-}
-
-#add-functionality.position-minus {
-    top: 14em !important;
-}
-
-
-#add-functionality i {
-    font-size: 3em;
-    color: var(--secondary-color);
-}
 
 .go-back {
     font-size: 4em;
@@ -158,10 +146,14 @@ header nav .menuItem, #mobile-menu .menuItem {
     justify-content: center;
 }
 
+.add-button {
+    color: var(--secondary-color);
+    margin-left: 0.3em;
+}
+
 #mobile-top-nav {
     display: none;
 }
-
 
 #mobile-menu-items {
     display: flex;
@@ -169,7 +161,6 @@ header nav .menuItem, #mobile-menu .menuItem {
     box-shadow: 0 0 4px var(--secondary-color);
     position: absolute;
     width: 22em;
-    top: 4em;
     user-select: none;
 }
 
@@ -178,7 +169,7 @@ header nav .menuItem, #mobile-menu .menuItem {
     line-height: 3em;
 }
 
-#mobile-menu-toggle, #mobile-add-functionality {
+#mobile-menu-toggle {
     display: none;
     font-size: 2em;
     margin-right: 0.8em;
@@ -257,7 +248,7 @@ form {
 
 input, select {
     border-radius: 2px;
-    padding: 9px;
+    padding: 0.3em;
 }
 
 .higher select {
@@ -293,8 +284,8 @@ button[type="submit"] {
 }
 
 #logo-mini {
-    height: 26em;
-    margin-right: 3em;
+    height: 15em;
+    margin-right: 2em;
 }
 
 
@@ -316,10 +307,19 @@ button[type="submit"] {
     padding: 0;
 }
 
-.form-error {
+.form-error, .form-info {
     font-size: 0.8em;
     color: #D98484;
     font-weight: bold;
+}
+
+.form-info {
+    color: inherit;
+}
+
+.form-info a {
+    color: var(--secondary-color);
+    margin-left: 0.2em;
 }
 
 .form-row {
@@ -379,7 +379,7 @@ tr:hover i, tr:hover a {
 }
 
 #activite-notes {
-    line-height: 2em;
+    line-height: 1.3em;
 }
 
 #activite-notes td {
@@ -417,6 +417,11 @@ tr:hover i, tr:hover a {
 
 .margin-right {
     margin-right: 5px;
+}
+
+.margins {
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .full-width {
@@ -541,6 +546,23 @@ tr:hover i, tr:hover a {
  */
 @media all and (max-width: 1370px) {
 
+    .modal-center {
+        width: 50%;
+        padding: 2em;
+        height: 18em;
+    }
+
+    .modal-center form {
+        margin-top: 3em;
+    }
+
+    .modal-center input {
+        margin-bottom: 1em;
+    }
+
+    #logo-mini {
+        height: 10em;
+    }
 }
 
 @media all and (max-width: 1050px) {
@@ -565,11 +587,15 @@ tr:hover i, tr:hover a {
  */
 @media all and (max-width: 800px) {
 
-    #user-links, header > nav, #add-functionality, #logo-mini {
+    .add-button {
+        margin-left: 0.1em;
+    }
+
+    #user-links, header > nav, #logo-mini {
         display: none;
     }
 
-    #mobile-menu-toggle, #mobile-add-functionality {
+    #mobile-menu-toggle {
         display: inline-block;
     }
 

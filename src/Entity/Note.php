@@ -145,7 +145,7 @@ class Note
      */
     public function setNote(string $note): self
     {
-        $this->note = $note;
+        $this->note = strtoupper($note);
         return $this;
     }
 
@@ -202,38 +202,11 @@ class Note
      */
     public function isValid(?NoteType $noteType)
     {
-        // Student was sick for example, then allow to store ABS - abs value.
-        if(strtolower($this->getNote() === 'abs')) {
-            // Ensure to store uppercase values for beauty of the thing ^^.
-            $this->setNote(strtoupper($this->getNote()));
+        $available = array_merge([$noteType->getMaximum(), $noteType->getMinimum(), 'ABS'], $noteType->getIntervals());
+
+        if(in_array(strtoupper($this->getNote()), $available)) {
             return true;
         }
-
-        $lower = $noteType->getMin();
-        $higher = $noteType->getMax();
-
-        // Check format.
-        if(!is_numeric($lower)) {
-            // If user provided a numeric value but the note type is alphabetical, then return note is not valid.
-            if(is_numeric($this->getNote()))
-                return false;
-
-            $note = strtolower($this->getNote());
-            if(strlen($note) > 1 && 'abs' !== $note)
-                return false;
-            $this->setNote(strtoupper($this->getNote()));
-            return ord($note) >= ord($lower) && ord($note) <= ord($higher);
-        }
-
-        $result = is_numeric($this->getNote()) && (int)$this->getNote() >= (int)$lower && (int)$this->getNote() <= $higher;
-        $result = $result || 'abs' === strtolower($this->getNote());
-        // Ensure 0000 is stored as 0 to keep the db clean.
-
-        if(strtolower($this->getNote()) !== 'abs')
-            $this->setNote(intval($this->getNote()));
-        else
-            $this->setNote(strtoupper($this->getNote()));
-
-        return $result;
+        return false;
     }
 }

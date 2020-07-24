@@ -20,10 +20,10 @@
 #}
 
 {% extends 'base.html.twig' %}
-
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %}{{ 'Add notes' | trans }}{% endblock %}
+
 
 {% block title %}
     {{ 'Add notes for this activity' | trans }}
@@ -32,6 +32,7 @@
     {% set help = {'title': 'notes.title', 'intro': 'notes.intro', 'actions': 'notes.use'} %}
     {% include 'help/help-dialog.html.twig' %}
 {% endblock %}
+
 
 {% block body %}
     {% if form.notes|length > 0 %}
@@ -42,7 +43,7 @@
         <thead>
         <tr>
             <th>{{ 'Comment'|trans }}</th>
-            <th>{{ 'Type'|trans }}</th>
+            <th>{{ activity.noteType.name }}</th>
             <th class="text-center">{{ 'Note'|trans }}</th>
         </tr>
         </thead>
@@ -59,8 +60,16 @@
                     {% do note.student.setRendered() %}
                     {{ form_row(note.comment) }}
                 </td>
-                <td>{{ 'From'|trans }}
-                    {{ activity.noteType.ponderation|replace({'..' : (' ' ~ 'to'|trans ~ ' ') }) }}
+                <td title="{{ activity.noteType.description }}">
+                        {% if activity.noteType.intervals|length <= 20 %}
+                        {{ activity.noteType.maximum }},
+                        {{ activity.noteType.intervals|join(', ') }}
+                        , {{ activity.noteType.minimum }}
+                        <br />
+                    {% else %}
+                        {{ 'From'|trans }} {{ activity.noteType.maximum }} {{ 'to'|trans }} {{ activity.noteType.minimum }}
+                    {% endif %}
+                    {{ 'Coefficient'|trans }}: {{ activity.noteType.coefficient }}
                 </td>
                 <td tabindex="{{ counter }}" class="bg-yellow small text-center">{{ form_row(note.note) }}</td>
             </tr>

@@ -108,6 +108,7 @@ class ActivityController extends AbstractController
 
         return $this->render('activities/form.html.twig', [
             'activity' => $activity,
+            'classroomId' => $classroom->getId(),
             'form' => $form->createView(),
         ]);
     }
@@ -222,7 +223,7 @@ class ActivityController extends AbstractController
             return $this->redirectToRoute('activities');
 
         // To make sure the user how is inserting notes is the activity owner.
-        if(!$activity->getUser() === $this->getUser())
+        if($activity->getUser() !== $this->getUser())
             return $this->redirectToRoute('activities');
 
         foreach($activity->getClassroom()->getStudents() as $student) {
