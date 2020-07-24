@@ -47,27 +47,4 @@ class NoteTypeController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
-
-    /**
-     * @Route("/note_type/edit/{id}", name="note_type_edit")
-     *
-     * @param NoteTypeRepository $repository
-     * @param NoteType $noteType
-     * @return Response
-     */
-    public function edit(NoteTypeRepository $repository, NoteType $noteType)
-    {
-        // All new note type will be globally added.
-        return $this->render('note_type/form.html.twig', [
-            'availableNoteTypes' => $repository->findAll(),
-        ]);
-    }
-
-
-    public function delete()
-    {
-        // Deletion only available if no activities are using the note type.
-        // Default note types can be deleted if they are not used.
-    }
 }
