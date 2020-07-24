@@ -60,8 +60,8 @@
                     {% do note.student.setRendered() %}
                     {{ form_row(note.comment) }}
                 </td>
-                <td>{{ 'From'|trans }}
-                    {{ activity.noteType.ponderation|replace({'..' : (' ' ~ 'to'|trans ~ ' ') }) }}
+                <td title="{{ activity.noteType.description }}">
+                    {{ activity.noteType.name }}
                 </td>
                 <td tabindex="{{ counter }}" class="bg-yellow small text-center">{{ form_row(note.note) }}</td>
             </tr>

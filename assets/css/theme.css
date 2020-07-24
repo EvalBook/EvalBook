@@ -41,7 +41,7 @@ i {
 
 h1 {
     text-align: center;
-    margin-bottom: 0;
+    margin-bottom: 0.5em;
 }
 
 .container {
@@ -248,7 +248,7 @@ form {
 
 input, select {
     border-radius: 2px;
-    padding: 0.7em;
+    padding: 0.3em;
 }
 
 .higher select {
@@ -379,7 +379,7 @@ tr:hover i, tr:hover a {
 }
 
 #activite-notes {
-    line-height: 2em;
+    line-height: 1.3em;
 }
 
 #activite-notes td {
