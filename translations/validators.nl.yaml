@@ -112,6 +112,7 @@ Error: Fout
 'The uploaded file was too large. Please try to upload a smaller file.': 'Het geüploade bestand is te groot. Probeer een kleiner bestand te uploaden.'
 'The CSRF token is invalid. Please try to resubmit the form.': 'De CSRF-token is ongeldig. Probeer het formulier opnieuw te versturen.'
 'Coefficient should be between 1 and 10': 'Coefficient should be between 1 and 10'
+'The minimum and maximum values cannot be used as intervals': 'The minimum and maximum values cannot be used as intervals'
 
 implantation:
   name-too-short: The implantation name is too short.

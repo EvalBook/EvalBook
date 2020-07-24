@@ -61,6 +61,17 @@ class NoteTypeType extends AbstractType
             // Note type intervals.
             ->add('intervals', TextType::class, [
                 'required' => false,
+                'constraints' => new Callback(function($object, ExecutionContextInterface $context) {
+                   $max = $context->getRoot()->get('maximum')->getData();
+                   $min = $context->getRoot()->get('minimum')->getData();
+                   $intervals = $context->getRoot()->get('intervals')->getData();
+                   if(in_array($max, $intervals) || in_array($min, $intervals)) {
+                       $context
+                           ->buildViolation('The minimum and maximum values cannot be used as intervals')
+                           ->addViolation()
+                       ;
+                   }
+                }),
             ])
 
             // Note coefficient.
@@ -90,7 +101,7 @@ class NoteTypeType extends AbstractType
                 function($intervalsArray) {
                     // transform the array to a string
                     if(!is_null($intervalsArray)) {
-                        return implode(',', $intervalsArray);
+                        return trim(implode(',', $intervalsArray));
                     }
                     return '';
                 },
