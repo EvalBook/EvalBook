@@ -202,7 +202,6 @@ class Note
      */
     public function isValid(?NoteType $noteType)
     {
-        // TODO s'assurer dans le controller de bien stocker une valeur strtoupper.
         $available = array_merge([$noteType->getMaximum(), $noteType->getMinimum(), 'ABS'], $noteType->getIntervals());
 
         if(in_array(strtoupper($this->getNote()), $available)) {
