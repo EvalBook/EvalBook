@@ -43,7 +43,7 @@
         <thead>
         <tr>
             <th>{{ 'Comment'|trans }}</th>
-            <th>{{ 'Type'|trans }}</th>
+            <th>{{ activity.noteType.name }}</th>
             <th class="text-center">{{ 'Note'|trans }}</th>
         </tr>
         </thead>
@@ -61,7 +61,15 @@
                     {{ form_row(note.comment) }}
                 </td>
                 <td title="{{ activity.noteType.description }}">
-                    {{ activity.noteType.name }}
+                        {% if activity.noteType.intervals|length <= 20 %}
+                        {{ activity.noteType.maximum }},
+                        {{ activity.noteType.intervals|join(', ') }}
+                        , {{ activity.noteType.minimum }}
+                        <br />
+                    {% else %}
+                        {{ 'From'|trans }} {{ activity.noteType.maximum }} {{ 'to'|trans }} {{ activity.noteType.minimum }}
+                    {% endif %}
+                    {{ 'Coefficient'|trans }}: {{ activity.noteType.coefficient }}
                 </td>
                 <td tabindex="{{ counter }}" class="bg-yellow small text-center">{{ form_row(note.note) }}</td>
             </tr>

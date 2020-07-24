@@ -128,7 +128,7 @@ class NoteType
      */
     public function getMinimum(): ?string
     {
-        return $this->minimum;
+        return strtoupper($this->minimum);
     }
 
 
@@ -139,7 +139,7 @@ class NoteType
      */
     public function setMinimum(string $min): self
     {
-        $this->minimum = strtolower($min);
+        $this->minimum = strtoupper($min);
         return $this;
     }
 
@@ -150,7 +150,7 @@ class NoteType
      */
     public function getMaximum(): ?string
     {
-        return $this->maximum;
+        return strtoupper($this->maximum);
     }
 
 
@@ -161,7 +161,7 @@ class NoteType
      */
     public function setMaximum(string $max): self
     {
-        $this->maximum = strtolower($max);
+        $this->maximum = strtoupper($max);
         return $this;
     }
 
@@ -183,7 +183,13 @@ class NoteType
      */
     public function setIntervals(array $intervals): self
     {
+        // Ensure all intervals are uppercase.
+        $intervals = array_map(function($interval){
+            return strtoupper($interval);
+        }, $intervals);
+
         $this->intervals = $intervals;
+
         return $this;
     }
 

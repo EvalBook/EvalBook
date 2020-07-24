@@ -69,7 +69,7 @@ class NoteBookController extends AbstractController
 
         foreach($classroom->getStudents() as $student) {
             foreach($classroom->getActivities() as $activity) {
-                $max = strtoupper($activity->getNoteType()->getMax());
+                $max = $activity->getNoteType()->getMaximum();
                 $note = !is_null($student->getNote($activity)) ? $student->getNote($activity) . " / $max" : '-';
                 $notebook[$student->getLastName() . ' ' . $student->getFirstName()][] = $note;
             }
