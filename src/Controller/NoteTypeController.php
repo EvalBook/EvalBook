@@ -14,23 +14,34 @@ class NoteTypeController extends AbstractController
 {
 
     /**
-     * @Route("/note_type/add", name="note_type_add")
+     * @Route("/note_type/add/{classroom}", name="note_type_add", defaults={"classroom"=null})
      *
      * @param NoteTypeRepository $repository
+     * @param Request $request
+     * @param int|null $classroom
      * @return Response
      */
-    public function add(NoteTypeRepository $repository, Request $request)
+    public function add(NoteTypeRepository $repository, Request $request, ?int $classroom): Response
     {
+        // All new note type will be globally added and no deletion is available for now
+
         $noteType = new NoteType();
         $form = $this->createForm(NoteTypeType::class, $noteType);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            dd("This form is valid");
-            // If not type not already exisist... continue.
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($noteType);
+            $entityManager->flush();
+            $this->addFlash('success', 'Successfully updated');
+
+            if(!is_null($classroom)) {
+                return $this->redirectToRoute('activity_add', [
+                    'classroom' => $classroom,
+                ]);
+            }
         }
 
-        // All new note type will be globally added.
         return $this->render('note_type/form.html.twig', [
             'availableNoteTypes' => $repository->findAll(),
             'form' => $form->createView(),

@@ -45,7 +45,7 @@
                     {{ form_widget(form.noteType) }}
                     <span class="form-info">
                         {{ 'Select a note type or'|trans }}
-                        <a href="{{ path('note_type_add') }}">{{ 'add a new one'|trans }}</a>
+                        <a href="{{ path('note_type_add', {'classroom': classroomId}) }}">{{ 'add a new one'|trans }}</a>
                     </span>
                 </div>
 

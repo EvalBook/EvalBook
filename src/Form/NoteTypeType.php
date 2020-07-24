@@ -87,17 +87,17 @@ class NoteTypeType extends AbstractType
         // Custom transformer for intervals translation.
         $builder->get('intervals')
             ->addModelTransformer(new CallbackTransformer(
-                function($tagsAsArray) {
+                function($intervalsArray) {
                     // transform the array to a string
-                    if(!is_null($tagsAsArray)) {
-                        return implode(',', $tagsAsArray);
+                    if(!is_null($intervalsArray)) {
+                        return implode(',', $intervalsArray);
                     }
                     return '';
                 },
-                function($tagsAsString) {
+                function($intervalsString) {
                     // transform the string back to an array
-                    if(!is_null($tagsAsString)) {
-                        return explode(',', $tagsAsString);
+                    if(!is_null($intervalsString)) {
+                        return explode(',', $intervalsString);
                     }
                     return [];
                 }
