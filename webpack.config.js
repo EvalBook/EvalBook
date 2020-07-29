@@ -2,6 +2,7 @@
 
 // Encore config.
 var Encore = require('@symfony/webpack-encore');
+var dotenv = require('dotenv');
 
 if (!Encore.isRuntimeEnvironmentConfigured()) {
     Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev');
@@ -54,16 +55,29 @@ Encore
         config.useBuiltIns = 'usage';
         config.corejs = 3;
     })
+
+    // define the environment variables
+    .configureDefinePlugin(options => {
+        const env = dotenv.config();
+
+        if (env.error) {
+            throw env.error;
+        }
+
+        options['process.env'].APP_ENV = JSON.stringify(env.parsed.APP_ENV);
+    })
 ;
 
 let config = Encore.getWebpackConfig();
 config.resolve.mainFields = ['browser', 'module', 'main'];
 config.resolve.extensions = ['.mjs', '.js'];
 
-// File watcher
-config.watch = true;
-config.watchOptions =  {
-    aggregateTimeout: 1000,
-};
+if(process.env.APP_ENV === 'dev') {
+    // File watcher
+    config.watch = true;
+    config.watchOptions = {
+        aggregateTimeout: 1000,
+    };
+}
 
 module.exports = config;
