@@ -13,7 +13,16 @@ relatives aux activités réalisées en classe, mais les possibilités ne s'arr�
 * Créer des activités et assigner des notes aux élèves de vos classes, les notes ne sont éditables que par le propriétaire de l'activité, seul les utilisateurs d'une classe peuvent voir les notes attribuées.
 * ... beaucoup d'autres fonctionnalités à venir, l'outil est en cours de développement.
 
-## Installation
+## Installation automatique
+Pour l'installation automatique, assurez vous d'avoir installé php >= 7.4, ainsi que les extentions ext-xml et ext-mbstring.
+* Téléchargez une version d'EvalBook.
+* Placez le dossier extrait à l'emplacement voulu sur votre serveur.
+* Placez vous dans le répertoire extrait.
+* Linux seulement: Installez la derniere version de NPM.
+* Lancez la commande: php install.php ( php install.php dev => installation sans suppression de composer et node ).
+* Suivez les instructions.
+
+## Installation manuelle
 L'installation requiert :
 * **NPM** ( https://www.npmjs.com/get-npm )
 * **Composer**, ( https://getcomposer.org/download )
@@ -59,6 +68,8 @@ Password: 'admin'
 
 Ajoutez vos écoles, vos classes, vos utilisateurs et élèves, et vous êtes parti !
 
+## Mise en place des données de base
+Différents types de notes et activités types prédéfinis sont mis à votre disposition, libre à vous de les installer ou de ne pas les utiliser.
 
 ## Les rôles
 En plus du rôle par défaut attribué, chaque utilisateur peut disposer de un ou plusieurs des rôles suivants : 

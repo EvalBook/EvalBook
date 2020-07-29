@@ -3,6 +3,8 @@
     "license": "proprietary",
     "require": {
         "php": "^7.2.5",
+        "ext-xml": "*",
+        "ext-mbstring": "*",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-json": "*",
@@ -20,7 +22,11 @@
         "symfony/mailer": "5.0.*",
         "symfony/monolog-bundle": "^3.1",
         "symfony/notifier": "5.0.*",
-        "symfony/orm-pack": "*",
+        "symfony/orm-pack": "^2",
+        "composer/package-versions-deprecated": "*",
+        "doctrine/orm": "^2",
+        "doctrine/doctrine-bundle": "^2",
+        "doctrine/doctrine-migrations-bundle": "^2",
         "symfony/process": "5.0.*",
         "symfony/security-bundle": "5.0.*",
         "symfony/serializer-pack": "*",
@@ -32,6 +38,7 @@
         "symfony/webpack-encore-bundle": "^1.7",
         "symfony/yaml": "5.0.*",
         "symfonycasts/reset-password-bundle": "^1.1",
+        "ext-zip": "*"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",
