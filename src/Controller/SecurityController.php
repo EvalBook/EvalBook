@@ -19,9 +19,12 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -30,12 +33,29 @@ class SecurityController extends AbstractController
      * @Route("/login", name="app_login")
      *
      * @param AuthenticationUtils $authenticationUtils
+     * @param UserRepository $uRepository
+     * @param UserPasswordEncoderInterface $encoder
      * @return Response
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils, UserRepository $uRepository, UserPasswordEncoderInterface $encoder): Response
     {
         if ($this->getUser()) {
-             return $this->redirectToRoute('classes');
+            return $this->redirectToRoute('classes');
+        }
+
+        // Checking users count, if no user in database, this is a fresh install, generating admin one.
+        if(!$uRepository->hasUsers()) {
+            $admin = new User();
+            $admin
+                ->setEmail('admin@evalbook.dev')
+                ->setLastName('Super')
+                ->setFirstName('Admin')
+                ->setRoles(["ROLE_ADMIN"])
+                ->setPassword($encoder->encodePassword($admin, 'admin'))
+            ;
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($admin);
+            $em->flush();
         }
 
         // get the login error if there is one
