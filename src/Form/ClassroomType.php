@@ -45,7 +45,7 @@ class ClassroomType extends AbstractType
             ->add('name', TextType::class, [
                 'constraints' => [
                     new Length([
-                        'min' => 3,
+                        'min' => 2,
                         'max' => 100,
                         'minMessage' => 'classe.name-too-short',
                         'maxMessage' => 'classe.name-too-long',
