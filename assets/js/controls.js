@@ -53,7 +53,6 @@ let Controls = {
                 mobileMenuToggleButton.classList.remove('fa-ellipsis-v');
                 mobileMenu.style.display = 'none';
             }
-            window.removeEventListener(this);
         });
     },
 
@@ -76,7 +75,6 @@ let Controls = {
             if(event.target !== userLinks.firstElementChild) {
                 menu.style.display = 'none';
             }
-            window.removeEventListener(this);
         });
     },
 

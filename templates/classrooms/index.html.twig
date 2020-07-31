@@ -82,7 +82,7 @@
         </thead>
         <tbody>
         {% for classroom in classrooms %}
-            <tr>
+            <tr data-id="{{ classroom.id }}">
                 {# Implantation name #}
                 <td class="js-search-target">{{ classroom.implantation }}</td>
 

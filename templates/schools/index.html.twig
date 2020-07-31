@@ -70,7 +70,7 @@
         </thead>
         <tbody>
         {% for school in schools %}
-            <tr>
+            <tr data-id="{{ school.id }}">
                 {# School name #}
                 <td class="js-search-target">{{ school.name }}</td>
 
