@@ -52,15 +52,24 @@ h1 {
 }
 
 .modal-center {
-    width: 40%;
+    width: 30%;
     margin: auto;
     background-color: #e8e8e8;
     box-shadow: 0 2px 35px -15px rgba(0,0,0,0.75);
     padding: 3em;
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    height: 22em;
+    border-radius: 2em;
+}
+
+.modal-center div:first-child {
+    margin-top: -8em;
+}
+
+.modal-center #password-reset {
+    margin-left: 1em;
 }
 
 .modal-center form {
@@ -68,7 +77,8 @@ h1 {
 }
 
 .modal-center input {
-    margin-bottom: 2em;
+    margin: 0 1em 2em 1em;
+    padding: 0.8em;
 }
 
 /**
@@ -270,7 +280,6 @@ input, select {
 
 button[type="submit"] {
     width: auto;
-    height: 40px;
     font-size: 16px;
     font-weight: bold;
     color: #fff;
@@ -279,8 +288,7 @@ button[type="submit"] {
     background-color: var(--primary-color);
     cursor: pointer;
     align-self: flex-end;
-    padding-left: 12px;
-    padding-right: 12px;
+    padding: 1em;
 }
 
 #logo-mini {
@@ -546,12 +554,6 @@ tr:hover i, tr:hover a {
  */
 @media all and (max-width: 1370px) {
 
-    .modal-center {
-        width: 50%;
-        padding: 2em;
-        height: 18em;
-    }
-
     .modal-center form {
         margin-top: 3em;
     }
@@ -582,6 +584,14 @@ tr:hover i, tr:hover a {
     }
 }
 
+
+@media all and (max-width: 1000px) {
+    .modal-center {
+        width: 60%;
+    }
+}
+
+
 /**
  * Small screens.
  */
@@ -591,7 +601,7 @@ tr:hover i, tr:hover a {
         margin-left: 0.1em;
     }
 
-    #user-links, header > nav, #logo-mini {
+    #user-links, header > nav {
         display: none;
     }
 
@@ -617,6 +627,13 @@ tr:hover i, tr:hover a {
 
     #contact-details {
         margin-top: 3.5em;
+    }
+}
+
+
+@media all and (max-width: 450px) {
+    .modal-center {
+        width: 85%;
     }
 }
 
