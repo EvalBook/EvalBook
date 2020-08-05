@@ -113,4 +113,25 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return intval($count) !== 0;
     }
 
+
+    /**
+     * Return true if users exists in database.
+     * @return bool
+     */
+    public function hasUsers()
+    {
+        $queryBuilder = $this->_em->createQueryBuilder();
+        $queryBuilder
+            ->select('COUNT(u)')
+            ->from($this->_entityName, 'u')
+        ;
+
+        try {
+            return $queryBuilder->getQuery()->getSingleScalarResult() > 0;
+        }
+        catch (NoResultException $e) {}
+        catch (NonUniqueResultException $e) {}
+        return true;
+    }
+
 }

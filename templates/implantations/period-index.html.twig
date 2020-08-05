@@ -78,7 +78,7 @@
                 {% set notStarted = period.dateStart > date() %}
                 {% set inProgress = not notStarted and period.dateEnd > date() %}
 
-                <tr>
+                <tr data-id="{{ period.id }}">
                     {# Period name #}
                     <td>{{ period.name }}</td>
 

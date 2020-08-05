@@ -71,7 +71,7 @@
         </thead>
         <tbody>
         {% for user in users %}
-            <tr>
+            <tr data-id="{{ user.id }}">
                 {# User first name #}
                 <td class="js-search-target">{{ user.firstName }}</td>
 

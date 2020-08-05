@@ -222,6 +222,6 @@ class NoteType
      */
     public function __toString()
     {
-        return "Range - " . $this->getName();
+        return $this->getDescription();
     }
 }

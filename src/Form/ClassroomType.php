@@ -45,7 +45,7 @@ class ClassroomType extends AbstractType
             ->add('name', TextType::class, [
                 'constraints' => [
                     new Length([
-                        'min' => 3,
+                        'min' => 2,
                         'max' => 100,
                         'minMessage' => 'classe.name-too-short',
                         'maxMessage' => 'classe.name-too-long',
@@ -56,6 +56,9 @@ class ClassroomType extends AbstractType
             // The class owner.
             ->add('owner', EntityType::class, [
                 'class' => User::class,
+                'required' => false,
+                'placeholder' => "Leave empty for special class ( gym, religion, where students are nested )",
+                'translation_domain' => 'templates',
             ])
 
             // The class implantation

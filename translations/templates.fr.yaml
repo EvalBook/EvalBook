@@ -226,6 +226,7 @@ Minimum note: Note minimale
 The minimum allowable note: Note minimale attribuable aux élèves
 Intervals: Intervales
 The intervals are all available notes between MAX and MIN, ex A(MAX), B, C, D(MIN): Toutes les notes possibles attribuables entre MAX et MIN, séparées par une virgule. Ex pour une note de 1 à 5 -> 2,3,4
+Leave empty for special class ( gym, religion, where students are nested ): Laissez vide pour une classe spéciale ( Gym, religion, ... regroupement d'élèves de différentes classes )
 
 
 roles:

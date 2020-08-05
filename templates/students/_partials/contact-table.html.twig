@@ -65,7 +65,7 @@
     <tbody>
 
     {% for relation in contactsRelations %}
-        <tr>
+        <tr data-id="{{ relation.id }}">
             {# Contact last name #}
             <td class="js-search-target">{{ relation.contact.lastName }}</td>
 

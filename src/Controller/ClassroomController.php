@@ -233,15 +233,30 @@ class ClassroomController extends AbstractController
      */
     public function manageClassroomStudents(Request $request, Classroom $classroom)
     {
-        $form = $this->createFormBuilder([
-            'students' => $classroom->getStudents(),
-        ])
+        $students = $this->getDoctrine()->getRepository(Student::class)->findAll();
+        // If the classroom is owned ( titulaire ), then getting ALL this classroom students + unassigned students.
+        if($classroom->getOwner() !== null) {
+            $students = array_filter($students, function($student) {
+                $stClassrooms = $student->getClassrooms();
+                foreach($stClassrooms as $classroom) {
+                    if($classroom->getOwner() !== null) {
+                        return false;
+                    }
+                }
+                return true;
+            });
+           // Final students array containing the classroom students and the filtered unassigned students.
+           $students = array_merge($students, $classroom->getStudents()->toArray());
+        }
+
+        $form = $this->createFormBuilder(['students' => $classroom->getStudents()])
 
             ->add('students', EntityType::class, [
                 'class' => Student::class,
                 'multiple' => true,
                 'expanded' => true,
                 'by_reference' => false,
+                'choices' => $students,
             ])
 
             // Submit button.

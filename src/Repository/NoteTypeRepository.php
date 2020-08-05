@@ -38,33 +38,99 @@ class NoteTypeRepository extends ServiceEntityRepository
 
 
     /**
-     * Populate the database with the defult note types values.
+     * Populate the database with the default note types values to cover a maximum of use cases.
      */
     public function populate()
     {
         $em = $this->getEntityManager();
 
-        // A..F interval
-        $noteType1 = new NoteType();
-        $noteType1->setName("A..F");
-        $noteType1->setPonderation("A..F");
+        for($i = 1; $i < 3; $i++) {
+            // 0..5
+            $nt05 = new NoteType();
+            $nt05
+                ->setName("De 0 à 5, coefficient $i")
+                ->setCoefficient($i)
+                ->setDescription("De 0 à 5, ordre naturel, coefficient $i.")
+                ->setMaximum('5')
+                ->setMinimum('0')
+                ->setIntervals(array_reverse(range(1, 4)))
+            ;
+            $em->persist($nt05);
 
-        $noteType2 = new NoteType();
-        $noteType2->setName("A..Z");
-        $noteType2->setPonderation("A..Z");
+            // 0..10
+            $nt10 = new NoteType();
+            $nt10
+                ->setName("De 0 à 10, coefficient $i")
+                ->setCoefficient($i)
+                ->setDescription("De 0 à 10, ordre naturel, coefficient $i.")
+                ->setMaximum('10')
+                ->setMinimum('0')
+                ->setIntervals(array_reverse(range(1, 9)))
+            ;
+            $em->persist($nt10);
 
-        $em->persist($noteType1);
-        $em->persist($noteType2);
+            // 0..20
+            $nt20 = new NoteType();
+            $nt20
+                ->setName("De 0 à 20, coefficient $i")
+                ->setCoefficient($i)
+                ->setDescription("De 0 à 20, ordre naturel, coefficient $i.")
+                ->setMaximum('20')
+                ->setMinimum('0')
+                ->setIntervals(array_reverse(range(1, 19)))
+            ;
+            $em->persist($nt20);
 
+            // 0..100
+            $nt100 = new NoteType();
+            $nt100
+                ->setName("De 0 à 100, coefficient $i")
+                ->setCoefficient($i)
+                ->setDescription("De 0 à 100, ordre naturel, coefficient $i.")
+                ->setMaximum('100')
+                ->setMinimum('0')
+                ->setIntervals(array_reverse(range(1, 99)))
+            ;
+            $em->persist($nt100);
 
-        for($i = 5; $i <= 100; $i += 5) {
-            $nt = new NoteType();
-            $nt->setName("0..$i");
-            $nt->setPonderation("0..$i");
-            $em->persist($nt);
+            // A..F
+            $ntAF = new NoteType();
+            $ntAF
+                ->setName("De A à F, coefficient $i")
+                ->setCoefficient($i)
+                ->setDescription("De A à F, ordre naturel, coefficient $i.")
+                ->setMaximum('A')
+                ->setMinimum('F')
+                ->setIntervals(range('B', 'E'))
+            ;
+            $em->persist($ntAF);
+
+            // A..NA
+            $ntANA = new NoteType();
+            $ntANA
+                ->setName("Acquis-En cours d'acquisition-A revoir-Non acquis, coefficient $i")
+                ->setCoefficient($i)
+                ->setDescription("Acquis, En cours d'acquisition, A revoir, Non acquis, coefficient $i")
+                ->setMaximum('A')
+                ->setMinimum('NA')
+                ->setIntervals(['ECA', 'AR'])
+            ;
+            $em->persist($ntANA);
+
+            // TB...I
+            $ntTBI = new NoteType();
+            $ntTBI
+                ->setName("Très bien, Bien, Moyen, Suffisant, Médiocre, Insuffisant, coefficient $i")
+                ->setCoefficient($i)
+                ->setDescription("Très bien, Bien, Moyen, Suffisant, Médiocre, Insuffisant, coefficient $i")
+                ->setMaximum('TB')
+                ->setMinimum('I')
+                ->setIntervals(['Bien', 'Moyen', 'Suffisant', 'Médiocre', 'Insuffisant'])
+            ;
+            $em->persist($ntTBI);
+
         }
 
-        $em->flush();
         $em->flush();
     }
 }
