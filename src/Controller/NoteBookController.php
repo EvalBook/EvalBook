@@ -19,7 +19,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Activity;
 use App\Entity\Classroom;
+use App\Entity\NoteType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,10 +37,12 @@ class NoteBookController extends AbstractController
     public function viewNotebook(Classroom $classroom)
     {
         $this->checkClassroomAccesses($classroom);
+        $data = $this->constructNotebook($classroom);
 
         return $this->render('note_book/notebook.html.twig', [
             'classroom' => $classroom,
-            'notebook'  => $this->constructNotebook($classroom),
+            'notebook'  => $data['notebook'],
+            'activities' => $data['activities'],
             'periods'   => $this->getNotebookPeriods($classroom),
         ]);
     }
@@ -66,16 +70,48 @@ class NoteBookController extends AbstractController
     public function constructNotebook(Classroom $classroom)
     {
         $notebook = array();
+        $activities = array();
 
-        foreach($classroom->getStudents() as $student) {
-            foreach($classroom->getActivities() as $activity) {
-                $max = $activity->getNoteType()->getMaximum();
-                $note = !is_null($student->getNote($activity)) ? $student->getNote($activity) . " / $max" : '-';
+        // Getting all classroom owner students if classroom has owner ( titulaire ).
+        if(is_null($classroom->getOwner())) {
+            $students = $classroom->getStudents()->toArray();
+            $activities = $classroom->getActivities()->toArray();
+        }
+        // Restrict to the current classroom otherwise.
+        else {
+            $students = $classroom->getOwner()->getStudents();
+            // Classroom owner, getting ALL students activities.
+            foreach($students as $student) {
+                $dataActivities = array_map(
+                    function($note) {
+                        return $note->getActivity()->getId();
+                    },
+                    $student->getNotes()->toArray()
+                );
+                $activities = array_merge($activities, $dataActivities);
+            }
+
+            $activities = $this->getDoctrine()->getRepository(Activity::class)->findBy([
+                'id' => array_unique($activities),
+            ]);
+        }
+
+        // Computing notebook.
+        foreach($students as $student) {
+            foreach($activities as $activity) {
+                $note = $student->getNote($activity);
+                $noteType = $this->getDoctrine()->getRepository(NoteType::class)->findOneBy([
+                    'id' => $activity->getNoteType()->getId(),
+                ]);
+                $note = !is_null($note) ? $note . " / " . $noteType->getMaximum() : '-';
                 $notebook[$student->getLastName() . ' ' . $student->getFirstName()][] = $note;
             }
         }
 
-        return $notebook;
+        return [
+            'notebook' => $notebook,
+            'activities' => $activities,
+        ];
     }
 
 

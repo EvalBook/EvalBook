@@ -56,6 +56,9 @@ class ClassroomType extends AbstractType
             // The class owner.
             ->add('owner', EntityType::class, [
                 'class' => User::class,
+                'required' => false,
+                'placeholder' => "Leave empty for special class ( gym, religion, where students are nested )",
+                'translation_domain' => 'templates',
             ])
 
             // The class implantation

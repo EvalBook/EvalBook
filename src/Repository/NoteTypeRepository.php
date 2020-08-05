@@ -51,9 +51,9 @@ class NoteTypeRepository extends ServiceEntityRepository
                 ->setName("De 0 à 5, coefficient $i")
                 ->setCoefficient($i)
                 ->setDescription("De 0 à 5, ordre naturel, coefficient $i.")
-                ->setMaximum('0')
-                ->setMinimum('5')
-                ->setIntervals(range(1, 5))
+                ->setMaximum('5')
+                ->setMinimum('0')
+                ->setIntervals(array_reverse(range(1, 4)))
             ;
             $em->persist($nt05);
 
@@ -63,9 +63,9 @@ class NoteTypeRepository extends ServiceEntityRepository
                 ->setName("De 0 à 10, coefficient $i")
                 ->setCoefficient($i)
                 ->setDescription("De 0 à 10, ordre naturel, coefficient $i.")
-                ->setMaximum('0')
-                ->setMinimum('10')
-                ->setIntervals(range(1, 10))
+                ->setMaximum('10')
+                ->setMinimum('0')
+                ->setIntervals(array_reverse(range(1, 9)))
             ;
             $em->persist($nt10);
 
@@ -75,9 +75,9 @@ class NoteTypeRepository extends ServiceEntityRepository
                 ->setName("De 0 à 20, coefficient $i")
                 ->setCoefficient($i)
                 ->setDescription("De 0 à 20, ordre naturel, coefficient $i.")
-                ->setMaximum('0')
-                ->setMinimum('20')
-                ->setIntervals(range(1, 20))
+                ->setMaximum('20')
+                ->setMinimum('0')
+                ->setIntervals(array_reverse(range(1, 19)))
             ;
             $em->persist($nt20);
 
@@ -87,9 +87,9 @@ class NoteTypeRepository extends ServiceEntityRepository
                 ->setName("De 0 à 100, coefficient $i")
                 ->setCoefficient($i)
                 ->setDescription("De 0 à 100, ordre naturel, coefficient $i.")
-                ->setMaximum('0')
-                ->setMinimum('100')
-                ->setIntervals(range(1, 100))
+                ->setMaximum('100')
+                ->setMinimum('0')
+                ->setIntervals(array_reverse(range(1, 99)))
             ;
             $em->persist($nt100);
 
@@ -113,7 +113,7 @@ class NoteTypeRepository extends ServiceEntityRepository
                 ->setDescription("Acquis, En cours d'acquisition, A revoir, Non acquis, coefficient $i")
                 ->setMaximum('A')
                 ->setMinimum('NA')
-                ->setIntervals(range('ECA', 'AR'))
+                ->setIntervals(['ECA', 'AR'])
             ;
             $em->persist($ntANA);
 

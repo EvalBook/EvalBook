@@ -39,7 +39,7 @@
                 <th class="text-center">
                     <i class="fas fa-book-open text-bigger text-yellow" aria-hidden="true"></i>
                 </th>
-                {% for activity in classroom.activities %}
+                {% for activity in activities %}
                     <th class="rotate">
                         {# FIXME will be breaked later on #}
                         <div><span>{{ activity.name|length > 35 ? activity.name|slice(0, 35) ~ '...' : activity.name }}</span></div>

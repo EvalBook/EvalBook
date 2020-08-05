@@ -56,6 +56,7 @@
     <table class="full-width">
         <thead>
             <tr>
+                <th class="mobile-hidden-td">{{ 'Implantation'|trans }}</th>
                 <th>{{ 'Class'|trans }}</th>
                 <th class="mobile-hidden-td">{{ 'User'|trans }}</th>
                 <th>{{ 'Name'|trans }}</th>
@@ -75,6 +76,8 @@
             {% set editable = activity.period.dateEnd >= date() %}
 
             <tr data-id="{{ activity.id }}">
+                {# Classroom implantation #}
+                <td class="mobile-hidden-td js-search-target">{{ activity.classroom.implantation }}</td>
                 {# Activity classroom #}
                 <td class="js-search-target">{{ activity.classroom }}</td>
 

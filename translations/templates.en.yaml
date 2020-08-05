@@ -226,6 +226,7 @@ Minimum note: Minimum note
 The minimum allowable note: The minimum allowable note
 Intervals: Intervals
 The intervals are all available notes between MAX and MIN, ex A(MAX), B, C, D(MIN): The intervals are all available notes between MAX and MIN, ex A(MAX), B, C, D(MIN)
+Leave empty for special class ( gym, religion, where students are nested ): Leave empty for special class ( gym, religion, where students are nested )
 
 
 roles:

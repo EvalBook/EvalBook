@@ -236,11 +236,12 @@ class ActivityController extends AbstractController
         }
 
         $form = $this->createForm(ActivityNotesType::class, $activity);
+        $em = $this->getDoctrine()->getManager();
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-
+        if($form->isSubmitted() && $form->isValid()) {
+            $em->persist($activity);
             // Checking provided notes format.
             foreach($activity->getNotes() as $note) {
                 if(!$note->isValid($activity->getNoteType())) {
@@ -252,10 +253,11 @@ class ActivityController extends AbstractController
                         'form' => $form->createView(),
                     ]);
                 }
+                $em->persist($note);
             }
 
             // Then register updated information.
-            $this->getDoctrine()->getManager()->flush();
+            $em->flush();
 
             return $this->redirectToRoute('activities', [
                 'id' => $activity->getId(),
