@@ -166,7 +166,7 @@ Send school report: Send school report
 Choose an existing contact: Choose an existing contact
 The selected contact will be linked to the current selected student: The selected contact will be linked to the current selected student
 Add a new contact: Add a new contact
-If you cannot find the right contact from the contacts list, then simply add a new one, it will be automatically assigne to the student: If you cannot find the right contact from the contacts list, then simply add a new one, it will be automatically assigne to the student
+If you cannot find the right contact from the contacts list, then simply add a new one, it will be automatically assigne to the student: If you cannot find the right contact from the contacts list or if this list is emty, then simply add a new one, it will be automatically assigne to the student
 Choose an existing contact in the list above: Choose an existing contact in the list above
 The new contact was added and linked to the student: The new contact was added and linked to the student
 Error, it sounds like this contact already exists, please use the box to select the contact: Error, it sounds like this contact already exists, please use the box to select the contact

@@ -90,6 +90,9 @@
 
                     {% else %}
                         {% do existingContactsForm.contact.setRendered() %}
+                        {% do existingContactsForm.relation.setRendered() %}
+                        {% do existingContactsForm.schoolReport.setRendered() %}
+                        {% do existingContactsForm.submit.setRendered() %}
                     {% endif %}
                     {{ form_end(existingContactsForm) }}
                 </div>

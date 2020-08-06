@@ -166,7 +166,7 @@ Send school report: Envoyer le bulletin
 Choose an existing contact: Choisisez un contact existant
 The selected contact will be linked to the current selected student: Le contact sélectionné sera lié à l'étudiant que vous avez choisi
 Add a new contact: Ajouter un nouveau contact
-If you cannot find the right contact from the contacts list, then simply add a new one, it will be automatically assigne to the student: Si vous ne trouvez pas le contact à partir de la liste des contacts, vous pouvez en ajouter un nouveau, il sera automatiquement lié à l'étudiant que vous avez choisi.
+If you cannot find the right contact from the contacts list, then simply add a new one, it will be automatically assigne to the student: Si vous ne trouvez pas le contact à partir de la liste des contacts ou si cette liste est vide, vous pouvez en ajouter un nouveau, il sera automatiquement lié à l'étudiant que vous avez choisi.
 Choose an existing contact in the list above: Choisissez une contact dans la liste ce dessous
 The new contact was added and linked to the student: Le nouveau contact a été ajouté et lié à l'étudiant que vous avez choisi
 Error, it sounds like this contact already exists, please use the box to select the contact: Erreur, il semble que ce contact existe déjà, veuillez utilisez la liste de sélection plus haut svp.
