@@ -52,9 +52,8 @@
                             <input type="checkbox" id="form_users_{{ choice.value }}"
                                    name="form[users][]"
                                    value="{{ choice.value }}" {{ (choice.value in form.users.vars.value) ? 'checked' : '' }}
-                                   data-id="{{ key }}"
                             />
-                            <label for="{{ form.users.vars.name }}_{{ choice.value }}" data-id="{{ key }}" class="js-searchable-checkbox">
+                            <label for="{{ form.users.vars.name }}_{{ choice.value }}" class="js-searchable-checkbox">
                                 {{ choice.label }}
                             </label>
 

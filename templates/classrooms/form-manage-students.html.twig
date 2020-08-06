@@ -36,6 +36,9 @@
         {% include '_partials/go-back.html.twig' %}
 
         <div class="form-content">
+            {% set placeholder = 'Search for student'|trans %}
+            {% include '_partials/search.html.twig' %}
+
             {{ form_start(form) }}
 
             <div class="form-row">
@@ -50,7 +53,7 @@
                                    name="form[students][]"
                                    value="{{ choice.value }}" {{ (choice.value in form.students.vars.value) ? 'checked' : '' }}
                             />
-                            <label for="{{ form.students.vars.name }}_{{ choice.value }}">{{ choice.label}}</label>
+                            <label for="{{ form.students.vars.name }}_{{ choice.value }}" class="js-searchable-checkbox">{{ choice.label}}</label>
                         </div>
 
                     {% endfor %}
@@ -73,4 +76,9 @@
 
     </div>
 
+{% endblock %}
+
+{# Include needed Javascript files #}
+{% block javascripts %}
+    {{ encore_entry_script_tags('search') }}
 {% endblock %}
