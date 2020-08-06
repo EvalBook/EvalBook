@@ -7,11 +7,12 @@ Search = {
      * Search for matching filter text in provided targets and hide elements that does not match search pattern.
      * @param searchText
      */
-    process: function(searchText) {
+    process: function(searchText, noResultMessage) {
         searchText = searchText.toLowerCase();
 
         // Searching inside tables.
-        for(let tr of document.querySelectorAll('tbody tr')) {
+        let trElements = document.querySelectorAll('tbody tr');
+        for(let tr of trElements) {
             let searchTargets = tr.getElementsByClassName('js-search-target');
             let found = false;
 
@@ -30,6 +31,22 @@ Search = {
                 tr.style.display = '';
             else
                 tr.style.display = 'none';
+
+            // Removing no result elements.
+            for(let nrElement of document.querySelectorAll('.js-no-result')) {
+                nrElement.parentElement.removeChild(nrElement);
+            }
+        }
+
+        // If tr elements len is same as hidden elements len, then there is no results.
+        let hiddenTrElements = document.querySelectorAll("tbody tr[style='display: none;']");
+        if(hiddenTrElements.length === trElements.length) {
+            let parent = trElements.item(0).parentElement;
+            let colspan = trElements.item(0).childElementCount;
+
+            let noResults = document.createElement('tr');
+            noResults.innerHTML = "<td class='text-center text-bold text-red js-no-result' colspan='" + colspan + "'>" + noResultMessage + "</td>"
+            parent.appendChild(noResults);
         }
 
         // Searching inside options
@@ -55,15 +72,7 @@ Search = {
 
 let input = document.getElementById('search-box');
 if(null !== input) {
-    // Empty search box when focus is lost.
-    /*
-    input.onblur = function () {
-        input.value = '';
-    }
-    */
-
-
     input.addEventListener('keyup', function (event) {
-        Search.process(input.value);
+        Search.process(input.value, input.dataset.noResultMessage);
     })
 }
