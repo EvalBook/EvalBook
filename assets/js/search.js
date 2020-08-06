@@ -40,7 +40,7 @@ Search = {
 
         // If tr elements len is same as hidden elements len, then there is no results.
         let hiddenTrElements = document.querySelectorAll("tbody tr[style='display: none;']");
-        if(hiddenTrElements.length === trElements.length) {
+        if(hiddenTrElements.length === trElements.length && trElements.item(0)) {
             let parent = trElements.item(0).parentElement;
             let colspan = trElements.item(0).childElementCount;
 
@@ -65,6 +65,17 @@ Search = {
             // The if statement in order to select the first element ( hidden or not ) in case of nothing found.
             if(firstFoundOptionIndex)
                 select.selectedIndex = firstFoundOptionIndex;
+        }
+
+        // Searching inside checkboxex.
+        for(let checkbox of document.querySelectorAll('.js-searchable-checkbox')) {
+
+            if(checkbox.innerHTML.indexOf(searchText) === -1) {
+                checkbox.parentElement.style.display = 'none';
+            }
+            else {
+                checkbox.parentElement.style.display = '';
+            }
         }
     }
 }
