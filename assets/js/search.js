@@ -53,7 +53,7 @@ Search = {
         for(let select of document.querySelectorAll('.js-searchable-select')) {
             let firstFoundOptionIndex;
             for(let i = 0; i < select.options.length; i++) {
-                if(select.options[i].label.indexOf(searchText) > -1) {
+                if(select.options[i].label.toLowerCase().indexOf(searchText) > -1) {
                     if (!firstFoundOptionIndex)
                         firstFoundOptionIndex = i;
                     select.options[i].style.display = '';
@@ -70,7 +70,7 @@ Search = {
         // Searching inside checkboxex.
         for(let checkbox of document.querySelectorAll('.js-searchable-checkbox')) {
 
-            if(checkbox.innerHTML.indexOf(searchText) === -1) {
+            if(checkbox.innerHTML.toLowerCase().indexOf(searchText) === -1) {
                 checkbox.parentElement.style.display = 'none';
             }
             else {
