@@ -18,15 +18,16 @@
     top: 16em;
     left: 0;
     right: 0;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 20px auto;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    background-color: #e8e8e8;
+    background-color: #fafafa;
     box-shadow: 0 2px 35px -15px rgba(0,0,0,0.75);
     padding: 50px;
+    border: 1px solid var(--primary-color);
+    border-radius: 1em;
 }
 
 .dialog-confirm {
@@ -94,6 +95,7 @@
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
     width: 8em;
     height: 3em;
+    margin-top: 10px;
 }
 
 .button-ok {

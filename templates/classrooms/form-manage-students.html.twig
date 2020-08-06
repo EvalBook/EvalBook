@@ -36,6 +36,9 @@
         {% include '_partials/go-back.html.twig' %}
 
         <div class="form-content">
+            {% set placeholder = 'Search for student'|trans %}
+            {% include '_partials/search.html.twig' %}
+
             {{ form_start(form) }}
 
             <div class="form-row">
@@ -50,7 +53,7 @@
                                    name="form[students][]"
                                    value="{{ choice.value }}" {{ (choice.value in form.students.vars.value) ? 'checked' : '' }}
                             />
-                            <label for="{{ form.students.vars.name }}_{{ choice.value }}">{{ choice.label}}</label>
+                            <label for="{{ form.students.vars.name }}_{{ choice.value }}" class="js-searchable-checkbox">{{ choice.label}}</label>
                         </div>
 
                     {% endfor %}
@@ -62,15 +65,25 @@
                 </span>
             </div>
 
+            <div class="flex space-between">
+                {{ form_row(form.submit, {
+                    'label': 'Send'|trans,
+                    'attr': {'class': 'margin-15'},
+                }) }}
 
-            {{ form_row(form.submit, {
-                'label': 'Send'|trans,
-                'attr': {'class': 'margin-15'},
-            }) }}
+                {% if is_granted('ROLE_STUDENT_CREATE') %}
+                    <a href="{{ path('student_add') }}" class="button add-button">{{ 'Add student'| trans}}</a>
+                {% endif %}
+            </div>
 
             {{ form_end(form) }}
         </div>
 
     </div>
 
+{% endblock %}
+
+{# Include needed Javascript files #}
+{% block javascripts %}
+    {{ encore_entry_script_tags('search') }}
 {% endblock %}

@@ -166,7 +166,7 @@ Send school report: Send school report
 Choose an existing contact: Choose an existing contact
 The selected contact will be linked to the current selected student: The selected contact will be linked to the current selected student
 Add a new contact: Add a new contact
-If you cannot find the right contact from the contacts list, then simply add a new one, it will be automatically assigne to the student: If you cannot find the right contact from the contacts list, then simply add a new one, it will be automatically assigne to the student
+If you cannot find the right contact from the contacts list, then simply add a new one, it will be automatically assigne to the student: If you cannot find the right contact from the contacts list or if this list is emty, then simply add a new one, it will be automatically assigne to the student
 Choose an existing contact in the list above: Choose an existing contact in the list above
 The new contact was added and linked to the student: The new contact was added and linked to the student
 Error, it sounds like this contact already exists, please use the box to select the contact: Error, it sounds like this contact already exists, please use the box to select the contact
@@ -227,6 +227,9 @@ The minimum allowable note: The minimum allowable note
 Intervals: Intervals
 The intervals are all available notes between MAX and MIN, ex A(MAX), B, C, D(MIN): The intervals are all available notes between MAX and MIN, ex A(MAX), B, C, D(MIN)
 Leave empty for special class ( gym, religion, where students are nested ): Leave empty for special class ( gym, religion, where students are nested )
+No results for your search: No results for your search
+Add student: Add student
+Add user: Add user
 
 
 roles:

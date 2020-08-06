@@ -15,16 +15,6 @@ body {
     color: var(--primary-color);
 }
 
-body::before {
-    content: "";
-    position: fixed;
-    top: -10px;
-    left: 0;
-    width: 100%;
-    height: 9px;
-    box-shadow: 0 0 7px rgba(0, 0, 0, 0.8);
-    z-index: 100;
-}
 
 a {
     text-decoration: none;
@@ -45,22 +35,30 @@ h1 {
 }
 
 .container {
-    margin: 1.5%;
     display: flex;
     flex-direction: column;
     height: 94vh;
 }
 
 .modal-center {
-    width: 40%;
+    width: 30%;
     margin: auto;
     background-color: #e8e8e8;
     box-shadow: 0 2px 35px -15px rgba(0,0,0,0.75);
     padding: 3em;
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    height: 22em;
+    border-radius: 2em;
+}
+
+.modal-center div:first-child {
+    margin-top: -8em;
+}
+
+.modal-center #password-reset {
+    margin-left: 1em;
 }
 
 .modal-center form {
@@ -68,7 +66,8 @@ h1 {
 }
 
 .modal-center input {
-    margin-bottom: 2em;
+    margin: 0 1em 2em 1em;
+    padding: 0.8em;
 }
 
 /**
@@ -78,6 +77,7 @@ h1 {
     display: flex;
     flex-grow: 1;
     overflow: auto;
+    margin: 0.8%;
 }
 
 
@@ -95,6 +95,10 @@ h1 {
     display: inline-block;
 }
 
+.desktop-hidden {
+    display: none;
+}
+
 
 /**
  * Top right user links menu.
@@ -103,6 +107,7 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin: 1%;
 }
 
 header nav i {
@@ -128,8 +133,7 @@ nav {
     margin-top: 1.5em;
     height: 6.3em; /* To keep it in proportions */
     background-color: #e8e8e8;
-    /*box-shadow: 1px 1px #eaaf19;*/
-    box-shadow: 0 2px 35px -15px rgba(0,0,0,0.75);
+    box-shadow: 0 2px 32px -18px rgba(0,0,0,0.6);
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -181,7 +185,8 @@ header nav .menuItem, #mobile-menu .menuItem {
 
 
 #user-links > i {
-    font-size: 2em;
+    font-size: 2.8em;
+    text-shadow: none;
     color: var(--secondary-color);
 }
 
@@ -268,9 +273,8 @@ input, select {
 }
 
 
-button[type="submit"] {
+button[type="submit"], .button {
     width: auto;
-    height: 40px;
     font-size: 16px;
     font-weight: bold;
     color: #fff;
@@ -279,8 +283,12 @@ button[type="submit"] {
     background-color: var(--primary-color);
     cursor: pointer;
     align-self: flex-end;
-    padding-left: 12px;
-    padding-right: 12px;
+    padding: 1em;
+}
+
+.button {
+    border: 1px solid var(--primary-color);
+    background-color: var(--secondary-color);
 }
 
 #logo-mini {
@@ -332,6 +340,8 @@ button[type="submit"] {
 
 .form-content {
     padding: 28px;
+    width: 60%;
+    /*border-radius: 2em;*/
 }
 
 /**
@@ -339,8 +349,9 @@ button[type="submit"] {
  */
 table, .form-content {
     text-align: left;
-    box-shadow: 0 2px 35px -15px rgba(0,0,0,0.75);
+    box-shadow: 0 2px 30px -19px rgba(0,0,0,0.75);
     border-collapse: collapse;
+    border-radius: 1em;
 }
 
 table .sub-header {
@@ -426,6 +437,7 @@ tr:hover i, tr:hover a {
 
 .full-width {
     width: 100%;
+    align-items: center;
 }
 
 .width-25-percent {
@@ -546,12 +558,6 @@ tr:hover i, tr:hover a {
  */
 @media all and (max-width: 1370px) {
 
-    .modal-center {
-        width: 50%;
-        padding: 2em;
-        height: 18em;
-    }
-
     .modal-center form {
         margin-top: 3em;
     }
@@ -582,6 +588,14 @@ tr:hover i, tr:hover a {
     }
 }
 
+
+@media all and (max-width: 1000px) {
+    .modal-center {
+        width: 60%;
+    }
+}
+
+
 /**
  * Small screens.
  */
@@ -591,7 +605,7 @@ tr:hover i, tr:hover a {
         margin-left: 0.1em;
     }
 
-    #user-links, header > nav, #logo-mini {
+    #user-links, header > nav {
         display: none;
     }
 
@@ -615,8 +629,19 @@ tr:hover i, tr:hover a {
         display: none;
     }
 
+    .desktop-hidden {
+        display: inline-block;
+    }
+
     #contact-details {
         margin-top: 3.5em;
+    }
+}
+
+
+@media all and (max-width: 450px) {
+    .modal-center {
+        width: 85%;
     }
 }
 

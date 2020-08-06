@@ -15,6 +15,7 @@
 * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 **#}
 
+{% trans_default_domain 'templates' %}
 
 {#
    * Template used where a search on <table> or <select> is needed
@@ -52,7 +53,11 @@
         <label for="search-box">
             <span class="fa fa-search fa-flip-horizontal fa-2x"></span>
         </label>
-        <input type="search" id="search-box" placeholder="{{ placeholder is defined ? placeholder : '...' }}">
+        <input type="search"
+               id="search-box"
+               placeholder="{{ placeholder is defined ? placeholder : '...' }}"
+               data-no-result-message="{{ 'No results for your search'|trans }}"
+        >
     </div>
 
 {% endif %}
