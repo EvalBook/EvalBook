@@ -69,10 +69,16 @@
             </div>
 
 
-            {{ form_row(form.submit, {
-                'label': 'Send'|trans,
-                'attr': {'class': 'margin-15'},
-            }) }}
+            <div class="flex space-between">
+                {{ form_row(form.submit, {
+                    'label': 'Send'|trans,
+                    'attr': {'class': 'margin-15'},
+                }) }}
+
+                {% if is_granted('ROLE_USER_CREATE') %}
+                    <a href="{{ path('user_add') }}" class="button add-button">{{ 'Add user'| trans}}</a>
+                {% endif %}
+            </div>
 
             {{ form_end(form) }}
         </div>
