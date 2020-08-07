@@ -41,7 +41,7 @@
 
             <div class="form-row display-row">
                 {# Choice: EvalBook logo #}
-                <div class="width-25-percent">
+                <div class="width-50-percent">
                     {{ form_label(form.showLogo, 'Display EvalBook logo'|trans) }}
                     {{ form_widget(form.showLogo, {'attr': {'class': 'width-100'}}) }}
                     <span class="form-error">
@@ -50,7 +50,7 @@
                 </div>
 
                 {# Choice: Display help button / messages #}
-                <div class="width-25-percent">
+                <div class="width-50-percent">
                     {{ form_label(form.showHelp, 'Display help next to titles'|trans) }}
                     {{ form_widget(form.showHelp, {'attr': {'class': 'width-100'}}) }}
                     <span class="form-error">
@@ -58,8 +58,12 @@
                     </span>
                 </div>
 
+            </div>
+
+            <div class="form-row display-row">
+
                 {# Choice: Display search box #}
-                <div class="width-25-percent">
+                <div class="width-50-percent">
                     {{ form_label(form.showSearch, 'Display the search bar'|trans) }}
                     {{ form_widget(form.showSearch, {'attr': {'class': 'width-100'}}) }}
                     <span class="form-error">
@@ -67,29 +71,15 @@
                     </span>
                 </div>
 
-            </div>
-
-            <div class="form-row display-row">
 
                 {# Choice: Display pages title #}
-                <div class="width-25-percent">
+                <div class="width-50-percent">
                     {{ form_label(form.showTitle, 'Display pages titles'|trans) }}
                     {{ form_widget(form.showTitle, {'attr': {'class': 'width-100'}}) }}
                     <span class="form-error">
                         {{ form_errors(form.showTitle) }}
                     </span>
                 </div>
-
-                {# Choice: If admin user, can this configuration be propagated to all users ? #}
-                {% if is_granted('ROLE_ADMIN') %}
-                    <div class="width-25-percent">
-                        {{ form_label(form.isGlobalConfig, 'Set this configuration for all users ?'|trans) }}
-                        {{ form_widget(form.isGlobalConfig, {'attr': {'class': 'width-100'}}) }}
-                        <span class="form-error">
-                            {{ form_errors(form.isGlobalConfig) }}
-                        </span>
-                    </div>
-                {% endif %}
             </div>
 
             <h2>{{ 'Functionnalities settings'|trans }}</h2>
@@ -97,7 +87,7 @@
             <div class="form-row display-row">
                 {# Choice: User want to use school functionality ? #}
                 {% if is_granted('ROLE_IMPLANTATION_LIST_ALL') %}
-                    <div class="width-25-percent">
+                    <div class="width-50-percent">
                         {{ form_label(form.useSchools, 'Use schools'|trans) }}
                         {{ form_widget(form.useSchools, {'attr': {'class': 'width-100'}}) }}
                         <span class="form-error">
@@ -109,7 +99,7 @@
                 {% endif %}
 
                 {# Choice: User want to use contacts functionality ? #}
-                <div class="width-25-percent">
+                <div class="width-50-percent">
                     {{ form_label(form.useContacts, 'Use contacts'|trans) }}
                     {{ form_widget(form.useContacts, {'attr': {'class': 'width-100'}}) }}
                     <span class="form-error">
@@ -117,7 +107,6 @@
                     </span>
                 </div>
 
-                <div class="width-25-percent"></div>
             </div>
 
             {# Submit button #}

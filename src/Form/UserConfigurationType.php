@@ -39,14 +39,6 @@ class UserConfigurationType extends AbstractType
             ->add('useContacts', ChoiceType::class, ['choices' => $options['choices']])
         ;
 
-        if(in_array('ROLE_ADMIN', $options['roles'])) {
-            $builder
-                ->add('isGlobalConfig', ChoiceType::class, [
-                    'choices' => $options['choices'],
-                ])
-            ;
-        }
-
         $builder->add('submit', SubmitType::class);
     }
 

@@ -282,6 +282,7 @@ class UsersController extends AbstractController
     /**
      * @Route("/user/settings", name="user_settings")
      * @param Request $request
+     * @param ConfigurationService $configurationService
      * @return Response|void
      */
     public function configureInterface(Request $request, ConfigurationService $configurationService)
