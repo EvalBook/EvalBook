@@ -1,0 +1,11 @@
+{% extends 'bundles/TwigBundle/Exception/error.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block errorTitle %}
+    {{ 'Maintenance' | trans }}
+{% endblock %}
+
+
+{% block errorMessage %}
+    {{ "We are in maintenance mode and we will come back shortly !"|trans }}
+{% endblock %}

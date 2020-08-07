@@ -40,11 +40,6 @@ class UserConfiguration
     private $showLogo;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isGlobalConfig;
-
-    /**
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $showHelp;
@@ -223,29 +218,6 @@ class UserConfiguration
 
 
     /**
-     * Return true if the current configuration was made GLOBAL ( all system users )
-     * @return bool|null
-     */
-    public function getIsGlobalConfig(): ?bool
-    {
-        return $this->isGlobalConfig;
-    }
-
-
-    /**
-     * Set to true in order to make this configuration the default one.
-     * @param bool $isGlobalConfig
-     * @return $this
-     */
-    public function setIsGlobalConfig(bool $isGlobalConfig): self
-    {
-        $this->isGlobalConfig = $isGlobalConfig;
-
-        return $this;
-    }
-
-
-    /**
      * Return the User attached to this configuration.
      * @return User|null
      */
@@ -274,7 +246,6 @@ class UserConfiguration
     public function setDefaults()
     {
         $this->setShowLogo(true);
-        $this->setIsGlobalConfig(false);
         $this->setShowHelp(true);
         $this->setShowTitle(true);
         $this->setShowSearch(true);

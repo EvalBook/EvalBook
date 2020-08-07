@@ -19,6 +19,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Configuration;
 use App\Form\UserConfigurationType;
 use App\Form\UserProfileType;
 use App\Form\UserType;
@@ -29,6 +30,7 @@ use App\Service\ConfigurationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -282,15 +284,21 @@ class UsersController extends AbstractController
     /**
      * @Route("/user/settings", name="user_settings")
      * @param Request $request
+     * @param ConfigurationService $configurationService
+     * @param ParameterBagInterface $params
      * @return Response|void
      */
-    public function configureInterface(Request $request, ConfigurationService $configurationService)
+    public function configureInterface(Request $request, ConfigurationService $configurationService, ParameterBagInterface $params)
     {
         $user = $this->getUser();
         $configuration = $configurationService->load($user);
+        $maintenance = $this->getDoctrine()->getRepository(Configuration::class)->findOneBy([
+            'name' => 'maintenance',
+        ]);
 
         $configurationForm = $this->createForm(UserConfigurationType::class, $configuration, [
             'roles' => $user->getRoles(),
+            'maintenance' => is_null($maintenance) ? false : boolval($maintenance->getValue()),
         ]);
 
         $configurationForm->handleRequest($request);
@@ -298,6 +306,28 @@ class UsersController extends AbstractController
         if ($configurationForm->isSubmitted() && $configurationForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($configuration);
+
+            // If user is admin and maintenance mode was not manually set.
+            if($this->isGranted('ROLE_ADMIN') && !$params->get('maintenance')['status']) {
+                // Handling maintenance mode.
+                if (is_null($maintenance)) {
+                    $maintenance = new Configuration();
+                    $maintenance->setName('maintenance');
+                }
+                $maintenance->setValue(strval($configurationForm->get('maintenance')->getData()));
+                $em->persist($maintenance);
+
+                // Getting authorized ip.
+                $authorizedIp = $this->getDoctrine()->getRepository(Configuration::class)->findOneBy([
+                    'name' => 'ipAuthorized',
+                ]);
+                if (is_null($authorizedIp)) {
+                    $authorizedIp = new Configuration();
+                    $authorizedIp->setName('ipAuthorized');
+                }
+                $authorizedIp->setValue($request->getClientIp());
+                $em->persist($authorizedIp);
+            }
             $em->flush();
             $this->addFlash('success', 'Successfully updated your configuration');
         }
