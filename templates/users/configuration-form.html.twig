@@ -37,6 +37,23 @@
 
         <div class="form-content">
             {{ form_start(form) }}
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <h2>{{ 'Super administrator settings'|trans }}</h2>
+
+                <div class="form-row display-row">
+                    {# Choice: EvalBook maintenance mode #}
+                    <div class="width-50-percent">
+                        {{ form_label(form.maintenance, 'Enable maintenance mode'|trans) }}
+                        {{ form_widget(form.maintenance, {'attr': {'class': 'width-100'}}) }}
+                        <span class="form-error">
+                        {{ form_errors(form.maintenance) }}
+                    </span>
+                    </div>
+                </div>
+
+            {% endif %}
+
             <h2>{{ 'Interface settings'|trans }}</h2>
 
             <div class="form-row display-row">

@@ -31,17 +31,48 @@ class UserConfigurationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('showLogo', ChoiceType::class, ['choices' => $options['choices']])
-            ->add('showHelp', ChoiceType::class, ['choices' => $options['choices']])
-            ->add('showTitle', ChoiceType::class, ['choices' => $options['choices']])
-            ->add('showSearch', ChoiceType::class, ['choices' => $options['choices']])
-            ->add('useSchools', ChoiceType::class, ['choices' => $options['choices']])
-            ->add('useContacts', ChoiceType::class, ['choices' => $options['choices']])
+            ->add('showLogo', ChoiceType::class, [
+                'choices' => $options['choices']
+            ])
+
+            ->add('showHelp', ChoiceType::class, [
+                'choices' => $options['choices']
+            ])
+
+            ->add('showTitle', ChoiceType::class, [
+                'choices' => $options['choices']
+            ])
+
+            ->add('showSearch', ChoiceType::class, [
+                'choices' => $options['choices']
+            ])
+
+            ->add('useSchools', ChoiceType::class, [
+                'choices' => $options['choices']
+            ])
+
+            ->add('useContacts', ChoiceType::class, [
+                'choices' => $options['choices']
+            ])
         ;
+
+        if(in_array('ROLE_ADMIN', $options['roles'])) {
+            $builder
+                ->add('maintenance', ChoiceType::class, [
+                    'choices' => $options['choices'],
+                    'mapped' => false,
+                    'data' => $options['maintenance'],
+                ])
+            ;
+        }
 
         $builder->add('submit', SubmitType::class);
     }
 
+    /**
+     * Configure default options.
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
@@ -54,6 +85,7 @@ class UserConfigurationType extends AbstractType
                 'No'  => false,
             ],
             'translation_domain' => 'templates',
+            'maintenance' => false,
         ]);
     }
 }
