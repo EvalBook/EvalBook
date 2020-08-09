@@ -96,7 +96,11 @@
                         <span><< <strong>{{ 'Me'|trans }}</strong> >></span>
                     {% else %}
                     {# Classroom owner otherwise #}
-                        {{ classroom.owner }}
+                        {% if classroom.owner is null %}
+                            <span>{{ 'Special classroom'|trans }}</span>
+                        {% else %}
+                            <span>{{ classroom.owner }}</span>
+                        {% endif %}
                     {% endif %}
                 </td>
 
