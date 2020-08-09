@@ -44,12 +44,16 @@
                 <td>{{ classroom.implantation }}</td>
                 <td>{{ classroom.name }}</td>
                 <td>
-                    {# Display <<me>> if current logged in user is same as classroom owner user #}
-                    {%  if app.user is same as(classroom.owner) %}
+                    {# Display << me >> if logged in user is same as classroom owner ( main user )#}
+                    {% if app.user is same as(classroom.owner) %}
                         <span><< <strong>{{ 'Me'|trans }}</strong> >></span>
                     {% else %}
-                    {# Display the classroom owner otherwise ( titular ) #}
-                        {{ classroom.owner }}
+                        {# Classroom owner otherwise #}
+                        {% if classroom.owner is null %}
+                            <span>{{ 'Special classroom'|trans }}</span>
+                        {% else %}
+                            <span>{{ classroom.owner }}</span>
+                        {% endif %}
                     {% endif %}
                 </td>
 
