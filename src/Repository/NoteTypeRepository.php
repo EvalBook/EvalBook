@@ -81,6 +81,19 @@ class NoteTypeRepository extends ServiceEntityRepository
             ;
             $em->persist($nt20);
 
+
+            // 0..30
+            $nt30 = new NoteType();
+            $nt30
+                ->setName("De 0 à 30, coefficient $i")
+                ->setCoefficient($i)
+                ->setDescription("De 0 à 30, ordre naturel, coefficient $i.")
+                ->setMaximum('20')
+                ->setMinimum('0')
+                ->setIntervals(array_reverse(range(1, 29)))
+            ;
+            $em->persist($nt30);
+
             // 0..100
             $nt100 = new NoteType();
             $nt100
@@ -92,44 +105,43 @@ class NoteTypeRepository extends ServiceEntityRepository
                 ->setIntervals(array_reverse(range(1, 99)))
             ;
             $em->persist($nt100);
-
-            // A..F
-            $ntAF = new NoteType();
-            $ntAF
-                ->setName("De A à F, coefficient $i")
-                ->setCoefficient($i)
-                ->setDescription("De A à F, ordre naturel, coefficient $i.")
-                ->setMaximum('A')
-                ->setMinimum('F')
-                ->setIntervals(range('B', 'E'))
-            ;
-            $em->persist($ntAF);
-
-            // A..NA
-            $ntANA = new NoteType();
-            $ntANA
-                ->setName("Acquis-En cours d'acquisition-A revoir-Non acquis, coefficient $i")
-                ->setCoefficient($i)
-                ->setDescription("Acquis, En cours d'acquisition, A revoir, Non acquis, coefficient $i")
-                ->setMaximum('A')
-                ->setMinimum('NA')
-                ->setIntervals(['ECA', 'AR'])
-            ;
-            $em->persist($ntANA);
-
-            // TB...I
-            $ntTBI = new NoteType();
-            $ntTBI
-                ->setName("Très bien, Bien, Moyen, Suffisant, Médiocre, Insuffisant, coefficient $i")
-                ->setCoefficient($i)
-                ->setDescription("Très bien, Bien, Moyen, Suffisant, Médiocre, Insuffisant, coefficient $i")
-                ->setMaximum('TB')
-                ->setMinimum('I')
-                ->setIntervals(['Bien', 'Moyen', 'Suffisant', 'Médiocre', 'Insuffisant'])
-            ;
-            $em->persist($ntTBI);
-
         }
+
+        // A..F
+        $ntAF = new NoteType();
+        $ntAF
+            ->setName("De A à F")
+            ->setCoefficient($i)
+            ->setDescription("De A à F, ordre naturel.")
+            ->setMaximum('A')
+            ->setMinimum('F')
+            ->setIntervals(range('B', 'E'))
+        ;
+        $em->persist($ntAF);
+
+        // A..NA
+        $ntANA = new NoteType();
+        $ntANA
+            ->setName("Acquis - En cours d'acquisition - A revoir - Non acquis")
+            ->setCoefficient($i)
+            ->setDescription("Acquis, En cours d'acquisition, A revoir, Non acquis")
+            ->setMaximum('A')
+            ->setMinimum('NA')
+            ->setIntervals(['ECA', 'AR'])
+        ;
+        $em->persist($ntANA);
+
+        // TB...I
+        $ntTBI = new NoteType();
+        $ntTBI
+            ->setName("Très bien - Bien - Moyen - Suffisant - Médiocre - Insuffisant")
+            ->setCoefficient($i)
+            ->setDescription("Très bien, Bien, Moyen, Suffisant, Médiocre, Insuffisant")
+            ->setMaximum('TB')
+            ->setMinimum('I')
+            ->setIntervals(['Bien', 'Moyen', 'Suffisant', 'Médiocre', 'Insuffisant'])
+        ;
+        $em->persist($ntTBI);
 
         $em->flush();
     }
