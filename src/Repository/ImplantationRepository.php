@@ -55,20 +55,41 @@ class ImplantationRepository extends ServiceEntityRepository
             ->andWhere('i.school = :id_school')
             ->setParameter('id', $implantation->getId())
             ->setParameter('implantation_name', $implantation->getName())
-            ->setParameter('id_school', $implantation->getSchool()->getId())
-        ;
+            ->setParameter('id_school', $implantation->getSchool()->getId());
 
         try {
             $count = $queryBuilder->getQuery()->getSingleScalarResult();
-        }
-        catch (NoResultException $e) {
+        } catch (NoResultException $e) {
             return false;
-        }
-        catch (NonUniqueResultException $e) {
+        } catch (NonUniqueResultException $e) {
             return true;
         }
 
         return intval($count) !== 0;
     }
 
+
+    /**
+     * Return available implantations count.
+     * @return int
+     */
+    public function implantationsCount()
+    {
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+        $queryBuilder
+            ->select('count(i.id)')
+            ->from(Implantation::class, 'i')
+        ;
+
+        try {
+            $count = $queryBuilder->getQuery()->getSingleScalarResult();
+        } catch (NoResultException $e) {
+            return 0;
+        } catch (NonUniqueResultException $e) {
+            return 1;
+        }
+
+        return intval($count);
+
+    }
 }
