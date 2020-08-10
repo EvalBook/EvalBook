@@ -28,16 +28,36 @@ class ActivityTypeChild
      */
     private $activityType;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $displayName;
+
+    /**
+     * Return the activity type chidren id.
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+
+    /**
+     * Return the activity type child name.
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+
+    /**
+     * Set the activity type child name.
+     * @param string $name
+     * @return $this
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -45,14 +65,48 @@ class ActivityTypeChild
         return $this;
     }
 
+
+    /**
+     * Return related activity type.
+     * @return ActivityType|null
+     */
     public function getActivityType(): ?ActivityType
     {
         return $this->activityType;
     }
 
+
+    /**
+     * Set related activity type.
+     * @param ActivityType|null $activityType
+     * @return $this
+     */
     public function setActivityType(?ActivityType $activityType): self
     {
         $this->activityType = $activityType;
+
+        return $this;
+    }
+
+
+    /**
+     * Return display name ( displayed on school report ).
+     * @return string|null
+     */
+    public function getDisplayName(): ?string
+    {
+        return $this->displayName;
+    }
+
+
+    /**
+     * Set the activity type child display name.
+     * @param string $displayName
+     * @return $this
+     */
+    public function setDisplayName(string $displayName): self
+    {
+        $this->displayName = $displayName;
 
         return $this;
     }

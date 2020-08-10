@@ -39,6 +39,11 @@ class ActivityType
      */
     private $activityTypeChildren;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $displayName;
+
 
     /**
      * ActivityType constructor.
@@ -166,6 +171,29 @@ class ActivityType
                 $activityTypeChild->setActivityType(null);
             }
         }
+
+        return $this;
+    }
+
+
+    /**
+     * Return the Activity Type display name.
+     * @return string|null
+     */
+    public function getDisplayName(): ?string
+    {
+        return $this->displayName;
+    }
+
+
+    /**
+     * Set the activity type display name.
+     * @param string $displayName
+     * @return $this
+     */
+    public function setDisplayName(string $displayName): self
+    {
+        $this->displayName = $displayName;
 
         return $this;
     }

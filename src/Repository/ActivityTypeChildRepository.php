@@ -42,6 +42,7 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
             $french = new ActivityTypeChild();
             $french
                 ->setName($translator->trans('French', [], 'templates'))
+                ->setDisplayName()
                 ->setActivityType($activityTypesRepository->findOneBy([
                     // Knowledge = 0
                     'weight' => '0'
@@ -52,6 +53,7 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
             $maths = new ActivityTypeChild();
             $maths
                 ->setName($translator->trans('Mathematics', [], 'templates'))
+                ->setDisplayName('mathematics')
                 ->setActivityType($activityTypesRepository->findOneBy([
                     // Knowledge = 0
                     'weight' => '0'
@@ -62,7 +64,8 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
 
             $eveil = new ActivityTypeChild();
             $eveil
-                ->setName($translator->trans('History / Geography', [], 'templates'))
+                ->setName('history_geography')
+                ->setDisplayName($translator->trans('History / Geography', [], 'templates'))
                 ->setActivityType($activityTypesRepository->findOneBy([
                     // Knowledge = 0
                     'weight' => '0'
@@ -75,7 +78,8 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
 
             $specialClassrooms = new ActivityTypeChild();
             $specialClassrooms
-                ->setName($translator->trans('Special classrooms', [], 'templates'))
+                ->setName('special_classrooms')
+                ->setDisplayName($translator->trans('Special classrooms', [], 'templates'))
                 ->setActivityType($activityTypesRepository->findOneBy([
                     // Knowledge = 0
                     'weight' => '0'
@@ -87,7 +91,8 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
             // Behavior activity type.
             $behaviorWithMaster = new ActivityTypeChild();
             $behaviorWithMaster
-                ->setName($translator->trans('Behavior with classroom owner', [], 'templates'))
+                ->setName('behavior_classroom_owner')
+                ->setDisplayName($translator->trans('Behavior with classroom owner', [], 'templates'))
                 ->setActivityType($activityTypesRepository->findOneBy([
                     // Behavior = 2
                     'weight' => '2'
@@ -97,7 +102,8 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
 
             $behaviorWithSpecialMasters = new ActivityTypeChild();
             $behaviorWithSpecialMasters
-                ->setName($translator->trans('Behavior with special masters', [], 'templates'))
+                ->setName('behavior_special_masters')
+                ->setDisplayName($translator->trans('Behavior with special masters', [], 'templates'))
                 ->setActivityType($activityTypesRepository->findOneBy([
                     // Behavior = 2
                     'weight' => '2'

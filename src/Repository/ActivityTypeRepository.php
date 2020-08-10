@@ -45,7 +45,8 @@ class ActivityTypeRepository extends ServiceEntityRepository
 
         $knowledge = new ActivityType();
         $knowledge
-            ->setName($translator->trans('Knowledge', [], 'templates'))
+            ->setName('knowledge')
+            ->setDisplayName($translator->trans('Knowledge', [], 'templates'))
             ->setIsNumericNotes(true)
             ->setWeight(0)
         ;
@@ -53,7 +54,8 @@ class ActivityTypeRepository extends ServiceEntityRepository
 
         $transversalKnowledge = new ActivityType();
         $transversalKnowledge
-            ->setName($translator->trans('Transversal knowledge', [], 'templates'))
+            ->setName('transversal_knowledge')
+            ->setDisplayName($translator->trans('Transversal knowledge', [], 'templates'))
             ->setIsNumericNotes(true)
             ->setWeight(1)
         ;
@@ -61,7 +63,8 @@ class ActivityTypeRepository extends ServiceEntityRepository
 
         $behavior = new ActivityType();
         $behavior
-            ->setName($translator->trans('Behavior', [], 'templates'))
+            ->setName('behavior')
+            ->setDisplayName($translator->trans('Behavior', [], 'templates'))
             ->setIsNumericNotes(false)
             ->setWeight(2)
         ;
