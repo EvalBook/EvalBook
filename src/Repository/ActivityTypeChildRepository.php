@@ -4,9 +4,9 @@ namespace App\Repository;
 
 use App\Entity\ActivityType;
 use App\Entity\ActivityTypeChild;
+use App\Entity\Classroom;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
@@ -24,6 +24,40 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, ActivityTypeChild::class);
     }
+
+
+    /**
+     * Find activity type child(ren) by type ( generic or special classroom and by classroom id ).
+     * @param String $type
+     * @param Classroom $classroom
+     * @param bool $includeDefaults
+     * @return int|mixed|string
+     */
+    public function findByTypeAndClassroom(String $type, Classroom $classroom, bool $includeDefaults = false)
+    {
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+        $queryBuilder
+            ->select('a')
+            ->from(ActivityTypeChild::class, 'a')
+            ->where('a.type = :type')
+        ;
+        if(!$includeDefaults) {
+            $queryBuilder
+                ->andWhere('a.classroom = :classroom')
+                ->setParameter('classroom', $classroom->getId())
+            ;
+        }
+        else {
+            $queryBuilder->expr()->in('classroom', [null, $classroom->getId()]);
+        }
+
+        $queryBuilder
+            ->setParameter('type', $type)
+        ;
+
+        return $queryBuilder->getQuery()->getResult(AbstractQuery::HYDRATE_OBJECT);
+    }
+
 
     /**
      * Populate database with default activity types children ( most commonly used ).
@@ -47,17 +81,19 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
                     // Knowledge = 0
                     'weight' => '0'
                 ]))
+                ->setType(ActivityTypeChild::TYPE_GENERIC)
             ;
             $em->persist($french);
 
             $maths = new ActivityTypeChild();
             $maths
-                ->setName($translator->trans('Mathematics', [], 'templates'))
-                ->setDisplayName('mathematics')
+                ->setName('mathematics')
+                ->setDisplayName($translator->trans('Mathematics', [], 'templates'))
                 ->setActivityType($activityTypesRepository->findOneBy([
                     // Knowledge = 0
                     'weight' => '0'
                 ]))
+                ->setType(ActivityTypeChild::TYPE_GENERIC)
             ;
 
             $em->persist($maths);
@@ -70,6 +106,7 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
                     // Knowledge = 0
                     'weight' => '0'
                 ]))
+                ->setType(ActivityTypeChild::TYPE_GENERIC)
             ;
             $em->persist($eveil);
 
@@ -84,6 +121,7 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
                     // Knowledge = 0
                     'weight' => '0'
                 ]))
+                ->setType(ActivityTypeChild::TYPE_SPECIAL_CLASSROOM)
             ;
             $em->persist($specialClassrooms);
 
@@ -97,17 +135,19 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
                     // Behavior = 2
                     'weight' => '2'
                 ]))
+                ->setType(ActivityTypeChild::TYPE_GENERIC)
             ;
             $em->persist($behaviorWithMaster);
 
             $behaviorWithSpecialMasters = new ActivityTypeChild();
             $behaviorWithSpecialMasters
-                ->setName('behavior_special_masters')
+                ->setName('special_classroom_masters_generic')
                 ->setDisplayName($translator->trans('Behavior with special masters', [], 'templates'))
                 ->setActivityType($activityTypesRepository->findOneBy([
                     // Behavior = 2
                     'weight' => '2'
                 ]))
+                ->setType(ActivityTypeChild::TYPE_SPECIAL_CLASSROOM)
             ;
             $em->persist($behaviorWithSpecialMasters);
 

@@ -107,22 +107,17 @@ class ActivityController extends AbstractController
 
         // Getting available ActivityTypeChild.
         // TODO apply this to edition form.
-        $activityTypeChildren = [];
         $atcRepository = $this->getDoctrine()->getRepository(ActivityTypeChild::class);
         if(!is_null($classroom->getOwner())) {
-            $activityTypeChildren = $atcRepository->findBy([
-                'classroom' => null
-            ]);
+            $activityTypeChildren = $atcRepository->findByTypeAndClassroom(ActivityTypeChild::TYPE_GENERIC, $classroom, true);
         }
-
+        else {
+            $activityTypeChildren = $atcRepository->findByTypeAndClassroom(ActivityTypeChild::TYPE_SPECIAL_CLASSROOM, $classroom, true);
+        }
 
         $form = $this->createForm(ActivityType::class, $activity, [
             'periods' => $periods,
-            // FIXME
-            'activity_type_children' => array_merge(
-                $classroom->getActivityTypeChildren()->toArray(),
-                $activityTypeChildren
-            ) ,
+            'activity_type_children' => $activityTypeChildren,
         ]);
 
         $form->handleRequest($request);

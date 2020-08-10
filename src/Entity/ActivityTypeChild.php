@@ -10,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ActivityTypeChild
 {
+    const TYPE_GENERIC = 'generic';
+    const TYPE_SPECIAL_CLASSROOM = 'special_classroom';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -37,6 +40,11 @@ class ActivityTypeChild
      * @ORM\ManyToOne(targetEntity=Classroom::class, inversedBy="activityTypeChildren")
      */
     private $classroom;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $type;
 
     /**
      * Return the activity type chidren id.
@@ -146,5 +154,31 @@ class ActivityTypeChild
     public function __toString(): string
     {
         return $this->getDisplayName();
+    }
+
+
+    /**
+     * Return the activity type child type ( generic / special_classroom )
+     * @return string|null
+     */
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+
+    /**
+     * Set the activity type child type ( generic / special_classroom )
+     * @param string $type
+     * @return $this
+     */
+    public function setType(string $type): self
+    {
+        // Ensure type is allowed before applying.
+        if(in_array($type, [self::TYPE_GENERIC, self::TYPE_SPECIAL_CLASSROOM])) {
+            $this->type = $type;
+        }
+
+        return $this;
     }
 }
