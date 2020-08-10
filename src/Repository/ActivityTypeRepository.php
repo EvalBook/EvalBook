@@ -41,27 +41,34 @@ class ActivityTypeRepository extends ServiceEntityRepository
      */
     public function populate(TranslatorInterface $translator)
     {
+        $em = $this->getEntityManager();
+
         $knowledge = new ActivityType();
         $knowledge
             ->setName($translator->trans('Knowledge', [], 'templates'))
             ->setIsNumericNotes(true)
             ->setWeight(0)
         ;
-
-        $behavior = new ActivityType();
-        $behavior
-            ->setName($translator->trans('Behavior', [], 'templates'))
-            ->setIsNumericNotes(false)
-            ->setWeight(1)
-        ;
-
+        $em->persist($knowledge);
 
         $transversalKnowledge = new ActivityType();
         $transversalKnowledge
             ->setName($translator->trans('Transversal knowledge', [], 'templates'))
             ->setIsNumericNotes(true)
+            ->setWeight(1)
+        ;
+        $em->persist($transversalKnowledge);
+
+        $behavior = new ActivityType();
+        $behavior
+            ->setName($translator->trans('Behavior', [], 'templates'))
+            ->setIsNumericNotes(false)
             ->setWeight(2)
         ;
+        $em->persist($behavior);
+
+
+        $em->flush();
     }
 
 

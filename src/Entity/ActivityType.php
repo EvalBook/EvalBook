@@ -34,6 +34,20 @@ class ActivityType
      */
     private $isNumericNotes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ActivityTypeChild::class, mappedBy="activityType", orphanRemoval=true)
+     */
+    private $activityTypeChildren;
+
+
+    /**
+     * ActivityType constructor.
+     */
+    public function __construct()
+    {
+        $this->activityTypeChildren = new ArrayCollection();
+    }
+
 
     /**
      * Return the activity type id
@@ -108,6 +122,50 @@ class ActivityType
     public function setIsNumericNotes(bool $isNumericNotes): self
     {
         $this->isNumericNotes = $isNumericNotes;
+
+        return $this;
+    }
+
+
+    /**
+     * @return Collection|ActivityTypeChild[]
+     */
+    public function getActivityTypeChildren(): Collection
+    {
+        return $this->activityTypeChildren;
+    }
+
+
+    /**
+     * Add an activity type child.
+     * @param ActivityTypeChild $activityTypeChild
+     * @return $this
+     */
+    public function addActivityTypeChild(ActivityTypeChild $activityTypeChild): self
+    {
+        if (!$this->activityTypeChildren->contains($activityTypeChild)) {
+            $this->activityTypeChildren[] = $activityTypeChild;
+            $activityTypeChild->setActivityType($this);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * Remove an activity type child.
+     * @param ActivityTypeChild $activityTypeChild
+     * @return $this
+     */
+    public function removeActivityTypeChild(ActivityTypeChild $activityTypeChild): self
+    {
+        if ($this->activityTypeChildren->contains($activityTypeChild)) {
+            $this->activityTypeChildren->removeElement($activityTypeChild);
+            // set the owning side to null (unless already changed)
+            if ($activityTypeChild->getActivityType() === $this) {
+                $activityTypeChild->setActivityType(null);
+            }
+        }
 
         return $this;
     }
