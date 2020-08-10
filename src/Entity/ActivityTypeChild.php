@@ -34,6 +34,11 @@ class ActivityTypeChild
     private $displayName;
 
     /**
+     * @ORM\ManyToOne(targetEntity=Classroom::class, inversedBy="activityTypeChildren")
+     */
+    private $classroom;
+
+    /**
      * Return the activity type chidren id.
      * @return int|null
      */
@@ -109,5 +114,37 @@ class ActivityTypeChild
         $this->displayName = $displayName;
 
         return $this;
+    }
+
+    /**
+     * Return attached classroom or null for a generic one.
+     * @return Classroom|null
+     */
+    public function getClassroom(): ?Classroom
+    {
+        return $this->classroom;
+    }
+
+
+    /**
+     * Set the attached classroom.
+     * @param Classroom|null $classroom
+     * @return $this
+     */
+    public function setClassroom(?Classroom $classroom): self
+    {
+        $this->classroom = $classroom;
+
+        return $this;
+    }
+
+
+    /**
+     * String representation of this object.
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->getDisplayName();
     }
 }

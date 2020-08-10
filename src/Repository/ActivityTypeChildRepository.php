@@ -41,8 +41,8 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
             // Knowledge activity type.
             $french = new ActivityTypeChild();
             $french
-                ->setName($translator->trans('French', [], 'templates'))
-                ->setDisplayName()
+                ->setName('french')
+                ->setDisplayName($translator->trans('French', [], 'templates'))
                 ->setActivityType($activityTypesRepository->findOneBy([
                     // Knowledge = 0
                     'weight' => '0'

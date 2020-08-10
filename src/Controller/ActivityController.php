@@ -80,19 +80,19 @@ class ActivityController extends AbstractController
 
         // Populate notes types.
         if($this->getDoctrine()->getRepository(NoteType::class)->count([]) === 0) {
-            // No not type found, then populating database with the default ones.
+            // No note type found, then populating database with the default ones.
             $this->getDoctrine()->getRepository(NoteType::class)->populate();
         }
 
         // Populate activities types.
         if($this->getDoctrine()->getRepository(\App\Entity\ActivityType::class)->count([]) === 0) {
-            // No not type found, then populating database with the default ones.
+            // No activity type found, then populating database with the default ones.
             $this->getDoctrine()->getRepository(\App\Entity\ActivityType::class)->populate($translator);
         }
 
         // Populate activities children types.
         if($this->getDoctrine()->getRepository(ActivityTypeChild::class)->count([]) === 0) {
-            // No not type found, then populating database with the default ones.
+            // No activity type children type found, then populating database with the default ones.
             $this->getDoctrine()->getRepository(ActivityTypeChild::class)->populate($translator);
         }
 
@@ -104,8 +104,25 @@ class ActivityController extends AbstractController
                 $periods[] = $period;
             }
         }
+
+        // Getting available ActivityTypeChild.
+        // TODO apply this to edition form.
+        $activityTypeChildren = [];
+        $atcRepository = $this->getDoctrine()->getRepository(ActivityTypeChild::class);
+        if(!is_null($classroom->getOwner())) {
+            $activityTypeChildren = $atcRepository->findBy([
+                'classroom' => null
+            ]);
+        }
+
+
         $form = $this->createForm(ActivityType::class, $activity, [
             'periods' => $periods,
+            // FIXME
+            'activity_type_children' => array_merge(
+                $classroom->getActivityTypeChildren()->toArray(),
+                $activityTypeChildren
+            ) ,
         ]);
 
         $form->handleRequest($request);

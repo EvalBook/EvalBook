@@ -20,6 +20,7 @@
 namespace App\Form;
 
 use App\Entity\Activity;
+use App\Entity\ActivityTypeChild;
 use App\Entity\Period;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -39,7 +40,14 @@ class ActivityType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        //dd($options["activity_type_children"]);
         $builder
+            ->add('activityTypeChildren', EntityType::class, [
+                'class' => ActivityTypeChild::class,
+                'choices' => $options['activity_type_children'],
+                'mapped' => false,
+            ])
+
             // Available periods.
             ->add('period', EntityType::class, [
                 'class' => Period::class,
@@ -73,6 +81,7 @@ class ActivityType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Activity::class,
             'periods' => array(),
+            'activity_type_children' => array(),
         ]);
     }
 }

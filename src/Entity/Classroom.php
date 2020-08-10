@@ -68,6 +68,11 @@ class Classroom
      */
     private $activities;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ActivityTypeChild::class, mappedBy="classroom")
+     */
+    private $activityTypeChildren;
+
 
     /**
      * Classe constructor.
@@ -77,6 +82,7 @@ class Classroom
         $this->users = new ArrayCollection();
         $this->students = new ArrayCollection();
         $this->activities = new ArrayCollection();
+        $this->activityTypeChildren = new ArrayCollection();
     }
 
 
@@ -310,5 +316,49 @@ class Classroom
     public function __toString()
     {
         return $this->getName();
+    }
+
+
+    /**
+     * @return Collection|ActivityTypeChild[]
+     */
+    public function getActivityTypeChildren(): Collection
+    {
+        return $this->activityTypeChildren;
+    }
+
+
+    /**
+     * Add an activity type chidren ( useful for special classrooms ).
+     * @param ActivityTypeChild $activityTypeChild
+     * @return $this
+     */
+    public function addActivityTypeChild(ActivityTypeChild $activityTypeChild): self
+    {
+        if (!$this->activityTypeChildren->contains($activityTypeChild)) {
+            $this->activityTypeChildren[] = $activityTypeChild;
+            $activityTypeChild->setClassroom($this);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * Remove an activity type child.
+     * @param ActivityTypeChild $activityTypeChild
+     * @return $this
+     */
+    public function removeActivityTypeChild(ActivityTypeChild $activityTypeChild): self
+    {
+        if ($this->activityTypeChildren->contains($activityTypeChild)) {
+            $this->activityTypeChildren->removeElement($activityTypeChild);
+            // set the owning side to null (unless already changed)
+            if ($activityTypeChild->getClassroom() === $this) {
+                $activityTypeChild->setClassroom(null);
+            }
+        }
+
+        return $this;
     }
 }

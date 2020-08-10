@@ -74,16 +74,4 @@ class ActivityTypeRepository extends ServiceEntityRepository
         $em->flush();
     }
 
-
-    /*
-    public function findOneBySomeField($value): ?ActivityType
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
