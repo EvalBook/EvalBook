@@ -245,6 +245,7 @@ History / Geography: Eveil
 Behavior with classroom owner: Comportement avec le titulaire
 Behavior with special masters: Comportement avec les maîtres spéciaux
 Special classrooms: Classes spéciales
+Activity type: Type d'activité
 
 
 roles:
@@ -296,4 +297,3 @@ help:
   ROLE_CLASS_EDIT_STUDENTS: Ce rôle permet à un utilisateur d'assigner un ou plusieurs élèves à une classe.
   ROLE_CLASS_EDIT_USERS: Ce rôle permet d'attribuer le droit d'actions à un ou plusieurs utilisateurs sur une classe précise.
   ROLE_ADMIN: Le rôle admin peut absolument tout faire, à l'exception de l'édition de ses pairs.
-

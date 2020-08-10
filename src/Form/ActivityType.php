@@ -40,12 +40,14 @@ class ActivityType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        //dd($options["activity_type_children"]);
         $builder
+
             ->add('activityTypeChildren', EntityType::class, [
+                // Used to filter knowledge types with JS.
                 'class' => ActivityTypeChild::class,
                 'choices' => $options['activity_type_children'],
                 'mapped' => false,
+                'group_by' => 'activityType',
             ])
 
             // Available periods.

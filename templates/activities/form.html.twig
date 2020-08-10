@@ -33,6 +33,12 @@
             {% if form.period.vars.choices|length > 0 %}
                 {{ form_start(form) }}
 
+                {# Activity type child #}
+                <div class="form-row">
+                    {{ form_label(form.activityTypeChildren, 'Activity type'|trans) }}
+                    {{ form_widget(form.activityTypeChildren) }}
+                </div>
+
                 {# Activity period ( Only not closed periods are returned by controller ) #}
                 <div class="form-row">
                     {{ form_label(form.period, 'Period'|trans) }}

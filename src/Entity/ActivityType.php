@@ -198,4 +198,13 @@ class ActivityType
         return $this;
     }
 
+
+    /**
+     * String representation of ActivityType.
+     */
+    public function __toString(): string
+    {
+        return $this->getDisplayName();
+    }
+
 }
