@@ -68,28 +68,4 @@ class ImplantationRepository extends ServiceEntityRepository
         return intval($count) !== 0;
     }
 
-
-    /**
-     * Return available implantations count.
-     * @return int
-     */
-    public function implantationsCount()
-    {
-        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
-        $queryBuilder
-            ->select('count(i.id)')
-            ->from(Implantation::class, 'i')
-        ;
-
-        try {
-            $count = $queryBuilder->getQuery()->getSingleScalarResult();
-        } catch (NoResultException $e) {
-            return 0;
-        } catch (NonUniqueResultException $e) {
-            return 1;
-        }
-
-        return intval($count);
-
-    }
 }

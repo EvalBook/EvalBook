@@ -37,7 +37,7 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
         $activityTypesRepository = $em->getRepository(ActivityType::class);
 
         // Only if activity types already populated with default values.
-        if($activityTypesRepository->activityTypesCount() > 0) {
+        if($activityTypesRepository->count([]) > 0) {
             // Knowledge activity type.
             $french = new ActivityTypeChild();
             $french
@@ -107,30 +107,5 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
 
             $em->flush();
         }
-    }
-
-
-    /**
-     * Return available activity types children count.
-     * @return int
-     */
-    public function activityTypesChildCount()
-    {
-        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
-        $queryBuilder
-            ->select('count(a.id)')
-            ->from(ActivityTypeChild::class, 'a')
-        ;
-
-        try {
-            $count = $queryBuilder->getQuery()->getSingleScalarResult();
-        } catch (NoResultException $e) {
-            return 0;
-        } catch (NonUniqueResultException $e) {
-            return 1;
-        }
-
-        return intval($count);
-
     }
 }

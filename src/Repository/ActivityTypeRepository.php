@@ -25,7 +25,7 @@ class ActivityTypeRepository extends ServiceEntityRepository
     /**
     * @return ActivityType[] Returns an array of ActivityType objects ordered byè school report display order.
     */
-    public function findByExampleField($value)
+    public function findByWeight()
     {
         return $this->createQueryBuilder('a')
             ->orderBy('a.weight', 'DESC')
@@ -69,31 +69,6 @@ class ActivityTypeRepository extends ServiceEntityRepository
 
 
         $em->flush();
-    }
-
-
-    /**
-     * Return available activity types count.
-     * @return int
-     */
-    public function activityTypesCount()
-    {
-        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
-        $queryBuilder
-            ->select('count(a.id)')
-            ->from(ActivityType::class, 'a')
-        ;
-
-        try {
-            $count = $queryBuilder->getQuery()->getSingleScalarResult();
-        } catch (NoResultException $e) {
-            return 0;
-        } catch (NonUniqueResultException $e) {
-            return 1;
-        }
-
-        return intval($count);
-
     }
 
 

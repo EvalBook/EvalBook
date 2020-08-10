@@ -76,7 +76,7 @@ class ClassroomController extends AbstractController
      */
     public function add(Request $request, ClassroomRepository $repository): Response
     {
-        if($this->getDoctrine()->getRepository(Implantation::class)->implantationsCount() > 0) {
+        if($this->getDoctrine()->getRepository(Implantation::class)->count([]) > 0) {
             $classroom = new Classroom();
             $form = $this->createForm(ClassroomType::class, $classroom);
             $form->handleRequest($request);
