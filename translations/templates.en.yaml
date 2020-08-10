@@ -216,7 +216,7 @@ Select a note type or: Select a note type or
 add a new one: add a new one
 Unable to add new activities, no active period detected: Unable to add new activities, no active period detected
 This name is used to identity your note type while adding a new activity: This name is used to identity your note type while adding a new activity
-Coefficient to apply: Coefficient to apply
+Coefficient to apply: Coefficient to apply ( only for numeric notes )
 The default coefficient is 1: The default coefficient is 1
 Description: Description
 A short description on how to use your note type: A short description on how to use your note type

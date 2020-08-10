@@ -4,7 +4,10 @@ namespace App\Repository;
 
 use App\Entity\ActivityType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @method ActivityType|null find($id, $lockMode = null, $lockVersion = null)
@@ -25,10 +28,65 @@ class ActivityTypeRepository extends ServiceEntityRepository
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('a')
-            ->orderBy('a.weight', 'ASC')
+            ->orderBy('a.weight', 'DESC')
             ->getQuery()
             ->getResult()
         ;
+    }
+
+
+    /**
+     * Populate database with restricted activity types.
+     * @param TranslatorInterface $translator
+     */
+    public function populate(TranslatorInterface $translator)
+    {
+        $knowledge = new ActivityType();
+        $knowledge
+            ->setName($translator->trans('Knowledge', [], 'templates'))
+            ->setIsNumericNotes(true)
+            ->setWeight(0)
+        ;
+
+        $behavior = new ActivityType();
+        $behavior
+            ->setName($translator->trans('Behavior', [], 'templates'))
+            ->setIsNumericNotes(false)
+            ->setWeight(1)
+        ;
+
+
+        $transversalKnowledge = new ActivityType();
+        $transversalKnowledge
+            ->setName($translator->trans('Transversal knowledge', [], 'templates'))
+            ->setIsNumericNotes(true)
+            ->setWeight(2)
+        ;
+    }
+
+
+    /**
+     * Return available activity types count.
+     * @return int
+     */
+    public function activityTypesCount()
+    {
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+        $queryBuilder
+            ->select('count(a.id)')
+            ->from(ActivityType::class, 'a')
+        ;
+
+        try {
+            $count = $queryBuilder->getQuery()->getSingleScalarResult();
+        } catch (NoResultException $e) {
+            return 0;
+        } catch (NonUniqueResultException $e) {
+            return 1;
+        }
+
+        return intval($count);
+
     }
 
 

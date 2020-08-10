@@ -30,18 +30,9 @@ class ActivityType
     private $weight;
 
     /**
-     * @ORM\OneToMany(targetEntity=KnowledgeType::class, mappedBy="activityType", orphanRemoval=true)
+     * @ORM\Column(type="boolean")
      */
-    private $knowledgeTypes;
-
-
-    /**
-     * ActivityType constructor.
-     */
-    public function __construct()
-    {
-        $this->knowledgeTypes = new ArrayCollection();
-    }
+    private $isNumericNotes;
 
 
     /**
@@ -101,46 +92,24 @@ class ActivityType
 
 
     /**
-     * Return all available knowledge types.
-     * @return Collection|KnowledgeType[]
+     * Return true if this activity type must use numeric notes types.
+     * @return bool|null
      */
-    public function getKnowledgeTypes(): Collection
+    public function getIsNumericNotes(): ?bool
     {
-        return $this->knowledgeTypes;
+        return $this->isNumericNotes;
     }
 
 
     /**
-     * Add a new knowledge type to this activity type.
-     * @param KnowledgeType $knowledgeType
+     * @param bool $isNumericNotes
      * @return $this
      */
-    public function addKnowledgeType(KnowledgeType $knowledgeType): self
+    public function setIsNumericNotes(bool $isNumericNotes): self
     {
-        if (!$this->knowledgeTypes->contains($knowledgeType)) {
-            $this->knowledgeTypes[] = $knowledgeType;
-            $knowledgeType->setActivityType($this);
-        }
+        $this->isNumericNotes = $isNumericNotes;
 
         return $this;
     }
 
-
-    /**
-     * Remove a knowledge type from this activity type.
-     * @param KnowledgeType $knowledgeType
-     * @return $this
-     */
-    public function removeKnowledgeType(KnowledgeType $knowledgeType): self
-    {
-        if ($this->knowledgeTypes->contains($knowledgeType)) {
-            $this->knowledgeTypes->removeElement($knowledgeType);
-            // set the owning side to null (unless already changed)
-            if ($knowledgeType->getActivityType() === $this) {
-                $knowledgeType->setActivityType(null);
-            }
-        }
-
-        return $this;
-    }
 }
