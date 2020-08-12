@@ -71,7 +71,7 @@ class NoteType
     private $activities;
 
     /**
-     * @ORM\OneToMany(targetEntity=KnowledgeType::class, mappedBy="idNoteType")
+     * @ORM\OneToMany(targetEntity=KnowledgeType::class, mappedBy="noteType")
      */
     private $knowledgeTypes;
 
@@ -284,4 +284,5 @@ class NoteType
 
         return $this;
     }
+
 }

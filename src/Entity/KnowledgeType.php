@@ -183,4 +183,14 @@ class KnowledgeType
 
         return $this;
     }
+
+
+    /**
+     * String representation of this object.
+     * @return string|null
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

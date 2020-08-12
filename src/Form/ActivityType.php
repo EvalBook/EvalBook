@@ -57,8 +57,8 @@ class ActivityType extends AbstractType
 
             ->add('knowledgeType', EntityType::class, [
                 'class' => KnowledgeType::class,
-                'choices' => [],
                 'required' => true,
+
             ])
 
             // Available periods.
@@ -71,7 +71,6 @@ class ActivityType extends AbstractType
             // The note type.
             ->add('noteType', EntityType::class, [
                 'class' => \App\Entity\NoteType::class,
-                'choices' => [],
                 'placeholder' => "Select an available note type...",
                 'translation_domain' => 'templates',
             ])
