@@ -38,6 +38,44 @@ class NoteTypeRepository extends ServiceEntityRepository
 
 
     /**
+     * Return available note types by numeric - non numeric....
+     * @param bool $isNumeric
+     */
+    public function findByType(bool $isNumeric)
+    {
+        $numericNotesTypes = [];
+        $mixedNoteTypes = [];
+
+        $noteTypes = $this->getEntityManager()->getRepository($this->getClassName())->findAll();
+        if(count($noteTypes) === 0)
+            return [];
+
+        // Iterate over note types to check which ones are numeric.
+        /* @var $noteType NoteType */
+        foreach($noteTypes as $noteType) {
+            if(is_numeric($noteType->getMaximum()) && is_numeric($noteType->getMinimum())) {
+                $numericIntervals = array_filter(
+                    $noteType->getIntervals(),
+                    function($interval){
+                        return is_numeric($interval);
+                    });
+                if(count($numericIntervals) === count($noteType->getIntervals())) {
+                    $numericNotesTypes[] = $noteType;
+                }
+                else {
+                    $mixedNoteTypes[] = $noteType;
+                }
+            }
+            else {
+                $mixedNoteTypes[] = $noteType;
+            }
+        }
+
+        return $isNumeric ? $numericNotesTypes : $mixedNoteTypes;
+    }
+
+
+    /**
      * Populate the database with the default note types values to cover a maximum of use cases.
      */
     public function populate()

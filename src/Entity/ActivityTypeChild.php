@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ActivityTypeChildRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -45,6 +47,16 @@ class ActivityTypeChild
      * @ORM\Column(type="string", length=100)
      */
     private $type;
+
+    /**
+     * @ORM\OneToMany(targetEntity=KnowledgeType::class, mappedBy="activityTypeChild", orphanRemoval=true)
+     */
+    private $knowledgeTypes;
+
+    public function __construct()
+    {
+        $this->knowledgeTypes = new ArrayCollection();
+    }
 
     /**
      * Return the activity type chidren id.
@@ -177,6 +189,49 @@ class ActivityTypeChild
         // Ensure type is allowed before applying.
         if(in_array($type, [self::TYPE_GENERIC, self::TYPE_SPECIAL_CLASSROOM])) {
             $this->type = $type;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|KnowledgeType[]
+     */
+    public function getKnowledgeTypes(): Collection
+    {
+        return $this->knowledgeTypes;
+    }
+
+
+    /**
+     * Add a knowledge type to this activity type child.
+     * @param KnowledgeType $knowledgeType
+     * @return $this
+     */
+    public function addKnowledgeType(KnowledgeType $knowledgeType): self
+    {
+        if (!$this->knowledgeTypes->contains($knowledgeType)) {
+            $this->knowledgeTypes[] = $knowledgeType;
+            $knowledgeType->setActivityTypeChild($this);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * Remove a knowledge from this activity type child.
+     * @param KnowledgeType $knowledgeType
+     * @return $this
+     */
+    public function removeKnowledgeType(KnowledgeType $knowledgeType): self
+    {
+        if ($this->knowledgeTypes->contains($knowledgeType)) {
+            $this->knowledgeTypes->removeElement($knowledgeType);
+            // set the owning side to null (unless already changed)
+            if ($knowledgeType->getActivityTypeChild() === $this) {
+                $knowledgeType->setActivityTypeChild(null);
+            }
         }
 
         return $this;

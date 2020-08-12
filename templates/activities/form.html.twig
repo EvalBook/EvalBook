@@ -33,30 +33,48 @@
             {% if form.period.vars.choices|length > 0 %}
                 {{ form_start(form) }}
 
-                {# Activity type child #}
-                <div class="form-row">
-                    {{ form_label(form.activityTypeChildren, 'Activity type'|trans) }}
-                    {{ form_widget(form.activityTypeChildren) }}
+                <div class="form-row display-row">
+                    {# Activity type child #}
+                    <div class="width-50-percent margin-right">
+                        {{ form_label(form.activityTypeChildren, 'Activity type'|trans) }}
+                        {{ form_widget(form.activityTypeChildren, {'attr' : {
+                            'class' : 'full-width',
+                        }} ) }}
+                    </div>
+
+                    {# Activity period ( Only not closed periods are returned by controller ) #}
+                    <div class="width-50-percent margin-left">
+                        {{ form_label(form.period, 'Period'|trans) }}
+                        {{ form_widget(form.period, {'attr' : {
+                            'class' : 'full-width',
+                        }} ) }}
+                    </div>
                 </div>
 
-                {# Activity period ( Only not closed periods are returned by controller ) #}
-                <div class="form-row">
-                    {{ form_label(form.period, 'Period'|trans) }}
-                    {{ form_widget(form.period) }}
-                </div>
+                <div class="form-row display-row">
+                    {# Activity knowledge type #}
+                    <div class="width-50-percent margin-right hidden">
+                        {{ form_label(form.knowledgeType, 'Knowledge type'|trans) }}
+                        {{ form_widget(form.knowledgeType, {'attr': {
+                            'class': 'full-width',
+                        }}) }}
+                    </div>
 
-                {# Activity note type #}
-                <div class="form-row">
-                    {{ form_label(form.noteType, 'Note type'|trans) }}
-                    {{ form_widget(form.noteType) }}
-                    <span class="form-info">
-                        {{ 'Select a note type or'|trans }}
-                        <a href="{{ path('note_type_add', {'classroom': classroomId}) }}">{{ 'add a new one'|trans }}</a>
-                    </span>
+                    {# Activity note type #}
+                    <div class="width-50-percent margin-left hidden">
+                        {{ form_label(form.noteType, 'Note type'|trans) }}
+                        {{ form_widget(form.noteType, {'attr': {
+                            'class': 'full-width',
+                        }}) }}
+                        <span class="form-info">
+                            {{ 'Select a note type or'|trans }}
+                            <a href="{{ path('note_type_add', {'classroom': classroomId}) }}">{{ 'add a new one'|trans }}</a>
+                        </span>
+                    </div>
                 </div>
 
                 {# Activity name #}
-                <div class="form-row">
+                <div class="form-row hidden">
                     {{ form_label(form.name, 'Name'|trans) }}
                     {{ form_widget(form.name) }}
                     <span class="form-error">
@@ -66,15 +84,14 @@
 
                 {# Activity comment #}
                 <div class="form-row">
-                    {{ form_label(form.comment, 'Comment'|trans) }}
+                    {# { form_label(form.comment, 'Comment'|trans) } #}
                     {{ form_widget(form.comment) }}
                 </div>
-
 
                 {# Submit button #}
                 {{ form_row(form.submit, {
                     'label': 'Send'|trans,
-                    'attr': {'class': 'margin-15'},
+                    'attr': {'class': 'margin-15 hidden'},
                 }) }}
 
                 {{ form_end(form) }}
@@ -84,4 +101,10 @@
         </div>
 
     </div>
+{% endblock %}
+
+
+{# Import needed Javascripts #}
+{% block javascripts %}
+    {{ encore_entry_script_tags('activity') }}
 {% endblock %}

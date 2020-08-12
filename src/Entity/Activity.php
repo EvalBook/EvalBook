@@ -83,6 +83,12 @@ class Activity
      */
     private $classroom;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=KnowledgeType::class, inversedBy="activities")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $knowledgeType;
+
 
     /**
      * Activite constructor.
@@ -317,5 +323,25 @@ class Activity
     public function __toString()
     {
         return $this->getPeriod() . " - " . $this->getName();
+    }
+
+
+    /**
+     * Return the attached Knowledge type.
+     */
+    public function getKnowledgeType(): ?KnowledgeType
+    {
+        return $this->knowledgeType;
+    }
+
+
+    /**
+     * Set the attached knowledge type.
+     */
+    public function setKnowledgeType(?KnowledgeType $knowledgeType): self
+    {
+        $this->knowledgeType = $knowledgeType;
+
+        return $this;
     }
 }

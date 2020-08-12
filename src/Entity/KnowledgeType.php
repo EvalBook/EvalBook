@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\KnowledgeTypeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,16 +30,26 @@ class KnowledgeType
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity=ActivityType::class, inversedBy="knowledgeTypes")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $activityType;
-
-    /**
      * @ORM\ManyToOne(targetEntity=NoteType::class, inversedBy="knowledgeTypes")
      * @ORM\JoinColumn(nullable=false)
      */
     private $noteType;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=ActivityTypeChild::class, inversedBy="knowledgeTypes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $activityTypeChild;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Activity::class, mappedBy="knowledgeType", orphanRemoval=true)
+     */
+    private $activities;
+
+    public function __construct()
+    {
+        $this->activities = new ArrayCollection();
+    }
 
 
     /**
@@ -97,29 +109,6 @@ class KnowledgeType
 
 
     /**
-     * Return the parent acticity typoe attached to this knowledge.
-     * @return ActivityType|null
-     */
-    public function getActivityType(): ?ActivityType
-    {
-        return $this->activityType;
-    }
-
-
-    /**
-     * Set the activity type attached to this knowledge.
-     * @param ActivityType|null $activityType
-     * @return $this
-     */
-    public function setActivityType(?ActivityType $activityType): self
-    {
-        $this->activityType = $activityType;
-
-        return $this;
-    }
-
-
-    /**
      * Return the note type attached to this knowledge.
      * @return NoteType|null
      */
@@ -137,6 +126,60 @@ class KnowledgeType
     public function setNoteType(?NoteType $noteType): self
     {
         $this->noteType = $noteType;
+
+        return $this;
+    }
+
+
+    /**
+     * Return the parent Activity type child.
+     * @return ActivityTypeChild|null
+     */
+    public function getActivityTypeChild(): ?ActivityTypeChild
+    {
+        return $this->activityTypeChild;
+    }
+
+
+    /**
+     * Set the parent activity type child.
+     * @param ActivityTypeChild|null $activityTypeChild
+     * @return $this
+     */
+    public function setActivityTypeChild(?ActivityTypeChild $activityTypeChild): self
+    {
+        $this->activityTypeChild = $activityTypeChild;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Activity[]
+     */
+    public function getActivities(): Collection
+    {
+        return $this->activities;
+    }
+
+    public function addActivity(Activity $activity): self
+    {
+        if (!$this->activities->contains($activity)) {
+            $this->activities[] = $activity;
+            $activity->setKnowledgeType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActivity(Activity $activity): self
+    {
+        if ($this->activities->contains($activity)) {
+            $this->activities->removeElement($activity);
+            // set the owning side to null (unless already changed)
+            if ($activity->getKnowledgeType() === $this) {
+                $activity->setKnowledgeType(null);
+            }
+        }
 
         return $this;
     }
