@@ -248,6 +248,10 @@ Special classrooms: Special classrooms
 Activity type: Activity type
 Choose an activity type to continue...: Choose an activity type to continue...
 Select an available note type...: Select an available note type...
+No knowledge for this activity, you can create one from your dashboard: No knowledge for this activity, you can create one from your dashboard
+A bad parameter was sent to the serveur, please, try again !: A bad parameter was sent to the serveur, please, try again !
+An unexpected error occurred: An unexpected error occurred
+Knowledge type: Knowledge type
 
 
 roles:
