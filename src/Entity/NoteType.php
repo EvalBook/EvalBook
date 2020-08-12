@@ -19,6 +19,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -67,6 +69,20 @@ class NoteType
      * @ORM\OneToMany(targetEntity="App\Entity\Activity", mappedBy="noteType")
      */
     private $activities;
+
+    /**
+     * @ORM\OneToMany(targetEntity=KnowledgeType::class, mappedBy="noteType")
+     */
+    private $knowledgeTypes;
+
+
+    /**
+     * NoteType constructor.
+     */
+    public function __construct()
+    {
+        $this->knowledgeTypes = new ArrayCollection();
+    }
 
 
     /**
@@ -215,7 +231,6 @@ class NoteType
     }
 
 
-
     /**
      * Return NoteType string representation.
      * @return string
@@ -224,4 +239,50 @@ class NoteType
     {
         return $this->getDescription();
     }
+
+
+    /**
+     * Return all available knoweldge type attached to the note type.
+     * @return Collection|KnowledgeType[]
+     */
+    public function getKnowledgeTypes(): Collection
+    {
+        return $this->knowledgeTypes;
+    }
+
+
+    /**
+     * Add a knowledge to this note type.
+     * @param KnowledgeType $knowledgeType
+     * @return $this
+     */
+    public function addKnowledgeType(KnowledgeType $knowledgeType): self
+    {
+        if (!$this->knowledgeTypes->contains($knowledgeType)) {
+            $this->knowledgeTypes[] = $knowledgeType;
+            $knowledgeType->setNoteType($this);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * Remove a knowledge from this note type.
+     * @param KnowledgeType $knowledgeType
+     * @return $this
+     */
+    public function removeKnowledgeType(KnowledgeType $knowledgeType): self
+    {
+        if ($this->knowledgeTypes->contains($knowledgeType)) {
+            $this->knowledgeTypes->removeElement($knowledgeType);
+            // set the owning side to null (unless already changed)
+            if ($knowledgeType->getNoteType() === $this) {
+                $knowledgeType->setNoteType(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

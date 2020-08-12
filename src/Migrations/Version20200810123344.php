@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200807120900 extends AbstractMigration
+final class Version20200810123344 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,7 +22,9 @@ final class Version20200807120900 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE configuration (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, value VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE activity_type_child ADD classroom_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE activity_type_child ADD CONSTRAINT FK_795DEDD66278D5A8 FOREIGN KEY (classroom_id) REFERENCES classroom (id)');
+        $this->addSql('CREATE INDEX IDX_795DEDD66278D5A8 ON activity_type_child (classroom_id)');
     }
 
     public function down(Schema $schema) : void
@@ -30,6 +32,8 @@ final class Version20200807120900 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP TABLE configuration');
+        $this->addSql('ALTER TABLE activity_type_child DROP FOREIGN KEY FK_795DEDD66278D5A8');
+        $this->addSql('DROP INDEX IDX_795DEDD66278D5A8 ON activity_type_child');
+        $this->addSql('ALTER TABLE activity_type_child DROP classroom_id');
     }
 }

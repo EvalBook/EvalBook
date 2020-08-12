@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200806153632 extends AbstractMigration
+final class Version20200811092932 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,7 +22,9 @@ final class Version20200806153632 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE activity_type (id INT AUTO_INCREMENT NOT NULL, type VARCHAR(255) NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE activity ADD knowledge_type_id INT NOT NULL');
+        $this->addSql('ALTER TABLE activity ADD CONSTRAINT FK_AC74095ABA0BA21C FOREIGN KEY (knowledge_type_id) REFERENCES knowledge_type (id)');
+        $this->addSql('CREATE INDEX IDX_AC74095ABA0BA21C ON activity (knowledge_type_id)');
     }
 
     public function down(Schema $schema) : void
@@ -30,6 +32,8 @@ final class Version20200806153632 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP TABLE activity_type');
+        $this->addSql('ALTER TABLE activity DROP FOREIGN KEY FK_AC74095ABA0BA21C');
+        $this->addSql('DROP INDEX IDX_AC74095ABA0BA21C ON activity');
+        $this->addSql('ALTER TABLE activity DROP knowledge_type_id');
     }
 }

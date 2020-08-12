@@ -17,6 +17,7 @@ Encore
     .addEntry('controls', './assets/js/controls.js')
     .addEntry('api', './assets/js/api.js')
     .addEntry('search', './assets/js/search.js')
+    .addEntry('activity', './assets/js/activity.js')
 
     // CSS.
     .addStyleEntry('theme', './assets/css/theme.css')

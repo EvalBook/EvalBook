@@ -38,6 +38,44 @@ class NoteTypeRepository extends ServiceEntityRepository
 
 
     /**
+     * Return available note types by numeric - non numeric....
+     * @param bool $isNumeric
+     */
+    public function findByType(bool $isNumeric)
+    {
+        $numericNotesTypes = [];
+        $mixedNoteTypes = [];
+
+        $noteTypes = $this->getEntityManager()->getRepository($this->getClassName())->findAll();
+        if(count($noteTypes) === 0)
+            return [];
+
+        // Iterate over note types to check which ones are numeric.
+        /* @var $noteType NoteType */
+        foreach($noteTypes as $noteType) {
+            if(is_numeric($noteType->getMaximum()) && is_numeric($noteType->getMinimum())) {
+                $numericIntervals = array_filter(
+                    $noteType->getIntervals(),
+                    function($interval){
+                        return is_numeric($interval);
+                    });
+                if(count($numericIntervals) === count($noteType->getIntervals())) {
+                    $numericNotesTypes[] = $noteType;
+                }
+                else {
+                    $mixedNoteTypes[] = $noteType;
+                }
+            }
+            else {
+                $mixedNoteTypes[] = $noteType;
+            }
+        }
+
+        return $isNumeric ? $numericNotesTypes : $mixedNoteTypes;
+    }
+
+
+    /**
      * Populate the database with the default note types values to cover a maximum of use cases.
      */
     public function populate()
@@ -48,9 +86,9 @@ class NoteTypeRepository extends ServiceEntityRepository
             // 0..5
             $nt05 = new NoteType();
             $nt05
-                ->setName("De 0 à 5, coefficient $i")
+                ->setName("0 -> 5 coeff $i")
                 ->setCoefficient($i)
-                ->setDescription("De 0 à 5, ordre naturel, coefficient $i.")
+                ->setDescription("0 -> 5 coeff $i.")
                 ->setMaximum('5')
                 ->setMinimum('0')
                 ->setIntervals(array_reverse(range(1, 4)))
@@ -60,9 +98,9 @@ class NoteTypeRepository extends ServiceEntityRepository
             // 0..10
             $nt10 = new NoteType();
             $nt10
-                ->setName("De 0 à 10, coefficient $i")
+                ->setName("0 -> 10 coeff $i")
                 ->setCoefficient($i)
-                ->setDescription("De 0 à 10, ordre naturel, coefficient $i.")
+                ->setDescription("0 -> 10 coeff $i.")
                 ->setMaximum('10')
                 ->setMinimum('0')
                 ->setIntervals(array_reverse(range(1, 9)))
@@ -72,64 +110,116 @@ class NoteTypeRepository extends ServiceEntityRepository
             // 0..20
             $nt20 = new NoteType();
             $nt20
-                ->setName("De 0 à 20, coefficient $i")
+                ->setName("0 -> 20 coeff $i")
                 ->setCoefficient($i)
-                ->setDescription("De 0 à 20, ordre naturel, coefficient $i.")
+                ->setDescription("0 -> 20 coeff $i")
                 ->setMaximum('20')
                 ->setMinimum('0')
                 ->setIntervals(array_reverse(range(1, 19)))
             ;
             $em->persist($nt20);
 
+
+            // 0..25
+            $nt25 = new NoteType();
+            $nt25
+                ->setName("0 -> 25 coeff $i")
+                ->setCoefficient($i)
+                ->setDescription("0 -> 25 coeff $i")
+                ->setMaximum('25')
+                ->setMinimum('0')
+                ->setIntervals(array_reverse(range(1, 24)))
+            ;
+            $em->persist($nt25);
+
+
+            // 0..30
+            $nt30 = new NoteType();
+            $nt30
+                ->setName("0 -> 30 coeff $i")
+                ->setCoefficient($i)
+                ->setDescription("0 -> 30 coeff $i.")
+                ->setMaximum('30')
+                ->setMinimum('0')
+                ->setIntervals(array_reverse(range(1, 29)))
+            ;
+            $em->persist($nt30);
+
+
+            // 0..50
+            $nt50 = new NoteType();
+            $nt50
+                ->setName("0 -> 50 coeff $i")
+                ->setCoefficient($i)
+                ->setDescription("0 -> 50 coeff $i.")
+                ->setMaximum('50')
+                ->setMinimum('0')
+                ->setIntervals(array_reverse(range(1, 49)))
+            ;
+            $em->persist($nt50);
+
+
+            // 0..60
+            $nt60 = new NoteType();
+            $nt60
+                ->setName("0 -> 60 coeff $i")
+                ->setCoefficient($i)
+                ->setDescription("0 -> 60 coeff $i.")
+                ->setMaximum('60')
+                ->setMinimum('0')
+                ->setIntervals(array_reverse(range(1, 59)))
+            ;
+            $em->persist($nt60);
+
+
             // 0..100
             $nt100 = new NoteType();
             $nt100
-                ->setName("De 0 à 100, coefficient $i")
+                ->setName("0 -> 100 coeff $i")
                 ->setCoefficient($i)
-                ->setDescription("De 0 à 100, ordre naturel, coefficient $i.")
+                ->setDescription("0 -> 100 coeff $i.")
                 ->setMaximum('100')
                 ->setMinimum('0')
                 ->setIntervals(array_reverse(range(1, 99)))
             ;
             $em->persist($nt100);
-
-            // A..F
-            $ntAF = new NoteType();
-            $ntAF
-                ->setName("De A à F, coefficient $i")
-                ->setCoefficient($i)
-                ->setDescription("De A à F, ordre naturel, coefficient $i.")
-                ->setMaximum('A')
-                ->setMinimum('F')
-                ->setIntervals(range('B', 'E'))
-            ;
-            $em->persist($ntAF);
-
-            // A..NA
-            $ntANA = new NoteType();
-            $ntANA
-                ->setName("Acquis-En cours d'acquisition-A revoir-Non acquis, coefficient $i")
-                ->setCoefficient($i)
-                ->setDescription("Acquis, En cours d'acquisition, A revoir, Non acquis, coefficient $i")
-                ->setMaximum('A')
-                ->setMinimum('NA')
-                ->setIntervals(['ECA', 'AR'])
-            ;
-            $em->persist($ntANA);
-
-            // TB...I
-            $ntTBI = new NoteType();
-            $ntTBI
-                ->setName("Très bien, Bien, Moyen, Suffisant, Médiocre, Insuffisant, coefficient $i")
-                ->setCoefficient($i)
-                ->setDescription("Très bien, Bien, Moyen, Suffisant, Médiocre, Insuffisant, coefficient $i")
-                ->setMaximum('TB')
-                ->setMinimum('I')
-                ->setIntervals(['Bien', 'Moyen', 'Suffisant', 'Médiocre', 'Insuffisant'])
-            ;
-            $em->persist($ntTBI);
-
         }
+
+        // A..F
+        $ntAF = new NoteType();
+        $ntAF
+            ->setName("A -> F")
+            ->setCoefficient($i)
+            ->setDescription("A -> F, ordre naturel.")
+            ->setMaximum('A')
+            ->setMinimum('F')
+            ->setIntervals(range('B', 'E'))
+        ;
+        $em->persist($ntAF);
+
+        // A..NA
+        $ntANA = new NoteType();
+        $ntANA
+            ->setName("Acquis - En cours d'acquisition - A revoir - Non acquis")
+            ->setCoefficient($i)
+            ->setDescription("Acquis, En cours d'acquisition, A revoir, Non acquis")
+            ->setMaximum('A')
+            ->setMinimum('NA')
+            ->setIntervals(['ECA', 'AR'])
+        ;
+        $em->persist($ntANA);
+
+        // TB...I
+        $ntTBI = new NoteType();
+        $ntTBI
+            ->setName("Très bien - Bien - Moyen - Suffisant - Médiocre - Insuffisant")
+            ->setCoefficient($i)
+            ->setDescription("Très bien, Bien, Moyen, Suffisant, Médiocre, Insuffisant")
+            ->setMaximum('TB')
+            ->setMinimum('I')
+            ->setIntervals(['Bien', 'Moyen', 'Suffisant', 'Médiocre', 'Insuffisant'])
+        ;
+        $em->persist($ntTBI);
 
         $em->flush();
     }

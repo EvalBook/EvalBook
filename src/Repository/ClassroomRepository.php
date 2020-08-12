@@ -52,11 +52,16 @@ class ClassroomRepository extends ServiceEntityRepository
             ->from(Classroom::class, 'c')
             ->where('c.id != :id')
             ->andWhere('c.name = :name')
-            ->andWhere('c.implantation = :id_implantation')
             ->setParameter('id', $classroom->getId())
             ->setParameter('name', $classroom->getName())
-            ->setParameter('id_implantation', $classroom->getImplantation()->getId())
         ;
+
+        if(null !== $classroom->getImplantation()) {
+            $queryBuilder
+                ->andWhere('c.implantation = :id_implantation')
+                ->setParameter('id_implantation', $classroom->getImplantation()->getId())
+            ;
+        }
 
         try {
             $count = $queryBuilder->getQuery()->getSingleScalarResult();

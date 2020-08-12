@@ -4,7 +4,10 @@ namespace App\Repository;
 
 use App\Entity\ActivityType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @method ActivityType|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,32 +22,56 @@ class ActivityTypeRepository extends ServiceEntityRepository
         parent::__construct($registry, ActivityType::class);
     }
 
-    // /**
-    //  * @return ActivityType[] Returns an array of ActivityType objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+    * @return ActivityType[] Returns an array of ActivityType objects ordered byè school report display order.
+    */
+    public function findByWeight()
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('a.weight', 'DESC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?ActivityType
+
+    /**
+     * Populate database with restricted activity types.
+     * @param TranslatorInterface $translator
+     */
+    public function populate(TranslatorInterface $translator)
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
+        $em = $this->getEntityManager();
+
+        $knowledge = new ActivityType();
+        $knowledge
+            ->setName('knowledge')
+            ->setDisplayName($translator->trans('Knowledge', [], 'templates'))
+            ->setIsNumericNotes(true)
+            ->setWeight(0)
         ;
+        $em->persist($knowledge);
+
+        $transversalKnowledge = new ActivityType();
+        $transversalKnowledge
+            ->setName('transversal_knowledge')
+            ->setDisplayName($translator->trans('Transversal knowledge', [], 'templates'))
+            ->setIsNumericNotes(true)
+            ->setWeight(1)
+        ;
+        $em->persist($transversalKnowledge);
+
+        $behavior = new ActivityType();
+        $behavior
+            ->setName('behavior')
+            ->setDisplayName($translator->trans('Behavior', [], 'templates'))
+            ->setIsNumericNotes(false)
+            ->setWeight(2)
+        ;
+        $em->persist($behavior);
+
+
+        $em->flush();
     }
-    */
+
 }

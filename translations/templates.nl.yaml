@@ -216,7 +216,7 @@ Select a note type or: Select a note type or
 add a new one: add a new one
 Unable to add new activities, no active period detected: Unable to add new activities, no active period detected
 This name is used to identity your note type while adding a new activity: This name is used to identity your note type while adding a new activity
-Coefficient to apply: Coefficient to apply
+Coefficient to apply: Coefficient to apply ( only for numeric notes )
 The default coefficient is 1: The default coefficient is 1
 Description: Description
 A short description on how to use your note type: A short description on how to use your note type
@@ -232,6 +232,26 @@ Add student: Add student
 Add user: Add user
 Maintenance: Maintenance
 We are in maintenance mode and we will come back shortly !: We are in maintenance mode and we will come back shortly !
+Super administrator settings: Super administrator settings
+Enable maintenance mode: Enable maintenance mode
+No implantation was found, add a new implantation and try again: No implantation was found, add a new implantation and try again
+Special classroom: Special classroom
+Knowledge: Knowledge
+Behavior: Behavior
+Transversal knowledge: Transversal knowledge
+French: French
+Mathematics: Mathematics
+History / Geography: History / Geography
+Behavior with classroom owner: Behavior with classroom owner
+Behavior with special masters: Behavior with special masters
+Special classrooms: Special classrooms
+Activity type: Activity type
+Choose an activity type to continue...: Choose an activity type to continue...
+Select an available note type...: Select an available note type...
+No knowledge for this activity, you can create one from your dashboard: No knowledge for this activity, you can create one from your dashboard
+A bad parameter was sent to the serveur, please, try again !: A bad parameter was sent to the serveur, please, try again !
+An unexpected error occurred: An unexpected error occurred
+Knowledge type: Knowledge type
 
 
 roles:

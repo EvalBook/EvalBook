@@ -78,7 +78,7 @@ Not started: Non démarré
 In progress: En cours
 Closed: Clôturé
 The period start date must be lower then the end date: La date de début de période doit être inférieure à la date de fin.
-It sounds like you do not have any activity or any class: Vous n'avez encore aucune activité/classe.
+It sounds like you do not have any activity or any class: Vous n'avez encore aucune activité.
 Select implantation / class pairs: Sélectionnez une paire implantation / Classe
 You do not have any class: Vous n'avez aucune classe
 Add activity: Ajouter une activité
@@ -92,7 +92,7 @@ View: Voir
 Note: Note
 Add notes: Ajouter des notes
 Add notes for this activity: Ajoutez des notes pour cette activité.
-You do not have any student in your class: Vous n'avez aucun étudiant dans votre classe
+You do not have any student in your class: Vous n'avez aucun élève dans votre classe
 Error deleting element: Une erreur est survenue en supprimant l'élément.
 The combination last name / first name is already taken: La combinaison nom / prénom est déjà utilisée.
 Ensure you have students registered to your classes: Assurez vous d'avoir des élèves attachés à votre classe
@@ -153,32 +153,32 @@ MEDICAL: Médecin
 GRAND PARENTS: Grands parents
 LEGAL GUARDIAN: Tuteur légal
 OTHER: Autre
-Student contacts: Contacts étudiant
+Student contacts: Contacts élève
 Search for contact: Rechercher un contact
 Phone: Téléphone
 Email: Email
 Relation: Relation
 Send report: Envoi bulletin
-No student contact found: Aucun contact étudiant trouvé
-Ensure this student has related contacts: Assurez vous que cet étudiant ait des contacts
-Add student contact: Ajouter un contact étudiant
+No student contact found: Aucun contact élève trouvé
+Ensure this student has related contacts: Assurez vous que cet élève ait des contacts
+Add student contact: Ajouter un contact élève
 Send school report: Envoyer le bulletin
 Choose an existing contact: Choisisez un contact existant
-The selected contact will be linked to the current selected student: Le contact sélectionné sera lié à l'étudiant que vous avez choisi
+The selected contact will be linked to the current selected student: Le contact sélectionné sera lié à l'élève que vous avez choisi
 Add a new contact: Ajouter un nouveau contact
-If you cannot find the right contact from the contacts list, then simply add a new one, it will be automatically assigne to the student: Si vous ne trouvez pas le contact à partir de la liste des contacts ou si cette liste est vide, vous pouvez en ajouter un nouveau, il sera automatiquement lié à l'étudiant que vous avez choisi.
+If you cannot find the right contact from the contacts list, then simply add a new one, it will be automatically assigne to the student: Si vous ne trouvez pas le contact à partir de la liste des contacts ou si cette liste est vide, vous pouvez en ajouter un nouveau, il sera automatiquement lié à l'élève que vous avez choisi.
 Choose an existing contact in the list above: Choisissez une contact dans la liste ce dessous
-The new contact was added and linked to the student: Le nouveau contact a été ajouté et lié à l'étudiant que vous avez choisi
+The new contact was added and linked to the student: Le nouveau contact a été ajouté et lié à l'élève que vous avez choisi
 Error, it sounds like this contact already exists, please use the box to select the contact: Erreur, il semble que ce contact existe déjà, veuillez utilisez la liste de sélection plus haut svp.
 A new relation with the selected contact was added to the selected student: Une nouvelle relation entre le contact et l'élève sélectionné a été ajoutée
-It sounds like a relation with this contact already exists for this student: Il semble qu'une relation entre ce contact et cet étudiant existe déjà !
+It sounds like a relation with this contact already exists for this student: Il semble qu'une relation entre ce contact et cet élève existe déjà !
 This phone number is invalid, it must match +32479111111 or +32 479 11 11 11 or +32479 11 11 11: Ce numéro de téléphone est invalide,il doit correspondre au format +32479111111 ou +32 479 11 11 11 ou +32479 11 11 11
-No student parents contact found: Aucun contact parent pour l'étudiant
-No medical contact found: Aucun contact médical pour l'étudiant
+No student parents contact found: Aucun contact parent pour l'élève
+No medical contact found: Aucun contact médical pour l'élève
 Other contacts: Autres contacts
 Edit a contact: Editer un contact
 If you modify the contact name, phone, email, etc... then the changed values will be propaged into the whole system: Si vous modifiez le nom du contact, le numéro de téléphone, ou encore l'adresse email, ces nouvelles informations seront propagées dans tout le système
-Edit student contact: Editer un contact étudiant
+Edit student contact: Editer un contact élève
 Contact details: Détail du contact
 Send a mail to contact: Envoyer un mail à ce contact
 Send email: Envoyer un mail
@@ -216,7 +216,7 @@ Select a note type or: Selectionnez un type de note
 add a new one: ou ajoutez en un nouveau
 Unable to add new activities, no active period detected: Impossible d'ajouter une nouvelle activité, aucune période ouverte n'a été détectée.
 This name is used to identity your note type while adding a new activity: 'templates'
-Coefficient to apply: Coefficient à appliquer
+Coefficient to apply: Coefficient à appliquer ( uniquement si note numérique )
 The default coefficient is 1: Le coefficient par défaut est 1
 Description: Description
 A short description on how to use your note type: Une description courte expliquant comment utiliser ce type de notes
@@ -232,6 +232,26 @@ Add student: Ajouter élève
 Add user: Ajouter utilisateur
 Maintenance: Maintenance
 We are in maintenance mode and we will come back shortly !: Nous sommes actuellement en maintenance, nous reviendrons très vite !
+Super administrator settings: Paramètres administrateur
+Enable maintenance mode: Activer le mode maintenance
+No implantation was found, add a new implantation and try again: Aucune implantation n'a pu être trouvée, ajoutez en une nouvelle et essayez à nouveau
+Special classroom: Classe spéciale
+Knowledge: Matière
+Behavior: Comportement
+Transversal knowledge: Compétences transversales
+French: Français
+Mathematics: Mathématiques
+History / Geography: Eveil
+Behavior with classroom owner: Comportement avec le titulaire
+Behavior with special masters: Comportement avec les maîtres spéciaux
+Special classrooms: Classes spéciales
+Activity type: Type d'activité
+Choose an activity type to continue...: Choisissez un type d'activité pour commencer...
+Select an available note type...: Sélectionnez un type de notes disponible...
+No knowledge for this activity, you can create one from your dashboard: Pas de knowledge pour ce type d'activité, veuillez en créer un à partir de votre dashboard.
+A bad parameter was sent to the serveur, please, try again !: Un mauvais paramètre a été envoyé au serveur, veuillez essayer à nouveau !
+An unexpected error occurred: Une erreur innattendue s'est produite !
+Knowledge type: Type de matière
 
 
 roles:
@@ -239,10 +259,10 @@ roles:
   ROLE_USER_CREATE: Créer un utilisateur
   ROLE_USER_EDIT: Editer un utilisateur
   ROLE_USER_DELETE: Supprimer un utilisateur
-  ROLE_STUDENT_LIST_ALL: Lister tous les étudiants
-  ROLE_STUDENT_CREATE: Créer un étudiant
-  ROLE_STUDENT_EDIT: Editer un étudiant
-  ROLE_STUDENT_DELETE: Supprimer un étudiant
+  ROLE_STUDENT_LIST_ALL: Lister tous les élèves
+  ROLE_STUDENT_CREATE: Créer un élève
+  ROLE_STUDENT_EDIT: Editer un élève
+  ROLE_STUDENT_DELETE: Supprimer un élève
   ROLE_CLASS_LIST_ALL: Lister toutes les classes
   ROLE_CLASS_CREATE: Créer une classe
   ROLE_CLASS_EDIT: Editer une classe
@@ -272,10 +292,10 @@ help:
   ROLE_USER_CREATE: Permet de créer de nouveaux utilisateurs dans le système EvalBook.
   ROLE_USER_EDIT: Permet de mettre à jour les informations d'un utilisateur à partir de la liste complète ou tout autre endroit du système, il permet également de gérer les rôles que vous souhaitez attribuer / retirer à l'utilisateur sélectionné.
   ROLE_USER_DELETE: Permet de supprimer un utilisateur, ce droit est à utiliser avec grande précaution !
-  ROLE_STUDENT_LIST_ALL: Permet d'afficher la liste complète des étudiants, y compris celles et ceux qui ne sont pas encore repris dans une classe, afin éventuellement d'affectuer des opérations de suppression ou de mise à jour.
-  ROLE_STUDENT_CREATE: Permet de créer un nouvel étudiant pour ensuite l'assigner à une classe si vous en avez le droit.
-  ROLE_STUDENT_EDIT: Permet de modifier les informations de base d'un étudiant à partie de la liste complète des étudiants ou à partir d'un autre endroit du système.
-  ROLE_STUDENT_DELETE: Permet de complètement supprimer un étudiant, attention, à utiliser avec précaution !
+  ROLE_STUDENT_LIST_ALL: Permet d'afficher la liste complète des élèves, y compris celles et ceux qui ne sont pas encore repris dans une classe, afin éventuellement d'affectuer des opérations de suppression ou de mise à jour.
+  ROLE_STUDENT_CREATE: Permet de créer un nouvel élève pour ensuite l'assigner à une classe si vous en avez le droit.
+  ROLE_STUDENT_EDIT: Permet de modifier les informations de base d'un élève à partie de la liste complète des élèves ou à partir d'un autre endroit du système.
+  ROLE_STUDENT_DELETE: Permet de complètement supprimer un élève, attention, à utiliser avec précaution !
   ROLE_CLASS_LIST_ALL: Permet d'afficher le listing complet de toutes les classes de l'implantation cible ou de toutes les implantations.
   ROLE_CLASS_CREATE: Permet la création d'une classe et l'attribution au sein d'un établissement.
   ROLE_CLASS_EDIT: Permet l'édition de toutes les information de base d'une classe à partir de tout emplacement du système.
@@ -283,4 +303,3 @@ help:
   ROLE_CLASS_EDIT_STUDENTS: Ce rôle permet à un utilisateur d'assigner un ou plusieurs élèves à une classe.
   ROLE_CLASS_EDIT_USERS: Ce rôle permet d'attribuer le droit d'actions à un ou plusieurs utilisateurs sur une classe précise.
   ROLE_ADMIN: Le rôle admin peut absolument tout faire, à l'exception de l'édition de ses pairs.
-

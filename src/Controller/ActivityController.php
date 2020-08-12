@@ -20,16 +20,18 @@
 namespace App\Controller;
 
 use App\Entity\Activity;
+use App\Entity\ActivityTypeChild;
 use App\Entity\Classroom;
 use App\Entity\Note;
+use App\Entity\NoteType;
 use App\Form\ActivityNotesType;
 use App\Form\ActivityType;
-use App\Repository\NoteTypeRepository;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 class ActivityController extends AbstractController
@@ -62,10 +64,9 @@ class ActivityController extends AbstractController
      *
      * @param Classroom|null $classroom
      * @param Request $request
-     * @param NoteTypeRepository $noteTypeRepository
      * @return Response
      */
-    public function add(?Classroom $classroom, Request $request, NoteTypeRepository $noteTypeRepository): Response
+    public function add(?Classroom $classroom, Request $request, TranslatorInterface $translator): Response
     {
         // If user is not allowed to use the classroom, then return a 405
         $this->checkClassroomAccesses($classroom);
@@ -77,10 +78,24 @@ class ActivityController extends AbstractController
             ]);
         }
 
-        if($noteTypeRepository->count([]) === 0) {
-            // No not type found, then populating database with the default ones.
-            $noteTypeRepository->populate();
+        // Populate notes types.
+        if($this->getDoctrine()->getRepository(NoteType::class)->count([]) === 0) {
+            // No note type found, then populating database with the default ones.
+            $this->getDoctrine()->getRepository(NoteType::class)->populate();
         }
+
+        // Populate activities types.
+        if($this->getDoctrine()->getRepository(\App\Entity\ActivityType::class)->count([]) === 0) {
+            // No activity type found, then populating database with the default ones.
+            $this->getDoctrine()->getRepository(\App\Entity\ActivityType::class)->populate($translator);
+        }
+
+        // Populate activities children types.
+        if($this->getDoctrine()->getRepository(ActivityTypeChild::class)->count([]) === 0) {
+            // No activity type children type found, then populating database with the default ones.
+            $this->getDoctrine()->getRepository(ActivityTypeChild::class)->populate($translator);
+        }
+
         $activity = new Activity();
         $periods = array();
 
@@ -89,8 +104,20 @@ class ActivityController extends AbstractController
                 $periods[] = $period;
             }
         }
+
+        // Getting available ActivityTypeChild.
+        // TODO apply this to edition form.
+        $atcRepository = $this->getDoctrine()->getRepository(ActivityTypeChild::class);
+        if(!is_null($classroom->getOwner())) {
+            $activityTypeChildren = $atcRepository->findByTypeAndClassroom(ActivityTypeChild::TYPE_GENERIC, $classroom, true);
+        }
+        else {
+            $activityTypeChildren = $atcRepository->findByTypeAndClassroom(ActivityTypeChild::TYPE_SPECIAL_CLASSROOM, $classroom, true);
+        }
+
         $form = $this->createForm(ActivityType::class, $activity, [
             'periods' => $periods,
+            'activity_type_children' => $activityTypeChildren,
         ]);
 
         $form->handleRequest($request);

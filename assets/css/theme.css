@@ -449,7 +449,7 @@ tr:hover i, tr:hover a {
 }
 
 .width-50-percent {
-    width: 50%;
+    width: 49.1%;
 }
 
 .text-red {
@@ -621,7 +621,7 @@ tr:hover i, tr:hover a {
         width: 50%;
     }
 
-    .mobile-hidden {
+    .mobile-hidden, hidden {
         display: none;
     }
 

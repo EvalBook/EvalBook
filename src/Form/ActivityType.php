@@ -19,10 +19,12 @@
 
 namespace App\Form;
 
-use App\Entity\Activity;
+use App\Entity\ActivityTypeChild;
+use App\Entity\KnowledgeType;
 use App\Entity\Period;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -39,15 +41,39 @@ class ActivityType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        // Form fields.
         $builder
+
+            ->add('activityTypeChildren', EntityType::class, [
+                // Used to filter knowledge types with JS.
+                'class' => ActivityTypeChild::class,
+                'choices' => $options['activity_type_children'],
+                'mapped' => false,
+                'required' => true,
+                'group_by' => 'activityType',
+                'placeholder' => 'Choose an activity type to continue...',
+                'translation_domain' => 'templates',
+            ])
+
+            ->add('knowledgeType', EntityType::class, [
+                'class' => KnowledgeType::class,
+                'required' => true,
+
+            ])
+
             // Available periods.
             ->add('period', EntityType::class, [
                 'class' => Period::class,
                 'choices' => $options['periods'],
+                'required' => true,
             ])
 
             // The note type.
-            ->add('noteType')
+            ->add('noteType', EntityType::class, [
+                'class' => \App\Entity\NoteType::class,
+                'placeholder' => "Select an available note type...",
+                'translation_domain' => 'templates',
+            ])
 
             // Activity name.
             ->add('name', TextType::class, [
@@ -55,12 +81,12 @@ class ActivityType extends AbstractType
                     new NotBlank([
                         'message' => 'activity.name-empty',
                     ])
-                ]
+                ],
+                'required' => true,
             ])
 
-            ->add('comment')
+            ->add('comment', HiddenType::class)
             ->add('submit', SubmitType::class)
-
         ;
     }
 
@@ -71,8 +97,9 @@ class ActivityType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Activity::class,
+            'data_class' => \App\Entity\Activity::class,
             'periods' => array(),
+            'activity_type_children' => array(),
         ]);
     }
 }

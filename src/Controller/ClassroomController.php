@@ -20,6 +20,7 @@
 namespace App\Controller;
 
 use App\Entity\Classroom;
+use App\Entity\Implantation;
 use App\Entity\Student;
 use App\Entity\User;
 use App\Form\ClassroomType;
@@ -75,26 +76,32 @@ class ClassroomController extends AbstractController
      */
     public function add(Request $request, ClassroomRepository $repository): Response
     {
-        $classroom = new Classroom();
-        $form = $this->createForm(ClassroomType::class, $classroom);
-        $form->handleRequest($request);
+        if($this->getDoctrine()->getRepository(Implantation::class)->count([]) > 0) {
+            $classroom = new Classroom();
+            $form = $this->createForm(ClassroomType::class, $classroom);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            if($repository->classroomNameAlreadyTaken($classroom)) {
-                $this->addFlash('error', 'Class name already taken in the class implantation');
-            }
-            else {
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($classroom);
-                $entityManager->flush();
+            if ($form->isSubmitted() && $form->isValid()) {
+                if ($repository->classroomNameAlreadyTaken($classroom)) {
+                    $this->addFlash('error', 'Class name already taken in the class implantation');
+                } else {
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($classroom);
+                    $entityManager->flush();
 
-                return $this->redirectToRoute('classrooms');
+                    return $this->redirectToRoute('classrooms');
+                }
             }
+
+            return $this->render('classrooms/form.html.twig', [
+                'form' => $form->createView(),
+            ]);
+        }
+        else {
+            $this->addFlash('error', "No implantation was found, add a new implantation and try again");
         }
 
-        return $this->render('classrooms/form.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        return $this->redirectToRoute('classrooms');
     }
 
 
