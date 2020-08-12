@@ -246,6 +246,12 @@ Behavior with classroom owner: Comportement avec le titulaire
 Behavior with special masters: Comportement avec les maîtres spéciaux
 Special classrooms: Classes spéciales
 Activity type: Type d'activité
+Choose an activity type to continue...: Choisissez un type d'activité pour commencer...
+Select an available note type...: Sélectionnez un type de notes disponible...
+
+No knowledge for this activity, you can create one from your dashboard: Pas de knowledge pour ce type d'activité, veuillez en créer un à partir de votre dashboard.
+A bad parameter was sent to the serveur, please, try again !: Un mauvais paramètre a été envoyé au serveur, veuillez essayer à nouveau !
+An unexpected error occurred: Une erreur innattendue s'est produite !
 
 
 roles:

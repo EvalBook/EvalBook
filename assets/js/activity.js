@@ -1,68 +1,118 @@
 import {Api, Language} from "./api.js";
 
+
 /**
- * 1 -> récupération de l'activité type ( ID )
- * 2-> envoi d'une requête au serveur pour la récupération des knowledge types associés à ce type d'activité.
- * 3-> mise à jour des options disponibnles dans le select.
- *
- * @type {Element}
+ * Handle activities creation process.
+ * @type {{watchActivityType: watchActivityType, init: init}}
  */
+let ActivityHandler = {
+
+    /**
+     * Getting needed elements and setting empty values.
+     */
+    init: async function() {
+        this.activityTypeChildren = document.querySelector('#activity_activityTypeChildren');
+        this.knowledgesElement = document.querySelector('#activity_knowledgeType');
+        this.noteTypesElement = document.querySelector('#activity_noteType');
+
+        // Setting defaults.
+        this.activityTypeChildren.selectedIndex = 0;
+        this.knowledgesElement.innerHTML = '';
+        this.noteTypesElement.innerHTML = '';
+
+        // Attaching first listener to activity types element.
+        this.activityTypeChildren.addEventListener('change', () => this.watchActivityType());
+        this.noteTypesElement.addEventListener('change', () => this.watchNoteType());
+
+        // Getting needed translations.
+        this.strings = await Language.getStrings('templates', [
+            "Choose an activity type to continue...",
+            "Select an available note type...",
+            "A bad parameter was sent to the serveur, please, try again !",
+            "No knowledge for this activity, you can create one from your dashboard",
+            "An unexpected error occurred",
+        ]);
+    },
 
 
+    /**
+     * Watch activityTypes select and perform ajax request to fetch related data.
+     */
+    watchActivityType: async function() {
+        try {
+            let response = await Api.query('/api/knowledge/get', {
+                activityTypeChild: this.activityTypeChildren.value
+            });
 
-let activityTypeChildren = document.querySelector('#activity_activityTypeChildren');
-activityTypeChildren.selectedIndex = 0;
-
-activityTypeChildren.addEventListener('change', async function() {
-    // Getting knowledge select element and ensure it is empty.
-    let knowledgesElement = document.querySelector('#activity_knowledgeType');
-    let noteTypesElement  = document.querySelector('#activity_noteType');
-    knowledgesElement.innerHTML = '';
-    noteTypesElement.innerHTML = '';
-
-    try {
-        let response = await Api.query('/api/knowledge/get', {
-            activityTypeChild: activityTypeChildren.value
-        });
-
-        // Handling error with sent parameters.
-        if(typeof response.message !== 'undefined') {
-            console.log("A bad parameter was sent to the serveur, please, try again !");
-            return;
-        }
-
-        // Knowledges.
-        if (response.knowledges.length > 0 && knowledgesElement) {
-            // Iterate over knowledges types.
-            for (let knowledge of response.knowledges) {
-                let optionElement = document.createElement('option');
-                optionElement.value = knowledge.id;
-                optionElement.innerHTML = knowledge.name;
-                knowledgesElement.appendChild(optionElement);
+            // Handling error with sent parameters.
+            if(typeof response.message !== 'undefined') {
+                console.log(this.strings["A bad parameter was sent to the serveur, please, try again !"]);
+                return;
             }
 
-            // Display knowledge type hidden parent element.
-            knowledgesElement.parentElement.style.display = "block";
+            // Removing the first activity type element.
+            this.activityTypeChildren.removeChild(this.activityTypeChildren.firstChild);
+            this.knowledgesElement.innerHTML = '';
 
-        } else {
-            console.log("Obtention de la chaîne de caractères: Pas de knowledge pour ce type d'activité, veuillez en créer un à partir de votre dashboard.");
-        }
-
-        // Note types.
-        if (response.noteTypes.length > 0 && noteTypesElement) {
-            // Now that knowledge is displayed, getting available notes types.
-            for(let noteType of response.noteTypes) {
-                let optionElement = document.createElement('option');
-                optionElement.value = noteType.id;
-                optionElement.innerHTML = noteType.name;
-                noteTypesElement.appendChild(optionElement);
+            // Knowledges.
+            if (response.knowledges.length > 0 && this.knowledgesElement) {
+                // Iterate over knowledges types.
+                for (let knowledge of response.knowledges) {
+                    this.knowledgesElement.appendChild(this._getOption(knowledge.name, knowledge.id));
+                }
+                // Display knowledge type hidden parent element.
+                this.knowledgesElement.parentElement.style.display = "block";
+            }
+            else {
+                this.knowledgesElement.parentElement.style.display = 'none';
+                console.log(this.strings["No knowledge for this activity, you can create one from your dashboard"]);
             }
 
-            noteTypesElement.parentElement.style.display = 'block';
-        }
-    }
-    catch(error) {
-        console.log("An unexpected error occurred");
-    }
+            // Note types.
+            this.noteTypesElement.innerHTML = '';
+            this.noteTypesElement.appendChild(this._getOption(this.strings["Select an available note type..."], -1))
+            if (response.noteTypes.length > 0 && this.noteTypesElement) {
+                // Now that knowledge is displayed, getting available notes types.
+                for(let noteType of response.noteTypes) {
+                    this.noteTypesElement.appendChild(this._getOption(noteType.name, noteType.id));
+                }
 
-});
+                this.noteTypesElement.parentElement.style.display = 'block';
+            }
+            else {
+                this.noteTypesElement.parentElement.style.display = 'none';
+            }
+        }
+        catch(error) {
+            console.log(error);
+            console.log(this.strings["An unexpected error occurred"]);
+        }
+    },
+
+
+
+    watchNoteType: async function() {
+        // Simply display the rest of the form.
+        this.noteTypesElement.removeChild(this.noteTypesElement.firstChild);
+        document.querySelector('#activity_name').parentElement.style.display = 'block';
+        document.querySelector('#activity_submit').style.display = 'block';
+    },
+
+
+    /**
+     * Create an options element with provided data.
+     * @param text
+     * @param value
+     * @returns {HTMLOptionElement}
+     * @private
+     */
+    _getOption: function(text, value) {
+        let optionElement = document.createElement('option');
+        optionElement.value = value;
+        optionElement.innerHTML = text;
+        return optionElement;
+    }
+};
+
+
+ActivityHandler.init();

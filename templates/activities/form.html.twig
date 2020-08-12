@@ -76,7 +76,9 @@
                 {# Activity name #}
                 <div class="form-row hidden">
                     {{ form_label(form.name, 'Name'|trans) }}
-                    {{ form_widget(form.name) }}
+                    {{ form_widget(form.name, {'attr': {
+                        'class': 'full-width'
+                    }}) }}
                     <span class="form-error">
                         {{ form_errors(form.name) }}
                     </span>
