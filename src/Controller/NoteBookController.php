@@ -72,14 +72,18 @@ class NoteBookController extends AbstractController
         $notebook = array();
         $activities = array();
 
-        // Getting all classroom owner students if classroom has owner ( titulaire ).
+        // Restrict to the current classroom otherwise.
         if(is_null($classroom->getOwner())) {
             $students = $classroom->getStudents()->toArray();
             $activities = $classroom->getActivities()->toArray();
         }
-        // Restrict to the current classroom otherwise.
+        // Getting all classroom owner students if classroom has owner ( titulaire ).
         else {
-            $students = $classroom->getOwner()->getStudents();
+            // Getting all student in this classroom.
+            // FIX START
+            $students = $classroom->getStudents();
+            // Getting activities for all these students.
+            // FIXME $students = $classroom->getOwner()->getStudents();
             // Classroom owner, getting ALL students activities.
             foreach($students as $student) {
                 $dataActivities = array_map(
