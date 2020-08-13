@@ -252,6 +252,7 @@ A bad parameter was sent to the serveur, please, try again !: Un mauvais paramè
 An unexpected error occurred: Une erreur innattendue s'est produite !
 Knowledge type: Type de matière
 Coefficient: Coefficient
+No available note types, you can create one from your dashboard: Pas de type de notes disponible, vous pouvez en créer à partir de votre dashboard
 
 
 roles:
