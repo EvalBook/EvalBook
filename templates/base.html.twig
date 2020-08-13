@@ -71,13 +71,20 @@
 
                 {# Desktop user top right links #}
                 <div id="user-links">
+
                     <i class="fas fa-user-circle"></i>
 
                     <div id="user-links-toggle">
+                        {# Dashboard #}
+                        <a href="{{ path('dashboard') }}" title="Dashboard">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>{{ 'Dashboard'|trans }}</span>
+                        </a>
+
                         {# Logged in user profile #}
                         <a href="{{ path('user_profile') }}" title="User profile">
                             <i class="fas fa-user"></i>
-                            <span>{{ app.user is defined ? (app.user.firstName ~ ' ' ~ app.user.lastName) : 'My profile'|trans }}</span>
+                            <span>{{ 'My profile'|trans }}</span>
                         </a>
 
                         {# Logged in user preferences / settings #}
@@ -94,7 +101,6 @@
                         <a href="{{ path('about') }}" title="About EvalBook">
                             <i class="fas fa-info-circle"></i> <span>{{ 'About'|trans }}</span>
                         </a>
-
                     </div>
                 </div>
 
@@ -166,6 +172,8 @@
                 <div id="mobile-menu-items">
                     <ul>
                         {# Mobile users list access icon #}
+                        <li><i class="fas fa-tachometer-alt"></i></li>
+
                         {% if is_granted('ROLE_USER_LIST_ALL') %}
                             <li><i class="fas fa-users"></i></li>
                         {% endif %}
@@ -186,6 +194,8 @@
                     </ul>
                     <ul>
                         {# Mobile users list access #}
+                        <li><a href="{{ path('dashboard') }}" title="Dashboard">{{ 'Dashboard'|trans }}</a></li>
+
                         {% if is_granted('ROLE_USER_LIST_ALL') %}
                             <li><a href="{{ path('users') }}" title="Users">{{ 'Users'|trans }}</a></li>
                         {% endif %}

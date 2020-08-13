@@ -40,6 +40,7 @@
                         {{ form_widget(form.activityTypeChildren, {'attr' : {
                             'class' : 'full-width',
                         }} ) }}
+                        <span class="form-error"></span>
                     </div>
 
                     {# Activity period ( Only not closed periods are returned by controller ) #}
@@ -58,6 +59,7 @@
                         {{ form_widget(form.knowledgeType, {'attr': {
                             'class': 'full-width',
                         }}) }}
+                        <span class="form-error"></span>
                     </div>
 
                     {# Activity note type #}

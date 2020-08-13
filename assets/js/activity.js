@@ -1,5 +1,4 @@
-import {Api, Language} from "./api.js";
-
+import { Api, Language } from "./api.js";
 
 /**
  * Handle activities creation process.
@@ -30,6 +29,7 @@ let ActivityHandler = {
             "Select an available note type...",
             "A bad parameter was sent to the serveur, please, try again !",
             "No knowledge for this activity, you can create one from your dashboard",
+            "No available note types, you can create one from your dashboard",
             "An unexpected error occurred",
         ]);
     },
@@ -62,25 +62,30 @@ let ActivityHandler = {
                 }
                 // Display knowledge type hidden parent element.
                 this.knowledgesElement.parentElement.style.display = "block";
+
+
+                // Note types only if knowledges types were found..
+                this.noteTypesElement.innerHTML = '';
+                this.noteTypesElement.appendChild(this._getOption(this.strings["Select an available note type..."], -1))
+                if (response.noteTypes.length > 0 && this.noteTypesElement) {
+                    // Now that knowledge is displayed, getting available notes types.
+                    for(let noteType of response.noteTypes) {
+                        this.noteTypesElement.appendChild(this._getOption(noteType.name, noteType.id));
+                    }
+
+                    this.noteTypesElement.parentElement.style.display = 'block';
+                }
+                else {
+                    this.noteTypesElement.parentElement.style.display = 'none';
+                    let errorMsg = this.strings["No available note types, you can create one from your dashboard"]
+                    this.knowledgesElement.parentElement.querySelector('span').innerHTML = errorMsg ;
+                }
+
             }
             else {
                 this.knowledgesElement.parentElement.style.display = 'none';
-                console.log(this.strings["No knowledge for this activity, you can create one from your dashboard"]);
-            }
-
-            // Note types.
-            this.noteTypesElement.innerHTML = '';
-            this.noteTypesElement.appendChild(this._getOption(this.strings["Select an available note type..."], -1))
-            if (response.noteTypes.length > 0 && this.noteTypesElement) {
-                // Now that knowledge is displayed, getting available notes types.
-                for(let noteType of response.noteTypes) {
-                    this.noteTypesElement.appendChild(this._getOption(noteType.name, noteType.id));
-                }
-
-                this.noteTypesElement.parentElement.style.display = 'block';
-            }
-            else {
-                this.noteTypesElement.parentElement.style.display = 'none';
+                let errorMsg = this.strings["No knowledge for this activity, you can create one from your dashboard"]
+                this.activityTypeChildren.parentElement.querySelector('span').innerHTML = errorMsg ;
             }
         }
         catch(error) {

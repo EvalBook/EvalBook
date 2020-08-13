@@ -43,7 +43,7 @@ class NoteBookController extends AbstractController
             'classroom' => $classroom,
             'notebook'  => $data['notebook'],
             'activities' => $data['activities'],
-            'periods'   => $this->getNotebookPeriods($classroom),
+            'periods'   => $this->getNotebookPeriods($data['activities']),
         ]);
     }
 
@@ -72,15 +72,17 @@ class NoteBookController extends AbstractController
         $notebook = array();
         $activities = array();
 
-        // Getting all classroom owner students if classroom has owner ( titulaire ).
+        // Restrict to the current classroom otherwise.
         if(is_null($classroom->getOwner())) {
             $students = $classroom->getStudents()->toArray();
             $activities = $classroom->getActivities()->toArray();
         }
-        // Restrict to the current classroom otherwise.
+        // Getting all classroom owner students if classroom has owner ( titulaire ).
         else {
-            $students = $classroom->getOwner()->getStudents();
-            // Classroom owner, getting ALL students activities.
+            // Getting all student in this classroom.
+            // FIX START
+            $students = $classroom->getStudents();
+            // Getting activities for all these students.
             foreach($students as $student) {
                 $dataActivities = array_map(
                     function($note) {
@@ -118,13 +120,14 @@ class NoteBookController extends AbstractController
     /**
      * Return available periods for notebook.
      *
-     * @param Classroom $classroom
+     * @param array $activities
      * @return array
      */
-    public function getNotebookPeriods(Classroom $classroom)
+    public function getNotebookPeriods(array $activities)
     {
+        /* @var $activities Activity[] */
         $periods = array();
-        foreach($classroom->getActivities() as $activity) {
+        foreach($activities as $activity) {
             $periods[] = $activity->getPeriod()->getName();
         }
         return array_count_values($periods);

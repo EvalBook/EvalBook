@@ -228,8 +228,7 @@ Intervals: Intervales
 The intervals are all available notes between MAX and MIN, ex A(MAX), B, C, D(MIN): Toutes les notes possibles attribuables entre MAX et MIN, séparées par une virgule. Ex pour une note de 1 à 5 -> 2,3,4
 Leave empty for special class ( gym, religion, where students are nested ): Laissez vide pour une classe spéciale ( Gym, religion, ... regroupement d'élèves de différentes classes )
 No results for your search: Aucun résultat pour votre recherche
-Add student: Ajouter élève
-Add user: Ajouter utilisateur
+New: Nouveau
 Maintenance: Maintenance
 We are in maintenance mode and we will come back shortly !: Nous sommes actuellement en maintenance, nous reviendrons très vite !
 Super administrator settings: Paramètres administrateur
@@ -252,6 +251,9 @@ No knowledge for this activity, you can create one from your dashboard: Pas de k
 A bad parameter was sent to the serveur, please, try again !: Un mauvais paramètre a été envoyé au serveur, veuillez essayer à nouveau !
 An unexpected error occurred: Une erreur innattendue s'est produite !
 Knowledge type: Type de matière
+Coefficient: Coefficient
+No available note types, you can create one from your dashboard: Pas de type de notes disponible, vous pouvez en créer à partir de votre dashboard
+Dashboard: Dashboard
 
 
 roles:
@@ -303,3 +305,4 @@ help:
   ROLE_CLASS_EDIT_STUDENTS: Ce rôle permet à un utilisateur d'assigner un ou plusieurs élèves à une classe.
   ROLE_CLASS_EDIT_USERS: Ce rôle permet d'attribuer le droit d'actions à un ou plusieurs utilisateurs sur une classe précise.
   ROLE_ADMIN: Le rôle admin peut absolument tout faire, à l'exception de l'édition de ses pairs.
+
