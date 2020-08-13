@@ -72,7 +72,7 @@
                 }) }}
 
                 {% if is_granted('ROLE_STUDENT_CREATE') %}
-                    <a href="{{ path('student_add') }}" class="button add-button">{{ 'Add student'| trans}}</a>
+                    <a href="{{ path('student_add') }}" class="button add-button">{{ 'New'| trans}}</a>
                 {% endif %}
             </div>
 
