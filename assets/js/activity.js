@@ -1,5 +1,4 @@
 import { Api, Language } from "./api.js";
-import { ModalDialog } from "./modal-dialogs.js";
 
 /**
  * Handle activities creation process.
