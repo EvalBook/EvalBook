@@ -32,6 +32,7 @@ class DashboardController extends AbstractController
             'classrooms'   => $this->getUser()->getClassrooms()->toArray(),
             'myActivities' => $activityRepository->getUserLastActivities($this->getUser()->getId(), 5),
             'needNotesActivities' => $needNotesActivities,
+            'activityTypes' => '',
         ]);
     }
 }
