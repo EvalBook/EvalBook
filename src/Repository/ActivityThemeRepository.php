@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\ActivityType;
+use App\Entity\ActivityTheme;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -10,20 +10,20 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * @method ActivityType|null find($id, $lockMode = null, $lockVersion = null)
- * @method ActivityType|null findOneBy(array $criteria, array $orderBy = null)
- * @method ActivityType[]    findAll()
- * @method ActivityType[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ActivityTheme|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ActivityTheme|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ActivityTheme[]    findAll()
+ * @method ActivityTheme[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ActivityTypeRepository extends ServiceEntityRepository
+class ActivityThemeRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ActivityType::class);
+        parent::__construct($registry, ActivityTheme::class);
     }
 
     /**
-    * @return ActivityType[] Returns an array of ActivityType objects ordered byè school report display order.
+    * @return ActivityTheme[] Returns an array of ActivityTheme objects ordered by school report display order.
     */
     public function findByWeight()
     {
@@ -43,25 +43,25 @@ class ActivityTypeRepository extends ServiceEntityRepository
     {
         $em = $this->getEntityManager();
 
-        $knowledge = new ActivityType();
-        $knowledge
-            ->setName('knowledge')
-            ->setDisplayName($translator->trans('Knowledge', [], 'templates'))
+        $themeSubject = new ActivityTheme();
+        $themeSubject
+            ->setName('subject')
+            ->setDisplayName($translator->trans('Theme subject', [], 'templates'))
             ->setIsNumericNotes(true)
             ->setWeight(0)
         ;
-        $em->persist($knowledge);
+        $em->persist($themeSubject);
 
-        $transversalKnowledge = new ActivityType();
-        $transversalKnowledge
-            ->setName('transversal_knowledge')
-            ->setDisplayName($translator->trans('Transversal knowledge', [], 'templates'))
+        $transversalSkill = new ActivityTheme();
+        $transversalSkill
+            ->setName('transversal_skill')
+            ->setDisplayName($translator->trans('Transversal skill', [], 'templates'))
             ->setIsNumericNotes(true)
             ->setWeight(1)
         ;
-        $em->persist($transversalKnowledge);
+        $em->persist($transversalSkill);
 
-        $behavior = new ActivityType();
+        $behavior = new ActivityTheme();
         $behavior
             ->setName('behavior')
             ->setDisplayName($translator->trans('Behavior', [], 'templates'))

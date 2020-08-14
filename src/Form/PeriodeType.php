@@ -48,7 +48,7 @@ class PeriodeType extends AbstractType
             ->add('name', TextType::class, [
                 'constraints' => [
                     new Length([
-                        'min' => 4,
+                        'min' => 2,
                         'max' => 100,
                         'minMessage' => 'period.name-too-short',
                         'maxMessage' => 'period.name-too-long'

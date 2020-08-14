@@ -21,15 +21,13 @@ namespace App\Controller\Api;
 
 header("Access-Control-Allow-Origin: *");
 
-use App\Entity\ActivityTypeChild;
-use App\Entity\KnowledgeType;
+use App\Entity\ActivityThemeDomain;
+use App\Entity\ActivityThemeDomainSkill;
 use App\Entity\NoteType;
-use App\Repository\KnowledgeTypeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class Activity API
@@ -38,52 +36,51 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ActivityApi extends AbstractController {
 
     /**
-     * @Route("/api/knowledge/get", name="api_knowledge")
+     * @Route("/api/skills/get", name="api_skill")
      * @param Request $request
-     * @param TranslatorInterface $translator
      * @return JsonResponse
      */
-    public function getKnowledges(Request $request, TranslatorInterface $translator) {
+    public function getSkills(Request $request) {
         $response = [
-            "knowledges" => [],
+            "skills" => [],
             "noteTypes"  => [],
         ];
 
         $jsonRequest = json_decode($request->getContent(), true);
-        // Send missing parameter if activity child was not specified.
-        if(!isset($jsonRequest['activityTypeChild'])) {
+        // Send missing parameter if activity theme domain was not specified.
+        if(!isset($jsonRequest['activityThemeDomain'])) {
             return $this->json(['message' => 'Missing parameter'], 201);
         }
 
-        $activityTypeChild = $this->getDoctrine()->getRepository(ActivityTypeChild::class)->find(
-            intval($jsonRequest['activityTypeChild'])
+        $activityThemeDomain = $this->getDoctrine()->getRepository(ActivityThemeDomain::class)->find(
+            intval($jsonRequest['activityThemeDomain'])
         );
 
         // Return if no activity found.
-        if(is_null(($activityTypeChild))) {
+        if(is_null(($activityThemeDomain))) {
             return $this->json(['message' => 'Bad parameter'], 201);
         }
 
-        $knowledgesRepository = $this->getDoctrine()->getRepository(KnowledgeType::class);
+        $skillsRepository = $this->getDoctrine()->getRepository(ActivityThemeDomainSkill::class);
         $noteTypesRepository  = $this->getDoctrine()->getRepository(NoteType::class);
 
-        // Getting knowledge.
-        $knowledges = $knowledgesRepository->findBy([
-            "activityTypeChild" => $activityTypeChild->getId()
+        // Getting skill.
+        $skills = $skillsRepository->findBy([
+            "activityThemeDomain" => $activityThemeDomain->getId()
         ]);
 
-        $noteTypes = $noteTypesRepository->findByType($activityTypeChild->getActivityType()->getIsNumericNotes());
+        $noteTypes = $noteTypesRepository->findByType($activityThemeDomain->getActivityTheme()->getIsNumericNotes());
 
-        // Providing response knowledges..
-        if(count($knowledges) > 0) {
+        // Providing skill response.
+        if(count($skills) > 0) {
             $data = [];
-            foreach($knowledges as $knowledge) {
+            foreach($skills as $skill) {
                 $data[] = [
-                    'id'   => $knowledge->getId(),
-                    'name' => $knowledge->getName(),
+                    'id'   => $skill->getId(),
+                    'name' => $skill->getName(),
                 ];
             }
-            $response["knowledges"] = $data;
+            $response["skills"] = $data;
         }
 
         // Providing available note types ( right format ).

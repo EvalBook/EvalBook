@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\ActivityTypeChildRepository;
+use App\Repository\ActivityThemeDomainRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ActivityTypeChildRepository::class)
+ * @ORM\Entity(repositoryClass=ActivityThemeDomainRepository::class)
  */
-class ActivityTypeChild
+class ActivityThemeDomain
 {
     const TYPE_GENERIC = 'generic';
     const TYPE_SPECIAL_CLASSROOM = 'special_classroom';
@@ -28,10 +28,10 @@ class ActivityTypeChild
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity=ActivityType::class, inversedBy="activityTypeChildren")
+     * @ORM\ManyToOne(targetEntity=ActivityTheme::class, inversedBy="activityThemeDomains")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $activityType;
+    private $activityTheme;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -39,7 +39,7 @@ class ActivityTypeChild
     private $displayName;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Classroom::class, inversedBy="activityTypeChildren")
+     * @ORM\ManyToOne(targetEntity=Classroom::class, inversedBy="activityThemeDomains")
      */
     private $classroom;
 
@@ -49,17 +49,22 @@ class ActivityTypeChild
     private $type;
 
     /**
-     * @ORM\OneToMany(targetEntity=KnowledgeType::class, mappedBy="activityTypeChild", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=ActivityThemeDomainSkill::class, mappedBy="activityThemeDomain", orphanRemoval=true)
      */
-    private $knowledgeTypes;
+    private $activityThemeDomainSkills;
 
-    public function __construct()
-    {
-        $this->knowledgeTypes = new ArrayCollection();
-    }
 
     /**
-     * Return the activity type chidren id.
+     * ActivityThemeDomain constructor.
+     */
+    public function __construct()
+    {
+        $this->activityThemeDomainSkills = new ArrayCollection();
+    }
+
+
+    /**
+     * Return the activity theme domain id.
      * @return int|null
      */
     public function getId(): ?int
@@ -69,7 +74,7 @@ class ActivityTypeChild
 
 
     /**
-     * Return the activity type child name.
+     * Return the activity theme domain name.
      * @return string|null
      */
     public function getName(): ?string
@@ -79,7 +84,7 @@ class ActivityTypeChild
 
 
     /**
-     * Set the activity type child name.
+     * Set the activity theme domain name.
      * @param string $name
      * @return $this
      */
@@ -92,23 +97,23 @@ class ActivityTypeChild
 
 
     /**
-     * Return related activity type.
-     * @return ActivityType|null
+     * Return related activity theme.
+     * @return ActivityTheme|null
      */
-    public function getActivityType(): ?ActivityType
+    public function getActivityTheme(): ?ActivityTheme
     {
-        return $this->activityType;
+        return $this->activityTheme;
     }
 
 
     /**
-     * Set related activity type.
-     * @param ActivityType|null $activityType
+     * Set related activity theme.
+     * @param ActivityTheme|null $activityTheme
      * @return $this
      */
-    public function setActivityType(?ActivityType $activityType): self
+    public function setActivityTheme(?ActivityTheme $activityTheme): self
     {
-        $this->activityType = $activityType;
+        $this->activityTheme = $activityTheme;
 
         return $this;
     }
@@ -125,7 +130,7 @@ class ActivityTypeChild
 
 
     /**
-     * Set the activity type child display name.
+     * Set the activity theme domain display name.
      * @param string $displayName
      * @return $this
      */
@@ -160,17 +165,7 @@ class ActivityTypeChild
 
 
     /**
-     * String representation of this object.
-     * @return string
-     */
-    public function __toString(): string
-    {
-        return $this->getDisplayName();
-    }
-
-
-    /**
-     * Return the activity type child type ( generic / special_classroom )
+     * Return the activity theme domain type ( generic / special_classroom )
      * @return string|null
      */
     public function getType(): ?string
@@ -180,7 +175,7 @@ class ActivityTypeChild
 
 
     /**
-     * Set the activity type child type ( generic / special_classroom )
+     * Set the activity theme domain type ( generic / special_classroom )
      * @param string $type
      * @return $this
      */
@@ -195,24 +190,24 @@ class ActivityTypeChild
     }
 
     /**
-     * @return Collection|KnowledgeType[]
+     * @return Collection|ActivityThemeDomainSkill[]
      */
-    public function getKnowledgeTypes(): Collection
+    public function getActivityThemeDomainSkills(): Collection
     {
-        return $this->knowledgeTypes;
+        return $this->activityThemeDomainSkills;
     }
 
 
     /**
-     * Add a knowledge type to this activity type child.
-     * @param KnowledgeType $knowledgeType
+     * Add an activity theme domain skill to this activity theme domain.
+     * @param ActivityThemeDomainSkill $activityThemeDomainSkill
      * @return $this
      */
-    public function addKnowledgeType(KnowledgeType $knowledgeType): self
+    public function addActivityThemeDomainSkill(ActivityThemeDomainSkill $activityThemeDomainSkill): self
     {
-        if (!$this->knowledgeTypes->contains($knowledgeType)) {
-            $this->knowledgeTypes[] = $knowledgeType;
-            $knowledgeType->setActivityTypeChild($this);
+        if (!$this->activityThemeDomainSkills->contains($activityThemeDomainSkill)) {
+            $this->activityThemeDomainSkills[] = $activityThemeDomainSkill;
+            $activityThemeDomainSkill->setActivityThemeDomain($this);
         }
 
         return $this;
@@ -220,20 +215,30 @@ class ActivityTypeChild
 
 
     /**
-     * Remove a knowledge from this activity type child.
-     * @param KnowledgeType $knowledgeType
+     * Remove an activity theme domain skill to this activity theme domain.
+     * @param ActivityThemeDomainSkill $activityThemeDomainSkill
      * @return $this
      */
-    public function removeKnowledgeType(KnowledgeType $knowledgeType): self
+    public function removeActivityThemeDomainSkill(ActivityThemeDomainSkill $activityThemeDomainSkill): self
     {
-        if ($this->knowledgeTypes->contains($knowledgeType)) {
-            $this->knowledgeTypes->removeElement($knowledgeType);
+        if ($this->activityThemeDomainSkills->contains($activityThemeDomainSkill)) {
+            $this->activityThemeDomainSkills->removeElement($activityThemeDomainSkill);
             // set the owning side to null (unless already changed)
-            if ($knowledgeType->getActivityTypeChild() === $this) {
-                $knowledgeType->setActivityTypeChild(null);
+            if ($activityThemeDomainSkill->getActivityThemeDomain() === $this) {
+                $activityThemeDomainSkill->setActivityThemeDomain(null);
             }
         }
 
         return $this;
+    }
+
+
+    /**
+     * String representation of this object.
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->getDisplayName();
     }
 }

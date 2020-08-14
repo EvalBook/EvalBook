@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\KnowledgeTypeRepository;
+use App\Repository\ActivityThemeDomainSkillRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=KnowledgeTypeRepository::class)
+ * @ORM\Entity(repositoryClass=ActivityThemeDomainSkillRepository::class)
  */
-class KnowledgeType
+class ActivityThemeDomainSkill
 {
     /**
      * @ORM\Id()
@@ -30,19 +30,19 @@ class KnowledgeType
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity=NoteType::class, inversedBy="knowledgeTypes")
+     * @ORM\ManyToOne(targetEntity=NoteType::class, inversedBy="activityThemeDomainSkills")
      * @ORM\JoinColumn(nullable=false)
      */
     private $noteType;
 
     /**
-     * @ORM\ManyToOne(targetEntity=ActivityTypeChild::class, inversedBy="knowledgeTypes")
+     * @ORM\ManyToOne(targetEntity=ActivityThemeDomain::class, inversedBy="activityThemeDomainSkills")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $activityTypeChild;
+    private $activityThemeDomain;
 
     /**
-     * @ORM\OneToMany(targetEntity=Activity::class, mappedBy="knowledgeType", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Activity::class, mappedBy="activityDomainSkill", orphanRemoval=true)
      */
     private $activities;
 
@@ -53,7 +53,7 @@ class KnowledgeType
 
 
     /**
-     * Return the knowledge id.
+     * Return the skill id.
      * @return int|null
      */
     public function getId(): ?int
@@ -63,7 +63,7 @@ class KnowledgeType
 
 
     /**
-     * Return the knowledge name.
+     * Return the skill name.
      * @return string|null
      */
     public function getName(): ?string
@@ -73,7 +73,7 @@ class KnowledgeType
 
 
     /**
-     * Set the knowledge name.
+     * Set the skill name.
      * @param string $name
      * @return $this
      */
@@ -86,7 +86,7 @@ class KnowledgeType
 
 
     /**
-     * Return the knowledge description.
+     * Return the skill description.
      * @return string|null
      */
     public function getDescription(): ?string
@@ -96,7 +96,7 @@ class KnowledgeType
 
 
     /**
-     * Set the knowledge description.
+     * Set the skill description.
      * @param string|null $description
      * @return $this
      */
@@ -109,7 +109,7 @@ class KnowledgeType
 
 
     /**
-     * Return the note type attached to this knowledge.
+     * Return the note type attached to this skill.
      * @return NoteType|null
      */
     public function getNoteType(): ?NoteType
@@ -119,7 +119,7 @@ class KnowledgeType
 
 
     /**
-     * Set the not type attached to this knowledge.
+     * Set the not type attached to this skill.
      * @param NoteType|null $noteType
      * @return $this
      */
@@ -132,26 +132,27 @@ class KnowledgeType
 
 
     /**
-     * Return the parent Activity type child.
-     * @return ActivityTypeChild|null
+     * Return the parent Activity theme domain.
+     * @return ActivityThemeDomain|null
      */
-    public function getActivityTypeChild(): ?ActivityTypeChild
+    public function getActivityThemeDomain(): ?ActivityThemeDomain
     {
-        return $this->activityTypeChild;
+        return $this->activityThemeDomain;
     }
 
 
     /**
-     * Set the parent activity type child.
-     * @param ActivityTypeChild|null $activityTypeChild
+     * Set the parent activity theme domain.
+     * @param ActivityThemeDomain|null $activityThemeDomain
      * @return $this
      */
-    public function setActivityTypeChild(?ActivityTypeChild $activityTypeChild): self
+    public function setActivityThemeDomain(?ActivityThemeDomain $activityThemeDomain): self
     {
-        $this->activityTypeChild = $activityTypeChild;
+        $this->activityThemeDomain = $activityThemeDomain;
 
         return $this;
     }
+
 
     /**
      * @return Collection|Activity[]
@@ -159,29 +160,6 @@ class KnowledgeType
     public function getActivities(): Collection
     {
         return $this->activities;
-    }
-
-    public function addActivity(Activity $activity): self
-    {
-        if (!$this->activities->contains($activity)) {
-            $this->activities[] = $activity;
-            $activity->setKnowledgeType($this);
-        }
-
-        return $this;
-    }
-
-    public function removeActivity(Activity $activity): self
-    {
-        if ($this->activities->contains($activity)) {
-            $this->activities->removeElement($activity);
-            // set the owning side to null (unless already changed)
-            if ($activity->getKnowledgeType() === $this) {
-                $activity->setKnowledgeType(null);
-            }
-        }
-
-        return $this;
     }
 
 

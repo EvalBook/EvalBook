@@ -235,25 +235,25 @@ Super administrator settings: Paramètres administrateur
 Enable maintenance mode: Activer le mode maintenance
 No implantation was found, add a new implantation and try again: Aucune implantation n'a pu être trouvée, ajoutez en une nouvelle et essayez à nouveau
 Special classroom: Classe spéciale
-Knowledge: Matière
+Theme subject: Matière
 Behavior: Comportement
-Transversal knowledge: Compétences transversales
+Transversal skills: Compétences transversales
 French: Français
 Mathematics: Mathématiques
 History / Geography: Eveil
 Behavior with classroom owner: Comportement avec le titulaire
 Behavior with special masters: Comportement avec les maîtres spéciaux
 Special classrooms: Classes spéciales
-Activity type: Type d'activité
-Choose an activity type to continue...: Choisissez un type d'activité pour commencer...
+Choose an activity domain to continue...: Choisissez un domaine pour commencer...
 Select an available note type...: Sélectionnez un type de notes disponible...
-No knowledge for this activity, you can create one from your dashboard: Pas de knowledge pour ce type d'activité, veuillez en créer un à partir de votre dashboard.
+No skills for this activity domain, you can create one from your dashboard: Pas de compétences pour ce domaine d'activité, veuillez en créer un à partir de votre dashboard.
 A bad parameter was sent to the serveur, please, try again !: Un mauvais paramètre a été envoyé au serveur, veuillez essayer à nouveau !
 An unexpected error occurred: Une erreur innattendue s'est produite !
-Knowledge type: Type de matière
+Skill: Compétence
 Coefficient: Coefficient
 No available note types, you can create one from your dashboard: Pas de type de notes disponible, vous pouvez en créer à partir de votre dashboard
 Dashboard: Dashboard
+Activity theme domain: Domaine de l'activité
 
 
 roles:
@@ -305,4 +305,3 @@ help:
   ROLE_CLASS_EDIT_STUDENTS: Ce rôle permet à un utilisateur d'assigner un ou plusieurs élèves à une classe.
   ROLE_CLASS_EDIT_USERS: Ce rôle permet d'attribuer le droit d'actions à un ou plusieurs utilisateurs sur une classe précise.
   ROLE_ADMIN: Le rôle admin peut absolument tout faire, à l'exception de l'édition de ses pairs.
-
