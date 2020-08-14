@@ -23,7 +23,7 @@ class ActivityThemeRepository extends ServiceEntityRepository
     }
 
     /**
-    * @return ActivityTheme[] Returns an array of ActivityTheme objects ordered byè school report display order.
+    * @return ActivityTheme[] Returns an array of ActivityTheme objects ordered by school report display order.
     */
     public function findByWeight()
     {
@@ -43,23 +43,23 @@ class ActivityThemeRepository extends ServiceEntityRepository
     {
         $em = $this->getEntityManager();
 
-        $knowledge = new ActivityTheme();
-        $knowledge
+        $themeSubject = new ActivityTheme();
+        $themeSubject
             ->setName('subject')
             ->setDisplayName($translator->trans('Theme subject', [], 'templates'))
             ->setIsNumericNotes(true)
             ->setWeight(0)
         ;
-        $em->persist($knowledge);
+        $em->persist($themeSubject);
 
-        $transversalKnowledge = new ActivityTheme();
-        $transversalKnowledge
-            ->setName('transversal_knowledge')
-            ->setDisplayName($translator->trans('Transversal knowledge', [], 'templates'))
+        $transversalSkill = new ActivityTheme();
+        $transversalSkill
+            ->setName('transversal_skill')
+            ->setDisplayName($translator->trans('Transversal skill', [], 'templates'))
             ->setIsNumericNotes(true)
             ->setWeight(1)
         ;
-        $em->persist($transversalKnowledge);
+        $em->persist($transversalSkill);
 
         $behavior = new ActivityTheme();
         $behavior

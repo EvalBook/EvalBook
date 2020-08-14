@@ -71,9 +71,9 @@ class NoteType
     private $activities;
 
     /**
-     * @ORM\OneToMany(targetEntity=KnowledgeType::class, mappedBy="noteType")
+     * @ORM\OneToMany(targetEntity=ActivityThemeDomainSkill::class, mappedBy="noteType")
      */
-    private $knowledgeTypes;
+    private $activityThemeDomainSkills;
 
 
     /**
@@ -81,7 +81,7 @@ class NoteType
      */
     public function __construct()
     {
-        $this->knowledgeTypes = new ArrayCollection();
+        $this->activityThemeDomainSkills = new ArrayCollection();
     }
 
 
@@ -242,25 +242,25 @@ class NoteType
 
 
     /**
-     * Return all available knoweldge type attached to the note type.
-     * @return Collection|KnowledgeType[]
+     * Return all available activity theme domain skills attached to the note type.
+     * @return Collection|ActivityThemeDomainSkill[]
      */
-    public function getKnowledgeTypes(): Collection
+    public function getActivityThemeDomainSkills(): Collection
     {
-        return $this->knowledgeTypes;
+        return $this->activityThemeDomainSkills;
     }
 
 
     /**
-     * Add a knowledge to this note type.
-     * @param KnowledgeType $knowledgeType
+     * Add an activity theme domain skill to this note type.
+     * @param ActivityThemeDomainSkill $activityThemeDomainSkill
      * @return $this
      */
-    public function addKnowledgeType(KnowledgeType $knowledgeType): self
+    public function addActivityThemeDomainSkill(ActivityThemeDomainSkill $activityThemeDomainSkill): self
     {
-        if (!$this->knowledgeTypes->contains($knowledgeType)) {
-            $this->knowledgeTypes[] = $knowledgeType;
-            $knowledgeType->setNoteType($this);
+        if (!$this->activityThemeDomainSkills->contains($activityThemeDomainSkill)) {
+            $this->activityThemeDomainSkills[] = $activityThemeDomainSkill;
+            $activityThemeDomainSkill->setNoteType($this);
         }
 
         return $this;
@@ -268,17 +268,17 @@ class NoteType
 
 
     /**
-     * Remove a knowledge from this note type.
-     * @param KnowledgeType $knowledgeType
+     * Remove an activity theme domain skill from this note type.
+     * @param ActivityThemeDomainSkill $activityThemeDomainSkill
      * @return $this
      */
-    public function removeKnowledgeType(KnowledgeType $knowledgeType): self
+    public function removeActivityThemeDomainSkill(ActivityThemeDomainSkill $activityThemeDomainSkill): self
     {
-        if ($this->knowledgeTypes->contains($knowledgeType)) {
-            $this->knowledgeTypes->removeElement($knowledgeType);
+        if ($this->activityThemeDomainSkills->contains($activityThemeDomainSkill)) {
+            $this->activityThemeDomainSkills->removeElement($activityThemeDomainSkill);
             // set the owning side to null (unless already changed)
-            if ($knowledgeType->getNoteType() === $this) {
-                $knowledgeType->setNoteType(null);
+            if ($activityThemeDomainSkill->getNoteType() === $this) {
+                $activityThemeDomainSkill->setNoteType(null);
             }
         }
 

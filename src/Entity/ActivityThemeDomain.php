@@ -49,9 +49,9 @@ class ActivityThemeDomain
     private $type;
 
     /**
-     * @ORM\OneToMany(targetEntity=KnowledgeType::class, mappedBy="activityThemeDomain", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=ActivityThemeDomainSkill::class, mappedBy="activityThemeDomain", orphanRemoval=true)
      */
-    private $knowledgeTypes;
+    private $activityThemeDomainSkills;
 
 
     /**
@@ -59,7 +59,7 @@ class ActivityThemeDomain
      */
     public function __construct()
     {
-        $this->knowledgeTypes = new ArrayCollection();
+        $this->activityThemeDomainSkills = new ArrayCollection();
     }
 
 
@@ -190,24 +190,24 @@ class ActivityThemeDomain
     }
 
     /**
-     * @return Collection|KnowledgeType[]
+     * @return Collection|ActivityThemeDomainSkill[]
      */
-    public function getKnowledgeTypes(): Collection
+    public function getActivityThemeDomainSkills(): Collection
     {
-        return $this->knowledgeTypes;
+        return $this->activityThemeDomainSkills;
     }
 
 
     /**
-     * Add a knowledge type to this activity theme domain.
-     * @param KnowledgeType $knowledgeType
+     * Add an activity theme domain skill to this activity theme domain.
+     * @param ActivityThemeDomainSkill $activityThemeDomainSkill
      * @return $this
      */
-    public function addKnowledgeType(KnowledgeType $knowledgeType): self
+    public function addActivityThemeDomainSkill(ActivityThemeDomainSkill $activityThemeDomainSkill): self
     {
-        if (!$this->knowledgeTypes->contains($knowledgeType)) {
-            $this->knowledgeTypes[] = $knowledgeType;
-            $knowledgeType->setActivityThemeDomain($this);
+        if (!$this->activityThemeDomainSkills->contains($activityThemeDomainSkill)) {
+            $this->activityThemeDomainSkills[] = $activityThemeDomainSkill;
+            $activityThemeDomainSkill->setActivityThemeDomain($this);
         }
 
         return $this;
@@ -215,17 +215,17 @@ class ActivityThemeDomain
 
 
     /**
-     * Remove a knowledge from this activity theme domain.
-     * @param KnowledgeType $knowledgeType
+     * Remove an activity theme domain skill to this activity theme domain.
+     * @param ActivityThemeDomainSkill $activityThemeDomainSkill
      * @return $this
      */
-    public function removeKnowledgeType(KnowledgeType $knowledgeType): self
+    public function removeActivityThemeDomainSkill(ActivityThemeDomainSkill $activityThemeDomainSkill): self
     {
-        if ($this->knowledgeTypes->contains($knowledgeType)) {
-            $this->knowledgeTypes->removeElement($knowledgeType);
+        if ($this->activityThemeDomainSkills->contains($activityThemeDomainSkill)) {
+            $this->activityThemeDomainSkills->removeElement($activityThemeDomainSkill);
             // set the owning side to null (unless already changed)
-            if ($knowledgeType->getActivityThemeDomain() === $this) {
-                $knowledgeType->setActivityThemeDomain(null);
+            if ($activityThemeDomainSkill->getActivityThemeDomain() === $this) {
+                $activityThemeDomainSkill->setActivityThemeDomain(null);
             }
         }
 

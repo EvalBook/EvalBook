@@ -20,7 +20,7 @@
 namespace App\Form;
 
 use App\Entity\ActivityThemeDomain;
-use App\Entity\KnowledgeType;
+use App\Entity\ActivityThemeDomainSkill;
 use App\Entity\Period;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -45,7 +45,7 @@ class ActivityType extends AbstractType
         $builder
 
             ->add('activityThemeDomains', EntityType::class, [
-                // Used to filter knowledge types with JS.
+                // Used to filter skills with JS.
                 'class' => ActivityThemeDomain::class,
                 'choices' => $options['activity_theme_domains'],
                 'mapped' => false,
@@ -55,8 +55,8 @@ class ActivityType extends AbstractType
                 'translation_domain' => 'templates',
             ])
 
-            ->add('knowledgeType', EntityType::class, [
-                'class' => KnowledgeType::class,
+            ->add('activityThemeDomainSkill', EntityType::class, [
+                'class' => ActivityThemeDomainSkill::class,
                 'required' => true,
 
             ])

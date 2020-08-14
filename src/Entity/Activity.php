@@ -84,10 +84,10 @@ class Activity
     private $classroom;
 
     /**
-     * @ORM\ManyToOne(targetEntity=KnowledgeType::class, inversedBy="activities")
+     * @ORM\ManyToOne(targetEntity=ActivityThemeDomainSkill::class, inversedBy="activities")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $knowledgeType;
+    private $activityThemeDomainSkill;
 
 
     /**
@@ -327,20 +327,22 @@ class Activity
 
 
     /**
-     * Return the attached Knowledge type.
+     * Return the attached activity theme domain skill.
      */
-    public function getKnowledgeType(): ?KnowledgeType
+    public function getActivityThemeDomainSkill(): ?ActivityThemeDomainSkill
     {
-        return $this->knowledgeType;
+        return $this->activityThemeDomainSkill;
     }
 
 
     /**
-     * Set the attached knowledge type.
+     * Set the attached activity theme domain skill.
+     * @param ActivityThemeDomainSkill|null $activityThemeDomainSkill
+     * @return Activity
      */
-    public function setKnowledgeType(?KnowledgeType $knowledgeType): self
+    public function setActivityThemeDomainSkill(?ActivityThemeDomainSkill $activityThemeDomainSkill): self
     {
-        $this->knowledgeType = $knowledgeType;
+        $this->activityThemeDomainSkill = $activityThemeDomainSkill;
 
         return $this;
     }

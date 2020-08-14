@@ -237,7 +237,7 @@ No implantation was found, add a new implantation and try again: No implantation
 Special classroom: Special classroom
 Theme subject: Subject
 Behavior: Behavior
-Transversal knowledge: Transversal knowledge
+Transversal skill: Transversal skill
 French: French
 Mathematics: Mathematics
 History / Geography: History / Geography
@@ -246,10 +246,10 @@ Behavior with special masters: Behavior with special masters
 Special classrooms: Special classrooms
 Choose an activity domain to continue...: Choose an activity domain to continue...
 Select an available note type...: Select an available note type...
-No knowledge for this activity, you can create one from your dashboard: No knowledge for this activity, you can create one from your dashboard
+No skill for this activity domain, you can create one from your dashboard: No skill for this activity domain, you can create one from your dashboard
 A bad parameter was sent to the serveur, please, try again !: A bad parameter was sent to the serveur, please, try again !
 An unexpected error occurred: An unexpected error occurred
-Knowledge type: Knowledge type
+Skill: Skill
 Coefficient: Coefficient
 No available note types, you can create one from your dashboard: No available note types, you can create one from your dashboard
 Dashboard: Dashboard

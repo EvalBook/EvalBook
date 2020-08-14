@@ -11,12 +11,12 @@ let ActivityHandler = {
      */
     init: async function() {
         this.activityThemeDomains = document.querySelector('#activity_activityThemeDomains');
-        this.knowledgesElement = document.querySelector('#activity_knowledgeType');
+        this.skillsElement = document.querySelector('#activity_activityThemeDomainSkill');
         this.noteTypesElement = document.querySelector('#activity_noteType');
 
         // Setting defaults.
         this.activityThemeDomains.selectedIndex = 0;
-        this.knowledgesElement.innerHTML = '';
+        this.skillsElement.innerHTML = '';
         this.noteTypesElement.innerHTML = '';
 
         // Attaching first listener to activity types element.
@@ -28,7 +28,7 @@ let ActivityHandler = {
             "Choose an activity type to continue...",
             "Select an available note type...",
             "A bad parameter was sent to the serveur, please, try again !",
-            "No knowledge for this activity, you can create one from your dashboard",
+            "No skill for this activity domain, you can create one from your dashboard",
             "No available note types, you can create one from your dashboard",
             "An unexpected error occurred",
         ]);
@@ -40,7 +40,7 @@ let ActivityHandler = {
      */
     watchActivityTheme: async function() {
         try {
-            let response = await Api.query('/api/knowledge/get', {
+            let response = await Api.query('/api/skills/get', {
                 activityThemeDomain: this.activityThemeDomains.value
             });
 
@@ -52,23 +52,23 @@ let ActivityHandler = {
 
             // Removing the first activity type element.
             this.activityThemeDomains.removeChild(this.activityThemeDomains.firstChild);
-            this.knowledgesElement.innerHTML = '';
+            this.skillsElement.innerHTML = '';
 
-            // Knowledges.
-            if (response.knowledges.length > 0 && this.knowledgesElement) {
-                // Iterate over knowledges types.
-                for (let knowledge of response.knowledges) {
-                    this.knowledgesElement.appendChild(this._getOption(knowledge.name, knowledge.id));
+            // Skills.
+            if (response.skills.length > 0 && this.skillsElement) {
+                // Iterate over skills.
+                for (let skill of response.skills) {
+                    this.skillsElement.appendChild(this._getOption(skill.name, skill.id));
                 }
-                // Display knowledge type hidden parent element.
-                this.knowledgesElement.parentElement.style.display = "block";
+                // Display skills hidden parent element.
+                this.skillsElement.parentElement.style.display = "block";
 
 
-                // Note types only if knowledges types were found..
+                // Note types only if skills were found..
                 this.noteTypesElement.innerHTML = '';
                 this.noteTypesElement.appendChild(this._getOption(this.strings["Select an available note type..."], -1))
                 if (response.noteTypes.length > 0 && this.noteTypesElement) {
-                    // Now that knowledge is displayed, getting available notes types.
+                    // Now that skills is displayed, getting available notes types.
                     for(let noteType of response.noteTypes) {
                         this.noteTypesElement.appendChild(this._getOption(noteType.name, noteType.id));
                     }
@@ -78,13 +78,13 @@ let ActivityHandler = {
                 else {
                     this.noteTypesElement.parentElement.style.display = 'none';
                     let errorMsg = this.strings["No available note types, you can create one from your dashboard"]
-                    this.knowledgesElement.parentElement.querySelector('span').innerHTML = errorMsg ;
+                    this.skillsElement.parentElement.querySelector('span').innerHTML = errorMsg ;
                 }
 
             }
             else {
-                this.knowledgesElement.parentElement.style.display = 'none';
-                let errorMsg = this.strings["No knowledge for this activity, you can create one from your dashboard"]
+                this.skillsElement.parentElement.style.display = 'none';
+                let errorMsg = this.strings["No skills for this activity domain, you can create one from your dashboard"]
                 this.activityThemeDomains.parentElement.querySelector('span').innerHTML = errorMsg ;
             }
         }

@@ -72,13 +72,13 @@ class ActivityThemeDomainRepository extends ServiceEntityRepository
 
         // Only if activity themes not already populated with default values.
         if($activityThemesRepository->count([]) > 0) {
-            // Knowledge activity type.
+            // Skill.
             $french = new ActivityThemeDomain();
             $french
                 ->setName('french')
                 ->setDisplayName($translator->trans('French', [], 'templates'))
                 ->setActivityTheme($activityThemesRepository->findOneBy([
-                    // Knowledge = 0
+                    // Skill = 0
                     'weight' => '0'
                 ]))
                 ->setType(ActivityThemeDomain::TYPE_GENERIC)
@@ -90,7 +90,7 @@ class ActivityThemeDomainRepository extends ServiceEntityRepository
                 ->setName('mathematics')
                 ->setDisplayName($translator->trans('Mathematics', [], 'templates'))
                 ->setActivityTheme($activityThemesRepository->findOneBy([
-                    // Knowledge = 0
+                    // Skill = 0
                     'weight' => '0'
                 ]))
                 ->setType(ActivityThemeDomain::TYPE_GENERIC)
@@ -103,7 +103,7 @@ class ActivityThemeDomainRepository extends ServiceEntityRepository
                 ->setName('history_geography')
                 ->setDisplayName($translator->trans('History / Geography', [], 'templates'))
                 ->setActivityTheme($activityThemesRepository->findOneBy([
-                    // Knowledge = 0
+                    // Skill = 0
                     'weight' => '0'
                 ]))
                 ->setType(ActivityThemeDomain::TYPE_GENERIC)
@@ -118,7 +118,7 @@ class ActivityThemeDomainRepository extends ServiceEntityRepository
                 ->setName('special_classrooms')
                 ->setDisplayName($translator->trans('Special classrooms', [], 'templates'))
                 ->setActivityTheme($activityThemesRepository->findOneBy([
-                    // Knowledge = 0
+                    // Skill = 0
                     'weight' => '0'
                 ]))
                 ->setType(ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM)

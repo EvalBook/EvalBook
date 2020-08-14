@@ -237,7 +237,7 @@ No implantation was found, add a new implantation and try again: Aucune implanta
 Special classroom: Classe spéciale
 Theme subject: Matière
 Behavior: Comportement
-Transversal knowledge: Compétences transversales
+Transversal skills: Compétences transversales
 French: Français
 Mathematics: Mathématiques
 History / Geography: Eveil
@@ -246,10 +246,10 @@ Behavior with special masters: Comportement avec les maîtres spéciaux
 Special classrooms: Classes spéciales
 Choose an activity domain to continue...: Choisissez un domaine pour commencer...
 Select an available note type...: Sélectionnez un type de notes disponible...
-No knowledge for this activity, you can create one from your dashboard: Pas de knowledge pour ce type d'activité, veuillez en créer un à partir de votre dashboard.
+No skills for this activity domain, you can create one from your dashboard: Pas de compétences pour ce domaine d'activité, veuillez en créer un à partir de votre dashboard.
 A bad parameter was sent to the serveur, please, try again !: Un mauvais paramètre a été envoyé au serveur, veuillez essayer à nouveau !
 An unexpected error occurred: Une erreur innattendue s'est produite !
-Knowledge type: Type de matière
+Skill: Compétence
 Coefficient: Coefficient
 No available note types, you can create one from your dashboard: Pas de type de notes disponible, vous pouvez en créer à partir de votre dashboard
 Dashboard: Dashboard
