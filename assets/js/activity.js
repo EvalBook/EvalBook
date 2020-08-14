@@ -2,7 +2,7 @@ import { Api, Language } from "./api.js";
 
 /**
  * Handle activities creation process.
- * @type {{watchActivityType: watchActivityType, init: init}}
+ * @type {{watchActivityTheme: watchActivityTheme, init: init}}
  */
 let ActivityHandler = {
 
@@ -10,17 +10,17 @@ let ActivityHandler = {
      * Getting needed elements and setting empty values.
      */
     init: async function() {
-        this.activityTypeChildren = document.querySelector('#activity_activityTypeChildren');
+        this.activityThemeDomains = document.querySelector('#activity_activityThemeDomains');
         this.knowledgesElement = document.querySelector('#activity_knowledgeType');
         this.noteTypesElement = document.querySelector('#activity_noteType');
 
         // Setting defaults.
-        this.activityTypeChildren.selectedIndex = 0;
+        this.activityThemeDomains.selectedIndex = 0;
         this.knowledgesElement.innerHTML = '';
         this.noteTypesElement.innerHTML = '';
 
         // Attaching first listener to activity types element.
-        this.activityTypeChildren.addEventListener('change', () => this.watchActivityType());
+        this.activityThemeDomains.addEventListener('change', () => this.watchActivityTheme());
         this.noteTypesElement.addEventListener('change', () => this.watchNoteType());
 
         // Getting needed translations.
@@ -36,12 +36,12 @@ let ActivityHandler = {
 
 
     /**
-     * Watch activityTypes select and perform ajax request to fetch related data.
+     * Watch activityTheme select and perform ajax request to fetch related data.
      */
-    watchActivityType: async function() {
+    watchActivityTheme: async function() {
         try {
             let response = await Api.query('/api/knowledge/get', {
-                activityTypeChild: this.activityTypeChildren.value
+                activityThemeDomain: this.activityThemeDomains.value
             });
 
             // Handling error with sent parameters.
@@ -51,7 +51,7 @@ let ActivityHandler = {
             }
 
             // Removing the first activity type element.
-            this.activityTypeChildren.removeChild(this.activityTypeChildren.firstChild);
+            this.activityThemeDomains.removeChild(this.activityThemeDomains.firstChild);
             this.knowledgesElement.innerHTML = '';
 
             // Knowledges.
@@ -85,7 +85,7 @@ let ActivityHandler = {
             else {
                 this.knowledgesElement.parentElement.style.display = 'none';
                 let errorMsg = this.strings["No knowledge for this activity, you can create one from your dashboard"]
-                this.activityTypeChildren.parentElement.querySelector('span').innerHTML = errorMsg ;
+                this.activityThemeDomains.parentElement.querySelector('span').innerHTML = errorMsg ;
             }
         }
         catch(error) {

@@ -21,7 +21,7 @@ namespace App\Controller\Api;
 
 header("Access-Control-Allow-Origin: *");
 
-use App\Entity\ActivityTypeChild;
+use App\Entity\ActivityThemeDomain;
 use App\Entity\KnowledgeType;
 use App\Entity\NoteType;
 use App\Repository\KnowledgeTypeRepository;
@@ -50,17 +50,17 @@ class ActivityApi extends AbstractController {
         ];
 
         $jsonRequest = json_decode($request->getContent(), true);
-        // Send missing parameter if activity child was not specified.
-        if(!isset($jsonRequest['activityTypeChild'])) {
+        // Send missing parameter if activity theme domain was not specified.
+        if(!isset($jsonRequest['activityThemeDomain'])) {
             return $this->json(['message' => 'Missing parameter'], 201);
         }
 
-        $activityTypeChild = $this->getDoctrine()->getRepository(ActivityTypeChild::class)->find(
-            intval($jsonRequest['activityTypeChild'])
+        $activityThemeDomain = $this->getDoctrine()->getRepository(ActivityThemeDomain::class)->find(
+            intval($jsonRequest['activityThemeDomain'])
         );
 
         // Return if no activity found.
-        if(is_null(($activityTypeChild))) {
+        if(is_null(($activityThemeDomain))) {
             return $this->json(['message' => 'Bad parameter'], 201);
         }
 
@@ -69,10 +69,10 @@ class ActivityApi extends AbstractController {
 
         // Getting knowledge.
         $knowledges = $knowledgesRepository->findBy([
-            "activityTypeChild" => $activityTypeChild->getId()
+            "activityThemeDomain" => $activityThemeDomain->getId()
         ]);
 
-        $noteTypes = $noteTypesRepository->findByType($activityTypeChild->getActivityType()->getIsNumericNotes());
+        $noteTypes = $noteTypesRepository->findByType($activityThemeDomain->getActivityTheme()->getIsNumericNotes());
 
         // Providing response knowledges..
         if(count($knowledges) > 0) {

@@ -19,7 +19,7 @@
 
 namespace App\Form;
 
-use App\Entity\ActivityTypeChild;
+use App\Entity\ActivityThemeDomain;
 use App\Entity\KnowledgeType;
 use App\Entity\Period;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -44,10 +44,10 @@ class ActivityType extends AbstractType
         // Form fields.
         $builder
 
-            ->add('activityTypeChildren', EntityType::class, [
+            ->add('activityThemeDomains', EntityType::class, [
                 // Used to filter knowledge types with JS.
-                'class' => ActivityTypeChild::class,
-                'choices' => $options['activity_type_children'],
+                'class' => ActivityThemeDomain::class,
+                'choices' => $options['activity_theme_domains'],
                 'mapped' => false,
                 'required' => true,
                 'group_by' => 'activityTheme',
@@ -99,7 +99,7 @@ class ActivityType extends AbstractType
         $resolver->setDefaults([
             'data_class' => \App\Entity\Activity::class,
             'periods' => array(),
-            'activity_type_children' => array(),
+            'activity_theme_domains' => array(),
         ]);
     }
 }

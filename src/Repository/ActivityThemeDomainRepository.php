@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\ActivityTheme;
-use App\Entity\ActivityTypeChild;
+use App\Entity\ActivityThemeDomain;
 use App\Entity\Classroom;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\AbstractQuery;
@@ -13,21 +13,21 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * @method ActivityTypeChild|null find($id, $lockMode = null, $lockVersion = null)
- * @method ActivityTypeChild|null findOneBy(array $criteria, array $orderBy = null)
- * @method ActivityTypeChild[]    findAll()
- * @method ActivityTypeChild[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ActivityThemeDomain|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ActivityThemeDomain|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ActivityThemeDomain[]    findAll()
+ * @method ActivityThemeDomain[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ActivityTypeChildRepository extends ServiceEntityRepository
+class ActivityThemeDomainRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ActivityTypeChild::class);
+        parent::__construct($registry, ActivityThemeDomain::class);
     }
 
 
     /**
-     * Find activity type child(ren) by type ( generic or special classroom and by classroom id ).
+     * Find activity theme domain by type ( generic or special classroom and by classroom id ).
      * @param String $type
      * @param Classroom $classroom
      * @param bool $includeDefaults
@@ -38,7 +38,7 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
         $queryBuilder
             ->select('a')
-            ->from(ActivityTypeChild::class, 'a')
+            ->from(ActivityThemeDomain::class, 'a')
             ->where('a.type = :type')
         ;
         if(!$includeDefaults) {
@@ -60,7 +60,7 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
 
 
     /**
-     * Populate database with default activity types children ( most commonly used ).
+     * Populate database with default activity theme domains ( most commonly used ).
      * @param TranslatorInterface $translator
      * @throws ORMException
      * @throws OptimisticLockException
@@ -73,7 +73,7 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
         // Only if activity themes not already populated with default values.
         if($activityThemesRepository->count([]) > 0) {
             // Knowledge activity type.
-            $french = new ActivityTypeChild();
+            $french = new ActivityThemeDomain();
             $french
                 ->setName('french')
                 ->setDisplayName($translator->trans('French', [], 'templates'))
@@ -81,11 +81,11 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
                     // Knowledge = 0
                     'weight' => '0'
                 ]))
-                ->setType(ActivityTypeChild::TYPE_GENERIC)
+                ->setType(ActivityThemeDomain::TYPE_GENERIC)
             ;
             $em->persist($french);
 
-            $maths = new ActivityTypeChild();
+            $maths = new ActivityThemeDomain();
             $maths
                 ->setName('mathematics')
                 ->setDisplayName($translator->trans('Mathematics', [], 'templates'))
@@ -93,12 +93,12 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
                     // Knowledge = 0
                     'weight' => '0'
                 ]))
-                ->setType(ActivityTypeChild::TYPE_GENERIC)
+                ->setType(ActivityThemeDomain::TYPE_GENERIC)
             ;
 
             $em->persist($maths);
 
-            $eveil = new ActivityTypeChild();
+            $eveil = new ActivityThemeDomain();
             $eveil
                 ->setName('history_geography')
                 ->setDisplayName($translator->trans('History / Geography', [], 'templates'))
@@ -106,14 +106,14 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
                     // Knowledge = 0
                     'weight' => '0'
                 ]))
-                ->setType(ActivityTypeChild::TYPE_GENERIC)
+                ->setType(ActivityThemeDomain::TYPE_GENERIC)
             ;
             $em->persist($eveil);
 
 
             $em->persist($maths);
 
-            $specialClassrooms = new ActivityTypeChild();
+            $specialClassrooms = new ActivityThemeDomain();
             $specialClassrooms
                 ->setName('special_classrooms')
                 ->setDisplayName($translator->trans('Special classrooms', [], 'templates'))
@@ -121,13 +121,13 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
                     // Knowledge = 0
                     'weight' => '0'
                 ]))
-                ->setType(ActivityTypeChild::TYPE_SPECIAL_CLASSROOM)
+                ->setType(ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM)
             ;
             $em->persist($specialClassrooms);
 
 
             // Behavior activity type.
-            $behaviorWithMaster = new ActivityTypeChild();
+            $behaviorWithMaster = new ActivityThemeDomain();
             $behaviorWithMaster
                 ->setName('behavior_classroom_owner')
                 ->setDisplayName($translator->trans('Behavior with classroom owner', [], 'templates'))
@@ -135,11 +135,11 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
                     // Behavior = 2
                     'weight' => '2'
                 ]))
-                ->setType(ActivityTypeChild::TYPE_GENERIC)
+                ->setType(ActivityThemeDomain::TYPE_GENERIC)
             ;
             $em->persist($behaviorWithMaster);
 
-            $behaviorWithSpecialMasters = new ActivityTypeChild();
+            $behaviorWithSpecialMasters = new ActivityThemeDomain();
             $behaviorWithSpecialMasters
                 ->setName('special_classroom_masters_generic')
                 ->setDisplayName($translator->trans('Behavior with special masters', [], 'templates'))
@@ -147,7 +147,7 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
                     // Behavior = 2
                     'weight' => '2'
                 ]))
-                ->setType(ActivityTypeChild::TYPE_SPECIAL_CLASSROOM)
+                ->setType(ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM)
             ;
             $em->persist($behaviorWithSpecialMasters);
 

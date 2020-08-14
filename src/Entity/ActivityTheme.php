@@ -35,9 +35,9 @@ class ActivityTheme
     private $isNumericNotes;
 
     /**
-     * @ORM\OneToMany(targetEntity=ActivityTypeChild::class, mappedBy="activityTheme", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=ActivityThemeDomain::class, mappedBy="activityTheme", orphanRemoval=true)
      */
-    private $activityTypeChildren;
+    private $activityThemeDomains;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -50,7 +50,7 @@ class ActivityTheme
      */
     public function __construct()
     {
-        $this->activityTypeChildren = new ArrayCollection();
+        $this->activityThemeDomains = new ArrayCollection();
     }
 
 
@@ -133,24 +133,24 @@ class ActivityTheme
 
 
     /**
-     * @return Collection|ActivityTypeChild[]
+     * @return Collection|ActivityThemeDomain[]
      */
-    public function getActivityTypeChildren(): Collection
+    public function getActivityThemeDomains(): Collection
     {
-        return $this->activityTypeChildren;
+        return $this->activityThemeDomains;
     }
 
 
     /**
-     * Add an activity theme child.
-     * @param ActivityTypeChild $activityTypeChild
+     * Add an activity theme domain.
+     * @param ActivityThemeDomain $activityThemeDomain
      * @return $this
      */
-    public function addActivityTypeChild(ActivityTypeChild $activityTypeChild): self
+    public function addActivityThemeDomains(ActivityThemeDomain $activityThemeDomain): self
     {
-        if (!$this->activityTypeChildren->contains($activityTypeChild)) {
-            $this->activityTypeChildren[] = $activityTypeChild;
-            $activityTypeChild->setActivityTheme($this);
+        if (!$this->activityThemeDomains->contains($activityThemeDomain)) {
+            $this->activityThemeDomains[] = $activityThemeDomain;
+            $activityThemeDomain->setActivityTheme($this);
         }
 
         return $this;
@@ -158,17 +158,17 @@ class ActivityTheme
 
 
     /**
-     * Remove an activity theme child.
-     * @param ActivityTypeChild $activityTypeChild
+     * Remove an activity theme domain.
+     * @param ActivityThemeDomain $activityThemeDomain
      * @return $this
      */
-    public function removeActivityTypeChild(ActivityTypeChild $activityTypeChild): self
+    public function removeActivityThemeDomain(ActivityThemeDomain $activityThemeDomain): self
     {
-        if ($this->activityTypeChildren->contains($activityTypeChild)) {
-            $this->activityTypeChildren->removeElement($activityTypeChild);
+        if ($this->activityThemeDomains->contains($activityThemeDomain)) {
+            $this->activityThemeDomains->removeElement($activityThemeDomain);
             // set the owning side to null (unless already changed)
-            if ($activityTypeChild->getActivityTheme() === $this) {
-                $activityTypeChild->setActivityTheme(null);
+            if ($activityThemeDomain->getActivityTheme() === $this) {
+                $activityThemeDomain->setActivityTheme(null);
             }
         }
 

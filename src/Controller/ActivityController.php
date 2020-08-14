@@ -20,7 +20,7 @@
 namespace App\Controller;
 
 use App\Entity\Activity;
-use App\Entity\ActivityTypeChild;
+use App\Entity\ActivityThemeDomain;
 use App\Entity\Classroom;
 use App\Entity\Note;
 use App\Entity\NoteType;
@@ -84,16 +84,16 @@ class ActivityController extends AbstractController
             $this->getDoctrine()->getRepository(NoteType::class)->populate();
         }
 
-        // Populate activities types.
+        // Populate activities themes.
         if($this->getDoctrine()->getRepository(\App\Entity\ActivityTheme::class)->count([]) === 0) {
             // No activity type found, then populating database with the default ones.
             $this->getDoctrine()->getRepository(\App\Entity\ActivityTheme::class)->populate($translator);
         }
 
-        // Populate activities children types.
-        if($this->getDoctrine()->getRepository(ActivityTypeChild::class)->count([]) === 0) {
-            // No activity type children type found, then populating database with the default ones.
-            $this->getDoctrine()->getRepository(ActivityTypeChild::class)->populate($translator);
+        // Populate activities theme domains.
+        if($this->getDoctrine()->getRepository(ActivityThemeDomain::class)->count([]) === 0) {
+            // No activity theme domain found, then populating database with the default ones.
+            $this->getDoctrine()->getRepository(ActivityThemeDomain::class)->populate($translator);
         }
 
         $activity = new Activity();
@@ -105,19 +105,19 @@ class ActivityController extends AbstractController
             }
         }
 
-        // Getting available ActivityTypeChild.
+        // Getting available ActivityThemeDomain.
         // TODO apply this to edition form.
-        $atcRepository = $this->getDoctrine()->getRepository(ActivityTypeChild::class);
+        $atcRepository = $this->getDoctrine()->getRepository(ActivityThemeDomain::class);
         if(!is_null($classroom->getOwner())) {
-            $activityTypeChildren = $atcRepository->findByTypeAndClassroom(ActivityTypeChild::TYPE_GENERIC, $classroom, true);
+            $activityThemeDomains = $atcRepository->findByTypeAndClassroom(ActivityThemeDomain::TYPE_GENERIC, $classroom, true);
         }
         else {
-            $activityTypeChildren = $atcRepository->findByTypeAndClassroom(ActivityTypeChild::TYPE_SPECIAL_CLASSROOM, $classroom, true);
+            $activityThemeDomains = $atcRepository->findByTypeAndClassroom(ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM, $classroom, true);
         }
 
         $form = $this->createForm(ActivityType::class, $activity, [
             'periods' => $periods,
-            'activity_type_children' => $activityTypeChildren,
+            'activity_theme_domains' => $activityThemeDomains,
         ]);
 
         $form->handleRequest($request);

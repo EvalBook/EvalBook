@@ -69,9 +69,9 @@ class Classroom
     private $activities;
 
     /**
-     * @ORM\OneToMany(targetEntity=ActivityTypeChild::class, mappedBy="classroom")
+     * @ORM\OneToMany(targetEntity=ActivityThemeDomain::class, mappedBy="classroom")
      */
-    private $activityTypeChildren;
+    private $activityThemeDomains;
 
 
     /**
@@ -82,7 +82,7 @@ class Classroom
         $this->users = new ArrayCollection();
         $this->students = new ArrayCollection();
         $this->activities = new ArrayCollection();
-        $this->activityTypeChildren = new ArrayCollection();
+        $this->activityThemeDomains = new ArrayCollection();
     }
 
 
@@ -293,6 +293,7 @@ class Classroom
         return $this->activities;
     }
 
+
     /**
      * Add an activity object to the Classroom object.
      * @param Activity $activity
@@ -320,24 +321,24 @@ class Classroom
 
 
     /**
-     * @return Collection|ActivityTypeChild[]
+     * @return Collection|ActivityThemeDomain[]
      */
-    public function getActivityTypeChildren(): Collection
+    public function getActivityThemeDomains(): Collection
     {
-        return $this->activityTypeChildren;
+        return $this->activityThemeDomains;
     }
 
 
     /**
-     * Add an activity type chidren ( useful for special classrooms ).
-     * @param ActivityTypeChild $activityTypeChild
+     * Add an activity theme domains ( useful for special classrooms ).
+     * @param ActivityThemeDomain $activityThemeDomain
      * @return $this
      */
-    public function addActivityTypeChild(ActivityTypeChild $activityTypeChild): self
+    public function addActivityThemeDomain(ActivityThemeDomain $activityThemeDomain): self
     {
-        if (!$this->activityTypeChildren->contains($activityTypeChild)) {
-            $this->activityTypeChildren[] = $activityTypeChild;
-            $activityTypeChild->setClassroom($this);
+        if (!$this->activityThemeDomains->contains($activityThemeDomain)) {
+            $this->activityThemeDomains[] = $activityThemeDomain;
+            $activityThemeDomain->setClassroom($this);
         }
 
         return $this;
@@ -345,17 +346,17 @@ class Classroom
 
 
     /**
-     * Remove an activity type child.
-     * @param ActivityTypeChild $activityTypeChild
+     * Remove an activity theme domain.
+     * @param ActivityThemeDomain $activityThemeDomain
      * @return $this
      */
-    public function removeActivityTypeChild(ActivityTypeChild $activityTypeChild): self
+    public function removeActivityThemeDomain(ActivityThemeDomain $activityThemeDomain): self
     {
-        if ($this->activityTypeChildren->contains($activityTypeChild)) {
-            $this->activityTypeChildren->removeElement($activityTypeChild);
+        if ($this->activityThemeDomains->contains($activityThemeDomain)) {
+            $this->activityThemeDomains->removeElement($activityThemeDomain);
             // set the owning side to null (unless already changed)
-            if ($activityTypeChild->getClassroom() === $this) {
-                $activityTypeChild->setClassroom(null);
+            if ($activityThemeDomain->getClassroom() === $this) {
+                $activityThemeDomain->setClassroom(null);
             }
         }
 

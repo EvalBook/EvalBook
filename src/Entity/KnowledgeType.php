@@ -36,10 +36,10 @@ class KnowledgeType
     private $noteType;
 
     /**
-     * @ORM\ManyToOne(targetEntity=ActivityTypeChild::class, inversedBy="knowledgeTypes")
+     * @ORM\ManyToOne(targetEntity=ActivityThemeDomain::class, inversedBy="knowledgeTypes")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $activityTypeChild;
+    private $activityThemeDomain;
 
     /**
      * @ORM\OneToMany(targetEntity=Activity::class, mappedBy="knowledgeType", orphanRemoval=true)
@@ -132,26 +132,27 @@ class KnowledgeType
 
 
     /**
-     * Return the parent Activity type child.
-     * @return ActivityTypeChild|null
+     * Return the parent Activity theme domain.
+     * @return ActivityThemeDomain|null
      */
-    public function getActivityTypeChild(): ?ActivityTypeChild
+    public function getActivityThemeDomain(): ?ActivityThemeDomain
     {
-        return $this->activityTypeChild;
+        return $this->activityThemeDomain;
     }
 
 
     /**
-     * Set the parent activity type child.
-     * @param ActivityTypeChild|null $activityTypeChild
+     * Set the parent activity theme domain.
+     * @param ActivityThemeDomain|null $activityThemeDomain
      * @return $this
      */
-    public function setActivityTypeChild(?ActivityTypeChild $activityTypeChild): self
+    public function setActivityThemeDomain(?ActivityThemeDomain $activityThemeDomain): self
     {
-        $this->activityTypeChild = $activityTypeChild;
+        $this->activityThemeDomain = $activityThemeDomain;
 
         return $this;
     }
+
 
     /**
      * @return Collection|Activity[]
@@ -159,29 +160,6 @@ class KnowledgeType
     public function getActivities(): Collection
     {
         return $this->activities;
-    }
-
-    public function addActivity(Activity $activity): self
-    {
-        if (!$this->activities->contains($activity)) {
-            $this->activities[] = $activity;
-            $activity->setKnowledgeType($this);
-        }
-
-        return $this;
-    }
-
-    public function removeActivity(Activity $activity): self
-    {
-        if ($this->activities->contains($activity)) {
-            $this->activities->removeElement($activity);
-            // set the owning side to null (unless already changed)
-            if ($activity->getKnowledgeType() === $this) {
-                $activity->setKnowledgeType(null);
-            }
-        }
-
-        return $this;
     }
 
 
