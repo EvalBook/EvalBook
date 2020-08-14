@@ -355,6 +355,6 @@ class Student
      */
     public function __toString()
     {
-        return $this->getLastName() . " " . $this->getFirstName();
+        return $this->getLastName() . " " . $this->getFirstName() . "  ( " . $this->getBirthday()->format("m/d/Y") . " )";
     }
 }
