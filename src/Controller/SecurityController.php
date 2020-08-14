@@ -40,7 +40,7 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils, UserRepository $uRepository, UserPasswordEncoderInterface $encoder): Response
     {
         if ($this->getUser()) {
-            return $this->redirectToRoute('classes');
+            return $this->redirectToRoute('dashboard');
         }
 
         // Checking users count, if no user in database, this is a fresh install, generating admin one.
@@ -63,7 +63,10 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('users/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('users/login.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error
+        ]);
     }
 
 

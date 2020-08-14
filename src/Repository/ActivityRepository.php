@@ -20,8 +20,14 @@
 namespace App\Repository;
 
 use App\Entity\Activity;
+use App\Entity\Note;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
+use Doctrine\ORM\TransactionRequiredException;
 
 /**
  * @method Activity|null find($id, $lockMode = null, $lockVersion = null)
@@ -34,5 +40,61 @@ class ActivityRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Activity::class);
+    }
+
+
+    /**
+     * Return the last top 5 user activities.
+     * @param int $userId
+     * @param int $rowsCount
+     * @return int|mixed|string
+     */
+    public function getUserLastActivities(int $userId, int $rowsCount = 5)
+    {
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+        $queryBuilder
+            ->select('a')
+            ->from(Activity::class, 'a')
+            ->where('a.user = :user')
+            ->orderBy('a.dateAdded', 'DESC')
+            ->setMaxResults($rowsCount)
+            ->setParameter('user', $userId)
+        ;
+
+        return $queryBuilder->getQuery()->getResult(AbstractQuery::HYDRATE_OBJECT);
+    }
+
+
+    /**
+     * Return all activities that does not have been noted yet.
+     * @param User $user
+     * @return int|mixed|string
+     * @throws ORMException
+     * @throws OptimisticLockException
+     * @throws TransactionRequiredException
+     */
+    public function getUserActivitiesToNote(User $user)
+    {
+        $activities = $user->getActivities();
+        $activities_id = array_map(function(Activity $activity){ return $activity->getId();}, $activities->toArray());
+
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+        $queryBuilder
+            ->select('n')
+            ->from(Note::class, 'n')
+            ->expr()->in('n.activity', $activities_id)
+        ;
+
+
+        $notes = $queryBuilder->getQuery()->getResult(AbstractQuery::HYDRATE_OBJECT);
+        foreach($notes as $note) {
+            $fetched = $this->getEntityManager()->find(Activity::class, $note->getActivity());
+            if(in_array($fetched, $activities->toArray())) {
+                $activities->removeElement($fetched);
+            }
+        }
+
+        return $activities->toArray();
+
     }
 }

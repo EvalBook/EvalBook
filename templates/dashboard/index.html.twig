@@ -4,4 +4,13 @@
 
 {% block body %}
 
+    {# Add activity - Classroom shortcut to add new activities. #}
+    {{ dump(classrooms) }}
+
+    {# Top 5 user activities + note status. #}
+    {{ dump(myActivities) }}
+
+    {# Activities that needs to be noted #}
+    {{ dump(needNotesActivities) }}
+
 {% endblock %}
