@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\ActivityTypeRepository;
+use App\Repository\ActivityThemeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ActivityTypeRepository::class)
+ * @ORM\Entity(repositoryClass=ActivityThemeRepository::class)
  */
-class ActivityType
+class ActivityTheme
 {
     /**
      * @ORM\Id()
@@ -35,7 +35,7 @@ class ActivityType
     private $isNumericNotes;
 
     /**
-     * @ORM\OneToMany(targetEntity=ActivityTypeChild::class, mappedBy="activityType", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=ActivityTypeChild::class, mappedBy="activityTheme", orphanRemoval=true)
      */
     private $activityTypeChildren;
 
@@ -46,7 +46,7 @@ class ActivityType
 
 
     /**
-     * ActivityType constructor.
+     * ActivityTheme constructor.
      */
     public function __construct()
     {
@@ -55,7 +55,7 @@ class ActivityType
 
 
     /**
-     * Return the activity type id
+     * Return the activity theme id
      * @return int|null
      */
     public function getId(): ?int
@@ -65,7 +65,7 @@ class ActivityType
 
 
     /**
-     * Return the activity type name.
+     * Return the activity theme name.
      * @return string|null
      */
     public function getName(): ?string
@@ -75,7 +75,7 @@ class ActivityType
 
 
     /**
-     * Set the activity type name.
+     * Set the activity theme name.
      * @param string $name
      * @return $this
      */
@@ -88,7 +88,7 @@ class ActivityType
 
 
     /**
-     * Return the activity type school report display weight.
+     * Return the activity theme school report display weight.
      * @return int|null
      */
     public function getWeight(): ?int
@@ -98,7 +98,7 @@ class ActivityType
 
 
     /**
-     * Set the activity type school report display weight.
+     * Set the activity theme school report display weight.
      * @param int $weight
      * @return $this
      */
@@ -111,7 +111,7 @@ class ActivityType
 
 
     /**
-     * Return true if this activity type must use numeric notes types.
+     * Return true if this activity theme must use numeric notes types.
      * @return bool|null
      */
     public function getIsNumericNotes(): ?bool
@@ -142,7 +142,7 @@ class ActivityType
 
 
     /**
-     * Add an activity type child.
+     * Add an activity theme child.
      * @param ActivityTypeChild $activityTypeChild
      * @return $this
      */
@@ -150,7 +150,7 @@ class ActivityType
     {
         if (!$this->activityTypeChildren->contains($activityTypeChild)) {
             $this->activityTypeChildren[] = $activityTypeChild;
-            $activityTypeChild->setActivityType($this);
+            $activityTypeChild->setActivityTheme($this);
         }
 
         return $this;
@@ -158,7 +158,7 @@ class ActivityType
 
 
     /**
-     * Remove an activity type child.
+     * Remove an activity theme child.
      * @param ActivityTypeChild $activityTypeChild
      * @return $this
      */
@@ -167,8 +167,8 @@ class ActivityType
         if ($this->activityTypeChildren->contains($activityTypeChild)) {
             $this->activityTypeChildren->removeElement($activityTypeChild);
             // set the owning side to null (unless already changed)
-            if ($activityTypeChild->getActivityType() === $this) {
-                $activityTypeChild->setActivityType(null);
+            if ($activityTypeChild->getActivityTheme() === $this) {
+                $activityTypeChild->setActivityTheme(null);
             }
         }
 
@@ -177,7 +177,7 @@ class ActivityType
 
 
     /**
-     * Return the Activity Type display name.
+     * Return the Activity Theme display name.
      * @return string|null
      */
     public function getDisplayName(): ?string
@@ -187,7 +187,7 @@ class ActivityType
 
 
     /**
-     * Set the activity type display name.
+     * Set the activity theme display name.
      * @param string $displayName
      * @return $this
      */
@@ -200,7 +200,7 @@ class ActivityType
 
 
     /**
-     * String representation of ActivityType.
+     * String representation of ActivityTheme.
      */
     public function __toString(): string
     {

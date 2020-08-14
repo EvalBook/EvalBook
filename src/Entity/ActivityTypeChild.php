@@ -28,10 +28,10 @@ class ActivityTypeChild
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity=ActivityType::class, inversedBy="activityTypeChildren")
+     * @ORM\ManyToOne(targetEntity=ActivityTheme::class, inversedBy="activityTypeChildren")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $activityType;
+    private $activityTheme;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -53,10 +53,15 @@ class ActivityTypeChild
      */
     private $knowledgeTypes;
 
+
+    /**
+     * ActivityTypeChild constructor.
+     */
     public function __construct()
     {
         $this->knowledgeTypes = new ArrayCollection();
     }
+
 
     /**
      * Return the activity type chidren id.
@@ -92,23 +97,23 @@ class ActivityTypeChild
 
 
     /**
-     * Return related activity type.
-     * @return ActivityType|null
+     * Return related activity theme.
+     * @return ActivityTheme|null
      */
-    public function getActivityType(): ?ActivityType
+    public function getActivityTheme(): ?ActivityTheme
     {
-        return $this->activityType;
+        return $this->activityTheme;
     }
 
 
     /**
-     * Set related activity type.
-     * @param ActivityType|null $activityType
+     * Set related activity theme.
+     * @param ActivityTheme|null $activityTheme
      * @return $this
      */
-    public function setActivityType(?ActivityType $activityType): self
+    public function setActivityTheme(?ActivityTheme $activityTheme): self
     {
-        $this->activityType = $activityType;
+        $this->activityTheme = $activityTheme;
 
         return $this;
     }
@@ -156,16 +161,6 @@ class ActivityTypeChild
         $this->classroom = $classroom;
 
         return $this;
-    }
-
-
-    /**
-     * String representation of this object.
-     * @return string
-     */
-    public function __toString(): string
-    {
-        return $this->getDisplayName();
     }
 
 
@@ -235,5 +230,15 @@ class ActivityTypeChild
         }
 
         return $this;
+    }
+
+
+    /**
+     * String representation of this object.
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->getDisplayName();
     }
 }

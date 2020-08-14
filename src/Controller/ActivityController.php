@@ -85,9 +85,9 @@ class ActivityController extends AbstractController
         }
 
         // Populate activities types.
-        if($this->getDoctrine()->getRepository(\App\Entity\ActivityType::class)->count([]) === 0) {
+        if($this->getDoctrine()->getRepository(\App\Entity\ActivityTheme::class)->count([]) === 0) {
             // No activity type found, then populating database with the default ones.
-            $this->getDoctrine()->getRepository(\App\Entity\ActivityType::class)->populate($translator);
+            $this->getDoctrine()->getRepository(\App\Entity\ActivityTheme::class)->populate($translator);
         }
 
         // Populate activities children types.

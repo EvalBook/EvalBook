@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\ActivityType;
+use App\Entity\ActivityTheme;
 use App\Entity\ActivityTypeChild;
 use App\Entity\Classroom;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -68,16 +68,16 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
     public function populate(TranslatorInterface $translator)
     {
         $em = $this->getEntityManager();
-        $activityTypesRepository = $em->getRepository(ActivityType::class);
+        $activityThemesRepository = $em->getRepository(ActivityTheme::class);
 
-        // Only if activity types already populated with default values.
-        if($activityTypesRepository->count([]) > 0) {
+        // Only if activity themes not already populated with default values.
+        if($activityThemesRepository->count([]) > 0) {
             // Knowledge activity type.
             $french = new ActivityTypeChild();
             $french
                 ->setName('french')
                 ->setDisplayName($translator->trans('French', [], 'templates'))
-                ->setActivityType($activityTypesRepository->findOneBy([
+                ->setActivityTheme($activityThemesRepository->findOneBy([
                     // Knowledge = 0
                     'weight' => '0'
                 ]))
@@ -89,7 +89,7 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
             $maths
                 ->setName('mathematics')
                 ->setDisplayName($translator->trans('Mathematics', [], 'templates'))
-                ->setActivityType($activityTypesRepository->findOneBy([
+                ->setActivityTheme($activityThemesRepository->findOneBy([
                     // Knowledge = 0
                     'weight' => '0'
                 ]))
@@ -102,7 +102,7 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
             $eveil
                 ->setName('history_geography')
                 ->setDisplayName($translator->trans('History / Geography', [], 'templates'))
-                ->setActivityType($activityTypesRepository->findOneBy([
+                ->setActivityTheme($activityThemesRepository->findOneBy([
                     // Knowledge = 0
                     'weight' => '0'
                 ]))
@@ -117,7 +117,7 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
             $specialClassrooms
                 ->setName('special_classrooms')
                 ->setDisplayName($translator->trans('Special classrooms', [], 'templates'))
-                ->setActivityType($activityTypesRepository->findOneBy([
+                ->setActivityTheme($activityThemesRepository->findOneBy([
                     // Knowledge = 0
                     'weight' => '0'
                 ]))
@@ -131,7 +131,7 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
             $behaviorWithMaster
                 ->setName('behavior_classroom_owner')
                 ->setDisplayName($translator->trans('Behavior with classroom owner', [], 'templates'))
-                ->setActivityType($activityTypesRepository->findOneBy([
+                ->setActivityTheme($activityThemesRepository->findOneBy([
                     // Behavior = 2
                     'weight' => '2'
                 ]))
@@ -143,7 +143,7 @@ class ActivityTypeChildRepository extends ServiceEntityRepository
             $behaviorWithSpecialMasters
                 ->setName('special_classroom_masters_generic')
                 ->setDisplayName($translator->trans('Behavior with special masters', [], 'templates'))
-                ->setActivityType($activityTypesRepository->findOneBy([
+                ->setActivityTheme($activityThemesRepository->findOneBy([
                     // Behavior = 2
                     'weight' => '2'
                 ]))

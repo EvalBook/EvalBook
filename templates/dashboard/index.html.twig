@@ -50,7 +50,6 @@
         </thead>
         <tbody>
         {% for activity in myActivities %}
-            {# Checking if the activity is editable ( if period is closed, then the activity is not editable ) #}
             {% set editable = activity.period.dateEnd >= date() %}
 
             <tr data-id="{{ activity.id }}">

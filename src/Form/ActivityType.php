@@ -50,8 +50,8 @@ class ActivityType extends AbstractType
                 'choices' => $options['activity_type_children'],
                 'mapped' => false,
                 'required' => true,
-                'group_by' => 'activityType',
-                'placeholder' => 'Choose an activity type to continue...',
+                'group_by' => 'activityTheme',
+                'placeholder' => 'Choose an activity domain to continue...',
                 'translation_domain' => 'templates',
             ])
 
