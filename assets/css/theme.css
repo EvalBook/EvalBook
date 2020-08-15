@@ -101,6 +101,11 @@ h1 {
 
 .skill, .no-skill {
     padding-left: 2.5em;
+    background-color: #fff;
+}
+
+.domain {
+    background-color: var(--background-color);
 }
 
 .no-skill {
