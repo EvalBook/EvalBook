@@ -229,9 +229,12 @@
                 {% for themeString, theme in activityThemeDomainsSkills %}
                     <tr>
                         <th>{{ 'Classroom'|trans }}: {{ themeString }}</th>
+                        <th class="activity-add-theme">
+                            <a href="{{ path('dashboard_add_domain', {'classroom': theme.classroomId }) }}">Domaine  <i class="fas fa-plus text-yellow"></i></a>
+                        </th>
                     </tr>
 
-                    {% for domainString, domain in theme %}
+                    {% for domainString, domain in theme.domains %}
                         <tr>
                             <td class="domain"><strong>{{ domainString }}</strong></td>
                         </tr>
@@ -271,8 +274,9 @@
             </table>
 
             <div class="add-button">
-                <a href="">Ajouter un domaine</a>
-                <a href="">Ajouter une compétence</a>
+                <a href="{{ path('dashboard_add_skill') }}">
+                    {{ 'Add new domain skill'|trans }}
+                </a>
             </div>
         </div>
     </div>

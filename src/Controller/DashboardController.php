@@ -3,15 +3,21 @@
 namespace App\Controller;
 
 use App\Entity\Activity;
+use App\Entity\ActivityTheme;
 use App\Entity\ActivityThemeDomain;
-use App\Entity\ActivityThemeDomainSkill;
+use App\Entity\Classroom;
+use App\Form\ActivityThemeDomainType;
+use App\Repository\ActivityThemeRepository;
 use App\Service\ConfigurationService;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\TransactionRequiredException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+
 
 class DashboardController extends AbstractController
 {
@@ -25,7 +31,6 @@ class DashboardController extends AbstractController
         $doctrine = $this->getDoctrine();
         $activityRepository  = $doctrine->getRepository(Activity::class);
         $activityDomainRepository = $doctrine->getRepository(ActivityThemeDomain::class);
-        $activityDomainSkillsRepository = $doctrine->getRepository(ActivityThemeDomainSkill::class);
 
         try {
             $needNotesActivities = [];
@@ -60,8 +65,14 @@ class DashboardController extends AbstractController
                 $domains[$domain->getDisplayName()] = $domain->getActivityThemeDomainSkills()->toArray();
             }
 
-            $activityThemeDomains = array_merge($activityThemeDomains, [$userClassroom->getName() => $domains]);
+            $rArray = [
+                'domains' => $domains,
+                'classroomId' => $userClassroom->getId(),
+            ];
+            $activityThemeDomains = array_merge($activityThemeDomains, [$userClassroom->getName() => $rArray]);
         }
+
+        //dd($activityThemeDomains);
 
         return $this->render('dashboard/index.html.twig', [
             'classrooms'   => $this->getUser()->getClassrooms()->toArray(),
@@ -71,4 +82,69 @@ class DashboardController extends AbstractController
             'activityThemeDomainsSkills' => $activityThemeDomains,
         ]);
     }
+
+
+    /**
+     * @Route("/dashboard/add/domain/{classroom}", name="dashboard_add_domain")
+     * @param Request $request
+     * @param Classroom $classroom
+     * @return RedirectResponse|Response
+     */
+    public function addThemeDomain(Request $request, Classroom $classroom)
+    {
+        $domain = new ActivityThemeDomain();
+        $form = $this->createForm(ActivityThemeDomainType::class, $domain);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $domain->setClassroom($classroom);
+            if(is_null($domain->getClassroom()->getOwner())) {
+                $domain->setType(ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM);
+            }
+            else {
+                $domain->setType(ActivityThemeDomain::TYPE_GENERIC);
+            }
+            $domain->setName(strtolower($domain->getDisplayName()));
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($domain);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Successfully added theme domain');
+
+            return $this->redirectToRoute('dashboard');
+        }
+
+        return $this->render('dashboard/form-theme-domain.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+
+    /**
+     * @Route("/dashboard/edit/domain", name="dashboard_edit_domain")
+     */
+    public function editThemeDomain()
+    {
+
+    }
+
+
+    /**
+     * @Route("/dashboard/add/skill", name="dashboard_add_skill")
+     */
+    public function addThemeDomainSkill()
+    {
+
+    }
+
+
+    /**
+     * @Route("/dashboard/edit/skill", name="dashboard_edit_skill")
+     */
+    public function editThemeDomainSkill()
+    {
+
+    }
+
 }

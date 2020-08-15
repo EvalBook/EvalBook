@@ -113,6 +113,8 @@ Error: Error
 'The CSRF token is invalid. Please try to resubmit the form.': 'The CSRF token is invalid. Please try to resubmit the form.'
 'Coefficient should be between 1 and 10': 'Coefficient should be between 1 and 10'
 'The minimum and maximum values cannot be used as intervals': 'The minimum and maximum values cannot be used as intervals'
+'The display name must be between 2 and 100 chars': 'The display name must be between 2 and 100 chars'
+
 
 implantation:
   name-too-short: The implantation name is too short.

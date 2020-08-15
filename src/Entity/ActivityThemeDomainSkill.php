@@ -46,6 +46,7 @@ class ActivityThemeDomainSkill
      */
     private $activities;
 
+
     public function __construct()
     {
         $this->activities = new ArrayCollection();
