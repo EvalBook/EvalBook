@@ -238,7 +238,9 @@
                         <tr class="domain">
                             <td><strong>{{ domainString }}</strong></td>
                             <td class="activity-add-theme">
-                                <a href="{{ path('dashboard_edit_domain', {'domain': domain.domainId }) }}"><i class="fas fa-edit text-yellow"></i></a>
+                                {% if domain.editable %}
+                                    <a href="{{ path('dashboard_edit_domain', {'domain': domain.domainId }) }}"><i class="fas fa-edit text-yellow"></i></a>
+                                {% endif %}
                             </td>
                         </tr>
 

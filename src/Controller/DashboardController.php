@@ -65,6 +65,7 @@ class DashboardController extends AbstractController
                 $domains[$domain->getDisplayName()] = [
                     "skills" => $domain->getActivityThemeDomainSkills()->toArray(),
                     "domainId" => $domain->getId(),
+                    "editable" => !is_null($domain->getClassroom()),
                 ];
             }
 
@@ -74,8 +75,6 @@ class DashboardController extends AbstractController
             ];
             $activityThemeDomains = array_merge($activityThemeDomains, [$userClassroom->getName() => $rArray]);
         }
-
-        //dd($activityThemeDomains);
 
         return $this->render('dashboard/index.html.twig', [
             'classrooms'   => $this->getUser()->getClassrooms()->toArray(),
