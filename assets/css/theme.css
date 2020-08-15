@@ -655,7 +655,7 @@ tr:hover i, tr:hover a {
         width: 50%;
     }
 
-    .mobile-hidden, hidden {
+    .mobile-hidden, .hidden {
         display: none;
     }
 
@@ -669,6 +669,18 @@ tr:hover i, tr:hover a {
 
     #contact-details {
         margin-top: 3.5em;
+    }
+
+    .dashboard-panel {
+        flex-direction: column;
+    }
+
+    .dashboard-panel div {
+        width: 100%;
+    }
+
+    #themes-domaines-skills {
+        margin-top: 5em;
     }
 }
 
