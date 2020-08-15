@@ -5,213 +5,233 @@
 
 {% block body %}
 
-<div class="width-50-percent">
-    {# Add activity - Classroom shortcut to add new activities. #}
-    <div class="full-width">
-        <h2>{{ 'Manage my classrooms'|trans }}</h2>
-        <table class="full-width">
-            <thead>
-            <tr>
-                <th>{{ 'Implantation'|trans }}</th>
-                <th>{{ 'Class'|trans }}</th>
-                <th class="text-center">{{ 'Users'|trans }}</th>
-                {% if is_granted('ROLE_CLASS_EDIT_USERS') %}
-                    <th class="text-center">{{ 'Manage users'|trans }}</th>
-                {% endif %}
-                <th class="text-center">{{ 'Activity'|trans }}</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            {# classrooms => contain all classrooms the user can interract with #}
-            {% for classroom in classrooms %}
+<div class="full-width flex">
+    <div class="width-50-percent">
+        {# Add activity - Classroom shortcut to add new activities. #}
+        <div class="full-width">
+            <h2>{{ 'Manage my classrooms'|trans }}</h2>
+            <table class="full-width">
+                <thead>
                 <tr>
-                    <td>{{ classroom.implantation }}</td>
-                    <td>{{ classroom.name }}</td>
-                    <td class="text-center"> {{ classroom.users|length }}</td>
-
+                    <th>{{ 'Implantation'|trans }}</th>
+                    <th>{{ 'Class'|trans }}</th>
+                    <th class="text-center">{{ 'Users'|trans }}</th>
                     {% if is_granted('ROLE_CLASS_EDIT_USERS') %}
+                        <th class="text-center">{{ 'Manage users'|trans }}</th>
+                    {% endif %}
+                    <th class="text-center">{{ 'Activity'|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {# classrooms => contain all classrooms the user can interract with #}
+                {% for classroom in classrooms %}
+                    <tr>
+                        <td>{{ classroom.implantation }}</td>
+                        <td>{{ classroom.name }}</td>
+                        <td class="text-center"> {{ classroom.users|length }}</td>
+
+                        {% if is_granted('ROLE_CLASS_EDIT_USERS') %}
+                            <td class="text-center">
+                                <a href="{{ path('classroom_manage_users', {'id': classroom.id}) }}" title="Add users to class">
+                                    <i class="fas fa-cogs"></i>
+                                </a>
+                            </td>
+                        {% endif %}
+
+                        {# Provide a link to add activity to the selected classroom #}
                         <td class="text-center">
-                            <a href="{{ path('classroom_manage_users', {'id': classroom.id}) }}" title="Add users to class">
-                                <i class="fas fa-cogs"></i>
+                            <a href="{{ path('activity_add', {'classroom': classroom.id} ) }}" title="Add activity to the class">
+                                <i class="fas fa-plus text-yellow"></i>
                             </a>
                         </td>
-                    {% endif %}
 
-                    {# Provide a link to add activity to the selected classroom #}
-                    <td class="text-center">
-                        <a href="{{ path('activity_add', {'classroom': classroom.id} ) }}" title="Add activity to the class">
-                            <i class="fas fa-plus text-yellow"></i>
-                        </a>
-                    </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5">
+                            {{ 'You do not have any class'|trans }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-                </tr>
-            {% else %}
+
+        {# Top 5 user activities + note status. #}
+        <div class="margin-plus">
+            <h2>{{ 'My last 5 activities'|trans }}</h2>
+            <table class="full-width">
+                <thead>
                 <tr>
-                    <td colspan="5">
-                        {{ 'You do not have any class'|trans }}
-                    </td>
+                    <th>{{ 'Class'|trans }}</th>
+                    <th>{{ 'Name'|trans }}</th>
+                    <th>{{ 'Date'|trans }}</th>
+                    <th class="text-center">{{ 'Note'|trans }}</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {% for activity in myActivities %}
+                    {% set editable = activity.period.dateEnd >= date() %}
+
+                    <tr>
+                        {# Activity classroom #}
+                        <td>{{ activity.classroom }}</td>
+
+                        {# Activity name #}
+                        <td>{{ activity.name }}</td>
+
+                        {# Activity date add #}
+                        <td>{{ activity.dateAdded|date('d/m/Y') }}</td>
+
+                        {# Note activity access ( Provide a link to not student on this activity ) #}
+                        <td class="text-center">
+                            {% if editable %}
+                                <a href="{{ path('activity_note_add', {'id': activity.id}) }}" title="Add activity notes">
+                                    {% set cssClass = activity.notes|length > 0 ? 'text-yellow' : 'text-red'  %}
+                                    <i class="fas fa-medal {{ cssClass }}"></i>
+                                </a>
+                            {% else %}
+                                <span>-</span>
+                            {% endif %}
+                        </td>
+
+                    </tr>
+                {% else %}
+                    {# No activity found message #}
+                    <tr>
+                        <td colspan="4" class="text-center">
+                            {{ 'It sounds like you do not have any activity or any class'|trans }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {# Activities that needs to be noted #}
+        <div class="margin-plus">
+            <h2>{{ 'Activities that have not be noted'|trans }}</h2>
+            <table class="full-width">
+                <thead>
+                <tr>
+                    <th>{{ 'Class'|trans }}</th>
+                    <th>{{ 'Name'|trans }}</th>
+                    <th>{{ 'Date'|trans }}</th>
+                    <th class="text-center">{{ 'Note'|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for activity in needNotesActivities %}
+                    {% set editable = activity.period.dateEnd >= date() %}
+
+                    <tr>
+                        {# Activity classroom #}
+                        <td>{{ activity.classroom }}</td>
+
+                        {# Activity name #}
+                        <td>{{ activity.name }}</td>
+
+                        {# Activity date add #}
+                        <td>{{ activity.dateAdded|date('d/m/Y') }}</td>
+
+                        {# Note activity access ( Provide a link to not student on this activity ) #}
+                        <td class="text-center">
+                            {% if editable %}
+                                <a href="{{ path('activity_note_add', {'id': activity.id}) }}" title="Add activity notes">
+                                    {% set cssClass = activity.notes|length > 0 ? 'text-yellow' : 'text-red'  %}
+                                    <i class="fas fa-medal {{ cssClass }}"></i>
+                                </a>
+                            {% else %}
+                                <span>-</span>
+                            {% endif %}
+                        </td>
+
+                    </tr>
+                {% else %}
+                    {# No activity found message #}
+                    <tr>
+                        <td colspan="4" class="text-center">
+                            {{ 'You do not have activity without notes'|trans }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {# Activities with sick students #}
+        <div class="margin-plus">
+            <h2>{{ 'Activities with sick students'|trans }}</h2>
+            <table class="full-width">
+                <thead>
+                <tr>
+                    <th>{{ 'Class'|trans }}</th>
+                    <th>{{ 'Name'|trans }}</th>
+                    <th class="text-center">{{ 'Sick'|trans }}</th>
+                    <th class="text-center">{{ 'Note'|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for abs in withAbsActivities %}
+                    {% set editable = abs.activity.period.dateEnd >= date() %}
+
+                    <tr>
+                        {# Activity classroom #}
+                        <td>{{ abs.activity.classroom }}</td>
+
+                        {# Activity name #}
+                        <td>{{ abs.activity.name }}</td>
+
+                        {# Activity date add #}
+                        <td class="text-center">{{ abs.count }}</td>
+
+                        {# Note activity access ( Provide a link to not student on this activity ) #}
+                        <td class="text-center">
+                            {% if editable %}
+                                <a href="{{ path('activity_note_add', {'id': abs.activity.id}) }}" title="Add activity notes">
+                                    {% set cssClass = abs.activity.notes|length > 0 ? 'text-yellow' : 'text-red'  %}
+                                    <i class="fas fa-medal {{ cssClass }}"></i>
+                                </a>
+                            {% else %}
+                                <span>-</span>
+                            {% endif %}
+                        </td>
+
+                    </tr>
+                {% else %}
+                    {# No activity found message #}
+                    <tr>
+                        <td colspan="4" class="text-center">
+                            {{ 'You do not have activity where student were sick'|trans }}
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+
     </div>
 
+    <div class="width-50-percent">
+        {# Activities domains by classroom and add new button #}
+        <div class="full-width">
+            {{ dump(activityThemeDomainsSkills) }}
+        </div>
 
-    {# Top 5 user activities + note status. #}
-    <div class="margin-plus">
-        <h2>{{ 'My last 5 activities'|trans }}</h2>
-        <table class="full-width">
-            <thead>
-            <tr>
-                <th>{{ 'Class'|trans }}</th>
-                <th>{{ 'Name'|trans }}</th>
-                <th>{{ 'Date'|trans }}</th>
-                <th class="text-center">{{ 'Note'|trans }}</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for activity in myActivities %}
-                {% set editable = activity.period.dateEnd >= date() %}
+        {# Activities skills by classroom and by domains with collaspe and add button #}
+        <div class="margin-plus">
 
-                <tr>
-                    {# Activity classroom #}
-                    <td>{{ activity.classroom }}</td>
+        </div>
 
-                    {# Activity name #}
-                    <td>{{ activity.name }}</td>
 
-                    {# Activity date add #}
-                    <td>{{ activity.dateAdded|date('d/m/Y') }}</td>
+        {# Notes types ( note type are globals and not 'deletable' #}
+        <div class="margin-plus">
 
-                    {# Note activity access ( Provide a link to not student on this activity ) #}
-                    <td class="text-center">
-                        {% if editable %}
-                            <a href="{{ path('activity_note_add', {'id': activity.id}) }}" title="Add activity notes">
-                                {% set cssClass = activity.notes|length > 0 ? 'text-yellow' : 'text-red'  %}
-                                <i class="fas fa-medal {{ cssClass }}"></i>
-                            </a>
-                        {% else %}
-                            <span>-</span>
-                        {% endif %}
-                    </td>
-
-                </tr>
-            {% else %}
-                {# No activity found message #}
-                <tr>
-                    <td colspan="4" class="text-center">
-                        {{ 'It sounds like you do not have any activity or any class'|trans }}
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+        </div>
     </div>
-
-    {# Activities that needs to be noted #}
-    <div class="margin-plus">
-        <h2>{{ 'Activities that have not be noted'|trans }}</h2>
-        <table class="full-width">
-            <thead>
-            <tr>
-                <th>{{ 'Class'|trans }}</th>
-                <th>{{ 'Name'|trans }}</th>
-                <th>{{ 'Date'|trans }}</th>
-                <th class="text-center">{{ 'Note'|trans }}</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for activity in needNotesActivities %}
-                {% set editable = activity.period.dateEnd >= date() %}
-
-                <tr>
-                    {# Activity classroom #}
-                    <td>{{ activity.classroom }}</td>
-
-                    {# Activity name #}
-                    <td>{{ activity.name }}</td>
-
-                    {# Activity date add #}
-                    <td>{{ activity.dateAdded|date('d/m/Y') }}</td>
-
-                    {# Note activity access ( Provide a link to not student on this activity ) #}
-                    <td class="text-center">
-                        {% if editable %}
-                            <a href="{{ path('activity_note_add', {'id': activity.id}) }}" title="Add activity notes">
-                                {% set cssClass = activity.notes|length > 0 ? 'text-yellow' : 'text-red'  %}
-                                <i class="fas fa-medal {{ cssClass }}"></i>
-                            </a>
-                        {% else %}
-                            <span>-</span>
-                        {% endif %}
-                    </td>
-
-                </tr>
-            {% else %}
-                {# No activity found message #}
-                <tr>
-                    <td colspan="4" class="text-center">
-                        {{ 'You do not have activity without notes'|trans }}
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-
-    {# Activities with sick students #}
-    <div class="margin-plus">
-        <h2>{{ 'Activities with sick students'|trans }}</h2>
-        <table class="full-width">
-            <thead>
-            <tr>
-                <th>{{ 'Class'|trans }}</th>
-                <th>{{ 'Name'|trans }}</th>
-                <th class="text-center">{{ 'Sick'|trans }}</th>
-                <th class="text-center">{{ 'Note'|trans }}</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            {% for abs in withAbsActivities %}
-                {% set editable = abs.activity.period.dateEnd >= date() %}
-
-                <tr>
-                    {# Activity classroom #}
-                    <td>{{ abs.activity.classroom }}</td>
-
-                    {# Activity name #}
-                    <td>{{ abs.activity.name }}</td>
-
-                    {# Activity date add #}
-                    <td class="text-center">{{ abs.count }}</td>
-
-                    {# Note activity access ( Provide a link to not student on this activity ) #}
-                    <td class="text-center">
-                        {% if editable %}
-                            <a href="{{ path('activity_note_add', {'id': abs.activity.id}) }}" title="Add activity notes">
-                                {% set cssClass = abs.activity.notes|length > 0 ? 'text-yellow' : 'text-red'  %}
-                                <i class="fas fa-medal {{ cssClass }}"></i>
-                            </a>
-                        {% else %}
-                            <span>-</span>
-                        {% endif %}
-                    </td>
-
-                </tr>
-            {% else %}
-                {# No activity found message #}
-                <tr>
-                    <td colspan="4" class="text-center">
-                        {{ 'You do not have activity where student were sick'|trans }}
-                    </td>
-                </tr>
-            {% endfor %}
-
-            </tbody>
-        </table>
-    </div>
-
 </div>
 {% endblock %}
