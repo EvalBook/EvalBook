@@ -99,6 +99,31 @@ h1 {
     display: none;
 }
 
+.skill, .no-skill {
+    padding-left: 2.5em;
+    background-color: #fff;
+}
+
+.domain {
+    background-color: var(--background-color);
+}
+
+.no-skill {
+    color: indianred;
+}
+
+.skill-description {
+    font-size: 0.8em;
+    font-style: italic;
+}
+
+.dashboard-panel {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
 
 /**
  * Top right user links menu.
@@ -397,6 +422,15 @@ tr:hover i, tr:hover a {
     padding: 0.5em;
 }
 
+.activity-add-theme, .activity-add-theme a {
+    text-align: end;
+    color: var(--secondary-color);
+}
+
+.activity-add-theme:hover, .activity-add-theme a:hover {
+    color: var(--secondary-color);
+}
+
 .large input {
     width: 80%;
 }
@@ -621,7 +655,7 @@ tr:hover i, tr:hover a {
         width: 50%;
     }
 
-    .mobile-hidden, hidden {
+    .mobile-hidden, .hidden {
         display: none;
     }
 
@@ -635,6 +669,18 @@ tr:hover i, tr:hover a {
 
     #contact-details {
         margin-top: 3.5em;
+    }
+
+    .dashboard-panel {
+        flex-direction: column;
+    }
+
+    .dashboard-panel div {
+        width: 100%;
+    }
+
+    #themes-domaines-skills {
+        margin-top: 5em;
     }
 }
 

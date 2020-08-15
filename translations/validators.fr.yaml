@@ -113,6 +113,8 @@ Error: Erreur
 'The CSRF token is invalid. Please try to resubmit the form.': 'Le jeton CSRF est invalide. Veuillez renvoyer le formulaire.'
 'Coefficient should be between 1 and 10': 'Le coefficient doit se situer entre 1 et 10'
 'The minimum and maximum values cannot be used as intervals': 'Les valeurs minimum et maximum ne peuvent être utilisées en tant que note intermédiaire'
+'The display name must be between 2 and 100 chars': "Le nom d'affichage doit être compris entre 2 et 100."
+
 
 implantation:
   name-too-short: Le nom de l'implantation doit comporter plus de 4 lettres.
