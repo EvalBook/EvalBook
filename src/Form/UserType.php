@@ -86,6 +86,16 @@ class UserType extends AbstractType
                 'second_options' => ['empty_data' => ''],
             ])
 
+            ->add('sendMail', ChoiceType::class, [
+                'mapped' => false,
+                'choices' => [
+                    'Yes' => true,
+                    'No' => false,
+                ],
+                'translation_domain' => 'templates',
+                'data' => 'Yes',
+            ])
+
             // User roles.
             ->add('roles', ChoiceType::class, [
                 'required' => true,

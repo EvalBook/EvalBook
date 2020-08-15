@@ -35,8 +35,12 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 /**
@@ -81,10 +85,15 @@ class UsersController extends AbstractController
      *
      * @param Request $request
      * @param User $user
-     * @param String $redirect
+     * @param UserRepository $repository
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param string|null $redirect
+     * @param MailerInterface $mailer
+     * @param TranslatorInterface $translator
      * @return Response
      */
-    public function edit(Request $request, User $user, UserRepository $repository, UserPasswordEncoderInterface $passwordEncoder, ?string $redirect)
+    public function edit(Request $request, User $user, UserRepository $repository, UserPasswordEncoderInterface $passwordEncoder,
+                         ?string $redirect, MailerInterface $mailer, TranslatorInterface $translator)
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -108,6 +117,10 @@ class UsersController extends AbstractController
                     return $this->redirectToRoute($redirect['route'], $redirect["params"]);
                 }
 
+                if($form->get('sendMail')->getData()) {
+                    $this->sendUserByMail($user, $plainPassword, $translator, $mailer);
+                }
+
                 return $this->redirectToRoute('users');
             }
         }
@@ -126,9 +139,12 @@ class UsersController extends AbstractController
      * @param Request $request
      * @param UserRepository $repository
      * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param MailerInterface $mailer
+     * @param TranslatorInterface $translator
      * @return RedirectResponse|Response
      */
-    public function add(Request $request, UserRepository $repository, UserPasswordEncoderInterface $passwordEncoder)
+    public function add(Request $request, UserRepository $repository, UserPasswordEncoderInterface $passwordEncoder,
+                        MailerInterface $mailer, TranslatorInterface $translator)
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -153,6 +169,9 @@ class UsersController extends AbstractController
                     $entityManager->flush();
                     $this->addFlash('success', 'Successfully added');
 
+                    if($form->get('sendMail')->getData()) {
+                        $this->sendUserByMail($user, $plainPassword, $translator, $mailer);
+                    }
                     return $this->redirectToRoute('users');
                 }
             }
@@ -337,6 +356,35 @@ class UsersController extends AbstractController
             'configuration' => $configuration,
             'form' => $configurationForm->createView(),
         ]);
+    }
+
+
+    /**
+     * Send a detailed mail to a created user.
+     * @param User $user
+     * @param String $password
+     * @param TranslatorInterface $translator
+     * @param MailerInterface $mailer
+     */
+    private function sendUserByMail(User $user, String $password, TranslatorInterface $translator, MailerInterface $mailer) {
+        // Prepare email.
+        $msg = "Login: %s\n\rMot de passe: %s\n\rEvalBook: %s";
+        $email = (new Email())
+            ->from('no-reply@evalbook.dev')
+            ->to(trim($user->getEmail()))
+            ->subject($translator->trans('Your EvalBook connection informations', [], 'templates'))
+            ->text(sprintf($msg, $user->getEmail(), $password, $_SERVER['SERVER_NAME']))
+            ->priority(Email::PRIORITY_HIGHEST)
+        ;
+
+        // Send mail.
+        try {
+            $mailer->send($email);
+            $this->addFlash('success', 'Your mail was sent !');
+        }
+        catch (TransportExceptionInterface $transportError) {
+            $this->addFlash('error', 'Your mail was not sent, an error occurred.');
+        }
     }
 
 }

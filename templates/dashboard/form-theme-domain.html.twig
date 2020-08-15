@@ -12,20 +12,24 @@
 
         {{ form_start(form) }}
 
-        {# Activity theme domain display name #}
-        {{ form_label(form.displayName, 'Display name'|trans) }}
-        {{ form_widget(form.displayName, {'attr': {
-            'class': 'full-width',
-        }}) }}
-        <span class="form-error">
-            {{ form_errors(form.displayName) }}
-        </span>
+        <div class="form-row">
+            {# Activity theme domain display name #}
+            {{ form_label(form.displayName, 'Display name'|trans) }}
+            {{ form_widget(form.displayName, {'attr': {
+                'class': 'full-width',
+            }}) }}
+            <span class="form-error">
+                {{ form_errors(form.displayName) }}
+            </span>
+        </div>
 
-        {# Activity theme domain parent theme #}
-        {{ form_label(form.activityTheme, 'Parent theme'|trans) }}
-        {{ form_widget(form.activityTheme, {'attr': {
-            'class': 'full-width',
-        }}) }}
+        <div class="form-row">
+            {# Activity theme domain parent theme #}
+            {{ form_label(form.activityTheme, 'Parent theme'|trans) }}
+            {{ form_widget(form.activityTheme, {'attr': {
+                'class': 'full-width',
+            }}) }}
+        </div>
 
         {# Submit button #}
         {{ form_row(form.submit, {

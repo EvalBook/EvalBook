@@ -84,6 +84,12 @@
                 </span>
             </div>
 
+
+            <div class="form-row">
+                {{ form_label(form.sendMail, 'Send an e-mail to this user with these informations ?'|trans) }}
+                {{ form_widget(form.sendMail) }}
+            </div>
+
             {# User roles management #}
             <div>
                 <h2>{{ 'Roles management'|trans }}</h2>
