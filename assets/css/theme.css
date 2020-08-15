@@ -99,6 +99,21 @@ h1 {
     display: none;
 }
 
+.skill, .no-skill {
+    padding-left: 2.5em;
+}
+
+.no-skill {
+    color: indianred;
+}
+
+.dashboard-panel {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
 
 /**
  * Top right user links menu.

@@ -5,7 +5,7 @@
 
 {% block body %}
 
-<div class="full-width flex">
+<div class="dashboard-panel">
     <div class="width-50-percent">
         {# Add activity - Classroom shortcut to add new activities. #}
         <div class="full-width">
@@ -218,19 +218,55 @@
 
     <div class="width-50-percent">
         {# Activities domains by classroom and add new button #}
-        <div class="full-width">
-            {{ dump(activityThemeDomainsSkills) }}
-        </div>
-
         {# Activities skills by classroom and by domains with collaspe and add button #}
-        <div class="margin-plus">
-
-        </div>
-
-
         {# Notes types ( note type are globals and not 'deletable' #}
-        <div class="margin-plus">
+        <div class="full-width">
+            <h2>{{ 'Available Themes - Domains and skills for your classrooms'|trans }}</h2>
+            <table class="full-width">
+                <thead></thead>
+                <tbody>
 
+                {% for themeString, theme in activityThemeDomainsSkills %}
+                    <tr>
+                        <th>{{ 'Classroom'|trans }}: {{ themeString }}</th>
+                    </tr>
+
+                    {% for domainString, domain in theme %}
+                        <tr>
+                            <td><strong>{{ domainString }}</strong></td>
+                        </tr>
+
+                        {% for skill in domain %}
+                            <tr>
+                                <td class="skill">{{ skill.name }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td class="no-skill">
+                                    {{ 'No skill found, add new ones'|trans }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                    {% else %}
+                        <tr>
+                            <td>
+                                {{ 'No domain found, add new ones'|trans }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                {% else %}
+                    {# No activity found message #}
+                    <tr>
+                        <td>
+                            {{ 'No theme found, add new ones'|trans }}
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
