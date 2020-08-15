@@ -20,6 +20,7 @@
 namespace App\Form;
 
 use App\Entity\UserConfiguration;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -31,6 +32,7 @@ class UserConfigurationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+
             ->add('showLogo', ChoiceType::class, [
                 'choices' => $options['choices']
             ])
@@ -57,7 +59,6 @@ class UserConfigurationType extends AbstractType
 
             ->add('usePredefinedActivitiesValues', ChoiceType::class, [
                 'choices' => $options['choices'],
-                'data' => $options['choices']["Yes"],
             ])
         ;
 
