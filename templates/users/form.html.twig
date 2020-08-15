@@ -70,6 +70,9 @@
             <div class="form-row">
                 {{ form_label(form.password.first, 'Password'|trans) }}
                 {{ form_widget(form.password.first) }}
+                <span class="form-info">
+                    {{ 'The password must have a lower case and upper case char, a number and a special char'|trans }}
+                </span>
                 <span class="form-error">
                     {{ form_errors(form.password.first) }}
                 </span>
