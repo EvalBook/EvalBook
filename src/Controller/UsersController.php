@@ -305,6 +305,7 @@ class UsersController extends AbstractController
 
         if ($configurationForm->isSubmitted() && $configurationForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $configuration->setUser($this->getUser());
             $em->persist($configuration);
 
             // If user is admin and maintenance mode was not manually set.

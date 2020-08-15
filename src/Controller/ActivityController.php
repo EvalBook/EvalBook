@@ -26,6 +26,7 @@ use App\Entity\Note;
 use App\Entity\NoteType;
 use App\Form\ActivityNotesType;
 use App\Form\ActivityType;
+use App\Service\ConfigurationService;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -64,9 +65,13 @@ class ActivityController extends AbstractController
      *
      * @param Classroom|null $classroom
      * @param Request $request
+     * @param TranslatorInterface $translator
+     * @param ConfigurationService $configuration
      * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function add(?Classroom $classroom, Request $request, TranslatorInterface $translator): Response
+    public function add(?Classroom $classroom, Request $request, TranslatorInterface $translator, ConfigurationService $configuration): Response
     {
         // If user is not allowed to use the classroom, then return a 405
         $this->checkClassroomAccesses($classroom);
@@ -109,7 +114,14 @@ class ActivityController extends AbstractController
         // TODO apply this to edition form.
         $atcRepository = $this->getDoctrine()->getRepository(ActivityThemeDomain::class);
         if(!is_null($classroom->getOwner())) {
-            $activityThemeDomains = $atcRepository->findByTypeAndClassroom(ActivityThemeDomain::TYPE_GENERIC, $classroom, true);
+            if($configuration->load($this->getUser())->getUsePredefinedActivitiesValues()) {
+                $activityThemeDomains = $atcRepository->findBy([
+                    'type' => ActivityThemeDomain::TYPE_GENERIC_DEFAULT,
+                ]);
+            }
+            else {
+                $activityThemeDomains = $atcRepository->findByTypeAndClassroom(ActivityThemeDomain::TYPE_GENERIC, $classroom, true);
+            }
         }
         else {
             $activityThemeDomains = $atcRepository->findByTypeAndClassroom(ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM, $classroom, true);

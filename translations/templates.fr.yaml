@@ -262,6 +262,9 @@ You do not have activity without notes: Vous n'avez pas d'activités non notées
 Sick: Malades
 Activities with sick students: Activités avec élèves malades / absents
 You do not have activity where student were sick: Vous n'avez pas d'activité avec des élèves malades/absents
+Activities default values: Domaines par défaut des activités
+Make use of predefined activities domains and skills: Utiliser les domaines par défaut des activités
+Successfully updated your configuration: Mise à jour de votre configuration avec succès
 
 
 roles:
@@ -313,5 +316,3 @@ help:
   ROLE_CLASS_EDIT_STUDENTS: Ce rôle permet à un utilisateur d'assigner un ou plusieurs élèves à une classe.
   ROLE_CLASS_EDIT_USERS: Ce rôle permet d'attribuer le droit d'actions à un ou plusieurs utilisateurs sur une classe précise.
   ROLE_ADMIN: Le rôle admin peut absolument tout faire, à l'exception de l'édition de ses pairs.
-Activities default values: 'templates'
-Make use of predefined activities domains and skills: 'templates'
