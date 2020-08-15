@@ -53,7 +53,9 @@
                                    name="form[students][]"
                                    value="{{ choice.value }}" {{ (choice.value in form.students.vars.value) ? 'checked' : '' }}
                             />
-                            <label for="{{ form.students.vars.name }}_{{ choice.value }}" class="js-searchable-checkbox">{{ choice.label}}</label>
+                            <label for="{{ form.students.vars.name }}_{{ choice.value }}" class="js-searchable-checkbox">
+                                {{ choice.label }}
+                            </label>
                         </div>
 
                     {% endfor %}

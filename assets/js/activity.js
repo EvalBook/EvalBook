@@ -25,10 +25,9 @@ let ActivityHandler = {
 
         // Getting needed translations.
         this.strings = await Language.getStrings('templates', [
-            "Choose an activity type to continue...",
             "Select an available note type...",
             "A bad parameter was sent to the serveur, please, try again !",
-            "No skill for this activity domain, you can create one from your dashboard",
+            "No skills for this activity domain, you can create one from your dashboard",
             "No available note types, you can create one from your dashboard",
             "An unexpected error occurred",
         ]);
