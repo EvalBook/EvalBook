@@ -103,25 +103,28 @@ class UsersController extends AbstractController
                 $this->addFlash('error', 'User already exists');
             }
             else {
-                $plainPassword = $form->get('password')->getData();
-                if(strlen($plainPassword) > 6) {
-                    $user->setPassword($passwordEncoder->encodePassword($user, $plainPassword));
+                if(!$this->validatePassword($form->get('password')->getData())) {
+                    // Checking here, cause user can update its profile without password modification !
+                    $this->addFlash('error', "Password is empty or do not match the security pattern");
                 }
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($user);
-                $entityManager->flush();
-                $this->addFlash('success', 'Successfully updated');
+                else {
+                    $user->setPassword($passwordEncoder->encodePassword($user, $form->get('password')->getData()));
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($user);
+                    $entityManager->flush();
+                    $this->addFlash('success', 'Successfully updated');
 
-                if (!is_null($redirect)) {
-                    $redirect = json_decode(base64_decode($redirect), true);
-                    return $this->redirectToRoute($redirect['route'], $redirect["params"]);
+                    if (!is_null($redirect)) {
+                        $redirect = json_decode(base64_decode($redirect), true);
+                        return $this->redirectToRoute($redirect['route'], $redirect["params"]);
+                    }
+
+                    if ($form->get('sendMail')->getData()) {
+                        $this->sendUserByMail($user, $form->get('password')->getData(), $translator, $mailer);
+                    }
+
+                    return $this->redirectToRoute('users');
                 }
-
-                if($form->get('sendMail')->getData()) {
-                    $this->sendUserByMail($user, $plainPassword, $translator, $mailer);
-                }
-
-                return $this->redirectToRoute('users');
             }
         }
 
@@ -155,22 +158,19 @@ class UsersController extends AbstractController
                 $this->addFlash('error', 'User already exists');
             }
             else {
-                if(empty($user->getPassword())) {
+                if(!$this->validatePassword($form->get('password')->getData())) {
                     // Checking here, cause user can update its profile without password modification !
-                    $this->addFlash('error', "Password is empty");
+                    $this->addFlash('error', "Password is empty or do not match the security pattern");
                 }
                 else {
-                    $plainPassword = $form->get('password')->getData();
-                    if(strlen($plainPassword) > 6) {
-                        $user->setPassword($passwordEncoder->encodePassword($user, $plainPassword));
-                    }
+                    $user->setPassword($passwordEncoder->encodePassword($user, $form->get('password')->getData()));
                     $entityManager = $this->getDoctrine()->getManager();
                     $entityManager->persist($user);
                     $entityManager->flush();
                     $this->addFlash('success', 'Successfully added');
 
                     if($form->get('sendMail')->getData()) {
-                        $this->sendUserByMail($user, $plainPassword, $translator, $mailer);
+                        $this->sendUserByMail($user, $form->get('password')->getData(), $translator, $mailer);
                     }
                     return $this->redirectToRoute('users');
                 }
@@ -366,7 +366,8 @@ class UsersController extends AbstractController
      * @param TranslatorInterface $translator
      * @param MailerInterface $mailer
      */
-    private function sendUserByMail(User $user, String $password, TranslatorInterface $translator, MailerInterface $mailer) {
+    private function sendUserByMail(User $user, String $password, TranslatorInterface $translator, MailerInterface $mailer)
+    {
         // Prepare email.
         $msg = "Login: %s\n\rMot de passe: %s\n\rEvalBook: %s";
         $email = (new Email())
@@ -385,6 +386,18 @@ class UsersController extends AbstractController
         catch (TransportExceptionInterface $transportError) {
             $this->addFlash('error', 'Your mail was not sent, an error occurred.');
         }
+    }
+
+
+    /**
+     * Regexw to validate password.
+     * @param string $plainPassword
+     * @return bool
+     */
+    private function validatePassword(string $plainPassword)
+    {
+        $pattern = "/^(?=.*\d)(?=.*[@#\-_$%^&+=§!\?])(?=.*[a-z])(?=.*[A-Z])[0-9A-Za-z@#\-_$%^&+=§!\?]{8,20}$/";
+        return strlen($plainPassword) > 6 && preg_match($pattern, $plainPassword);
     }
 
 }

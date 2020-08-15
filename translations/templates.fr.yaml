@@ -277,6 +277,7 @@ Successfully added theme domain: Nouveau domaine ajouté avec succès
 Successfully updated theme domain: Domaines mis à jour avec succès
 Send an e-mail to this user with these informations ?: Envoyer un e-mail à cet utilisateur avec ses informations de connexion ?
 Your EvalBook connection informations: Vos informations de connexion à EvalBook
+Password is empty or do not match the security pattern: Le mot de passe est vide ou ne correspond pas au pattern de sécurité
 
 
 roles:
