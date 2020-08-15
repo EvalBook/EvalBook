@@ -62,7 +62,10 @@ class DashboardController extends AbstractController
             }
 
             foreach($activityDomains as $domain) {
-                $domains[$domain->getDisplayName()] = $domain->getActivityThemeDomainSkills()->toArray();
+                $domains[$domain->getDisplayName()] = [
+                    "skills" => $domain->getActivityThemeDomainSkills()->toArray(),
+                    "domainId" => $domain->getId(),
+                ];
             }
 
             $rArray = [
@@ -122,11 +125,29 @@ class DashboardController extends AbstractController
 
 
     /**
-     * @Route("/dashboard/edit/domain", name="dashboard_edit_domain")
+     * @Route("/dashboard/edit/domain/{domain}", name="dashboard_edit_domain")
+     * @param Request $request
+     * @param ActivityThemeDomain $domain
+     * @return RedirectResponse|Response
      */
-    public function editThemeDomain()
+    public function editThemeDomain(Request $request, ActivityThemeDomain $domain)
     {
+        $form = $this->createForm(ActivityThemeDomainType::class, $domain);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($domain);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Successfully updated theme domain');
+
+            return $this->redirectToRoute('dashboard');
+        }
+
+        return $this->render('dashboard/form-theme-domain.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
 

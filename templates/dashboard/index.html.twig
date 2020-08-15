@@ -235,11 +235,14 @@
                     </tr>
 
                     {% for domainString, domain in theme.domains %}
-                        <tr>
-                            <td class="domain"><strong>{{ domainString }}</strong></td>
+                        <tr class="domain">
+                            <td><strong>{{ domainString }}</strong></td>
+                            <td class="activity-add-theme">
+                                <a href="{{ path('dashboard_edit_domain', {'domain': domain.domainId }) }}"><i class="fas fa-edit text-yellow"></i></a>
+                            </td>
                         </tr>
 
-                        {% for skill in domain %}
+                        {% for skill in domain.skills %}
                             <tr>
                                 <td class="skill">
                                     {{ skill.name }} - <span class="skill-description">{{ skill.description }}</span>
