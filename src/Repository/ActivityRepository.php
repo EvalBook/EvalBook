@@ -23,11 +23,14 @@ use App\Entity\Activity;
 use App\Entity\Note;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\TransactionRequiredException;
+use function Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Activity|null find($id, $lockMode = null, $lockVersion = null)
@@ -75,9 +78,7 @@ class ActivityRepository extends ServiceEntityRepository
      */
     public function getUserActivitiesToNote(User $user)
     {
-        $activities = $user->getActivities();
-        $activities_id = array_map(function(Activity $activity){ return $activity->getId();}, $activities->toArray());
-
+        list($activities, $activities_id) = $this->getUserActivitiesCollection($user->getId());
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
         $queryBuilder
             ->select('n')
@@ -87,6 +88,7 @@ class ActivityRepository extends ServiceEntityRepository
 
 
         $notes = $queryBuilder->getQuery()->getResult(AbstractQuery::HYDRATE_OBJECT);
+
         foreach($notes as $note) {
             $fetched = $this->getEntityManager()->find(Activity::class, $note->getActivity());
             if(in_array($fetched, $activities->toArray())) {
@@ -96,5 +98,69 @@ class ActivityRepository extends ServiceEntityRepository
 
         return $activities->toArray();
 
+    }
+
+
+    /**
+     * Return all activities found with notes but with ABS notation.
+     * @param User $user
+     * @return Activity[]
+     * @throws ORMException
+     * @throws OptimisticLockException
+     * @throws TransactionRequiredException
+     */
+    public function getActivitiesWithSickStudents(User $user)
+    {
+        $resultActivities = [];
+        list($activities, $activities_id) = $this->getUserActivitiesCollection($user->getId());
+
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+        $queryBuilder
+            ->select('n')
+            ->from(Note::class, 'n')
+            ->where($queryBuilder->expr()->in('n.note', ['abs', 'ABS']))
+            ->andWhere($queryBuilder->expr()->in('n.activity', array_values($activities_id)))
+        ;
+
+        // Getting activities with ABS notation.
+        $notes = $queryBuilder->getQuery()->getResult(AbstractQuery::HYDRATE_OBJECT);
+
+        foreach($notes as $note) {
+            $fetched = $this->getEntityManager()->find(Activity::class, $note->getActivity());
+            if(in_array($fetched->getId(), array_keys($resultActivities))) {
+                $resultActivities[$fetched->getId()]["count"] += 1;
+            }
+            else {
+                $resultActivities[$fetched->getId()]["activity"] = $fetched;
+                $resultActivities[$fetched->getId()]["count"] = 1;
+            }
+        }
+
+        return $resultActivities;
+    }
+
+
+    /**
+     * Return available user activities as an array.
+     * @param int $userId
+     * @return array
+     */
+    private function getUserActivitiesCollection(int $userId)
+    {
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+        $queryBuilder
+            ->select('a')
+            ->from(Activity::class, 'a')
+            ->where('a.user = :user')
+            ->setParameter('user', $userId)
+        ;
+
+        $activities = $queryBuilder->getQuery()->getResult(AbstractQuery::HYDRATE_OBJECT);
+
+        $map = function(Activity $activity) {
+            return $activity->getId();
+        };
+
+        return [new ArrayCollection($activities), array_map($map, $activities)];
     }
 }
