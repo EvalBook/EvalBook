@@ -31,74 +31,78 @@
 
         <div class="form-content">
             {% if form.period.vars.choices|length > 0 %}
-                {{ form_start(form) }}
+                {% if form.activityThemeDomains.vars.choices|length > 0 and form.activityThemeDomainSkill.vars.choices|length > 0 %}
+                    {{ form_start(form) }}
 
-                <div class="form-row display-row">
-                    {# Activity theme domain #}
-                    <div class="width-50-percent margin-right">
-                        {{ form_label(form.activityThemeDomains, 'Activity theme domain'|trans) }}
-                        {{ form_widget(form.activityThemeDomains, {'attr' : {
-                            'class' : 'full-width',
-                        }} ) }}
-                        <span class="form-error"></span>
+                    <div class="form-row display-row">
+                        {# Activity theme domain #}
+                        <div class="width-50-percent margin-right">
+                            {{ form_label(form.activityThemeDomains, 'Activity theme domain'|trans) }}
+                            {{ form_widget(form.activityThemeDomains, {'attr' : {
+                                'class' : 'full-width',
+                            }} ) }}
+                            <span class="form-error"></span>
+                        </div>
+
+                        {# Activity period ( Only not closed periods are returned by controller ) #}
+                        <div class="width-50-percent margin-left">
+                            {{ form_label(form.period, 'Period'|trans) }}
+                            {{ form_widget(form.period, {'attr' : {
+                                'class' : 'full-width',
+                            }} ) }}
+                        </div>
                     </div>
 
-                    {# Activity period ( Only not closed periods are returned by controller ) #}
-                    <div class="width-50-percent margin-left">
-                        {{ form_label(form.period, 'Period'|trans) }}
-                        {{ form_widget(form.period, {'attr' : {
-                            'class' : 'full-width',
-                        }} ) }}
-                    </div>
-                </div>
+                    <div class="form-row display-row">
+                        {# Activity skill #}
+                        <div class="width-50-percent margin-right hidden">
+                            {{ form_label(form.activityThemeDomainSkill, 'Skill'|trans) }}
+                            {{ form_widget(form.activityThemeDomainSkill, {'attr': {
+                                'class': 'full-width',
+                            }}) }}
+                            <span class="form-error"></span>
+                        </div>
 
-                <div class="form-row display-row">
-                    {# Activity skill #}
-                    <div class="width-50-percent margin-right hidden">
-                        {{ form_label(form.activityThemeDomainSkill, 'Skill'|trans) }}
-                        {{ form_widget(form.activityThemeDomainSkill, {'attr': {
-                            'class': 'full-width',
+                        {# Activity note type #}
+                        <div class="width-50-percent margin-left hidden">
+                            {{ form_label(form.noteType, 'Note type'|trans) }}
+                            {{ form_widget(form.noteType, {'attr': {
+                                'class': 'full-width',
+                            }}) }}
+                            <span class="form-info">
+                                {{ 'Select a note type or'|trans }}
+                                <a href="{{ path('note_type_add', {'classroom': classroomId}) }}">{{ 'add a new one'|trans }}</a>
+                            </span>
+                        </div>
+                    </div>
+
+                    {# Activity name #}
+                    <div class="form-row hidden">
+                        {{ form_label(form.name, 'Name'|trans) }}
+                        {{ form_widget(form.name, {'attr': {
+                            'class': 'full-width'
                         }}) }}
-                        <span class="form-error"></span>
-                    </div>
-
-                    {# Activity note type #}
-                    <div class="width-50-percent margin-left hidden">
-                        {{ form_label(form.noteType, 'Note type'|trans) }}
-                        {{ form_widget(form.noteType, {'attr': {
-                            'class': 'full-width',
-                        }}) }}
-                        <span class="form-info">
-                            {{ 'Select a note type or'|trans }}
-                            <a href="{{ path('note_type_add', {'classroom': classroomId}) }}">{{ 'add a new one'|trans }}</a>
+                        <span class="form-error">
+                            {{ form_errors(form.name) }}
                         </span>
                     </div>
-                </div>
 
-                {# Activity name #}
-                <div class="form-row hidden">
-                    {{ form_label(form.name, 'Name'|trans) }}
-                    {{ form_widget(form.name, {'attr': {
-                        'class': 'full-width'
-                    }}) }}
-                    <span class="form-error">
-                        {{ form_errors(form.name) }}
-                    </span>
-                </div>
+                    {# Activity comment #}
+                    <div class="form-row">
+                        {# { form_label(form.comment, 'Comment'|trans) } #}
+                        {{ form_widget(form.comment) }}
+                    </div>
 
-                {# Activity comment #}
-                <div class="form-row">
-                    {# { form_label(form.comment, 'Comment'|trans) } #}
-                    {{ form_widget(form.comment) }}
-                </div>
+                    {# Submit button #}
+                    {{ form_row(form.submit, {
+                        'label': 'Send'|trans,
+                        'attr': {'class': 'margin-15 hidden'},
+                    }) }}
 
-                {# Submit button #}
-                {{ form_row(form.submit, {
-                    'label': 'Send'|trans,
-                    'attr': {'class': 'margin-15 hidden'},
-                }) }}
-
-                {{ form_end(form) }}
+                    {{ form_end(form) }}
+                {% else %}
+                    <span>{{ 'You do not use default activities domains values and do not have your own domains nor skill, add new ones via your dashboard before add an activity'|trans }}</span>
+                {% endif %}
             {% else %}
                 <span>{{ 'Unable to add new activities, no active period detected'|trans }}</span>
             {% endif %}
