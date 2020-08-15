@@ -18,8 +18,8 @@
 Notebook: Cahier de notes
 Notebooks: Cahiers de notes
 Activities: Activités
-Students: Etudiants
-Student: Etudiant
+Students: Elèves
+Student: Elève
 Classes: Classes
 Class: Classe
 Owner: Titulaire
@@ -259,6 +259,13 @@ Manage my classrooms: Gérer mes classes
 My last 5 activities: Mes 5 dernières activités
 Activity: Activité
 You do not have activity without notes: Vous n'avez pas d'activités non notées
+Sick: Malades
+Activities with sick students: Activités avec élèves malades / absents
+You do not have activity where student were sick: Vous n'avez pas d'activité avec des élèves malades/absents
+Activities default values: Domaines par défaut des activités
+Make use of predefined activities domains and skills: Utiliser les domaines par défaut des activités
+Successfully updated your configuration: Mise à jour de votre configuration avec succès
+You do not use default activities domains values and do not have your own domains nor skill, add new ones via your dashboard before add an activity: Vous ne disposez d'aucun domaine d'activité ou de compétences, veuillez en ajouter via votre dashboard, ou utiliser ceux fournis par défaut
 
 
 roles:

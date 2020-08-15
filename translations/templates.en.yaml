@@ -259,6 +259,13 @@ Manage my classrooms: Manage my classrooms
 My last 5 activities: My last 5 activities
 Activity: Activity
 You do not have activity without notes: You do not have activity without notes
+Sick: Sick
+Activities with sick students: Activities with sick students
+You do not have activity where student were sick: You do not have activity where student were sick
+Activities default values: Activities default values
+Make use of predefined activities domains and skills: Make use of predefined activities domains and skills
+Successfully updated your configuration: Successfully updated your configuration
+You do not use default activities domains values and do not have your own domains nor skill, add new ones via your dashboard before add an activity: You do not use default activities domains values and do not have your own domains nor skill, add new ones via your dashboard before add an activity
 
 
 roles:

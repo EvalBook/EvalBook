@@ -22,7 +22,9 @@ class DashboardController extends AbstractController
         $activityRepository  = $doctrine->getRepository(Activity::class);
         try {
             $needNotesActivities = [];
+            $withAbsActivities = [];
             $needNotesActivities = $activityRepository->getUserActivitiesToNote($this->getUser());
+            $withAbsActivities = $activityRepository->getActivitiesWithSickStudents($this->getUser());
         }
         catch (OptimisticLockException $e) {}
         catch (TransactionRequiredException $e) {}
@@ -32,6 +34,7 @@ class DashboardController extends AbstractController
             'classrooms'   => $this->getUser()->getClassrooms()->toArray(),
             'myActivities' => $activityRepository->getUserLastActivities($this->getUser()->getId(), 5),
             'needNotesActivities' => $needNotesActivities,
+            'withAbsActivities' => $withAbsActivities,
         ]);
     }
 }

@@ -81,7 +81,7 @@ class ActivityThemeDomainRepository extends ServiceEntityRepository
                     // Skill = 0
                     'weight' => '0'
                 ]))
-                ->setType(ActivityThemeDomain::TYPE_GENERIC)
+                ->setType(ActivityThemeDomain::TYPE_GENERIC_DEFAULT)
             ;
             $em->persist($french);
 
@@ -93,7 +93,7 @@ class ActivityThemeDomainRepository extends ServiceEntityRepository
                     // Skill = 0
                     'weight' => '0'
                 ]))
-                ->setType(ActivityThemeDomain::TYPE_GENERIC)
+                ->setType(ActivityThemeDomain::TYPE_GENERIC_DEFAULT)
             ;
 
             $em->persist($maths);
@@ -106,7 +106,7 @@ class ActivityThemeDomainRepository extends ServiceEntityRepository
                     // Skill = 0
                     'weight' => '0'
                 ]))
-                ->setType(ActivityThemeDomain::TYPE_GENERIC)
+                ->setType(ActivityThemeDomain::TYPE_GENERIC_DEFAULT)
             ;
             $em->persist($eveil);
 
@@ -135,7 +135,7 @@ class ActivityThemeDomainRepository extends ServiceEntityRepository
                     // Behavior = 2
                     'weight' => '2'
                 ]))
-                ->setType(ActivityThemeDomain::TYPE_GENERIC)
+                ->setType(ActivityThemeDomain::TYPE_GENERIC_DEFAULT)
             ;
             $em->persist($behaviorWithMaster);
 

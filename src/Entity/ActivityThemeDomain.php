@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ActivityThemeDomain
 {
+    const TYPE_GENERIC_DEFAULT = 'generic_default';
     const TYPE_GENERIC = 'generic';
     const TYPE_SPECIAL_CLASSROOM = 'special_classroom';
 

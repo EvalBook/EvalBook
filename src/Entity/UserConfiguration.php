@@ -64,6 +64,11 @@ class UserConfiguration
      */
     private $useContacts;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $usePredefinedActivitiesValues;
+
 
     /**
      * @ORM\OneToOne(targetEntity=User::class, inversedBy="userConfiguration", cascade={"persist", "remove"})
@@ -241,6 +246,29 @@ class UserConfiguration
 
 
     /**
+     * Return true if user want to use default activities domains and skills values.
+     * @return bool|null
+     */
+    public function getUsePredefinedActivitiesValues(): ?bool
+    {
+        return $this->usePredefinedActivitiesValues || is_null($this->usePredefinedActivitiesValues);
+    }
+
+
+    /**
+     * Set to true so the user will see and use predefined activities domains and skills.
+     * @param bool|null $usePredefined
+     * @return $this
+     */
+    public function setUsePredefinedActivitiesValues(?bool $usePredefined): self
+    {
+        $this->usePredefinedActivitiesValues = $usePredefined;
+
+        return $this;
+    }
+
+
+    /**
      * Set the default configuration values.
      */
     public function setDefaults()
@@ -251,5 +279,6 @@ class UserConfiguration
         $this->setShowSearch(true);
         $this->setUseSchools(true);
         $this->setUseContacts(true);
+        $this->setUsePredefinedActivitiesValues(true);
     }
 }

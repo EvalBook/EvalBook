@@ -54,6 +54,11 @@ class UserConfigurationType extends AbstractType
             ->add('useContacts', ChoiceType::class, [
                 'choices' => $options['choices']
             ])
+
+            ->add('usePredefinedActivitiesValues', ChoiceType::class, [
+                'choices' => $options['choices'],
+                'data' => $options['choices']["Yes"],
+            ])
         ;
 
         if(in_array('ROLE_ADMIN', $options['roles'])) {

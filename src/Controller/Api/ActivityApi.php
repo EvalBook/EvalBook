@@ -52,6 +52,8 @@ class ActivityApi extends AbstractController {
             return $this->json(['message' => 'Missing parameter'], 201);
         }
 
+        $configuration = $this->getUser()->getConfiguration();
+
         $activityThemeDomain = $this->getDoctrine()->getRepository(ActivityThemeDomain::class)->find(
             intval($jsonRequest['activityThemeDomain'])
         );
