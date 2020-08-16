@@ -288,6 +288,10 @@ Add skill: Add skill
 The note type will be used to compute the school report total: The note type will be used to compute the school report total
 The description will appear in th school report skill line: The description will appear in th school report skill line
 Successfully updated theme domain skill: Successfully updated theme domain skill
+Minimum: Minimum
+Maximum: Maximum
+No available note types: No available note types
+Available note types: Available note types
 
 
 roles:

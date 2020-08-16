@@ -9,6 +9,7 @@ use App\Entity\Classroom;
 use App\Entity\NoteType;
 use App\Form\ActivityThemeDomainSkillType;
 use App\Form\ActivityThemeDomainType;
+use App\Repository\NoteTypeRepository;
 use App\Service\ConfigurationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\OptimisticLockException;
@@ -35,6 +36,7 @@ class DashboardController extends AbstractController
         $doctrine = $this->getDoctrine();
         $activityRepository  = $doctrine->getRepository(Activity::class);
         $activityDomainRepository = $doctrine->getRepository(ActivityThemeDomain::class);
+        $noteTypesRepository = $doctrine->getRepository(NoteType::class);
 
         try {
             $needNotesActivities = [];
@@ -86,6 +88,7 @@ class DashboardController extends AbstractController
             'needNotesActivities' => $needNotesActivities,
             'withAbsActivities' => $withAbsActivities,
             'activityThemeDomainsSkills' => $activityThemeDomains,
+            'noteTypes' => $noteTypesRepository->findAll(),
         ]);
     }
 

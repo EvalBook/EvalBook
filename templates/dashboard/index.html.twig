@@ -321,6 +321,44 @@
                 </tbody>
             </table>
         </div>
+
+        {# Activities available note types #}
+        <div class="full-width margin-plus">
+            <h2>{{ 'Available note types'|trans }}</h2>
+            <span class="small text-yellow">
+                <a href="{{ path('note_type_add') }}">
+                    {{ 'Add a note type'|trans }}  <i class="fas fa-plus text-yellow"></i>
+                </a>
+            </span>
+
+            <table class="full-width margin-15">
+                <thead>
+                    <tr>
+                        <th>{{ 'Name'|trans }}</th>
+                        <th>{{ 'Description'|trans }}</th>
+                        <th>{{ 'Actions' }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for noteType in noteTypes %}
+                        <tr>
+                            <td>{{ noteType.name }}</td>
+                            <td>{{ noteType.description }}</td>
+                            <td>
+                                <a href="{{ path('dashboard_edit_skill', {'skill': skill.id }) }}">
+                                    <i class="fas fa-edit text-yellow"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3">{{ 'No available note types'|trans }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
     </div>
 </div>
 {% endblock %}
