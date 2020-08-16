@@ -66,6 +66,14 @@ class DashboardController extends AbstractController
             }
         }
 
+        $noteTypes = $noteTypesRepository->findAll();
+        // Populating note type if no data exists.
+        if(count($noteTypes) === 0) {
+            $noteTypesRepository->populate();
+            $noteTypes = $noteTypesRepository->findAll();
+        }
+
+
         $activityThemeDomains = [];
         foreach($this->getUser()->getClassrooms()->toArray() as $userClassroom) {
             $domains = [];
@@ -104,7 +112,7 @@ class DashboardController extends AbstractController
             'needNotesActivities' => $needNotesActivities,
             'withAbsActivities' => $withAbsActivities,
             'activityThemeDomainsSkills' => $activityThemeDomains,
-            'noteTypes' => $noteTypesRepository->findAll(),
+            'noteTypes' => $noteTypes,
         ]);
     }
 
