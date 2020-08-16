@@ -287,6 +287,7 @@ Add domain: Ajouter domaine
 Add skill: Ajouter compétence
 The note type will be used to compute the school report total: Le type de note déterminera la méthode de calcul de moyenne dans le bulletin.
 The description will appear in th school report skill line: La description apparaît sous la ligne de compétence dans le bulletin
+Successfully updated theme domain skill: Compétence mise à jour avec succès
 
 
 roles:

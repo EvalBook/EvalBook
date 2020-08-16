@@ -259,7 +259,26 @@ class DashboardController extends AbstractController
      */
     public function editThemeDomainSkill(Request $request, ActivityThemeDomainSkill $skill)
     {
+        $noteTypesRepository = $this->getDoctrine()->getRepository(NoteType::class);
 
+        $form = $this->createForm(ActivityThemeDomainSkillType::class, $skill, [
+            'noteTypes' => $noteTypesRepository->findByType($skill->getActivityThemeDomain()->getActivityTheme()->getIsNumericNotes()),
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($skill);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Successfully updated theme domain skill');
+                return $this->redirect('dashboard');
+        }
+
+        return $this->render('dashboard/form-theme-domain-skill.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
 
