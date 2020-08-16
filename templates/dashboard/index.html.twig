@@ -238,14 +238,14 @@
                     </tr>
 
                     {% for domainString, domain in theme.domains %}
-                        <tr class="domain" data-id="{{ domain.domainId }}">
+                        <tr class="domain" data-id="{{ domain.domain.id }}">
                             <td colspan="{{ domain.editable is same as(true) ? 1 : 3 }}" class="theme-description">
                                 <strong>{{ domainString }}</strong>
                             </td>
 
                             {% if domain.editable %}
                                 <td class="activity-add-theme theme-control">
-                                    <a href="{{ path('dashboard_edit_domain', {'domain': domain.domainId }) }}">
+                                    <a href="{{ path('dashboard_edit_domain', {'domain': domain.domain.id }) }}">
                                         <i class="fas fa-edit text-yellow"></i>
                                     </a>
                                 </td>
@@ -254,17 +254,17 @@
                             {% if domain.editable %}
                                 <td class="theme-control">
                                     <div data-target="domain"
-                                         data-targetid="{{ domain.domainId }}"
-                                         data-action="{{ path('dashboard_delete_domain', {'domain': domain.domainId}) }}"
+                                         data-targetid="{{ domain.domain.id }}"
+                                         data-action="{{ path('dashboard_delete_domain', {'domain': domain.domain.id}) }}"
                                          data-class="fas fa-trash text-yellow"
-                                         data-csrf="{{ csrf_token('domain_delete' ~ domain.domainId) }}"
+                                         data-csrf="{{ csrf_token('domain_delete' ~ domain.domain.id) }}"
                                     >
                                     </div>
                                 </td>
                             {% endif %}
 
                             <td class="activity-add-theme theme-control">
-                                <a href="{{ path('dashboard_add_skill', {'domain': domain.domainId }) }}">
+                                <a href="{{ path('dashboard_add_skill', {'domain': domain.domain.id }) }}">
                                     {{ 'Add skill'|trans}}  <i class="fas fa-plus text-yellow"></i>
                                 </a>
                             </td>

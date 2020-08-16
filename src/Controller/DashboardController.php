@@ -68,7 +68,7 @@ class DashboardController extends AbstractController
             foreach($activityDomains as $domain) {
                 $domains[$domain->getDisplayName()] = [
                     "skills" => $domain->getActivityThemeDomainSkills()->toArray(),
-                    "domainId" => $domain->getId(),
+                    "domain" => $domain,
                     "editable" => !is_null($domain->getClassroom()),
                 ];
             }
