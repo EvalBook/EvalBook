@@ -177,7 +177,7 @@ class DashboardController extends AbstractController
         if(!in_array($domain->getType(),[ActivityThemeDomain::TYPE_GENERIC_DEFAULT, ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM ])) {
             $skills = $domain->getActivityThemeDomainSkills()->toArray();
             foreach($skills as $skill) {
-                if($skill->getActivities()->count()) {
+                if($skill->getActivities()->count() > 0) {
                     return $this->json(['message' => 'You can not delete domains with activities in it, but you can still edit them'], 201);
                 }
             }
@@ -260,6 +260,31 @@ class DashboardController extends AbstractController
     public function editThemeDomainSkill(Request $request, ActivityThemeDomainSkill $skill)
     {
 
+    }
+
+
+    /**
+     * @Route("/dashboard/delete/skill/{skill}", name="dashboard_delete_skill")
+     * @param Request $request
+     * @param ActivityThemeDomainSkill $skill
+     * @param EntityManagerInterface $entityManager
+     * @return JsonResponse
+     */
+    public function deleteThemeDomainSkill(Request $request, ActivityThemeDomainSkill $skill, EntityManagerInterface $entityManager)
+    {
+        if($skill->getActivities()->count() > 0) {
+            return $this->json(['message' => 'You can not delete domains with activities in it, but you can still edit them'], 201);
+        }
+
+        $jsonRequest = json_decode($request->getContent(), true);
+        if( !isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('skill_delete'.$skill->getId(), $jsonRequest['csrf'])) {
+            return $this->json(['message' => 'Invalid csrf token'], 201);
+        }
+
+        $entityManager->remove($skill);
+        $entityManager->flush();
+
+        return $this->json(['message' => 'Skill deleted'], 200);
     }
 
 }

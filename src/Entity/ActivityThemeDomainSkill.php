@@ -42,7 +42,7 @@ class ActivityThemeDomainSkill
     private $activityThemeDomain;
 
     /**
-     * @ORM\OneToMany(targetEntity=Activity::class, mappedBy="activityDomainSkill", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Activity::class, mappedBy="activityThemeDomainSkill", orphanRemoval=true)
      */
     private $activities;
 

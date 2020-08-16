@@ -271,10 +271,27 @@
                         </tr>
 
                         {% for skill in domain.skills %}
-                            <tr>
-                                <td colspan="4" class="skill">
+                            <tr data-id="{{ skill.id }}">
+                                <td colspan="2" class="skill">
                                     {{ skill.name }} - <span class="skill-description">{{ skill.description }}</span>
                                 </td>
+
+                                <td class="activity-add-theme theme-control">
+                                    <a href="{{ path('dashboard_edit_skill', {'skill': skill.id }) }}">
+                                        <i class="fas fa-edit text-yellow"></i>
+                                    </a>
+                                </td>
+
+                                <td class="theme-control">
+                                    <div data-target="skill"
+                                         data-targetid="{{ skill.id }}"
+                                         data-action="{{ path('dashboard_delete_skill', {'skill': skill.id}) }}"
+                                         data-class="fas fa-trash text-yellow"
+                                         data-csrf="{{ csrf_token('skill_delete' ~ skill.id) }}"
+                                    >
+                                    </div>
+                                </td>
+
                             </tr>
                         {% else %}
                             <tr>
