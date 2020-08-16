@@ -423,16 +423,29 @@ tr:hover i, tr:hover a {
 }
 
 .activity-add-theme, .activity-add-theme a {
-    text-align: end;
+    text-align: end !important;
     /*color: var(--secondary-color);*/
 }
 
 th.activity-add-theme a {
-    color: var(--secondary-color);
+    color: var(--secondary-color) !important;
 }
 
 .activity-add-theme:hover, .activity-add-theme a:hover {
-    color: #fff;
+    /*color: #fff !important;*/
+}
+
+.theme-description {
+    max-width: 55%;
+    min-width: 55%;
+    width: 55%;
+}
+
+.theme-control {
+    max-width: 15%;
+    min-width: 15%;
+    width:15%;
+    text-align: center;
 }
 
 .large input {
@@ -518,6 +531,14 @@ th.activity-add-theme a {
 .bg-yellow {
     background-color: var(--secondary-color);
     border: 1px solid var(--primary-color);
+}
+
+.bg-white {
+    background-color: #fff;
+}
+
+.bg-white:hover {
+    color: var(--secondary-color);
 }
 
 /* Usually elements that must be grouped */

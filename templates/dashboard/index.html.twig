@@ -229,7 +229,7 @@
                 {% for themeString, theme in activityThemeDomainsSkills %}
                     <tr>
                         <th>{{ 'Classroom'|trans }}: {{ themeString }}</th>
-                        <th colspan="2" class="activity-add-theme">
+                        <th colspan="3" class="activity-add-theme">
                             <a href="{{ path('dashboard_add_domain', {'classroom': theme.classroomId }) }}">
                                 {{ 'Domain'|trans }}  <i class="fas fa-plus text-yellow"></i>
                             </a>
@@ -238,15 +238,31 @@
 
                     {% for domainString, domain in theme.domains %}
                         <tr class="domain">
-                            <td><strong>{{ domainString }}</strong></td>
-                            <td class="activity-add-theme">
-                                {% if domain.editable %}
+                            <td colspan="{{ domain.editable is same as(true) ? 1 : 3 }}" class="theme-description">
+                                <strong>{{ domainString }}</strong>
+                            </td>
+
+                            {% if domain.editable %}
+                                <td class="activity-add-theme theme-control">
                                     <a href="{{ path('dashboard_edit_domain', {'domain': domain.domainId }) }}">
                                         <i class="fas fa-edit text-yellow"></i>
                                     </a>
-                                {% endif %}
-                            </td>
-                            <td class="activity-add-theme">
+                                </td>
+                            {% endif %}
+
+                            {% if domain.editable %}
+                                <td class="theme-control">
+                                    <div data-target="domain"
+                                         data-targetid="{{ domain.domainId }}"
+                                         data-action="{{ path('dashboard_delete_domain', {'domain': domain.domainId}) }}"
+                                         data-class="fas fa-trash text-yellow"
+                                         data-csrf="{{ csrf_token('domain_delete' ~ domain.domainId) }}"
+                                    >
+                                    </div>
+                                </td>
+                            {% endif %}
+
+                            <td class="activity-add-theme theme-control">
                                 <a href="{{ path('dashboard_add_skill', {'domain': domain.domainId }) }}">
                                     {{ 'Add skill'|trans}}  <i class="fas fa-plus text-yellow"></i>
                                 </a>
@@ -255,13 +271,13 @@
 
                         {% for skill in domain.skills %}
                             <tr>
-                                <td class="skill">
+                                <td colspan="4" class="skill">
                                     {{ skill.name }} - <span class="skill-description">{{ skill.description }}</span>
                                 </td>
                             </tr>
                         {% else %}
                             <tr>
-                                <td class="no-skill">
+                                <td class="no-skill" colspan="4">
                                     {{ 'No skill found, add new ones'|trans }}
                                 </td>
                             </tr>
@@ -269,7 +285,7 @@
 
                     {% else %}
                         <tr>
-                            <td>
+                            <td colspan="4">
                                 {{ 'No domain found, add new ones'|trans }}
                             </td>
                         </tr>
@@ -278,7 +294,7 @@
                 {% else %}
                     {# No activity found message #}
                     <tr>
-                        <td>
+                        <td colspan="4">
                             {{ 'No theme found, add new ones'|trans }}
                         </td>
                     </tr>
@@ -289,4 +305,10 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+
+{# Include Javascript files. #}
+{% block javascripts %}
+    {{ encore_entry_script_tags('modalDialogs') }}
 {% endblock %}
