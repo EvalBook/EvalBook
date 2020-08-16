@@ -411,7 +411,6 @@ tr:nth-child(even) {
 
 tr:hover i, tr:hover a {
     color: white;
-    font-weight: bold;
 }
 
 #activite-notes {
@@ -424,28 +423,15 @@ tr:hover i, tr:hover a {
 
 .activity-add-theme, .activity-add-theme a {
     text-align: end !important;
-    /*color: var(--secondary-color);*/
 }
 
-th.activity-add-theme a {
-    color: var(--secondary-color) !important;
+#themes-domaines-skills table tr:hover {
+    background: unset;
 }
 
-.activity-add-theme:hover, .activity-add-theme a:hover {
-    /*color: #fff !important;*/
-}
-
-.theme-description {
-    max-width: 55%;
-    min-width: 55%;
-    width: 55%;
-}
-
-.theme-control {
-    max-width: 15%;
-    min-width: 15%;
-    width:15%;
-    text-align: center;
+#themes-domaines-skills tr:hover #themes-domaines-skills i, #themes-domaines-skills tr:hover a,
+#themes-domaines-skills tr:hover i, #themes-domaines-skills tr:hover a{
+    color: var(--secondary-color);
 }
 
 .large input {
@@ -460,6 +446,10 @@ th.activity-add-theme a {
 .small input {
     text-align: center;
     width: 60%;
+}
+
+.justify-content-end {
+    justify-content: end;
 }
 
 /**
