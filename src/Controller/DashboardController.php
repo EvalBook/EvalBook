@@ -75,7 +75,7 @@ class DashboardController extends AbstractController
 
             $rArray = [
                 'domains' => $domains,
-                'classroomId' => $userClassroom->getId(),
+                'classroom' => $userClassroom,
             ];
             $activityThemeDomains = array_merge($activityThemeDomains, [$userClassroom->getName() => $rArray]);
         }
@@ -98,32 +98,39 @@ class DashboardController extends AbstractController
      */
     public function addThemeDomain(Request $request, Classroom $classroom)
     {
-        $domain = new ActivityThemeDomain();
-        $form = $this->createForm(ActivityThemeDomainType::class, $domain);
-        $form->handleRequest($request);
+        if(is_null($classroom->getOwner())) {
+            $this->addFlash('error', 'You can not add a domain as your classtoom is a special classroom');
+        }
+        else {
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $domain->setClassroom($classroom);
-            if(is_null($domain->getClassroom()->getOwner())) {
-                $domain->setType(ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM);
+            $domain = new ActivityThemeDomain();
+            $form = $this->createForm(ActivityThemeDomainType::class, $domain);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $domain->setClassroom($classroom);
+                if (is_null($domain->getClassroom()->getOwner())) {
+                    $domain->setType(ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM);
+                } else {
+                    $domain->setType(ActivityThemeDomain::TYPE_GENERIC);
+                }
+                $domain->setName(strtolower($domain->getDisplayName()));
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($domain);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Successfully added theme domain');
+
+                return $this->redirectToRoute('dashboard');
             }
-            else {
-                $domain->setType(ActivityThemeDomain::TYPE_GENERIC);
-            }
-            $domain->setName(strtolower($domain->getDisplayName()));
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($domain);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Successfully added theme domain');
-
-            return $this->redirectToRoute('dashboard');
+            return $this->render('dashboard/form-theme-domain.html.twig', [
+                'form' => $form->createView(),
+            ]);
         }
 
-        return $this->render('dashboard/form-theme-domain.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        return $this->redirectToRoute('dashboard');
     }
 
 

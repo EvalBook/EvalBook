@@ -228,12 +228,14 @@
 
                 {% for themeString, theme in activityThemeDomainsSkills %}
                     <tr>
-                        <th>{{ 'Classroom'|trans }}: {{ themeString }}</th>
-                        <th colspan="3" class="activity-add-theme">
-                            <a href="{{ path('dashboard_add_domain', {'classroom': theme.classroomId }) }}">
-                                {{ 'Domain'|trans }}  <i class="fas fa-plus text-yellow"></i>
-                            </a>
-                        </th>
+                        <th colspan="{{ theme.classroom.owner is null ? 4 : 1 }}">{{ 'Classroom'|trans }}: {{ themeString }}</th>
+                        {% if not theme.classroom.owner is null %}
+                            <th colspan="3" class="activity-add-theme">
+                                <a href="{{ path('dashboard_add_domain', {'classroom': theme.classroom.id }) }}">
+                                    {{ 'Add domain'|trans }}  <i class="fas fa-plus text-yellow"></i>
+                                </a>
+                            </th>
+                        {% endif %}
                     </tr>
 
                     {% for domainString, domain in theme.domains %}

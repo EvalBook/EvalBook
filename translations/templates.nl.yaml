@@ -277,6 +277,7 @@ Password is empty or do not match the security pattern: Password is empty or do 
 The password must have a lower case and upper case char, a number and a special char: The password must have a lower case and upper case char, a number and a special char
 Successfully added theme domain skill: Successfully added theme domain skill
 You cannot add new skill as you already have your special classroom skill: You cannot add new skill as you already have your special classroom skill
+You can not add a domain as your classtoom is a special classroom: You can not add a domain as your classtoom is a special classroom
 
 
 roles:
