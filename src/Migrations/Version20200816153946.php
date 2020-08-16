@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200809135830 extends AbstractMigration
+final class Version20200816153946 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,12 +22,13 @@ final class Version20200809135830 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE activity (id INT AUTO_INCREMENT NOT NULL, note_type_id INT NOT NULL, user_id INT DEFAULT NULL, period_id INT DEFAULT NULL, classroom_id INT DEFAULT NULL, date_added DATETIME NOT NULL, comment LONGTEXT DEFAULT NULL, name VARCHAR(255) NOT NULL, INDEX IDX_AC74095A44EA4809 (note_type_id), INDEX IDX_AC74095AA76ED395 (user_id), INDEX IDX_AC74095AEC8B7ADE (period_id), INDEX IDX_AC74095A6278D5A8 (classroom_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE activity_type (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, weight SMALLINT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE activity (id INT AUTO_INCREMENT NOT NULL, note_type_id INT NOT NULL, user_id INT DEFAULT NULL, period_id INT DEFAULT NULL, classroom_id INT DEFAULT NULL, activity_theme_domain_skill_id INT NOT NULL, date_added DATETIME NOT NULL, comment LONGTEXT DEFAULT NULL, name VARCHAR(255) NOT NULL, INDEX IDX_AC74095A44EA4809 (note_type_id), INDEX IDX_AC74095AA76ED395 (user_id), INDEX IDX_AC74095AEC8B7ADE (period_id), INDEX IDX_AC74095A6278D5A8 (classroom_id), INDEX IDX_AC74095A1D561350 (activity_theme_domain_skill_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE activity_theme (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, weight SMALLINT NOT NULL, is_numeric_notes TINYINT(1) NOT NULL, display_name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE activity_theme_domain (id INT AUTO_INCREMENT NOT NULL, activity_theme_id INT NOT NULL, classroom_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, display_name VARCHAR(255) NOT NULL, type VARCHAR(100) NOT NULL, INDEX IDX_7E29E836F908C489 (activity_theme_id), INDEX IDX_7E29E8366278D5A8 (classroom_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE activity_theme_domain_skill (id INT AUTO_INCREMENT NOT NULL, note_type_id INT NOT NULL, activity_theme_domain_id INT NOT NULL, user_id INT DEFAULT NULL, name VARCHAR(255) NOT NULL, description VARCHAR(255) DEFAULT NULL, INDEX IDX_9DD7C5AB44EA4809 (note_type_id), INDEX IDX_9DD7C5AB92B2BDE4 (activity_theme_domain_id), INDEX IDX_9DD7C5ABA76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE classroom (id INT AUTO_INCREMENT NOT NULL, owner_id INT DEFAULT NULL, implantation_id INT NOT NULL, name VARCHAR(45) NOT NULL, INDEX IDX_497D309D7E3C61F9 (owner_id), INDEX IDX_497D309DCE296AF7 (implantation_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE configuration (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, value VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE implantation (id INT AUTO_INCREMENT NOT NULL, school_id INT DEFAULT NULL, name VARCHAR(100) NOT NULL, address VARCHAR(255) NOT NULL, INDEX IDX_16DC605C32A47EE (school_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE knowledge_type (id INT AUTO_INCREMENT NOT NULL, activity_type_id INT NOT NULL, note_type_id INT NOT NULL, name VARCHAR(255) NOT NULL, description VARCHAR(255) DEFAULT NULL, INDEX IDX_E3EB1D1DC51EFA73 (activity_type_id), INDEX IDX_E3EB1D1D44EA4809 (note_type_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE note (id INT AUTO_INCREMENT NOT NULL, activity_id INT DEFAULT NULL, student_id INT NOT NULL, note VARCHAR(45) NOT NULL, date DATE NOT NULL, comment LONGTEXT DEFAULT NULL, INDEX IDX_CFBDFA1481C06096 (activity_id), INDEX IDX_CFBDFA14CB944F1A (student_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE note_type (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, description VARCHAR(255) NOT NULL, minimum VARCHAR(255) NOT NULL, maximum VARCHAR(255) NOT NULL, intervals LONGTEXT NOT NULL COMMENT \'(DC2Type:array)\', coefficient INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE period (id INT AUTO_INCREMENT NOT NULL, implantation_id INT NOT NULL, name VARCHAR(45) NOT NULL, date_start DATE NOT NULL, date_end DATE NOT NULL, INDEX IDX_C5B81ECECE296AF7 (implantation_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -39,16 +40,20 @@ final class Version20200809135830 extends AbstractMigration
         $this->addSql('CREATE TABLE student_contact_relation (id INT AUTO_INCREMENT NOT NULL, contact_id INT NOT NULL, student_id INT NOT NULL, relation VARCHAR(255) NOT NULL, send_school_report TINYINT(1) NOT NULL, INDEX IDX_2AFDFAABE7A1254A (contact_id), INDEX IDX_2AFDFAABCB944F1A (student_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, last_name VARCHAR(100) NOT NULL, first_name VARCHAR(100) NOT NULL, UNIQUE INDEX UNIQ_8D93D649E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user_classroom (user_id INT NOT NULL, classroom_id INT NOT NULL, INDEX IDX_499DBD79A76ED395 (user_id), INDEX IDX_499DBD796278D5A8 (classroom_id), PRIMARY KEY(user_id, classroom_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE user_configuration (id INT AUTO_INCREMENT NOT NULL, user_id INT DEFAULT NULL, show_logo TINYINT(1) DEFAULT NULL, show_help TINYINT(1) DEFAULT NULL, show_title TINYINT(1) DEFAULT NULL, show_search TINYINT(1) DEFAULT NULL, use_schools TINYINT(1) DEFAULT NULL, use_contacts TINYINT(1) DEFAULT NULL, UNIQUE INDEX UNIQ_4B6C0887A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE user_configuration (id INT AUTO_INCREMENT NOT NULL, user_id INT DEFAULT NULL, show_logo TINYINT(1) DEFAULT NULL, show_help TINYINT(1) DEFAULT NULL, show_title TINYINT(1) DEFAULT NULL, show_search TINYINT(1) DEFAULT NULL, use_schools TINYINT(1) DEFAULT NULL, use_contacts TINYINT(1) DEFAULT NULL, use_predefined_activities_values TINYINT(1) DEFAULT NULL, UNIQUE INDEX UNIQ_4B6C0887A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE activity ADD CONSTRAINT FK_AC74095A44EA4809 FOREIGN KEY (note_type_id) REFERENCES note_type (id)');
         $this->addSql('ALTER TABLE activity ADD CONSTRAINT FK_AC74095AA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE activity ADD CONSTRAINT FK_AC74095AEC8B7ADE FOREIGN KEY (period_id) REFERENCES period (id)');
         $this->addSql('ALTER TABLE activity ADD CONSTRAINT FK_AC74095A6278D5A8 FOREIGN KEY (classroom_id) REFERENCES classroom (id)');
+        $this->addSql('ALTER TABLE activity ADD CONSTRAINT FK_AC74095A1D561350 FOREIGN KEY (activity_theme_domain_skill_id) REFERENCES activity_theme_domain_skill (id)');
+        $this->addSql('ALTER TABLE activity_theme_domain ADD CONSTRAINT FK_7E29E836F908C489 FOREIGN KEY (activity_theme_id) REFERENCES activity_theme (id)');
+        $this->addSql('ALTER TABLE activity_theme_domain ADD CONSTRAINT FK_7E29E8366278D5A8 FOREIGN KEY (classroom_id) REFERENCES classroom (id)');
+        $this->addSql('ALTER TABLE activity_theme_domain_skill ADD CONSTRAINT FK_9DD7C5AB44EA4809 FOREIGN KEY (note_type_id) REFERENCES note_type (id)');
+        $this->addSql('ALTER TABLE activity_theme_domain_skill ADD CONSTRAINT FK_9DD7C5AB92B2BDE4 FOREIGN KEY (activity_theme_domain_id) REFERENCES activity_theme_domain (id)');
+        $this->addSql('ALTER TABLE activity_theme_domain_skill ADD CONSTRAINT FK_9DD7C5ABA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE classroom ADD CONSTRAINT FK_497D309D7E3C61F9 FOREIGN KEY (owner_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE classroom ADD CONSTRAINT FK_497D309DCE296AF7 FOREIGN KEY (implantation_id) REFERENCES implantation (id)');
         $this->addSql('ALTER TABLE implantation ADD CONSTRAINT FK_16DC605C32A47EE FOREIGN KEY (school_id) REFERENCES school (id)');
-        $this->addSql('ALTER TABLE knowledge_type ADD CONSTRAINT FK_E3EB1D1DC51EFA73 FOREIGN KEY (activity_type_id) REFERENCES activity_type (id)');
-        $this->addSql('ALTER TABLE knowledge_type ADD CONSTRAINT FK_E3EB1D1D44EA4809 FOREIGN KEY (note_type_id) REFERENCES note_type (id)');
         $this->addSql('ALTER TABLE note ADD CONSTRAINT FK_CFBDFA1481C06096 FOREIGN KEY (activity_id) REFERENCES activity (id)');
         $this->addSql('ALTER TABLE note ADD CONSTRAINT FK_CFBDFA14CB944F1A FOREIGN KEY (student_id) REFERENCES student (id)');
         $this->addSql('ALTER TABLE period ADD CONSTRAINT FK_C5B81ECECE296AF7 FOREIGN KEY (implantation_id) REFERENCES implantation (id)');
@@ -68,14 +73,17 @@ final class Version20200809135830 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE note DROP FOREIGN KEY FK_CFBDFA1481C06096');
-        $this->addSql('ALTER TABLE knowledge_type DROP FOREIGN KEY FK_E3EB1D1DC51EFA73');
+        $this->addSql('ALTER TABLE activity_theme_domain DROP FOREIGN KEY FK_7E29E836F908C489');
+        $this->addSql('ALTER TABLE activity_theme_domain_skill DROP FOREIGN KEY FK_9DD7C5AB92B2BDE4');
+        $this->addSql('ALTER TABLE activity DROP FOREIGN KEY FK_AC74095A1D561350');
         $this->addSql('ALTER TABLE activity DROP FOREIGN KEY FK_AC74095A6278D5A8');
+        $this->addSql('ALTER TABLE activity_theme_domain DROP FOREIGN KEY FK_7E29E8366278D5A8');
         $this->addSql('ALTER TABLE student_classroom DROP FOREIGN KEY FK_2E13F11D6278D5A8');
         $this->addSql('ALTER TABLE user_classroom DROP FOREIGN KEY FK_499DBD796278D5A8');
         $this->addSql('ALTER TABLE classroom DROP FOREIGN KEY FK_497D309DCE296AF7');
         $this->addSql('ALTER TABLE period DROP FOREIGN KEY FK_C5B81ECECE296AF7');
         $this->addSql('ALTER TABLE activity DROP FOREIGN KEY FK_AC74095A44EA4809');
-        $this->addSql('ALTER TABLE knowledge_type DROP FOREIGN KEY FK_E3EB1D1D44EA4809');
+        $this->addSql('ALTER TABLE activity_theme_domain_skill DROP FOREIGN KEY FK_9DD7C5AB44EA4809');
         $this->addSql('ALTER TABLE activity DROP FOREIGN KEY FK_AC74095AEC8B7ADE');
         $this->addSql('ALTER TABLE implantation DROP FOREIGN KEY FK_16DC605C32A47EE');
         $this->addSql('ALTER TABLE note DROP FOREIGN KEY FK_CFBDFA14CB944F1A');
@@ -83,16 +91,18 @@ final class Version20200809135830 extends AbstractMigration
         $this->addSql('ALTER TABLE student_contact_relation DROP FOREIGN KEY FK_2AFDFAABCB944F1A');
         $this->addSql('ALTER TABLE student_contact_relation DROP FOREIGN KEY FK_2AFDFAABE7A1254A');
         $this->addSql('ALTER TABLE activity DROP FOREIGN KEY FK_AC74095AA76ED395');
+        $this->addSql('ALTER TABLE activity_theme_domain_skill DROP FOREIGN KEY FK_9DD7C5ABA76ED395');
         $this->addSql('ALTER TABLE classroom DROP FOREIGN KEY FK_497D309D7E3C61F9');
         $this->addSql('ALTER TABLE reset_password_request DROP FOREIGN KEY FK_7CE748AA76ED395');
         $this->addSql('ALTER TABLE user_classroom DROP FOREIGN KEY FK_499DBD79A76ED395');
         $this->addSql('ALTER TABLE user_configuration DROP FOREIGN KEY FK_4B6C0887A76ED395');
         $this->addSql('DROP TABLE activity');
-        $this->addSql('DROP TABLE activity_type');
+        $this->addSql('DROP TABLE activity_theme');
+        $this->addSql('DROP TABLE activity_theme_domain');
+        $this->addSql('DROP TABLE activity_theme_domain_skill');
         $this->addSql('DROP TABLE classroom');
         $this->addSql('DROP TABLE configuration');
         $this->addSql('DROP TABLE implantation');
-        $this->addSql('DROP TABLE knowledge_type');
         $this->addSql('DROP TABLE note');
         $this->addSql('DROP TABLE note_type');
         $this->addSql('DROP TABLE period');
