@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Activity;
+use App\Entity\ActivityTheme;
 use App\Entity\ActivityThemeDomain;
 use App\Entity\ActivityThemeDomainSkill;
 use App\Entity\Classroom;
@@ -22,16 +23,19 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Translation\Translator;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 class DashboardController extends AbstractController
 {
     /**
      * @Route("/dashboard", name="dashboard")
+     * @param Request $request
      * @param ConfigurationService $configurationService
      * @return Response
      */
-    public function getDashboard(ConfigurationService $configurationService)
+    public function getDashboard(Request $request, ConfigurationService $configurationService, TranslatorInterface $translator)
     {
         $doctrine = $this->getDoctrine();
         $activityRepository  = $doctrine->getRepository(Activity::class);
@@ -49,6 +53,26 @@ class DashboardController extends AbstractController
         catch (ORMException $e) {}
 
         $useConfigurationDefaultDomains = $configurationService->load($this->getUser())->getUsePredefinedActivitiesValues();
+
+        // Populating themes and domains if no default domain was found.
+        if($useConfigurationDefaultDomains) {
+            $domainsCheck = $activityDomainRepository->findBy([
+                'type' => ActivityThemeDomain::TYPE_GENERIC_DEFAULT,
+            ]);
+            // Checking if theme domains were alreay pushed.
+            if(count($domainsCheck) === 0) {
+                $doctrine->getRepository(ActivityTheme::class)->populate($translator);
+                $activityDomainRepository->populate($translator);
+            }
+        }
+
+        $noteTypes = $noteTypesRepository->findAll();
+        // Populating note type if no data exists.
+        if(count($noteTypes) === 0) {
+            $noteTypesRepository->populate();
+            $noteTypes = $noteTypesRepository->findAll();
+        }
+
 
         $activityThemeDomains = [];
         foreach($this->getUser()->getClassrooms()->toArray() as $userClassroom) {
@@ -88,7 +112,7 @@ class DashboardController extends AbstractController
             'needNotesActivities' => $needNotesActivities,
             'withAbsActivities' => $withAbsActivities,
             'activityThemeDomainsSkills' => $activityThemeDomains,
-            'noteTypes' => $noteTypesRepository->findAll(),
+            'noteTypes' => $noteTypes,
         ]);
     }
 
