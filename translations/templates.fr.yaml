@@ -279,6 +279,8 @@ Send an e-mail to this user with these informations ?: Envoyer un e-mail à cet 
 Your EvalBook connection informations: Vos informations de connexion à EvalBook
 Password is empty or do not match the security pattern: Le mot de passe est vide ou ne correspond pas au pattern de sécurité
 The password must have a lower case and upper case char, a number and a special char: Le mot de passe doit contenir une majuscule, une minuscule, un chiffre et un caractère spécial
+Successfully added theme domain skill: Ajout de la nouvelle compétence avec succès
+You cannot add new skill as you already have your special classroom skill: Vous ne pouvez pas ajouter une nouvelle compétence car votre classe spéciale en dispose déjà d'une.
 
 
 roles:

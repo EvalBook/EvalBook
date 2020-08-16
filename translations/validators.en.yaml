@@ -114,6 +114,8 @@ Error: Error
 'Coefficient should be between 1 and 10': 'Coefficient should be between 1 and 10'
 'The minimum and maximum values cannot be used as intervals': 'The minimum and maximum values cannot be used as intervals'
 'The display name must be between 2 and 100 chars': 'The display name must be between 2 and 100 chars'
+'The skill name must be between 2 and 100 chars': 'The skill name must be between 2 and 100 chars'
+'The skill description must be between 2 and 100 chars': 'The skill description must be between 2 and 100 chars'
 
 
 implantation:

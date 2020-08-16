@@ -229,8 +229,10 @@
                 {% for themeString, theme in activityThemeDomainsSkills %}
                     <tr>
                         <th>{{ 'Classroom'|trans }}: {{ themeString }}</th>
-                        <th class="activity-add-theme">
-                            <a href="{{ path('dashboard_add_domain', {'classroom': theme.classroomId }) }}">Domaine  <i class="fas fa-plus text-yellow"></i></a>
+                        <th colspan="2" class="activity-add-theme">
+                            <a href="{{ path('dashboard_add_domain', {'classroom': theme.classroomId }) }}">
+                                {{ 'Domain'|trans }}  <i class="fas fa-plus text-yellow"></i>
+                            </a>
                         </th>
                     </tr>
 
@@ -239,8 +241,15 @@
                             <td><strong>{{ domainString }}</strong></td>
                             <td class="activity-add-theme">
                                 {% if domain.editable %}
-                                    <a href="{{ path('dashboard_edit_domain', {'domain': domain.domainId }) }}"><i class="fas fa-edit text-yellow"></i></a>
+                                    <a href="{{ path('dashboard_edit_domain', {'domain': domain.domainId }) }}">
+                                        <i class="fas fa-edit text-yellow"></i>
+                                    </a>
                                 {% endif %}
+                            </td>
+                            <td class="activity-add-theme">
+                                <a href="{{ path('dashboard_add_skill', {'domain': domain.domainId }) }}">
+                                    {{ 'Add skill'|trans}}  <i class="fas fa-plus text-yellow"></i>
+                                </a>
                             </td>
                         </tr>
 
@@ -277,12 +286,6 @@
 
                 </tbody>
             </table>
-
-            <div class="add-button">
-                <a href="{{ path('dashboard_add_skill') }}">
-                    {{ 'Add new domain skill'|trans }}
-                </a>
-            </div>
         </div>
     </div>
 </div>

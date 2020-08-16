@@ -424,11 +424,15 @@ tr:hover i, tr:hover a {
 
 .activity-add-theme, .activity-add-theme a {
     text-align: end;
+    /*color: var(--secondary-color);*/
+}
+
+th.activity-add-theme a {
     color: var(--secondary-color);
 }
 
 .activity-add-theme:hover, .activity-add-theme a:hover {
-    color: var(--secondary-color);
+    color: #fff;
 }
 
 .large input {

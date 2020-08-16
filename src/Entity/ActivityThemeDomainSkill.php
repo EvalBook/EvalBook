@@ -46,6 +46,12 @@ class ActivityThemeDomainSkill
      */
     private $activities;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $user;
+
 
     public function __construct()
     {
@@ -171,5 +177,28 @@ class ActivityThemeDomainSkill
     public function __toString()
     {
         return $this->getName();
+    }
+
+
+    /**
+     * Return the skill owner.
+     * @return User|null
+     */
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+
+    /**
+     * Return the skill owner.
+     * @param User|null $user
+     * @return $this
+     */
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }

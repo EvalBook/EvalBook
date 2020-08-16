@@ -5,7 +5,10 @@ namespace App\Controller;
 use App\Entity\Activity;
 use App\Entity\ActivityTheme;
 use App\Entity\ActivityThemeDomain;
+use App\Entity\ActivityThemeDomainSkill;
 use App\Entity\Classroom;
+use App\Entity\NoteType;
+use App\Form\ActivityThemeDomainSkillType;
 use App\Form\ActivityThemeDomainType;
 use App\Repository\ActivityThemeRepository;
 use App\Service\ConfigurationService;
@@ -151,18 +154,60 @@ class DashboardController extends AbstractController
 
 
     /**
-     * @Route("/dashboard/add/skill", name="dashboard_add_skill")
+     * @Route("/dashboard/add/skill/{domain}", name="dashboard_add_skill")
+     * @param Request $request
+     * @param ActivityThemeDomain $domain
      */
-    public function addThemeDomainSkill()
+    public function addThemeDomainSkill(Request $request, ActivityThemeDomain $domain)
     {
+        $noteTypesRepository = $this->getDoctrine()->getRepository(NoteType::class);
+        $skill = new ActivityThemeDomainSkill();
 
+        $form = $this->createForm(ActivityThemeDomainSkillType::class, $skill, [
+            'noteTypes' => $noteTypesRepository->findByType($domain->getActivityTheme()->getIsNumericNotes()),
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // If classroom is special ( gym, philosophy , ... ) then checking if a skill already exists.
+            // Special classrooms / masters are limited to ONE skill that match ONE school report row.
+            $count = 0;
+            if($domain->getType() == ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM) {
+                $repository = $this->getDoctrine()->getRepository(ActivityThemeDomainSkill::class);
+                $count = $repository->count([
+                    'user' => $this->getUser()->getId(),
+                    'activityThemeDomain' => $domain->getId(),
+                ]);
+            }
+
+            if($count === 0) {
+                $skill->setUser($this->getUser());
+                $skill->setActivityThemeDomain($domain);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($skill);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Successfully added theme domain skill');
+            }
+            else {
+                $this->addFlash('error', 'You cannot add new skill as you already have your special classroom skill');
+            }
+            return $this->redirectToRoute('dashboard');
+        }
+
+        return $this->render('dashboard/form-theme-domain-skill.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
 
     /**
-     * @Route("/dashboard/edit/skill", name="dashboard_edit_skill")
+     * @Route("/dashboard/edit/skill/{skill}", name="dashboard_edit_skill")
+     * @param Request $request
+     * @param ActivityThemeDomainSkill $skill
      */
-    public function editThemeDomainSkill()
+    public function editThemeDomainSkill(Request $request, ActivityThemeDomainSkill $skill)
     {
 
     }
