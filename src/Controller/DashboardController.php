@@ -114,7 +114,8 @@ class DashboardController extends AbstractController
                 } else {
                     $domain->setType(ActivityThemeDomain::TYPE_GENERIC);
                 }
-                $domain->setName(strtolower($domain->getDisplayName()));
+                // in uppercase to ease track user changes in db.
+                $domain->setName(strtoupper($domain->getDisplayName()));
 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($domain);
@@ -174,7 +175,7 @@ class DashboardController extends AbstractController
     {
         // Only possible if domain is editable, will return an error if the domain has activities in it.
         if(!in_array($domain->getType(),[ActivityThemeDomain::TYPE_GENERIC_DEFAULT, ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM ])) {
-            $skills = $domain->getActivityThemeDomainSkills();
+            $skills = $domain->getActivityThemeDomainSkills()->toArray();
             foreach($skills as $skill) {
                 if($skill->getActivities()->count()) {
                     return $this->json(['message' => 'You can not delete domains with activities in it, but you can still edit them'], 201);

@@ -238,7 +238,7 @@
                     </tr>
 
                     {% for domainString, domain in theme.domains %}
-                        <tr class="domain">
+                        <tr class="domain" data-id="{{ domain.domainId }}">
                             <td colspan="{{ domain.editable is same as(true) ? 1 : 3 }}" class="theme-description">
                                 <strong>{{ domainString }}</strong>
                             </td>
