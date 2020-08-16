@@ -411,7 +411,6 @@ tr:nth-child(even) {
 
 tr:hover i, tr:hover a {
     color: white;
-    font-weight: bold;
 }
 
 #activite-notes {
@@ -423,11 +422,15 @@ tr:hover i, tr:hover a {
 }
 
 .activity-add-theme, .activity-add-theme a {
-    text-align: end;
-    color: var(--secondary-color);
+    text-align: end !important;
 }
 
-.activity-add-theme:hover, .activity-add-theme a:hover {
+#themes-domaines-skills table tr:hover {
+    background: unset;
+}
+
+#themes-domaines-skills tr:hover #themes-domaines-skills i, #themes-domaines-skills tr:hover a,
+#themes-domaines-skills tr:hover i, #themes-domaines-skills tr:hover a{
     color: var(--secondary-color);
 }
 
@@ -443,6 +446,10 @@ tr:hover i, tr:hover a {
 .small input {
     text-align: center;
     width: 60%;
+}
+
+.justify-content-end {
+    justify-content: end;
 }
 
 /**
@@ -514,6 +521,14 @@ tr:hover i, tr:hover a {
 .bg-yellow {
     background-color: var(--secondary-color);
     border: 1px solid var(--primary-color);
+}
+
+.bg-white {
+    background-color: #fff;
+}
+
+.bg-white:hover {
+    color: var(--secondary-color);
 }
 
 /* Usually elements that must be grouped */

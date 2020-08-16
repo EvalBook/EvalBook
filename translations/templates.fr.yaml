@@ -237,7 +237,8 @@ No implantation was found, add a new implantation and try again: Aucune implanta
 Special classroom: Classe spéciale
 Theme subject: Matière
 Behavior: Comportement
-Transversal skill: Compétences transversales
+Transversal skill: Compétence transversales
+Transversal skills: Compétences transversales
 French: Français
 Mathematics: Mathématiques
 History / Geography: Eveil
@@ -279,6 +280,18 @@ Send an e-mail to this user with these informations ?: Envoyer un e-mail à cet 
 Your EvalBook connection informations: Vos informations de connexion à EvalBook
 Password is empty or do not match the security pattern: Le mot de passe est vide ou ne correspond pas au pattern de sécurité
 The password must have a lower case and upper case char, a number and a special char: Le mot de passe doit contenir une majuscule, une minuscule, un chiffre et un caractère spécial
+Successfully added theme domain skill: Ajout de la nouvelle compétence avec succès
+You cannot add new skill as you already have your special classroom skill: Vous ne pouvez pas ajouter une nouvelle compétence car votre classe spéciale en dispose déjà d'une.
+You can not add a domain as your classtoom is a special classroom: Vous ne pouvez pas ajouter de domaine car votre classe est une classe spéciale
+Add domain: Ajouter domaine
+Add skill: Ajouter compétence
+The note type will be used to compute the school report total: Le type de note déterminera la méthode de calcul de moyenne dans le bulletin.
+The description will appear in th school report skill line: La description apparaît sous la ligne de compétence dans le bulletin
+Successfully updated theme domain skill: Compétence mise à jour avec succès
+Minimum: Minimum
+Maximum: Maximum
+No available note types: Aucun type de notes disponible
+Available note types: Types de notes disponibles
 
 
 roles:

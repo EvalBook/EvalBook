@@ -225,34 +225,77 @@
             <table class="full-width">
                 <thead></thead>
                 <tbody>
-
                 {% for themeString, theme in activityThemeDomainsSkills %}
                     <tr>
-                        <th>{{ 'Classroom'|trans }}: {{ themeString }}</th>
-                        <th class="activity-add-theme">
-                            <a href="{{ path('dashboard_add_domain', {'classroom': theme.classroomId }) }}">Domaine  <i class="fas fa-plus text-yellow"></i></a>
-                        </th>
+                        <th colspan="{{ theme.classroom.owner is null ? 4 : 1 }}">{{ 'Classroom'|trans }}: {{ themeString }}</th>
+                        {% if not theme.classroom.owner is null %}
+                            <th colspan="3" class="activity-add-theme">
+                                <a href="{{ path('dashboard_add_domain', {'classroom': theme.classroom.id }) }}">
+                                    {{ 'Add domain'|trans }}  <i class="fas fa-plus text-yellow"></i>
+                                </a>
+                            </th>
+                        {% endif %}
                     </tr>
 
                     {% for domainString, domain in theme.domains %}
-                        <tr class="domain">
-                            <td><strong>{{ domainString }}</strong></td>
-                            <td class="activity-add-theme">
-                                {% if domain.editable %}
-                                    <a href="{{ path('dashboard_edit_domain', {'domain': domain.domainId }) }}"><i class="fas fa-edit text-yellow"></i></a>
-                                {% endif %}
+                        <tr data-id="{{ domain.domain.id }}">
+                            <td colspan="3">
+                                <strong>{{ domainString }}</strong>
                             </td>
+
+                            <td>
+                                {% set addSkillClass = domain.editable is same as(true) ? 'space-between' : '' %}
+                                <div class="flex full-width justify-content-end {{ addSkillClass }}">
+                                    {% if domain.editable %}
+                                        <a href="{{ path('dashboard_edit_domain', {'domain': domain.domain.id }) }}">
+                                            <i class="fas fa-edit text-yellow"></i>
+                                        </a>
+                                    {% endif %}
+
+                                    {% if domain.editable %}
+                                            <div data-target="domain"
+                                                 data-targetid="{{ domain.domain.id }}"
+                                                 data-action="{{ path('dashboard_delete_domain', {'domain': domain.domain.id}) }}"
+                                                 data-class="fas fa-trash text-yellow"
+                                                 data-csrf="{{ csrf_token('domain_delete' ~ domain.domain.id) }}"
+                                            >
+                                            </div>
+                                    {% endif %}
+
+                                    <a href="{{ path('dashboard_add_skill', {'domain': domain.domain.id }) }}">
+                                        {{ 'Add skill'|trans}}  <i class="fas fa-plus text-yellow"></i>
+                                    </a>
+                                </div>
+                            </td>
+
                         </tr>
 
                         {% for skill in domain.skills %}
-                            <tr>
-                                <td class="skill">
+                            <tr data-id="{{ skill.id }}">
+                                <td colspan="3" class="skill">
                                     {{ skill.name }} - <span class="skill-description">{{ skill.description }}</span>
                                 </td>
+
+                                <td class="activity-add-theme skill">
+                                    <div class="flex full-width justify-content-end">
+                                        <a href="{{ path('dashboard_edit_skill', {'skill': skill.id }) }}">
+                                            <i class="fas fa-edit text-yellow"></i>
+                                        </a>
+
+                                        <div data-target="skill"
+                                             data-targetid="{{ skill.id }}"
+                                             data-action="{{ path('dashboard_delete_skill', {'skill': skill.id}) }}"
+                                             data-class="fas fa-trash text-yellow skill"
+                                             data-csrf="{{ csrf_token('skill_delete' ~ skill.id) }}"
+                                        >
+                                        </div>
+                                    </div>
+                                </td>
+
                             </tr>
                         {% else %}
                             <tr>
-                                <td class="no-skill">
+                                <td class="no-skill" colspan="4">
                                     {{ 'No skill found, add new ones'|trans }}
                                 </td>
                             </tr>
@@ -260,7 +303,7 @@
 
                     {% else %}
                         <tr>
-                            <td>
+                            <td colspan="4">
                                 {{ 'No domain found, add new ones'|trans }}
                             </td>
                         </tr>
@@ -269,7 +312,7 @@
                 {% else %}
                     {# No activity found message #}
                     <tr>
-                        <td>
+                        <td colspan="4">
                             {{ 'No theme found, add new ones'|trans }}
                         </td>
                     </tr>
@@ -277,13 +320,45 @@
 
                 </tbody>
             </table>
-
-            <div class="add-button">
-                <a href="{{ path('dashboard_add_skill') }}">
-                    {{ 'Add new domain skill'|trans }}
-                </a>
-            </div>
         </div>
+
+        {# Activities available note types #}
+        <div class="full-width margin-plus">
+            <h2>{{ 'Available note types'|trans }}</h2>
+            <span class="small text-yellow">
+                <a href="{{ path('note_type_add') }}">
+                    {{ 'Add a note type'|trans }}  <i class="fas fa-plus text-yellow"></i>
+                </a>
+            </span>
+
+            <table class="full-width margin-15">
+                <thead>
+                    <tr>
+                        <th>{{ 'Name'|trans }}</th>
+                        <th>{{ 'Description'|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for noteType in noteTypes %}
+                        <tr>
+                            <td>{{ noteType.name }}</td>
+                            <td>{{ noteType.description }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3">{{ 'No available note types'|trans }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
     </div>
 </div>
+{% endblock %}
+
+
+{# Include Javascript files. #}
+{% block javascripts %}
+    {{ encore_entry_script_tags('modalDialogs') }}
 {% endblock %}

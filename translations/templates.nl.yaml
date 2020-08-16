@@ -238,6 +238,7 @@ Special classroom: Special classroom
 Theme subject: Subject
 Behavior: Behavior
 Transversal skill: Transversal skill
+Transversal skills: Transversal skills
 French: French
 Mathematics: Mathematics
 History / Geography: History / Geography
@@ -275,6 +276,18 @@ Send an e-mail to this user with these informations ?: Send an e-mail to this us
 Your EvalBook connection informations: Your EvalBook connection informations
 Password is empty or do not match the security pattern: Password is empty or do not match the security pattern
 The password must have a lower case and upper case char, a number and a special char: The password must have a lower case and upper case char, a number and a special char
+Successfully added theme domain skill: Successfully added theme domain skill
+You cannot add new skill as you already have your special classroom skill: You cannot add new skill as you already have your special classroom skill
+You can not add a domain as your classtoom is a special classroom: You can not add a domain as your classtoom is a special classroom
+Add domain: Add domain
+Add skill: Add skill
+The note type will be used to compute the school report total: The note type will be used to compute the school report total
+The description will appear in th school report skill line: The description will appear in th school report skill line
+Successfully updated theme domain skill: Successfully updated theme domain skill
+Minimum: Minimum
+Maximum: Maximum
+No available note types: No available note types
+Available note types: Available note types
 
 
 roles:
