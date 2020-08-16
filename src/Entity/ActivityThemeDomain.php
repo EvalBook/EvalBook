@@ -183,7 +183,7 @@ class ActivityThemeDomain
     public function setType(string $type): self
     {
         // Ensure type is allowed before applying.
-        if(in_array($type, [self::TYPE_GENERIC, self::TYPE_SPECIAL_CLASSROOM])) {
+        if(in_array($type, [self::TYPE_GENERIC_DEFAULT, self::TYPE_GENERIC, self::TYPE_SPECIAL_CLASSROOM])) {
             $this->type = $type;
         }
 

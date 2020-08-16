@@ -111,8 +111,6 @@ class ActivityThemeDomainRepository extends ServiceEntityRepository
             $em->persist($eveil);
 
 
-            $em->persist($maths);
-
             $specialClassrooms = new ActivityThemeDomain();
             $specialClassrooms
                 ->setName('special_classrooms')
