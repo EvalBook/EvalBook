@@ -282,6 +282,10 @@ The password must have a lower case and upper case char, a number and a special 
 Successfully added theme domain skill: Successfully added theme domain skill
 You cannot add new skill as you already have your special classroom skill: You cannot add new skill as you already have your special classroom skill
 You can not add a domain as your classtoom is a special classroom: You can not add a domain as your classtoom is a special classroom
+Add domain: Add domain
+Add skill: Add skill
+The note type will be used to compute the school report total: The note type will be used to compute the school report total
+The description will appear in th school report skill line: The description will appear in th school report skill line
 
 
 roles:

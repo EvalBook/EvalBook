@@ -282,6 +282,10 @@ The password must have a lower case and upper case char, a number and a special 
 Successfully added theme domain skill: Ajout de la nouvelle compétence avec succès
 You cannot add new skill as you already have your special classroom skill: Vous ne pouvez pas ajouter une nouvelle compétence car votre classe spéciale en dispose déjà d'une.
 You can not add a domain as your classtoom is a special classroom: Vous ne pouvez pas ajouter de domaine car votre classe est une classe spéciale
+Add domain: Ajouter domaine
+Add skill: Ajouter compétence
+The note type will be used to compute the school report total: Le type de note déterminera la méthode de calcul de moyenne dans le bulletin.
+The description will appear in th school report skill line: La description apparaît sous la ligne de compétence dans le bulletin
 
 
 roles:
@@ -333,3 +337,4 @@ help:
   ROLE_CLASS_EDIT_STUDENTS: Ce rôle permet à un utilisateur d'assigner un ou plusieurs élèves à une classe.
   ROLE_CLASS_EDIT_USERS: Ce rôle permet d'attribuer le droit d'actions à un ou plusieurs utilisateurs sur une classe précise.
   ROLE_ADMIN: Le rôle admin peut absolument tout faire, à l'exception de l'édition de ses pairs.
+

@@ -1,10 +1,62 @@
 {% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block pageTitle %}{{ 'Add activity'|trans }}{% endblock %}
+{% block title %}{{ 'Add activity'|trans }}{% endblock %}
 
 {% block body %}
-    {{ form(form) }}
-{% endblock %}
+    <div class="full-width flex column">
+        {% include '_partials/go-back.html.twig' %}
 
-{% block pageTitle %}
+        <div class="form-content">
 
+            {{ form_start(form) }}
+
+            <div class="form-row">
+                {# Activity theme domain skill name #}
+                {{ form_label(form.name, 'Display name'|trans) }}
+                {{ form_widget(form.name, {'attr': {
+                    'class': 'full-width',
+                }}) }}
+                <span class="form-error">
+                {{ form_errors(form.name) }}
+            </span>
+            </div>
+
+            <div class="form-row">
+                {# Activity theme domain skill note type #}
+                {{ form_label(form.noteType, 'Note type'|trans) }}
+                {{ form_widget(form.noteType, {'attr': {
+                    'class': 'full-width',
+                }}) }}
+                <span class="form-info">
+                    {{ 'The note type will be used to compute the school report total'|trans }}
+                </span>
+            </div>
+
+            <div class="form-row">
+                {# Activity theme domain skill description #}
+                {{ form_label(form.description, 'Description'|trans) }}
+                {{ form_widget(form.description, {'attr': {
+                    'class': 'full-width',
+                }}) }}
+                <span class="form-info">
+                    {{ 'The description will appear in th school report skill line'|trans }}
+                </span>
+                <span class="form-error">
+                {{ form_errors(form.description) }}
+            </span>
+            </div>
+
+            {# Submit button #}
+            {{ form_row(form.submit, {
+                'label': 'Send'|trans,
+                'attr': {'class': 'margin-15'},
+            }) }}
+
+            {{ form_end(form) }}
+
+        </div>
+    </div>
 {% endblock %}
 
