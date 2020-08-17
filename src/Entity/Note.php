@@ -189,7 +189,7 @@ class Note
      */
     public function setComment(?string $comment): self
     {
-        $this->comment = $comment;
+        $this->comment = ucfirst(strtolower($comment));
         return $this;
     }
 

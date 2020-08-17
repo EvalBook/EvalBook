@@ -51,6 +51,7 @@ class School
         $this->implantations = new ArrayCollection();
     }
 
+
     /**
      * Return the school id.
      * @return int|null
@@ -78,7 +79,7 @@ class School
      */
     public function setName(string $name): self
     {
-        $this->name = $name;
+        $this->name = ucfirst(strtolower($name));
 
         return $this;
     }
