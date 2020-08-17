@@ -10,7 +10,6 @@ use App\Entity\Classroom;
 use App\Entity\NoteType;
 use App\Form\ActivityThemeDomainSkillType;
 use App\Form\ActivityThemeDomainType;
-use App\Repository\NoteTypeRepository;
 use App\Service\ConfigurationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\OptimisticLockException;
@@ -23,19 +22,19 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Translation\Translator;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 class DashboardController extends AbstractController
 {
     /**
+     * @Route("/")
      * @Route("/dashboard", name="dashboard")
      * @param Request $request
      * @param ConfigurationService $configurationService
      * @return Response
      */
-    public function getDashboard(Request $request, ConfigurationService $configurationService, TranslatorInterface $translator)
+    public function getDashboard(ConfigurationService $configurationService, TranslatorInterface $translator)
     {
         $doctrine = $this->getDoctrine();
         $activityRepository  = $doctrine->getRepository(Activity::class);
