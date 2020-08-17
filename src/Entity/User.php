@@ -397,6 +397,7 @@ class User implements UserInterface
             'ROLE_SCHOOL_EDIT',
             'ROLE_SCHOOL_CREATE',
             'ROLE_SCHOOL_DELETE',
+            'ROLE_SCHOOL_REPORT_PRINT',
         );
     }
 

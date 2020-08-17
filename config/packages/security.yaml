@@ -66,4 +66,5 @@ security:
             ROLE_CLASS_DELETE,
             ROLE_CLASS_EDIT_STUDENTS,
             ROLE_CLASS_EDIT_USERS,
+            ROLE_SCHOOL_REPORT_PRINT,
         ]
