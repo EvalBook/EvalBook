@@ -103,12 +103,13 @@ class UsersController extends AbstractController
                 $this->addFlash('error', 'User already exists');
             }
             else {
-                if(!$this->validatePassword($form->get('password')->getData())) {
-                    // Checking here, cause user can update its profile without password modification !
-                    $this->addFlash('error', "Password is empty or do not match the security pattern");
+                $plainPassword = $form->get('password')->getData();
+
+                if($plainPassword && $this->validatePassword($plainPassword)) {
+                    // Setting password only if it was specified and is in valid format.
+                    $user->setPassword($passwordEncoder->encodePassword($user, $form->get('password')->getData()));
                 }
                 else {
-                    $user->setPassword($passwordEncoder->encodePassword($user, $form->get('password')->getData()));
                     $entityManager = $this->getDoctrine()->getManager();
                     $entityManager->persist($user);
                     $entityManager->flush();
@@ -119,7 +120,8 @@ class UsersController extends AbstractController
                         return $this->redirectToRoute($redirect['route'], $redirect["params"]);
                     }
 
-                    if ($form->get('sendMail')->getData()) {
+                    // Send mail only if password was updated.
+                    if ($plainPassword && $form->get('sendMail')->getData()) {
                         $this->sendUserByMail($user, $form->get('password')->getData(), $translator, $mailer);
                     }
 
