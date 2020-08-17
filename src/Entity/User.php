@@ -23,6 +23,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -81,6 +83,16 @@ class User implements UserInterface
      * @ORM\OneToOne(targetEntity=UserConfiguration::class, mappedBy="user", cascade={"persist", "remove"})
      */
     private $userConfiguration;
+
+
+    /**
+     * Check haveibeenspown.
+     * @param ClassMetadata $metadata
+     */
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('password', new Assert\NotCompromisedPassword());
+    }
 
 
     /**
