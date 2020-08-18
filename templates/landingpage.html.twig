@@ -1,0 +1,71 @@
+{#**
+* Copyleft (c) 2020 EvalBook
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the European Union Public Licence (EUPL V 1.2),
+* version 1.2 (or any later version).
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* European Union Public Licence for more details.
+*
+* You should have received a copy of the European Union Public Licence
+* along with this program. If not, see
+* https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+**#}
+
+{# This template is used to display a basic EB container #}
+{# Used in login page and error pages #}
+{# Basic usage: {% extends 'base-no-menu.html.twig' %}#}
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{{ asset('build/favicon.ico') }}" />
+    <script src="https://kit.fontawesome.com/af99847773.js" crossorigin="anonymous"></script>
+
+    {# Import needed CSS files from webpack #}
+    {{ encore_entry_link_tags('theme') }}
+    {{ encore_entry_link_tags('dialogs') }}
+
+    <title>EvalBook - {% block pageTitle %} {% endblock %}</title>
+</head>
+<body>
+<div class="container">
+
+    {# Display potential messages from controller::addFlash() #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="dialog dialog-{{ label }}">
+                {{ message | trans }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    {# Global header #}
+    <header>
+        <div class="heading">
+            <!-- Header -->
+            <div id="logo">
+                <img src="{{ asset('build/logo_evalbook.png') }}" alt="EvalBook logo">
+                <span>{{ 'Teachers evaluation tool'|trans({}, 'templates') }}</span>
+            </div>
+        </div>
+    </header>
+
+    {# Application contents #}
+    <section class="content">
+        {% block body %} {% endblock %}
+    </section>
+</div>
+
+{# Import Javacript ModalDialog object from assets/js/modal-dialog.js #}
+{{ encore_entry_script_tags('modalDialogs') }}
+
+</body>
+</html>
