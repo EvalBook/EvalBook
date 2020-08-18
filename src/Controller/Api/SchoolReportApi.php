@@ -21,12 +21,11 @@ namespace App\Controller\Api;
 
 header("Access-Control-Allow-Origin: *");
 
+use App\Entity\Note;
 use App\Entity\Student;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 class SchoolReportApi extends AbstractController
@@ -37,6 +36,20 @@ class SchoolReportApi extends AbstractController
      */
     public function getIndividualSchoolReport(Student $student)
     {
+        $notes = $student->getNotes()->toArray();
+        $notes = array_filter($notes, function(Note $note){
+            $period = $note->getActivity()->getPeriod();
+            $now = date('now');
+            // if end date >= now and start_date <= now
+            return $period->getDateEnd() >= $now && $period->getDateStart() <= $now;
+        });
+
+        dd($notes);
+        $result = [];
+        if(count($notes) > 0) {
+            $result = $this->compute($notes);
+        }
+
         $view = $this->renderView('school_report/school-report.html.twig', [
             'student' => $student,
         ]);
@@ -46,5 +59,15 @@ class SchoolReportApi extends AbstractController
             'message' => 'test',
             'html' => $view,
         ], 200);
+    }
+
+
+    /**
+     * Compute the student notes.
+     * @param array $notes
+     */
+    private function compute(array $notes)
+    {
+
     }
 }

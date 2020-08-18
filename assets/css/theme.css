@@ -40,6 +40,15 @@ h1 {
     height: 94vh;
 }
 
+.js-general-message {
+    position: absolute;
+    top: 5px;
+    width: 100%;
+    text-align: center;
+    color: #D98484;
+    font-weight: bold;
+}
+
 .modal-center {
     width: 30%;
     margin: auto;
