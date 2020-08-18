@@ -54,7 +54,6 @@ let ActivityHandler = {
         this.skillsElement.innerHTML = '';
 
         try {
-            console.log(this.activityThemeDomains.value);
             let response = await Api.query('/api/skills/get', {
                 activityThemeDomain: this.activityThemeDomains.value,
                 classroom: document.querySelector('#classroom').value,
