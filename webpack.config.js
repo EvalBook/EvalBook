@@ -18,6 +18,8 @@ Encore
     .addEntry('api', './assets/js/api.js')
     .addEntry('search', './assets/js/search.js')
     .addEntry('activity', './assets/js/activity.js')
+    .addEntry('modalSchoolReports', './assets/js/modalSchoolReport.js')
+    .addEntry('controlsSchoolReports', '.assets/js/controlSchoolReports.js')
 
     // CSS.
     .addStyleEntry('theme', './assets/css/theme.css')

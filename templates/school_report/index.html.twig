@@ -4,13 +4,54 @@
 {% block pageTitle %} {{ 'School reports' | trans }} {% endblock %}
 {% block title %} {{ 'School reports'|trans }} {% endblock %}
 
+{% block titleBottom %}
+    {# Include search box #}
+    <div class="text-center margin-bottom">
+        {{ 'Click the school report icon on a selected student or click view all button to view all available school reports'|trans }}
+
+        {# Button to display "Whole classroom" school report #}
+        <button class="button-ok" id="js-school-report-all" data-path="{{ classroom.id }}">
+            {{ 'View all'|trans }}
+        </button>
+
+    </div>
+    {% set placeholder = 'Search for student'|trans %}
+    {% include '_partials/search.html.twig' %}
+{% endblock %}
+
 {% block body %}
-{#
-Deux choses possibles =>
-  - Voir pour l'ensemble de la classe et imprimer en fonction des contacts ou sélection du nombre d'exemplaire
-  - Impression pour un seul élève soit pour l'ensemble des contacts devant avoir le bulletin ou sélection nombre d'exemplaires
-#}
+    <table class="full-width">
+        <thead>
+        <tr>
+            <th>{{ 'Name'|trans }}</th>
+            <th>{{ 'First name'|trans }}</th>
+            <th class="text-center">{{ 'School reports'|trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+                <tr>
+                    <td>{{ student.lastName }}</td>
+                    <td>{{ student.firstName }}</td>
+                    <td class="text-center">
+                        <a href="{{ path('school_report_individual', {'student': student.id}) }}">
+                            <i class="far fa-file-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">{{ 'You do not have any student in your class'|trans }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
-    {# Un tableau un peu comme les skills et domains. #}
+{% endblock %}
 
+{# Include Javascript files. #}
+{% block javascripts %}
+    {{ encore_entry_script_tags('search') }}
+    {{ encore_entry_script_tags('modalSchoolReport') }}
+    {{ encore_entry_script_tags('controlSchoolReports') }}
 {% endblock %}
