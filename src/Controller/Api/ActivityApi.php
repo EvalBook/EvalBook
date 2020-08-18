@@ -80,13 +80,7 @@ class ActivityApi extends AbstractController {
             // Filer skill that are only attached to the classroom target.
 
             $skills = array_filter($skills, function(ActivityThemeDomainSkill $skill) use($classroom){
-                $skillDomain = $skill->getActivityThemeDomain();
-                if(!is_null($skillDomain->getClassroom())) {
-                    return $skillDomain->getClassroom()->getId() === $classroom->getId();
-                }
-                else {
-                    return false;
-                }
+                    return $skill->getClassroom()->getId() === $classroom->getId();
             });
 
             $data = [];
