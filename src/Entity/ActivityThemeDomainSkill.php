@@ -52,7 +52,16 @@ class ActivityThemeDomainSkill
      */
     private $user;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Classroom::class, inversedBy="activityThemeDomainSkills")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $classroom;
 
+
+    /**
+     * ActivityThemeDomainSkill constructor.
+     */
     public function __construct()
     {
         $this->activities = new ArrayCollection();
@@ -198,6 +207,29 @@ class ActivityThemeDomainSkill
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+
+    /**
+     * Return classroom attached to the skill.
+     * @return Classroom|null
+     */
+    public function getClassroom(): ?Classroom
+    {
+        return $this->classroom;
+    }
+
+
+    /**
+     * Set the classroom attached to the skill.
+     * @param Classroom|null $classroom
+     * @return $this
+     */
+    public function setClassroom(?Classroom $classroom): self
+    {
+        $this->classroom = $classroom;
 
         return $this;
     }

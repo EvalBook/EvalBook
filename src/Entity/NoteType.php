@@ -111,7 +111,7 @@ class NoteType
      */
     public function setName(string $name): self
     {
-        $this->name = $name;
+        $this->name = ucfirst(strtolower($name));
         return $this;
     }
 
@@ -133,7 +133,7 @@ class NoteType
      */
     public function setDescription(string $description): self
     {
-        $this->description = $description;
+        $this->description = ucfirst(strtolower($description));
         return $this;
     }
 

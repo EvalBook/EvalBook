@@ -29,6 +29,7 @@ use App\Entity\NoteType;
 use App\Entity\Period;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\common\Persistence\ObjectManager;
@@ -38,7 +39,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
-class DataFixtures extends Fixture implements ContainerAwareInterface, FixtureInterface, OrderedFixtureInterface
+class DataFixtures extends Fixture implements ContainerAwareInterface, FixtureInterface, OrderedFixtureInterface, FixtureGroupInterface
 {
     private $container;
     private $passwordEncoder;
@@ -225,5 +226,14 @@ class DataFixtures extends Fixture implements ContainerAwareInterface, FixtureIn
     public function getOrder()
     {
         return 1;
+    }
+
+
+    /**
+     * @return array
+     */
+    public static function getGroups(): array
+    {
+        return ["local", "dev"];
     }
 }

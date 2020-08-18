@@ -13,14 +13,15 @@ let ActivityHandler = {
         this.activityThemeDomains = document.querySelector('#activity_activityThemeDomains');
         this.skillsElement = document.querySelector('#activity_activityThemeDomainSkill');
         this.noteTypesElement = document.querySelector('#activity_noteType');
+        this.activityName = document.querySelector('#activity_name');
+        this.submit = document.querySelector('#activity_submit');
 
         // Setting defaults.
         this.activityThemeDomains.selectedIndex = 0;
-        this.skillsElement.innerHTML = '';
-        this.noteTypesElement.innerHTML = '';
 
         // Attaching first listener to activity types element.
-        this.activityThemeDomains.addEventListener('change', () => this.watchActivityTheme());
+        this.activityThemeDomains.addEventListener('click', () => this.watchActivityThemeClick());
+        this.activityThemeDomains.addEventListener('change', () => this.watchActivityThemeChange());
         this.noteTypesElement.addEventListener('change', () => this.watchNoteType());
 
         // Getting needed translations.
@@ -35,12 +36,28 @@ let ActivityHandler = {
 
 
     /**
+     *
+     */
+    watchActivityThemeClick: function() {
+        this.noteTypesElement.innerHTML = '';
+        this.skillsElement.parentElement.style.display = 'none';
+        this.noteTypesElement.parentElement.style.display = 'none';
+        this.activityName.parentElement.style.display = 'none';
+        this.submit.style.display = 'none';
+    },
+
+
+    /**
      * Watch activityTheme select and perform ajax request to fetch related data.
      */
-    watchActivityTheme: async function() {
+    watchActivityThemeChange: async function() {
+        this.skillsElement.innerHTML = '';
+
         try {
+            console.log(this.activityThemeDomains.value);
             let response = await Api.query('/api/skills/get', {
-                activityThemeDomain: this.activityThemeDomains.value
+                activityThemeDomain: this.activityThemeDomains.value,
+                classroom: document.querySelector('#classroom').value,
             });
 
             // Handling error with sent parameters.
@@ -50,7 +67,6 @@ let ActivityHandler = {
             }
 
             // Removing the first activity type element.
-            this.activityThemeDomains.removeChild(this.activityThemeDomains.firstChild);
             this.skillsElement.innerHTML = '';
 
             // Skills.
@@ -94,12 +110,15 @@ let ActivityHandler = {
     },
 
 
-
+    /**
+     *
+     * @returns {Promise<void>}
+     */
     watchNoteType: async function() {
         // Simply display the rest of the form.
         this.noteTypesElement.removeChild(this.noteTypesElement.firstChild);
-        document.querySelector('#activity_name').parentElement.style.display = 'block';
-        document.querySelector('#activity_submit').style.display = 'block';
+        this.activityName.parentElement.style.display = 'block';
+        this.submit.style.display = 'block';
     },
 
 

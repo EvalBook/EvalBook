@@ -103,7 +103,7 @@ class StudentContact
      */
     public function setFirstName(string $firstName): self
     {
-        $this->firstName = $firstName;
+        $this->firstName = ucfirst(strtolower($firstName));
 
         return $this;
     }
@@ -126,7 +126,7 @@ class StudentContact
      */
     public function setLastName(string $lastName): self
     {
-        $this->lastName = $lastName;
+        $this->lastName = ucfirst(strtolower($lastName));
 
         return $this;
     }
@@ -149,7 +149,7 @@ class StudentContact
      */
     public function setAddress(string $address): self
     {
-        $this->address = $address;
+        $this->address = ucfirst(strtolower($address));
 
         return $this;
     }
