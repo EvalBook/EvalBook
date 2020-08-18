@@ -40,7 +40,8 @@ let ActivityHandler = {
     watchActivityTheme: async function() {
         try {
             let response = await Api.query('/api/skills/get', {
-                activityThemeDomain: this.activityThemeDomains.value
+                activityThemeDomain: this.activityThemeDomains.value,
+                classroom: document.querySelector('#classroom').value,
             });
 
             // Handling error with sent parameters.
