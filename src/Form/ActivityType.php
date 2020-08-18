@@ -86,7 +86,11 @@ class ActivityType extends AbstractType
                 'required' => true,
             ])
 
+
+            // Future needs.
             ->add('comment', HiddenType::class)
+
+            // Submit button.
             ->add('submit', SubmitType::class)
         ;
     }

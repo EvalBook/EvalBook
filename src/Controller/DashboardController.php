@@ -10,32 +10,32 @@ use App\Entity\Classroom;
 use App\Entity\NoteType;
 use App\Form\ActivityThemeDomainSkillType;
 use App\Form\ActivityThemeDomainType;
-use App\Repository\NoteTypeRepository;
 use App\Service\ConfigurationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\TransactionRequiredException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Translation\Translator;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 class DashboardController extends AbstractController
 {
     /**
+     * @Route("/")
      * @Route("/dashboard", name="dashboard")
      * @param Request $request
      * @param ConfigurationService $configurationService
      * @return Response
      */
-    public function getDashboard(Request $request, ConfigurationService $configurationService, TranslatorInterface $translator)
+    public function getDashboard(ConfigurationService $configurationService, TranslatorInterface $translator)
     {
         $doctrine = $this->getDoctrine();
         $activityRepository  = $doctrine->getRepository(Activity::class);
@@ -93,7 +93,7 @@ class DashboardController extends AbstractController
 
             foreach($activityDomains as $domain) {
                 $domains[$domain->getDisplayName()] = [
-                    "skills" => $domain->getActivityThemeDomainSkills()->toArray(),
+                    "skills" => $domain->getActivityThemeDomainSkills($userClassroom->getId())->toArray(),
                     "domain" => $domain,
                     "editable" => !is_null($domain->getClassroom()),
                 ];
@@ -230,12 +230,16 @@ class DashboardController extends AbstractController
 
 
     /**
-     * @Route("/dashboard/add/skill/{domain}", name="dashboard_add_skill")
+     * @Route("/dashboard/add/skill/{domain}/{classroom}", name="dashboard_add_skill")
+     * @ParamConverter("domain", class="App\Entity\ActivityThemeDomain")
+     * @ParamConverter("classroom", class="App\Entity\Classroom")
+     *
      * @param Request $request
      * @param ActivityThemeDomain $domain
+     * @param Classroom $classroom
      * @return RedirectResponse|Response
      */
-    public function addThemeDomainSkill(Request $request, ActivityThemeDomain $domain)
+    public function addThemeDomainSkill(Request $request, ActivityThemeDomain $domain, Classroom $classroom)
     {
         $noteTypesRepository = $this->getDoctrine()->getRepository(NoteType::class);
         $skill = new ActivityThemeDomainSkill();
@@ -260,6 +264,7 @@ class DashboardController extends AbstractController
 
             if($count === 0) {
                 $skill->setUser($this->getUser());
+                $skill->setClassroom($classroom);
                 $skill->setActivityThemeDomain($domain);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($skill);
@@ -295,12 +300,13 @@ class DashboardController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($skill);
-                $entityManager->flush();
+            $entityManager = $this->getDoctrine()->getManager();
 
-                $this->addFlash('success', 'Successfully updated theme domain skill');
-                return $this->redirect('dashboard');
+            $entityManager->persist($skill);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Successfully updated theme domain skill');
+            return $this->redirect('dashboard');
         }
 
         return $this->render('dashboard/form-theme-domain-skill.html.twig', [

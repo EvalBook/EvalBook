@@ -93,6 +93,10 @@
                         {{ form_widget(form.comment) }}
                     </div>
 
+
+                    {# Needed to fetch classroom domain skills #}
+                    <input type="hidden" name="classroom" id="classroom" value="{{ classroomId }}">
+
                     {# Submit button #}
                     {{ form_row(form.submit, {
                         'label': 'Send'|trans,

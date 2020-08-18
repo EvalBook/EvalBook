@@ -2,6 +2,7 @@
 {% trans_default_domain 'templates' %}
 
 {% block pageTitle %} {{ 'Dashboard' | trans }} {% endblock %}
+{% block title %} {{ 'Dashboard'|trans }} {% endblock %}
 
 {% block body %}
 
@@ -262,7 +263,10 @@
                                             </div>
                                     {% endif %}
 
-                                    <a href="{{ path('dashboard_add_skill', {'domain': domain.domain.id }) }}">
+                                    <a href="{{ path('dashboard_add_skill', {
+                                        'domain': domain.domain.id,
+                                        'classroom': theme.classroom.id
+                                    }) }}">
                                         {{ 'Add skill'|trans}}  <i class="fas fa-plus text-yellow"></i>
                                     </a>
                                 </div>

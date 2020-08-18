@@ -191,10 +191,16 @@ class ActivityThemeDomain
     }
 
     /**
+     * @param int|null $classroomId
      * @return Collection|ActivityThemeDomainSkill[]
      */
-    public function getActivityThemeDomainSkills(): Collection
+    public function getActivityThemeDomainSkills(int $classroomId = null): Collection
     {
+        if(!is_null($classroomId)) {
+            return new ArrayCollection(array_filter($this->activityThemeDomainSkills->toArray(), function($skill) use($classroomId) {
+                return $skill->getClassroom()->getId() === $classroomId;
+            }));
+        }
         return $this->activityThemeDomainSkills;
     }
 

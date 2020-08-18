@@ -73,6 +73,11 @@ class Classroom
      */
     private $activityThemeDomains;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ActivityThemeDomainSkill::class, mappedBy="classroom")
+     */
+    private $activityThemeDomainSkills;
+
 
     /**
      * Classe constructor.
@@ -83,6 +88,7 @@ class Classroom
         $this->students = new ArrayCollection();
         $this->activities = new ArrayCollection();
         $this->activityThemeDomains = new ArrayCollection();
+        $this->activityThemeDomainSkills = new ArrayCollection();
     }
 
 
@@ -357,6 +363,50 @@ class Classroom
             // set the owning side to null (unless already changed)
             if ($activityThemeDomain->getClassroom() === $this) {
                 $activityThemeDomain->setClassroom(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * @return Collection|ActivityThemeDomainSkill[]
+     */
+    public function getActivityThemeDomainSkills(): Collection
+    {
+        return $this->activityThemeDomainSkills;
+    }
+
+
+    /**
+     * Add a skill to classroom.
+     * @param ActivityThemeDomainSkill $activityThemeDomainSkill
+     * @return $this
+     */
+    public function addActivityThemeDomainSkill(ActivityThemeDomainSkill $activityThemeDomainSkill): self
+    {
+        if (!$this->activityThemeDomainSkills->contains($activityThemeDomainSkill)) {
+            $this->activityThemeDomainSkills[] = $activityThemeDomainSkill;
+            $activityThemeDomainSkill->setClassroom($this);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * Remove a skill from classroom.
+     * @param ActivityThemeDomainSkill $activityThemeDomainSkill
+     * @return $this
+     */
+    public function removeActivityThemeDomainSkill(ActivityThemeDomainSkill $activityThemeDomainSkill): self
+    {
+        if ($this->activityThemeDomainSkills->contains($activityThemeDomainSkill)) {
+            $this->activityThemeDomainSkills->removeElement($activityThemeDomainSkill);
+            // set the owning side to null (unless already changed)
+            if ($activityThemeDomainSkill->getClassroom() === $this) {
+                $activityThemeDomainSkill->setClassroom(null);
             }
         }
 

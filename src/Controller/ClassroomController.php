@@ -40,7 +40,6 @@ use Symfony\Component\Security\Core\Security;
 class ClassroomController extends AbstractController
 {
     /**
-     * @Route("/")
      * @Route("/classrooms", name="classrooms")
      *
      * @param ClassroomRepository $classroomRepository
