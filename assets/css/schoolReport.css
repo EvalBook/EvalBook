@@ -42,3 +42,24 @@
         background: yellow;
     }
 }
+
+
+.domain-col{
+    min-width: 30em;
+
+}
+
+
+.max-note-col{
+    min-width: 5em;
+}
+
+
+.period-note-col{
+    min-width: 9em;
+}
+
+
+.average-col{
+    min-width: 8em;
+}
