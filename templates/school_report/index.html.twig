@@ -34,7 +34,7 @@
                     <td>{{ student.lastName }}</td>
                     <td>{{ student.firstName }}</td>
                     <td class="text-center">
-                        <a href="{{ path('school_report_individual', {'student': student.id}) }}">
+                        <a data-path="{{ path('school_report_individual', {'student': student.id}) }}">
                             <i class="far fa-file-alt"></i>
                         </a>
                     </td>
@@ -52,6 +52,5 @@
 {# Include Javascript files. #}
 {% block javascripts %}
     {{ encore_entry_script_tags('search') }}
-    {{ encore_entry_script_tags('modalSchoolReport') }}
-    {{ encore_entry_script_tags('controlSchoolReports') }}
+    {{ encore_entry_script_tags('controlsSchoolReports') }}
 {% endblock %}
