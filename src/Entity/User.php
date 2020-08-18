@@ -84,6 +84,11 @@ class User implements UserInterface
      */
     private $userConfiguration;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $last_login;
+
 
     /**
      * Check haveibeenspown.
@@ -375,44 +380,6 @@ class User implements UserInterface
         return array_unique($students);
     }
 
-
-    /**
-     * Return a list of all available roles.
-     */
-    public static function getAssignableRoles(): array
-    {
-        return array(
-            // Users related.
-            'ROLE_USER_LIST_ALL',
-            'ROLE_USER_CREATE',
-            'ROLE_USER_EDIT',
-            'ROLE_USER_DELETE',
-            // Students related.
-            'ROLE_STUDENT_LIST_ALL',
-            'ROLE_STUDENT_CREATE',
-            'ROLE_STUDENT_EDIT',
-            'ROLE_STUDENT_DELETE',
-            // Classes related.
-            'ROLE_CLASS_LIST_ALL',
-            'ROLE_CLASS_CREATE',
-            'ROLE_CLASS_EDIT',
-            'ROLE_CLASS_DELETE',
-            'ROLE_CLASS_EDIT_STUDENTS',
-            'ROLE_CLASS_EDIT_USERS',
-            // Implantations related.
-            'ROLE_IMPLANTATION_LIST_ALL',
-            'ROLE_IMPLANTATION_EDIT',
-            'ROLE_IMPLANTATION_CREATE',
-            'ROLE_IMPLANTATION_DELETE',
-            // Schools related.
-            'ROLE_SCHOOL_LIST_ALL',
-            'ROLE_SCHOOL_EDIT',
-            'ROLE_SCHOOL_CREATE',
-            'ROLE_SCHOOL_DELETE',
-            'ROLE_SCHOOL_REPORT_PRINT',
-        );
-    }
-
     /**
      * Return the User string representation.
      * @return string
@@ -459,5 +426,66 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+
+    /**
+     * Return the user last login date.
+     * @return \DateTimeInterface|null
+     */
+    public function getLastLogin(): ?\DateTimeInterface
+    {
+        return $this->last_login;
+    }
+
+
+    /**
+     * Set the user last login date.
+     * @param \DateTimeInterface|null $last_login
+     * @return $this
+     */
+    public function setLastLogin(?\DateTimeInterface $last_login): self
+    {
+        $this->last_login = $last_login;
+
+        return $this;
+    }
+
+
+    /**
+     * Return a list of all available roles.
+     */
+    public static function getAssignableRoles(): array
+    {
+        return array(
+            // Users related.
+            'ROLE_USER_LIST_ALL',
+            'ROLE_USER_CREATE',
+            'ROLE_USER_EDIT',
+            'ROLE_USER_DELETE',
+            // Students related.
+            'ROLE_STUDENT_LIST_ALL',
+            'ROLE_STUDENT_CREATE',
+            'ROLE_STUDENT_EDIT',
+            'ROLE_STUDENT_DELETE',
+            // Classes related.
+            'ROLE_CLASS_LIST_ALL',
+            'ROLE_CLASS_CREATE',
+            'ROLE_CLASS_EDIT',
+            'ROLE_CLASS_DELETE',
+            'ROLE_CLASS_EDIT_STUDENTS',
+            'ROLE_CLASS_EDIT_USERS',
+            // Implantations related.
+            'ROLE_IMPLANTATION_LIST_ALL',
+            'ROLE_IMPLANTATION_EDIT',
+            'ROLE_IMPLANTATION_CREATE',
+            'ROLE_IMPLANTATION_DELETE',
+            // Schools related.
+            'ROLE_SCHOOL_LIST_ALL',
+            'ROLE_SCHOOL_EDIT',
+            'ROLE_SCHOOL_CREATE',
+            'ROLE_SCHOOL_DELETE',
+            'ROLE_SCHOOL_REPORT_PRINT',
+        );
     }
 }
