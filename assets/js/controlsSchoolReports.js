@@ -1,3 +1,5 @@
+import {Api} from "./api.js";
+import {ModalSchoolReport} from "./modalSchoolReport.js";
 
 let ControlsSchoolReport = {
 
@@ -8,12 +10,14 @@ let ControlsSchoolReport = {
         }
     },
 
-    click: function(event) {
+    click: async function(event) {
         console.log(event);
         event.preventDefault();
-        let path = event.getAttribute('data-path');
-
-        console.log("Getting school report of: " + path);
+        let response = await Api.query(event.target.parentElement.dataset.path, {});
+        if(response.status === 200) {
+            let modalSchoolReport = new ModalSchoolReport(data);
+            modalSchoolReport.display();
+        }
     },
 }
 
