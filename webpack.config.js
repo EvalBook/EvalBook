@@ -1,5 +1,3 @@
-
-
 // Encore config.
 var Encore = require('@symfony/webpack-encore');
 var dotenv = require('dotenv');
