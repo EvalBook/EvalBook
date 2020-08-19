@@ -74,10 +74,11 @@
                     <th class="text-center mobile-hidden-td">{{ 'Manage users'|trans }}</th>
                 {% endif %}
 
+                {# //FIXME
                 <th class="text-center mobile-hidden-td">
                     {{ 'School reports'|trans }}
                 </th>
-
+                #}
                 {% if is_granted('ROLE_CLASS_DELETE') %}
                     <th class="text-center mobile-hidden-td">{{ 'Delete'|trans }}</th>
                 {% endif %}
@@ -160,6 +161,7 @@
 
 
                 {# Display school report button only on not special classrooms. #}
+                {# FIXME
                 <td class="text-center hidden-mobile-td">
                     {% if not classroom.owner is same as(null) %}
                         <a href="{{ path('school_report', {'classroom': classroom.id}) }}">
@@ -169,7 +171,7 @@
                         <span>-</span>
                     {% endif %}
                 </td>
-
+                #}
 
                 {# Provide a link to delete a classroom if user has the right to do it. #}
                 {% if is_granted('ROLE_CLASS_DELETE') %}

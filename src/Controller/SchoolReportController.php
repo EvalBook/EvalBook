@@ -5,12 +5,15 @@ namespace App\Controller;
 use App\Entity\Classroom;
 use App\Entity\Student;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class SchoolReportController extends AbstractController
 {
     /**
      * @Route("/school/report/{classroom}", name="school_report")
+     * @param Classroom $classroom
+     * @return Response
      */
     public function index(Classroom $classroom)
     {
@@ -24,16 +27,6 @@ class SchoolReportController extends AbstractController
             'classroom' => $classroom,
             'students' => $students,
         ]);
-    }
-
-
-    /**
-     * @Route("/school/report/individual/{student}", name="school_report_individual")
-     * @param Student $student
-     */
-    public function getIndividualSchoolReport(Student $student)
-    {
-
     }
 
 
