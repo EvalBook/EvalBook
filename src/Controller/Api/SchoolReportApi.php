@@ -91,6 +91,7 @@ class SchoolReportApi extends AbstractController
         $skillRepository  = $this->getDoctrine()->getRepository(ActivityThemeDomainSkill::class);
 
         $result = [];
+        // Sorting the whole notes.
         foreach($notes as $note) {
             /* @var $note Note */
             // Getting target theme.
@@ -108,11 +109,62 @@ class SchoolReportApi extends AbstractController
                 'id' => $note->getActivity()->getActivityThemeDomainSkill()
             ]);
 
-            $result[$theme->getDisplayName()][$domain->getDisplayName()][$skill->getName()][] = $note;
+            $result[$theme->getDisplayName()][$domain->getDisplayName()][$skill->getId()][] = [
+                'note'  => $note,
+                'skill' => $skill,
+            ];
         }
 
-        dd($result);
+        // Compute total of notes.
+        $skills = [];
+        // From theme
+        foreach($result as $key => $themes) {
+            // From domaine
+            foreach($themes as $key2 => $domains) {
+                // From skills
+                foreach($domains as $key3 => $skills ) {
+                    // FIXME pas le bon moyen de récuper ca !!
+                    if($skills['skill']->getNoteType()->isNumeric()) {
+                        // m = (2 × 1 + 9 × 2 + 27 × 3) / (10 × 1 + 15 × 2 + 30 × 3) × 20
+                        $amount = 0;
+                        $supp = 0;
+
+                        foreach ($skills as $key4 => $endpoint) {
+                            //echo "$key4 => " . $note->getNote() . "\n";
+                            $max = $endpoint['note']->getActivity()->getNoteType()->getMaximum();
+                            $coefficient = $endpoint['note']->getActivity()->getNoteType()->getCoefficient();
+                            $amount += $endpoint['note']->getNote() * $coefficient;
+                            $supp += $max * $coefficient;
+                        }
+
+                        $m = ($amount / $supp) * $endpoint['skill']->getNoteType()->getMaximum();
+                        $m = $this->round_up($m, 1);
+                        echo $endpoint['skill']->getName() . " => $m / " . $endpoint['skill']->getNoteType()->getMaximum() . "\n";
+                    }
+                    else {
+                        echo "Found non numeric values\n";
+                        dd($skill["skill"]);
+                        $amount = 0;
+                        $supp = 0;
+                    }
+                }
+            }
+        }
+
+        //dd($skills);
 
         return $result;
+    }
+
+
+    /**
+     * Round a number.
+     * @param $value
+     * @param $precision
+     * @return float|int
+     */
+    private function round_up( $value, $precision ) {
+        $pow = pow ( 10, $precision );
+        return ( ceil ( $pow * $value ) + ceil ( $pow * $value - ceil ( $pow * $value ) ) ) / $pow;
     }
 }
