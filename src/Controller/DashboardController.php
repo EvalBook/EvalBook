@@ -31,9 +31,11 @@ class DashboardController extends AbstractController
     /**
      * @Route("/")
      * @Route("/dashboard", name="dashboard")
-     * @param Request $request
      * @param ConfigurationService $configurationService
+     * @param TranslatorInterface $translator
      * @return Response
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function getDashboard(ConfigurationService $configurationService, TranslatorInterface $translator)
     {

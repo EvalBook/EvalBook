@@ -93,7 +93,26 @@ let Controls = {
                 event.target.parentElement.style.display = 'none';
             });
         }
-    }
+    },
+
+
+    /**
+     * Display the user global message.
+     */
+    globalMessageMove: function(marquee, interval) {
+
+        let position = parseInt(marquee.style.left);
+        let max = Math.abs(parseInt(window.getComputedStyle(marquee,null).getPropertyValue("right")));
+
+        if(0 - max < position) {
+            marquee.style.left = position - 6 + "px";
+        }
+        else {
+            // Display once.
+            marquee.style.display = 'none';
+            window.clearInterval(interval);
+        }
+    },
 };
 
 
@@ -106,3 +125,12 @@ if(window.innerWidth <= 800) {
 }
 
 Controls.initDesktopUserLinks();
+
+let marquee = document.querySelector('.general-message');
+if(marquee.innerHTML.length > 0) {
+    marquee.style.width = "400%";
+    marquee.style.left = window.innerWidth + "px";
+    let int = window.setInterval(() => {
+        Controls.globalMessageMove(marquee, int);
+    }, 200)
+}
