@@ -56,10 +56,18 @@
 
 
 .period-note-col{
-    min-width: 9em;
+    min-width: 7em;
 }
 
 
 .average-col{
     min-width: 8em;
+}
+
+#comment-content{
+    min-heigt: 15em;
+}
+
+.sign-content {
+    min-height: 10em;
 }
