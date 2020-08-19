@@ -247,7 +247,7 @@ class DashboardController extends AbstractController
         $skill = new ActivityThemeDomainSkill();
 
         $form = $this->createForm(ActivityThemeDomainSkillType::class, $skill, [
-            'noteTypes' => $noteTypesRepository->findByType($domain->getActivityTheme()->getIsNumericNotes()),
+            'noteTypes' => $noteTypesRepository->findByType($domain->getActivityTheme()->getIsNumericNotes(), 1),
         ]);
 
         $form->handleRequest($request);
@@ -288,15 +288,19 @@ class DashboardController extends AbstractController
 
     /**
      * @Route("/dashboard/edit/skill/{skill}", name="dashboard_edit_skill")
+     *
      * @param Request $request
      * @param ActivityThemeDomainSkill $skill
+     * @return RedirectResponse|Response
      */
     public function editThemeDomainSkill(Request $request, ActivityThemeDomainSkill $skill)
     {
         $noteTypesRepository = $this->getDoctrine()->getRepository(NoteType::class);
 
+        $noteTypes = $noteTypesRepository->findByType($skill->getActivityThemeDomain()->getActivityTheme()->getIsNumericNotes(), 1);
+
         $form = $this->createForm(ActivityThemeDomainSkillType::class, $skill, [
-            'noteTypes' => $noteTypesRepository->findByType($skill->getActivityThemeDomain()->getActivityTheme()->getIsNumericNotes()),
+            'noteTypes' => $noteTypes,
         ]);
 
         $form->handleRequest($request);
@@ -308,7 +312,7 @@ class DashboardController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Successfully updated theme domain skill');
-            return $this->redirect('dashboard');
+            return $this->redirectToRoute('dashboard');
         }
 
         return $this->render('dashboard/form-theme-domain-skill.html.twig', [

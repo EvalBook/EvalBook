@@ -40,13 +40,22 @@ class NoteTypeRepository extends ServiceEntityRepository
     /**
      * Return available note types by numeric - non numeric....
      * @param bool $isNumeric
+     * @param int|null $coefficient
+     * @return array
      */
-    public function findByType(bool $isNumeric)
+    public function findByType(bool $isNumeric, ?int $coefficient = null)
     {
         $numericNotesTypes = [];
         $mixedNoteTypes = [];
 
-        $noteTypes = $this->getEntityManager()->getRepository($this->getClassName())->findAll();
+        if(is_null($coefficient)) {
+            $noteTypes = $this->getEntityManager()->getRepository($this->getClassName())->findAll();
+        }
+        else {
+            $noteTypes = $this->getEntityManager()->getRepository($this->getClassName())->findBy([
+                'coefficient' => $coefficient,
+            ]);
+        }
         if(count($noteTypes) === 0)
             return [];
 
@@ -189,7 +198,7 @@ class NoteTypeRepository extends ServiceEntityRepository
         $ntAF = new NoteType();
         $ntAF
             ->setName("A -> F")
-            ->setCoefficient($i)
+            ->setCoefficient(1)
             ->setDescription("A -> F, ordre naturel.")
             ->setMaximum('A')
             ->setMinimum('F')
@@ -201,7 +210,7 @@ class NoteTypeRepository extends ServiceEntityRepository
         $ntANA = new NoteType();
         $ntANA
             ->setName("Acquis - En cours d'acquisition - A revoir - Non acquis")
-            ->setCoefficient($i)
+            ->setCoefficient(1)
             ->setDescription("Acquis, En cours d'acquisition, A revoir, Non acquis")
             ->setMaximum('A')
             ->setMinimum('NA')
@@ -213,7 +222,7 @@ class NoteTypeRepository extends ServiceEntityRepository
         $ntTBI = new NoteType();
         $ntTBI
             ->setName("Très bien - Bien - Moyen - Suffisant - Médiocre - Insuffisant")
-            ->setCoefficient($i)
+            ->setCoefficient(1)
             ->setDescription("Très bien, Bien, Moyen, Suffisant, Médiocre, Insuffisant")
             ->setMaximum('TB')
             ->setMinimum('I')
