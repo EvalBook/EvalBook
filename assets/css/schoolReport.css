@@ -64,10 +64,34 @@
     min-width: 8em;
 }
 
+
 #comment-content{
     min-heigt: 15em;
 }
 
+
 .sign-content {
     min-height: 10em;
+}
+
+
+p {
+    max-width: 27em;
+}
+
+
+table {
+    table-layout: fixed;
+}
+
+
+.domain-title-row {
+    background: #6d9bc4 !important;
+    color: #fafafa;
+}
+
+
+thead {
+    background: #222222 !important;
+    color: #fafafa;
 }
