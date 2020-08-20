@@ -80,14 +80,18 @@ class DashboardController extends AbstractController
         foreach($this->getUser()->getClassrooms()->toArray() as $userClassroom) {
             $domains = [];
             if(!is_null($userClassroom->getOwner())) {
+                $activityDomains = [];
                 if($useConfigurationDefaultDomains) {
                     $activityDomains = $activityDomainRepository->findBy([
                         'type' => ActivityThemeDomain::TYPE_GENERIC_DEFAULT,
                     ]);
                 }
-                else {
-                    $activityDomains = $activityDomainRepository->findByTypeAndClassroom(ActivityThemeDomain::TYPE_GENERIC, $userClassroom, true);
-                }
+
+                $activityDomains = array_merge(
+                    $activityDomains,
+                    $activityDomainRepository->findByTypeAndClassroom(ActivityThemeDomain::TYPE_GENERIC, $userClassroom, true)
+                );
+
             }
             else {
                 $activityDomains = $activityDomainRepository->findByTypeAndClassroom(ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM, $userClassroom, true);
