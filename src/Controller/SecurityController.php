@@ -43,8 +43,8 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('dashboard');
         }
 
-        // Checking users count, if no user in database, this is a fresh install, generating admin one.
-        if(!$uRepository->hasUsers()) {
+        // Create admin if no admin detected.
+        if(!$uRepository->findByRole('ROLE_ADMIN')) {
             $admin = new User();
             $admin
                 ->setEmail('admin@evalbook.dev')
