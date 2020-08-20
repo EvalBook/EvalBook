@@ -114,14 +114,17 @@ class ActivityController extends AbstractController
         // TODO apply this to edition form.
         $atcRepository = $this->getDoctrine()->getRepository(ActivityThemeDomain::class);
         if(!is_null($classroom->getOwner())) {
+            $activityThemeDomains = [];
             if($configuration->load($this->getUser())->getUsePredefinedActivitiesValues()) {
                 $activityThemeDomains = $atcRepository->findBy([
                     'type' => ActivityThemeDomain::TYPE_GENERIC_DEFAULT,
                 ]);
             }
-            else {
-                $activityThemeDomains = $atcRepository->findByTypeAndClassroom(ActivityThemeDomain::TYPE_GENERIC, $classroom, true);
-            }
+
+            $activityThemeDomains = array_merge(
+                $activityThemeDomains,
+                $activityThemeDomains = $atcRepository->findByTypeAndClassroom(ActivityThemeDomain::TYPE_GENERIC, $classroom, true)
+            );
         }
         else {
             $activityThemeDomains = $atcRepository->findByTypeAndClassroom(ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM, $classroom, true);
