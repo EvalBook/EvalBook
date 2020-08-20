@@ -24,13 +24,11 @@
 
 {% block body %}
     <div class="modal-center">
-        <div>
+        <div class="margin-bottom">
             <img id="logo-mini" src="{{ asset('build/logo_evalbook_mini.png') }}" alt="EvalBook logo mini" />
         </div>
 
         <div class="full-width flex column align-items-start">
-
-            <h1>{{ 'Reset your password'|trans }}</h1>
 
             {{ form_start(resetForm) }}
 

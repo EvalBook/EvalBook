@@ -285,8 +285,12 @@ form {
 }
 
 input, select {
-    border-radius: 2px;
-    padding: 0.3em;
+    outline: unset;
+    padding: 0.4em;
+}
+
+input:focus, select:focus {
+    outline: unset;
 }
 
 .higher select {
