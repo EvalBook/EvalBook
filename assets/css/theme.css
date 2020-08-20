@@ -285,9 +285,7 @@ form {
 }
 
 input, select {
-    border-radius: 2px;
     outline: unset;
-    border-color: unset;
     padding: 0.4em;
 }
 

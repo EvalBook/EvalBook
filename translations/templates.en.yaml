@@ -322,6 +322,7 @@ roles:
   ROLE_SCHOOL_CREATE: Create school
   ROLE_SCHOOL_DELETE: Delete school
   ROLE_ADMIN: Role admin
+  ROLE_SCHOOL_REPORT_PRINT: Print school reports
 
 help:
   ROLE_SCHOOL_LIST_ALL: Allow you to list all schools available in the system.
