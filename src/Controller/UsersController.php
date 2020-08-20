@@ -107,26 +107,26 @@ class UsersController extends AbstractController
 
                 if($plainPassword && $this->validatePassword($plainPassword)) {
                     // Setting password only if it was specified and is in valid format.
-                    $user->setPassword($passwordEncoder->encodePassword($user, $form->get('password')->getData()));
+                    $user->setPassword($passwordEncoder->encodePassword($user,$plainPassword));
                 }
-                else {
-                    $entityManager = $this->getDoctrine()->getManager();
-                    $entityManager->persist($user);
-                    $entityManager->flush();
-                    $this->addFlash('success', 'Successfully updated');
 
-                    if (!is_null($redirect)) {
-                        $redirect = json_decode(base64_decode($redirect), true);
-                        return $this->redirectToRoute($redirect['route'], $redirect["params"]);
-                    }
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
+                $this->addFlash('success', 'Successfully updated');
 
-                    // Send mail only if password was updated.
-                    if ($plainPassword && $form->get('sendMail')->getData()) {
-                        $this->sendUserByMail($user, $form->get('password')->getData(), $translator, $mailer);
-                    }
-
-                    return $this->redirectToRoute('users');
+                if (!is_null($redirect)) {
+                    $redirect = json_decode(base64_decode($redirect), true);
+                    return $this->redirectToRoute($redirect['route'], $redirect["params"]);
                 }
+
+                // Send mail only if password was updated.
+                if ($plainPassword && $form->get('sendMail')->getData()) {
+                    $this->sendUserByMail($user, $form->get('password')->getData(), $translator, $mailer);
+                }
+
+                return $this->redirectToRoute('users');
+
             }
         }
 
