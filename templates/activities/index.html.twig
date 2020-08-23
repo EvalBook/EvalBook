@@ -49,106 +49,125 @@
 
 
 {% block body %}
+
+<div class="flex column full-width">
     {#
         The .mobile-hidden-to and .mobile-hidden classes makes element hidden on mobile.
         All activities are sorted as 'last in -> first displayed'
     #}
-    <table class="full-width">
-        <thead>
+
+    {% for class, activities in classrooms %}
+        <table class="full-width margin-plus">
+            <thead>
             <tr>
-                <th class="mobile-hidden-td">{{ 'Implantation'|trans }}</th>
-                <th>{{ 'Class'|trans }}</th>
+                <th class="text-center" colspan="8">{{ class }}</th>
+            </tr>
+            <tr>
                 <th class="mobile-hidden-td">{{ 'User'|trans }}</th>
                 <th>{{ 'Name'|trans }}</th>
                 <th class="mobile-hidden-td">{{ 'Date'|trans }}</th>
                 <th class="mobile-hidden-td">{{ 'Period'|trans }}</th>
                 <th class="text-center">{{ 'Note'|trans }}</th>
                 <th class="text-center">{{ 'Edit'|trans }}</th>
+                <th class="text-center">{{ 'Duplicate'|trans }}</th>
                 <th class="text-center mobile-hidden-td">{{ 'Delete'|trans }}</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for activity in activities %}
-            {# Flag to check if activity owner is the same as the current logged in user to display <<me>> instead of user name #}
-            {% set owner = (activity.user is same as(app.user)) ? true : false %}
+            </thead>
+            <tbody>
 
-            {# Checking if the activity is editable ( if period is closed, then the activity is not editable ) #}
-            {% set editable = activity.period.dateEnd >= date() %}
+            {% for activity in activities %}
+                {# Flag to check if activity owner is the same as the current logged in user to display <<me>> instead of user name #}
+                {% set owner = (activity.user is same as(app.user)) ? true : false %}
+                {# Checking if the activity is editable ( if period is closed, then the activity is not editable ) #}
+                {% set editable = activity.period.dateEnd >= date() %}
 
-            <tr data-id="{{ activity.id }}">
-                {# Classroom implantation #}
-                <td class="mobile-hidden-td js-search-target">{{ activity.classroom.implantation }}</td>
-                {# Activity classroom #}
-                <td class="js-search-target">{{ activity.classroom }}</td>
+                <tr data-id="{{ activity.id }}">
+                    {# Activity owner #}
+                    <td class="mobile-hidden-td js-search-target">
+                        {%  if owner %}
+                            <span><< <strong>{{ 'Me'|trans }}</strong> >></span>
+                        {% else %}
+                            {{ activity.user }}
+                        {% endif %}
+                    </td>
 
-                {# Activity owner #}
-                <td class="mobile-hidden-td js-search-target">
-                    {%  if owner %}
-                        <span><< <strong>{{ 'Me'|trans }}</strong> >></span>
-                    {% else %}
-                        {{ activity.user }}
-                    {% endif %}
-                </td>
+                    {# Activity name #}
+                    <td class="js-search-target">{{ activity.name }}</td>
 
-                {# Activity name #}
-                <td class="js-search-target">{{ activity.name }}</td>
+                    {# Activity date add #}
+                    <td class="mobile-hidden-td js-search-target">{{ activity.dateAdded|date('d/m/Y') }}</td>
 
-                {# Activity date add #}
-                <td class="mobile-hidden-td js-search-target">{{ activity.dateAdded|date('d/m/Y') }}</td>
+                    {# Activity period #}
+                    <td class="mobile-hidden-td js-search-target">{{ activity.period.name }}</td>
 
-                {# Activity period #}
-                <td class="mobile-hidden-td js-search-target">{{ activity.period.name }}</td>
+                    {# Note activity access ( Provide a link to not student on this activity ) #}
+                    <td class="js-search-target text-center">
+                        {% if owner and editable %}
+                            <a href="{{ path('activity_note_add', {'id': activity.id}) }}" title="Add activity notes">
+                                {% set cssClass = activity.notes|length > 0 ? 'text-yellow' : 'text-red'  %}
+                                <i class="fas fa-medal {{ cssClass }}"></i>
+                            </a>
+                        {% else %}
+                            <span>-</span>
+                        {% endif %}
+                    </td>
 
-                {# Note activity access ( Provide a link to not student on this activity ) #}
-                <td class="js-search-target text-center">
-                    {% if owner and editable %}
-                        <a href="{{ path('activity_note_add', {'id': activity.id}) }}" title="Add activity notes">
-                            {% set cssClass = activity.notes|length > 0 ? 'text-yellow' : 'text-red'  %}
-                            <i class="fas fa-medal {{ cssClass }}"></i>
-                        </a>
-                    {% else %}
-                        <span>-</span>
-                    {% endif %}
-                </td>
+                    {# Edit activity access - Only if current logged in user is the activity owner and if the activity period isn't closed #}
+                    <td class="text-center">
+                        {% if owner and editable %}
+                            <a href="{{ path('activity_edit', {'id': activity.id}) }}" title="Edit activity">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        {% else %}
+                            <span>-</span>
+                        {% endif %}
+                    </td>
 
-                {# Edit activity access - Only if current logged in user is the activity owner and if the activity period isn't closed #}
-                <td class="text-center">
-                    {% if owner and editable %}
-                        <a href="{{ path('activity_edit', {'id': activity.id}) }}" title="Edit activity">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                    {% else %}
-                        <span>-</span>
-                    {% endif %}
-                </td>
 
-                {# Delete activity access - Only if activity owner and activity period not closed #}
-                <td class="text-center mobile-hidden-td">
-                    {% if owner and editable %}
-                        <div data-target="activite"
-                             data-targetid="{{ activity.id }}"
-                             data-action="{{ path('activity_delete', {'id': activity.id}) }}"
-                             data-class="fas fa-trash"
-                             data-csrf="{{ csrf_token('activity_delete' ~ activity.id) }}"
-                        >
-                        </div>
-                    {% else %}
-                        <span>-</span>
-                    {% endif %}
-                </td>
+                    {# Duplicate an activity. #}
+                    <td class="text-center">
+                        {% if owner %}
+                            <a href="{{ path('activity_duplicate', {'id': activity.id}) }}" title="Duplicate activity">
+                                <i class="far fa-copy"></i>
+                            </a>
+                        {% else %}
+                            <span>-</span>
+                        {% endif %}
+                    </td>
 
-            </tr>
-        {% else %}
-            {# No activity found message #}
-            <tr>
-                <td colspan="9" class="text-center">
-                    {{ 'It sounds like you do not have any activity or any class'|trans }}
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                    {# Delete activity access - Only if activity owner and activity period not closed #}
+                    <td class="text-center mobile-hidden-td">
+                        {% if owner and editable %}
+                            <div data-target="activite"
+                                 data-targetid="{{ activity.id }}"
+                                 data-action="{{ path('activity_delete', {'id': activity.id}) }}"
+                                 data-class="fas fa-trash"
+                                 data-csrf="{{ csrf_token('activity_delete' ~ activity.id) }}"
+                            >
+                            </div>
+                        {% else %}
+                            <span>-</span>
+                        {% endif %}
+                    </td>
 
+                </tr>
+            {% else %}
+                {# No activity found message #}
+                <tr>
+                    <td colspan="9" class="text-center">
+                        {{ 'It sounds like you do not have any activity or any class'|trans }}
+                    </td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+    {% else %}
+        {{ 'It sounds like you do not have any activity or any class'|trans }}
+    {% endfor %}
+
+</div>
 {% endblock %}
 
 

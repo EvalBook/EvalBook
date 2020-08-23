@@ -277,7 +277,10 @@
                         {% for skill in domain.skills %}
                             <tr data-id="{{ skill.id }}">
                                 <td colspan="3" class="skill">
-                                    {{ skill.name }} - <span class="skill-description">{{ skill.description }}</span>
+                                    {{ skill.name }}
+                                    {% if not skill.description is same as(null) %}
+                                        - <span class="skill-description">{{ skill.description }}</span>
+                                    {% endif %}
                                 </td>
 
                                 <td class="activity-add-theme skill">

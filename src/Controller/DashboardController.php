@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Activity;
 use App\Entity\ActivityTheme;
 use App\Entity\ActivityThemeDomain;
@@ -10,6 +11,7 @@ use App\Entity\Classroom;
 use App\Entity\NoteType;
 use App\Form\ActivityThemeDomainSkillType;
 use App\Form\ActivityThemeDomainType;
+use App\Repository\ActivityThemeDomainRepository;
 use App\Service\ConfigurationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\OptimisticLockException;
@@ -131,6 +133,13 @@ class DashboardController extends AbstractController
      */
     public function addThemeDomain(Request $request, Classroom $classroom)
     {
+        // Checking if classroom is used by the current logged in user.
+        if(!$this->isUserClassroomCRUDAllowed($classroom)) {
+            $this->addFlash('error', 'You are not allowed to edit other classroom information');
+            return $this->redirectToRoute('dashboard');
+        }
+
+        // Adding theme domains is not allowed for special classrooms / masters.
         if(is_null($classroom->getOwner())) {
             $this->addFlash('error', 'You can not add a domain as your classtoom is a special classroom');
         }
@@ -141,14 +150,25 @@ class DashboardController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
+                // Setting domain basic informations.
                 $domain->setClassroom($classroom);
-                if (is_null($domain->getClassroom()->getOwner())) {
-                    $domain->setType(ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM);
-                } else {
-                    $domain->setType(ActivityThemeDomain::TYPE_GENERIC);
-                }
                 // in uppercase to ease track user changes in db.
                 $domain->setName(strtoupper($domain->getDisplayName()));
+
+                if (is_null($domain->getClassroom()->getOwner())) {
+                    $domain->setType(ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM);
+                }
+                else {
+                    $domain->setType(ActivityThemeDomain::TYPE_GENERIC);
+                }
+
+                // Redirect to the form in case the domain name already taken.
+                if($this->domainExists($domain)) {
+                    $this->addFlash('error', 'This domain already exists, please, choose an other name');
+                    return $this->render('dashboard/form-theme-domain.html.twig', [
+                        'form' => $form->createView(),
+                    ]);
+                }
 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($domain);
@@ -176,10 +196,24 @@ class DashboardController extends AbstractController
      */
     public function editThemeDomain(Request $request, ActivityThemeDomain $domain)
     {
+        // Checking if classroom is used by the current logged in user.
+        if(!$this->isUserClassroomCRUDAllowed($domain->getClassroom())) {
+            $this->addFlash('error', 'You are not allowed to edit other classroom information');
+            return $this->redirectToRoute('dashboard');
+        }
+
         $form = $this->createForm(ActivityThemeDomainType::class, $domain);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Redirect to the form in case the domain name already taken.
+            if($this->domainExists($domain)) {
+                $this->addFlash('error', 'This domain already exists, please, choose an other name');
+                return $this->render('dashboard/form-theme-domain.html.twig', [
+                    'form' => $form->createView(),
+                ]);
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($domain);
             $entityManager->flush();
@@ -206,6 +240,12 @@ class DashboardController extends AbstractController
      */
     public function deleteThemeDomain(Request $request, ActivityThemeDomain $domain, EntityManagerInterface $entityManager)
     {
+        // Checking if classroom is used by the current logged in user.
+        if(!$this->isUserClassroomCRUDAllowed($domain->getClassroom())) {
+            $this->addFlash('error', 'You are not allowed to edit other classroom information');
+            return $this->json(['message' => 'You are not allowed to edit other classroom information'], 201);
+        }
+
         // Only possible if domain is editable, will return an error if the domain has activities in it.
         if(!in_array($domain->getType(),[ActivityThemeDomain::TYPE_GENERIC_DEFAULT, ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM ])) {
             $skills = $domain->getActivityThemeDomainSkills()->toArray();
@@ -247,11 +287,31 @@ class DashboardController extends AbstractController
      */
     public function addThemeDomainSkill(Request $request, ActivityThemeDomain $domain, Classroom $classroom)
     {
+        // Checking if classroom is used by the current logged in user.
+        if(!$this->isUserClassroomCRUDAllowed($classroom)) {
+            $this->addFlash('error', 'You are not allowed to edit other classroom information');
+            return $this->redirectToRoute('dashboard');
+        }
+
         $noteTypesRepository = $this->getDoctrine()->getRepository(NoteType::class);
         $skill = new ActivityThemeDomainSkill();
 
+        // Display ALL note type if matière AND special classroom || Transversal skills.
+        $activityTheme = $this->getDoctrine()->getRepository(ActivityTheme::class)->findOneBy([
+            'id' => $domain->getActivityTheme(),
+        ]);
+
+        // Fetching additional note types if it is a special classroom and not a behavior or other non numeric theme.
+        if($domain->getType() === ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM && $activityTheme->getIsNumericNotes()) {
+            $noteTypes = $noteTypesRepository->findBy(['coefficient' => 1]);
+        }
+        else {
+            // Fetching base note types.
+            $noteTypes = $noteTypesRepository->findByType($activityTheme->getIsNumericNotes(), 1);
+        }
+
         $form = $this->createForm(ActivityThemeDomainSkillType::class, $skill, [
-            'noteTypes' => $noteTypesRepository->findByType($domain->getActivityTheme()->getIsNumericNotes(), 1),
+            'noteTypes' => $noteTypes,
         ]);
 
         $form->handleRequest($request);
@@ -269,9 +329,19 @@ class DashboardController extends AbstractController
             }
 
             if($count === 0) {
-                $skill->setUser($this->getUser());
+                // Storing information so I can check if this skill already exists in database.
                 $skill->setClassroom($classroom);
                 $skill->setActivityThemeDomain($domain);
+
+                // Redirect to the form in case the domain name already taken.
+                if($this->skillExists($skill)) {
+                    $this->addFlash('error', 'This skill already exists, please, choose an other name');
+                    return $this->render('dashboard/form-theme-domain-skill.html.twig', [
+                        'form' => $form->createView(),
+                    ]);
+                }
+
+                $skill->setUser($this->getUser());
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($skill);
                 $entityManager->flush();
@@ -299,9 +369,37 @@ class DashboardController extends AbstractController
      */
     public function editThemeDomainSkill(Request $request, ActivityThemeDomainSkill $skill)
     {
+        // Checking if classroom is used by the current logged in user.
+        $classroom = $this->getDoctrine()->getRepository(Classroom::class)->findOneBy([
+            'id' => $skill->getClassroom(),
+        ]);
+
+        // Checking if classroom is used by the current logged in user.
+        if(!$this->isUserClassroomCRUDAllowed($classroom)) {
+            $this->addFlash('error', 'You are not allowed to edit other classroom information');
+            return $this->redirectToRoute('dashboard');
+        }
+
         $noteTypesRepository = $this->getDoctrine()->getRepository(NoteType::class);
 
-        $noteTypes = $noteTypesRepository->findByType($skill->getActivityThemeDomain()->getActivityTheme()->getIsNumericNotes(), 1);
+        // Fetching Theme.
+        $activityTheme = $this->getDoctrine()->getRepository(ActivityTheme::class)->findOneBy([
+            'id' => $skill->getActivityThemeDomain()->getActivityTheme(),
+        ]);
+
+        // Fetching domain.
+        $domain = $this->getDoctrine()->getRepository(ActivityThemeDomain::class)->findOneBy([
+            'id' => $skill->getActivityThemeDomain(),
+        ]);
+
+        // Fetching additional note types if it is a special classroom and not a behavior or other non numeric theme.
+        if($domain->getType() === ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM && $activityTheme->getIsNumericNotes()) {
+            $noteTypes = $noteTypesRepository->findBy(['coefficient' => 1]);
+        }
+        else {
+            // Fetching base note types.
+            $noteTypes = $noteTypesRepository->findByType($activityTheme->getIsNumericNotes(), 1);
+        }
 
         $form = $this->createForm(ActivityThemeDomainSkillType::class, $skill, [
             'noteTypes' => $noteTypes,
@@ -310,8 +408,15 @@ class DashboardController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
+            // Redirect to the form in case the domain name already taken.
+            if($this->skillExists($skill)) {
+                $this->addFlash('error', 'This skill already exists, please, choose an other name');
+                return $this->render('dashboard/form-theme-domain-skill.html.twig', [
+                    'form' => $form->createView(),
+                ]);
+            }
 
+            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($skill);
             $entityManager->flush();
 
@@ -334,6 +439,16 @@ class DashboardController extends AbstractController
      */
     public function deleteThemeDomainSkill(Request $request, ActivityThemeDomainSkill $skill, EntityManagerInterface $entityManager)
     {
+        // Checking if classroom is used by the current logged in user.
+        $classroom = $this->getDoctrine()->getRepository(Classroom::class)->findOneBy([
+            'id' => $skill->getClassroom(),
+        ]);
+
+        if(!$this->isUserClassroomCRUDAllowed($classroom)) {
+            $this->addFlash('error', 'You are not allowed to edit other classroom information');
+            return $this->json(['message' => 'You are not allowed to edit other classroom information'], 201);
+        }
+
         if($skill->getActivities()->count() > 0) {
             return $this->json(['message' => 'You can not delete domains with activities in it, but you can still edit them'], 201);
         }
@@ -347,6 +462,65 @@ class DashboardController extends AbstractController
         $entityManager->flush();
 
         return $this->json(['message' => 'Skill deleted'], 200);
+    }
+
+
+    /**
+     * Check if a given domain exists in database.
+     * @param ActivityThemeDomain $domain
+     * @param string $type
+     * @return bool
+     */
+    private function domainExists(ActivityThemeDomain $domain)
+    {
+        $domainRepository = $this->getDoctrine()->getRepository(ActivityThemeDomain::class);
+        $domainExists = $domainRepository->findOneBy([
+            'displayName' => $domain->getDisplayName(),
+            'classroom' => $domain->getClassroom(),
+            'activityTheme' => $domain->getActivityTheme(),
+        ]);
+
+        return is_null($domainExists) ? false : true;
+    }
+
+
+    /**
+     * Check if a skill exists in database.
+     * @param ActivityThemeDomainSkill $skill
+     * @return bool
+     */
+    private function skillExists(ActivityThemeDomainSkill $skill)
+    {
+        $skillRepository = $this->getDoctrine()->getRepository(ActivityThemeDomainSkill::class);
+        // Check if the edited skill already exists in database.
+        $skillExists = $skillRepository->findOneBy([
+            'activityThemeDomain' => $skill->getActivityThemeDomain(),
+            'classroom' => $skill->getClassroom(),
+            'name' => $skill->getName(),
+            'description' => $skill->getDescription(),
+        ]);
+
+        return is_null($skillExists) ? false : true;
+    }
+
+
+    /**
+     * Check if the target classroom is in the user classrooms list.
+     * @param Classroom $classroom
+     * @return bool
+     */
+    private function isUserClassroomCRUDAllowed(Classroom $classroom)
+    {
+        $map = function(User $user) {
+            return $user->getId();
+        };
+
+        $users = $classroom->getUsers()->toArray();
+        if(!is_null($classroom->getOwner())) {
+            $users = array_merge($users, [$classroom->getOwner()]);
+        }
+        $users = array_map($map, $users);
+        return in_array($this->getUser()->getId(), $users);
     }
 
 }

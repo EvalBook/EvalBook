@@ -115,7 +115,6 @@ Error: Error
 'The minimum and maximum values cannot be used as intervals': 'The minimum and maximum values cannot be used as intervals'
 'The display name must be between 2 and 100 chars': 'The display name must be between 2 and 100 chars'
 'The skill name must be between 2 and 100 chars': 'The skill name must be between 2 and 100 chars'
-'The skill description must be between 2 and 100 chars': 'The skill description must be between 2 and 100 chars'
 'You can not delete domains with activities in it, but you can still edit them': 'You can not delete domains with activities in it, but you can still edit them'
 'You cannot delete the special classroom domain or the default ones': 'You cannot delete the special classroom domain or the default ones'
 
