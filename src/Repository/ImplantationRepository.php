@@ -46,6 +46,7 @@ class ImplantationRepository extends ServiceEntityRepository
      */
     public function implantationNameAlreadyTaken(Implantation $implantation)
     {
+        dd("hello");
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
         $queryBuilder
             ->select('count(i.id)')
@@ -59,9 +60,12 @@ class ImplantationRepository extends ServiceEntityRepository
 
         try {
             $count = $queryBuilder->getQuery()->getSingleScalarResult();
+            dd($count);
         } catch (NoResultException $e) {
+            dd("error 1");
             return false;
         } catch (NonUniqueResultException $e) {
+            dd("errort 2");
             return true;
         }
 
