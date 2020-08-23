@@ -316,15 +316,6 @@ class Activity
         return $this;
     }
 
-    /**
-     * Return the Activity string representation.
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->getPeriod() . " - " . $this->getName();
-    }
-
 
     /**
      * Return the attached activity theme domain skill.
@@ -345,5 +336,29 @@ class Activity
         $this->activityThemeDomainSkill = $activityThemeDomainSkill;
 
         return $this;
+    }
+
+
+    /**
+     * Return the Activity string representation.
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getPeriod() . " - " . $this->getName();
+    }
+
+
+    /**
+     * Clone current object.
+     */
+    public function __clone()
+    {
+        $this->id = null;
+        $this->setName($this->getName() . " ( clone )");
+        $this->dateAdded = new DateTime();
+        if(!is_null($this->getComment())) {
+            $this->setComment($this->getComment() . " ( clone )");
+        }
     }
 }

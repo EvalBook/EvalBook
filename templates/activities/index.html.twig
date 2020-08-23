@@ -60,7 +60,7 @@
         <table class="full-width {{ key > 0 ? 'margin-plus' : '' }}">
             <thead>
             <tr>
-                <th class="text-center" colspan="7">{{ classroom.implantation.name }} - {{ classroom.name }}</th>
+                <th class="text-center" colspan="8">{{ classroom.implantation.name }} - {{ classroom.name }}</th>
             </tr>
             <tr>
                 <th class="mobile-hidden-td">{{ 'User'|trans }}</th>
@@ -69,6 +69,7 @@
                 <th class="mobile-hidden-td">{{ 'Period'|trans }}</th>
                 <th class="text-center">{{ 'Note'|trans }}</th>
                 <th class="text-center">{{ 'Edit'|trans }}</th>
+                <th class="text-center">{{ 'Duplicate'|trans }}</th>
                 <th class="text-center mobile-hidden-td">{{ 'Delete'|trans }}</th>
             </tr>
             </thead>
@@ -116,6 +117,18 @@
                         {% if owner and editable %}
                             <a href="{{ path('activity_edit', {'id': activity.id}) }}" title="Edit activity">
                                 <i class="fas fa-edit"></i>
+                            </a>
+                        {% else %}
+                            <span>-</span>
+                        {% endif %}
+                    </td>
+
+
+                    {# Duplicate an activity. #}
+                    <td class="text-center">
+                        {% if owner %}
+                            <a href="{{ path('activity_duplicate', {'id': activity.id}) }}" title="Duplicate activity">
+                                <i class="far fa-copy"></i>
                             </a>
                         {% else %}
                             <span>-</span>

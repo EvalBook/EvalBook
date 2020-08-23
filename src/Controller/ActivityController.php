@@ -24,10 +24,12 @@ use App\Entity\ActivityThemeDomain;
 use App\Entity\Classroom;
 use App\Entity\Note;
 use App\Entity\NoteType;
+use App\Entity\UserConfiguration;
 use App\Form\ActivityNotesType;
 use App\Form\ActivityType;
 use App\Service\ConfigurationService;
 use DateTime;
+use DeepCopy\DeepCopy;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -111,29 +113,9 @@ class ActivityController extends AbstractController
             }
         }
 
-        // Getting available ActivityThemeDomain.
-        // TODO apply this to edition form.
-        $atcRepository = $this->getDoctrine()->getRepository(ActivityThemeDomain::class);
-        if(!is_null($classroom->getOwner())) {
-            $activityThemeDomains = [];
-            if($configuration->load($this->getUser())->getUsePredefinedActivitiesValues()) {
-                $activityThemeDomains = $atcRepository->findBy([
-                    'type' => ActivityThemeDomain::TYPE_GENERIC_DEFAULT,
-                ]);
-            }
-
-            $activityThemeDomains = array_merge(
-                $activityThemeDomains,
-                $activityThemeDomains = $atcRepository->findByTypeAndClassroom(ActivityThemeDomain::TYPE_GENERIC, $classroom, true)
-            );
-        }
-        else {
-            $activityThemeDomains = $atcRepository->findByTypeAndClassroom(ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM, $classroom, true);
-        }
-
         $form = $this->createForm(ActivityType::class, $activity, [
             'periods' => $periods,
-            'activity_theme_domains' => $activityThemeDomains,
+            'activity_theme_domains' => $this->getAvailableActivityThemeDomains($classroom, $configuration),
         ]);
 
         $form->handleRequest($request);
@@ -149,7 +131,7 @@ class ActivityController extends AbstractController
             return $this->redirectToRoute('activities');
         }
 
-        return $this->render('activities/form.html.twig', [
+        return $this->render('activities/form-add.html.twig', [
             'activity' => $activity,
             'classroomId' => $classroom->getId(),
             'form' => $form->createView(),
@@ -162,28 +144,34 @@ class ActivityController extends AbstractController
      *
      * @param Request $request
      * @param Activity $activity
+     * @param ConfigurationService $configurationService
      * @return Response
      */
-    public function edit(Request $request, Activity $activity): Response
+    public function edit(Request $request, Activity $activity, ConfigurationService $configurationService): Response
     {
         // Throw a 403 error if user can't edit the activity.
         $this->checkActivityAccesses($activity);
+        $classroom = $this->getDoctrine()->getRepository(Classroom::class)->findOneBy([
+            'id' => $activity->getClassroom(),
+        ]);
 
         // If activity period target is passed, then redirect to activities list.
         if($activity->getPeriod()->getDateEnd() < new DateTime())
             return $this->redirectToRoute('activities');
 
+        // Fetching available periods.
         $periods = array();
-
-        foreach( $activity->getClassroom()->getImplantation()->getPeriods() as $period) {
+        foreach( $classroom->getImplantation()->getPeriods() as $period) {
 
             if($period->getDateEnd() > new DateTime('now')) {
                 $periods[] = $period;
             }
         }
 
+        // Creating activity form with known activity data.
         $form = $this->createForm(ActivityType::class, $activity, [
             'periods' => $periods,
+            'activity_theme_domains' => $this->getAvailableActivityThemeDomains($classroom, $configurationService),
         ]);
 
         $form->handleRequest($request);
@@ -207,12 +195,62 @@ class ActivityController extends AbstractController
             return $this->redirectToRoute('activities');
         }
 
-        return $this->render('activities/form.html.twig', [
+        return $this->render('activities/form-edit-duplicate.html.twig', [
             'activity' => $activity,
             'classroomId' => $activity->getClassroom()->getId(),
             'form' => $form->createView(),
         ]);
     }
+
+
+    /**
+     * @Route("/activity/duplicate/{id}", name="activity_duplicate")
+     *
+     * @param Request $request
+     * @param Activity $activity
+     * @param ConfigurationService $configurationService
+     * @return Response
+     */
+    public function duplicate(Request $request, Activity $activity, ConfigurationService $configurationService): Response
+    {
+        // Clone activity.
+        $activity = clone $activity;
+
+        // Getting activity classroom.
+        $classroom = $this->getDoctrine()->getRepository(Classroom::class)->findOneBy([
+            'id' => $activity->getClassroom(),
+        ]);
+
+        // Getting available periods.
+        $periods = array();
+        foreach( $activity->getClassroom()->getImplantation()->getPeriods() as $period) {
+            if($period->getDateEnd() > new DateTime('now')) {
+                $periods[] = $period;
+            }
+        }
+
+        // Create the form with values of cloned activity.
+        $form = $this->createForm(ActivityType::class, $activity, [
+            'periods' => $periods,
+            'activity_theme_domains' => $this->getAvailableActivityThemeDomains($classroom, $configurationService),
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->persist($activity);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Activity duplicated');
+            return $this->redirectToRoute('activities');
+        }
+
+        return $this->render('activities/form-edit-duplicate.html.twig', [
+            'activity' => $activity,
+            'classroomId' => $activity->getClassroom()->getId(),
+            'form' => $form->createView(),
+        ]);
+    }
+
 
 
     /**
@@ -339,6 +377,37 @@ class ActivityController extends AbstractController
     {
         if($activity->getUser() !== $this->getUser())
             throw $this->createAccessDeniedException();
+    }
+
+
+    /**
+     * Return available activity theme domains for a provided classroom.
+     * @param Classroom $classroom
+     * @param ConfigurationService $configuration
+     * @return array|int|mixed|string
+     */
+    private function getAvailableActivityThemeDomains(Classroom $classroom, ConfigurationService $configuration)
+    {
+        // Getting available ActivityThemeDomain.
+        $atcRepository = $this->getDoctrine()->getRepository(ActivityThemeDomain::class);
+        if(!is_null($classroom->getOwner())) {
+            $activityThemeDomains = [];
+            if($configuration->load($this->getUser())->getUsePredefinedActivitiesValues()) {
+                $activityThemeDomains = $atcRepository->findBy([
+                    'type' => ActivityThemeDomain::TYPE_GENERIC_DEFAULT,
+                ]);
+            }
+
+            $activityThemeDomains = array_merge(
+                $activityThemeDomains,
+                $activityThemeDomains = $atcRepository->findByTypeAndClassroom(ActivityThemeDomain::TYPE_GENERIC, $classroom, true)
+            );
+        }
+        else {
+            $activityThemeDomains = $atcRepository->findByTypeAndClassroom(ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM, $classroom, true);
+        }
+
+        return $activityThemeDomains;
     }
 
 }
