@@ -95,7 +95,7 @@ class NoteTypeRepository extends ServiceEntityRepository
             // 0..5
             $nt05 = new NoteType();
             $nt05
-                ->setName("0 -> 5 coeff $i")
+                ->setName("0 -> 5")
                 ->setCoefficient($i)
                 ->setDescription("0 -> 5 coeff $i.")
                 ->setMaximum('5')
@@ -107,7 +107,7 @@ class NoteTypeRepository extends ServiceEntityRepository
             // 0..10
             $nt10 = new NoteType();
             $nt10
-                ->setName("0 -> 10 coeff $i")
+                ->setName("0 -> 10")
                 ->setCoefficient($i)
                 ->setDescription("0 -> 10 coeff $i.")
                 ->setMaximum('10')
@@ -119,7 +119,7 @@ class NoteTypeRepository extends ServiceEntityRepository
             // 0..20
             $nt20 = new NoteType();
             $nt20
-                ->setName("0 -> 20 coeff $i")
+                ->setName("0 -> 20")
                 ->setCoefficient($i)
                 ->setDescription("0 -> 20 coeff $i")
                 ->setMaximum('20')
@@ -132,7 +132,7 @@ class NoteTypeRepository extends ServiceEntityRepository
             // 0..25
             $nt25 = new NoteType();
             $nt25
-                ->setName("0 -> 25 coeff $i")
+                ->setName("0 -> 25")
                 ->setCoefficient($i)
                 ->setDescription("0 -> 25 coeff $i")
                 ->setMaximum('25')
@@ -145,7 +145,7 @@ class NoteTypeRepository extends ServiceEntityRepository
             // 0..30
             $nt30 = new NoteType();
             $nt30
-                ->setName("0 -> 30 coeff $i")
+                ->setName("0 -> 30")
                 ->setCoefficient($i)
                 ->setDescription("0 -> 30 coeff $i.")
                 ->setMaximum('30')
@@ -158,7 +158,7 @@ class NoteTypeRepository extends ServiceEntityRepository
             // 0..50
             $nt50 = new NoteType();
             $nt50
-                ->setName("0 -> 50 coeff $i")
+                ->setName("0 -> 50")
                 ->setCoefficient($i)
                 ->setDescription("0 -> 50 coeff $i.")
                 ->setMaximum('50')
@@ -171,7 +171,7 @@ class NoteTypeRepository extends ServiceEntityRepository
             // 0..60
             $nt60 = new NoteType();
             $nt60
-                ->setName("0 -> 60 coeff $i")
+                ->setName("0 -> 60")
                 ->setCoefficient($i)
                 ->setDescription("0 -> 60 coeff $i.")
                 ->setMaximum('60')

@@ -44,6 +44,9 @@ class ActivityThemeDomainSkillType extends AbstractType
             ->add('noteType', EntityType::class, [
                 'class'   => NoteType::class,
                 'choices' => $options['noteTypes'],
+                'choice_label' => function(NoteType $noteType) {
+                    return $noteType->getName();
+                },
             ])
 
             // Submit button.
