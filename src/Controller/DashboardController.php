@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Activity;
 use App\Entity\ActivityTheme;
 use App\Entity\ActivityThemeDomain;
@@ -11,7 +12,6 @@ use App\Entity\NoteType;
 use App\Form\ActivityThemeDomainSkillType;
 use App\Form\ActivityThemeDomainType;
 use App\Repository\ActivityThemeDomainRepository;
-use App\Repository\ActivityThemeDomainSkillRepository;
 use App\Service\ConfigurationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\OptimisticLockException;
@@ -129,11 +129,17 @@ class DashboardController extends AbstractController
      * @Route("/dashboard/add/domain/{classroom}", name="dashboard_add_domain")
      * @param Request $request
      * @param Classroom $classroom
-     * @param ActivityThemeDomainRepository $domainRepository
      * @return RedirectResponse|Response
      */
-    public function addThemeDomain(Request $request, Classroom $classroom, ActivityThemeDomainRepository $domainRepository)
+    public function addThemeDomain(Request $request, Classroom $classroom)
     {
+        // Checking if classroom is used by the current logged in user.
+        if(!$this->isUserClassroomCRUDAllowed($classroom)) {
+            $this->addFlash('error', 'You are not allowed to edit other classroom information');
+            return $this->redirectToRoute('dashboard');
+        }
+
+        // Adding theme domains is not allowed for special classrooms / masters.
         if(is_null($classroom->getOwner())) {
             $this->addFlash('error', 'You can not add a domain as your classtoom is a special classroom');
         }
@@ -186,11 +192,16 @@ class DashboardController extends AbstractController
      * @Route("/dashboard/edit/domain/{domain}", name="dashboard_edit_domain")
      * @param Request $request
      * @param ActivityThemeDomain $domain
-     * @param ActivityThemeDomainRepository $domainRepository
      * @return RedirectResponse|Response
      */
-    public function editThemeDomain(Request $request, ActivityThemeDomain $domain, ActivityThemeDomainRepository $domainRepository)
+    public function editThemeDomain(Request $request, ActivityThemeDomain $domain)
     {
+        // Checking if classroom is used by the current logged in user.
+        if(!$this->isUserClassroomCRUDAllowed($domain->getClassroom())) {
+            $this->addFlash('error', 'You are not allowed to edit other classroom information');
+            return $this->redirectToRoute('dashboard');
+        }
+
         $form = $this->createForm(ActivityThemeDomainType::class, $domain);
         $form->handleRequest($request);
 
@@ -229,6 +240,12 @@ class DashboardController extends AbstractController
      */
     public function deleteThemeDomain(Request $request, ActivityThemeDomain $domain, EntityManagerInterface $entityManager)
     {
+        // Checking if classroom is used by the current logged in user.
+        if(!$this->isUserClassroomCRUDAllowed($domain->getClassroom())) {
+            $this->addFlash('error', 'You are not allowed to edit other classroom information');
+            return $this->json(['message' => 'You are not allowed to edit other classroom information'], 201);
+        }
+
         // Only possible if domain is editable, will return an error if the domain has activities in it.
         if(!in_array($domain->getType(),[ActivityThemeDomain::TYPE_GENERIC_DEFAULT, ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM ])) {
             $skills = $domain->getActivityThemeDomainSkills()->toArray();
@@ -270,6 +287,12 @@ class DashboardController extends AbstractController
      */
     public function addThemeDomainSkill(Request $request, ActivityThemeDomain $domain, Classroom $classroom)
     {
+        // Checking if classroom is used by the current logged in user.
+        if(!$this->isUserClassroomCRUDAllowed($classroom)) {
+            $this->addFlash('error', 'You are not allowed to edit other classroom information');
+            return $this->redirectToRoute('dashboard');
+        }
+
         $noteTypesRepository = $this->getDoctrine()->getRepository(NoteType::class);
         $skill = new ActivityThemeDomainSkill();
 
@@ -332,6 +355,17 @@ class DashboardController extends AbstractController
      */
     public function editThemeDomainSkill(Request $request, ActivityThemeDomainSkill $skill)
     {
+        // Checking if classroom is used by the current logged in user.
+        $classroom = $this->getDoctrine()->getRepository(Classroom::class)->findOneBy([
+            'id' => $skill->getClassroom(),
+        ]);
+
+        // Checking if classroom is used by the current logged in user.
+        if(!$this->isUserClassroomCRUDAllowed($classroom)) {
+            $this->addFlash('error', 'You are not allowed to edit other classroom information');
+            return $this->redirectToRoute('dashboard');
+        }
+
         $noteTypesRepository = $this->getDoctrine()->getRepository(NoteType::class);
 
         $noteTypes = $noteTypesRepository->findByType($skill->getActivityThemeDomain()->getActivityTheme()->getIsNumericNotes(), 1);
@@ -374,6 +408,16 @@ class DashboardController extends AbstractController
      */
     public function deleteThemeDomainSkill(Request $request, ActivityThemeDomainSkill $skill, EntityManagerInterface $entityManager)
     {
+        // Checking if classroom is used by the current logged in user.
+        $classroom = $this->getDoctrine()->getRepository(Classroom::class)->findOneBy([
+            'id' => $skill->getClassroom(),
+        ]);
+
+        if(!$this->isUserClassroomCRUDAllowed($classroom)) {
+            $this->addFlash('error', 'You are not allowed to edit other classroom information');
+            return $this->json(['message' => 'You are not allowed to edit other classroom information'], 201);
+        }
+
         if($skill->getActivities()->count() > 0) {
             return $this->json(['message' => 'You can not delete domains with activities in it, but you can still edit them'], 201);
         }
@@ -426,6 +470,22 @@ class DashboardController extends AbstractController
         ]);
 
         return is_null($skillExists) ? false : true;
+    }
+
+
+    /**
+     * Check if the target classroom is in the user classrooms list.
+     * @param Classroom $classroom
+     * @return bool
+     */
+    private function isUserClassroomCRUDAllowed(Classroom $classroom)
+    {
+        $map = function(User $user) {
+            return $user->getId();
+        };
+
+        $users = array_map($map, array_merge($classroom->getUsers()->toArray(), [$classroom->getOwner()]));
+        return in_array($this->getUser()->getId(), $users);
     }
 
 }
