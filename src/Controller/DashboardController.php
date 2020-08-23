@@ -484,7 +484,11 @@ class DashboardController extends AbstractController
             return $user->getId();
         };
 
-        $users = array_map($map, array_merge($classroom->getUsers()->toArray(), [$classroom->getOwner()]));
+        $users = $classroom->getUsers()->toArray();
+        if(!is_null($classroom->getOwner())) {
+            $users = array_merge($users, [$classroom->getOwner()]);
+        }
+        $users = array_map($map, $users);
         return in_array($this->getUser()->getId(), $users);
     }
 
