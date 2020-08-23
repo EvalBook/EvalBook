@@ -115,7 +115,6 @@ Error: Erreur
 'The minimum and maximum values cannot be used as intervals': 'Les valeurs minimum et maximum ne peuvent être utilisées en tant que note intermédiaire'
 'The display name must be between 2 and 100 chars': "Le nom d'affichage doit être compris entre 2 et 100."
 'The skill name must be between 2 and 100 chars': 'Le nom de la compétence doit comporter de 2 à 100 caractères.'
-'The skill description must be between 2 and 100 chars': 'La description de la compétence doit comporter de 2 à 100 caractères'
 'You can not delete domains with activities in it, but you can still edit them': "Vous ne pouvez pas supprimer un domaine qui contient des activités, mais vous pouvez l'éditer"
 'You cannot delete the special classroom domain or the default ones': "Vous ne pouvez pas supprimer un domaine de classe spéciale ou un domaine par défaut"
 
