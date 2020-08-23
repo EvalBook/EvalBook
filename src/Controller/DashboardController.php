@@ -296,8 +296,22 @@ class DashboardController extends AbstractController
         $noteTypesRepository = $this->getDoctrine()->getRepository(NoteType::class);
         $skill = new ActivityThemeDomainSkill();
 
+        // Display ALL note type if matière AND special classroom || Transversal skills.
+        $activityTheme = $this->getDoctrine()->getRepository(ActivityTheme::class)->findOneBy([
+            'id' => $domain->getActivityTheme(),
+        ]);
+
+        // Fetching additional note types if it is a special classroom and not a behavior or other non numeric theme.
+        if($domain->getType() === ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM && $activityTheme->getIsNumericNotes()) {
+            $noteTypes = $noteTypesRepository->findBy(['coefficient' => 1]);
+        }
+        else {
+            // Fetching base note types.
+            $noteTypes = $noteTypesRepository->findByType($activityTheme->getIsNumericNotes(), 1);
+        }
+
         $form = $this->createForm(ActivityThemeDomainSkillType::class, $skill, [
-            'noteTypes' => $noteTypesRepository->findByType($domain->getActivityTheme()->getIsNumericNotes(), 1),
+            'noteTypes' => $noteTypes,
         ]);
 
         $form->handleRequest($request);
@@ -368,7 +382,24 @@ class DashboardController extends AbstractController
 
         $noteTypesRepository = $this->getDoctrine()->getRepository(NoteType::class);
 
-        $noteTypes = $noteTypesRepository->findByType($skill->getActivityThemeDomain()->getActivityTheme()->getIsNumericNotes(), 1);
+        // Fetching Theme.
+        $activityTheme = $this->getDoctrine()->getRepository(ActivityTheme::class)->findOneBy([
+            'id' => $skill->getActivityThemeDomain()->getActivityTheme(),
+        ]);
+
+        // Fetching domain.
+        $domain = $this->getDoctrine()->getRepository(ActivityThemeDomain::class)->findOneBy([
+            'id' => $skill->getActivityThemeDomain(),
+        ]);
+
+        // Fetching additional note types if it is a special classroom and not a behavior or other non numeric theme.
+        if($domain->getType() === ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM && $activityTheme->getIsNumericNotes()) {
+            $noteTypes = $noteTypesRepository->findBy(['coefficient' => 1]);
+        }
+        else {
+            // Fetching base note types.
+            $noteTypes = $noteTypesRepository->findByType($activityTheme->getIsNumericNotes(), 1);
+        }
 
         $form = $this->createForm(ActivityThemeDomainSkillType::class, $skill, [
             'noteTypes' => $noteTypes,
