@@ -144,29 +144,25 @@ class DashboardController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
+                // Setting domain basic informations.
+                $domain->setClassroom($classroom);
+                // in uppercase to ease track user changes in db.
+                $domain->setName(strtoupper($domain->getDisplayName()));
 
-                $domainExists = $domainRepository->findOneBy([
-                    'displayName' => $domain->getDisplayName(),
-                    'classroom' => $domain->getClassroom(),
-                    'activityTheme' => $domain->getActivityTheme(),
-                ]);
+                if (is_null($domain->getClassroom()->getOwner())) {
+                    $domain->setType(ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM);
+                }
+                else {
+                    $domain->setType(ActivityThemeDomain::TYPE_GENERIC);
+                }
 
                 // Redirect to the form in case the domain name already taken.
-                if(!is_null($domainExists)) {
+                if($this->domainExists($domain)) {
                     $this->addFlash('error', 'This domain already exists, please, choose an other name');
                     return $this->render('dashboard/form-theme-domain.html.twig', [
                         'form' => $form->createView(),
                     ]);
                 }
-
-                $domain->setClassroom($classroom);
-                if (is_null($domain->getClassroom()->getOwner())) {
-                    $domain->setType(ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM);
-                } else {
-                    $domain->setType(ActivityThemeDomain::TYPE_GENERIC);
-                }
-                // in uppercase to ease track user changes in db.
-                $domain->setName(strtoupper($domain->getDisplayName()));
 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($domain);
@@ -199,15 +195,8 @@ class DashboardController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $domainExists = $domainRepository->findOneBy([
-                'displayName' => $domain->getDisplayName(),
-                'classroom' => $domain->getClassroom(),
-                'activityTheme' => $domain->getActivityTheme(),
-            ]);
-
             // Redirect to the form in case the domain name already taken.
-            if(!is_null($domainExists)) {
+            if($this->domainExists($domain)) {
                 $this->addFlash('error', 'This domain already exists, please, choose an other name');
                 return $this->render('dashboard/form-theme-domain.html.twig', [
                     'form' => $form->createView(),
@@ -277,10 +266,9 @@ class DashboardController extends AbstractController
      * @param Request $request
      * @param ActivityThemeDomain $domain
      * @param Classroom $classroom
-     * @param ActivityThemeDomainSkillRepository $skillRepository
      * @return RedirectResponse|Response
      */
-    public function addThemeDomainSkill(Request $request, ActivityThemeDomain $domain, Classroom $classroom, ActivityThemeDomainSkillRepository $skillRepository)
+    public function addThemeDomainSkill(Request $request, ActivityThemeDomain $domain, Classroom $classroom)
     {
         $noteTypesRepository = $this->getDoctrine()->getRepository(NoteType::class);
         $skill = new ActivityThemeDomainSkill();
@@ -308,16 +296,8 @@ class DashboardController extends AbstractController
                 $skill->setClassroom($classroom);
                 $skill->setActivityThemeDomain($domain);
 
-                // Disallow skill addition if themeDomain + Classroom + description are the same.
-                $skillExists = $skillRepository->findOneBy([
-                    'activityThemeDomain' => $domain,
-                    'classroom' => $skill->getClassroom(),
-                    'name' => $skill->getName(),
-                    'description' => $skill->getDescription(),
-                ]);
-
                 // Redirect to the form in case the domain name already taken.
-                if(!is_null($skillExists)) {
+                if($this->skillExists($skill)) {
                     $this->addFlash('error', 'This skill already exists, please, choose an other name');
                     return $this->render('dashboard/form-theme-domain-skill.html.twig', [
                         'form' => $form->createView(),
@@ -363,8 +343,15 @@ class DashboardController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
+            // Redirect to the form in case the domain name already taken.
+            if($this->skillExists($skill)) {
+                $this->addFlash('error', 'This skill already exists, please, choose an other name');
+                return $this->render('dashboard/form-theme-domain-skill.html.twig', [
+                    'form' => $form->createView(),
+                ]);
+            }
 
+            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($skill);
             $entityManager->flush();
 
@@ -400,6 +387,45 @@ class DashboardController extends AbstractController
         $entityManager->flush();
 
         return $this->json(['message' => 'Skill deleted'], 200);
+    }
+
+
+    /**
+     * Check if a given domain exists in database.
+     * @param ActivityThemeDomain $domain
+     * @param string $type
+     * @return bool
+     */
+    private function domainExists(ActivityThemeDomain $domain)
+    {
+        $domainRepository = $this->getDoctrine()->getRepository(ActivityThemeDomain::class);
+        $domainExists = $domainRepository->findOneBy([
+            'displayName' => $domain->getDisplayName(),
+            'classroom' => $domain->getClassroom(),
+            'activityTheme' => $domain->getActivityTheme(),
+        ]);
+
+        return is_null($domainExists) ? false : true;
+    }
+
+
+    /**
+     * Check if a skill exists in database.
+     * @param ActivityThemeDomainSkill $skill
+     * @return bool
+     */
+    private function skillExists(ActivityThemeDomainSkill $skill)
+    {
+        $skillRepository = $this->getDoctrine()->getRepository(ActivityThemeDomainSkill::class);
+        // Check if the edited skill already exists in database.
+        $skillExists = $skillRepository->findOneBy([
+            'activityThemeDomain' => $skill->getActivityThemeDomain(),
+            'classroom' => $skill->getClassroom(),
+            'name' => $skill->getName(),
+            'description' => $skill->getDescription(),
+        ]);
+
+        return is_null($skillExists) ? false : true;
     }
 
 }
