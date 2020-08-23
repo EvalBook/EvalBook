@@ -56,11 +56,11 @@
         All activities are sorted as 'last in -> first displayed'
     #}
 
-    {% for key, classroom in classrooms %}
-        <table class="full-width {{ key > 0 ? 'margin-plus' : '' }}">
+    {% for class, activities in classrooms %}
+        <table class="full-width margin-plus">
             <thead>
             <tr>
-                <th class="text-center" colspan="8">{{ classroom.implantation.name }} - {{ classroom.name }}</th>
+                <th class="text-center" colspan="8">{{ class }}</th>
             </tr>
             <tr>
                 <th class="mobile-hidden-td">{{ 'User'|trans }}</th>
@@ -75,7 +75,7 @@
             </thead>
             <tbody>
 
-            {% for activity in classroom.activities %}
+            {% for activity in activities %}
                 {# Flag to check if activity owner is the same as the current logged in user to display <<me>> instead of user name #}
                 {% set owner = (activity.user is same as(app.user)) ? true : false %}
                 {# Checking if the activity is editable ( if period is closed, then the activity is not editable ) #}

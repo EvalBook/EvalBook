@@ -46,20 +46,21 @@ class ActivityController extends AbstractController
      */
     public function index(): Response
     {
-        /*
-        $activities = array();
-        foreach($this->getUser()->getClassrooms() as $classroom) {
-            $activities = array_merge($activities, $classroom->getActivities()->toArray());
-        }
-        // Setting activities with the right order ( by date descending ).
-        usort($activities, function(Activity $one, Activity $two) {
+        $sort = function(Activity $one, Activity $two) {
             return $one->getDateAdded() < $two->getDateAdded();
-        });
-*/
+        };
+
+        $classrooms = array();
+        foreach($this->getUser()->getClassrooms() as $classroom) {
+            $key = $classroom->getImplantation()->getName() . " - " . $classroom->getName();
+            $us = $classroom->getActivities()->toArray();
+            usort($us, $sort);
+            $classrooms[$key] = $us;
+        }
+
         // Getting the user activities.
         return $this->render('activities/index.html.twig', [
-            'classrooms' => $this->getUser()->getClassrooms(),
-            //'activities' => $activities,
+            'classrooms' => $classrooms,
         ]);
     }
 
