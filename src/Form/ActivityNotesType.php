@@ -35,7 +35,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ActivityNotesType extends AbstractType
 {
     /**
-     * Create a form for ActiviteNotesType.
+     * Create a form for ActivityNotesType.
      * @param FormBuilderInterface $builder
      * @param array $options
      */
