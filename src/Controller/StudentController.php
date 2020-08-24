@@ -61,8 +61,17 @@ class StudentController extends AbstractController
             }
         }
 
+        // Getting students without classrooms.
+        $noClassroomsStudents = $studentRepository->findAll();
+
+        // Getting students without classroom.
+        $filter = function(Student $student) {
+            return $student->getClassrooms()->count() === 0;
+        };
+
         return $this->render('students/index.html.twig', [
             'students' => array_unique($students),
+            'noClassroomsStudentsCount' => count(array_filter($noClassroomsStudents, $filter)),
         ]);
     }
 
@@ -367,5 +376,27 @@ class StudentController extends AbstractController
         $entityManager->flush();
 
         return $this->json(['message' => 'Element deleted'], 200);
+    }
+
+
+    /**
+     * @Route("/students/no-classrooms", name="students_no_classrooms")
+     * @IsGranted("ROLE_STUDENT_LIST_ALL", statusCode=404, message="Not found")
+     *
+     * @param StudentRepository $studentRepository
+     * @return Response
+     */
+    public function getStudentsWithNoClassrooms(StudentRepository $studentRepository)
+    {
+        $students = $studentRepository->findAll();
+
+        // Getting students without classroom.
+        $filter = function(Student $student) {
+            return $student->getClassrooms()->count() === 0;
+        };
+
+        return $this->render('students/index.html.twig', [
+            'students' => array_filter($students, $filter),
+        ]);
     }
 }
