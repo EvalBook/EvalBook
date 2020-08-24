@@ -96,8 +96,8 @@
                     </div>
 
                     {# Activity comment #}
-                    <div class="form-row">
-                        {# { form_label(form.comment, 'Comment'|trans) } #}
+                    <div class="form-row hidden">
+                        {{ form_label(form.comment, 'Description'|trans) }}
                         {{ form_widget(form.comment) }}
                     </div>
 

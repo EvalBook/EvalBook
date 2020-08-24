@@ -22,6 +22,7 @@ namespace App\Form;
 use App\Entity\ActivityThemeDomain;
 use App\Entity\ActivityThemeDomainSkill;
 use App\Entity\Period;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -98,8 +99,10 @@ class ActivityType extends AbstractType
             ])
 
 
-            // Future needs.
-            ->add('comment', HiddenType::class)
+            // Activity description.
+            ->add('comment', CKEditorType::class, [
+                'required' => false,
+            ])
 
             // Submit button.
             ->add('submit', SubmitType::class)
