@@ -405,11 +405,10 @@ class StudentController extends AbstractController
 
     /**
      * @Route("/students/export-csv/{classroom}", name="students_export_csv", defaults={"classroom"=null})
-     * @param StudentRepository $repository
      * @param Classroom|null $classroom
      * @return Response
      */
-    public function exportStudentsCSV(StudentRepository $repository, ?Classroom $classroom)
+    public function exportStudentsCSV(?Classroom $classroom)
     {
         if(!is_null($classroom)) {
             $students = $classroom->getStudents()->toArray();

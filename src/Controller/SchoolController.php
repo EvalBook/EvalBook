@@ -38,7 +38,7 @@ class SchoolController extends AbstractController
      * @IsGranted("ROLE_SCHOOL_LIST_ALL", statusCode=404, message="Not found")
      *
      * @param SchoolRepository $repository
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function index(SchoolRepository $repository)
     {
