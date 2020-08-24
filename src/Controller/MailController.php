@@ -60,7 +60,7 @@ class MailController extends AbstractController
                 ->addReplyTo($mailForm->get('from')->getData())
                 ->to(trim($mailForm->get('to')->getData()))
                 ->subject($mailForm->get('subject')->getData())
-                ->text($mailForm->get('message')->getData())
+                ->html($mailForm->get('message')->getData())
                 ->priority(Email::PRIORITY_HIGHEST)
             ;
 
