@@ -465,7 +465,7 @@ tr:hover i, tr:hover a {
 }
 
 /**
- * Polishing classes.
+ * Polishing / helper classes.
  */
 .margin-15 {
     margin-top: 15px;
@@ -589,6 +589,10 @@ tr:hover i, tr:hover a {
 
 .display-none {
     display: none;
+}
+
+.font-medium {
+    font-size: medium;
 }
 
 #mobile-contact-actions {

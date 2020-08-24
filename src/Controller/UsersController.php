@@ -67,14 +67,21 @@ class UsersController extends AbstractController
     public function index()
     {
         // Getting all non admin users.
-        if(!in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
+        if($this->isGranted('ROLE_ADMIN')) {
             $users = $this->repository->findByRole('ROLE_ADMIN', false);
         }
         else {
             $users = $this->repository->findAll();
         }
+
+        // Getting users without classroom.
+        $filter = function(User $user) {
+            return $user->getClassrooms()->count() === 0 && $user->getClassroomsOwner()->count() === 0;
+        };
+
         return $this->render('users/index.html.twig', [
             'users' => $users,
+            'noClassroomsUsersCount' => count(array_filter($users, $filter)),
         ]);
     }
 
@@ -357,6 +364,27 @@ class UsersController extends AbstractController
         return $this->render('users/configuration-form.html.twig', [
             'configuration' => $configuration,
             'form' => $configurationForm->createView(),
+        ]);
+    }
+
+
+    /**
+     * @Route("/users/no-classrooms", name="users_no_classrooms")
+     * @IsGranted("ROLE_USER_LIST_ALL", statusCode=404, message="Not found")
+     *
+     * @return Response
+     */
+    public function getUsersWithNoClassrooms()
+    {
+        $users = $this->repository->findAll();
+
+        // Getting users without classroom.
+        $filter = function(User $user) {
+            return $user->getClassrooms()->count() === 0 && $user->getClassroomsOwner()->count() === 0;
+        };
+
+        return $this->render('users/index.html.twig', [
+            'users' => array_filter($users, $filter),
         ]);
     }
 
