@@ -24,6 +24,7 @@ use App\Entity\ActivityThemeDomainSkill;
 use App\Entity\Period;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -84,6 +85,16 @@ class ActivityType extends AbstractType
                     ])
                 ],
                 'required' => true,
+            ])
+
+            ->add('isInShoolReport', ChoiceType::class, [
+                'choices' => [
+                    'Yes' => true,
+                    'No' => false,
+                ],
+
+                'data' => false,
+                'translation_domain' => 'templates',
             ])
 
 

@@ -14,6 +14,7 @@ let ActivityHandler = {
         this.skillsElement = document.querySelector('#activity_activityThemeDomainSkill');
         this.noteTypesElement = document.querySelector('#activity_noteType');
         this.activityName = document.querySelector('#activity_name');
+        this.schoolReportShow = document.querySelector('#activity_isInShoolReport');
         this.submit = document.querySelector('#activity_submit');
 
         // Setting defaults.
@@ -43,6 +44,7 @@ let ActivityHandler = {
         this.skillsElement.parentElement.style.display = 'none';
         this.noteTypesElement.parentElement.style.display = 'none';
         this.activityName.parentElement.style.display = 'none';
+        this.schoolReportShow.parentElement.style.display = 'none';
         this.submit.style.display = 'none';
     },
 
@@ -117,6 +119,7 @@ let ActivityHandler = {
         // Simply display the rest of the form.
         this.noteTypesElement.removeChild(this.noteTypesElement.firstChild);
         this.activityName.parentElement.style.display = 'block';
+        this.schoolReportShow.parentElement.style.display = 'block';
         this.submit.style.display = 'block';
     },
 

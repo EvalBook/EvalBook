@@ -89,6 +89,11 @@ class Activity
      */
     private $activityThemeDomainSkill;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isInShoolReport;
+
 
     /**
      * Activite constructor.
@@ -360,5 +365,28 @@ class Activity
         if(!is_null($this->getComment())) {
             $this->setComment($this->getComment() . " ( clone )");
         }
+    }
+
+
+    /**
+     * Return true if the activity must appear in the school report.
+     * @return bool|null
+     */
+    public function getIsInShoolReport(): ?bool
+    {
+        return $this->isInShoolReport;
+    }
+
+
+    /**
+     * Set to true in order to make this activity visible in the school report.
+     * @param bool $isInShoolReport
+     * @return $this
+     */
+    public function setIsInShoolReport(bool $isInShoolReport): self
+    {
+        $this->isInShoolReport = $isInShoolReport;
+
+        return $this;
     }
 }
