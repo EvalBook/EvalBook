@@ -19,6 +19,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Classroom;
 use App\Entity\Student;
 use App\Entity\StudentContact;
 use App\Entity\StudentContactRelation;
@@ -32,6 +33,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
@@ -398,5 +400,48 @@ class StudentController extends AbstractController
         return $this->render('students/index.html.twig', [
             'students' => array_filter($students, $filter),
         ]);
+    }
+
+
+    /**
+     * @Route("/students/export-csv/{classroom}", name="students_export_csv", defaults={"classroom"=null})
+     * @param StudentRepository $repository
+     * @param Classroom|null $classroom
+     * @return Response
+     */
+    public function exportStudentsCSV(StudentRepository $repository, ?Classroom $classroom)
+    {
+        if(!is_null($classroom)) {
+            $students = $classroom->getStudents()->toArray();
+        }
+        else {
+            $classrooms = $this->getUser()->getClassrooms();
+            $students = [];
+            foreach($classrooms as $classroom) {
+                $students = array_merge($students, $classroom->getStudents()->toArray());
+            }
+        }
+
+        $response = new StreamedResponse();
+        $response->setCallback(
+            function() use($students) {
+                $handle = fopen('php://output', 'r+');
+                fprintf($handle, chr(0xEF).chr(0xBB).chr(0xBF));
+
+                foreach ($students as $student) {
+                    $data = [
+                        $student->getFirstName(),
+                        $student->getLastName(),
+                        $student->getBirthday()->format('d / m / Y'),
+                    ];
+                    fputcsv($handle, $data, ';');
+                }
+                fclose($handle);
+            }
+        );
+        $response->headers->set('Content-Type', 'application/force-download');
+        $response->headers->set('Content-Disposition', 'attachment; filename="export.csv"');
+
+        return $response;
     }
 }
