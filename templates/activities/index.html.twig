@@ -104,7 +104,7 @@
                     <td class="js-search-target text-center">
                         {% if owner and editable %}
                             <a href="{{ path('activity_note_add', {'id': activity.id}) }}" title="Add activity notes">
-                                {% set cssClass = activity.notes|length > 0 ? 'text-yellow' : 'text-red'  %}
+                                {% set cssClass = activity.notes|length > 0 ? 'text-green-2' : 'text-red'  %}
                                 <i class="fas fa-medal {{ cssClass }}"></i>
                             </a>
                         {% else %}

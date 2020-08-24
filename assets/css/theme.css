@@ -513,6 +513,14 @@ tr:hover i, tr:hover a {
     color: #D98484;
 }
 
+.text-yellow {
+    color: var(--secondary-color);
+}
+
+.text-green-2 {
+    color: #22bf3f;
+}
+
 .text-green {
     color: #82d9a7;
 }
@@ -527,11 +535,6 @@ tr:hover i, tr:hover a {
 
 .text-bigger {
     font-size: 6em;
-}
-
-
-.text-yellow {
-    color: var(--secondary-color);
 }
 
 .bg-yellow {
