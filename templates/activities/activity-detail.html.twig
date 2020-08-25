@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block pageTitle %} {{ 'Activity details'|trans }} {% endblock %}
+
+{% block title %}{{ 'Activity details'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="full-width">
+        {% set owner = (activity.user is same as(app.user)) ? true : false %}
+        {% include '_partials/go-back.html.twig' %}
+
+        {# Contact details as a table #}
+        <table class="full-width">
+            {# Activity name. #}
+            <tr>
+                <th class="width-25-percent">{{ 'Name'|trans }}:</th>
+                <td>{{ activity.name }}</td>
+            </tr>
+
+            {# Activity implantation. #}
+            <tr>
+                <th class="width-25-percent">{{ 'Implantation'|trans }}:</th>
+                <td>{{ activity.classroom.implantation.name }}</td>
+            </tr>
+
+            {# Activity classroom. #}
+            <tr>
+                <th class="width-25-percent">{{ 'Classroom'|trans }}:</th>
+                <td>{{ activity.classroom.name }}</td>
+            </tr>
+
+            {# Activity domain. #}
+            <tr>
+                <th class="width-25-percent">{{ 'Domain'|trans }}:</th>
+                <td>{{ activity.activityThemeDomainSkill.activityThemeDomain.displayName }}</td>
+            </tr>
+
+            {# Activity skill. #}
+            <tr>
+                <th class="width-25-percent">{{ 'Skill'|trans }}:</th>
+                <td>{{ activity.activityThemeDomainSkill.name }} - {{ activity.activityThemeDomainSkill.description }}</td>
+            </tr>
+
+            {# Activity date added #}
+            <tr>
+                <th>{{ 'Date'|trans }}:</th>
+                <td>{{ activity.dateAdded|date('d/m/Y') }}</td>
+            </tr>
+
+            {# Activity user #}
+            <tr>
+                <th>{{ 'User'|trans }}:</th>
+                <td>
+                    {%  if owner %}
+                        <span><< <strong>{{ 'Me'|trans }}</strong> >></span>
+                    {% else %}
+                        {{ activity.user }}
+                    {% endif %}
+                </td>
+            </tr>
+
+            {# Activity note type #}
+            <tr>
+                <th>{{ 'Note type'|trans }}:</th>
+                <td>{{ activity.noteType.description }}</td>
+            </tr>
+
+            {# Activity period #}
+            <tr>
+                <th>{{ 'Period'|trans }}:</th>
+                <td>{{ activity.period.name }}  ( {{ activity.period.dateStart|date('d/m/Y')}} - {{ activity.period.dateEnd|date('d/m/Y') }} )</td>
+            </tr>
+
+            {# Activity used to compute school report #}
+            <tr>
+                <th>{{ 'Is in school report ?'|trans }}:</th>
+                <td>{{ activity.isInShoolReport is same as(true) ? 'Yes'|trans : 'No'|trans }}</td>
+            </tr>
+            {# Activity used to compute school report #}
+            <tr class="margin-plus">
+                <th colspan="2">{{ 'Description'|trans }}:</th>
+            </tr>
+            <tr>
+                <td colspan="2">{{ activity.comment }}</td>
+            </tr>
+
+        </table>
+
+        {# Shorlink to activity edition. #}
+        <div class="margin-15">
+            <a href="{{ path('activity_edit', {'id': activity.id}) }}">
+                <i class="fas fa-edit"></i>
+                <span class="margin-left">{{ 'Edit this activity'|trans }}</span>
+            </a>
+        </div>
+
+    </div>
+{% endblock %}

@@ -60,13 +60,14 @@
         <table class="full-width margin-plus">
             <thead>
             <tr>
-                <th class="text-center" colspan="8">{{ class }}</th>
+                <th class="text-center" colspan="9">{{ class }}</th>
             </tr>
             <tr>
                 <th class="mobile-hidden-td">{{ 'User'|trans }}</th>
                 <th>{{ 'Name'|trans }}</th>
                 <th class="mobile-hidden-td">{{ 'Date'|trans }}</th>
                 <th class="mobile-hidden-td">{{ 'Period'|trans }}</th>
+                <th class="text-center">{{ 'Details'|trans }}</th>
                 <th class="text-center">{{ 'Note'|trans }}</th>
                 <th class="text-center">{{ 'Edit'|trans }}</th>
                 <th class="text-center">{{ 'Duplicate'|trans }}</th>
@@ -100,11 +101,18 @@
                     {# Activity period #}
                     <td class="mobile-hidden-td js-search-target">{{ activity.period.name }}</td>
 
+                    {# Activity details #}
+                    <td class="text-center">
+                        <a href="{{ path('activity_details', {'id': activity.id} ) }}" title="{{ 'View activity details'|trans }}">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                    </td>
+
                     {# Note activity access ( Provide a link to not student on this activity ) #}
                     <td class="js-search-target text-center">
                         {% if owner and editable %}
                             <a href="{{ path('activity_note_add', {'id': activity.id}) }}" title="Add activity notes">
-                                {% set cssClass = activity.notes|length > 0 ? 'text-green-2' : 'text-red'  %}
+                                {% set cssClass = activity.notes|length > 0 ? 'text-green-medal' : 'text-red-medal'  %}
                                 <i class="fas fa-medal {{ cssClass }}"></i>
                             </a>
                         {% else %}

@@ -517,8 +517,12 @@ tr:hover i, tr:hover a {
     color: var(--secondary-color);
 }
 
-.text-green-2 {
+.text-green-medal {
     color: #22bf3f;
+}
+
+.text-red-medal {
+    color: #bc2424;
 }
 
 .text-green {

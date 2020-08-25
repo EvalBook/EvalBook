@@ -368,6 +368,20 @@ class ActivityController extends AbstractController
 
 
     /**
+     * @Route("/activity/details/{id}", name="activity_details")
+     *
+     * @param Activity $activity
+     * @return Response
+     */
+    public function getActivityDetails(Activity $activity)
+    {
+        return $this->render('activities/activity-detail.html.twig', [
+            'activity' => $activity,
+        ]);
+    }
+
+
+    /**
      * Check the provided class user acces and throw access denied if user does not have rights to see it.
      * @param Classroom|null $classroom
      */
