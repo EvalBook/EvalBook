@@ -22,8 +22,10 @@ namespace App\Form;
 use App\Entity\ActivityThemeDomain;
 use App\Entity\ActivityThemeDomainSkill;
 use App\Entity\Period;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -86,9 +88,21 @@ class ActivityType extends AbstractType
                 'required' => true,
             ])
 
+            ->add('isInShoolReport', ChoiceType::class, [
+                'choices' => [
+                    'Yes' => true,
+                    'No' => false,
+                ],
 
-            // Future needs.
-            ->add('comment', HiddenType::class)
+                'data' => false,
+                'translation_domain' => 'templates',
+            ])
+
+
+            // Activity description.
+            ->add('comment', CKEditorType::class, [
+                'required' => false,
+            ])
 
             // Submit button.
             ->add('submit', SubmitType::class)

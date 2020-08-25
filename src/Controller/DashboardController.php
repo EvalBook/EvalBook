@@ -3,15 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Entity\Activity;
-use App\Entity\ActivityTheme;
 use App\Entity\ActivityThemeDomain;
 use App\Entity\ActivityThemeDomainSkill;
 use App\Entity\Classroom;
-use App\Entity\NoteType;
 use App\Form\ActivityThemeDomainSkillType;
 use App\Form\ActivityThemeDomainType;
+use App\Repository\ActivityRepository;
 use App\Repository\ActivityThemeDomainRepository;
+use App\Repository\ActivityThemeRepository;
+use App\Repository\NoteTypeRepository;
 use App\Service\ConfigurationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\OptimisticLockException;
@@ -30,6 +30,25 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DashboardController extends AbstractController
 {
+
+    private $activityRepository;
+    private $activityThemeRepository;
+    private $activityThemeDomainRepository;
+    private $noteTypeRepository;
+    private $em;
+
+    public function __construct(ActivityRepository $activityRepository, ActivityThemeRepository $themeRepository,
+                                ActivityThemeDomainRepository $domainRepository, NoteTypeRepository $nTypeRepository,
+                                EntityManagerInterface $em)
+    {
+        $this->activityRepository = $activityRepository;
+        $this->activityThemeRepository = $themeRepository;
+        $this->activityThemeDomainRepository = $domainRepository;
+        $this->noteTypeRepository = $nTypeRepository;
+        $this->em = $em;
+    }
+
+
     /**
      * @Route("/")
      * @Route("/dashboard", name="dashboard")
@@ -41,16 +60,11 @@ class DashboardController extends AbstractController
      */
     public function getDashboard(ConfigurationService $configurationService, TranslatorInterface $translator)
     {
-        $doctrine = $this->getDoctrine();
-        $activityRepository  = $doctrine->getRepository(Activity::class);
-        $activityDomainRepository = $doctrine->getRepository(ActivityThemeDomain::class);
-        $noteTypesRepository = $doctrine->getRepository(NoteType::class);
-
         try {
             $needNotesActivities = [];
             $withAbsActivities = [];
-            $needNotesActivities = $activityRepository->getUserActivitiesToNote($this->getUser());
-            $withAbsActivities = $activityRepository->getActivitiesWithSickStudents($this->getUser());
+            $needNotesActivities = $this->activityRepository->getUserActivitiesToNote($this->getUser());
+            $withAbsActivities = $this->activityRepository->getActivitiesWithSickStudents($this->getUser());
         }
         catch (OptimisticLockException $e) {}
         catch (TransactionRequiredException $e) {}
@@ -60,21 +74,21 @@ class DashboardController extends AbstractController
 
         // Populating themes and domains if no default domain was found.
         if($useConfigurationDefaultDomains) {
-            $domainsCheck = $activityDomainRepository->findBy([
+            $domainsCheck = $this->activityThemeDomainRepository->findBy([
                 'type' => ActivityThemeDomain::TYPE_GENERIC_DEFAULT,
             ]);
             // Checking if theme domains were alreay pushed.
             if(count($domainsCheck) === 0) {
-                $doctrine->getRepository(ActivityTheme::class)->populate($translator);
-                $activityDomainRepository->populate($translator);
+                $this->activityThemeRepository->populate($translator);
+                $this->activityThemeDomainRepository->populate($translator);
             }
         }
 
-        $noteTypes = $noteTypesRepository->findAll();
+        $noteTypes = $this->noteTypeRepository->findAll();
         // Populating note type if no data exists.
         if(count($noteTypes) === 0) {
-            $noteTypesRepository->populate();
-            $noteTypes = $noteTypesRepository->findAll();
+            $this->noteTypeRepository->populate();
+            $noteTypes = $this->noteTypeRepository->findAll();
         }
 
 
@@ -84,19 +98,19 @@ class DashboardController extends AbstractController
             if(!is_null($userClassroom->getOwner())) {
                 $activityDomains = [];
                 if($useConfigurationDefaultDomains) {
-                    $activityDomains = $activityDomainRepository->findBy([
+                    $activityDomains = $this->activityThemeDomainRepository->findBy([
                         'type' => ActivityThemeDomain::TYPE_GENERIC_DEFAULT,
                     ]);
                 }
 
                 $activityDomains = array_merge(
                     $activityDomains,
-                    $activityDomainRepository->findByTypeAndClassroom(ActivityThemeDomain::TYPE_GENERIC, $userClassroom, true)
+                    $this->activityThemeDomainRepository->findByTypeAndClassroom(ActivityThemeDomain::TYPE_GENERIC, $userClassroom, true)
                 );
 
             }
             else {
-                $activityDomains = $activityDomainRepository->findByTypeAndClassroom(ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM, $userClassroom, true);
+                $activityDomains = $this->activityThemeDomainRepository->findByTypeAndClassroom(ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM, $userClassroom, true);
             }
 
             foreach($activityDomains as $domain) {
@@ -116,7 +130,7 @@ class DashboardController extends AbstractController
 
         return $this->render('dashboard/index.html.twig', [
             'classrooms'   => $this->getUser()->getClassrooms()->toArray(),
-            'myActivities' => $activityRepository->getUserLastActivities($this->getUser()->getId(), 5),
+            'myActivities' => $this->activityRepository->getUserLastActivities($this->getUser()->getId(), 5),
             'needNotesActivities' => $needNotesActivities,
             'withAbsActivities' => $withAbsActivities,
             'activityThemeDomainsSkills' => $activityThemeDomains,
@@ -170,9 +184,8 @@ class DashboardController extends AbstractController
                     ]);
                 }
 
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($domain);
-                $entityManager->flush();
+                $this->em->persist($domain);
+                $this->em->flush();
 
                 $this->addFlash('success', 'Successfully added theme domain');
 
@@ -214,9 +227,8 @@ class DashboardController extends AbstractController
                 ]);
             }
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($domain);
-            $entityManager->flush();
+            $this->em->persist($domain);
+            $this->em->flush();
 
             $this->addFlash('success', 'Successfully updated theme domain');
 
@@ -235,10 +247,9 @@ class DashboardController extends AbstractController
      *
      * @param Request $request
      * @param ActivityThemeDomain $domain
-     * @param EntityManagerInterface $entityManager
      * @return JsonResponse
      */
-    public function deleteThemeDomain(Request $request, ActivityThemeDomain $domain, EntityManagerInterface $entityManager)
+    public function deleteThemeDomain(Request $request, ActivityThemeDomain $domain)
     {
         // Checking if classroom is used by the current logged in user.
         if(!$this->isUserClassroomCRUDAllowed($domain->getClassroom())) {
@@ -259,13 +270,13 @@ class DashboardController extends AbstractController
             if( !isset($jsonRequest['csrf']) || !$this->isCsrfTokenValid('domain_delete'.$domain->getId(), $jsonRequest['csrf'])) {
                 return $this->json(['message' => 'Invalid csrf token'], 201);
             }
-
-            array_map(function(ActivityThemeDomainSkill $skill) use($entityManager) {
-                $entityManager->remove($skill);
+            $em = $this->em;
+            array_map(function(ActivityThemeDomainSkill $skill) use($em) {
+                $em->remove($skill);
             }, $skills);
 
-            $entityManager->remove($domain);
-            $entityManager->flush();
+            $this->em->remove($domain);
+            $this->em->flush();
 
             return $this->json(['message' => 'Domain deleted'], 200);
         }
@@ -293,21 +304,20 @@ class DashboardController extends AbstractController
             return $this->redirectToRoute('dashboard');
         }
 
-        $noteTypesRepository = $this->getDoctrine()->getRepository(NoteType::class);
         $skill = new ActivityThemeDomainSkill();
 
         // Display ALL note type if matière AND special classroom || Transversal skills.
-        $activityTheme = $this->getDoctrine()->getRepository(ActivityTheme::class)->findOneBy([
+        $activityTheme = $this->activityThemeRepository->findOneBy([
             'id' => $domain->getActivityTheme(),
         ]);
 
         // Fetching additional note types if it is a special classroom and not a behavior or other non numeric theme.
         if($domain->getType() === ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM && $activityTheme->getIsNumericNotes()) {
-            $noteTypes = $noteTypesRepository->findBy(['coefficient' => 1]);
+            $noteTypes = $this->noteTypeRepository->findBy(['coefficient' => 1]);
         }
         else {
             // Fetching base note types.
-            $noteTypes = $noteTypesRepository->findByType($activityTheme->getIsNumericNotes(), 1);
+            $noteTypes = $this->noteTypeRepository->findByType($activityTheme->getIsNumericNotes(), 1);
         }
 
         $form = $this->createForm(ActivityThemeDomainSkillType::class, $skill, [
@@ -342,9 +352,8 @@ class DashboardController extends AbstractController
                 }
 
                 $skill->setUser($this->getUser());
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($skill);
-                $entityManager->flush();
+                $this->em->persist($skill);
+                $this->em->flush();
 
                 $this->addFlash('success', 'Successfully added theme domain skill');
             }
@@ -380,25 +389,23 @@ class DashboardController extends AbstractController
             return $this->redirectToRoute('dashboard');
         }
 
-        $noteTypesRepository = $this->getDoctrine()->getRepository(NoteType::class);
-
         // Fetching Theme.
-        $activityTheme = $this->getDoctrine()->getRepository(ActivityTheme::class)->findOneBy([
+        $activityTheme = $this->activityThemeRepository->findOneBy([
             'id' => $skill->getActivityThemeDomain()->getActivityTheme(),
         ]);
 
         // Fetching domain.
-        $domain = $this->getDoctrine()->getRepository(ActivityThemeDomain::class)->findOneBy([
+        $domain = $this->activityThemeDomainRepository->findOneBy([
             'id' => $skill->getActivityThemeDomain(),
         ]);
 
         // Fetching additional note types if it is a special classroom and not a behavior or other non numeric theme.
         if($domain->getType() === ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM && $activityTheme->getIsNumericNotes()) {
-            $noteTypes = $noteTypesRepository->findBy(['coefficient' => 1]);
+            $noteTypes = $this->noteTypeRepository->findBy(['coefficient' => 1]);
         }
         else {
             // Fetching base note types.
-            $noteTypes = $noteTypesRepository->findByType($activityTheme->getIsNumericNotes(), 1);
+            $noteTypes = $this->noteTypeRepository->findByType($activityTheme->getIsNumericNotes(), 1);
         }
 
         $form = $this->createForm(ActivityThemeDomainSkillType::class, $skill, [
@@ -416,9 +423,8 @@ class DashboardController extends AbstractController
                 ]);
             }
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($skill);
-            $entityManager->flush();
+            $this->em->persist($skill);
+            $this->em->flush();
 
             $this->addFlash('success', 'Successfully updated theme domain skill');
             return $this->redirectToRoute('dashboard');
@@ -434,10 +440,9 @@ class DashboardController extends AbstractController
      * @Route("/dashboard/delete/skill/{skill}", name="dashboard_delete_skill")
      * @param Request $request
      * @param ActivityThemeDomainSkill $skill
-     * @param EntityManagerInterface $entityManager
      * @return JsonResponse
      */
-    public function deleteThemeDomainSkill(Request $request, ActivityThemeDomainSkill $skill, EntityManagerInterface $entityManager)
+    public function deleteThemeDomainSkill(Request $request, ActivityThemeDomainSkill $skill)
     {
         // Checking if classroom is used by the current logged in user.
         $classroom = $this->getDoctrine()->getRepository(Classroom::class)->findOneBy([
@@ -458,8 +463,8 @@ class DashboardController extends AbstractController
             return $this->json(['message' => 'Invalid csrf token'], 201);
         }
 
-        $entityManager->remove($skill);
-        $entityManager->flush();
+        $this->em->remove($skill);
+        $this->em->flush();
 
         return $this->json(['message' => 'Skill deleted'], 200);
     }
@@ -473,8 +478,7 @@ class DashboardController extends AbstractController
      */
     private function domainExists(ActivityThemeDomain $domain)
     {
-        $domainRepository = $this->getDoctrine()->getRepository(ActivityThemeDomain::class);
-        $domainExists = $domainRepository->findOneBy([
+        $domainExists = $this->activityThemeDomainRepository->findOneBy([
             'displayName' => $domain->getDisplayName(),
             'classroom' => $domain->getClassroom(),
             'activityTheme' => $domain->getActivityTheme(),

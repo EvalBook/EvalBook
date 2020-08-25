@@ -17,6 +17,7 @@
                     <th>{{ 'Implantation'|trans }}</th>
                     <th>{{ 'Class'|trans }}</th>
                     <th class="text-center">{{ 'Users'|trans }}</th>
+                    <th class="text-center">{{ 'Export students'|trans }}</th>
                     {% if is_granted('ROLE_CLASS_EDIT_USERS') %}
                         <th class="text-center">{{ 'Manage users'|trans }}</th>
                     {% endif %}
@@ -31,7 +32,11 @@
                         <td>{{ classroom.implantation }}</td>
                         <td>{{ classroom.name }}</td>
                         <td class="text-center"> {{ classroom.users|length }}</td>
-
+                        <td class="text-center">
+                            <a href="{{ path('students_export_csv', {'classroom': classroom.id}) }}" class="text-yellow font-medium">
+                                <i class="fas fa-file-csv"></i>
+                            </a>
+                        </td>
                         {% if is_granted('ROLE_CLASS_EDIT_USERS') %}
                             <td class="text-center">
                                 <a href="{{ path('classroom_manage_users', {'id': classroom.id}) }}" title="Add users to class">
@@ -57,6 +62,12 @@
                 {% endfor %}
                 </tbody>
             </table>
+
+            <div class="margin-15">
+                <a href="{{ path('students_export_csv') }}" class="text-yellow font-medium">{{ 'Export all my students to a CSV file'|trans }}
+                    <i class="fas fa-file-csv margin-left font-medium"></i>
+                </a>
+            </div>
         </div>
 
 

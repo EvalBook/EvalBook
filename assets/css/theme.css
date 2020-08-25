@@ -465,7 +465,7 @@ tr:hover i, tr:hover a {
 }
 
 /**
- * Polishing classes.
+ * Polishing / helper classes.
  */
 .margin-15 {
     margin-top: 15px;
@@ -513,6 +513,18 @@ tr:hover i, tr:hover a {
     color: #D98484;
 }
 
+.text-yellow {
+    color: var(--secondary-color);
+}
+
+.text-green-medal {
+    color: #22bf3f;
+}
+
+.text-red-medal {
+    color: #bc2424;
+}
+
 .text-green {
     color: #82d9a7;
 }
@@ -527,11 +539,6 @@ tr:hover i, tr:hover a {
 
 .text-bigger {
     font-size: 6em;
-}
-
-
-.text-yellow {
-    color: var(--secondary-color);
 }
 
 .bg-yellow {
@@ -589,6 +596,10 @@ tr:hover i, tr:hover a {
 
 .display-none {
     display: none;
+}
+
+.font-medium {
+    font-size: medium;
 }
 
 #mobile-contact-actions {

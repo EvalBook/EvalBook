@@ -52,6 +52,18 @@
     {#
         The .mobile-hidden-to and .mobile-hidden classes makes element hidden on mobile.
     #}
+<div class="full-width flex column">
+    {% if is_granted('ROLE_STUDENT_LIST_ALL') and noClassroomsStudentsCount is defined %}
+        <div class="full-width margin-bottom">
+            <strong class="font-medium">{{ 'Students without classroom'|trans }}: {{ noClassroomsStudentsCount }}</strong>
+            {% if noClassroomsStudentsCount > 0 %}
+                <a href="{{ path('students_no_classrooms') }}" title="Students without classrooms" class="font-medium margin-left text-yellow">
+                    <i class="fas fa-user-graduate"></i>
+                </a>
+            {% endif %}
+        </div>
+    {% endif %}
+
     <table class="full-width">
         <thead>
         <tr>
@@ -145,6 +157,7 @@
         {% endfor %}
         </tbody>
     </table>
+</div>
 {% endblock %}
 
 

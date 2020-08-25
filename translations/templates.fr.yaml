@@ -247,13 +247,13 @@ Behavior with special masters: Comportement avec les maîtres spéciaux
 Special classrooms: Classes spéciales
 Choose an activity domain to continue...: Choisissez un domaine pour commencer...
 Select an available note type...: Sélectionnez un type de notes disponible...
-No skills for this activity domain, you can create one from your dashboard: Pas de compétences pour ce domaine d'activité, veuillez en créer un à partir de votre dashboard.
+No skills for this activity domain, you can create one from your dashboard: Pas de compétences pour ce domaine d'activité, veuillez en créer un à partir de votre panneau de contrôle.
 A bad parameter was sent to the serveur, please, try again !: Un mauvais paramètre a été envoyé au serveur, veuillez essayer à nouveau !
 An unexpected error occurred: Une erreur innattendue s'est produite !
 Skill: Compétence
 Coefficient: Coefficient
-No available note types, you can create one from your dashboard: Pas de type de notes disponible, vous pouvez en créer à partir de votre dashboard
-Dashboard: Dashboard
+No available note types, you can create one from your dashboard: Pas de type de notes disponible, vous pouvez en créer à partir de votre panneau de contrôle
+Dashboard: Panneau de contrôle
 Activity theme domain: Domaine de l'activité
 Activities that have not be noted: Activités non notées
 Manage my classrooms: Gérer mes classes
@@ -266,7 +266,7 @@ You do not have activity where student were sick: Vous n'avez pas d'activité av
 Activities default values: Domaines par défaut des activités
 Make use of predefined activities domains and skills: Utiliser les domaines par défaut des activités
 Successfully updated your configuration: Mise à jour de votre configuration avec succès
-You do not use default activities domains values and do not have your own domains nor skill, add new ones via your dashboard before add an activity: Vous ne disposez d'aucun domaine d'activité ou de compétences, veuillez en ajouter via votre dashboard, ou utiliser ceux fournis par défaut
+You do not use default activities domains values and do not have your own domains nor skill, add new ones via your dashboard before add an activity: Vous ne disposez d'aucun domaine d'activité ou de compétences, veuillez en ajouter via votre panneau de contrôle, ou utiliser ceux fournis par défaut
 Available Themes - Domains and skills for your classrooms: Thèmes, domaines et compétences disponibles
 Classroom: Classe
 No skill found, add new ones: Aucune compétence trouvée, ajoutez en une nouvelle
@@ -300,6 +300,16 @@ This skill already exists, please, choose an other name: Cette compétence exist
 You are not allowed to edit other classroom information: Vous n'êtes pas autorisé à éditer les informations d'une autre classe.
 Activity duplicated: Activité dupliquée
 Duplicate: Dupliquer
+Users without classroom: Utilisateurs sans classe
+Students without classroom: Elèves sans classe
+Export all my students to a CSV file: Exporter tous mes étudiants en fichier CSV ( Excell )
+Export students: Export élèves
+Is in school report ?: Doit compter pour le bulletin ?
+View activity details: Voir le détail de l'activité
+Details: Détail
+Activity details: Détail de l'activité
+Edit this activity: Editer cette activité
+Domain: Domaine
 
 
 roles:

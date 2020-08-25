@@ -23,13 +23,16 @@ use App\Entity\Activity;
 use App\Entity\ActivityThemeDomain;
 use App\Entity\Classroom;
 use App\Entity\Note;
-use App\Entity\NoteType;
-use App\Entity\UserConfiguration;
 use App\Form\ActivityNotesType;
 use App\Form\ActivityType;
+use App\Repository\ActivityThemeDomainRepository;
+use App\Repository\ActivityThemeRepository;
+use App\Repository\ClassroomRepository;
+use App\Repository\NoteTypeRepository;
 use App\Service\ConfigurationService;
 use DateTime;
-use DeepCopy\DeepCopy;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,6 +42,34 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ActivityController extends AbstractController
 {
+    private $configuration;
+    private $translator;
+    private $classroomRepository;
+    private $noteTypeRepository;
+    private $activityThemeRepository;
+    private $activityThemeDomainRepository;
+
+    /**
+     * ActivityController constructor.
+     * @param ConfigurationService $configurationService
+     * @param TranslatorInterface $translator
+     * @param ClassroomRepository $classroomRepository
+     * @param NoteTypeRepository $noteTypeRepository
+     * @param ActivityThemeRepository $activityThemeRepository
+     * @param ActivityThemeDomainRepository $activityThemeDomainRepository
+     */
+    public function __construct(ConfigurationService $configurationService, TranslatorInterface $translator, ClassroomRepository $classroomRepository,
+                                NoteTypeRepository $noteTypeRepository, ActivityThemeRepository $activityThemeRepository,
+                                ActivityThemeDomainRepository $activityThemeDomainRepository)
+    {
+        $this->configuration = $configurationService;
+        $this->translator = $translator;
+        $this->classroomRepository = $classroomRepository;
+        $this->noteTypeRepository = $noteTypeRepository;
+        $this->activityThemeRepository = $activityThemeRepository;
+        $this->activityThemeDomainRepository = $activityThemeDomainRepository;
+    }
+
     /**
      * @Route("/activities", name="activities")
      *
@@ -69,13 +100,11 @@ class ActivityController extends AbstractController
      *
      * @param Classroom|null $classroom
      * @param Request $request
-     * @param TranslatorInterface $translator
-     * @param ConfigurationService $configuration
      * @return Response
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
-    public function add(?Classroom $classroom, Request $request, TranslatorInterface $translator, ConfigurationService $configuration): Response
+    public function add(?Classroom $classroom, Request $request): Response
     {
         // If user is not allowed to use the classroom, then return a 405
         $this->checkClassroomAccesses($classroom);
@@ -88,22 +117,7 @@ class ActivityController extends AbstractController
         }
 
         // Populate notes types.
-        if($this->getDoctrine()->getRepository(NoteType::class)->count([]) === 0) {
-            // No note type found, then populating database with the default ones.
-            $this->getDoctrine()->getRepository(NoteType::class)->populate();
-        }
-
-        // Populate activities themes.
-        if($this->getDoctrine()->getRepository(\App\Entity\ActivityTheme::class)->count([]) === 0) {
-            // No activity type found, then populating database with the default ones.
-            $this->getDoctrine()->getRepository(\App\Entity\ActivityTheme::class)->populate($translator);
-        }
-
-        // Populate activities theme domains.
-        if($this->getDoctrine()->getRepository(ActivityThemeDomain::class)->count([]) === 0) {
-            // No activity theme domain found, then populating database with the default ones.
-            $this->getDoctrine()->getRepository(ActivityThemeDomain::class)->populate($translator);
-        }
+        $this->populateActivityDefaults();
 
         $activity = new Activity();
         $periods = array();
@@ -116,7 +130,7 @@ class ActivityController extends AbstractController
 
         $form = $this->createForm(ActivityType::class, $activity, [
             'periods' => $periods,
-            'activity_theme_domains' => $this->getAvailableActivityThemeDomains($classroom, $configuration),
+            'activity_theme_domains' => $this->getAvailableActivityThemeDomains($classroom),
         ]);
 
         $form->handleRequest($request);
@@ -145,14 +159,13 @@ class ActivityController extends AbstractController
      *
      * @param Request $request
      * @param Activity $activity
-     * @param ConfigurationService $configurationService
      * @return Response
      */
-    public function edit(Request $request, Activity $activity, ConfigurationService $configurationService): Response
+    public function edit(Request $request, Activity $activity): Response
     {
         // Throw a 403 error if user can't edit the activity.
         $this->checkActivityAccesses($activity);
-        $classroom = $this->getDoctrine()->getRepository(Classroom::class)->findOneBy([
+        $classroom = $this->classroomRepository->findOneBy([
             'id' => $activity->getClassroom(),
         ]);
 
@@ -172,7 +185,7 @@ class ActivityController extends AbstractController
         // Creating activity form with known activity data.
         $form = $this->createForm(ActivityType::class, $activity, [
             'periods' => $periods,
-            'activity_theme_domains' => $this->getAvailableActivityThemeDomains($classroom, $configurationService),
+            'activity_theme_domains' => $this->getAvailableActivityThemeDomains($classroom),
         ]);
 
         $form->handleRequest($request);
@@ -209,16 +222,15 @@ class ActivityController extends AbstractController
      *
      * @param Request $request
      * @param Activity $activity
-     * @param ConfigurationService $configurationService
      * @return Response
      */
-    public function duplicate(Request $request, Activity $activity, ConfigurationService $configurationService): Response
+    public function duplicate(Request $request, Activity $activity): Response
     {
         // Clone activity.
         $activity = clone $activity;
 
         // Getting activity classroom.
-        $classroom = $this->getDoctrine()->getRepository(Classroom::class)->findOneBy([
+        $classroom = $this->classroomRepository->findOneBy([
             'id' => $activity->getClassroom(),
         ]);
 
@@ -233,7 +245,7 @@ class ActivityController extends AbstractController
         // Create the form with values of cloned activity.
         $form = $this->createForm(ActivityType::class, $activity, [
             'periods' => $periods,
-            'activity_theme_domains' => $this->getAvailableActivityThemeDomains($classroom, $configurationService),
+            'activity_theme_domains' => $this->getAvailableActivityThemeDomains($classroom),
         ]);
 
         $form->handleRequest($request);
@@ -356,6 +368,20 @@ class ActivityController extends AbstractController
 
 
     /**
+     * @Route("/activity/details/{id}", name="activity_details")
+     *
+     * @param Activity $activity
+     * @return Response
+     */
+    public function getActivityDetails(Activity $activity)
+    {
+        return $this->render('activities/activity-detail.html.twig', [
+            'activity' => $activity,
+        ]);
+    }
+
+
+    /**
      * Check the provided class user acces and throw access denied if user does not have rights to see it.
      * @param Classroom|null $classroom
      */
@@ -387,29 +413,55 @@ class ActivityController extends AbstractController
      * @param ConfigurationService $configuration
      * @return array|int|mixed|string
      */
-    private function getAvailableActivityThemeDomains(Classroom $classroom, ConfigurationService $configuration)
+    private function getAvailableActivityThemeDomains(Classroom $classroom)
     {
         // Getting available ActivityThemeDomain.
-        $atcRepository = $this->getDoctrine()->getRepository(ActivityThemeDomain::class);
         if(!is_null($classroom->getOwner())) {
             $activityThemeDomains = [];
-            if($configuration->load($this->getUser())->getUsePredefinedActivitiesValues()) {
-                $activityThemeDomains = $atcRepository->findBy([
+            if($this->configuration->load($this->getUser())->getUsePredefinedActivitiesValues()) {
+                $activityThemeDomains = $this->activityThemeDomainRepository->findBy([
                     'type' => ActivityThemeDomain::TYPE_GENERIC_DEFAULT,
                 ]);
             }
 
             $activityThemeDomains = array_merge(
                 $activityThemeDomains,
-                $activityThemeDomains = $atcRepository->findByTypeAndClassroom(ActivityThemeDomain::TYPE_GENERIC, $classroom, true)
+                $activityThemeDomains = $this->activityThemeDomainRepository->findByTypeAndClassroom(ActivityThemeDomain::TYPE_GENERIC, $classroom, true)
             );
         }
         else {
-            $activityThemeDomains = $atcRepository->findByTypeAndClassroom(ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM, $classroom, true);
+            $activityThemeDomains = $this->activityThemeDomainRepository->findByTypeAndClassroom(ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM, $classroom, true);
         }
 
         return $activityThemeDomains;
     }
+
+
+    /**
+     * Check if default activities values need to be set, then populate if needed.
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    private function populateActivityDefaults()
+    {
+        if($this->noteTypeRepository->count([]) === 0) {
+            // No note type found, then populating database with the default ones.
+            $this->noteTypeRepository->populate();
+        }
+
+        // Populate activities themes.
+        if($this->activityThemeRepository->count([]) === 0) {
+            // No activity type found, then populating database with the default ones.
+            $this->activityThemeRepository->populate($this->translator);
+        }
+
+        // Populate activities theme domains.
+        if($this->activityThemeDomainRepository->count([]) === 0) {
+            // No activity theme domain found, then populating database with the default ones.
+            $this->activityThemeDomainRepository->populate($this->translator);
+        }
+    }
+
 
 }
 

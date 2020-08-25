@@ -87,9 +87,17 @@
                         </span>
                     </div>
 
+                    {# Activity should appear in the school report ? #}
+                    <div class="form-row hidden">
+                        {{ form_label(form.isInShoolReport, 'Is in school report ?'|trans) }}
+                        {{ form_widget(form.isInShoolReport, {'attr': {
+                            'class': 'full-width'
+                        }}) }}
+                    </div>
+
                     {# Activity comment #}
-                    <div class="form-row">
-                        {# { form_label(form.comment, 'Comment'|trans) } #}
+                    <div class="form-row hidden">
+                        {{ form_label(form.comment, 'Description'|trans) }}
                         {{ form_widget(form.comment) }}
                     </div>
 

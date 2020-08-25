@@ -19,6 +19,7 @@ namespace App\Form;
  * https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
  **/
 
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -76,7 +77,7 @@ class MailType extends AbstractType
                 ]),
             ])
 
-            ->add('message', TextareaType::class, [
+            ->add('message', CKEditorType::class, [
                 'constraints' => new NotBlank([
                     'message' => 'The mail content can not be empty'
                 ]),

@@ -20,11 +20,12 @@
 namespace App\Controller;
 
 use App\Entity\Classroom;
-use App\Entity\Implantation;
 use App\Entity\Student;
 use App\Entity\User;
 use App\Form\ClassroomType;
 use App\Repository\ClassroomRepository;
+use App\Repository\ImplantationRepository;
+use App\Repository\StudentRepository;
 use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -34,25 +35,39 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Security;
 
 
 class ClassroomController extends AbstractController
 {
+
+    private $classroomRepository;
+    private $implantationRepository;
+
+
+    /**
+     * ClassroomController constructor.
+     * @param ClassroomRepository $classroomRepository
+     * @param ImplantationRepository $implantationRepository
+     */
+    public function __construct(ClassroomRepository $classroomRepository, ImplantationRepository $implantationRepository)
+    {
+        $this->classroomRepository = $classroomRepository;
+        $this->implantationRepository = $implantationRepository;
+    }
+
+
     /**
      * @Route("/classrooms", name="classrooms")
      *
-     * @param ClassroomRepository $classroomRepository
-     * @param Security $security
      * @return Response
      */
-    public function index(ClassroomRepository $classroomRepository, Security $security): Response
+    public function index(): Response
     {
-        $user = $security->getUser();
+        $user = $this->getUser();
 
         // Getting all classes if user has role to view all.
-        if ($security->isGranted('ROLE_CLASS_LIST_ALL')) {
-            $classrooms = $classroomRepository->findAll();
+        if ($this->isGranted('ROLE_CLASS_LIST_ALL')) {
+            $classrooms = $this->classroomRepository->findAll();
         }
         else {
             // If not, getting classes the user is subscribed to.
@@ -70,20 +85,20 @@ class ClassroomController extends AbstractController
      * @IsGranted("ROLE_CLASS_CREATE", statusCode=404, message="Not found")
      *
      * @param Request $request
-     * @param ClassroomRepository $repository
      * @return Response
      */
-    public function add(Request $request, ClassroomRepository $repository): Response
+    public function add(Request $request): Response
     {
-        if($this->getDoctrine()->getRepository(Implantation::class)->count([]) > 0) {
+        if($this->implantationRepository->count([]) > 0) {
             $classroom = new Classroom();
             $form = $this->createForm(ClassroomType::class, $classroom);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                if ($repository->classroomNameAlreadyTaken($classroom)) {
+                if ($this->classroomRepository->classroomNameAlreadyTaken($classroom)) {
                     $this->addFlash('error', 'Class name already taken in the class implantation');
-                } else {
+                }
+                else {
                     $entityManager = $this->getDoctrine()->getManager();
                     $entityManager->persist($classroom);
                     $entityManager->flush();
@@ -113,13 +128,13 @@ class ClassroomController extends AbstractController
      * @param String|null $redirect
      * @return Response
      */
-    public function edit(Request $request, Classroom $classroom, ClassroomRepository $repository, ?String $redirect): Response
+    public function edit(Request $request, Classroom $classroom, ?String $redirect): Response
     {
         $form = $this->createForm(ClassroomType::class, $classroom);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if($repository->classroomNameAlreadyTaken($classroom)) {
+            if($this->classroomRepository->classroomNameAlreadyTaken($classroom)) {
                 $this->addFlash('error', 'Class name already taken in the class implantation');
             }
             else {
@@ -236,10 +251,12 @@ class ClassroomController extends AbstractController
      *
      * @param Request $request
      * @param Classroom $classroom
+     * @param StudentRepository $studentRepository
+     * @return RedirectResponse|Response
      */
-    public function manageClassroomStudents(Request $request, Classroom $classroom)
+    public function manageClassroomStudents(Request $request, Classroom $classroom, StudentRepository $studentRepository)
     {
-        $students = $this->getDoctrine()->getRepository(Student::class)->findAll();
+        $students = $studentRepository->findAll();
         // If the classroom is owned ( titulaire ), then getting ALL this classroom students + unassigned students.
         if($classroom->getOwner() !== null) {
             $students = array_filter($students, function($student) {

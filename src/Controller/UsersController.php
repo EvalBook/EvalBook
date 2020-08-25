@@ -51,10 +51,17 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class UsersController extends AbstractController
 {
     private $repository;
+    private $entityManager;
+    private $mailer;
+    private $encoder;
 
-    public function __construct(UserRepository $repository)
+    public function __construct(UserRepository $repository, EntityManagerInterface $entityManager,
+                                UserPasswordEncoderInterface $encoder, MailerInterface $mailer)
     {
         $this->repository = $repository;
+        $this->entityManager = $entityManager;
+        $this->mailer = $mailer;
+        $this->encoder = $encoder;
     }
 
 
@@ -67,14 +74,21 @@ class UsersController extends AbstractController
     public function index()
     {
         // Getting all non admin users.
-        if(!in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
+        if($this->isGranted('ROLE_ADMIN')) {
             $users = $this->repository->findByRole('ROLE_ADMIN', false);
         }
         else {
             $users = $this->repository->findAll();
         }
+
+        // Getting users without classroom.
+        $filter = function(User $user) {
+            return $user->getClassrooms()->count() === 0 && $user->getClassroomsOwner()->count() === 0;
+        };
+
         return $this->render('users/index.html.twig', [
             'users' => $users,
+            'noClassroomsUsersCount' => count(array_filter($users, $filter)),
         ]);
     }
 
@@ -85,21 +99,17 @@ class UsersController extends AbstractController
      *
      * @param Request $request
      * @param User $user
-     * @param UserRepository $repository
-     * @param UserPasswordEncoderInterface $passwordEncoder
      * @param string|null $redirect
-     * @param MailerInterface $mailer
      * @param TranslatorInterface $translator
      * @return Response
      */
-    public function edit(Request $request, User $user, UserRepository $repository, UserPasswordEncoderInterface $passwordEncoder,
-                         ?string $redirect, MailerInterface $mailer, TranslatorInterface $translator)
+    public function edit(Request $request, User $user, ?string $redirect, TranslatorInterface $translator)
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if($repository->userExists($user)) {
+            if($this->repository->userExists($user)) {
                 $this->addFlash('error', 'User already exists');
             }
             else {
@@ -107,12 +117,11 @@ class UsersController extends AbstractController
 
                 if($plainPassword && $this->validatePassword($plainPassword)) {
                     // Setting password only if it was specified and is in valid format.
-                    $user->setPassword($passwordEncoder->encodePassword($user,$plainPassword));
+                    $user->setPassword($this->encoder->encodePassword($user,$plainPassword));
                 }
 
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($user);
-                $entityManager->flush();
+                $this->entityManager->persist($user);
+                $this->entityManager->flush();
                 $this->addFlash('success', 'Successfully updated');
 
                 if (!is_null($redirect)) {
@@ -122,7 +131,7 @@ class UsersController extends AbstractController
 
                 // Send mail only if password was updated.
                 if ($plainPassword && $form->get('sendMail')->getData()) {
-                    $this->sendUserByMail($user, $form->get('password')->getData(), $translator, $mailer);
+                    $this->sendUserByMail($user, $form->get('password')->getData(), $translator);
                 }
 
                 return $this->redirectToRoute('users');
@@ -142,21 +151,17 @@ class UsersController extends AbstractController
      * @IsGranted("ROLE_USER_CREATE", statusCode=404, message="Not found")
      *
      * @param Request $request
-     * @param UserRepository $repository
-     * @param UserPasswordEncoderInterface $passwordEncoder
-     * @param MailerInterface $mailer
      * @param TranslatorInterface $translator
      * @return RedirectResponse|Response
      */
-    public function add(Request $request, UserRepository $repository, UserPasswordEncoderInterface $passwordEncoder,
-                        MailerInterface $mailer, TranslatorInterface $translator)
+    public function add(Request $request, TranslatorInterface $translator)
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if($repository->userExists($user)) {
+            if($this->repository->userExists($user)) {
                 $this->addFlash('error', 'User already exists');
             }
             else {
@@ -165,14 +170,13 @@ class UsersController extends AbstractController
                     $this->addFlash('error', "Password is empty or do not match the security pattern");
                 }
                 else {
-                    $user->setPassword($passwordEncoder->encodePassword($user, $form->get('password')->getData()));
-                    $entityManager = $this->getDoctrine()->getManager();
-                    $entityManager->persist($user);
-                    $entityManager->flush();
+                    $user->setPassword($this->encoder->encodePassword($user, $form->get('password')->getData()));
+                    $this->entityManager->persist($user);
+                    $this->entityManager->flush();
                     $this->addFlash('success', 'Successfully added');
 
                     if($form->get('sendMail')->getData()) {
-                        $this->sendUserByMail($user, $form->get('password')->getData(), $translator, $mailer);
+                        $this->sendUserByMail($user, $form->get('password')->getData(), $translator);
                     }
                     return $this->redirectToRoute('users');
                 }
@@ -238,11 +242,10 @@ class UsersController extends AbstractController
     /**
      * @Route("/user/profile", name="user_profile")
      *
-     * @param EntityManagerInterface $entityManager
      * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function profile(EntityManagerInterface $entityManager, Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function profile(Request $request)
     {
         $userForm = $this->createForm(UserProfileType::class, $this->getUser());
 
@@ -251,10 +254,10 @@ class UsersController extends AbstractController
         if ($userForm->isSubmitted() && $userForm->isValid()) {
             $plainPassword = $userForm->get('password')->getData();
             if(strlen($plainPassword) > 6) {
-                $this->getUser()->setPassword($passwordEncoder->encodePassword($this->getUser(), $plainPassword));
+                $this->getUser()->setPassword($this->encoder->encodePassword($this->getUser(), $plainPassword));
             }
-            $entityManager->persist($this->getUser());
-            $entityManager->flush();
+
+            $this->entityManager->flush();
             $this->addFlash('success', 'Successfully updated');
             return $this->redirectToRoute("user_profile");
         }
@@ -311,6 +314,7 @@ class UsersController extends AbstractController
      */
     public function configureInterface(Request $request, ConfigurationService $configurationService, ParameterBagInterface $params)
     {
+        /* @var $user User */
         $user = $this->getUser();
         $configuration = $configurationService->load($user);
         $maintenance = $this->getDoctrine()->getRepository(Configuration::class)->findOneBy([
@@ -326,7 +330,7 @@ class UsersController extends AbstractController
 
         if ($configurationForm->isSubmitted() && $configurationForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $configuration->setUser($this->getUser());
+            $configuration->setUser($user);
             $em->persist($configuration);
 
             // If user is admin and maintenance mode was not manually set.
@@ -362,13 +366,33 @@ class UsersController extends AbstractController
 
 
     /**
+     * @Route("/users/no-classrooms", name="users_no_classrooms")
+     * @IsGranted("ROLE_USER_LIST_ALL", statusCode=404, message="Not found")
+     *
+     * @return Response
+     */
+    public function getUsersWithNoClassrooms()
+    {
+        $users = $this->repository->findAll();
+
+        // Getting users without classroom.
+        $filter = function(User $user) {
+            return $user->getClassrooms()->count() === 0 && $user->getClassroomsOwner()->count() === 0;
+        };
+
+        return $this->render('users/index.html.twig', [
+            'users' => array_filter($users, $filter),
+        ]);
+    }
+
+
+    /**
      * Send a detailed mail to a created user.
      * @param User $user
      * @param String $password
      * @param TranslatorInterface $translator
-     * @param MailerInterface $mailer
      */
-    private function sendUserByMail(User $user, String $password, TranslatorInterface $translator, MailerInterface $mailer)
+    private function sendUserByMail(User $user, String $password, TranslatorInterface $translator)
     {
         // Prepare email.
         $msg = "Login: %s\n\rMot de passe: %s\n\rEvalBook: %s";
@@ -382,7 +406,7 @@ class UsersController extends AbstractController
 
         // Send mail.
         try {
-            $mailer->send($email);
+            $this->mailer->send($email);
             $this->addFlash('success', 'Your mail was sent !');
         }
         catch (TransportExceptionInterface $transportError) {
