@@ -12,45 +12,52 @@
 
         {# Contact details as a table #}
         <table class="full-width">
+
             {# Activity name. #}
             <tr>
-                <th class="width-25-percent">{{ 'Name'|trans }}:</th>
+                <th class="width-20-percent text-right">{{ 'Name'|trans }}</th>
                 <td>{{ activity.name }}</td>
             </tr>
 
-            {# Activity implantation. #}
-            <tr>
-                <th class="width-25-percent">{{ 'Implantation'|trans }}:</th>
-                <td>{{ activity.classroom.implantation.name }}</td>
-            </tr>
 
             {# Activity classroom. #}
             <tr>
-                <th class="width-25-percent">{{ 'Classroom'|trans }}:</th>
+                <th class="text-right">{{ 'Classroom'|trans }}</th>
                 <td>{{ activity.classroom.name }}</td>
             </tr>
 
+
             {# Activity domain. #}
             <tr>
-                <th class="width-25-percent">{{ 'Domain'|trans }}:</th>
+                <th class="text-right">{{ 'Domain'|trans }}</th>
                 <td>{{ activity.activityThemeDomainSkill.activityThemeDomain.displayName }}</td>
             </tr>
 
+
             {# Activity skill. #}
             <tr>
-                <th class="width-25-percent">{{ 'Skill'|trans }}:</th>
+                <th class="text-right">{{ 'Skill'|trans }}</th>
                 <td>{{ activity.activityThemeDomainSkill.name }} - {{ activity.activityThemeDomainSkill.description }}</td>
             </tr>
 
+
             {# Activity date added #}
             <tr>
-                <th>{{ 'Date'|trans }}:</th>
+                <th class="text-right">{{ 'Date'|trans }}</th>
                 <td>{{ activity.dateAdded|date('d/m/Y') }}</td>
             </tr>
 
+
+            {# Activity note type #}
+            <tr>
+                <th class="text-right">{{ 'Note type'|trans }}</th>
+                <td>{{ activity.noteType.description }}</td>
+            </tr>
+
+
             {# Activity user #}
             <tr>
-                <th>{{ 'User'|trans }}:</th>
+                <th class="text-right">{{ 'User'|trans }}</th>
                 <td>
                     {%  if owner %}
                         <span><< <strong>{{ 'Me'|trans }}</strong> >></span>
@@ -60,29 +67,32 @@
                 </td>
             </tr>
 
-            {# Activity note type #}
-            <tr>
-                <th>{{ 'Note type'|trans }}:</th>
-                <td>{{ activity.noteType.description }}</td>
-            </tr>
 
             {# Activity period #}
             <tr>
-                <th>{{ 'Period'|trans }}:</th>
-                <td>{{ activity.period.name }}  ( {{ activity.period.dateStart|date('d/m/Y')}} - {{ activity.period.dateEnd|date('d/m/Y') }} )</td>
+                <th class="text-right">{{ 'Period'|trans }}</th>
+                <td>
+                    {{ activity.period.name }}  ( {{ activity.period.dateStart|date('d/m/Y')}} - {{ activity.period.dateEnd|date('d/m/Y') }} )
+                </td>
             </tr>
+
+            {# Activity implantation. #}
+            <tr>
+                <th class="text-right">{{ 'Implantation'|trans }}</th>
+                <td>{{ activity.classroom.implantation.name }}</td>
+            </tr>
+
 
             {# Activity used to compute school report #}
             <tr>
-                <th>{{ 'Is in school report ?'|trans }}:</th>
+                <th class="text-right">{{ 'Is in school report'|trans }}</th>
                 <td>{{ activity.isInShoolReport is same as(true) ? 'Yes'|trans : 'No'|trans }}</td>
             </tr>
+
             {# Activity used to compute school report #}
-            <tr class="margin-plus">
-                <th colspan="2">{{ 'Description'|trans }}:</th>
-            </tr>
-            <tr>
-                <td colspan="2">{{ activity.comment }}</td>
+            <tr class="text-right">
+                <th>{{ 'Description'|trans }}</th>
+                <td>{{ activity.comment }}</td>
             </tr>
 
         </table>

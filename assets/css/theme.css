@@ -497,6 +497,10 @@ tr:hover i, tr:hover a {
     align-items: center;
 }
 
+.width-20-percent {
+    width: 20%;
+}
+
 .width-25-percent {
     width: 25%;
 }
@@ -562,6 +566,10 @@ tr:hover i, tr:hover a {
 
 .text-center {
     text-align: center;
+}
+
+.text-right {
+    text-align: right;
 }
 
 .flex {
@@ -653,7 +661,7 @@ tr:hover i, tr:hover a {
         display: none;
     }
 
-    .width-25-percent {
+    .width-25-percent, .width-20-percent {
         width: 33%;
     }
 
@@ -693,7 +701,7 @@ tr:hover i, tr:hover a {
         display: flex;
     }
 
-    .width-25-percent {
+    .width-25-percent, .width-20-percent {
         width: 50%;
     }
 
