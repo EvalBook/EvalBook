@@ -389,6 +389,16 @@ button[type="submit"], .button {
     /*border-radius: 2em;*/
 }
 
+
+.collapsible {
+    color: var(--secondary-color);
+}
+
+.collapsible i {
+    margin-right: 10px;
+    font-size: 2em;
+}
+
 /**
  * Tables and global content data.
  */

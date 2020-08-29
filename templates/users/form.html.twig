@@ -103,24 +103,29 @@
                 {{ form_widget(form.role_type) }}
             </div>
 
-            <div class="form-row display-row" id="roles-group">
-                {% for group_label, options in form.roles.vars.choices %}
-                    <div class="width-25-percent">
-                        <h3>{{ (group_label~'s')|replace({'ys': 'ies', 'sss': 'sses'})|capitalize|trans }}</h3>
-                        {% for key, choice in options %}
-                            <div class="flex">
-                                <input type="checkbox" id="{{ form.vars.name }}_roles_{{ key }}"
-                                       name="{{ form.vars.name }}[roles][]"
-                                       value="{{ choice.value }}" {{ (choice.value in form.roles.vars.value) ? 'checked' : '' }}
-                                >
+            <div class="js-collapsible form-row display-row" id="roles-group">
+                <div class="js-collapsible-control collapsible">
+                    {{ 'Advanced roles management'|trans }}
+                </div>
+                <div class="js-collapsible-content full-width flex-start">
+                    {% for group_label, options in form.roles.vars.choices %}
+                        <div class="width-25-percent">
+                            <h3>{{ (group_label~'s')|replace({'ys': 'ies', 'sss': 'sses'})|capitalize|trans }}</h3>
+                            {% for key, choice in options %}
+                                <div class="flex">
+                                    <input type="checkbox" id="{{ form.vars.name }}_roles_{{ key }}"
+                                           name="{{ form.vars.name }}[roles][]"
+                                           value="{{ choice.value }}" {{ (choice.value in form.roles.vars.value) ? 'checked' : '' }}
+                                    >
 
-                                <label class="margin-left"
-                                       for="{{ form.vars.name }}_roles_{{ key }}">{{ choice.label|trans }}
-                                </label>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endfor %}
+                                    <label class="margin-left"
+                                           for="{{ form.vars.name }}_roles_{{ key }}">{{ choice.label|trans }}
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
             {% do form.roles.setRendered() %}
 
