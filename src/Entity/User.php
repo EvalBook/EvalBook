@@ -488,4 +488,21 @@ class User implements UserInterface
             'ROLE_SCHOOL_REPORT_PRINT',
         );
     }
+
+
+    /**
+     * Return a list of pre-defined users types ( roles ).
+     * @return array
+     */
+    public static function getPredefinedRoleSet()
+    {
+        return [
+            'Director' => [],
+            'Secretary' => [],
+            'Master' => [],
+            'Special master' => [],
+            'Substitute master' => [],
+            'Implantation manager' => [],
+        ];
+    }
 }

@@ -97,6 +97,12 @@
             <div>
                 <h2>{{ 'Roles management'|trans }}</h2>
             </div>
+
+            <div class="form-row">
+                {{ form_label(form.role_type, 'Select a role type or click advanced arrow'|trans) }}
+                {{ form_widget(form.role_type) }}
+            </div>
+
             <div class="form-row display-row">
                 {% for group_label, options in form.roles.vars.choices %}
                     <div class="width-25-percent">
