@@ -22,13 +22,38 @@ namespace App\Controller\Api;
 header("Access-Control-Allow-Origin: *");
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\User;
+
 
 
 /**
- * Class Activity API
- * Handle api call for activities related contents.
+ * Manage user roles types, return right information about predefined roles.
  */
 class RoleTypeApi extends AbstractController
 {
+
+    /**
+     * @Route("/api/roles-predefined/get", name="api_roles_predefined")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getPredefinedRoles(Request $request)
+    {
+        $jsonRequest = json_decode($request->getContent(), true);
+        // Send missing parameter if role set id was not specified.
+        if(!isset($jsonRequest['roleSetId'])) {
+            return $this->json(['message' => 'Missing parameter'], 201);
+        }
+
+        $predefinedRoles = array_keys(User::getPredefinedRoleSet());
+        $source = $predefinedRoles[intval($jsonRequest['roleSetId'])];
+
+        return $this->json([
+            'roles' => array_values(User::getPredefinedRoleSet()[$source]),
+        ]);
+    }
 
 }

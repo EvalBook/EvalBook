@@ -103,7 +103,7 @@
                 {{ form_widget(form.role_type) }}
             </div>
 
-            <div class="form-row display-row">
+            <div class="form-row display-row" id="roles-group">
                 {% for group_label, options in form.roles.vars.choices %}
                     <div class="width-25-percent">
                         <h3>{{ (group_label~'s')|replace({'ys': 'ies', 'sss': 'sses'})|capitalize|trans }}</h3>
@@ -133,4 +133,10 @@
             {{ form_end(form) }}
         </div>
     </div>
+{% endblock %}
+
+
+{# Import needed Javascripts #}
+{% block javascripts %}
+    {{ encore_entry_script_tags('userRoles') }}
 {% endblock %}
