@@ -116,17 +116,22 @@
             <h2 class="text-center">{{ 'Attribued notes'|trans }}</h2>
             {% if activity.notes|length > 0 %}
                 <table class="full-width">
-                    <tr class="text-center">
-                        <th>{{ 'Student'|trans }}</th>
-                        <th>{{ 'Note'|trans }}</th>
-                        <th>{{ 'Maximum'|trans }}</th>
+                    <tr>
+                        <th class="text-center">{{ 'Student'|trans }}</th>
+                        <th class="text-center">{{ 'Note'|trans }}</th>
+                        <th class="text-center">{{ 'Maximum'|trans }}</th>
                         <th>{{ 'Comment'|trans }}</th>
                     </tr>
                     {% for note in activity.notes %}
+                        {% set cssClass = note.inAverage ? 'text-green-medal' : 'text-red-medal' %}
                         <tr>
                             <th class="width-20-percent text-right">{{ note.student.firstName }} ~ {{ note.student.lastName }}</th>
-                            <td class="text-center width-10-percent">{{ note.note }}</td>
-                            <td class="width-10-percent text-center">{{ activity.noteType.maximum }}</td>
+                            <td class="text-center width-10-percent {{ cssClass }}">
+                                {{ note.note }}
+                            </td>
+                            <td class="width-10-percent text-center text-bold">
+                                {{ activity.noteType.maximum }}
+                            </td>
                             <td>{{ note.comment }}</td>
                         </tr>
                     {% endfor %}

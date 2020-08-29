@@ -88,6 +88,14 @@ h1 {
     margin: 0.8%;
 }
 
+.content-text {
+    box-shadow: 0 2px 30px -19px rgba(0,0,0,0.75);
+    border-radius: 1em;
+    background-color: white;
+    padding: 2em;
+    line-height: 2em;
+}
+
 
 .go-back {
     font-size: 4em;
