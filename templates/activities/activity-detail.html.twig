@@ -6,8 +6,9 @@
 {% block title %}{{ 'Activity details'|trans }}{% endblock %}
 
 {% block body %}
-    <div class="full-width">
+    <div class="full-width flex column">
         {% set owner = (activity.user is same as(app.user)) ? true : false %}
+        {% set editable = activity.period.dateEnd >= date() %}
         {% include '_partials/go-back.html.twig' %}
 
         {# Contact details as a table #}
@@ -97,13 +98,52 @@
 
         </table>
 
-        {# Shorlink to activity edition. #}
-        <div class="margin-15">
-            <a href="{{ path('activity_edit', {'id': activity.id}) }}">
-                <i class="fas fa-edit"></i>
-                <span class="margin-left">{{ 'Edit this activity'|trans }}</span>
-            </a>
+        <div class="full-width text-right">
+            {# Shorlink to activity edition. #}
+            <div class="margin-15">
+                <a href="{{ path('activity_edit', {'id': activity.id}) }}">
+                    <i class="fas fa-edit"></i>
+                    <span class="margin-left">{{ 'Edit this activity'|trans }}</span>
+                </a>
+            </div>
         </div>
 
+        {# Activities attribued notes #}
+        <div class="full-width">
+            <h2 class="text-center">{{ 'Attribued notes'|trans }}</h2>
+            {% if activity.notes|length > 0 %}
+                <table class="full-width margin-plus">
+                    <tr class="text-center">
+                        <th>{{ 'Student'|trans }}</th>
+                        <th>{{ 'Note'|trans }}</th>
+                        <th>{{ 'Maximum'|trans }}</th>
+                        <th>{{ 'Comment'|trans }}</th>
+                    </tr>
+                    {% for note in activity.notes %}
+                        <tr>
+                            <th class="width-20-percent text-right">{{ note.student.firstName }} ~ {{ note.student.lastName }}</th>
+                            <td class="text-center width-10-percent">{{ note.note }}</td>
+                            <td class="width-10-percent text-center">{{ activity.noteType.maximum }}</td>
+                            <td>{{ note.comment }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <div class="flex column">
+                    <h3 class="text-red text-center">{{ 'No attribued notes for now'|trans }}</h3>
+                    {# Add notes shortcut #}
+                    {% if owner and editable %}
+                        <div class="margin-15 text-center">
+                            <a href="{{ path('activity_note_add', {'id': activity.id}) }}" title="Add activity notes" class="button">
+                                {{ 'Note activity'|trans }}
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+
+            {% endif %}
+        </div>
     </div>
+
+
 {% endblock %}

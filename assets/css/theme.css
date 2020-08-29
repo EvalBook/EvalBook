@@ -497,6 +497,10 @@ tr:hover i, tr:hover a {
     align-items: center;
 }
 
+.width-10-percent {
+    width: 10%;
+}
+
 .width-20-percent {
     width: 20%;
 }

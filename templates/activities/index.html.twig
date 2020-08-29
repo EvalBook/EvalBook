@@ -108,8 +108,8 @@
                         </a>
                     </td>
 
-                    {# Note activity access ( Provide a link to not student on this activity ) #}
-                    <td class="js-search-target text-center">
+                    {# Note activity access ( Provide a link to note student on this activity ) #}
+                    <td class="text-center">
                         {% if owner and editable %}
                             <a href="{{ path('activity_note_add', {'id': activity.id}) }}" title="Add activity notes">
                                 {% set cssClass = activity.notes|length > 0 ? 'text-green-medal' : 'text-red-medal'  %}
