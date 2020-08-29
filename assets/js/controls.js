@@ -78,6 +78,7 @@ let Controls = {
         });
     },
 
+
     /**
      * Init the page help message.
      */
@@ -92,6 +93,43 @@ let Controls = {
             document.querySelector('#help-message button').addEventListener('click', function(event) {
                 event.target.parentElement.style.display = 'none';
             });
+        }
+    },
+
+
+    /**
+     * Initialize collapsible elements.
+     */
+    initCollapsibleElements: function() {
+        let collapsibleElements = document.querySelectorAll('.js-collapsible');
+
+        for(let collapsible of collapsibleElements) {
+            let collapsibleControl = collapsible.querySelector('.js-collapsible-control');
+
+            let arrow = document.createElement('span');
+            arrow.innerHTML = '<i class="fas fa-angle-double-down"></i>';
+            arrow.dataset.state = '0';
+
+            collapsibleControl.prepend(arrow);
+
+            arrow.addEventListener('click', () => {
+                let state = arrow.dataset.state === '1' ? '0' : '1';
+                arrow.dataset.state = state;
+
+                if(state === '1') {
+                    arrow.innerHTML = '<i class="fas fa-angle-double-up"></i>';
+                    collapsibleContent.style.display = 'inline-flex';
+                }
+                else {
+                    arrow.innerHTML = '<i class="fas fa-angle-double-down"></i>';
+                    collapsibleContent.style.display = 'none';
+                }
+            });
+
+            let collapsibleContent = collapsible.querySelector('.js-collapsible-content');
+            collapsibleContent.style.display = 'none';
+            collapsibleContent.style.alignItems = 'flex-start';
+
         }
     },
 
@@ -125,6 +163,7 @@ if(window.innerWidth <= 800) {
 }
 
 Controls.initDesktopUserLinks();
+Controls.initCollapsibleElements();
 
 let marquee = document.querySelector('.general-message');
 if(marquee.innerHTML.length > 0) {

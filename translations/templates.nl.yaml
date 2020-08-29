@@ -300,12 +300,23 @@ Users without classroom: Users without classroom
 Students without classroom: Students without classroom
 Export all my students to a CSV file: Export all my students to a CSV file
 Export students: Export students
-Is in school report ?: Is in school report ?
+Is in school report: Is in school report ?
 View activity details: View activity details
 Details: Details
 Activity details: Activity details
 Edit this activity: Edit this activity
 Domain: Domain
+Attribued notes: Attribued notes
+No attribued notes for now: No attribued notes for now
+Note activity: Note activity
+Director: Director
+Secretary: Secretary
+Master: Master
+Special master: Special master
+Substitute master: Substitute master
+Implantation manager: Implantation manager
+Select a role type or click advanced arrow: Select a role type or click advanced arrow
+Advanced roles management: Advanced roles management
 
 
 roles:

@@ -49,8 +49,12 @@ class ImplantationController extends AbstractController
      */
     public function index(ImplantationRepository $repository)
     {
+        $implantations = $repository->findBy([], [
+            'school' => 'ASC',
+        ]);
+
         return $this->render('implantations/index.html.twig', [
-            'implantations' => $repository->findAll()
+            'implantations' => $implantations,
         ]);
     }
 

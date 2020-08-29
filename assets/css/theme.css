@@ -88,6 +88,14 @@ h1 {
     margin: 0.8%;
 }
 
+.content-text {
+    box-shadow: 0 2px 30px -19px rgba(0,0,0,0.75);
+    border-radius: 1em;
+    background-color: white;
+    padding: 2em;
+    line-height: 2em;
+}
+
 
 .go-back {
     font-size: 4em;
@@ -381,6 +389,16 @@ button[type="submit"], .button {
     /*border-radius: 2em;*/
 }
 
+
+.collapsible {
+    color: var(--secondary-color);
+}
+
+.collapsible i {
+    margin-right: 10px;
+    font-size: 2em;
+}
+
 /**
  * Tables and global content data.
  */
@@ -497,6 +515,14 @@ tr:hover i, tr:hover a {
     align-items: center;
 }
 
+.width-10-percent {
+    width: 10%;
+}
+
+.width-20-percent {
+    width: 20%;
+}
+
 .width-25-percent {
     width: 25%;
 }
@@ -562,6 +588,10 @@ tr:hover i, tr:hover a {
 
 .text-center {
     text-align: center;
+}
+
+.text-right {
+    text-align: right;
 }
 
 .flex {
@@ -653,7 +683,7 @@ tr:hover i, tr:hover a {
         display: none;
     }
 
-    .width-25-percent {
+    .width-25-percent, .width-20-percent {
         width: 33%;
     }
 
@@ -693,7 +723,7 @@ tr:hover i, tr:hover a {
         display: flex;
     }
 
-    .width-25-percent {
+    .width-25-percent, .width-20-percent {
         width: 50%;
     }
 

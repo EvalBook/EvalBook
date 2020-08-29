@@ -189,7 +189,7 @@ class Note
      */
     public function setComment(?string $comment): self
     {
-        $this->comment = ucfirst(strtolower($comment));
+        $this->comment = $comment;
         return $this;
     }
 
@@ -208,5 +208,30 @@ class Note
             return true;
         }
         return false;
+    }
+
+
+    /**
+     * Return true if student reached the notes average.
+     * @return bool
+     */
+    public function isInAverage()
+    {
+        // TODO adapt for floating point notes.
+        if(is_null($this->getNote())) {
+            return false;
+        }
+
+        // Fetching needle information.
+        $notes = $this->getActivity()->getNoteType()->getIntervals();
+        array_push($notes, $this->getActivity()->getNoteType()->getMaximum());
+        $key = array_search($this->getNote(), $notes) + 1; // +1 = array starting from 0 ;-)
+
+        if(!$key) {
+            return false;
+        }
+
+        dump(count($notes) / 2);
+        return $key >= count($notes) / 2;
     }
 }

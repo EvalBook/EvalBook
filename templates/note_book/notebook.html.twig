@@ -59,8 +59,12 @@
                         <tr>
                             <td class="names sticky-left {{ counter is divisible by(2) ? 'sticky-even' : 'sticky-odd' }}">{{ student }}</td>
                             {% set counter = counter + 1 %}
+
                             {% for note in notes %}
-                                <td class="text-center bordered">{{ note }}</td>
+                                {% set cssClass = note['average'] ? 'text-green-medal' : 'text-red-medal' %}
+                                <td class="text-center bordered {{ cssClass }}">
+                                    {{ note['note'] }}
+                                </td>
                             {% endfor %}
                         </tr>
                     {% endfor %}

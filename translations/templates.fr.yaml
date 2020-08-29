@@ -304,12 +304,23 @@ Users without classroom: Utilisateurs sans classe
 Students without classroom: Elèves sans classe
 Export all my students to a CSV file: Exporter tous mes étudiants en fichier CSV ( Excell )
 Export students: Export élèves
-Is in school report ?: Doit compter pour le bulletin ?
+Is in school report: Doit compter pour le bulletin
 View activity details: Voir le détail de l'activité
 Details: Détail
 Activity details: Détail de l'activité
 Edit this activity: Editer cette activité
 Domain: Domaine
+Attribued notes: Notes attribuées
+No attribued notes for now: Aucune note attribuée pour le moment
+Note activity: Noter l'activité
+Director: Directeur
+Secretary: Secrétaire
+Master: Titulaire
+Special master: Maître spécial
+Substitute master: Maître remplaçant
+Implantation manager: Gestionnaire d'implantation
+Select a role type or click advanced arrow: Sélectionnez un rôle type ou cliquez sur la flèche "avancé"
+Advanced roles management: Gestion avancée des rôles
 
 
 roles:
