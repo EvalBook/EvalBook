@@ -90,12 +90,6 @@
                 <td>{{ activity.isInShoolReport is same as(true) ? 'Yes'|trans : 'No'|trans }}</td>
             </tr>
 
-            {# Activity used to compute school report #}
-            <tr class="text-right">
-                <th>{{ 'Description'|trans }}</th>
-                <td>{{ activity.comment }}</td>
-            </tr>
-
         </table>
 
         <div class="full-width text-right">
@@ -108,11 +102,20 @@
             </div>
         </div>
 
-        {# Activities attribued notes #}
+        {# Activity description #}
         <div class="full-width">
+            {# Activity description #}
+            <h2 class="text-center">{{ 'Description'|trans }}</h2>
+            <div class="content-text">
+                {{ activity.comment|raw }}
+            </div>
+        </div>
+
+        {# Activities attribued notes #}
+        <div class="full-width margin-plus">
             <h2 class="text-center">{{ 'Attribued notes'|trans }}</h2>
             {% if activity.notes|length > 0 %}
-                <table class="full-width margin-plus">
+                <table class="full-width">
                     <tr class="text-center">
                         <th>{{ 'Student'|trans }}</th>
                         <th>{{ 'Note'|trans }}</th>
