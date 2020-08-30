@@ -154,8 +154,19 @@ class SchoolReportApi extends AbstractController
 
                     // Fetching skill in case of no note.
                     $skill = $skillRepository->findOneBy(['id' => $key3]);
-                    $low = ( $amount / $supp ) * $skill->getNoteType()->getMaximum();
-
+                    if($skill->getNoteType()->isNumeric()) {
+                        $low = ($amount / $supp) * $skill->getNoteType()->getMaximum();
+                        $low = $this->round_up($low, 1);
+                    }
+                    else {
+                        $intervals = $skill->getNoteType()->getIntervals();
+                        array_push($intervals, $skill->getNoteType()->getMaximum());
+                        array_unshift($intervals, $skill->getNoteType()->getMinimum());
+                        $low = ($amount / $supp) * count($intervals);
+                        if($low > count($intervals) - 1)
+                            $low = count($intervals) - 1;
+                        $low = $intervals[$this->round_up($low, 0)];
+                    }
                     echo $skill->getName() . " => $low / " . $skill->getNoteType()->getMaximum() . "\n";
 
                 }

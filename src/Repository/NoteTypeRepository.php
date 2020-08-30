@@ -202,7 +202,7 @@ class NoteTypeRepository extends ServiceEntityRepository
             ->setDescription("A -> F, ordre naturel.")
             ->setMaximum('A')
             ->setMinimum('F')
-            ->setIntervals(range('B', 'E'))
+            ->setIntervals(range('E', 'B'))
         ;
         $em->persist($ntAF);
 
@@ -214,7 +214,7 @@ class NoteTypeRepository extends ServiceEntityRepository
             ->setDescription("Acquis, En cours d'acquisition, A revoir, Non acquis")
             ->setMaximum('A')
             ->setMinimum('NA')
-            ->setIntervals(['ECA', 'AR'])
+            ->setIntervals(['AR', 'ECA'])
         ;
         $em->persist($ntANA);
 
@@ -226,7 +226,7 @@ class NoteTypeRepository extends ServiceEntityRepository
             ->setDescription("Très bien, Bien, Moyen, Suffisant, Médiocre, Insuffisant")
             ->setMaximum('TB')
             ->setMinimum('I')
-            ->setIntervals(['Bien', 'Moyen', 'Suffisant', 'Médiocre', 'Insuffisant'])
+            ->setIntervals(['Médiocre', 'Suffisant', 'Moyen', 'Bien'])
         ;
         $em->persist($ntTBI);
 
