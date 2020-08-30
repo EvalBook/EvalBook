@@ -231,7 +231,6 @@ class Note
             return false;
         }
 
-        dump(count($notes) / 2);
         return $key >= count($notes) / 2;
     }
 }
