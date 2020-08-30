@@ -330,11 +330,13 @@ class DashboardController extends AbstractController
             // If classroom is special ( gym, philosophy , ... ) then checking if a skill already exists.
             // Special classrooms / masters are limited to ONE skill that match ONE school report row.
             $count = 0;
+            // FIXME
             if($domain->getType() == ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM) {
                 $repository = $this->getDoctrine()->getRepository(ActivityThemeDomainSkill::class);
                 $count = $repository->count([
                     'user' => $this->getUser()->getId(),
                     'activityThemeDomain' => $domain->getId(),
+                    'classroom' => $classroom->getId(),
                 ]);
             }
 
