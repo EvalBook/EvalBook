@@ -130,7 +130,9 @@ async function getStrings() {
         'Error deleting element',
         'Invalid csrf token',
         'Yes',
-        'No'
+        'No',
+        "You are not allowed to edit other classroom information",
+
     ]);
 
     // Clearing local storage to accept server new language modifications, previous fetched strings are already displayed.

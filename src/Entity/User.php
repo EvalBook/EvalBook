@@ -488,4 +488,85 @@ class User implements UserInterface
             'ROLE_SCHOOL_REPORT_PRINT',
         );
     }
+
+
+    /**
+     * Return a list of pre-defined users types ( roles ).
+     * @return array
+     */
+    public static function getPredefinedRoleSet()
+    {
+        return [
+            'Director' => [
+                'ROLE_USER_LIST_ALL',
+                'ROLE_USER_CREATE',
+                'ROLE_USER_EDIT',
+                'ROLE_USER_DELETE',
+                'ROLE_SCHOOL_LIST_ALL',
+                'ROLE_IMPLANTATION_LIST_ALL',
+                'ROLE_IMPLANTATION_EDIT',
+                'ROLE_IMPLANTATION_CREATE',
+                'ROLE_IMPLANTATION_DELETE',
+                'ROLE_STUDENT_LIST_ALL',
+                'ROLE_STUDENT_CREATE',
+                'ROLE_STUDENT_EDIT',
+                'ROLE_STUDENT_DELETE',
+                'ROLE_CLASS_LIST_ALL',
+                'ROLE_CLASS_CREATE',
+                'ROLE_CLASS_EDIT',
+                'ROLE_CLASS_DELETE',
+                'ROLE_CLASS_EDIT_STUDENTS',
+                'ROLE_CLASS_EDIT_USERS',
+                'ROLE_SCHOOL_REPORT_PRINT',
+            ],
+
+            'Secretary' => [
+                'ROLE_USER_LIST_ALL',
+                'ROLE_USER_CREATE',
+                'ROLE_USER_EDIT',
+                'ROLE_USER_DELETE',
+                'ROLE_STUDENT_LIST_ALL',
+                'ROLE_STUDENT_CREATE',
+                'ROLE_STUDENT_EDIT',
+                'ROLE_CLASS_LIST_ALL',
+                'ROLE_CLASS_CREATE',
+                'ROLE_CLASS_EDIT',
+                'ROLE_CLASS_DELETE',
+                'ROLE_CLASS_EDIT_STUDENTS',
+                'ROLE_CLASS_EDIT_USERS',
+                'ROLE_SCHOOL_REPORT_PRINT',
+            ],
+
+            'Master' => [
+                'ROLE_CLASS_LIST_ALL',
+                'ROLE_CLASS_CREATE',
+                'ROLE_CLASS_EDIT',
+                'ROLE_CLASS_DELETE',
+                'ROLE_CLASS_EDIT_STUDENTS',
+                'ROLE_CLASS_EDIT_USERS',
+                'ROLE_SCHOOL_REPORT_PRINT',
+            ],
+
+            'Special master' => [],
+
+            'Substitute master' => [],
+
+            'Implantation manager' => [
+                'ROLE_IMPLANTATION_LIST_ALL',
+                'ROLE_IMPLANTATION_EDIT',
+                'ROLE_IMPLANTATION_CREATE',
+                'ROLE_IMPLANTATION_DELETE',
+                'ROLE_STUDENT_LIST_ALL',
+                'ROLE_STUDENT_CREATE',
+                'ROLE_STUDENT_EDIT',
+                'ROLE_STUDENT_DELETE',
+                'ROLE_CLASS_LIST_ALL',
+                'ROLE_CLASS_CREATE',
+                'ROLE_CLASS_EDIT',
+                'ROLE_CLASS_DELETE',
+                'ROLE_CLASS_EDIT_STUDENTS',
+                'ROLE_CLASS_EDIT_USERS',
+            ],
+        ];
+    }
 }

@@ -40,13 +40,22 @@ class NoteTypeRepository extends ServiceEntityRepository
     /**
      * Return available note types by numeric - non numeric....
      * @param bool $isNumeric
+     * @param int|null $coefficient
+     * @return array
      */
-    public function findByType(bool $isNumeric)
+    public function findByType(bool $isNumeric, ?int $coefficient = null)
     {
         $numericNotesTypes = [];
         $mixedNoteTypes = [];
 
-        $noteTypes = $this->getEntityManager()->getRepository($this->getClassName())->findAll();
+        if(is_null($coefficient)) {
+            $noteTypes = $this->getEntityManager()->getRepository($this->getClassName())->findAll();
+        }
+        else {
+            $noteTypes = $this->getEntityManager()->getRepository($this->getClassName())->findBy([
+                'coefficient' => $coefficient,
+            ]);
+        }
         if(count($noteTypes) === 0)
             return [];
 
@@ -86,36 +95,36 @@ class NoteTypeRepository extends ServiceEntityRepository
             // 0..5
             $nt05 = new NoteType();
             $nt05
-                ->setName("0 -> 5 coeff $i")
+                ->setName("0 -> 5")
                 ->setCoefficient($i)
                 ->setDescription("0 -> 5 coeff $i.")
                 ->setMaximum('5')
                 ->setMinimum('0')
-                ->setIntervals(array_reverse(range(1, 4)))
+                ->setIntervals(range(1, 4))
             ;
             $em->persist($nt05);
 
             // 0..10
             $nt10 = new NoteType();
             $nt10
-                ->setName("0 -> 10 coeff $i")
+                ->setName("0 -> 10")
                 ->setCoefficient($i)
                 ->setDescription("0 -> 10 coeff $i.")
                 ->setMaximum('10')
                 ->setMinimum('0')
-                ->setIntervals(array_reverse(range(1, 9)))
+                ->setIntervals(range(1, 9))
             ;
             $em->persist($nt10);
 
             // 0..20
             $nt20 = new NoteType();
             $nt20
-                ->setName("0 -> 20 coeff $i")
+                ->setName("0 -> 20")
                 ->setCoefficient($i)
                 ->setDescription("0 -> 20 coeff $i")
                 ->setMaximum('20')
                 ->setMinimum('0')
-                ->setIntervals(array_reverse(range(1, 19)))
+                ->setIntervals(range(1, 19))
             ;
             $em->persist($nt20);
 
@@ -123,12 +132,12 @@ class NoteTypeRepository extends ServiceEntityRepository
             // 0..25
             $nt25 = new NoteType();
             $nt25
-                ->setName("0 -> 25 coeff $i")
+                ->setName("0 -> 25")
                 ->setCoefficient($i)
                 ->setDescription("0 -> 25 coeff $i")
                 ->setMaximum('25')
                 ->setMinimum('0')
-                ->setIntervals(array_reverse(range(1, 24)))
+                ->setIntervals(range(1, 24))
             ;
             $em->persist($nt25);
 
@@ -136,12 +145,12 @@ class NoteTypeRepository extends ServiceEntityRepository
             // 0..30
             $nt30 = new NoteType();
             $nt30
-                ->setName("0 -> 30 coeff $i")
+                ->setName("0 -> 30")
                 ->setCoefficient($i)
                 ->setDescription("0 -> 30 coeff $i.")
                 ->setMaximum('30')
                 ->setMinimum('0')
-                ->setIntervals(array_reverse(range(1, 29)))
+                ->setIntervals(range(1, 29))
             ;
             $em->persist($nt30);
 
@@ -149,12 +158,12 @@ class NoteTypeRepository extends ServiceEntityRepository
             // 0..50
             $nt50 = new NoteType();
             $nt50
-                ->setName("0 -> 50 coeff $i")
+                ->setName("0 -> 50")
                 ->setCoefficient($i)
                 ->setDescription("0 -> 50 coeff $i.")
                 ->setMaximum('50')
                 ->setMinimum('0')
-                ->setIntervals(array_reverse(range(1, 49)))
+                ->setIntervals(range(1, 49))
             ;
             $em->persist($nt50);
 
@@ -162,12 +171,12 @@ class NoteTypeRepository extends ServiceEntityRepository
             // 0..60
             $nt60 = new NoteType();
             $nt60
-                ->setName("0 -> 60 coeff $i")
+                ->setName("0 -> 60")
                 ->setCoefficient($i)
                 ->setDescription("0 -> 60 coeff $i.")
                 ->setMaximum('60')
                 ->setMinimum('0')
-                ->setIntervals(array_reverse(range(1, 59)))
+                ->setIntervals(range(1, 59))
             ;
             $em->persist($nt60);
 
@@ -180,7 +189,7 @@ class NoteTypeRepository extends ServiceEntityRepository
                 ->setDescription("0 -> 100 coeff $i.")
                 ->setMaximum('100')
                 ->setMinimum('0')
-                ->setIntervals(array_reverse(range(1, 99)))
+                ->setIntervals(range(1, 99))
             ;
             $em->persist($nt100);
         }
@@ -189,7 +198,7 @@ class NoteTypeRepository extends ServiceEntityRepository
         $ntAF = new NoteType();
         $ntAF
             ->setName("A -> F")
-            ->setCoefficient($i)
+            ->setCoefficient(1)
             ->setDescription("A -> F, ordre naturel.")
             ->setMaximum('A')
             ->setMinimum('F')
@@ -201,7 +210,7 @@ class NoteTypeRepository extends ServiceEntityRepository
         $ntANA = new NoteType();
         $ntANA
             ->setName("Acquis - En cours d'acquisition - A revoir - Non acquis")
-            ->setCoefficient($i)
+            ->setCoefficient(1)
             ->setDescription("Acquis, En cours d'acquisition, A revoir, Non acquis")
             ->setMaximum('A')
             ->setMinimum('NA')
@@ -213,7 +222,7 @@ class NoteTypeRepository extends ServiceEntityRepository
         $ntTBI = new NoteType();
         $ntTBI
             ->setName("Très bien - Bien - Moyen - Suffisant - Médiocre - Insuffisant")
-            ->setCoefficient($i)
+            ->setCoefficient(1)
             ->setDescription("Très bien, Bien, Moyen, Suffisant, Médiocre, Insuffisant")
             ->setMaximum('TB')
             ->setMinimum('I')

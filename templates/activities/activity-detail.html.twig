@@ -1,0 +1,157 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'templates' %}
+
+{% block pageTitle %} {{ 'Activity details'|trans }} {% endblock %}
+
+{% block title %}{{ 'Activity details'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="full-width flex column">
+        {% set owner = (activity.user is same as(app.user)) ? true : false %}
+        {% set editable = activity.period.dateEnd >= date() %}
+        {% include '_partials/go-back.html.twig' %}
+
+        {# Contact details as a table #}
+        <table class="full-width">
+
+            {# Activity name. #}
+            <tr>
+                <th class="width-20-percent text-right">{{ 'Name'|trans }}</th>
+                <td>{{ activity.name }}</td>
+            </tr>
+
+
+            {# Activity classroom. #}
+            <tr>
+                <th class="text-right">{{ 'Classroom'|trans }}</th>
+                <td>{{ activity.classroom.name }}</td>
+            </tr>
+
+
+            {# Activity domain. #}
+            <tr>
+                <th class="text-right">{{ 'Domain'|trans }}</th>
+                <td>{{ activity.activityThemeDomainSkill.activityThemeDomain.displayName }}</td>
+            </tr>
+
+
+            {# Activity skill. #}
+            <tr>
+                <th class="text-right">{{ 'Skill'|trans }}</th>
+                <td>{{ activity.activityThemeDomainSkill.name }} - {{ activity.activityThemeDomainSkill.description }}</td>
+            </tr>
+
+
+            {# Activity date added #}
+            <tr>
+                <th class="text-right">{{ 'Date'|trans }}</th>
+                <td>{{ activity.dateAdded|date('d/m/Y') }}</td>
+            </tr>
+
+
+            {# Activity note type #}
+            <tr>
+                <th class="text-right">{{ 'Note type'|trans }}</th>
+                <td>{{ activity.noteType.description }}</td>
+            </tr>
+
+
+            {# Activity user #}
+            <tr>
+                <th class="text-right">{{ 'User'|trans }}</th>
+                <td>
+                    {%  if owner %}
+                        <span><< <strong>{{ 'Me'|trans }}</strong> >></span>
+                    {% else %}
+                        {{ activity.user }}
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            {# Activity period #}
+            <tr>
+                <th class="text-right">{{ 'Period'|trans }}</th>
+                <td>
+                    {{ activity.period.name }}  ( {{ activity.period.dateStart|date('d/m/Y')}} - {{ activity.period.dateEnd|date('d/m/Y') }} )
+                </td>
+            </tr>
+
+            {# Activity implantation. #}
+            <tr>
+                <th class="text-right">{{ 'Implantation'|trans }}</th>
+                <td>{{ activity.classroom.implantation.name }}</td>
+            </tr>
+
+
+            {# Activity used to compute school report #}
+            <tr>
+                <th class="text-right">{{ 'Is in school report'|trans }}</th>
+                <td>{{ activity.isInShoolReport is same as(true) ? 'Yes'|trans : 'No'|trans }}</td>
+            </tr>
+
+        </table>
+
+        <div class="full-width text-right">
+            {# Shorlink to activity edition. #}
+            <div class="margin-15">
+                <a href="{{ path('activity_edit', {'id': activity.id}) }}">
+                    <i class="fas fa-edit"></i>
+                    <span class="margin-left">{{ 'Edit this activity'|trans }}</span>
+                </a>
+            </div>
+        </div>
+
+        {# Activity description #}
+        <div class="full-width">
+            {# Activity description #}
+            <h2 class="text-center">{{ 'Description'|trans }}</h2>
+            <div class="content-text">
+                {{ activity.comment|raw }}
+            </div>
+        </div>
+
+        {# Activities attribued notes #}
+        <div class="full-width margin-plus">
+            <h2 class="text-center">{{ 'Attribued notes'|trans }}</h2>
+            {% if activity.notes|length > 0 %}
+                <table class="full-width">
+                    <tr>
+                        <th class="text-center">{{ 'Student'|trans }}</th>
+                        <th class="text-center">{{ 'Note'|trans }}</th>
+                        <th class="text-center">{{ 'Maximum'|trans }}</th>
+                        <th>{{ 'Comment'|trans }}</th>
+                    </tr>
+                    {% for note in activity.notes %}
+                        {% set cssClass = note.inAverage ? 'text-green-medal' : 'text-red-medal' %}
+                        <tr>
+                            <th class="width-20-percent text-right">{{ note.student.firstName }} ~ {{ note.student.lastName }}</th>
+                            <td class="text-center width-10-percent {{ cssClass }}">
+                                {{ note.note }}
+                            </td>
+                            <td class="width-10-percent text-center text-bold">
+                                {{ activity.noteType.maximum }}
+                            </td>
+                            <td>{{ note.comment }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <div class="flex column">
+                    <h3 class="text-red text-center">{{ 'No attribued notes for now'|trans }}</h3>
+                    {# Add notes shortcut #}
+                    {% if owner and editable %}
+                        <div class="margin-15 text-center">
+                            <a href="{{ path('activity_note_add', {'id': activity.id}) }}" title="Add activity notes" class="button">
+                                {{ 'Note activity'|trans }}
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+
+            {% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}

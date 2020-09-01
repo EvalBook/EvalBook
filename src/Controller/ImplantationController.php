@@ -49,8 +49,12 @@ class ImplantationController extends AbstractController
      */
     public function index(ImplantationRepository $repository)
     {
+        $implantations = $repository->findBy([], [
+            'school' => 'ASC',
+        ]);
+
         return $this->render('implantations/index.html.twig', [
-            'implantations' => $repository->findAll()
+            'implantations' => $implantations,
         ]);
     }
 
@@ -237,15 +241,15 @@ class ImplantationController extends AbstractController
      * @Route("/implantation/period/edit/{id}", name="implantation_period_edit")
      * @IsGranted("ROLE_IMPLANTATION_EDIT", statusCode=404, message="Not found")
      *
-     * @param Period $periode
+     * @param Period $period
      * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function editPeriod(Period $periode, Request $request)
+    public function editPeriod(Period $period, Request $request)
     {
-        $this->canManipulatePeriod($periode);
+        $this->canManipulatePeriod($period);
 
-        $form = $this->createForm(PeriodeType::class, $periode);
+        $form = $this->createForm(PeriodeType::class, $period);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -253,12 +257,12 @@ class ImplantationController extends AbstractController
             $this->addFlash('success', 'Successfully updated');
 
             return $this->redirectToRoute('implantation_period_list', [
-                'id' => $periode->getImplantation()->getId(),
+                'id' => $period->getImplantation()->getId(),
             ]);
         }
 
         return $this->render('implantations/period-form.html.twig', [
-            'period' => $periode,
+            'period' => $period,
             'form' => $form->createView(),
         ]);
     }

@@ -34,13 +34,17 @@
                 {% if form.activityThemeDomains.vars.choices|length > 0 and form.activityThemeDomainSkill.vars.choices|length > 0 %}
                     {{ form_start(form) }}
 
+                    {# Activity theme domain #}
+                    {% do form.activityThemeDomains.setRendered() %}
+
                     <div class="form-row display-row">
-                        {# Activity theme domain #}
+
+                        {# Activity skill #}
                         <div class="width-50-percent margin-right">
-                            {{ form_label(form.activityThemeDomains, 'Activity theme domain'|trans) }}
-                            {{ form_widget(form.activityThemeDomains, {'attr' : {
-                                'class' : 'full-width',
-                            }} ) }}
+                            {{ form_label(form.activityThemeDomainSkill, 'Skill'|trans) }}
+                            {{ form_widget(form.activityThemeDomainSkill, {'attr': {
+                                'class': 'full-width',
+                            }}) }}
                             <span class="form-error"></span>
                         </div>
 
@@ -54,17 +58,8 @@
                     </div>
 
                     <div class="form-row display-row">
-                        {# Activity skill #}
-                        <div class="width-50-percent margin-right hidden">
-                            {{ form_label(form.activityThemeDomainSkill, 'Skill'|trans) }}
-                            {{ form_widget(form.activityThemeDomainSkill, {'attr': {
-                                'class': 'full-width',
-                            }}) }}
-                            <span class="form-error"></span>
-                        </div>
-
                         {# Activity note type #}
-                        <div class="width-50-percent margin-left hidden">
+                        <div class="width-50-percent margin-left">
                             {{ form_label(form.noteType, 'Note type'|trans) }}
                             {{ form_widget(form.noteType, {'attr': {
                                 'class': 'full-width',
@@ -77,7 +72,7 @@
                     </div>
 
                     {# Activity name #}
-                    <div class="form-row hidden">
+                    <div class="form-row">
                         {{ form_label(form.name, 'Name'|trans) }}
                         {{ form_widget(form.name, {'attr': {
                             'class': 'full-width'
@@ -87,9 +82,17 @@
                         </span>
                     </div>
 
+                    {# Activity should appear in the school report ? #}
+                    <div class="form-row">
+                        {{ form_label(form.isInShoolReport, 'Is in school report ?'|trans) }}
+                        {{ form_widget(form.isInShoolReport, {'attr': {
+                            'class': 'full-width'
+                        }}) }}
+                    </div>
+
                     {# Activity comment #}
                     <div class="form-row">
-                        {# { form_label(form.comment, 'Comment'|trans) } #}
+                        {{ form_label(form.comment, 'Comment'|trans) }}
                         {{ form_widget(form.comment) }}
                     </div>
 
@@ -100,7 +103,7 @@
                     {# Submit button #}
                     {{ form_row(form.submit, {
                         'label': 'Send'|trans,
-                        'attr': {'class': 'margin-15 hidden'},
+                        'attr': {'class': 'margin-15'},
                     }) }}
 
                     {{ form_end(form) }}
@@ -113,10 +116,4 @@
         </div>
 
     </div>
-{% endblock %}
-
-
-{# Import needed Javascripts #}
-{% block javascripts %}
-    {{ encore_entry_script_tags('activity') }}
 {% endblock %}

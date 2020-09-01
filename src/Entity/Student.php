@@ -208,7 +208,7 @@ class Student
     {
         foreach($this->getNotes() as $note) {
             if($note->getActivity() === $activity) {
-                return $note->getNote();
+                return $note;
             }
         }
 

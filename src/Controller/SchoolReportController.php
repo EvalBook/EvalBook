@@ -26,6 +26,7 @@ class SchoolReportController extends AbstractController
         return $this->render('school_report/index.html.twig', [
             'classroom' => $classroom,
             'students' => $students,
+            'implantation' => $classroom->getImplantation(),
         ]);
     }
 

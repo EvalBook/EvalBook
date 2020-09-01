@@ -111,7 +111,7 @@ class NoteType
      */
     public function setName(string $name): self
     {
-        $this->name = ucfirst(strtolower($name));
+        $this->name = $name;
         return $this;
     }
 
@@ -133,7 +133,7 @@ class NoteType
      */
     public function setDescription(string $description): self
     {
-        $this->description = ucfirst(strtolower($description));
+        $this->description = $description;
         return $this;
     }
 
@@ -144,7 +144,7 @@ class NoteType
      */
     public function getMinimum(): ?string
     {
-        return strtoupper($this->minimum);
+        return $this->minimum;
     }
 
 
@@ -155,7 +155,7 @@ class NoteType
      */
     public function setMinimum(string $min): self
     {
-        $this->minimum = strtoupper($min);
+        $this->minimum = $min;
         return $this;
     }
 
@@ -166,7 +166,7 @@ class NoteType
      */
     public function getMaximum(): ?string
     {
-        return strtoupper($this->maximum);
+        return $this->maximum;
     }
 
 
@@ -177,7 +177,7 @@ class NoteType
      */
     public function setMaximum(string $max): self
     {
-        $this->maximum = strtoupper($max);
+        $this->maximum = $max;
         return $this;
     }
 
@@ -199,11 +199,6 @@ class NoteType
      */
     public function setIntervals(array $intervals): self
     {
-        // Ensure all intervals are uppercase.
-        $intervals = array_map(function($interval){
-            return strtoupper($interval);
-        }, $intervals);
-
         $this->intervals = $intervals;
 
         return $this;

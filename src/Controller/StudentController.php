@@ -19,6 +19,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Classroom;
 use App\Entity\Student;
 use App\Entity\StudentContact;
 use App\Entity\StudentContactRelation;
@@ -32,6 +33,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
@@ -61,8 +63,17 @@ class StudentController extends AbstractController
             }
         }
 
+        // Getting students without classrooms.
+        $noClassroomsStudents = $studentRepository->findAll();
+
+        // Getting students without classroom.
+        $filter = function(Student $student) {
+            return $student->getClassrooms()->count() === 0;
+        };
+
         return $this->render('students/index.html.twig', [
             'students' => array_unique($students),
+            'noClassroomsStudentsCount' => count(array_filter($noClassroomsStudents, $filter)),
         ]);
     }
 
@@ -367,5 +378,69 @@ class StudentController extends AbstractController
         $entityManager->flush();
 
         return $this->json(['message' => 'Element deleted'], 200);
+    }
+
+
+    /**
+     * @Route("/students/no-classrooms", name="students_no_classrooms")
+     * @IsGranted("ROLE_STUDENT_LIST_ALL", statusCode=404, message="Not found")
+     *
+     * @param StudentRepository $studentRepository
+     * @return Response
+     */
+    public function getStudentsWithNoClassrooms(StudentRepository $studentRepository)
+    {
+        $students = $studentRepository->findAll();
+
+        // Getting students without classroom.
+        $filter = function(Student $student) {
+            return $student->getClassrooms()->count() === 0;
+        };
+
+        return $this->render('students/index.html.twig', [
+            'students' => array_filter($students, $filter),
+        ]);
+    }
+
+
+    /**
+     * @Route("/students/export-csv/{classroom}", name="students_export_csv", defaults={"classroom"=null})
+     * @param Classroom|null $classroom
+     * @return Response
+     */
+    public function exportStudentsCSV(?Classroom $classroom)
+    {
+        if(!is_null($classroom)) {
+            $students = $classroom->getStudents()->toArray();
+        }
+        else {
+            $classrooms = $this->getUser()->getClassrooms();
+            $students = [];
+            foreach($classrooms as $classroom) {
+                $students = array_merge($students, $classroom->getStudents()->toArray());
+            }
+        }
+
+        $response = new StreamedResponse();
+        $response->setCallback(
+            function() use($students) {
+                $handle = fopen('php://output', 'r+');
+                fprintf($handle, chr(0xEF).chr(0xBB).chr(0xBF));
+
+                foreach ($students as $student) {
+                    $data = [
+                        $student->getFirstName(),
+                        $student->getLastName(),
+                        $student->getBirthday()->format('d / m / Y'),
+                    ];
+                    fputcsv($handle, $data, ';');
+                }
+                fclose($handle);
+            }
+        );
+        $response->headers->set('Content-Type', 'application/force-download');
+        $response->headers->set('Content-Disposition', 'attachment; filename="export.csv"');
+
+        return $response;
     }
 }

@@ -89,6 +89,11 @@ class Activity
      */
     private $activityThemeDomainSkill;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isInShoolReport;
+
 
     /**
      * Activite constructor.
@@ -316,15 +321,6 @@ class Activity
         return $this;
     }
 
-    /**
-     * Return the Activity string representation.
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->getPeriod() . " - " . $this->getName();
-    }
-
 
     /**
      * Return the attached activity theme domain skill.
@@ -343,6 +339,53 @@ class Activity
     public function setActivityThemeDomainSkill(?ActivityThemeDomainSkill $activityThemeDomainSkill): self
     {
         $this->activityThemeDomainSkill = $activityThemeDomainSkill;
+
+        return $this;
+    }
+
+
+    /**
+     * Return the Activity string representation.
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getPeriod() . " - " . $this->getName();
+    }
+
+
+    /**
+     * Clone current object.
+     */
+    public function __clone()
+    {
+        $this->id = null;
+        $this->setName($this->getName() . " ( clone )");
+        $this->dateAdded = new DateTime();
+        if(!is_null($this->getComment())) {
+            $this->setComment($this->getComment() . " ( clone )");
+        }
+    }
+
+
+    /**
+     * Return true if the activity must appear in the school report.
+     * @return bool|null
+     */
+    public function getIsInShoolReport(): ?bool
+    {
+        return $this->isInShoolReport;
+    }
+
+
+    /**
+     * Set to true in order to make this activity visible in the school report.
+     * @param bool $isInShoolReport
+     * @return $this
+     */
+    public function setIsInShoolReport(bool $isInShoolReport): self
+    {
+        $this->isInShoolReport = $isInShoolReport;
 
         return $this;
     }

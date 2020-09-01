@@ -37,18 +37,16 @@ class ActivityThemeDomainSkillType extends AbstractType
 
             // Skill description.
             ->add('description', TextType::class, [
-                'constraints' => new Length([
-                    'max' => 100,
-                    'min' => 2,
-                    'maxMessage' => 'The skill description must be between 2 and 100 chars',
-                    'minMessage' => 'The skill description must be between 2 and 100 chars',
-                ]),
+                'required' => false,
             ])
 
             // Associated note type used to generate the school report total.
             ->add('noteType', EntityType::class, [
                 'class'   => NoteType::class,
                 'choices' => $options['noteTypes'],
+                'choice_label' => function(NoteType $noteType) {
+                    return $noteType->getName();
+                },
             ])
 
             // Submit button.

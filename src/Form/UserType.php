@@ -34,7 +34,6 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UserType extends AbstractType
 {
-
     /**
      * Build the user add / edit form.
      * @param FormBuilderInterface $builder
@@ -94,6 +93,15 @@ class UserType extends AbstractType
                 ],
                 'translation_domain' => 'templates',
                 'data' => 'Yes',
+            ])
+
+            // Predefined roles values.
+            ->add('role_type', ChoiceType::class, [
+                'required' => false,
+                'mapped' => false,
+                'expanded' => false,
+                'choices' => array_flip(array_keys(User::getPredefinedRoleSet())),
+                'translation_domain' => 'templates',
             ])
 
             // User roles.

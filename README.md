@@ -54,9 +54,17 @@ vous assurer de disposer des droits en écriture sur le dossier EvalBook.
 
 `$ cd EvalBook`
 
+`$ composer install`
+
 `$ npm install`
 
-`$ composer install`
+`$ php bin/console assets:install public`
+
+`$ php bin/console doctrine:database:create`
+
+`$ php bin/console doctrine:migrations:migrate`
+
+
 
 ## Sécurisation
 Une fois ces étapes réalisées, connectez vous à EvalBook et changez les informations du super admin, vous pourrez effectuer

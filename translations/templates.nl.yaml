@@ -292,6 +292,31 @@ The current EvalBook version is: The current EvalBook version is
 School reports: School reports
 Click the school report icon on a selected student or click view all button to view all available school reports: Click the school report icon on a selected student or click view all button to view all available school reports
 View all: View all
+This skill already exists, please, choose an other name: This skill already exists, please, choose an other name
+You are not allowed to edit other classroom information: You are not allowed to edit other classroom information
+Activity duplicated: Activity duplicated
+Duplicate: Duplicate
+Users without classroom: Users without classroom
+Students without classroom: Students without classroom
+Export all my students to a CSV file: Export all my students to a CSV file
+Export students: Export students
+Is in school report: Is in school report ?
+View activity details: View activity details
+Details: Details
+Activity details: Activity details
+Edit this activity: Edit this activity
+Domain: Domain
+Attribued notes: Attribued notes
+No attribued notes for now: No attribued notes for now
+Note activity: Note activity
+Director: Director
+Secretary: Secretary
+Master: Master
+Special master: Special master
+Substitute master: Substitute master
+Implantation manager: Implantation manager
+Select a role type or click advanced arrow: Select a role type or click advanced arrow
+Advanced roles management: Advanced roles management
 
 
 roles:
@@ -318,6 +343,7 @@ roles:
   ROLE_SCHOOL_CREATE: Create school
   ROLE_SCHOOL_DELETE: Delete school
   ROLE_ADMIN: Role admin
+  ROLE_SCHOOL_REPORT_PRINT: Print school reports
 
 help:
   ROLE_SCHOOL_LIST_ALL: Allow you to list all schools available in the system.

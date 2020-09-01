@@ -57,11 +57,11 @@
     <table class="full-width">
         <thead>
         <tr>
-            <th scope="col">{{ 'Implantation' | trans }}</th>
-
             {% if config.useSchools %}
                 <th scope="col">{{ 'School'|trans }}</th>
             {% endif %}
+
+            <th scope="col">{{ 'Implantation' | trans }}</th>
 
             <th scope="col" class="mobile-hidden-td">{{ 'Address' | trans }}</th>
             <th scope="col" class="text-center">{{ 'Classes'|trans }}</th>
@@ -80,13 +80,14 @@
 
         {% for implantation in implantations %}
             <tr data-id="{{ implantation.id }}">
-                {# Implantation name #}
-                <td class="js-search-target">{{ implantation.name }}</td>
 
                 {# Implantation school ( if user want to use schools option ) #}
                 {% if config.useSchools %}
                     <td class="js-search-target">{{ implantation.school ? implantation.school : '-' }}</td>
                 {% endif %}
+
+                {# Implantation name #}
+                <td class="js-search-target">{{ implantation.name }}</td>
 
                 {# Implantation address #}
                 <td class="mobile-hidden-td js-search-target">{{ implantation.address }}</td>

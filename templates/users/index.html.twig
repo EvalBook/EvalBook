@@ -46,9 +46,20 @@
 {% endblock %}
 
 {% block body %}
+<div class="full-width flex column">
     {#
         The .mobile-hidden-to and .mobile-hidden classes makes element hidden on mobile.
     #}
+    {% if is_granted('ROLE_USER_LIST_ALL') and noClassroomsUsersCount is defined %}
+        <div class="full-width margin-bottom">
+            <strong class="font-medium">{{ 'Users without classroom'|trans }}: {{ noClassroomsUsersCount }}</strong>
+            {% if noClassroomsUsersCount > 0 %}
+                <a href="{{ path('users_no_classrooms') }}" title="Users without classrooms" class="font-medium margin-left text-yellow">
+                    <i class="fas fa-users"></i>
+                </a>
+            {% endif %}
+        </div>
+    {% endif %}
 
     <table class="full-width" id="searchable">
         <thead>
@@ -147,6 +158,7 @@
         {% endfor %}
         </tbody>
     </table>
+</div>
 {% endblock %}
 
 

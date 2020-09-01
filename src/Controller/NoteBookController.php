@@ -100,12 +100,24 @@ class NoteBookController extends AbstractController
         // Computing notebook.
         foreach($students as $student) {
             foreach($activities as $activity) {
-                $note = $student->getNote($activity);
+                $note = $student->getNote($activity)->getNote();
                 $noteType = $this->getDoctrine()->getRepository(NoteType::class)->findOneBy([
                     'id' => $activity->getNoteType()->getId(),
                 ]);
-                $note = !is_null($note) ? $note . " / " . $noteType->getMaximum() : '-';
-                $notebook[$student->getLastName() . ' ' . $student->getFirstName()][] = $note;
+
+                if(!is_null($note)) {
+                    $average = $student->getNote($activity)->isInAverage();
+                    $note = $note . " / " . $noteType->getMaximum();
+                }
+                else {
+                    $note = '-';
+                    $average = null;
+                }
+
+                $notebook[$student->getLastName() . ' ' . $student->getFirstName()][] = [
+                    'note'    => $note,
+                    'average' => $average
+                ];
             }
         }
 

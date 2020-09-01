@@ -4,8 +4,6 @@ namespace App\Repository;
 
 use App\Entity\ActivityTheme;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

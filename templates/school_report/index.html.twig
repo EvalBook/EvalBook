@@ -34,7 +34,7 @@
                     <td>{{ student.lastName }}</td>
                     <td>{{ student.firstName }}</td>
                     <td class="text-center">
-                        <a data-path="{{ path('school_report_individual', {'student': student.id}) }}">
+                        <a data-path="{{ path('school_report_individual', {'student': student.id, 'implantation': implantation.id}) }}">
                             <i class="far fa-file-alt"></i>
                         </a>
                     </td>

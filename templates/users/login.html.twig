@@ -32,13 +32,13 @@
             <img id="logo-mini" src="{{ asset('build/logo_evalbook_mini.png') }}" alt="EvalBook logo mini" />
         </div>
 
-        <form method="post">
-            {% if error %}
-                <div class="dialog dialog-error">
-                    {{ error.messageKey|trans(error.messageData, 'security') }}
-                </div>
-            {% endif %}
+        {% if error %}
+            <div class="dialog dialog-error">
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
+        {% endif %}
 
+        <form method="post">
 
             <input type="email" id="inputEmail" name="email" placeholder="{{ "My e-mail"|trans }} ">
             <input type="password" id="inputPassword" name="password" placeholder="{{ "My password"|trans }} ">
