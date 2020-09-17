@@ -12,7 +12,6 @@ let ModalSchoolReport = function(data) {
         frame.setAttribute('id',"modal-window");
         frame.setAttribute('aria-modal',"config");
         document.body.appendChild(frame);
-        frame = document.getElementById('modal-window');
 
         let close = document.createElement('span');
         close.innerHTML = "Fermer cette fenêtre";
@@ -23,6 +22,7 @@ let ModalSchoolReport = function(data) {
         let view = document.createElement('div');
         view.setAttribute('class',"w-100 d-flex align-items-end");
         view.setAttribute('id',"report-view");
+        view.innerHTML = this.data;
         frame.appendChild(view);
     }
 }

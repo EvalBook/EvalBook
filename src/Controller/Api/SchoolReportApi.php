@@ -63,17 +63,18 @@ class SchoolReportApi extends AbstractController
             }
         }
 
+        $result = [];
         if(count($notes) > 0) {
             $result = $this->compute($notes);
         }
 
         $view = $this->renderView('school_report/school-report.html.twig', [
             'student' => $student,
+            'report' => $result,
         ]);
 
 
         return new JsonResponse([
-            'message' => 'test',
             'html' => $view,
         ], 200);
     }
@@ -120,7 +121,6 @@ class SchoolReportApi extends AbstractController
         }
 
         // Compute total of notes.
-        $skills = [];
         // From theme
         foreach($result as $key => $themes) {
             // From domaine
@@ -167,13 +167,13 @@ class SchoolReportApi extends AbstractController
                             $low = count($intervals) - 1;
                         $low = $intervals[$this->round_up($low, 0)];
                     }
-                    echo $skill->getName() . " => $low / " . $skill->getNoteType()->getMaximum() . "\n";
 
+                    echo $skill->getName() . " => $low / " . $skill->getNoteType()->getMaximum() . "\n";
+                    $endpoint['min'] = $low;
+                    $endpoint['max'] = $skill->getNoteType()->getMaximum();
                 }
             }
         }
-
-        //dd($skills);
 
         return $result;
     }

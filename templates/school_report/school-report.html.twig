@@ -1,3 +1,458 @@
 {{ encore_entry_link_tags('schoolReport') }}
 
 <h1>{{ student.firstname }}</h1>
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, user-scalable=0">
+    <title>Evalbook</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    {{ encore_entry_link_tags('schoolReport') }}
+</head>
+<body>
+
+<header class="d-flex justify-content-around mt-3 mb-4">
+    <div class="bg-primary p-5">Logo Ecole</div>
+    <div class="bg-secondary p-5">Bulletin de notes</div>
+    <div class="bg-warning p-5">infos élèves</div>
+</header>
+
+
+<main class="container w-100 p-0">
+
+    <table class="w-100 table-bordered table-striped mb-2" id="subject-table">
+        <thead class="w-100">
+        <tr class="w-100 d-flex justify-content-between">
+            <th scope="col" class="py-3 pl-4 domain-col">Domaine</th>
+            <th scope="col" class="py-3 text-center max-note-col">MAX</th>
+            <th scope="col" class="py-3 text-center period-note-col">Période 1</th>
+            <th scope="col" class="py-3 text-center period-note-col">Période 2</th>
+            <th scope="col" class="py-3 text-center period-note-col">Période 3</th>
+            <th scope="col" class="py-3 text-center period-note-col">Période 4</th>
+            <th scope="col" class="py-3 text-center average-col">Moyenne</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="w-100">
+            <th class="colspan=7 pl-4 py-3 domain-title-row">Français</th>
+        </tr>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Savoir lire</p>
+                <p class="comp-info font-weight-normal font-italic">"Je comprends ce que je lis, je lui donne du sens."</p>
+            </th>
+            <td class="py-3 text-center max-note-col">30</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Savoir lire</p>
+                <p class="comp-info font-weight-normal font-italic">"Je décode des mots des phrases et des textes."</p>
+            </th>
+            <td class="py-3 text-center max-note-col">30</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Savoir écrire</p>
+                <p class="comp-info font-weight-normal font-italic">"Je produis, j'utilise des outils (grammaire et orthographe), j'écris avec soin."</p>
+            </th>
+            <td class="py-3 text-center max-note-col">20</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Savoir parler</p>
+                <p class="comp-info font-weight-normal font-italic">"Je m'exrpime clairement et je récite."</p>
+            </th>
+            <td class="py-3 text-center max-note-col">10</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Savoir écouter</p>
+                <p class="comp-info font-weight-normal font-italic">"Je comprends ce que j'entends."</p>
+            </th>
+            <td class="py-3 text-center max-note-col">10</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Total</p>
+            </th>
+            <td class="py-3 text-center max-note-col">100</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+
+        <tr class="w-100">
+            <th class="colspan=7 pl-4 py-3 domain-title-row">Mathématiques</th>
+        </tr>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Savoir calculer</p>
+                <p class="comp-info font-weight-normal font-italic">"Je construis les nombres, je calcule."</p>
+            </th>
+            <td class="py-3 text-center max-note-col">60</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Savoir mesurer</p>
+                <p class="comp-info font-weight-normal font-italic">"Je mesure les grandeurs."</p>
+            </th>
+            <td class="py-3 text-center max-note-col">20</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Savoir structurer l'espace</p>
+                <p class="comp-info font-weight-normal font-italic">"Je me repère dans l'espace, je travaille sur les solides et les figures."</p>
+            </th>
+            <td class="py-3 text-center max-note-col">20</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Total</p>
+            </th>
+            <td class="py-3 text-center max-note-col">100</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+
+        <tr class="w-100">
+            <th class="colspan=7 pl-4 py-3 domain-title-row">Eveil</th>
+        </tr>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Eveil</p>
+                <p class="comp-info font-weight-normal font-italic">"Je m'éveille à mon environnement et au monde alentour."</p>
+            </th>
+            <td class="py-3 text-center max-note-col">20</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Eveil technologique et scientifique</p>
+                <p class="comp-info font-weight-normal font-italic">"J'expérimente."</p>
+            </th>
+            <td class="py-3 text-center max-note-col">20</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Savoir structurer l'espace</p>
+                <p class="comp-info font-weight-normal font-italic">"Je me repère dans l'espace, je travaille sur les solides et les figures."</p>
+            </th>
+            <td class="py-3 text-center max-note-col">20</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Total</p>
+            </th>
+            <td class="py-3 text-center max-note-col">100</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+    <table class="w-100 table-bordered table-striped mb-2" id="skill-table">
+        <thead class="w-100">
+        <tr class="w-100 d-flex justify-content-between">
+            <th scope="col" class="py-3 pl-4 domain-col">Domaine</th>
+            <th scope="col" class="py-3 text-center max-note-col">MAX</th>
+            <th scope="col" class="py-3 text-center period-note-col">Période 1</th>
+            <th scope="col" class="py-3 text-center period-note-col">Période 2</th>
+            <th scope="col" class="py-3 text-center period-note-col">Période 3</th>
+            <th scope="col" class="py-3 text-center period-note-col">Période 4</th>
+            <th scope="col" class="py-3 text-center average-col">Moyenne</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Cours philosophique</p>
+            </th>
+            <td class="py-3 text-center max-note-col">20</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Education citoyenne</p>
+            </th>
+            <td class="py-3 text-center max-note-col">20</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Education physique</p>
+                <p class="comp-info font-weight-normal font-italic">"Natation"</p>
+            </th>
+            <td class="py-3 text-center max-note-col">20</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Néerlandais</p>
+            </th>
+            <td class="py-3 text-center max-note-col">20</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Religion</p>
+                <p class="comp-info font-weight-normal font-italic">"Religion chrétienne"</p>
+            </th>
+            <td class="py-3 text-center max-note-col">20</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table class="w-100 table-bordered table-striped mb-2" id="behavior-table">
+        <thead class="w-100">
+        <tr class="w-100 d-flex justify-content-between">
+            <th scope="col" class="py-3 pl-4 domain-col">Domaine</th>
+            <th scope="col" class="py-3 text-center max-note-col">MAX</th>
+            <th scope="col" class="py-3 text-center period-note-col">Période 1</th>
+            <th scope="col" class="py-3 text-center period-note-col">Période 2</th>
+            <th scope="col" class="py-3 text-center period-note-col">Période 3</th>
+            <th scope="col" class="py-3 text-center period-note-col">Période 4</th>
+            <th scope="col" class="py-3 text-center average-col">Moyenne</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="w-100">
+            <th class="colspan=7 pl-4 py-3 domain-title-row">Comportement avec le titulaire</th>
+        </tr>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Respect des règles et des lois de l'école</p>
+            </th>
+            <td class="py-3 text-center max-note-col">A</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Rigueur dans le travail</p>
+            </th>
+            <td class="py-3 text-center max-note-col">A</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Travail en équipe</p>
+            </th>
+            <td class="py-3 text-center max-note-col">A</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Goût de l'effort</p>
+            </th>
+            <td class="py-3 text-center max-note-col">A</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Soin</p>
+            </th>
+            <td class="py-3 text-center max-note-col">A</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+
+        <tr class="w-100">
+            <th class="colspan=7 pl-4 py-3 domain-title-row">Comportement avec les maitres spéciaux</th>
+        </tr>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Cours philosophique</p>
+            </th>
+            <td class="py-3 text-center max-note-col">A</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Education citoyenne</p>
+            </th>
+            <td class="py-3 text-center max-note-col">A</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Education physique</p>
+                <p class="comp-info font-weight-normal font-italic">"Natation"</p>
+            </th>
+            <td class="py-3 text-center max-note-col">A</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+
+        <tr class="w-100 d-flex justify-content between">
+            <th class="py-3 pl-4 domain-col">
+                <p class="'comp-title">Néerlandais</p>
+            </th>
+            <td class="py-3 text-center max-note-col">A</td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center period-note-col"> - </td>
+            <td class="py-3 text-center average-col"> - </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div id="abstract-report-content" class="container-fluid w-100 row mx-auto my-2 px-0">
+        <div id="comment-content" class="border border-dark col-8">Commentaire</div>
+        <div class="d-flex flex-column justify-content-between col-4 pr-0">
+            <div class="border border-dark mb-1 sign-content pl-2 pt-1">Signature des parents</div>
+            <div class="border border-dark mt-1 sign-content pl-2 pt-1" id="teacher-signature">Signature du titulaire</div>
+        </div>
+    </div>
+
+</main>
+
+</body>
+</html>
