@@ -77,7 +77,7 @@ class DashboardController extends AbstractController
             $domainsCheck = $this->activityThemeDomainRepository->findBy([
                 'type' => ActivityThemeDomain::TYPE_GENERIC_DEFAULT,
             ]);
-            // Checking if theme domains were alreay pushed.
+            // Checking if theme domains were already pushed.
             if(count($domainsCheck) === 0) {
                 $this->activityThemeRepository->populate($translator);
                 $this->activityThemeDomainRepository->populate($translator);
