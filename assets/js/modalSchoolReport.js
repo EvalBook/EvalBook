@@ -8,11 +8,11 @@ let ModalSchoolReport = function(data) {
      * Display the school report.
      */
     this.display = function() {
-        console.log(this.data);
         let frame = document.createElement('div');
         frame.setAttribute('id',"modal-window");
         frame.setAttribute('aria-modal',"config");
-        document.body.appendChild(frame);
+        frame.classList.add('school-report-container');
+        document.querySelector('.container').appendChild(frame);
 
         let close = document.createElement('span');
         close.innerHTML = "Fermer cette fenêtre";
@@ -20,10 +20,10 @@ let ModalSchoolReport = function(data) {
         close.setAttribute('class','w-100 d-flex align-items-end');
         frame.appendChild(close);
 
-        let view = document.createElement('iframe');
+        let view = document.createElement('div');
         view.setAttribute('class',"w-100 d-flex align-items-end");
         view.setAttribute('id',"report-view");
-        view.src = "data:text/html;charset=utf-8," + escape(this.data);
+        view.innerHTML = this.data;
         frame.appendChild(view);
     }
 }

@@ -1,144 +1,141 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="../../assets/css/schoolReports/schoolReportECSJ.css">
-    <title>School report</title>
-</head>
-<header id="sr-header">
-    <img src="../../assets/images/logo_ecsj.jpg" alt="school-logo" id="school-logo">
-    <h1 id="student-name">Adrian Pennino</h1>
-    <div id="sr-infos">
-        <p>Classe : P5</p>
-        <p>Titulaire : François Perrin</p>
-        <p>Année scolaire : 2020-2021</p>
-    </div>
-</header>
+{% block head %}
+    {{ encore_entry_link_tags('schoolReportBase') }}
+    {{ encore_entry_link_tags('schoolReportECSJ') }}
+{% endblock %}
 
-<main>
-    <!--    column titles   -->
-    <table>
-        <thead>
-        <tr>
-            <th class ="bg">
-                Compétences
-            </th>
-            <td class ="bg">
-                Maximum
-            </td>
-            <td>
-                Premier trimestre
-            </td>
-            <td>
-                Deuxieme trimestre
-            </td>
-            <td>
-                Troisieme trimestre
-            </td>
-        </tr>
-        </thead>
-    </table>
+<div class="school-report">
+    <header id="sr-header">
+        <img src="../../assets/images/logo_ecsj.jpg" alt="school-logo" id="school-logo">
+        <h1 id="student-name">Adrian Pennino</h1>
+        <div id="sr-infos">
+            <p>Classe : P5</p>
+            <p>Titulaire : François Perrin</p>
+            <p>Année scolaire : 2020-2021</p>
+        </div>
+    </header>
 
-    <!--    subject table-->
-    <table class="subject-table">
-        <tbody>
-        <!--        subject name -->
-        <tr class ="bg">
-            <th colspan="5" class="subject-name-content">
-                Français
-            </th>
-        </tr>
-        <!--        skills (content to loop) -->
+    <main>
+        <!-- column titles   -->
+        <table>
+            <tbody>
+                <tr class="skill-row">
+                    <th class ="bg">
+                        Compétences
+                    </th>
+                    <td class ="bg">
+                        Maximum
+                    </td>
+                    <td>
+                        Premier trimestre
+                    </td>
+                    <td>
+                        Deuxieme trimestre
+                    </td>
+                    <td>
+                        Troisieme trimestre
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-        <tr class="skill-row">
-            <th class ="bg">
-                Savoir parler
-            </th>
-            <td class ="bg">
-                10
-            </td>
-            <td>
-                10
-            </td>
-            <td>
-                10
-            </td>
-            <td>
-                10
-            </td>
-        </tr>
+        <!-- subject table-->
+        <table>
+            <tbody>
+                <!-- subject name -->
+                <tr class="bg">
+                    <th colspan="5" class="subject-name-content">
+                        Français
+                    </th>
+                </tr>
+                <!-- skills (content to loop) -->
 
-        <tr class="skill-row">
-            <th class ="bg">
-                Savoir écrire
-            </th>
-            <td class ="bg">
-                10
-            </td>
-            <td>
-                10
-            </td>
-            <td>
-                10
-            </td>
-            <td>
-                10
-            </td>
-        </tr>
+                <tr class="skill-row">
+                    <th class ="bg">
+                        Savoir parler
+                    </th>
+                    <td class ="bg">
+                        10
+                    </td>
+                    <td>
+                        10
+                    </td>
+                    <td>
+                        10
+                    </td>
+                    <td>
+                        10
+                    </td>
+                </tr>
 
-        </tbody>
-    </table>
+                <tr class="skill-row">
+                    <th class ="bg">
+                        Savoir écrire
+                    </th>
+                    <td class ="bg">
+                        10
+                    </td>
+                    <td>
+                        10
+                    </td>
+                    <td>
+                        10
+                    </td>
+                    <td>
+                        10
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
 
-    <table class="subject-table">
-        <tbody>
-        <!--        subject name -->
-        <tr class ="bg">
-            <th colspan="5" class="subject-name-content">
-                Mathématiques
-            </th>
-        </tr>
-        <!--        skills (content to loop) -->
+        <table>
+            <tbody>
+                <!-- subject name -->
+                <tr class ="bg">
+                    <th colspan="5" class="subject-name-content">
+                        Mathématiques
+                    </th>
+                </tr>
+                <!-- skills (content to loop) -->
 
-        <tr class="skill-row">
-            <th class ="bg">
-                Divisions
-            </th>
-            <td class ="bg">
-                10
-            </td>
-            <td>
-                10
-            </td>
-            <td>
-                10
-            </td>
-            <td>
-                10
-            </td>
-        </tr>
+                <tr class="skill-row">
+                    <th class ="bg">
+                        Divisions
+                    </th>
+                    <td class ="bg">
+                        10
+                    </td>
+                    <td>
+                        10
+                    </td>
+                    <td>
+                        10
+                    </td>
+                    <td>
+                        10
+                    </td>
+                </tr>
 
-        <tr class="skill-row">
-            <th class ="bg">
-                Géométrie
-            </th>
-            <td class ="bg">
-                10
-            </td>
-            <td>
-                10
-            </td>
-            <td>
-                10
-            </td>
-            <td>
-                10
-            </td>
-        </tr>
+                <tr class="skill-row">
+                    <th class ="bg">
+                        Géométrie
+                    </th>
+                    <td class ="bg">
+                        10
+                    </td>
+                    <td>
+                        10
+                    </td>
+                    <td>
+                        10
+                    </td>
+                    <td>
+                        10
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-        </tbody>
-    </table>
+    </main>
 
-</main>
-
-</html>
+</div>

@@ -27,6 +27,7 @@ Encore
     .addStyleEntry('search-style', './assets/css/search.css')
     .addStyleEntry('schoolReport', './assets/css/schoolReports/theme.css')
     .addStyleEntry('schoolReportECSJ', './assets/css/schoolReports/themeELSJ.css')
+    .addStyleEntry('schoolReportBase', './assets/css/schoolReports/schoolReportBase.css')
 
     // Copying images files.
     .copyFiles({

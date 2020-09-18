@@ -1,0 +1,11 @@
+.school-report-container{
+    background-color: white;
+    width: 80%;
+    min-width: 800px;
+    min-height: 500px;
+    height: auto;
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    box-shadow: 0 2px 30px -19px rgba(0,0,0,0.75);
+}
