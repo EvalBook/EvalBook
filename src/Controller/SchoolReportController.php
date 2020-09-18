@@ -37,20 +37,6 @@ class SchoolReportController extends AbstractController
     public function getClassroomSchoolReport(Classroom $classroom)
     {
         $student=[];
-
-
     }
 
-
-    /**
-     * @Route("/school/report/pupil/{pupil}", name="school_report_pupil")
-     * @param Student $student
-     */
-
-    public function pupil(){
-
-
-        return $this -> render('school_report/school_report_individual.html.twig');
-
-    }
 }

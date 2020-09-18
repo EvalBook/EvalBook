@@ -25,7 +25,6 @@ let ControlsSchoolReport = {
         let response = await Api.query(event.target.parentElement.dataset.path, {});
 
         if(response.html) {
-            console.log("Building school report view");
             let modalSchoolReport = new ModalSchoolReport(response.html);
             modalSchoolReport.display();
         }
