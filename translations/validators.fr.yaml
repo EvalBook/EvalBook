@@ -117,6 +117,7 @@ Error: Erreur
 'The skill name must be between 2 and 100 chars': 'Le nom de la compétence doit comporter de 2 à 100 caractères.'
 'You can not delete domains with activities in it, but you can still edit them': "Vous ne pouvez pas supprimer un domaine qui contient des activités, mais vous pouvez l'éditer"
 'You cannot delete the special classroom domain or the default ones': "Vous ne pouvez pas supprimer un domaine de classe spéciale ou un domaine par défaut"
+'The image file type is incorrect, please choose a new one': "Le type d'image ne semble pas correct, veuillez en sélectionner un nouveau"
 
 
 implantation:

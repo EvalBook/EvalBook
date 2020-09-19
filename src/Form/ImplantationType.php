@@ -23,11 +23,13 @@ use App\Entity\Implantation;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -66,8 +68,23 @@ class ImplantationType extends AbstractType
                 ]
             ])
 
+            // School implantation is attached to.
             ->add('school', EntityType::class, [
                 'class' => 'App\Entity\School',
+            ])
+
+            // Provide a way to add the implantation logo for school report use.
+            ->add('logo', FileType::class, [
+                'required' => false,
+                'constraints' => new Image([
+                   'maxSize' => '2M',
+                    'mimeTypes' => [
+                        'image/jpeg',
+                        'image/png',
+                        'image/tiff',
+                    ],
+                    'mimeTypesMessage' => 'The image file type is incorrect, please choose a new one',
+                ]),
             ])
 
             // Submit button.
