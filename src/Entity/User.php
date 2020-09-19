@@ -249,7 +249,7 @@ class User implements UserInterface
      */
     public function setLastName(string $lastName): self
     {
-        $this->lastName = ucfirst(strtolower($lastName));
+        $this->lastName = $lastName;
         return $this;
     }
 
@@ -271,7 +271,7 @@ class User implements UserInterface
      */
     public function setFirstName(string $firstName): self
     {
-        $this->firstName = ucfirst(strtolower($firstName));
+        $this->firstName = $firstName;
         return $this;
     }
 

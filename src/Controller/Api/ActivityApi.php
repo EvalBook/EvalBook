@@ -73,7 +73,7 @@ class ActivityApi extends AbstractController {
             "activityThemeDomain" => $activityThemeDomain->getId()
         ]);
 
-        $noteTypes = $noteTypesRepository->findByType($activityThemeDomain->getActivityTheme()->getIsNumericNotes());
+        $noteTypes = $noteTypesRepository->findAll();
 
         // Providing skill response.
         if(count($skills) > 0 && !is_null($classroom)) {
@@ -99,7 +99,7 @@ class ActivityApi extends AbstractController {
             foreach($noteTypes as $noteType) {
                 $data[] = [
                     'id'   => $noteType->getId(),
-                    'name' => $noteType->getName(),
+                    'name' => $noteType->getDescription(),
                 ];
             }
             $response["noteTypes"] = $data;

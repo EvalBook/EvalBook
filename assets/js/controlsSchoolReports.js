@@ -3,6 +3,9 @@ import {ModalSchoolReport} from "./modalSchoolReport.js";
 
 let ControlsSchoolReport = {
 
+    /**
+     * Init school report image sbuttons.
+     */
     init: function() {
         this.elements = document.querySelectorAll('a[data-path]');
         for(let element of this.elements) {
@@ -10,12 +13,19 @@ let ControlsSchoolReport = {
         }
     },
 
+
+    /**
+     * Fetch school report information.
+     * @param event
+     * @returns {Promise<void>}
+     */
     click: async function(event) {
-        console.log(event);
         event.preventDefault();
+
         let response = await Api.query(event.target.parentElement.dataset.path, {});
-        if(response.status === 200) {
-            let modalSchoolReport = new ModalSchoolReport(data);
+
+        if(response.html) {
+            let modalSchoolReport = new ModalSchoolReport(response.html);
             modalSchoolReport.display();
         }
     },

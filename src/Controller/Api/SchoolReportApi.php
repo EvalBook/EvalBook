@@ -63,17 +63,18 @@ class SchoolReportApi extends AbstractController
             }
         }
 
+        $result = [];
         if(count($notes) > 0) {
             $result = $this->compute($notes);
         }
 
         $view = $this->renderView('school_report/school-report.html.twig', [
             'student' => $student,
+            'report' => $result,
         ]);
 
 
         return new JsonResponse([
-            'message' => 'test',
             'html' => $view,
         ], 200);
     }
@@ -91,67 +92,88 @@ class SchoolReportApi extends AbstractController
         $skillRepository  = $this->getDoctrine()->getRepository(ActivityThemeDomainSkill::class);
 
         $result = [];
+
         // Sorting the whole notes.
         foreach($notes as $note) {
             /* @var $note Note */
-            // Getting target theme.
-            $theme = $themeRepository->findOneBy([
-                'id' => $note->getActivity()->getActivityThemeDomainSkill()->getActivityThemeDomain()->getActivityTheme()
-            ]);
+            // Only if activity must be added to the school report.
+            if($note->getActivity()->getIsInShoolReport()) {
+                // Getting target theme.
+                $theme = $themeRepository->findOneBy([
+                    'id' => $note->getActivity()->getActivityThemeDomainSkill()->getActivityThemeDomain()->getActivityTheme()
+                ]);
 
-            // Getting target domain.
-            $domain = $domainRepository->findOneBy([
-                'id' => $note->getActivity()->getActivityThemeDomainSkill()->getActivityThemeDomain()
-            ]);
+                // Getting target domain.
+                $domain = $domainRepository->findOneBy([
+                    'id' => $note->getActivity()->getActivityThemeDomainSkill()->getActivityThemeDomain()
+                ]);
 
-            // Getting target skill.
-            $skill = $skillRepository->findOneBy([
-                'id' => $note->getActivity()->getActivityThemeDomainSkill()
-            ]);
+                // Getting target skill.
+                $skill = $skillRepository->findOneBy([
+                    'id' => $note->getActivity()->getActivityThemeDomainSkill()
+                ]);
 
-            $result[$theme->getDisplayName()][$domain->getDisplayName()][$skill->getId()][] = [
-                'note'  => $note,
-                'skill' => $skill,
-            ];
+                $result[$theme->getDisplayName()][$domain->getDisplayName()][$skill->getId()][] = [
+                    'note' => $note,
+                    'skill' => $skill,
+                ];
+            }
         }
 
         // Compute total of notes.
-        $skills = [];
         // From theme
         foreach($result as $key => $themes) {
             // From domaine
             foreach($themes as $key2 => $domains) {
-                // From skills
-                foreach($domains as $key3 => $skills ) {
-                    // FIXME pas le bon moyen de récuper ca !!
-                    if($skills['skill']->getNoteType()->isNumeric()) {
-                        // m = (2 × 1 + 9 × 2 + 27 × 3) / (10 × 1 + 15 × 2 + 30 × 3) × 20
-                        $amount = 0;
-                        $supp = 0;
 
-                        foreach ($skills as $key4 => $endpoint) {
-                            //echo "$key4 => " . $note->getNote() . "\n";
-                            $max = $endpoint['note']->getActivity()->getNoteType()->getMaximum();
-                            $coefficient = $endpoint['note']->getActivity()->getNoteType()->getCoefficient();
-                            $amount += $endpoint['note']->getNote() * $coefficient;
-                            $supp += $max * $coefficient;
+                // For each school report skill.
+                foreach($domains as $key3 => $skills ) {
+                    // m = (2 × 1 + 9 × 2 + 27 × 3) / (10 × 1 + 15 × 2 + 30 × 3) × 20
+                    $amount = 0;
+                    $supp = 0;
+
+                    foreach ($skills as $key4 => $endpoint) {
+
+                        // Do not compute not attributed notes.
+                        if(strtolower($endpoint['note']->getNote() === 'abs')) {
+                            continue;
                         }
 
-                        $m = ($amount / $supp) * $endpoint['skill']->getNoteType()->getMaximum();
-                        $m = $this->round_up($m, 1);
-                        echo $endpoint['skill']->getName() . " => $m / " . $endpoint['skill']->getNoteType()->getMaximum() . "\n";
+                        // Fetching needle information.
+                        $notesIntervals = $endpoint['note']->getActivity()->getNoteType()->getIntervals();
+                        array_push($notesIntervals, $endpoint['note']->getActivity()->getNoteType()->getMaximum());
+                        array_unshift($notesIntervals, $endpoint['note']->getActivity()->getNoteType()->getMinimum());
+
+                        // Transform note so n/m is position/count instead of 4/20.
+                        $n = array_search($endpoint['note']->getNote(), $notesIntervals);
+                        $m = count($notesIntervals) - 1;
+
+                        $amount += $n * $endpoint['note']->getActivity()->getNoteType()->getCoefficient();
+                        $supp += $m * $endpoint['note']->getActivity()->getNoteType()->getCoefficient();
+                    }
+
+                    // Fetching skill in case of no note.
+                    $skill = $skillRepository->findOneBy(['id' => $key3]);
+                    if($skill->getNoteType()->isNumeric()) {
+                        $low = ($amount / $supp) * $skill->getNoteType()->getMaximum();
+                        $low = $this->round_up($low, 1);
                     }
                     else {
-                        echo "Found non numeric values\n";
-                        dd($skill["skill"]);
-                        $amount = 0;
-                        $supp = 0;
+                        $intervals = $skill->getNoteType()->getIntervals();
+                        array_push($intervals, $skill->getNoteType()->getMaximum());
+                        array_unshift($intervals, $skill->getNoteType()->getMinimum());
+                        $low = ($amount / $supp) * count($intervals);
+                        if($low > count($intervals) - 1)
+                            $low = count($intervals) - 1;
+                        $low = $intervals[$this->round_up($low, 0)];
                     }
+
+                    echo $skill->getName() . " => $low / " . $skill->getNoteType()->getMaximum() . "\n";
+                    $endpoint['min'] = $low;
+                    $endpoint['max'] = $skill->getNoteType()->getMaximum();
                 }
             }
         }
-
-        //dd($skills);
 
         return $result;
     }

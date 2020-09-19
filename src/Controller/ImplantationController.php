@@ -27,6 +27,7 @@ use App\Repository\ImplantationRepository;
 use App\Repository\PeriodRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -74,6 +75,17 @@ class ImplantationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            // Checking implantation logo.
+            if($form->get('logo')->getData() !== null) {
+                $filename = $this->uploadImplantationLogo($form);
+                if($filename !== false)
+                    $implantation->setLogo($filename);
+                else {
+                    $this->addFlash('error', 'The image file type is incorrect, please choose a new one');
+                    $this->redirectToRoute('implantations');
+                }
+            }
+
             $entityManager->persist($implantation);
             $entityManager->flush();
             $this->addFlash('success', 'Successfully added');
@@ -106,6 +118,15 @@ class ImplantationController extends AbstractController
                 $this->addFlash('error', 'An implantation in the same school already exists with this name');
             }
             else {
+                // Checking implantation logo.
+                if($form->get('logo')->getData() !== null) {
+                    $filename = $this->uploadImplantationLogo($form);
+                    if($filename !== false)
+                        $implantation->setLogo($filename);
+                    else
+                        $this->addFlash('error', 'The image file type is incorrect, please choose a new one');
+                }
+
                 $this->getDoctrine()->getManager()->flush();
                 $this->addFlash('success', 'Successfully updated');
 
@@ -310,6 +331,25 @@ class ImplantationController extends AbstractController
                 throw $this->createAccessDeniedException();
             }
         }
+    }
+
+
+    /**
+     * Provide a way to upload implantation logo image.
+     * @param FormInterface $form
+     * @return false|string
+     */
+    private function uploadImplantationLogo(FormInterface $form)
+    {
+        $logoFile = $form->get('logo')->getData();
+        $directory = $this->getParameter('kernel.project_dir') . '/public/uploads';
+        $extension = $logoFile->guessExtension();
+        if(in_array(strtolower($extension), ['tiff', 'png', 'jpg', 'jpeg'])) {
+            $filename = rand(1, 99999) . uniqid() . '.' . ($extension ? $extension : 'bin');
+            $logoFile->move($directory, $filename);
+            return $filename;
+        }
+        return false;
     }
 
 }

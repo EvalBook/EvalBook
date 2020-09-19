@@ -94,7 +94,6 @@ class ActivityType extends AbstractType
                     'No' => false,
                 ],
 
-                'data' => false,
                 'translation_domain' => 'templates',
             ])
 

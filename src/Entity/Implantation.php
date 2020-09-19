@@ -62,6 +62,11 @@ class Implantation
      */
     private $school;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $logo;
+
 
     /**
      * Implantation constructor.
@@ -164,16 +169,6 @@ class Implantation
 
 
     /**
-     * To string to use with FormBuilder.
-     * @return string|null
-     */
-    public function __toString()
-    {
-        return $this->getName();
-    }
-
-
-    /**
      * Return the school the implantation is attached to.
      * @return School|null
      */
@@ -193,5 +188,38 @@ class Implantation
         $this->school = $school;
 
         return $this;
+    }
+
+
+    /**
+     * Return the implantation logo path
+     * @return string|null
+     */
+    public function getLogo(): ?string
+    {
+        return $this->logo;
+    }
+
+
+    /**
+     * Set the implantation logo path
+     * @param string|null $logo
+     * @return $this
+     */
+    public function setLogo(?string $logo): self
+    {
+        $this->logo = $logo;
+
+        return $this;
+    }
+
+
+    /**
+     * To string to use with FormBuilder.
+     * @return string|null
+     */
+    public function __toString()
+    {
+        return $this->getName();
     }
 }

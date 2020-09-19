@@ -25,12 +25,14 @@ Encore
     .addStyleEntry('dialogs', './assets/css/dialogs.css')
     .addStyleEntry('notebook-style', './assets/css/notebook.css')
     .addStyleEntry('search-style', './assets/css/search.css')
-    .addStyleEntry('schoolReport', './assets/css/schoolReport.css')
+    .addStyleEntry('schoolReport', './assets/css/schoolReports/theme.css')
+    .addStyleEntry('schoolReportECSJ', './assets/css/schoolReports/themeELSJ.css')
+    .addStyleEntry('schoolReportBase', './assets/css/schoolReports/schoolReportBase.css')
 
     // Copying images files.
     .copyFiles({
         from: './assets/images',
-        pattern: /\.(png|ico)$/
+        pattern: /\.(png|ico|jpg)$/
     })
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.

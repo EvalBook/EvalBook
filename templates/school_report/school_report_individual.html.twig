@@ -1,7 +1,14 @@
 <!DOCTYPE html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../../assets/css/schoolReportECSJ.css">
+
+    {% block head %}
+        {{ encore_entry_link_tags('theme') }}
+    {% endblock %}
+
+    <link rel="stylesheet" href="../../assets/css/schoolReports/schoolReportECSJ.css">
+    <title>School report</title>
 </head>
 <header id="sr-header">
     <img src="../../assets/images/logo_ecsj.jpg" alt="school-logo" id="school-logo">
@@ -37,17 +44,17 @@
         </thead>
     </table>
 
-<!--    subject table-->
+    <!-- subject table-->
     <table class="subject-table">
         <tbody>
-<!--        subject name -->
+        <!-- subject name -->
             <tr class ="bg">
                 <th colspan="5" class="subject-name-content">
                     Français
                 </th>
             </tr>
-<!--        skills (content to loop) -->
 
+            <!-- skills (content to loop) -->
             <tr class="skill-row">
                 <th class ="bg">
                     Savoir parler
@@ -90,13 +97,13 @@
 
     <table class="subject-table">
         <tbody>
-        <!--        subject name -->
+        <!-- subject name -->
         <tr class ="bg">
             <th colspan="5" class="subject-name-content">
                 Mathématiques
             </th>
         </tr>
-        <!--        skills (content to loop) -->
+        <!-- skills (content to loop) -->
 
         <tr class="skill-row">
             <th class ="bg">
@@ -139,4 +146,4 @@
 
 </main>
 
-</hmtl>
+</html>

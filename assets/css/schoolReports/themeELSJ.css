@@ -1,4 +1,4 @@
-html {
+.school-report {
     margin: 0;
     padding: 0;
     font-family: 'Raleway', 'Source Sans Pro', 'Arial', sans-serif;
@@ -7,21 +7,24 @@ html {
 
 /* Head part*/
 
-#sr-header {
+.school-report #sr-header {
     display: flex;
     justify-content: space-around;
 }
 
 
-#school-logo {
+.school-report #school-logo {
     width: 10rem;
 }
 
+.school-report main {
+    margin-top: 2%;
+}
 
 
 /* Table elements */
 
-table, thead, td, th, tbody {
+.school-report table, .school-report td, .school-report th, .school-report tbody {
     border: 1px solid #222;
     border-collapse: collapse;
     text-align: center;
@@ -29,28 +32,38 @@ table, thead, td, th, tbody {
 }
 
 
-table {
-    max-width: 70%;
+.school-report table {
+    width: 85%;
+    max-width: 85%;
     border-width: 2px;
     margin: 1em auto;
 }
 
-th {
+
+.school-report th {
     width: 40rem;
+    min-width: 40rem;
+}
+
+.school-report td {
+    width: 10rem;
+    max-width: 10rem;
+    min-width: 10rem;
 }
 
 
-.subject-name-content {
+.school-report .subject-name-content {
     text-align: left;
     padding-left: 2em;
 }
 
-.bg {
+
+.school-report .bg {
     background-color: #b6c6dd;
 }
 
 
-.skill-row > th {
+.school-report .skill-row > th {
     text-align: left;
     padding-left: 4em;
     font-weight: normal;

@@ -227,16 +227,6 @@ class NoteType
 
 
     /**
-     * Return NoteType string representation.
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->getDescription();
-    }
-
-
-    /**
      * Return all available activity theme domain skills attached to the note type.
      * @return Collection|ActivityThemeDomainSkill[]
      */
@@ -278,6 +268,35 @@ class NoteType
         }
 
         return $this;
+    }
+
+
+    /**
+     * Return true if ALL values ( min, max + intervals ) are numeric.
+     * @return bool
+     */
+    public function isNumeric()
+    {
+        $filer = function($interval) {
+            return is_numeric($interval);
+        };
+
+        if(is_numeric($this->getMaximum()) && is_numeric($this->getMinimum())) {
+            $numericIntervals = array_filter($this->getIntervals(), $filer);
+            if(count($numericIntervals) === count($this->getIntervals())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Return NoteType string representation.
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getDescription();
     }
 
 }
