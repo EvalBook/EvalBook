@@ -79,7 +79,7 @@ class School
      */
     public function setName(string $name): self
     {
-        $this->name = ucfirst(strtolower($name));
+        $this->name = $name;
 
         return $this;
     }
