@@ -4,3 +4,4 @@ twig:
     globals:
         locales: '%app.locales%'
         interfaceConfiguration: '@App\Service\ConfigurationService'
+        uploads: "/uploads"

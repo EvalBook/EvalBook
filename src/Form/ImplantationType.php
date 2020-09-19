@@ -76,6 +76,7 @@ class ImplantationType extends AbstractType
             // Provide a way to add the implantation logo for school report use.
             ->add('logo', FileType::class, [
                 'required' => false,
+                'mapped' => false,
                 'constraints' => new Image([
                    'maxSize' => '2M',
                     'mimeTypes' => [

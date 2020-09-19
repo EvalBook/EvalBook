@@ -97,6 +97,13 @@ h1 {
 }
 
 
+.thumbnail {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 150px;
+}
+
 .go-back {
     font-size: 4em;
     margin-top: -0.3em;

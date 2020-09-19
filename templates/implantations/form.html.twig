@@ -56,15 +56,23 @@
             </div>
 
             {# Implantation logo #}
-            <div class="form-row">
-                {{ form_label(form.logo, 'Logo'|trans) }}
-                {{ form_widget(form.logo) }}
-                <span class="form-error">
-                    {{ form_errors(form.logo) }}
-                </span>
-                <span class="form-help">
-                    {{ 'Choose the logo to use on the implantation school report'|trans }}
-                </span>
+            <div>
+                <div class="form-row">
+                    {{ form_label(form.logo, 'Logo'|trans) }}
+                    {{ form_widget(form.logo) }}
+                    <span class="form-error">
+                        {{ form_errors(form.logo) }}
+                    </span>
+                    <span class="form-help">
+                        {{ 'Choose the logo to use on the implantation school report'|trans }}
+                    </span>
+                </div>
+
+                {# Getting implantation #}
+                {% set implantation = form.vars.value %}
+                {% if not implantation.logo is null %}
+                    <img class="thumbnail" src="{{ uploads ~ '/' ~ implantation.logo }}" alt="{{ implantation.name ~ ' logo' }}">
+                {% endif %}
             </div>
 
             {# Implantation attach to school #}
