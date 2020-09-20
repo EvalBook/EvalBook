@@ -1,5 +1,5 @@
 import {Api} from "./api.js";
-import {ModalSchoolReport} from "./modalSchoolReport.js";
+import {ModalWindow} from "./modal-window.js";
 
 let ControlsSchoolReport = {
 
@@ -25,7 +25,7 @@ let ControlsSchoolReport = {
         let response = await Api.query(event.target.parentElement.dataset.path, {});
 
         if(response.html) {
-            let modalSchoolReport = new ModalSchoolReport(response.html);
+            let modalSchoolReport = new ModalWindow(response.html);
             modalSchoolReport.display();
         }
     },

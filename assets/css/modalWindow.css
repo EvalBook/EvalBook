@@ -1,4 +1,4 @@
-.school-report-container{
+.modal-window-container{
     background-color: rgba(211,211,211,0.28);
     height: 100vh;
     width: 100vw;
@@ -8,7 +8,7 @@
 }
 
 
-#school-report-wrapper {
+#modal-window-wrapper {
     background-color: white;
     box-shadow: 0 2px 30px -19px rgba(0,0,0,0.75);
     width: 80%;
@@ -22,7 +22,7 @@
 }
 
 
-#school-report-container-close {
+#modal-window-close {
     font-size: 4em;
     position: absolute;
     z-index: 1;
@@ -30,6 +30,6 @@
     left: 9%;
 }
 
-#report-view {
+#modal-window-view {
     margin-top: 4%;
 }

@@ -371,16 +371,28 @@ class ImplantationController extends AbstractController
         if($repository->count([]) === 0) {
             // Adding the default school report theme.
             $defaultTheme = new SchoolReportTheme();
+            $elsjTheme = new SchoolReportTheme();
+
             // Release date and version will be overridden on theme update available.
             $defaultTheme
                 ->setName('Default thème')
                 ->setAuthor('Evalbook team')
                 ->setReleaseDate(new \DateTime())
                 ->setVersion("0.0.1")
-                ->setUuid('default')
+                ->setUuid('default-school-report-theme')
             ;
+
+            $elsjTheme
+                ->setName('ELSJ Simple')
+                ->setAuthor('Evalbook team')
+                ->setReleaseDate(new \DateTime())
+                ->setVersion('0.0.1')
+                ->setUuid('ELSJ')
+            ;
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($defaultTheme);
+            $em->persist($elsjTheme);
             $em->flush();
         }
     }
