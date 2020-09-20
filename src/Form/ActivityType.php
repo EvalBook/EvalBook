@@ -32,7 +32,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class ActivityType extends AbstractType
 {
@@ -76,6 +78,27 @@ class ActivityType extends AbstractType
                 'class' => \App\Entity\NoteType::class,
                 'placeholder' => "Select an available note type...",
                 'translation_domain' => 'templates',
+            ])
+
+
+            // Note coefficient.
+            ->add('coefficient', IntegerType::class, [
+                'empty_data' => 1,
+                'data' => 1,
+                // Add contraints, data >= 1 & data <= 10
+                'constraints' => new Callback(function($object, ExecutionContextInterface $context) {
+                    $coefficient = $context->getRoot()->get('coefficient')->getData();
+
+                    if ($coefficient <= 0 || $coefficient > 10) {
+                        $context
+                            ->buildViolation('Coefficient should be between 1 and 10')
+                            ->addViolation()
+                        ;
+                    }
+                }),
+
+                // Temporary
+                'mapped' => false,
             ])
 
             // Activity name.

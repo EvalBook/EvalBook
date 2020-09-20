@@ -60,15 +60,6 @@ class NoteType
      */
     private $intervals;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $coefficient;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Activity", mappedBy="noteType")
-     */
-    private $activities;
 
     /**
      * @ORM\OneToMany(targetEntity=ActivityThemeDomainSkill::class, mappedBy="noteType")
@@ -201,27 +192,6 @@ class NoteType
     {
         $this->intervals = $intervals;
 
-        return $this;
-    }
-
-    /**
-     * Return the note type coefficient.
-     * @return int|null
-     */
-    public function getCoefficient(): ?int
-    {
-        return $this->coefficient || 0;
-    }
-
-
-    /**
-     * Set the NoteType coefficient.
-     * @param int $coefficient
-     * @return $this
-     */
-    public function setCoefficient(int $coefficient): self
-    {
-        $this->coefficient = $coefficient;
         return $this;
     }
 

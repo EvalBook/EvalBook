@@ -25,18 +25,6 @@
                     {{ form_errors(form.name) }}
                 </span>
             </div>
-
-            {# Note type coefficient #}
-            <div class="form-row width-50-percent margins">
-                {{ form_label(form.coefficient, 'Coefficient to apply'|trans) }}
-                {{ form_widget(form.coefficient) }}
-                <span class="form-info">
-                    {{ 'The default coefficient is 1'|trans }}
-                </span>
-                <span class="form-error">
-                    {{ form_errors(form.coefficient) }}
-                </span>
-            </div>
         </div>
 
         {# Note type description short #}
