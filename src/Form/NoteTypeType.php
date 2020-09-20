@@ -74,23 +74,6 @@ class NoteTypeType extends AbstractType
                 }),
             ])
 
-            // Note coefficient.
-            ->add('coefficient', IntegerType::class, [
-                'empty_data' => 1,
-                'data' => 1,
-                // Add contraints, data >= 1 & data <= 10
-                'constraints' => new Callback(function($object, ExecutionContextInterface $context) {
-                    $coefficient = $context->getRoot()->get('coefficient')->getData();
-
-                    if ($coefficient <= 0 || $coefficient > 10) {
-                        $context
-                            ->buildViolation('Coefficient should be between 1 and 10')
-                            ->addViolation()
-                        ;
-                    }
-                }),
-            ])
-
             // Submit button.
             ->add('submit', SubmitType::class)
         ;

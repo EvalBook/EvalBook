@@ -16,6 +16,7 @@ let ActivityHandler = {
         this.activityName = document.querySelector('#activity_name');
         this.schoolReportShow = document.querySelector('#activity_isInShoolReport');
         this.comment = document.querySelector('#activity_comment');
+        this.coefficient = document.querySelector('#activity_coefficient');
         this.submit = document.querySelector('#activity_submit');
 
         // Setting defaults.
@@ -47,6 +48,7 @@ let ActivityHandler = {
         this.activityName.parentElement.style.display = 'none';
         this.schoolReportShow.parentElement.style.display = 'none';
         this.comment.parentElement.style.display = 'none';
+        this.coefficient.parentElement.style.display = 'none';
         this.submit.style.display = 'none';
     },
 
@@ -123,6 +125,7 @@ let ActivityHandler = {
         this.activityName.parentElement.style.display = 'block';
         this.schoolReportShow.parentElement.style.display = 'block';
         this.comment.parentElement.style.display = 'block';
+        this.coefficient.parentElement.style.display = 'block';
         this.submit.style.display = 'block';
     },
 
