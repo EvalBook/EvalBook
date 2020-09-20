@@ -1,6 +1,9 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
 
+    paths:
+        '%kernel.project_dir%/public/themes/school_report_themes': SchoolReportThemes
+
     globals:
         locales: '%app.locales%'
         interfaceConfiguration: '@App\Service\ConfigurationService'

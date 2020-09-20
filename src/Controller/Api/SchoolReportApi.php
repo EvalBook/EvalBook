@@ -27,6 +27,7 @@ use App\Entity\ActivityThemeDomainSkill;
 use App\Entity\Implantation;
 use App\Entity\Note;
 use App\Entity\Period;
+use App\Entity\SchoolReportTheme;
 use App\Entity\Student;
 use App\Repository\PeriodRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -68,9 +69,15 @@ class SchoolReportApi extends AbstractController
             $result = $this->compute($notes);
         }
 
-        $view = $this->renderView('school_report/school-report.html.twig', [
+        // Fetching school report theme to use.
+        $theme = $this->getDoctrine()->getRepository(SchoolReportTheme::class)->findOneBy([
+            'id' => $implantation->getSchoolReportTheme(),
+        ]);
+
+        $view = $this->renderView('@SchoolReportThemes/' . $theme->getUuid() . '/view.twig', [
             'student' => $student,
             'report' => $result,
+            'css' => '/themes/school_report_themes/' . $theme->getUuid() . '/theme.css',
         ]);
 
 

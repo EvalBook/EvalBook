@@ -16,7 +16,7 @@ Encore
     .addEntry('api', './assets/js/api.js')
     .addEntry('search', './assets/js/search.js')
     .addEntry('activity', './assets/js/activity.js')
-    .addEntry('modalSchoolReports', './assets/js/modalSchoolReport.js')
+    .addEntry('modalWindow', './assets/js/modal-window.js')
     .addEntry('controlsSchoolReports', './assets/js/controlsSchoolReports.js')
     .addEntry('userRoles', './assets/js/userRoles.js')
 
@@ -25,9 +25,7 @@ Encore
     .addStyleEntry('dialogs', './assets/css/dialogs.css')
     .addStyleEntry('notebook-style', './assets/css/notebook.css')
     .addStyleEntry('search-style', './assets/css/search.css')
-    .addStyleEntry('schoolReport', './assets/css/schoolReports/theme.css')
-    .addStyleEntry('schoolReportECSJ', './assets/css/schoolReports/themeELSJ.css')
-    .addStyleEntry('schoolReportBase', './assets/css/schoolReports/schoolReportBase.css')
+    .addStyleEntry('modalWindowCss', './assets/css/modalWindow.css')
 
     // Copying images files.
     .copyFiles({
