@@ -20,6 +20,8 @@
 namespace App\Form;
 
 use App\Entity\Implantation;
+use App\Entity\School;
+use App\Entity\SchoolReportTheme;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
@@ -70,12 +72,13 @@ class ImplantationType extends AbstractType
 
             // School implantation is attached to.
             ->add('school', EntityType::class, [
-                'class' => 'App\Entity\School',
+                'class' => School::class,
             ])
 
             // Provide a way to add the implantation logo for school report use.
             ->add('logo', FileType::class, [
                 'required' => false,
+                'mapped' => false,
                 'constraints' => new Image([
                    'maxSize' => '2M',
                     'mimeTypes' => [
@@ -85,6 +88,11 @@ class ImplantationType extends AbstractType
                     ],
                     'mimeTypesMessage' => 'The image file type is incorrect, please choose a new one',
                 ]),
+            ])
+
+            // Choose the implantation school report theme.
+            ->add('schoolReportTheme', EntityType::class, [
+                'class' => SchoolReportTheme::class,
             ])
 
             // Submit button.

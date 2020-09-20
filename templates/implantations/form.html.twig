@@ -56,15 +56,41 @@
             </div>
 
             {# Implantation logo #}
+            <div>
+                <div class="form-row">
+                    {{ form_label(form.logo, 'Logo'|trans) }}
+                    {{ form_widget(form.logo) }}
+                    <span class="form-error">
+                        {{ form_errors(form.logo) }}
+                    </span>
+                    <span class="form-help">
+                        {{ 'Choose the logo to use on the implantation school report'|trans }}
+                    </span>
+                </div>
+
+                {# Getting implantation #}
+                {% set implantation = form.vars.value %}
+                {% if not implantation.logo is null %}
+                    <img class="thumbnail" src="{{ uploads ~ '/' ~ implantation.logo }}" alt="{{ implantation.name ~ ' logo' }}">
+                {% endif %}
+            </div>
+
+            {# Implantation school report theme #}
             <div class="form-row">
-                {{ form_label(form.logo, 'Logo'|trans) }}
-                {{ form_widget(form.logo) }}
+                {{ form_label(form.schoolReportTheme, 'Choose the implantation school report theme'|trans) }}
+                {{ form_widget(form.schoolReportTheme) }}
                 <span class="form-error">
-                    {{ form_errors(form.logo) }}
+                    {{ form_errors(form.schoolReportTheme) }}
                 </span>
-                <span class="form-help">
-                    {{ 'Choose the logo to use on the implantation school report'|trans }}
-                </span>
+                {# Display available school report themes thumbnails #}
+                <div class="margin-15 flex">
+                    {% for theme in thumbnails %}
+                        <div class="flex column align-items-center">
+                            <img class="thumbnail" src="{{ theme.thumb }}" alt="{{ theme.name ~ ' preview' }}">
+                            <span>{{ theme.name }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
 
             {# Implantation attach to school #}
