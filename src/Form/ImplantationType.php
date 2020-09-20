@@ -20,6 +20,8 @@
 namespace App\Form;
 
 use App\Entity\Implantation;
+use App\Entity\School;
+use App\Entity\SchoolReportTheme;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
@@ -70,7 +72,7 @@ class ImplantationType extends AbstractType
 
             // School implantation is attached to.
             ->add('school', EntityType::class, [
-                'class' => 'App\Entity\School',
+                'class' => School::class,
             ])
 
             // Provide a way to add the implantation logo for school report use.
@@ -90,7 +92,7 @@ class ImplantationType extends AbstractType
 
             // Choose the implantation school report theme.
             ->add('schoolReportTheme', EntityType::class, [
-                'placeholder' => 'Choose the implantation school report theme',
+                'class' => SchoolReportTheme::class,
             ])
 
             // Submit button.

@@ -21,6 +21,7 @@ namespace App\Controller;
 
 use App\Entity\Implantation;
 use App\Entity\Period;
+use App\Entity\SchoolReportTheme;
 use App\Form\ImplantationType;
 use App\Form\PeriodeType;
 use App\Repository\ImplantationRepository;
@@ -70,6 +71,9 @@ class ImplantationController extends AbstractController
     public function add(Request $request)
     {
         $implantation = new Implantation();
+        // Checking existence of school report themes.
+        $this->checkSchoolReportThemes();
+
         $form = $this->createForm(ImplantationType::class, $implantation);
         $form->handleRequest($request);
 
@@ -110,6 +114,9 @@ class ImplantationController extends AbstractController
      */
     public function edit(Implantation $implantation, Request $request, ImplantationRepository $repository)
     {
+        // Checking existence of school report themes.
+        $this->checkSchoolReportThemes();
+
         $form = $this->createForm(ImplantationType::class, $implantation);
         $form->handleRequest($request);
 
@@ -350,6 +357,30 @@ class ImplantationController extends AbstractController
             return $filename;
         }
         return false;
+    }
+
+
+    /**
+     * Check existence of school report themes, if no theme found, creating the default one.
+     */
+    private function checkSchoolReportThemes()
+    {
+        $repository = $this->getDoctrine()->getRepository(SchoolReportTheme::class);
+        if($repository->count([]) === 0) {
+            // Adding the default school report theme.
+            $defaultTheme = new SchoolReportTheme();
+            // Release date and version will be overridden on theme update available.
+            $defaultTheme
+                ->setName('Default thème')
+                ->setAuthor('Evalbook team')
+                ->setReleaseDate(new \DateTime())
+                ->setVersion("0.0.1")
+                ->setUuid('default')
+            ;
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($defaultTheme);
+            $em->flush();
+        }
     }
 
 }
