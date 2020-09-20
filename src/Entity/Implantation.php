@@ -69,7 +69,7 @@ class Implantation
 
     /**
      * @ORM\ManyToOne(targetEntity=SchoolReportTheme::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $schoolReportTheme;
 
