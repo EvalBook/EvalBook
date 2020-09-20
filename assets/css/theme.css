@@ -614,6 +614,10 @@ tr:hover i, tr:hover a {
     align-items: flex-start;
 }
 
+.align-items-center {
+    align-items: center;
+}
+
 .display-row {
     flex-direction: row;
     flex-wrap: wrap;

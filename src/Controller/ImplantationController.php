@@ -99,6 +99,7 @@ class ImplantationController extends AbstractController
 
         return $this->render('implantations/form.html.twig', [
             'form' => $form->createView(),
+            'thumbnails' => $this->getSchoolReportThemesThumbnails(),
         ]);
     }
 
@@ -144,6 +145,7 @@ class ImplantationController extends AbstractController
         return $this->render('implantations/form.html.twig', [
             'implantation' => $implantation,
             'form' => $form->createView(),
+            'thumbnails' => $this->getSchoolReportThemesThumbnails(),
         ]);
     }
 
@@ -381,6 +383,47 @@ class ImplantationController extends AbstractController
             $em->persist($defaultTheme);
             $em->flush();
         }
+    }
+
+
+    /**
+     * Fetch thumbnails of school report themes.
+     */
+    private function getSchoolReportThemesThumbnails()
+    {
+        $themes = $this->getDoctrine()->getRepository(SchoolReportTheme::class)->findAll();
+        $thumbnails = [];
+        foreach($themes as $theme) {
+            $thumb = "/uploads/" . $theme->getUuid();
+
+            if(is_file($thumb . '.png')) {
+                $thumbnails[] = [
+                    "name" => $theme->getName(),
+                    "thumb" => $thumb . '.png',
+                ];
+            }
+            elseif(is_file($thumb . '.jpg')) {
+                $thumbnails[] = [
+                    "name" => $theme->getName(),
+                    "thumb" => $thumb . '.jpg',
+                ];
+            }
+            elseif(is_file($thumb . '.jpeg')) {
+                $thumbnails[] = [
+                    "name" => $theme->getName(),
+                    "thumb" => $thumb . '.jpeg',
+                ];
+            }
+            // In case of no thumbnail provided.
+            else {
+                $thumbnails[] = [
+                    "name" => $theme->getName(),
+                    "thumb" => '/build/no-image-thumbnail.png',
+                ];
+            }
+        }
+
+        return $thumbnails;
     }
 
 }

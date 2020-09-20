@@ -82,6 +82,15 @@
                 <span class="form-error">
                     {{ form_errors(form.schoolReportTheme) }}
                 </span>
+                {# Display available school report themes thumbnails #}
+                <div class="margin-15 flex">
+                    {% for theme in thumbnails %}
+                        <div class="flex column align-items-center">
+                            <img class="thumbnail" src="{{ theme.thumb }}" alt="{{ theme.name ~ ' preview' }}">
+                            <span>{{ theme.name }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
 
             {# Implantation attach to school #}
