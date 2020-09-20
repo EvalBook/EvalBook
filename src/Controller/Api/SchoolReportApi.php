@@ -74,10 +74,36 @@ class SchoolReportApi extends AbstractController
             'id' => $implantation->getSchoolReportTheme(),
         ]);
 
+        // Searching main classroom.
+        $studentClassroom = null;
+        foreach($student->getClassrooms() as $classroom) {
+            if($classroom->getImplantation() === $implantation && $classroom->getOwner() !== null) {
+                $studentClassroom = $classroom;
+            }
+        }
+
+        // Fetching school year.
+        $periods = $implantation->getPeriods();
+        $start = new \DateTime();
+        $end = new \DateTime('1970-1-1');
+
+        foreach($periods->toArray() as $period) {
+            /* @var $period Period */
+            if($period->getDateStart() < $start)
+                $start = $period->getDateStart();
+            if($period->getDateEnd() > $end)
+                $end = $period->getDateEnd();
+        }
+
+        $year = $start->format('Y') . ' - ' . $end->format('Y');
+
         $view = $this->renderView('@SchoolReportThemes/' . $theme->getUuid() . '/view.twig', [
             'student' => $student,
             'report' => $result,
             'css' => '/themes/school_report_themes/' . $theme->getUuid() . '/theme.css',
+            'logo' => '/uploads/' . $implantation->getLogo(),
+            'classroom' => $studentClassroom,
+            'year' => $year,
         ]);
 
 
