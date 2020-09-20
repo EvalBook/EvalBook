@@ -96,9 +96,6 @@ class ActivityType extends AbstractType
                         ;
                     }
                 }),
-
-                // Temporary
-                'mapped' => false,
             ])
 
             // Activity name.

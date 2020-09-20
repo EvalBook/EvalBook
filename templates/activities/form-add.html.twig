@@ -19,21 +19,6 @@
     * Allow a classroom owner / user to add an activity.
 #}
 
-{#
-
-<div class="form-row width-50-percent margins">
-    {{ form_label(form.coefficient, 'Coefficient to apply'|trans) }}
-    {{ form_widget(form.coefficient) }}
-    <span class="form-info">
-                    {{ 'The default coefficient is 1'|trans }}
-                </span>
-    <span class="form-error">
-                    {{ form_errors(form.coefficient) }}
-                </span>
-</div>
-
-#}
-
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'templates' %}
 
@@ -70,7 +55,7 @@
 
                     <div class="form-row display-row">
                         {# Activity skill #}
-                        <div class="width-50-percent margin-right hidden">
+                        <div class="width-25-percent margin-right hidden">
                             {{ form_label(form.activityThemeDomainSkill, 'Skill'|trans) }}
                             {{ form_widget(form.activityThemeDomainSkill, {'attr': {
                                 'class': 'full-width',
@@ -79,14 +64,27 @@
                         </div>
 
                         {# Activity note type #}
-                        <div class="width-50-percent margin-left hidden">
+                        <div class="width-25-percent margin-left hidden">
                             {{ form_label(form.noteType, 'Note type'|trans) }}
                             {{ form_widget(form.noteType, {'attr': {
                                 'class': 'full-width',
                             }}) }}
-                            <span class="form-info">
+                            <span class="form-info hidden margin-left">
                                 {{ 'Select a note type or'|trans }}
                                 <a href="{{ path('note_type_add', {'classroom': classroomId}) }}">{{ 'add a new one'|trans }}</a>
+                            </span>
+                        </div>
+
+                        <div class="form-row width-25-percent margin-left hidden">
+                            {{ form_label(form.coefficient, 'Coefficient to apply'|trans) }}
+                            {{ form_widget(form.coefficient, {'attr': {
+                                'class': 'full-width',
+                            }}) }}
+                            <span class="form-info">
+                                {{ 'The default coefficient is 1'|trans }}
+                            </span>
+                            <span class="form-error">
+                                {{ form_errors(form.coefficient) }}
                             </span>
                         </div>
                     </div>

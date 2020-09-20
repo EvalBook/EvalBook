@@ -155,8 +155,8 @@ class SchoolReportApi extends AbstractController
                         $n = array_search($endpoint['note']->getNote(), $notesIntervals);
                         $m = count($notesIntervals) - 1;
 
-                        $amount += $n * $endpoint['note']->getActivity()->getNoteType()->getCoefficient();
-                        $supp += $m * $endpoint['note']->getActivity()->getNoteType()->getCoefficient();
+                        $amount += $n * $endpoint['note']->getActivity()->getCoefficient();
+                        $supp += $m * $endpoint['note']->getActivity()->getCoefficient();
                     }
 
                     // Fetching skill in case of no note.

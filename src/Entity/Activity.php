@@ -94,6 +94,11 @@ class Activity
      */
     private $isInShoolReport;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $coefficient;
+
 
     /**
      * Activite constructor.
@@ -368,6 +373,29 @@ class Activity
 
 
     /**
+     * Return the activity coefficient.
+     * @return int|null
+     */
+    public function getCoefficient(): ?int
+    {
+        return $this->coefficient;
+    }
+
+
+    /**
+     * Set the activity coefficient.
+     * @param int $coefficient
+     * @return $this
+     */
+    public function setCoefficient(int $coefficient): self
+    {
+        $this->coefficient = $coefficient;
+
+        return $this;
+    }
+
+
+    /**
      * Return the Activity string representation.
      * @return string
      */
@@ -389,4 +417,5 @@ class Activity
             $this->setComment($this->getComment() . " ( clone )");
         }
     }
+
 }
