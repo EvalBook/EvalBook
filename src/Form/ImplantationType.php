@@ -88,6 +88,11 @@ class ImplantationType extends AbstractType
                 ]),
             ])
 
+            // Choose the implantation school report theme.
+            ->add('schoolReportTheme', EntityType::class, [
+                'placeholder' => 'Choose the implantation school report theme',
+            ])
+
             // Submit button.
             ->add('submit', SubmitType::class)
         ;

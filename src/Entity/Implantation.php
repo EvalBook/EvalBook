@@ -67,6 +67,12 @@ class Implantation
      */
     private $logo;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=SchoolReportTheme::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $schoolReportTheme;
+
 
     /**
      * Implantation constructor.
@@ -209,6 +215,29 @@ class Implantation
     public function setLogo(?string $logo): self
     {
         $this->logo = $logo;
+
+        return $this;
+    }
+
+
+    /**
+     * Return the implantation selected school report theme.
+     * @return SchoolReportTheme|null
+     */
+    public function getSchoolReportTheme(): ?SchoolReportTheme
+    {
+        return $this->schoolReportTheme;
+    }
+
+
+    /**
+     * Set the implantation school report theme.
+     * @param SchoolReportTheme|null $schoolReportTheme
+     * @return $this
+     */
+    public function setSchoolReportTheme(?SchoolReportTheme $schoolReportTheme): self
+    {
+        $this->schoolReportTheme = $schoolReportTheme;
 
         return $this;
     }

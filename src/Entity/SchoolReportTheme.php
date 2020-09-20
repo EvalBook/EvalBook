@@ -166,4 +166,14 @@ class SchoolReportTheme
 
         return $this;
     }
+
+
+    /**
+     * Return entity string representation.
+     * @return string|null
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

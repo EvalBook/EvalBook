@@ -324,6 +324,8 @@ Advanced roles management: Gestion avancée des rôles
 Logo: Logo
 Choose the logo to use on the implantation school report: Choisissez le logo à utiliser pour le bulletin de l'implantation
 The image file type is incorrect, please choose a new one: Le type d'image ne semble pas correct, veuillez en sélectionner un nouveau
+Choose the implantation school report theme: Choisissez le thème de bulletin pour l'implantation
+School report: Bulletin
 
 
 roles:

@@ -75,6 +75,15 @@
                 {% endif %}
             </div>
 
+            {# Implantation school report theme #}
+            <div class="form-row {{ hidden }}">
+                {{ form_label(form.schoolReportTheme, 'School report'|trans) }}
+                {{ form_widget(form.schoolReportTheme) }}
+                <span class="form-error">
+                    {{ form_errors(form.schoolReportTheme) }}
+                </span>
+            </div>
+
             {# Implantation attach to school #}
             {% set hidden = config.useSchools ? '' : 'display-none' %}
             <div class="form-row {{ hidden }}">
