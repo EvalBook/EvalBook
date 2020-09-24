@@ -27,9 +27,11 @@ use App\Entity\ActivityThemeDomain;
 use App\Entity\ActivityThemeDomainSkill;
 use App\Entity\Implantation;
 use App\Entity\Note;
+use App\Entity\NoteType;
 use App\Entity\Period;
 use App\Entity\SchoolReportTheme;
 use App\Entity\Student;
+use App\Repository\NoteTypeRepository;
 use App\Repository\PeriodRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -95,7 +97,7 @@ class SchoolReportApi extends AbstractController
 
         $result = [];
         if(count($notes) > 0) {
-            $result = $this->compute($notes, $studentClassroom->getImplantation()->getPeriods()->toArray());
+            $result = $this->getSchoolReportData($notes, $studentClassroom->getImplantation()->getPeriods()->toArray());
         }
 
         $view = $this->renderView('@SchoolReportThemes/' . $theme->getUuid() . '/view.twig', [
@@ -120,7 +122,7 @@ class SchoolReportApi extends AbstractController
      * @param array $implantationPeriods
      * @return array
      */
-    private function compute(array $notes, array $implantationPeriods)
+    private function getSchoolReportData(array $notes, array $implantationPeriods)
     {
         $periods = $this->getStudentSchoolReportPeriods($notes, $implantationPeriods);
         $sortedNotes = $this->sortNotesByPeriods($notes, $periods);
@@ -147,7 +149,7 @@ class SchoolReportApi extends AbstractController
      * @param $value
      * @param $precision
      */
-    private function round_up( &$value, $precision ) {
+    private function roundUp( &$value, $precision ) {
         $pow = pow ( 10, $precision );
         $value = ( ceil ( $pow * $value ) + ceil ( $pow * $value - ceil ( $pow * $value ) ) ) / $pow;
     }
@@ -238,13 +240,19 @@ class SchoolReportApi extends AbstractController
      * @param array $skills
      */
     private function getAveragesByPeriods(array &$skills)
-    { // $period
+    {
+        $noteTypeRepository = $this->getDoctrine()->getRepository(NoteType::class);
+
         // For each skill id entry ( skill_key ... ).
         foreach($skills as $i => $val) {
 
+            // Getting note type.
+            $noteType = $noteTypeRepository->findOneBy([
+                'id' => $skills[$i]['skill']->getNoteType(),
+            ]);
+
             // Foreach named period ( First period name, ... )
             foreach($skills[$i]['periods'] as $j => $value) {
-
                 $average = 0;
                 $supp = 0;
 
@@ -265,32 +273,35 @@ class SchoolReportApi extends AbstractController
                     $n = array_search($note->getNote(), $notesIntervals);
                     $m = count($notesIntervals) - 1;
 
-                    $average += $n * $note->getActivity()->getCoefficient();
-                    $supp += $m * $note->getActivity()->getCoefficient();
+                    // Make sure coefficient > 0, it can be 0 after the mschool report db migration...
+                    $coefficient = $note->getActivity()->getCoefficient() > 0 ? $note->getActivity()->getCoefficient() : 1;
+                    $average += $n * $coefficient;
+                    $supp += $m * $coefficient;
                 }
 
-                if($supp > 0) {
+
+                if($supp > 0 && null !== $noteType) {
 
                     // Fetching skill in case of no note.
-                    if ($skills[$i]['skill']->getNoteType()->isNumeric()) {
-                        $low = ($average / $supp) * $skills[$i]['skill']->getNoteType()->getMaximum();
-                        $this->round_up($low, 1);
+                    if ($noteType->isNumeric()) {
+                        $low = ($average / $supp) * $noteType->getMaximum();
+                        $this->roundUp($low, 1);
                     } else {
-                        $intervals = $skills[$i]['skill']->getNoteType()->getIntervals();
-                        array_push($intervals, $skills[$i]['skill']->getNoteType()->getMaximum());
-                        array_unshift($intervals, $skills[$i]['skill']->getNoteType()->getMinimum());
+                        $intervals = $noteType->getIntervals();
+                        array_push($intervals, $noteType->getMaximum());
+                        array_unshift($intervals, $noteType->getMinimum());
 
                         $low = ($average / $supp) * count($intervals);
                         if ($low > count($intervals) - 1)
                             $low = count($intervals) - 1;
 
-                        $this->round_up($low, 0);
+                        $this->roundUp($low, 0);
                         $low = $intervals[$low];
                     }
                 }
 
                 // Storing the result.
-                $skills[$i]['periods'][$j] = $supp !== 0 ? $low : '-';
+                $skills[$i]['periods'][$j] = ($supp !== 0 && null !== $low) ? $low : '-';
             }
         }
     }
