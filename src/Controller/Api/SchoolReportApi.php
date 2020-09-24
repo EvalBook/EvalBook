@@ -95,14 +95,14 @@ class SchoolReportApi extends AbstractController
 
         $year = $start->format('Y') . ' - ' . $end->format('Y');
 
-        $result = [];
+        $schoolReportData = [];
         if(count($notes) > 0) {
-            $result = $this->getSchoolReportData($notes, $studentClassroom->getImplantation()->getPeriods()->toArray());
+            $schoolReportData = $this->getSchoolReportData($notes, $studentClassroom->getImplantation()->getPeriods()->toArray());
         }
 
         $view = $this->renderView('@SchoolReportThemes/' . $theme->getUuid() . '/view.twig', [
             'student' => $student,
-            'report' => $result,
+            'data' => $schoolReportData,
             'css' => '/themes/school_report_themes/' . $theme->getUuid() . '/theme.css',
             'logo' => '/uploads/' . $implantation->getLogo(),
             'classroom' => $studentClassroom,
@@ -128,19 +128,59 @@ class SchoolReportApi extends AbstractController
         $sortedNotes = $this->sortNotesByPeriods($notes, $periods);
         $this->getAveragesByPeriods($sortedNotes);
 
-        // TODO Group array items by Theme, then by domain, dissociate special classrooms domain from items.
-        $report = [];
         $themeRepository  = $this->getDoctrine()->getRepository(ActivityTheme::class);
         $domainRepository = $this->getDoctrine()->getRepository(ActivityThemeDomain::class);
 
+        $specialClassrooms = [];
+        $subjects = [];
+        $transversalSkills = [];
+        $behaviors = [];
+
+        // Splitting the result into 4 arrays representing the global school report view.
         foreach($sortedNotes as $skillId => $data) {
             /* @var $skill ActivityThemeDomainSkill */
             $skill = $data['skill'];
-            $theme  = '';
-            $domain = '';
+
+            $domain  = $domainRepository->findOneBy([
+                'id' => $skill->getActivityThemeDomain(),
+            ]);
+
+            $theme = $themeRepository->findOneBy([
+                'id' => $domain->getActivityTheme(),
+            ]);
+
+
+            // Getting all special classrooms data.
+            if($domain->getType() === ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM){
+                $specialClassrooms[] = $data;
+            }
+            else {
+                switch($theme->getName()) {
+                    case 'subject':
+                        $subjects[] = $data;
+                        break;
+                    case 'transversal_skill':
+                        $transversalSkills[] = $data;
+                        break;
+                    case 'behavior':
+                        $behaviors[] = $data;
+                        break;
+                    default:
+                        $specialClassrooms[] = $data;
+                }
+            }
         }
 
-        return $report;
+        $subjects = $this->sortSkillsByDomain($subjects);
+        $behaviors = $this->sortSkillsByDomain($behaviors);
+        $transversalSkills = $this->sortSkillsByDomain($transversalSkills);
+
+        return [
+            'scpecialClassrooms' => $specialClassrooms,
+            'subjects' => $subjects,
+            'bahaviors' => $behaviors,
+            'transversalSkills' => $transversalSkills,
+        ];
     }
 
 
@@ -304,5 +344,31 @@ class SchoolReportApi extends AbstractController
                 $skills[$i]['periods'][$j] = ($supp !== 0 && null !== $low) ? $low : '-';
             }
         }
+    }
+
+
+    /**
+     * Return an ordered by activity theme domains skill.
+     * @param array $skills
+     * @return array
+     */
+    private function sortSkillsByDomain(array $skills)
+    {
+        $sortedDomains = [];
+        $domainRepository = $this->getDoctrine()->getRepository(ActivityThemeDomain::class);
+
+        for($i = 0; $i < count($skills); $i++) {
+            $domain = $domainRepository->findOneBy([
+                'id' => $skills[$i]['skill']->getActivityThemeDomain()
+            ]);
+
+            if(!isset($sortedDomains[$domain->getDisplayName()])) {
+                $sortedDomains[$domain->getDisplayName()] = [];
+            }
+
+            array_push($sortedDomains[$domain->getDisplayName()], $skills[$i]);
+        }
+
+        return $sortedDomains;
     }
 }

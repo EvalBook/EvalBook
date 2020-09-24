@@ -216,7 +216,7 @@ Select a note type or: Selectionnez un type de note
 add a new one: ou ajoutez en un nouveau
 Unable to add new activities, no active period detected: Impossible d'ajouter une nouvelle activité, aucune période ouverte n'a été détectée.
 This name is used to identity your note type while adding a new activity: 'templates'
-Coefficient to apply: Coefficient à appliquer (uniquement si numérique)
+Coefficient to apply: Coefficient (uniquement si numérique)
 The default coefficient is 1: Le coefficient par défaut est 1
 Description: Description
 A short description on how to use your note type: Une description courte expliquant comment utiliser ce type de notes
