@@ -21,7 +21,6 @@ namespace App\Controller\Api;
 
 header("Access-Control-Allow-Origin: *");
 
-use App\Entity\Activity;
 use App\Entity\ActivityTheme;
 use App\Entity\ActivityThemeDomain;
 use App\Entity\ActivityThemeDomainSkill;
@@ -31,12 +30,11 @@ use App\Entity\NoteType;
 use App\Entity\Period;
 use App\Entity\SchoolReportTheme;
 use App\Entity\Student;
-use App\Repository\NoteTypeRepository;
-use App\Repository\PeriodRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 class SchoolReportApi extends AbstractController
@@ -48,11 +46,12 @@ class SchoolReportApi extends AbstractController
      *
      * @param Student $student
      * @param Implantation $implantation
-     * @param PeriodRepository $periodRepository
+     * @param TranslatorInterface $translator
      * @return JsonResponse
      */
-    public function getIndividualSchoolReport(Student $student, Implantation $implantation, PeriodRepository $periodRepository){
+    public function getIndividualSchoolReport(Student $student, Implantation $implantation, TranslatorInterface $translator){
         $notes = [];
+        $messages = [];
 
         // Getting closed periods.
         $periods = $implantation->getPeriods();
@@ -72,7 +71,7 @@ class SchoolReportApi extends AbstractController
             'id' => $implantation->getSchoolReportTheme(),
         ]);
 
-        // Searching main classroom.
+        // Searching main classroom ( student can only take part of only one classroom with owner ).
         $studentClassroom = null;
         foreach($student->getClassrooms() as $classroom) {
             if($classroom->getImplantation() === $implantation && $classroom->getOwner() !== null) {
@@ -80,17 +79,27 @@ class SchoolReportApi extends AbstractController
             }
         }
 
-        // Fetching school year.
+        // Fetching school year and current school report period.
         $periods = $implantation->getPeriods();
         $start = new \DateTime();
         $end = new \DateTime('1970-1-1');
+        $currentPeriodTs = 0;
+        $currentPeriod = null;
 
         foreach($periods->toArray() as $period) {
             /* @var $period Period */
+
+            // Getting current year based on provided periods.
             if($period->getDateStart() < $start)
                 $start = $period->getDateStart();
             if($period->getDateEnd() > $end)
                 $end = $period->getDateEnd();
+
+            // Getting current school report period.
+            if($period->getDateEnd()->getTimestamp() > $currentPeriodTs && $period->getDateEnd() <= new \DateTime()) {
+                $currentPeriodTs = $period->getDateEnd()->getTimestamp();
+                $currentPeriod = $period;
+            }
         }
 
         $year = $start->format('Y') . ' - ' . $end->format('Y');
@@ -99,19 +108,39 @@ class SchoolReportApi extends AbstractController
         if(count($notes) > 0) {
             $schoolReportData = $this->getSchoolReportData($notes, $studentClassroom->getImplantation()->getPeriods()->toArray());
         }
+        else {
+            $messages[] = $translator->trans('No school report data found for this student', [], 'templates');
+        }
 
-        $view = $this->renderView('@SchoolReportThemes/' . $theme->getUuid() . '/view.twig', [
-            'student' => $student,
-            'data' => $schoolReportData,
-            'css' => '/themes/school_report_themes/' . $theme->getUuid() . '/theme.css',
-            'logo' => '/uploads/' . $implantation->getLogo(),
-            'classroom' => $studentClassroom,
-            'year' => $year,
-        ]);
+        // Check if student classroom has been found.
+        if(is_null($studentClassroom)) {
+            $messages[] = $translator->trans('No classroom found for this student', [], 'templates');
+        }
+
+        // Check if periods has been found
+        if($periods->count() === 0 || is_null($currentPeriod)){
+            $messages[] = $translator->trans('No valid period found for the implantation or unable to define the current period', [], 'templates');
+        }
+
+        try {
+            $view = $this->renderView('@SchoolReportThemes/' . $theme->getUuid() . '/view.twig', [
+                'student' => $student,
+                'data' => $schoolReportData,
+                'css' => '/themes/school_report_themes/' . $theme->getUuid() . '/theme.css',
+                'logo' => '/uploads/' . $implantation->getLogo(),
+                'classroom' => $studentClassroom,
+                'year' => $year,
+                'period' => $currentPeriod,
+            ]);
+        }
+        catch(\Exception $e) {
+            $view = null;
+        }
 
 
         return new JsonResponse([
             'html' => $view,
+            'message' => $messages,
         ], 200);
     }
 
