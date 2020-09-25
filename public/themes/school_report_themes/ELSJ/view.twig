@@ -11,18 +11,10 @@
             <img src="{{ logo }}" alt="school-logo" id="school-logo">
             <h1 id="student-name">{{ student.firstname ~ ' ' ~ student.lastname }}</h1>
             <div id="sr-infos">
-                <p>
-                    <strong>{{ 'Classroom'|trans }} :</strong> {{ classroom.name }}
-                </p>
-
-                <p>
-                    <strong>{{ 'Owner'|trans }} :</strong> {{ classroom.owner.lastname ~ ' ' ~ classroom.owner.firstname }}
-                </p>
-
-                <p>
-                    <strong>{{ 'School year'|trans}} :</strong> {{ year }}
-                </p>
-
+                <p><strong>{{ 'Classroom'|trans }} :</strong> {{ classroom.name }}</p>
+                <p><strong>{{ 'Owner'|trans }} :</strong> {{ classroom.owner.lastname ~ ' ' ~ classroom.owner.firstname }}</p>
+                <p><strong>{{ 'School year'|trans}} :</strong> {{ year }}</p>
+                <p><strong>{{ 'Period'|trans}} :</strong> {{ currentPeriod.name }}</p>
             </div>
         </header>
 
@@ -37,116 +29,151 @@
                         <td class ="bg">
                             {{ 'Maximum'|trans }}
                         </td>
-                        <td>
-                            Premier trimestre
-                        </td>
-                        <td>
-                            Deuxieme trimestre
-                        </td>
-                        <td>
-                            Troisieme trimestre
-                        </td>
+                        {% for period in reportData.periods %}
+                            <td>
+                                {{ period }}
+                            </td>
+                        {% endfor %}
                     </tr>
                 </tbody>
             </table>
 
             <!-- subject table-->
-            <table>
-                <tbody>
+            {% for subject, skills in reportData.subjects %}
+                <table>
+                    <tbody>
+                        <!-- subject name -->
+                        <tr class="bg">
+                            <th colspan="{{ reportData.periods|length + 2 }}" class="subject-name-content">
+                                {{ subject }}
+                            </th>
+                        </tr>
+                        <!-- skills (content to loop) -->
+                        {% for line in skills %}
+                            <tr class="skill-row">
+
+                                <th class ="bg">
+                                    {{ line['skill'].name }}
+                                </th>
+
+                                <td class ="bg">
+                                    {{ line['skill'].noteType.maximum }}
+                                </td>
+
+                                {% for note in line['periods'] %}
+                                    <td>
+                                        {{ note }}
+                                    </td>
+                                {% endfor %}
+
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endfor %}
+
+
+            <!-- transversal skills -->
+            {% for transversalSkill, skills in reportData.transversalSkills %}
+                <table>
+                    <tbody>
                     <!-- subject name -->
                     <tr class="bg">
-                        <th colspan="5" class="subject-name-content">
-                            Français
+                        <th colspan="{{ reportData.periods|length + 2 }}" class="subject-name-content">
+                            {{ transversalSkill }}
                         </th>
                     </tr>
                     <!-- skills (content to loop) -->
+                    {% for line in skills %}
+                        <tr class="skill-row">
 
-                    <tr class="skill-row">
-                        <th class ="bg">
-                            Savoir parler
+                            <th class ="bg">
+                                {{ line['skill'].name }}
+                            </th>
+
+                            <td class ="bg">
+                                {{ line['skill'].noteType.maximum }}
+                            </td>
+
+                            {% for note in line['periods'] %}
+                                <td>
+                                    {{ note }}
+                                </td>
+                            {% endfor %}
+
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endfor %}
+
+
+            <!-- special classrooms -->
+            {% if reportData.specialClassrooms|length > 0 %}
+                <table>
+                    <tbody>
+                    <tr class="bg">
+                        <th colspan="{{ reportData.periods|length + 2 }}" class="subject-name-content">
+                            {{ 'Special masters'|trans }}
                         </th>
-                        <td class ="bg">
-                            10
-                        </td>
-                        <td>
-                            10
-                        </td>
-                        <td>
-                            10
-                        </td>
-                        <td>
-                            10
-                        </td>
                     </tr>
+                    {% for specialClassroomSkill in reportData.specialClassrooms %}
+                        <!-- subject name -->
+                        <tr class="skill-row">
+                            <th class ="bg">
+                                {{ specialClassroomSkill['skill'].name }}
+                            </th>
 
-                    <tr class="skill-row">
-                        <th class ="bg">
-                            Savoir écrire
-                        </th>
-                        <td class ="bg">
-                            10
-                        </td>
-                        <td>
-                            10
-                        </td>
-                        <td>
-                            10
-                        </td>
-                        <td>
-                            10
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                            <td class ="bg">
+                                {{ specialClassroomSkill['skill'].noteType.maximum }}
+                            </td>
+
+                            <!-- skills (content to loop) -->
+                            {% for line in specialClassroomSkill['periods'] %}
+                                <td>
+                                    {{ line }}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
 
 
-            <table>
-                <tbody>
+            <!-- behavior table-->
+            {% for behavior, skills in reportData.behaviors %}
+                <table>
+                    <tbody>
                     <!-- subject name -->
-                    <tr class ="bg">
-                        <th colspan="5" class="subject-name-content">
-                            Mathématiques
+                    <tr class="bg">
+                        <th colspan="{{ reportData.periods|length + 2 }}" class="subject-name-content">
+                            {{ behavior }}
                         </th>
                     </tr>
                     <!-- skills (content to loop) -->
+                    {% for line in skills %}
+                        <tr class="skill-row">
 
-                    <tr class="skill-row">
-                        <th class ="bg">
-                            Divisions
-                        </th>
-                        <td class ="bg">
-                            10
-                        </td>
-                        <td>
-                            10
-                        </td>
-                        <td>
-                            10
-                        </td>
-                        <td>
-                            10
-                        </td>
-                    </tr>
+                            <th class ="bg">
+                                {{ line['skill'].name }}
+                            </th>
 
-                    <tr class="skill-row">
-                        <th class ="bg">
-                            Géométrie
-                        </th>
-                        <td class ="bg">
-                            10
-                        </td>
-                        <td>
-                            10
-                        </td>
-                        <td>
-                            10
-                        </td>
-                        <td>
-                            10
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                            <td class ="bg">
+                                {{ line['skill'].noteType.maximum }}
+                            </td>
+
+                            {% for note in line['periods'] %}
+                                <td>
+                                    {{ note }}
+                                </td>
+                            {% endfor %}
+
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endfor %}
 
         </main>
     {% else %}
