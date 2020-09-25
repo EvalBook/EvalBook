@@ -170,7 +170,7 @@ class NoteTypeRepository extends ServiceEntityRepository
         // 0..100
         $nt100 = new NoteType();
         $nt100
-            ->setName("0 -> 100 coeff $i")
+            ->setName("0 -> 100 coeff")
             ->setDescription("0 -> 100")
             ->setMaximum('100')
             ->setMinimum('0')

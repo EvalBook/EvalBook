@@ -313,7 +313,7 @@ class DashboardController extends AbstractController
 
         // Fetching additional note types if it is a special classroom and not a behavior or other non numeric theme.
         if($domain->getType() === ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM && $activityTheme->getIsNumericNotes()) {
-            $noteTypes = $this->noteTypeRepository->findBy(['coefficient' => 1]);
+            $noteTypes = $this->noteTypeRepository->findAll();
         }
         else {
             // Fetching base note types.
@@ -403,7 +403,7 @@ class DashboardController extends AbstractController
 
         // Fetching additional note types if it is a special classroom and not a behavior or other non numeric theme.
         if($domain->getType() === ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM && $activityTheme->getIsNumericNotes()) {
-            $noteTypes = $this->noteTypeRepository->findBy(['coefficient' => 1]);
+            $noteTypes = $this->noteTypeRepository->findAll();
         }
         else {
             // Fetching base note types.
