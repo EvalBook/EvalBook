@@ -216,7 +216,7 @@ Select a note type or: Selectionnez un type de note
 add a new one: ou ajoutez en un nouveau
 Unable to add new activities, no active period detected: Impossible d'ajouter une nouvelle activité, aucune période ouverte n'a été détectée.
 This name is used to identity your note type while adding a new activity: 'templates'
-Coefficient to apply: Coefficient à appliquer (uniquement si numérique)
+Coefficient to apply: Coefficient (uniquement si numérique)
 The default coefficient is 1: Le coefficient par défaut est 1
 Description: Description
 A short description on how to use your note type: Une description courte expliquant comment utiliser ce type de notes
@@ -325,6 +325,10 @@ Logo: Logo
 Choose the logo to use on the implantation school report: Choisissez le logo à utiliser pour le bulletin de l'implantation
 The image file type is incorrect, please choose a new one: Le type d'image ne semble pas correct, veuillez en sélectionner un nouveau
 Choose the implantation school report theme: Choisissez le thème de bulletin pour l'implantation
+No classroom was found for this student, cannot display the school report: Aucune classe trouvée pour cet élève, impossible d'afficher le bulletin
+School year: Année scolaire
+Skills: Compétences
+Is in school report ?: Doit compter pour le bulletin ?
 
 
 roles:

@@ -1,141 +1,157 @@
+{% trans_default_domain 'templates' %}
+
 {% block head %}
     {{ encore_entry_link_tags('modalWindowCss') }}
     <link rel="stylesheet" type="text/css" href="{{ css }}"/>
 {% endblock %}
 
 <div class="school-report">
-    <header id="sr-header">
-        <img src="../../assets/images/logo_ecsj.jpg" alt="school-logo" id="school-logo">
-        <h1 id="student-name">Adrian Pennino</h1>
-        <div id="sr-infos">
-            <p>Classe : P5</p>
-            <p>Titulaire : François Perrin</p>
-            <p>Année scolaire : 2020-2021</p>
-        </div>
-    </header>
+    {% if not classroom is null %}
+        <header id="sr-header">
+            <img src="{{ logo }}" alt="school-logo" id="school-logo">
+            <h1 id="student-name">{{ student.firstname ~ ' ' ~ student.lastname }}</h1>
+            <div id="sr-infos">
+                <p>
+                    <strong>{{ 'Classroom'|trans }} :</strong> {{ classroom.name }}
+                </p>
 
-    <main>
-        <!-- column titles   -->
-        <table>
-            <tbody>
-                <tr class="skill-row">
-                    <th class ="bg">
-                        Compétences
-                    </th>
-                    <td class ="bg">
-                        Maximum
-                    </td>
-                    <td>
-                        Premier trimestre
-                    </td>
-                    <td>
-                        Deuxieme trimestre
-                    </td>
-                    <td>
-                        Troisieme trimestre
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                <p>
+                    <strong>{{ 'Owner'|trans }} :</strong> {{ classroom.owner.lastname ~ ' ' ~ classroom.owner.firstname }}
+                </p>
 
-        <!-- subject table-->
-        <table>
-            <tbody>
-                <!-- subject name -->
-                <tr class="bg">
-                    <th colspan="5" class="subject-name-content">
-                        Français
-                    </th>
-                </tr>
-                <!-- skills (content to loop) -->
+                <p>
+                    <strong>{{ 'School year'|trans}} :</strong> {{ year }}
+                </p>
 
-                <tr class="skill-row">
-                    <th class ="bg">
-                        Savoir parler
-                    </th>
-                    <td class ="bg">
-                        10
-                    </td>
-                    <td>
-                        10
-                    </td>
-                    <td>
-                        10
-                    </td>
-                    <td>
-                        10
-                    </td>
-                </tr>
+            </div>
+        </header>
 
-                <tr class="skill-row">
-                    <th class ="bg">
-                        Savoir écrire
-                    </th>
-                    <td class ="bg">
-                        10
-                    </td>
-                    <td>
-                        10
-                    </td>
-                    <td>
-                        10
-                    </td>
-                    <td>
-                        10
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <main>
+            <!-- column titles -->
+            <table>
+                <tbody>
+                    <tr class="skill-row">
+                        <th class ="bg">
+                            {{ 'Skills'|trans }}
+                        </th>
+                        <td class ="bg">
+                            {{ 'Maximum'|trans }}
+                        </td>
+                        <td>
+                            Premier trimestre
+                        </td>
+                        <td>
+                            Deuxieme trimestre
+                        </td>
+                        <td>
+                            Troisieme trimestre
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- subject table-->
+            <table>
+                <tbody>
+                    <!-- subject name -->
+                    <tr class="bg">
+                        <th colspan="5" class="subject-name-content">
+                            Français
+                        </th>
+                    </tr>
+                    <!-- skills (content to loop) -->
+
+                    <tr class="skill-row">
+                        <th class ="bg">
+                            Savoir parler
+                        </th>
+                        <td class ="bg">
+                            10
+                        </td>
+                        <td>
+                            10
+                        </td>
+                        <td>
+                            10
+                        </td>
+                        <td>
+                            10
+                        </td>
+                    </tr>
+
+                    <tr class="skill-row">
+                        <th class ="bg">
+                            Savoir écrire
+                        </th>
+                        <td class ="bg">
+                            10
+                        </td>
+                        <td>
+                            10
+                        </td>
+                        <td>
+                            10
+                        </td>
+                        <td>
+                            10
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
 
-        <table>
-            <tbody>
-                <!-- subject name -->
-                <tr class ="bg">
-                    <th colspan="5" class="subject-name-content">
-                        Mathématiques
-                    </th>
-                </tr>
-                <!-- skills (content to loop) -->
+            <table>
+                <tbody>
+                    <!-- subject name -->
+                    <tr class ="bg">
+                        <th colspan="5" class="subject-name-content">
+                            Mathématiques
+                        </th>
+                    </tr>
+                    <!-- skills (content to loop) -->
 
-                <tr class="skill-row">
-                    <th class ="bg">
-                        Divisions
-                    </th>
-                    <td class ="bg">
-                        10
-                    </td>
-                    <td>
-                        10
-                    </td>
-                    <td>
-                        10
-                    </td>
-                    <td>
-                        10
-                    </td>
-                </tr>
+                    <tr class="skill-row">
+                        <th class ="bg">
+                            Divisions
+                        </th>
+                        <td class ="bg">
+                            10
+                        </td>
+                        <td>
+                            10
+                        </td>
+                        <td>
+                            10
+                        </td>
+                        <td>
+                            10
+                        </td>
+                    </tr>
 
-                <tr class="skill-row">
-                    <th class ="bg">
-                        Géométrie
-                    </th>
-                    <td class ="bg">
-                        10
-                    </td>
-                    <td>
-                        10
-                    </td>
-                    <td>
-                        10
-                    </td>
-                    <td>
-                        10
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                    <tr class="skill-row">
+                        <th class ="bg">
+                            Géométrie
+                        </th>
+                        <td class ="bg">
+                            10
+                        </td>
+                        <td>
+                            10
+                        </td>
+                        <td>
+                            10
+                        </td>
+                        <td>
+                            10
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-    </main>
-
+        </main>
+    {% else %}
+        <p>
+            {{ 'No classroom was found for this student, cannot display the school report'|trans }}
+        </p>
+    {% endif %}
 </div>

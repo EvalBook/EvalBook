@@ -26,14 +26,15 @@ use App\Entity\ActivityThemeDomain;
 use App\Entity\ActivityThemeDomainSkill;
 use App\Entity\Implantation;
 use App\Entity\Note;
+use App\Entity\NoteType;
 use App\Entity\Period;
 use App\Entity\SchoolReportTheme;
 use App\Entity\Student;
-use App\Repository\PeriodRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 class SchoolReportApi extends AbstractController
@@ -45,11 +46,12 @@ class SchoolReportApi extends AbstractController
      *
      * @param Student $student
      * @param Implantation $implantation
-     * @param PeriodRepository $periodRepository
+     * @param TranslatorInterface $translator
      * @return JsonResponse
      */
-    public function getIndividualSchoolReport(Student $student, Implantation $implantation, PeriodRepository $periodRepository){
+    public function getIndividualSchoolReport(Student $student, Implantation $implantation, TranslatorInterface $translator){
         $notes = [];
+        $messages = [];
 
         // Getting closed periods.
         $periods = $implantation->getPeriods();
@@ -64,25 +66,81 @@ class SchoolReportApi extends AbstractController
             }
         }
 
-        $result = [];
-        if(count($notes) > 0) {
-            $result = $this->compute($notes);
-        }
-
         // Fetching school report theme to use.
         $theme = $this->getDoctrine()->getRepository(SchoolReportTheme::class)->findOneBy([
             'id' => $implantation->getSchoolReportTheme(),
         ]);
 
-        $view = $this->renderView('@SchoolReportThemes/' . $theme->getUuid() . '/view.twig', [
-            'student' => $student,
-            'report' => $result,
-            'css' => '/themes/school_report_themes/' . $theme->getUuid() . '/theme.css',
-        ]);
+        // Searching main classroom ( student can only take part of only one classroom with owner ).
+        $studentClassroom = null;
+        foreach($student->getClassrooms() as $classroom) {
+            if($classroom->getImplantation() === $implantation && $classroom->getOwner() !== null) {
+                $studentClassroom = $classroom;
+            }
+        }
+
+        // Fetching school year and current school report period.
+        $periods = $implantation->getPeriods();
+        $start = new \DateTime();
+        $end = new \DateTime('1970-1-1');
+        $currentPeriodTs = 0;
+        $currentPeriod = null;
+
+        foreach($periods->toArray() as $period) {
+            /* @var $period Period */
+
+            // Getting current year based on provided periods.
+            if($period->getDateStart() < $start)
+                $start = $period->getDateStart();
+            if($period->getDateEnd() > $end)
+                $end = $period->getDateEnd();
+
+            // Getting current school report period.
+            if($period->getDateEnd()->getTimestamp() > $currentPeriodTs && $period->getDateEnd() <= new \DateTime()) {
+                $currentPeriodTs = $period->getDateEnd()->getTimestamp();
+                $currentPeriod = $period;
+            }
+        }
+
+        $year = $start->format('Y') . ' - ' . $end->format('Y');
+
+        $schoolReportData = [];
+        if(count($notes) > 0) {
+            $schoolReportData = $this->getSchoolReportData($notes, $studentClassroom->getImplantation()->getPeriods()->toArray());
+        }
+        else {
+            $messages[] = $translator->trans('No school report data found for this student', [], 'templates');
+        }
+
+        // Check if student classroom has been found.
+        if(is_null($studentClassroom)) {
+            $messages[] = $translator->trans('No classroom found for this student', [], 'templates');
+        }
+
+        // Check if periods has been found
+        if($periods->count() === 0 || is_null($currentPeriod)){
+            $messages[] = $translator->trans('No valid period found for the implantation or unable to define the current period', [], 'templates');
+        }
+
+        try {
+            $view = $this->renderView('@SchoolReportThemes/' . $theme->getUuid() . '/view.twig', [
+                'student' => $student,
+                'data' => $schoolReportData,
+                'css' => '/themes/school_report_themes/' . $theme->getUuid() . '/theme.css',
+                'logo' => '/uploads/' . $implantation->getLogo(),
+                'classroom' => $studentClassroom,
+                'year' => $year,
+                'period' => $currentPeriod,
+            ]);
+        }
+        catch(\Exception $e) {
+            $view = null;
+        }
 
 
         return new JsonResponse([
             'html' => $view,
+            'message' => $messages,
         ], 200);
     }
 
@@ -90,99 +148,68 @@ class SchoolReportApi extends AbstractController
     /**
      * Compute the student notes.
      * @param array $notes
+     * @param array $implantationPeriods
      * @return array
      */
-    private function compute(array $notes)
+    private function getSchoolReportData(array $notes, array $implantationPeriods)
     {
+        $periods = $this->getStudentSchoolReportPeriods($notes, $implantationPeriods);
+        $sortedNotes = $this->sortNotesByPeriods($notes, $periods);
+        $this->getAveragesByPeriods($sortedNotes);
+
         $themeRepository  = $this->getDoctrine()->getRepository(ActivityTheme::class);
         $domainRepository = $this->getDoctrine()->getRepository(ActivityThemeDomain::class);
-        $skillRepository  = $this->getDoctrine()->getRepository(ActivityThemeDomainSkill::class);
 
-        $result = [];
+        $specialClassrooms = [];
+        $subjects = [];
+        $transversalSkills = [];
+        $behaviors = [];
 
-        // Sorting the whole notes.
-        foreach($notes as $note) {
-            /* @var $note Note */
-            // Only if activity must be added to the school report.
-            if($note->getActivity()->getIsInShoolReport()) {
-                // Getting target theme.
-                $theme = $themeRepository->findOneBy([
-                    'id' => $note->getActivity()->getActivityThemeDomainSkill()->getActivityThemeDomain()->getActivityTheme()
-                ]);
+        // Splitting the result into 4 arrays representing the global school report view.
+        foreach($sortedNotes as $skillId => $data) {
+            /* @var $skill ActivityThemeDomainSkill */
+            $skill = $data['skill'];
 
-                // Getting target domain.
-                $domain = $domainRepository->findOneBy([
-                    'id' => $note->getActivity()->getActivityThemeDomainSkill()->getActivityThemeDomain()
-                ]);
+            $domain  = $domainRepository->findOneBy([
+                'id' => $skill->getActivityThemeDomain(),
+            ]);
 
-                // Getting target skill.
-                $skill = $skillRepository->findOneBy([
-                    'id' => $note->getActivity()->getActivityThemeDomainSkill()
-                ]);
+            $theme = $themeRepository->findOneBy([
+                'id' => $domain->getActivityTheme(),
+            ]);
 
-                $result[$theme->getDisplayName()][$domain->getDisplayName()][$skill->getId()][] = [
-                    'note' => $note,
-                    'skill' => $skill,
-                ];
+
+            // Getting all special classrooms data.
+            if($domain->getType() === ActivityThemeDomain::TYPE_SPECIAL_CLASSROOM){
+                $specialClassrooms[] = $data;
             }
-        }
-
-        // Compute total of notes.
-        // From theme
-        foreach($result as $key => $themes) {
-            // From domaine
-            foreach($themes as $key2 => $domains) {
-
-                // For each school report skill.
-                foreach($domains as $key3 => $skills ) {
-                    // m = (2 × 1 + 9 × 2 + 27 × 3) / (10 × 1 + 15 × 2 + 30 × 3) × 20
-                    $amount = 0;
-                    $supp = 0;
-
-                    foreach ($skills as $key4 => $endpoint) {
-
-                        // Do not compute not attributed notes.
-                        if(strtolower($endpoint['note']->getNote() === 'abs')) {
-                            continue;
-                        }
-
-                        // Fetching needle information.
-                        $notesIntervals = $endpoint['note']->getActivity()->getNoteType()->getIntervals();
-                        array_push($notesIntervals, $endpoint['note']->getActivity()->getNoteType()->getMaximum());
-                        array_unshift($notesIntervals, $endpoint['note']->getActivity()->getNoteType()->getMinimum());
-
-                        // Transform note so n/m is position/count instead of 4/20.
-                        $n = array_search($endpoint['note']->getNote(), $notesIntervals);
-                        $m = count($notesIntervals) - 1;
-
-                        $amount += $n * $endpoint['note']->getActivity()->getCoefficient();
-                        $supp += $m * $endpoint['note']->getActivity()->getCoefficient();
-                    }
-
-                    // Fetching skill in case of no note.
-                    $skill = $skillRepository->findOneBy(['id' => $key3]);
-                    if($skill->getNoteType()->isNumeric()) {
-                        $low = ($amount / $supp) * $skill->getNoteType()->getMaximum();
-                        $low = $this->round_up($low, 1);
-                    }
-                    else {
-                        $intervals = $skill->getNoteType()->getIntervals();
-                        array_push($intervals, $skill->getNoteType()->getMaximum());
-                        array_unshift($intervals, $skill->getNoteType()->getMinimum());
-                        $low = ($amount / $supp) * count($intervals);
-                        if($low > count($intervals) - 1)
-                            $low = count($intervals) - 1;
-                        $low = $intervals[$this->round_up($low, 0)];
-                    }
-
-                    echo $skill->getName() . " => $low / " . $skill->getNoteType()->getMaximum() . "\n";
-                    $endpoint['min'] = $low;
-                    $endpoint['max'] = $skill->getNoteType()->getMaximum();
+            else {
+                switch($theme->getName()) {
+                    case 'subject':
+                        $subjects[] = $data;
+                        break;
+                    case 'transversal_skill':
+                        $transversalSkills[] = $data;
+                        break;
+                    case 'behavior':
+                        $behaviors[] = $data;
+                        break;
+                    default:
+                        $specialClassrooms[] = $data;
                 }
             }
         }
 
-        return $result;
+        $subjects = $this->sortSkillsByDomain($subjects);
+        $behaviors = $this->sortSkillsByDomain($behaviors);
+        $transversalSkills = $this->sortSkillsByDomain($transversalSkills);
+
+        return [
+            'scpecialClassrooms' => $specialClassrooms,
+            'subjects' => $subjects,
+            'bahaviors' => $behaviors,
+            'transversalSkills' => $transversalSkills,
+        ];
     }
 
 
@@ -190,10 +217,187 @@ class SchoolReportApi extends AbstractController
      * Round a number.
      * @param $value
      * @param $precision
-     * @return float|int
      */
-    private function round_up( $value, $precision ) {
+    private function roundUp( &$value, $precision ) {
         $pow = pow ( 10, $precision );
-        return ( ceil ( $pow * $value ) + ceil ( $pow * $value - ceil ( $pow * $value ) ) ) / $pow;
+        $value = ( ceil ( $pow * $value ) + ceil ( $pow * $value - ceil ( $pow * $value ) ) ) / $pow;
+    }
+
+
+    /**
+     * Return available school report period for the student, it also include periods from other schools student learned.
+     * @param array $notes
+     * @param array $implantationPeriods
+     * @return array
+     */
+    private function getStudentSchoolReportPeriods(array $notes, array $implantationPeriods)
+    {
+        $periods = array_map(function($period){ return $period->getName(); }, $implantationPeriods);
+        foreach($notes as $note) {
+            /* @var $note Note */
+            if(!in_array($note->getActivity()->getPeriod()->getName(), $periods)) {
+                $periods[] = $note->getActivity()->getPeriod()->getName();
+            }
+        }
+
+        return $periods;
+    }
+
+
+    /**
+     * Sort and return an array of periods/notes pairs.
+     * @param array $notes
+     * @param array $periodsArray
+     * @return array
+     */
+    private function sortNotesByPeriods(array $notes, array $periodsArray)
+    {
+        // Transform periods as key => array
+        array_map(function($periodName) use(&$periods) {$periods[$periodName] = [];}, $periodsArray);
+
+        $sortedNotes = [];
+        foreach($notes as $note) {
+            /* @var $note Note */
+            // Getting target skill.
+            $skill = $this->getDoctrine()->getRepository(ActivityThemeDomainSkill::class)->findOneBy([
+                'id' => $note->getActivity()->getActivityThemeDomainSkill()
+            ]);
+
+            // Prepare output array.
+            if(!isset($sortedNotes[$skill->getId()])) {
+                $sortedNotes[$skill->getId()] = [
+                    'skill' => $skill,
+                    'periods' => $periods,
+                ];
+            }
+
+            array_push($sortedNotes[$skill->getId()]['periods'][$note->getActivity()->getPeriod()->getName()], $note);
+
+        }
+
+        /**
+         * The returned array form is
+         * [
+         *   'skill_key' => [
+         *       'skill'   => ActivityThemeDomainSkill::class,
+         *       'periods' => [
+         *          'First period name' => [
+         *              Note::class,
+         *              Note::class,
+         *              Note::class,
+         *          ],
+         *          'Second period name' => [
+         *              Note::class,
+         *              Note::class,
+         *              Note::class,
+         *              Note::class,
+         *          ]
+         *       ]
+         *   ],
+         *   'Skill key 2' => [
+         *       ......
+         *   ]
+         * ]
+         */
+
+        return $sortedNotes;
+    }
+
+
+    /**
+     * Compute the average for each period ans each skill.
+     * @param array $skills
+     */
+    private function getAveragesByPeriods(array &$skills)
+    {
+        $noteTypeRepository = $this->getDoctrine()->getRepository(NoteType::class);
+
+        // For each skill id entry ( skill_key ... ).
+        foreach($skills as $i => $val) {
+
+            // Getting note type.
+            $noteType = $noteTypeRepository->findOneBy([
+                'id' => $skills[$i]['skill']->getNoteType(),
+            ]);
+
+            // Foreach named period ( First period name, ... )
+            foreach($skills[$i]['periods'] as $j => $value) {
+                $average = 0;
+                $supp = 0;
+
+                foreach($skills[$i]['periods'][$j] as $note) {
+                    // m = (2 × 1 + 9 × 2 + 27 × 3) / (10 × 1 + 15 × 2 + 30 × 3) × 20
+
+                    // Do not compute not attributed notes.
+                    if(strtolower($note->getNote() === 'abs')) {
+                        continue;
+                    }
+
+                    // Fetching needle information.
+                    $notesIntervals = $note->getActivity()->getNoteType()->getIntervals();
+                    array_push($notesIntervals, $note->getActivity()->getNoteType()->getMaximum());
+                    array_unshift($notesIntervals, $note->getActivity()->getNoteType()->getMinimum());
+
+                    // Transform note so n/m is position/count instead of 4/20.
+                    $n = array_search($note->getNote(), $notesIntervals);
+                    $m = count($notesIntervals) - 1;
+
+                    // Make sure coefficient > 0, it can be 0 after the mschool report db migration...
+                    $coefficient = $note->getActivity()->getCoefficient() > 0 ? $note->getActivity()->getCoefficient() : 1;
+                    $average += $n * $coefficient;
+                    $supp += $m * $coefficient;
+                }
+
+
+                if($supp > 0 && null !== $noteType) {
+
+                    // Fetching skill in case of no note.
+                    if ($noteType->isNumeric()) {
+                        $low = ($average / $supp) * $noteType->getMaximum();
+                        $this->roundUp($low, 1);
+                    } else {
+                        $intervals = $noteType->getIntervals();
+                        array_push($intervals, $noteType->getMaximum());
+                        array_unshift($intervals, $noteType->getMinimum());
+
+                        $low = ($average / $supp) * count($intervals);
+                        if ($low > count($intervals) - 1)
+                            $low = count($intervals) - 1;
+
+                        $this->roundUp($low, 0);
+                        $low = $intervals[$low];
+                    }
+                }
+
+                // Storing the result.
+                $skills[$i]['periods'][$j] = ($supp !== 0 && null !== $low) ? $low : '-';
+            }
+        }
+    }
+
+
+    /**
+     * Return an ordered by activity theme domains skill.
+     * @param array $skills
+     * @return array
+     */
+    private function sortSkillsByDomain(array $skills)
+    {
+        $sortedDomains = [];
+        $domainRepository = $this->getDoctrine()->getRepository(ActivityThemeDomain::class);
+
+        for($i = 0; $i < count($skills); $i++) {
+            $domain = $domainRepository->findOneBy([
+                'id' => $skills[$i]['skill']->getActivityThemeDomain()
+            ]);
+
+            if(!isset($sortedDomains[$domain->getDisplayName()])) {
+                $sortedDomains[$domain->getDisplayName()] = [];
+            }
+
+            array_push($sortedDomains[$domain->getDisplayName()], $skills[$i]);
+        }
+
+        return $sortedDomains;
     }
 }

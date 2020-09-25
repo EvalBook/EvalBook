@@ -64,9 +64,22 @@
                             {{ form_widget(form.noteType, {'attr': {
                                 'class': 'full-width',
                             }}) }}
-                            <span class="form-info">
+                            <span class="form-info margin-left">
                                 {{ 'Select a note type or'|trans }}
                                 <a href="{{ path('note_type_add', {'classroom': classroomId}) }}">{{ 'add a new one'|trans }}</a>
+                            </span>
+                        </div>
+
+                        <div class="form-row width-50-percent margin-left">
+                            {{ form_label(form.coefficient, 'Coefficient to apply'|trans) }}
+                            {{ form_widget(form.coefficient, {'attr': {
+                                'class': 'full-width',
+                            }}) }}
+                            <span class="form-info">
+                                {{ 'The default coefficient is 1'|trans }}
+                            </span>
+                            <span class="form-error">
+                                {{ form_errors(form.coefficient) }}
                             </span>
                         </div>
                     </div>
