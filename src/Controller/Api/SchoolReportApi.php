@@ -125,15 +125,16 @@ class SchoolReportApi extends AbstractController
         try {
             $view = $this->renderView('@SchoolReportThemes/' . $theme->getUuid() . '/view.twig', [
                 'student' => $student,
-                'data' => $schoolReportData,
+                'reportData' => $schoolReportData,
                 'css' => '/themes/school_report_themes/' . $theme->getUuid() . '/theme.css',
                 'logo' => '/uploads/' . $implantation->getLogo(),
                 'classroom' => $studentClassroom,
                 'year' => $year,
-                'period' => $currentPeriod,
+                'currentPeriod' => $currentPeriod,
             ]);
         }
         catch(\Exception $e) {
+            dd($e);
             $view = null;
         }
 
@@ -205,10 +206,11 @@ class SchoolReportApi extends AbstractController
         $transversalSkills = $this->sortSkillsByDomain($transversalSkills);
 
         return [
-            'scpecialClassrooms' => $specialClassrooms,
+            'specialClassrooms' => $specialClassrooms,
             'subjects' => $subjects,
-            'bahaviors' => $behaviors,
+            'behaviors' => $behaviors,
             'transversalSkills' => $transversalSkills,
+            'periods' => $periods,
         ];
     }
 
