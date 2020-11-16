@@ -321,6 +321,14 @@ Logo: Logo
 Choose the logo to use on the implantation school report: Choose the logo to use on the implantation school report
 The image file type is incorrect, please choose a new one: The image file type is incorrect, please choose a new one
 Choose the implantation school report theme: Choose the implantation school report theme
+No classroom was found for this student, cannot display the school report: No classroom was found for this student, cannot display the school report
+School year: School year
+Skills: Skills
+Is in school report ?: Is in school report ?
+No school report data found for this student: No school report data found for this student
+No classroom found for this student: No classroom found for this student
+No valid period found for the implantation or unable to define the current period: No valid period found for the implantation or unable to define the current period
+Special masters: Special masters
 
 
 roles:
