@@ -115,3 +115,4 @@ n'est actuellement pas encore disponible.
 ## Sponsors 
 JetBrains a généreusement offert une licence Open Source a EvalBook, n'hésitez pas à faire un tour sur leur site !
 [www.jetbrains.com](https://www.jetbrains.com/?from=EvalBook)
+Ce projet est venu de la demande de l'ASBL Forsud qui nous a soutenu et que nous remercions chaleureusement. Leur soutien nous a permis de trouver des testeurs et des écoles pour le pilotage, ainsi qu'un financement partiel du projet. Allez voir sur [forsud.be](https://www.forsud.be) pour en savoir plus sur leurs acitivités.
