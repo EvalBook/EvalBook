@@ -1,3 +1,6 @@
+Pour installer EvalBook, n'utilisez jamais la version disponible dans la branche principale, utilisez plutôt une des release 
+présentes dans l'espace prévu pour.
+
 # EvalBook
 
 EvalBook est un **outil libre et totalement gratuit** a destination du monde de l'enseignement, son principal but est de faciliter l'encodage des notes
