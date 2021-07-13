@@ -30,12 +30,12 @@ use App\Entity\NoteType;
 use App\Entity\Period;
 use App\Entity\SchoolReportTheme;
 use App\Entity\Student;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class SchoolReportApi extends AbstractController
 {
