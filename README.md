@@ -58,6 +58,8 @@ vous assurer de disposer des droits en écriture sur le dossier EvalBook.
 
 `$ npm install`
 
+`$ php bin/console ckeditor:install`
+
 `$ php bin/console assets:install public`
 
 `$ php bin/console doctrine:database:create`
