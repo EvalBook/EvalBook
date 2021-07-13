@@ -198,7 +198,7 @@ class NoteType
 
     /**
      * Return all available activity theme domain skills attached to the note type.
-     * @return Collection|ActivityThemeDomainSkill[]
+     * @return Collection
      */
     public function getActivityThemeDomainSkills(): Collection
     {

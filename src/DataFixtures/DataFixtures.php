@@ -41,8 +41,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class DataFixtures extends Fixture implements ContainerAwareInterface, FixtureInterface, OrderedFixtureInterface, FixtureGroupInterface
 {
-    private $container;
     private $passwordEncoder;
+    private ?ContainerInterface $container;
 
     public function __construct(UserPasswordEncoderInterface $passwordEncoder) {
         $this->passwordEncoder = $passwordEncoder;
@@ -68,8 +68,7 @@ class DataFixtures extends Fixture implements ContainerAwareInterface, FixtureIn
                   ->setDescription("Notation de A à F coefficient 1")
                   ->setMaximum('A')
                   ->setMinimum('F')
-                  ->setIntervals(['B', 'C', 'D', 'E'])
-                  ->setCoefficient(1);
+                  ->setIntervals(['B', 'C', 'D', 'E']);
 
         $noteType2 = new NoteType();
         $noteType2->setName("A..Z coeff 1")
@@ -77,8 +76,7 @@ class DataFixtures extends Fixture implements ContainerAwareInterface, FixtureIn
                   ->setMaximum('A')
                   ->setMinimum('Z')
                   ->setIntervals(['B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
-                                 'T', 'U', 'V', 'W', 'X', 'Y'])
-                  ->setCoefficient(1);
+                                 'T', 'U', 'V', 'W', 'X', 'Y']);
 
         $em->persist($noteType1);
         $em->persist($noteType2);
@@ -147,8 +145,8 @@ class DataFixtures extends Fixture implements ContainerAwareInterface, FixtureIn
                 $periode
                     ->setName("Periode $j")
                     ->setImplantation($implantation)
-                    ->setDateEnd($faker->dateTimeBetween($startDate = '-8 months', $endDate = '+2 months', $timezone = null))
-                    ->setDateStart($faker->dateTimeBetween($startDate = '-2 months', $endDate = '+6 months', $timezone = null))
+                    ->setDateEnd($faker->dateTimeBetween('-8 months', '+2 months'))
+                    ->setDateStart($faker->dateTimeBetween('-2 months', '+6 months'))
                 ;
                 $periode->setImplantation($implantation);
                 $em->persist($periode);
@@ -178,10 +176,12 @@ class DataFixtures extends Fixture implements ContainerAwareInterface, FixtureIn
 
                     $activity
                         ->setName("Activité $name $k")
-                        ->setUser($faker->randomElement($classe->getUsers()))
+                        ->setUser($faker->randomElement($classe->getUsers()->toArray()))
                         ->setPeriod($faker->randomElement($periodes))
                         ->setComment("Generated activity comment N° $k")
                         ->setNoteType($activityNoteType)
+                        ->setIsInShoolReport(true)
+                        ->setCoefficient(1)
                         // Last one cause void method, no chaining possible.
                         ->setClassroom($classe)
                     ;
